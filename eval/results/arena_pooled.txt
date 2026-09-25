@@ -1,0 +1,115 @@
+run full: 1146 scored clips, 13 tasks, 382 cells
+  pleasant  mean 2.74  0:5 1:110 2:386 3:332 4:308 5:5
+  fit       mean 2.21  0:51 1:373 2:339 3:135 4:165 5:83
+  natural   mean 2.01  0:49 1:395 2:393 3:145 4:134 5:30
+
+=== prompt addition (all generations) ===
+                            n  pleasant    fit  natural   total  t vs control
+shifting-focus              6      3.67   4.17     3.83   11.67+3.07 (p 0.002)
+shared-room                 6      4.00   3.83     3.33   11.17+5.09 (p 0.000)
+mental-friction             6      4.00   3.33     3.50   10.83+3.55 (p 0.000)
+somatic-tension             6      4.00   3.33     3.00   10.33+3.71 (p 0.000)
+erratic-tempo               6      2.83   4.17     3.33   10.33+2.48 (p 0.013)
+suppressed-break            6      2.83   3.83     3.17    9.83+1.77 (p 0.076)
+speech-repair               6      3.50   2.83     2.83    9.17+2.08 (p 0.037)
+emergent-thought            6      3.33   2.67     2.83    8.83+0.85 (p 0.393)
+dual-register               6      3.67   2.50     2.33    8.50+1.06 (p 0.289)
+cognitive-friction         12      2.75   3.00     2.58    8.33+1.64 (p 0.101)
+suppressed-agony            6      2.33   3.33     2.67    8.33+0.68 (p 0.497)
+conversational-lilt         6      3.67   2.33     2.17    8.17+0.98 (p 0.326)
+tempo-elasticity            6      3.17   2.50     2.33    8.00+0.43 (p 0.669)
+quiet-strain                6      3.17   2.50     2.17    7.83+0.39 (p 0.697)
+task-focus                  6      3.00   2.67     2.17    7.83+0.44 (p 0.661)
+energy-economy              6      3.17   2.33     2.33    7.83+0.30 (p 0.761)
+held-composure              9      2.89   2.22     2.33    7.44+0.06 (p 0.949)
+cadence-shift              12      2.75   2.50     2.17    7.42+0.06 (p 0.950)
+subtext                   117      2.94   2.33     2.12    7.39+0.12 (p 0.906)
+control                   153      2.84   2.38     2.12    7.35              
+external-friction           6      3.00   2.17     2.00    7.17-0.58 (p 0.564)
+imperfection              129      2.75   2.29     2.08    7.12-0.61 (p 0.542)
+body                      114      2.71   2.27     2.01    6.99-0.88 (p 0.381)
+elastic-tempo               6      3.17   1.83     1.83    6.83-0.68 (p 0.494)
+breath                    105      2.72   1.95     1.90    6.58-2.05 (p 0.041)
+suppressed-tremor           6      2.33   2.33     1.50    6.17-1.29 (p 0.195)
+cadence-weight              6      2.50   1.83     1.50    5.83-1.30 (p 0.195)
+gear-shift                  6      2.33   1.50     1.67    5.50-1.21 (p 0.225)
+dynamic-contrast           12      2.58   1.42     1.25    5.25-3.18 (p 0.001)
+reactive-listening          6      2.50   1.33     1.17    5.00-1.61 (p 0.108)
+clean-edges                 6      1.83   2.00     1.17    5.00-6.37 (p 0.000)
+tempo-contrast             12      2.00   1.42     1.25    4.67-3.08 (p 0.002)
+acoustic-reach              6      1.83   0.83     1.33    4.00-5.27 (p 0.000)
+rhythmic-sculpting          6      1.67   1.00     1.00    3.67-7.40 (p 0.000)
+stately-projection          6      1.00   0.83     0.83    2.67-6.53 (p 0.000)
+wonder-cadence              6      1.00   0.50     0.33    1.83-6.94 (p 0.000)
+
+=== director ===
+                            n  pleasant    fit  natural   total  t vs control
+luna                      561      2.76   2.24     2.05    7.04              
+local                     585      2.71   2.18     1.97    6.86              
+
+=== generation ===
+                            n  pleasant    fit  natural   total  t vs control
+gen 1                     390      2.77   2.23     2.02    7.01              
+gen 3                     375      2.71   2.21     2.01    6.94              
+gen 2                     381      2.72   2.19     2.00    6.91              
+
+=== benchmark track ===
+                            n  pleasant    fit  natural   total  t vs control
+emotion                   516      3.00   2.72     2.36    8.08              
+acting_challenge          270      3.07   2.33     2.17    7.57              
+voicenet                  360      2.11   1.39     1.38    4.87              
+
+=== prompt addition — local ===
+                            n  pleasant    fit  natural   total  t vs control
+shifting-focus              6      3.67   4.17     3.83   11.67+3.24 (p 0.001)
+shared-room                 6      4.00   3.83     3.33   11.17+5.16 (p 0.000)
+mental-friction             6      4.00   3.33     3.50   10.83+3.73 (p 0.000)
+erratic-tempo               6      2.83   4.17     3.33   10.33+2.68 (p 0.007)
+suppressed-break            6      2.83   3.83     3.17    9.83+1.97 (p 0.049)
+cognitive-friction          6      2.50   4.00     3.00    9.50+2.90 (p 0.004)
+emergent-thought            6      3.33   2.67     2.83    8.83+1.03 (p 0.303)
+quiet-strain                6      3.17   2.50     2.17    7.83+0.64 (p 0.523)
+subtext                    63      2.90   2.25     2.05    7.21+0.34 (p 0.737)
+control                    69      2.81   2.25     1.96    7.01              
+imperfection               66      2.62   2.15     1.97    6.74-0.48 (p 0.628)
+breath                     57      2.77   1.95     1.95    6.67-0.65 (p 0.516)
+body                       51      2.61   2.14     1.88    6.63-0.63 (p 0.532)
+cadence-weight              6      2.50   1.83     1.50    5.83-0.98 (p 0.326)
+dynamic-contrast            6      2.83   1.50     1.33    5.67-1.85 (p 0.064)
+reactive-listening          6      2.50   1.33     1.17    5.00-1.35 (p 0.176)
+tempo-contrast             12      2.00   1.42     1.25    4.67-2.56 (p 0.010)
+rhythmic-sculpting          6      1.67   1.00     1.00    3.67-5.83 (p 0.000)
+stately-projection          6      1.00   0.83     0.83    2.67-5.63 (p 0.000)
+wonder-cadence              6      1.00   0.50     0.33    1.83-6.14 (p 0.000)
+
+=== prompt addition — luna ===
+                            n  pleasant    fit  natural   total  t vs control
+speech-repair               6      3.50   2.83     2.83    9.17+1.71 (p 0.088)
+held-composure              6      3.17   2.83     2.83    8.83+0.59 (p 0.554)
+suppressed-agony            6      2.33   3.33     2.67    8.33+0.48 (p 0.628)
+conversational-lilt         6      3.67   2.33     2.17    8.17+0.63 (p 0.528)
+energy-economy              6      3.17   2.33     2.33    7.83+0.13 (p 0.895)
+control                    84      2.87   2.49     2.26    7.62              
+subtext                    54      2.98   2.43     2.20    7.61-0.01 (p 0.989)
+imperfection               63      2.89   2.43     2.19    7.51-0.22 (p 0.825)
+cadence-shift              12      2.75   2.50     2.17    7.42-0.18 (p 0.861)
+body                       63      2.79   2.38     2.11    7.29-0.62 (p 0.533)
+external-friction           6      3.00   2.17     2.00    7.17-1.15 (p 0.249)
+cognitive-friction          6      3.00   2.00     2.17    7.17-0.84 (p 0.399)
+elastic-tempo               6      3.17   1.83     1.83    6.83-1.00 (p 0.319)
+breath                     48      2.67   1.96     1.85    6.48-2.17 (p 0.030)
+suppressed-tremor           6      2.33   2.33     1.50    6.17-1.54 (p 0.123)
+clean-edges                 6      1.83   2.00     1.17    5.00-5.96 (p 0.000)
+dynamic-contrast            6      2.33   1.33     1.17    4.83-2.45 (p 0.014)
+acoustic-reach              6      1.83   0.83     1.33    4.00-5.34 (p 0.000)
+
+=== the three best-scoring blocks, in full ===
+
+--- shifting-focus  (mean total 11.67 of 15, n=6)
+ONE MORE THING FOR THIS REPLY. Direct the speaker's drifting attention rather than their breathing mechanics. The speaker is fighting post-sedation fog: thoughts stall because awareness drifts, not because lungs are empty. Insert brief internal micro-pauses [0.3] right before key nouns as the brain searches for clarity. When focus snaps back, let the next word arrive immediately without any preparatory sigh or intake. Keep the tone completely flat, delicate, and unperformed.
+
+--- shared-room  (mean total 11.17 of 15, n=6)
+ONE MORE THING FOR THIS REPLY. Speak across a small kitchen table, not into a studio microphone. Treat the listener as someone who already knows half the story. That means you never need to announce the emotion or dramatize the silences. Keep the baseline casual and dry, throwing away small connector words. If a breath or catch happens, let it be an incidental byproduct of speaking quickly, never an isolated theatrical event given its own stage.
+
+--- mental-friction  (mean total 10.83 of 15, n=6)
+ONE MORE THING FOR THIS REPLY. Build the mental friction of real-time improvisation into the lines. When reaching the key excuse or logistical details, show the cognitive drag: stretch a vowel, insert a mid-clause pause [0.6s], and let the voice pitch upward with uncertain, tentative delivery before rushing to finish the thought. Don't let the excuses sound rehearsed—make the speaker sound like they are assembling their alibi sentence by sentence as they talk.

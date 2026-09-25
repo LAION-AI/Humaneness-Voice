@@ -1,0 +1,39 @@
+{
+  "system": "Humaneness Voice",
+  "release": "agent-default-v1",
+  "source_demo_server_commit": "aa299f18879b4985136375ccb0c8d2d533995932",
+  "description": "Pinned source repositories for the public Humaneness Voice runtime. A model-card licence label does not clear third-party audio or every downstream use.",
+  "assets": {
+    "base": {"repo": "laion/moss-tts-local-transformer-4.55b-voice-acting-v2-sft3", "revision": "9e372160fda2ca90aa6e407849fd82914d0cfe73", "type": "model", "card_license": "cc-by-4.0", "role": "Humaneness Voice Base (historical SFT3 checkpoint)"},
+    "codec": {"repo": "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2", "revision": "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169", "type": "model", "card_license": "apache-2.0", "role": "12-codebook audio tokenizer"},
+    "references": {"repo": "TTS-AGI/moss-voice-profile-references", "revision": "da7b7de66bf3598c4e6365744b50c6e51e53f354", "type": "dataset", "card_license": "apache-2.0", "role": "reference recordings and condition metadata; select only the pilot voices needed"},
+    "preference_dpo": {"repo": "laion/moss-va-sft3-dpo-lora-p2", "revision": "cb209828dd227ad37e2d68855a1c553f35decea8", "type": "model", "card_license": "cc-by-4.0", "role": "p2 preference adapter, root-level files"},
+    "voice_adapters": {"repo": "laion/moss-va-sft3-voice-loras", "revision": "72ec46198b2daa2c53b54e80b4e50245099889e4", "type": "model", "card_license": "cc-by-4.0", "role": "speaker-identity adapters; select pilot profile IDs"},
+    "emotion_adapters": {"repo": "laion/moss-va-sft3-emotion-loras", "revision": "7e42a2629c5480a2b4f8af59574f2ec62b0ebbf2", "type": "model", "card_license": "cc-by-4.0", "role": "40 emotion adapters"},
+    "quality_adapters": {"repo": "laion/moss-va-sft3-quality-lora-adapters", "revision": "ae4a161a930c4e6d19a6102bc6edb4a3e68dec79", "type": "model", "card_license": "apache-2.0", "role": "genuineness, blend and aesthetics LoRAs under adapters/"},
+    "quality_dpo": {"repo": "laion/moss-va-sft3-quality-dpo-lora", "revision": "5b0ab699b686636e9500f93d4414e4d888b4a8fa", "type": "model", "card_license": "apache-2.0", "role": "quality DPO step376; the root adapter matches checkpoints/step376"},
+    "delivery_adapters": {"repo": "laion/moss-va-sft3-voicenet-lora-adapters", "revision": "491c1a3d0305b87569474a0a4ab5b2f39e7c1c9e", "type": "model", "card_license": "apache-2.0", "role": "17 vocal-delivery axes under adapters/"},
+    "burst_adapters": {"repo": "laion/moss-va-sft3-vocal-burst-lora-adapters", "revision": "af7c3b88c6745a832c2cc4e46a5ada4f4232d9d4", "type": "model", "card_license": "apache-2.0", "role": "vocal-reaction adapters under adapters/"},
+    "voiceclap": {"repo": "laion/voiceclap-commercial", "revision": "4e0170bf9a7e29704dd3a26ca92855b3cdd8706c", "type": "model", "card_license": "cc-by-4.0", "role": "shared audio/text embedding for retrieval and ranking"},
+    "genuineness_head": {"repo": "laion/voiceclap-commercial-genuineness", "revision": "36526b2264d92c61b372248253de4270791f52ee", "type": "model", "card_license": "cc-by-4.0", "role": "perceptual genuineness head, not a LoRA"},
+    "blend_head": {"repo": "laion/voiceclap-commercial-vocalburst-blend", "revision": "fe7086f447f1de2aeb0fbf78f02b99b9c5e5074a", "type": "model", "card_license": "cc-by-4.0", "role": "perceptual vocal-burst-blending head, not a LoRA"},
+    "asr": {"repo": "nvidia/parakeet-tdt-0.6b-v3", "revision": "541d1f99c6b0c3cd0b11a95167540bb8edefd82b", "type": "model", "card_license": "cc-by-4.0", "role": "ASR for WER and the studio microphone"},
+    "aligner": {"repo": "Qwen/Qwen3-ForcedAligner-0.6B-hf", "revision": "c07281df297b9905d24a508279258cccf987a064", "type": "model", "card_license": "apache-2.0", "role": "optional end trimming"},
+    "director": {"repo": "unsloth/gemma-4-12B-it-qat-GGUF", "revision": "980b060c40a8539ac159e0501a3e0f66a6365af3", "type": "model", "card_license": "see upstream model terms", "role": "optional local language-model director; requires llama.cpp"},
+    "burst_v2_research": {"repo": "laion/moss-va-sft3-vocal-burst-lora-adapters-v2", "revision": "faad9c0feacef3b857b1aa247b0dfc3dc42b333e", "type": "model", "card_license": "not declared", "role": "research-only alternative arms; not installed by the recommended setup"},
+    "burst_stop_research": {"repo": "laion/moss-va-sft3-burst-stop-dpo-lora", "revision": "ac6dccd183f81012c3aaf8ec22a22601e49c3863", "type": "model", "card_license": "apache-2.0", "role": "experimental adapter, default weight zero"}
+  },
+  "pilot_profiles": ["anime_088", "emolia_c0542", "emolia_c1682", "emolia_c1699", "emolia_c2570", "k10_age3_bg1", "k325_age3_bg1", "k395_age3_bg1", "k91_age5_bg0", "mediathek_0184"],
+  "default_profile": "emolia_c1699",
+  "default_adapter_weights": {
+    "sft3_dpo:p2": 1.0,
+    "sft3_voice:<selected-profile>": 1.0,
+    "sft3_qdpo:quality_dpo": 1.5,
+    "sft3_quality:genuineness_high": 0.25,
+    "sft3_quality:blend_high": 0.5,
+    "sft3_quality:esthetics_high": 0.5,
+    "sft3_emotion:<retrieved-emotion>": 1.0
+  },
+  "conditional": "By default the director selects at most one delivery adapter; requested vocal-reaction adapters are also conditional. WikiSkills supplies per-class burst doses. Historical SFT3 names remain runtime keys only.",
+  "selection": {"chat_enabled_by_default": false, "chat_n_when_enabled": 8, "speak_endpoint_n": 10, "guidance": 3.0, "note": "The paper's Arena pass@10 is an evaluation profile, not proof that every server request reproduces those takes."}
+}

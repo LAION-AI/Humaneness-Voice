@@ -1,0 +1,31 @@
+# never commit credentials
+.hyprlab_key
+*.key
+*_key
+.env
+.env.local
+.env.generated
+*.token
+
+# local caches, models and generated assets
+__pycache__/
+*.pyc
+logs/
+*.log
+*.wav
+*.flac
+*.mp3
+.venv/
+hf_cache/
+code_cache/
+ref_wav_cache/
+refs2/
+refs3/
+retrieval/
+loras/
+.assets/
+
+# editor / backup noise
+*.bak
+*.bak-*
+.DS_Store
