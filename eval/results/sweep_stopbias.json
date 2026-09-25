@@ -1,0 +1,1202 @@
+[
+ {
+  "condition": "stop_bias -3.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 10195.4,
+  "wer": 0.04666666666666667,
+  "extra_w": 0.5,
+  "tail_s": 0.7840001020431518,
+  "genuineness": 1.4088926166296005,
+  "blend": 2.443519967794418,
+  "spk_sim": 0.5164,
+  "pct_extra": 0.2,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.8799999046325686,
+    "genuineness": 1.866337776184082,
+    "blend": 2.4631433486938477,
+    "spk_sim": 0.5853,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.3746149241924286,
+    "blend": 0.0,
+    "spk_sim": 0.4862,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 1.2009333372116089,
+    "blend": 4.039470195770264,
+    "spk_sim": 0.586,
+    "hyp": "I finally fixed the squeaking door. It took eleven minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.1200001907348636,
+    "genuineness": 1.2604843378067017,
+    "blend": 2.494882106781006,
+    "spk_sim": 0.5538,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.13333333333333333,
+    "extra_w": 0,
+    "tail_s": 0.9600000381469727,
+    "genuineness": 1.3337035179138184,
+    "blend": 2.0817317962646484,
+    "spk_sim": 0.5075,
+    "hyp": "My neighbor plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 1.200000286102295,
+    "genuineness": 2.3158092498779297,
+    "blend": 1.8215081691741943,
+    "spk_sim": 0.3427,
+    "hyp": "I planted the basil too close together, and now it is a small green argument. S",
+    "extra_words": "s"
+   },
+   {
+    "prompt": 6,
+    "wer": 0.26666666666666666,
+    "extra_w": 4,
+    "tail_s": 0.1600002479553222,
+    "genuineness": 1.1936770677566528,
+    "blend": 3.742199659347534,
+    "spk_sim": 0.4893,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It was Recor to .",
+    "extra_words": "it was recor to"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.9599999618530273,
+    "genuineness": 1.4205070734024048,
+    "blend": 4.004687309265137,
+    "spk_sim": 0.4471,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000381469729,
+    "genuineness": 1.6792576313018799,
+    "blend": 3.502720832824707,
+    "spk_sim": 0.6314,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet,",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.8400000095367428,
+    "genuineness": 1.4436012506484985,
+    "blend": 0.28485625982284546,
+    "spk_sim": 0.5347,
+    "hyp": "I read the same paragraph four times and understood it on none of them.",
+    "extra_words": ""
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias -2.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 10051.1,
+  "wer": 0.06904761904761905,
+  "extra_w": 0.8,
+  "tail_s": 0.47200021648406987,
+  "genuineness": 1.5623668730258942,
+  "blend": 2.6540454030036926,
+  "spk_sim": 0.52328,
+  "pct_extra": 0.3,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.6400001335144045,
+    "genuineness": 1.3581790924072266,
+    "blend": 3.0650291442871094,
+    "spk_sim": 0.5419,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.8267301321029663,
+    "blend": 1.2027652263641357,
+    "spk_sim": 0.3941,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.13333333333333333,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 0.9183986186981201,
+    "blend": 2.267587900161743,
+    "spk_sim": 0.523,
+    "hyp": "I finally fixed the squeaking door, it took 11 minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.1600002288818363,
+    "genuineness": 1.7064845561981201,
+    "blend": 5.742912292480469,
+    "spk_sim": 0.6191,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 0.49752873182296753,
+    "blend": 1.9676933288574219,
+    "spk_sim": 0.6021,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.594807505607605,
+    "blend": 3.513195753097534,
+    "spk_sim": 0.4239,
+    "hyp": "I planted the basil too close together and now it is a small green argument .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.13333333333333333,
+    "extra_w": 2,
+    "tail_s": 0.6400002670288085,
+    "genuineness": 3.323106527328491,
+    "blend": 1.425824522972107,
+    "spk_sim": 0.4941,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It wait",
+    "extra_words": "it wait"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 0.6400002670288085,
+    "genuineness": 1.3523682355880737,
+    "blend": 2.348282814025879,
+    "spk_sim": 0.4824,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life. Ye",
+    "extra_words": "ye"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.4400000858306887,
+    "genuineness": 2.9665534496307373,
+    "blend": 4.0428466796875,
+    "spk_sim": 0.5764,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.35714285714285715,
+    "extra_w": 5,
+    "tail_s": 0.4000001907348629,
+    "genuineness": 1.0795118808746338,
+    "blend": 0.9643163681030273,
+    "spk_sim": 0.5758,
+    "hyp": "I read the same paragraph four times and understood it on none of them. The think they kin show",
+    "extra_words": "the think they kin show"
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias -1.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 10043.1,
+  "wer": 0.0757142857142857,
+  "extra_w": 0.9,
+  "tail_s": 0.4560001916885376,
+  "genuineness": 1.554010158777237,
+  "blend": 2.641892695426941,
+  "spk_sim": 0.5229199999999999,
+  "pct_extra": 0.3,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.6400001335144045,
+    "genuineness": 1.3581790924072266,
+    "blend": 3.0650291442871094,
+    "spk_sim": 0.5419,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.8267301321029663,
+    "blend": 1.2027652263641357,
+    "spk_sim": 0.3941,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.13333333333333333,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 0.9183986186981201,
+    "blend": 2.267587900161743,
+    "spk_sim": 0.523,
+    "hyp": "I finally fixed the squeaking door, it took 11 minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.1600002288818363,
+    "genuineness": 1.7064845561981201,
+    "blend": 5.742912292480469,
+    "spk_sim": 0.6191,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 0.49752873182296753,
+    "blend": 1.9676933288574219,
+    "spk_sim": 0.6021,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.594807505607605,
+    "blend": 3.513195753097534,
+    "spk_sim": 0.4239,
+    "hyp": "I planted the basil too close together and now it is a small green argument .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.2,
+    "extra_w": 3,
+    "tail_s": 0.48000001907348633,
+    "genuineness": 3.239539384841919,
+    "blend": 1.3042974472045898,
+    "spk_sim": 0.4905,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It wait I",
+    "extra_words": "it wait i"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 0.6400002670288085,
+    "genuineness": 1.3523682355880737,
+    "blend": 2.348282814025879,
+    "spk_sim": 0.4824,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life. Ye",
+    "extra_words": "ye"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.4400000858306887,
+    "genuineness": 2.9665534496307373,
+    "blend": 4.0428466796875,
+    "spk_sim": 0.5764,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.35714285714285715,
+    "extra_w": 5,
+    "tail_s": 0.4000001907348629,
+    "genuineness": 1.0795118808746338,
+    "blend": 0.9643163681030273,
+    "spk_sim": 0.5758,
+    "hyp": "I read the same paragraph four times and understood it on none of them. The think they kin show",
+    "extra_words": "the think they kin show"
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias -0.5",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 9904.9,
+  "wer": 0.0757142857142857,
+  "extra_w": 0.9,
+  "tail_s": 0.4560001916885376,
+  "genuineness": 1.554010158777237,
+  "blend": 2.641892695426941,
+  "spk_sim": 0.5229199999999999,
+  "pct_extra": 0.3,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.6400001335144045,
+    "genuineness": 1.3581790924072266,
+    "blend": 3.0650291442871094,
+    "spk_sim": 0.5419,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.8267301321029663,
+    "blend": 1.2027652263641357,
+    "spk_sim": 0.3941,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.13333333333333333,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 0.9183986186981201,
+    "blend": 2.267587900161743,
+    "spk_sim": 0.523,
+    "hyp": "I finally fixed the squeaking door, it took 11 minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.1600002288818363,
+    "genuineness": 1.7064845561981201,
+    "blend": 5.742912292480469,
+    "spk_sim": 0.6191,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 0.49752873182296753,
+    "blend": 1.9676933288574219,
+    "spk_sim": 0.6021,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.594807505607605,
+    "blend": 3.513195753097534,
+    "spk_sim": 0.4239,
+    "hyp": "I planted the basil too close together and now it is a small green argument .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.2,
+    "extra_w": 3,
+    "tail_s": 0.48000001907348633,
+    "genuineness": 3.239539384841919,
+    "blend": 1.3042974472045898,
+    "spk_sim": 0.4905,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It wait I",
+    "extra_words": "it wait i"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 0.6400002670288085,
+    "genuineness": 1.3523682355880737,
+    "blend": 2.348282814025879,
+    "spk_sim": 0.4824,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life. Ye",
+    "extra_words": "ye"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.4400000858306887,
+    "genuineness": 2.9665534496307373,
+    "blend": 4.0428466796875,
+    "spk_sim": 0.5764,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.35714285714285715,
+    "extra_w": 5,
+    "tail_s": 0.4000001907348629,
+    "genuineness": 1.0795118808746338,
+    "blend": 0.9643163681030273,
+    "spk_sim": 0.5758,
+    "hyp": "I read the same paragraph four times and understood it on none of them. The think they kin show",
+    "extra_words": "the think they kin show"
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias +0.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 9982.9,
+  "wer": 0.0757142857142857,
+  "extra_w": 0.9,
+  "tail_s": 0.4560001916885376,
+  "genuineness": 1.554010158777237,
+  "blend": 2.641892695426941,
+  "spk_sim": 0.5229199999999999,
+  "pct_extra": 0.3,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.6400001335144045,
+    "genuineness": 1.3581790924072266,
+    "blend": 3.0650291442871094,
+    "spk_sim": 0.5419,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.8267301321029663,
+    "blend": 1.2027652263641357,
+    "spk_sim": 0.3941,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.13333333333333333,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 0.9183986186981201,
+    "blend": 2.267587900161743,
+    "spk_sim": 0.523,
+    "hyp": "I finally fixed the squeaking door, it took 11 minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.1600002288818363,
+    "genuineness": 1.7064845561981201,
+    "blend": 5.742912292480469,
+    "spk_sim": 0.6191,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 0.49752873182296753,
+    "blend": 1.9676933288574219,
+    "spk_sim": 0.6021,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.594807505607605,
+    "blend": 3.513195753097534,
+    "spk_sim": 0.4239,
+    "hyp": "I planted the basil too close together and now it is a small green argument .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.2,
+    "extra_w": 3,
+    "tail_s": 0.48000001907348633,
+    "genuineness": 3.239539384841919,
+    "blend": 1.3042974472045898,
+    "spk_sim": 0.4905,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It wait I",
+    "extra_words": "it wait i"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 0.6400002670288085,
+    "genuineness": 1.3523682355880737,
+    "blend": 2.348282814025879,
+    "spk_sim": 0.4824,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life. Ye",
+    "extra_words": "ye"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.4400000858306887,
+    "genuineness": 2.9665534496307373,
+    "blend": 4.0428466796875,
+    "spk_sim": 0.5764,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.35714285714285715,
+    "extra_w": 5,
+    "tail_s": 0.4000001907348629,
+    "genuineness": 1.0795118808746338,
+    "blend": 0.9643163681030273,
+    "spk_sim": 0.5758,
+    "hyp": "I read the same paragraph four times and understood it on none of them. The think they kin show",
+    "extra_words": "the think they kin show"
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias +1.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 28243.3,
+  "wer": 0.1764102564102564,
+  "extra_w": 1.1,
+  "tail_s": 0.9440001316070556,
+  "genuineness": 1.5133130311965943,
+  "blend": 3.3209044218063353,
+  "spk_sim": 0.5154099999999999,
+  "pct_extra": 0.3,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000381469729,
+    "genuineness": 2.1015841960906982,
+    "blend": 4.405606269836426,
+    "spk_sim": 0.5719,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.2400000953674315,
+    "genuineness": 0.4846024513244629,
+    "blend": 1.506149411201477,
+    "spk_sim": 0.5289,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 1.188727617263794,
+    "blend": 6.140322208404541,
+    "spk_sim": 0.3817,
+    "hyp": "I finally fixed the squeaking door . It took eleven minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.40000000000000036,
+    "genuineness": 1.451136589050293,
+    "blend": 4.8398847579956055,
+    "spk_sim": 0.5818,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.4,
+    "extra_w": 6,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.2550837993621826,
+    "blend": 1.7846016883850098,
+    "spk_sim": 0.5101,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed. Th urs ene Hid eg erd ,",
+    "extra_words": "th urs ene hid eg erd"
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.9600000381469727,
+    "genuineness": 1.790536880493164,
+    "blend": 2.74906849861145,
+    "spk_sim": 0.3754,
+    "hyp": "I planted the basil too close together, and now it is a small green argument.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.8800000381469726,
+    "genuineness": 1.2685045003890991,
+    "blend": 2.135087728500366,
+    "spk_sim": 0.4709,
+    "hyp": "She sent me a photograph of the sea and said nothing else, it was enough.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 7,
+    "wer": 0.13333333333333333,
+    "extra_w": 2,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.6607872247695923,
+    "blend": 5.030881881713867,
+    "spk_sim": 0.5995,
+    "hyp": "The lift has been broken since March . I have never been fitter in my life. Ine ir ,",
+    "extra_words": "ine ir"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.23076923076923078,
+    "extra_w": 3,
+    "tail_s": 0.5600002098083499,
+    "genuineness": 1.202197790145874,
+    "blend": 4.088429927825928,
+    "spk_sim": 0.6209,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet. Tard ame ci",
+    "extra_words": "tard ame ci"
+   },
+   {
+    "prompt": 9,
+    "wer": 1.0,
+    "extra_w": 0,
+    "tail_s": 5.6,
+    "genuineness": 2.7299692630767822,
+    "blend": 0.5290118455886841,
+    "spk_sim": 0.513,
+    "hyp": "",
+    "extra_words": ""
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias +3.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 10069.8,
+  "wer": 0.026666666666666665,
+  "extra_w": 0.4,
+  "tail_s": 0.6960001373291016,
+  "genuineness": 1.526325273513794,
+  "blend": 2.4301700592041016,
+  "spk_sim": 0.5073000000000001,
+  "pct_extra": 0.2,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.2000000762939456,
+    "genuineness": 1.3287907838821411,
+    "blend": 2.7617199420928955,
+    "spk_sim": 0.5795,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.8799999618530272,
+    "genuineness": 1.1174118518829346,
+    "blend": 1.4372670650482178,
+    "spk_sim": 0.3961,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening. I have started waiting for it.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.8000001907348633,
+    "genuineness": 1.687949776649475,
+    "blend": 3.0426769256591797,
+    "spk_sim": 0.4979,
+    "hyp": "I finally fixed the squeaking door. It took eleven minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.9599999427795414,
+    "genuineness": 1.494249701499939,
+    "blend": 5.821174621582031,
+    "spk_sim": 0.5946,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 1.0689986944198608,
+    "blend": 1.370039701461792,
+    "spk_sim": 0.6204,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good, but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.40000009536743164,
+    "genuineness": 0.6671696901321411,
+    "blend": 2.2104403972625732,
+    "spk_sim": 0.5139,
+    "hyp": "I planted the basil too close together and now it is a small green argument.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.13333333333333333,
+    "extra_w": 2,
+    "tail_s": 0.48000001907348633,
+    "genuineness": 1.643201470375061,
+    "blend": 2.9128355979919434,
+    "spk_sim": 0.4898,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. And uh",
+    "extra_words": "and uh"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.13333333333333333,
+    "extra_w": 2,
+    "tail_s": 0.7200002670288086,
+    "genuineness": 1.2829880714416504,
+    "blend": 0.9539949893951416,
+    "spk_sim": 0.3991,
+    "hyp": "The lift has been broken since March . I have never been fitter in my life. And now",
+    "extra_words": "and now"
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.0400002288818362,
+    "genuineness": 2.495620012283325,
+    "blend": 2.1071975231170654,
+    "spk_sim": 0.3911,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000034332275355,
+    "genuineness": 2.476872682571411,
+    "blend": 1.6843538284301758,
+    "spk_sim": 0.5906,
+    "hyp": "I read the same paragraph four times and understood it on none of them.",
+    "extra_words": ""
+   }
+  ]
+ },
+ {
+  "condition": "stop_bias +4.0",
+  "loras": [
+   [
+    "sft3_dpo:p2",
+    1.0
+   ],
+   [
+    "sft3_quality:genuineness_high",
+    0.25
+   ],
+   [
+    "sft3_quality:blend_high",
+    0.5
+   ],
+   [
+    "sft3_quality:esthetics_high",
+    0.5
+   ],
+   [
+    "sft3_voice:emolia_c1699",
+    0.25
+   ],
+   [
+    "sft3_emotion:Amusement",
+    1.0
+   ]
+  ],
+  "n": 10,
+  "gpu_ms": 29115.2,
+  "wer": 0.05435897435897437,
+  "extra_w": 0.2,
+  "tail_s": 0.5600001955032349,
+  "genuineness": 1.6442924737930298,
+  "blend": 2.4572802782058716,
+  "spk_sim": 0.5277400000000001,
+  "pct_extra": 0.2,
+  "takes": [
+   {
+    "prompt": 0,
+    "wer": 0.07692307692307693,
+    "extra_w": 1,
+    "tail_s": 1.0400002288818362,
+    "genuineness": 1.9423167705535889,
+    "blend": 1.4727511405944824,
+    "spk_sim": 0.4415,
+    "hyp": "The kettle boiled twice before I remembered why I walked into the kitchen. Um",
+    "extra_words": "um"
+   },
+   {
+    "prompt": 1,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.7200001144409178,
+    "genuineness": 1.1741734743118286,
+    "blend": 0.0,
+    "spk_sim": 0.4345,
+    "hyp": "There is a fox that crosses the yard at the same hour every evening . I have started waiting for it",
+    "extra_words": ""
+   },
+   {
+    "prompt": 2,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 1.3880946636199951,
+    "blend": 3.1499714851379395,
+    "spk_sim": 0.502,
+    "hyp": "I finally fixed the squeaking door. It took eleven minutes and four years of complaining.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 3,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000015258789098,
+    "genuineness": 1.5248873233795166,
+    "blend": 4.421306133270264,
+    "spk_sim": 0.5991,
+    "hyp": "The train was late, the coffee was cold, and somehow it was still a good morning.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 4,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.7200002670288086,
+    "genuineness": 1.2183127403259277,
+    "blend": 1.6335105895996094,
+    "spk_sim": 0.6488,
+    "hyp": "My neighbour plays the trumpet on Sundays. He is not good , but he is committed.",
+    "extra_words": ""
+   },
+   {
+    "prompt": 5,
+    "wer": 0.4,
+    "extra_w": 0,
+    "tail_s": 0.24000024795532227,
+    "genuineness": 1.4134694337844849,
+    "blend": 1.6519606113433838,
+    "spk_sim": 0.4852,
+    "hyp": "He h, pl anted the basil too close together, and now it is a small green argument .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 6,
+    "wer": 0.06666666666666667,
+    "extra_w": 1,
+    "tail_s": 0.559999942779541,
+    "genuineness": 1.93681001663208,
+    "blend": 3.3870325088500977,
+    "spk_sim": 0.506,
+    "hyp": "She sent me a photograph of the sea and said nothing else. It was enough. It",
+    "extra_words": "it"
+   },
+   {
+    "prompt": 7,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.16000032424926758,
+    "genuineness": 1.5202406644821167,
+    "blend": 4.108795166015625,
+    "spk_sim": 0.5473,
+    "hyp": "The lift has been broken since March. I have never been fitter in my life .",
+    "extra_words": ""
+   },
+   {
+    "prompt": 8,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 1.4400000858306887,
+    "genuineness": 2.7802751064300537,
+    "blend": 3.1364076137542725,
+    "spk_sim": 0.5041,
+    "hyp": "There was a moment this afternoon when the whole street went completely quiet",
+    "extra_words": ""
+   },
+   {
+    "prompt": 9,
+    "wer": 0.0,
+    "extra_w": 0,
+    "tail_s": 0.24000034332275355,
+    "genuineness": 1.5443445444107056,
+    "blend": 1.611067533493042,
+    "spk_sim": 0.6089,
+    "hyp": "I read the same paragraph four times, and understood it on none of them.",
+    "extra_words": ""
+   }
+  ]
+ }
+]

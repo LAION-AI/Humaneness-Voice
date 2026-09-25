@@ -1,0 +1,38 @@
+# Versions inherited from the September 2026 demo-server environment
+# (Python 3.12, CUDA 12.4). Install the matching PyTorch CUDA wheel first;
+# see docs/INSTALL.md. The burst detector is optional.
+torch==2.6.0
+torchaudio==2.6.0
+# only for the burst detector's processor, which refuses to import without it
+torchvision==0.21.0
+# 4-bit quantisation of the burst detector's encoder
+bitsandbytes==0.50.2
+transformers==5.15.0
+huggingface-hub==1.27.0
+safetensors==0.8.0
+accelerate
+fastapi==0.141.1
+uvicorn==0.52.1
+numpy==1.26.4
+scipy==1.17.1
+soundfile==0.14.0
+pyarrow==25.0.1
+pandas==3.0.5
+audiostretchy==1.3.5
+speechbrain==1.1.0
+# forced alignment for end-trimming.  onnxruntime-gpu 1.22 is deliberate: 1.29
+# requires CUDA 13 and this stack is on 12.4, so it silently falls back to CPU,
+# which is 20x slower and cannot keep a stream fed.  It finds cuDNN and cuBLAS
+# because torch has already loaded them -- hence the load order in app.py.
+onnxruntime-gpu==1.22.0
+requests==2.34.2
+httpx                     # the director's HTTP client, hosted and local backends
+# ffmpeg must be on PATH (mp3 decode for the reference corpus)
+
+# NOT on PyPI, and not optional:
+#   genuineness_scorer, blend_model  ship inside the two scorer model repos.
+#                                    setup/fetch_scorers.py puts them where the
+#                                    code imports them from.
+# NOT on PyPI, and optional -- the server starts without them and says so:
+#   chatterbox_vc   voice conversion, only when the box is ticked
+#   sidon           speech restoration, only used by the reference-prep scripts

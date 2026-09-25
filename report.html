@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOSS Voice Acting — Ergebnisse</title>
+<style>
+  :root{
+    --bg:#0e1015; --panel:#161a22; --panel2:#1c212b; --line:#262d3a;
+    --fg:#e6e9ef; --dim:#8b95a7; --accent:#7dd3a0; --accent2:#f0b866; --warn:#e8746a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:15.5px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:940px;margin:0 auto;padding:38px 24px 90px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:34px}
+  h1{font-size:25px;margin:0 0 6px;letter-spacing:-.2px}
+  .sub{color:var(--dim);font-size:14px}
+  .back{display:inline-block;margin-top:14px;color:var(--accent);text-decoration:none;
+        font-size:13.5px;border:1px solid var(--line);border-radius:8px;padding:6px 13px}
+  .back:hover{border-color:var(--accent)}
+  h2{font-size:17.5px;margin:38px 0 12px;padding-top:8px}
+  h3{font-size:14.5px;margin:24px 0 8px;color:var(--accent2);font-weight:600}
+  p{margin:0 0 13px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;
+        display:block;overflow-x:auto;white-space:nowrap}
+  th,td{text-align:left;padding:7px 13px 7px 0;border-bottom:1px solid var(--line)}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.6px}
+  td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .good{color:var(--accent)} .bad{color:var(--warn)} .mid{color:var(--accent2)}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--panel2);
+       border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:9px;
+      padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.55}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;
+        padding:16px 18px;margin:16px 0}
+  .card.warn{border-color:#4a2f2c}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:11px;margin:18px 0}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .stat .v{font-size:22px;font-family:var(--mono);font-variant-numeric:tabular-nums;
+           color:var(--accent);letter-spacing:-.5px}
+  .stat .k{color:var(--dim);font-size:11.5px;margin-top:3px}
+  ul{margin:0 0 13px;padding-left:20px} li{margin-bottom:6px}
+  .tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+       border-radius:20px;padding:2px 10px;font-size:11.5px;font-family:var(--mono);
+       color:var(--accent2);margin:2px 4px 2px 0}
+  footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);
+         color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>MOSS Voice Acting — Ergebnisse</h1>
+  <div class="sub">4.55B Voice-Acting-Modell, Gemma-4-12B als Regisseur, 832 Referenzstimmen,
+    85 LoRA-Adapter. Alle Zahlen auf dieser Maschine gemessen (2× RTX 3090).</div>
+  <a class="back" href="/">← zurück zur Demo</a>
+</header>
+
+<div class="grid">
+  <div class="stat"><div class="v">1.000</div><div class="k">Wort-Recall</div></div>
+  <div class="stat"><div class="v">1.6 s</div><div class="k">Sprachmodell</div></div>
+  <div class="stat"><div class="v">3.5 s</div><div class="k">TTFA Server</div></div>
+  <div class="stat"><div class="v">0.6 ms</div><div class="k">Referenz-Retrieval</div></div>
+  <div class="stat"><div class="v">0.522</div><div class="k">Speaker-Similarity</div></div>
+  <div class="stat"><div class="v">4160</div><div class="k">Referenz-Takes</div></div>
+  <div class="stat"><div class="v">173</div><div class="k">LoRA-Adapter</div></div>
+</div>
+
+<h2>Was passiert pro Turn</h2>
+<pre>Text oder Mikrofon
+   ├─ ASR: Gemma-4 eigener Audio-Encoder            0.6–1.1 s   (nur bei Sprache)
+   ├─ Gemma-4-12B wählt Kondition, Tempo, Stil,
+   │  schreibt GENERAL + SCRIPT                     2.97 s
+   ├─ Referenz aus dem RAM, schon tokenisiert       0.6 ms
+   ├─ LoRA-Adapter in die Gewichte gemerged         0.11 s
+   └─ MOSS 4.55B streamt 48 kHz PCM                 erste Audio nach 0.73 s
+                                                     RTF 0.737</pre>
+
+<h2>Stimm-Konsistenz</h2>
+<p>ECAPA-Cosinus gegen den Anker-Sprecher des Korpus, über eine 8-Turn-Konversation.
+Schwellen laut Manual: unter 0.58 neu generieren, unter 0.45 reparieren, unter 0.40 verwerfen.</p>
+<table>
+<tr><th>Konfiguration</th><th>vs. Anker</th><th>Turn-zu-Turn</th></tr>
+<tr><td><code>original</code>, LLM schreibt GENERAL frei</td><td class="n bad">0.292</td><td class="n">0.419</td></tr>
+<tr><td><code>voice_converted</code>, feste aber <em>falsche</em> Identität</td><td class="n bad">0.302</td><td class="n">0.366</td></tr>
+<tr><td><code>voice_converted</code>, korrekte Identität</td><td class="n mid">0.373</td><td class="n">0.397</td></tr>
+<tr><td><strong>+ Anker als 2. Referenz, + Sprache durchgereicht</strong></td><td class="n good">0.522</td><td class="n good">0.445</td></tr>
+</table>
+
+<div class="card warn">
+<h3>Der teuerste Fehler</h3>
+<p>Ich hatte den festen GENERAL-Block als „a woman's voice in her late twenties" geschrieben.
+Der Anker-Sprecher des Korpus ist laut <code>index.json → _speaker</code> aber
+<strong>„Velvet Sage Baritone", männlich, Ende 40 bis 60</strong>. Eine erfundene Identität
+arbeitet <em>gegen</em> die Referenz-Codes statt mit ihnen. Korrektur allein: +0.071.</p>
+</div>
+
+<p>Drei Hebel, in dieser Wirkungsreihenfolge:</p>
+<ul>
+  <li><strong>Der Anker-Clip selbst als zweite Referenz</strong> neben dem Delivery-Clip. Der
+    Prozessor nimmt <code>reference=[...]</code> als Liste und bettet jeden Eintrag einzeln ein.</li>
+  <li><strong>Die Sprache wurde nie durchgereicht.</strong> <code>language</code> stand fest auf
+    <code>"English"</code>, auch bei deutschen Antworten — und genau die deutschen Turns hatten die
+    schlechtesten Werte (0.194–0.317 gegen 0.406–0.661 bei englischen).</li>
+  <li><strong>Feste Identität statt neu erfundener Stimme pro Turn.</strong> Das Manual verlangt die
+    GENERAL-Beschreibung byte-identisch; nur die Delivery variiert.</li>
+</ul>
+
+<h2>Referenz-Auswahl</h2>
+<p>Ein echter Fehler war, dass die Enums nur im JSON-Schema standen. llama.cpp macht daraus eine
+Grammatik, die beim Sampling einschränkt — <em>im Prompt stand der Katalog nie</em>. Das Modell
+wählte blind und griff immer zu denselben zwei, drei Konditionen. Seit alle 123 Konditionen mit
+Beschreibungen im Systemprompt liegen (~810 Token, gecachter Prefix):
+<strong>8 von 8 Turns unterschiedlich</strong> und passend.</p>
+<table>
+<tr><th>Eingabe</th><th>gewählt</th></tr>
+<tr><td>„Ich hab meinen Job verloren"</td><td><span class="tag">Sadness · moderate · contained</span></td></tr>
+<tr><td>„say that again but annoyed"</td><td><span class="tag">Impatience_and_Irritability</span></td></tr>
+<tr><td>„whisper something conspiratorial"</td><td><span class="tag">S_WHIS very_high</span></td></tr>
+<tr><td>„tell me a joke"</td><td><span class="tag">S_PLAY very_high</span></td></tr>
+<tr><td>„roleplay as a dragon"</td><td><span class="tag">character: dragon</span></td></tr>
+</table>
+<p>Die Glossen für die 57 kryptischen VoiceNet-Codes stammen aus <code>metadata.jsonl</code> —
+jeder Clip trägt den Prompt, mit dem er erzeugt wurde, und dessen GENERAL-Zeile benennt die
+Dimension im Klartext („A voice extremely low in voice age.").</p>
+
+<h2>Tempo-Varianten</h2>
+<p>Jede der 832 Konditionen liegt zusätzlich in vier Geschwindigkeiten vor, tonhöhenerhaltend
+gestreckt mit <code>audiostretchy</code> — <strong>4160 Referenz-Takes</strong> insgesamt.
+„Sag das schneller" tauscht damit gegen eine echt schnellere Aufnahme derselben Performance,
+statt das Modell nur zur Eile zu ermahnen.</p>
+<p><span class="tag">0.5×</span><span class="tag">0.75×</span><span class="tag">1.0×</span><span class="tag">1.25×</span><span class="tag">1.5×</span></p>
+
+<h2>Abgeschnittene Antworten — gefunden und behoben</h2>
+<p>Das Modell sprach zeitweise nur die erste Hälfte der Antwort. Gemessen wurde das objektiv:
+Audio zurück durch die Spracherkennung und Wort-Recall gegen den beabsichtigten Text.</p>
+<table>
+<tr><th>Pfad</th><th>Recall</th><th>vollständig</th></tr>
+<tr><td>isolierter TTS-Aufruf, klare Instruktion</td><td class="n good">1.000</td><td>5/5</td></tr>
+<tr><td><strong>echter Chat-Pfad, vorher</strong></td><td class="n bad">0.754</td><td class="bad">2/5</td></tr>
+<tr><td>echter Chat-Pfad, Satz-für-Satz</td><td class="n good">0.986</td><td class="good">7/8</td></tr>
+<tr><td><strong>final, adaptives Splitten</strong></td><td class="n good">1.000</td><td class="good">6/6</td></tr>
+</table>
+<p>Die Ursache war nicht das, wonach es aussah. Cues, <code>[pause]</code>, Bursts, LoRA-Adapter,
+lange GENERAL-Blöcke und zwei Referenzen wurden einzeln durchgetestet — <em>keines</em> davon
+verursachte die Truncation. Es passierte intermittierend, etwa jede sechste Antwort, und immer
+exakt an einer Satzgrenze: das Modell setzt dort ein Ende-Token.</p>
+<p><strong>Der Fix ist die Generierung Satz für Satz.</strong> Damit ist ein Ende-Token an einer
+Satzgrenze das korrekte Verhalten statt ein Abbruch. Jedes Segment prefillt allerdings die
+Instruktion neu, und das trieb den Realtime-Faktor über 1.0 — die Wiedergabe holte den Decoder
+ein. Deshalb wird nur noch gesplittet, wenn die Antwort lang genug ist, dass Truncation überhaupt
+je auftrat (ab 26 gesprochenen Wörtern); kurze Antworten bleiben auf dem schnellen Pfad. Dazu
+bekommt der Player 0.9 s Vorlauf statt 40 ms.</p>
+<p>Ausserdem fehlte die vom Model Card verlangte Dauerangabe: <code>tokens ≈ words × 6</code>
+(12.5 Hz Frames) wird jetzt gesetzt, plus eine Obergrenze mit Reserve für Pausen und Bursts.</p>
+
+<h2>Zwei Regisseure, zwei Prompting-Stile</h2>
+<p>Statt einer langen Prosa-Caption kann das Sprachmodell in einer Kurzschrift dirigieren —
+<code>SAD3,REL3,BRGT2</code> — die der Server anschliessend in genau die Prosa-Captions zurück
+übersetzt, die das TTS-Modell im Training gesehen hat. Emotionen bekommen deterministisch
+erzeugte Dreibuchstaben-Codes, VoiceNet nutzt die vorhandenen Codes, jeweils mit Stärke 1–4.
+Aus derselben Zeichenkette werden zusätzlich Referenzauswahl und Stil-Adapter abgeleitet.</p>
+<table>
+<tr><th>Regisseur / Stil</th><th>LLM</th><th>TTFA Server</th><th>Recall</th></tr>
+<tr><td>Gemma-4-12B lokal, Prosa</td><td class="n">4399 ms</td><td class="n">8347 ms</td><td class="n">1.00</td></tr>
+<tr><td><strong>Gemma-4-12B lokal, Codes</strong></td><td class="n good">1441 ms</td><td class="n good">2582 ms</td><td class="n">0.90</td></tr>
+<tr><td>gpt-5.6-luna hosted, Codes</td><td class="n">3605 ms</td><td class="n">4542 ms</td><td class="n">1.00</td></tr>
+<tr><td>gpt-5.6-luna hosted, Prosa</td><td colspan="3">liefert keine verwertbare Antwort</td></tr>
+</table>
+<p>Der Code-Modus ist dreimal schneller im Sprachmodell und drückt die Time-to-First-Audio auf
+2.6 s — er ist deshalb die Voreinstellung. Beides ist in der Demo unten links umschaltbar.
+Luna verlangt in seinem Strict-Modus <code>additionalProperties: false</code> in jedem Objekt;
+das verschachtelte Prosa-Schema erfüllt die Strict-Regeln nicht und läuft dort über
+<code>json_object</code>, was noch nicht zuverlässig funktioniert.</p>
+
+<h2>Zwei Referenzen und gestapelte Adapter</h2>
+<p>Der Agent darf pro Turn zwei Konditionen hintereinander setzen und bis zu zwei
+Stil-Dimensionen zusätzlich stapeln. Gemessene Turns:</p>
+<table>
+<tr><th>Eingabe</th><th>Referenz</th><th>Adapter</th><th>Tempo</th></tr>
+<tr><td>„Schrei vor Schmerz und rede dann leise weiter"</td>
+    <td><span class="tag">ga_pain_scream</span></td>
+    <td><span class="tag">S_DRAM high</span><span class="tag">TENS high</span></td><td class="n">1.0×</td></tr>
+<tr><td>„Halt eine wütende Wutrede über Ampeln"</td>
+    <td><span class="tag">S_AUTH → S_RANT</span></td>
+    <td><span class="tag">S_AUTH high</span><span class="tag">VOLT high</span><span class="tag">TENS high</span></td><td class="n">1.0×</td></tr>
+<tr><td>„Erzähl mir eine Gutenachtgeschichte, ganz ruhig"</td>
+    <td><span class="tag">S_STRY → S_WHIS</span></td>
+    <td><span class="tag">S_STRY high</span><span class="tag">WARM high</span><span class="tag">TEMP low</span></td><td class="n">0.75×</td></tr>
+</table>
+<p>Das Tempo wählt er selbst: „ganz ruhig" ergab ohne weitere Aufforderung eine 0.75×-Referenz.
+Vier gleichzeitig gemergte Adapter kosten <strong>RTF 0.77</strong> — weiterhin schneller als
+Echtzeit.</p>
+
+<h2>LoRA-Adapter</h2>
+<table>
+<tr><th>Set</th><th>geladen</th><th>Dosis</th></tr>
+<tr><td>Emotionen (<code>moss-emotion-loras-v3</code>)</td><td>alle 40, im RAM</td><td class="n">0.5</td></tr>
+<tr><td>VoiceNet (<code>moss-voicenet-dimension-loras</code>)</td><td><strong>alle 114</strong> (57 Dims × high/low)</td><td class="n">0.5</td></tr>
+<tr><td>Charaktere (<code>…character-loras-refined</code>)</td><td>12 aus dem Korpus, ep2</td><td class="n">0.75</td></tr>
+<tr><td>Vocal Bursts (<code>vocal-burst-lora-adapters</code>)</td><td>7</td><td class="n">0.5 / 0.75</td></tr>
+</table>
+<h3>Gemischte Gefühle</h3>
+<p>Ein Moment ist selten nur eine Emotion. Der Regisseur benennt zwei oder drei mit eigenen Stärken,
+und alle ihre Adapter werden gleichzeitig gemergt — jede Stärke dosiert ihre eigene Emotion, die
+Gesamtmasse darf also über die Einzelobergrenze hinausgehen, wenn der Moment das hergibt:</p>
+<pre>„Mir ist etwas Peinliches passiert, aber es ist auch witzig."
+  → AMU3,EMB2,TEA2,BRGT3,FOCS3
+  → Amusement 0.56 + Embarrassment 0.38 + Teasing 0.38 + BRGT_high 0.5 + FOCS_high 0.5</pre>
+<p>Die Mischung darf zwischen den Sätzen wandern — eine Zeile, die auf <code>(AMU3,EMB1)</code>
+beginnt und auf <code>(EMB4,AMU1)</code> endet, ist jemand, dessen Lachen in Verlegenheit kippt.</p>
+<p>Die übrigen Dosierungen sind die gemessenen Werte aus dem Manual und werden serverseitig gesetzt — das
+Sprachmodell wählt <em>welche</em>, nie <em>wie stark</em>. Unter einem Burst-Adapter wird die
+Emotion auf dessen halbe Dosis gedeckelt, so verlangt es das Manual. Burst-Adapter werden
+automatisch aus den Cues im SCRIPT gezogen; laut Manual steigt die Landerate damit von 23.6 %
+auf 71.9 %.</p>
+
+<div class="card">
+<h3>Gemerged, nicht gehookt</h3>
+<p>Erst als Forward-Hooks gebaut — elegant und sofort umschaltbar, aber der Streaming-Loop läuft
+batch-1 Token für Token. 268 Module × 2 Zusatz-Matmuls sind <strong>536 extra Kernel-Launches pro
+Token</strong>; der Launch-Overhead frisst die rank-32-Ersparnis komplett auf.</p>
+<table>
+<tr><th></th><th>RTF</th><th>TTFA GPU</th></tr>
+<tr><td>ohne Adapter</td><td class="n good">0.737</td><td class="n">730 ms</td></tr>
+<tr><td>Adapter als Forward-Hooks</td><td class="n bad">1.288</td><td class="n">1290 ms</td></tr>
+<tr><td>Adapter gemerged</td><td class="n good">0.764</td><td class="n">840 ms</td></tr>
+</table>
+<p>Über 1.0 ist die Generierung langsamer als die Wiedergabe — das Streaming läuft leer. Gemerged
+kostet derselbe Adapter nur ~110 ms einmalig. Der Rückweg rechnet das Delta auf der GPU zurück;
+weil bf16 dabei rundet, liegt eine unveränderte Kopie im Host-RAM und wird alle 25 Turns exakt
+zurückgeschrieben.</p>
+</div>
+
+<h2>Spracheingabe — Parakeet TDT 0.6B v3</h2>
+<p>Zuerst lief die Erkennung über Gemmas eigenen Audio-Encoder. Das funktionierte, kostete aber
+0.6–1.1 s, weil jede Transkription durch denselben 12B-Decoder ging, der auch die Antwort schreibt.
+Parakeet ist ein dedizierter 0.6B-Transducer und liefert zusätzlich saubere Groß- und Kleinschreibung
+mit Umlauten statt Gemmas Kleinbuchstaben-Strom.</p>
+<table>
+<tr><th>Eingabe</th><th>Gemma-4</th><th>Parakeet v3</th></tr>
+<tr><td>deutsch, webm/opus aus dem Browser</td><td class="n">1120 ms</td><td class="n good">328 ms</td></tr>
+<tr><td>englisch, wav, 10.8 s</td><td class="n">574 ms</td><td class="n good">179 ms</td></tr>
+</table>
+
+<h2>Voice Conversion — MeanVC2</h2>
+<p>Emotionale Takes driften von der Sprecheridentität weg. Wer den Schalter setzt, schiebt die
+Ausgabe im Stream durch MeanVC2 auf die Anker-Aufnahme des Korpus:</p>
+<table>
+<tr><th>Take</th><th>vs. Anker</th></tr>
+<tr><td>ohne Konversion</td><td class="n bad">0.399</td></tr>
+<tr><td><strong>mit Konversion</strong></td><td class="n good">0.641</td></tr>
+</table>
+<p>Der Preis ist Bandbreite: MeanVC2 arbeitet auf 16 kHz, das Stimmmodell liefert 48 kHz. Die
+Konversion tauscht also die Höhen gegen Identität — deshalb ein Schalter und keine Voreinstellung.
+Chunks werden konvertiert, während sie entstehen, jeder mit einer Sekunde vorangehendem Audio als
+Kontext, der danach verworfen wird; MeanVC2 läuft bei etwa 0.15 Echtzeit und bleibt damit vor der
+Wiedergabe.</p>
+<p>Beide Modelle liegen auf der zweiten Karte neben dem Sprachmodell und mussten
+<strong>nacheinander</strong> geladen werden: transformers verstellt beim Bau eines
+bfloat16-Modells den globalen Default-dtype, und ein Modell, das in genau diesem Moment in einem
+anderen Thread entsteht, kommt ebenfalls in bf16 heraus — daran starb WavLM mit
+<code>mixed dtype (CPU)</code>.</p>
+
+<h2>Latenzen</h2>
+<table>
+<tr><th>Komponente</th><th>Mittel</th></tr>
+<tr><td>ASR (nur bei Spracheingabe)</td><td class="n">0.6–1.1 s</td></tr>
+<tr><td>Sprachmodell (denken)</td><td class="n">2.97 s</td></tr>
+<tr><td>Referenz-Retrieval (warm)</td><td class="n good">0.6 ms</td></tr>
+<tr><td>LoRA-Merge</td><td class="n">110 ms</td></tr>
+<tr><td>Time-to-First-Audio, GPU</td><td class="n good">0.73 s</td></tr>
+<tr><td>Time-to-First-Audio, Server</td><td class="n">3.71 s</td></tr>
+<tr><td>Realtime-Faktor</td><td class="n good">0.737</td></tr>
+</table>
+<p>Die Time-to-First-Audio hängt fast vollständig am Sprachmodell, nicht am Stimmmodell. Das
+Stimmmodell liefert 0.73 s nachdem es den Prompt bekommt. Das Vorhalten des Korpus im RAM nimmt
+das Retrieval vollständig aus dem kritischen Pfad.</p>
+
+<h2>Gefundene Fehler</h2>
+<ul>
+  <li><strong>Gemma-4 ist ein Reasoning-Modell.</strong> Unangetastet verbrauchte es das gesamte
+    Token-Budget in <code>reasoning_content</code> und lieferte <em>leeren</em> Content zurück.</li>
+  <li><strong>Der Codec braucht <code>inference_mode</code>, nicht <code>no_grad</code>.</strong>
+    Die Generierung lässt interne Puffer als Inference-Tensoren zurück; ein späteres In-place-Update
+    unter <code>no_grad</code> wirft. Kostete 598 von 832 Vor-Tokenisierungen.</li>
+  <li><strong><code>[pause]</code> leckte in den gesprochenen Text</strong> und wäre vorgelesen
+    statt umgesetzt worden.</li>
+  <li><strong><code>reply</code> war reine Dopplung von <code>script</code></strong> — entfernt,
+    spart ein Drittel der Output-Token.</li>
+  <li><strong>Die Vorbereitung der Tempo-Varianten rechnete auf derselben GPU wie die
+    Generierung</strong> und trieb den RTF von 0.74 auf über 3. Der Hintergrundlauf teilt sich
+    jetzt das Generierungs-Lock, statt um die Karte zu konkurrieren.</li>
+  <li><strong>Optionale Schema-Felder wurden nie befüllt.</strong> <code>voice2</code> und
+    <code>style</code> waren nicht <code>required</code>, also übersprang die Grammatik sie
+    grundsätzlich. Seit sie Pflicht sind, kommen zweite Referenz und gestapelte Stil-Adapter
+    tatsächlich zum Einsatz.</li>
+  <li><strong>Das Modell schrieb Konditionsnamen als Regieanweisung</strong> —
+    <code>(ga_pain_scream)</code> ist ein Datenbankschlüssel, kein Cue, und wäre vorgelesen worden.
+    Ebenso <code>AAAAGH!</code> in Großbuchstaben, das dieses Modell buchstabiert. Beides wird jetzt
+    serverseitig bereinigt, nicht nur im Prompt verboten.</li>
+</ul>
+
+<h2>Was nicht geladen ist</h2>
+<p>168 GB veröffentlichte Adapter gegen aktuell ~11 GB freie Platte.</p>
+<ul>
+  <li>Charaktere: 12 von 120 — die, die auch im Referenzkorpus vorkommen.</li>
+  <li>Vocal Bursts: 7 von 64.</li>
+  <li><code>TTS-AGI/moss-explicitness-loras</code> ist <strong>gated</strong> und braucht einen
+    HF-Token.</li>
+  <li><strong>MeanVC2</strong> (Voice Conversion im Stream) ist geprüft und machbar — 18M Parameter,
+    chunk-weise kausal, 110 ms First-Packet — aber noch nicht eingebaut. Zu beachten: es arbeitet
+    auf <strong>16 kHz</strong>, unsere Ausgabe ist 48 kHz. Voice Conversion würde also Identität
+    gegen Bandbreite tauschen; deshalb gehört sie hinter einen Schalter, nicht in den Standardpfad.</li>
+  <li><code>sgl-omni</code> läuft hier nicht: nur <code>manylinux_2_34</code>-Wheels, diese Maschine
+    hat glibc 2.31. Der Streaming-Pfad ist LAION's eigene Referenzimplementierung — die nimmt die
+    Referenz ohnehin als fertigen Code-Tensor statt als Dateipfad.</li>
+</ul>
+
+<footer>
+  Erzeugt aus den Messläufen in <code>eval_consistency.py</code>.
+  Details in <code>PROTOKOLL.md</code> und <code>PLAN_LORA.md</code> im Projektverzeichnis.
+</footer>
+</div>
+</body>
+</html>

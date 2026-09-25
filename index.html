@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOSS Voice Acting</title>
+<style>
+  :root{
+    --bg:#0e1015; --panel:#161a22; --panel2:#1c212b; --line:#262d3a;
+    --fg:#e6e9ef; --dim:#8b95a7; --accent:#7dd3a0; --accent2:#f0b866; --warn:#e8746a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;height:100vh;
+       display:flex;flex-direction:column;overflow:hidden}
+  header{padding:12px 20px;border-bottom:1px solid var(--line);display:flex;
+         align-items:center;gap:14px;flex-shrink:0}
+  header h1{font-size:15px;margin:0;font-weight:600;letter-spacing:.2px}
+  header .sub{color:var(--dim);font-size:12.5px}
+  .reportlink{margin-left:auto;color:var(--accent);text-decoration:none;font-size:12.5px;
+              border:1px solid var(--line);border-radius:8px;padding:5px 11px;white-space:nowrap}
+  .reportlink:hover{border-color:var(--accent)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--warn);flex-shrink:0}
+  .dot.ok{background:var(--accent)}
+  main{flex:1;display:flex;min-height:0}
+  #chat{flex:1;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:16px}
+  .msg{max-width:760px;display:flex;flex-direction:column;gap:6px}
+  .msg.user{align-self:flex-end;align-items:flex-end}
+  .bubble{padding:10px 14px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word}
+  .user .bubble{background:#243044;border-bottom-right-radius:4px}
+  .bot .bubble{background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px}
+  .meta{font-size:11.5px;color:var(--dim);font-family:var(--mono);display:flex;
+        gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{background:var(--panel2);border:1px solid var(--line);border-radius:20px;
+        padding:2px 9px;color:var(--accent2);font-size:11px}
+  .chip.b{color:var(--accent)}
+  .chip.s{color:#8fb8e8}
+  .player{display:flex;align-items:center;gap:8px;margin-top:2px}
+  .player button{background:var(--panel2);border:1px solid var(--line);color:var(--fg);
+                 width:30px;height:30px;padding:0;border-radius:50%;font-size:12px;
+                 display:flex;align-items:center;justify-content:center}
+  .player button:hover{border-color:var(--accent);color:var(--accent)}
+  .player a{color:var(--dim);text-decoration:none;font-size:11.5px;font-family:var(--mono);
+            border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+  .player a:hover{color:var(--accent);border-color:var(--accent)}
+  .player .dur{color:var(--dim);font-size:11.5px;font-family:var(--mono)}
+  details{background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+          padding:6px 10px;font-size:12.5px;max-width:100%}
+  details summary{cursor:pointer;color:var(--dim);font-size:11.5px;font-family:var(--mono)}
+  details pre{margin:8px 0 2px;white-space:pre-wrap;font-family:var(--mono);
+              font-size:12px;color:#c6cddb;line-height:1.5}
+  footer{border-top:1px solid var(--line);padding:14px 24px;flex-shrink:0;background:var(--panel)}
+  .row{display:flex;gap:10px;max-width:1100px;margin:0 auto}
+  #q{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--fg);
+     border-radius:10px;padding:11px 14px;font-size:14.5px;resize:none;font-family:inherit;
+     max-height:140px}
+  #q:focus{outline:none;border-color:#3d4a5f}
+  button{background:var(--accent);color:#08130d;border:0;border-radius:10px;
+         padding:0 20px;font-weight:600;cursor:pointer;font-size:14px}
+  button:disabled{background:#39414f;color:#79828f;cursor:not-allowed}
+  button.icon{background:var(--panel2);color:var(--fg);border:1px solid var(--line);
+              padding:0;width:44px;font-size:16px;line-height:1}
+  button.icon:hover{border-color:#4a5566}
+  button.icon.ok{color:var(--accent)} button.icon.no{color:var(--warn)}
+  #mic{color:var(--warn);font-size:20px}
+  .recdot{width:10px;height:10px;border-radius:50%;background:var(--warn);
+          animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .hint{max-width:1100px;margin:8px auto 0;color:var(--dim);font-size:11.5px;
+        display:flex;gap:14px;flex-wrap:wrap}
+  .hint b{color:#a9b3c4;font-weight:500}
+  .hint label{display:flex;align-items:center;gap:6px}
+  .hint select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);
+               border-radius:6px;padding:3px 6px;font-size:11.5px;font-family:inherit}
+  .hint i{color:#6d7686;font-style:normal}
+  .hint input[type=range]{width:96px;accent-color:var(--accent);vertical-align:middle}
+  .hint b{color:var(--accent);font-family:var(--mono);font-size:11px;min-width:30px;
+          display:inline-block;text-align:right}
+
+  /* latency panel */
+  #lat{position:fixed;right:16px;bottom:96px;width:268px;background:rgba(22,26,34,.97);
+       border:1px solid var(--line);border-radius:12px;padding:12px 13px;font-family:var(--mono);
+       font-size:11.5px;backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(0,0,0,.45)}
+  #lat h2{margin:0 0 9px;font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;
+          color:var(--dim);font-weight:600;display:flex;justify-content:space-between}
+  #lat .l{display:flex;justify-content:space-between;padding:2.5px 0;gap:10px}
+  #lat .l span:first-child{color:var(--dim)}
+  #lat .l span:last-child{color:var(--fg);font-variant-numeric:tabular-nums}
+  #lat .l.hi span:last-child{color:var(--accent)}
+  #lat .l.hi2 span:last-child{color:var(--accent2)}
+  #lat hr{border:0;border-top:1px solid var(--line);margin:8px 0}
+  #bar{height:3px;background:var(--panel2);border-radius:2px;overflow:hidden;margin-top:9px}
+  #bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+  #lat h2 button{background:none;border:0;color:var(--dim);cursor:pointer;font:inherit;
+       padding:0 2px;line-height:1}
+  #lat h2 button:hover{color:var(--fg)}
+  #lat.folded #latbody{display:none}
+  #lat.folded{padding-bottom:9px}
+  /* adapter overlay */
+  #adpwrap{position:fixed;inset:0;background:rgba(6,8,12,.72);backdrop-filter:blur(3px);
+       display:none;z-index:60;align-items:center;justify-content:center;padding:24px}
+  #adpwrap.on{display:flex}
+  #adp{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+       width:min(940px,100%);max-height:86vh;display:flex;flex-direction:column;
+       box-shadow:0 18px 60px rgba(0,0,0,.6)}
+  #adp header{display:flex;align-items:center;gap:12px;padding:14px 18px;
+       border-bottom:1px solid var(--line)}
+  #adp header h3{margin:0;font-size:14px;font-weight:600}
+  #adp header .sp{flex:1}
+  #adp input[type=search]{background:var(--panel2);border:1px solid var(--line);color:var(--fg);
+       border-radius:8px;padding:6px 10px;font:13px/1.3 inherit;width:230px}
+  #adp .body{overflow-y:auto;padding:6px 18px 18px}
+  #adp .grp{margin-top:16px}
+  #adp .grp h4{margin:0 0 3px;font-size:12px;letter-spacing:.7px;text-transform:uppercase;
+       color:var(--accent)}
+  #adp .grp p{margin:0 0 9px;color:var(--dim);font-size:12px}
+  #adp .row{display:grid;grid-template-columns:210px 1fr 52px;align-items:center;gap:12px;
+       padding:3px 0;font-size:12.5px}
+  #adp .row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #adp .row .nm i{color:var(--dim);font-style:normal;font-size:11px;display:block;
+       overflow:hidden;text-overflow:ellipsis}
+  #adp .row b{font-family:var(--mono);font-size:11.5px;text-align:right;font-weight:500}
+  #adp .row.act b{color:var(--accent2)}
+  #adp .row input[type=range]{width:100%}
+  #adp footer{border-top:1px solid var(--line);padding:11px 18px;display:flex;gap:10px;
+       align-items:center;background:transparent}
+  #adp footer .sp{flex:1}
+  #adp button.b{background:var(--panel2);border:1px solid var(--line);color:var(--fg);
+       border-radius:8px;padding:6px 13px;cursor:pointer;font:13px inherit}
+  #adp button.b:hover{border-color:var(--accent)}
+  @media (max-width:900px){#lat{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <span class="dot" id="dot"></span>
+  <h1>MOSS Voice Acting</h1>
+  <span class="sub" id="status">connecting…</span>
+  <a href="/studio" class="reportlink" style="color:var(--accent2)">Voice Studio →</a>
+  <a href="/report" target="_blank" class="reportlink">Messungen →</a>
+  <button id="adpbtn" class="reportlink" style="background:none;border:0;cursor:pointer;
+          font:inherit;color:var(--accent)">Adapter →</button>
+</header>
+
+<div id="adpwrap">
+  <div id="adp">
+    <header>
+      <h3>Adapter</h3>
+      <span class="sp"></span>
+      <input type="search" id="adpq" placeholder="filtern…">
+    </header>
+    <div class="body" id="adpbody">lade…</div>
+    <footer>
+      <span id="adpn" style="color:var(--dim);font-size:12px"></span>
+      <span class="sp"></span>
+      <button class="b" id="adpreset">Auf Standard zurück</button>
+      <button class="b" id="adpclose">Schließen</button>
+    </footer>
+  </div>
+</div>
+
+<main><div id="chat"></div></main>
+
+<div id="lat">
+  <h2><span>Latency</span><span><span id="lstate">idle</span>
+      <button id="latfold" title="einklappen">▾</button></span></h2>
+  <div id="latbody">
+  <div class="l"><span>ASR (speech in)</span><span id="m_asr">—</span></div>
+  <div class="l"><span>LLM (think)</span><span id="m_llm">—</span></div>
+  <div class="l"><span>voice retrieve</span><span id="m_sel">—</span></div>
+  <hr>
+  <div class="l hi"><span>TTFA · GPU</span><span id="m_gpu">—</span></div>
+  <div class="l"><span>TTFA · server</span><span id="m_srv">—</span></div>
+  <div class="l"><span>TTFA · browser</span><span id="m_net">—</span></div>
+  <div class="l hi2"><span>→ audible</span><span id="m_aud">—</span></div>
+  <div class="l"><span>network transit</span><span id="m_wire">—</span></div>
+  <hr>
+  <div class="l"><span>audio length</span><span id="m_dur">—</span></div>
+  <div class="l"><span>generation</span><span id="m_gen">—</span></div>
+  <div class="l hi"><span>realtime factor</span><span id="m_rtf">—</span></div>
+  <div class="l"><span>turn total</span><span id="m_tot">—</span></div>
+  <hr>
+  <div class="l hi2"><span>speaker similarity</span><span id="m_sim">—</span></div>
+  <div class="l"><span>identity via</span><span id="m_idv">—</span></div>
+  <div id="bar"><i></i></div>
+  <div class="l" style="margin-top:9px">
+    <span>volume</span>
+    <input id="vol" type="range" min="0.5" max="6" step="0.5" value="2"
+           style="width:120px;accent-color:var(--accent)">
+  </div>
+  </div><!-- /latbody -->
+</div>
+
+<footer>
+  <div class="row" id="composer">
+    <textarea id="q" rows="1" placeholder="Say something to your voice actor…  (Enter to send)"></textarea>
+    <button id="mic" class="icon" title="Record (speak instead of typing)">●</button>
+    <button id="send">Send</button>
+    <button id="sweepbtn" disabled title="Dieselbe Zeile mehrfach rendern, nur der CFG-Faktor unterscheidet sich. Nichts spielt automatisch."
+            style="background:var(--panel2);border:1px solid var(--line);color:var(--fg);
+                   border-radius:9px;padding:0 13px;cursor:pointer;font:14px inherit">Sweep</button>
+  </div>
+  <div class="row" id="recbar" style="display:none;align-items:center">
+    <span class="recdot"></span>
+    <span id="rectime" style="font-family:var(--mono);font-size:13px;min-width:46px">0:00</span>
+    <span id="recstate" style="color:var(--dim);font-size:12.5px;flex:1">recording — speak now</span>
+    <button id="rok" class="icon ok" title="Transcribe and send">✓</button>
+    <button id="redit" class="icon" title="Transcribe into the text box to review">✎</button>
+    <button id="rx" class="icon no" title="Discard">✕</button>
+  </div>
+  <div class="hint">
+    <label>voice
+      <select id="profile"></select></label>
+    <label title="Wie stark der Sprecher-Adapter des Profils eingemischt wird">
+      identity
+      <input id="plam" type="range" min="0" max="1.5" step="0.05" value="1.0">
+      <b id="plamv">1.00</b></label>
+    <label>brain
+      <select id="brain">
+        <option value="luna">gpt-5.6-luna (hosted)</option>
+        <option value="glm">glm-5.3 (hosted, 1M kontext)</option>
+        <option value="gemini-flash">gemini-3-flash (hosted)</option>
+        <option value="local">Gemma-4-12B (lokal)</option>
+      </select></label>
+    <label>prompting
+      <select id="pstyle">
+        <option value="prose">Prosa (LLM schreibt die Regie)</option>
+        <option value="codes">Codes (kompakt, schneller)</option>
+      </select></label>
+    <label title="Sprecher-Adapter (Velvet Sage Baritone, rank 16) in die Gewichte gemergt — der direkte Weg zu einer konstanten Stimme. 0 = aus.">
+      Speaker-LoRA
+      <input id="spk" type="range" min="0" max="2" step="0.05" value="1">
+      <b id="spkv">1.00</b></label>
+    <label title="sft3_quality:esthetics_high — Klangpolitur. Verstaendlichkeitsneutral, kostet aber Genuineness: gemessen 1.64 bei 0.25 gegen 0.79 bei 1.25. 0 = aus.">
+      Ästhetik
+      <input id="aes" type="range" min="0" max="2" step="0.05" value="0.5">
+      <b id="aesv">0.50</b></label>
+    <label title="Druck gegen das Stop-Token, in nats. Hoeher = der Satz wird seltener zu frueh abgebrochen. 0 = unveraendert.">
+      Satz-Ende bremsen
+      <input id="stopb" type="range" min="0" max="4" step="0.25" value="2.0">
+      <b id="stopbv">2.00</b></label>
+    <label title="Nur Basismodell + abgerufene Referenzclips + Charakter-LoRA. Keine Emotions-, VoiceNet-, Burst- oder Aesthetik-Adapter.">
+      <input type="checkbox" id="pure"> Pure <i>(Basis + Referenz)</i></label>
+    <label title="Die Regieanweisungen waehlen per Retrieval einen Emotions-Adapter, gemergt mit dem publizierten Wert 1.5. Aus: nur SFT3-Basis + abgerufener Referenzclip.">
+      <input type="checkbox" id="emonuance" checked> Emotions-Nuancen <i>(Adapter @1.5)</i></label>
+    <label title="Die Zeile N-mal in EINEM Batch erzeugen und die beste behalten. Bewertet nach normalisierter Genuineness + Burst-Blend + 2x der Uebereinstimmung mit der Regieanweisung (VoiceCLAP), multipliziert mit der inversen Wortfehlerrate; ueber 0.85 gilt die als 1.0. Streamt nicht: erst wenn alle fertig sind, laeuft die Beste.">
+      <input type="checkbox" id="bon"> Best-of-N
+      <input id="bonn" type="range" min="2" max="12" step="1" value="8"
+             style="width:70px"><b id="bonnv">8</b></label>
+    <label title="Guidance fuer die Kandidaten. 1.0 = aus. 3.0 ist der Familien-Default fuer Emotion.">
+      Best-of Guidance
+      <input id="bong" type="range" min="1" max="4" step="0.25" value="3.0">
+      <b id="bongv">4.00</b></label>
+    <label title="Obergrenze fuer das Merge-Gewicht eines Burst-Adapters. Die Rezepte nennen bis 2.3, gemessen mit EINEM Adapter ohne Produktionsstapel; in diesem Stapel ist es eine Klippe: bis 1.5 kostenlos (WER 0.34), bei 2.0 bricht es ein (0.86) und bei 2.3 zerfaellt die Zeile (1.34).">
+      Burst-Gewicht max
+      <input id="blmax" type="range" min="0.25" max="2.3" step="0.05" value="1.25">
+      <b id="blmaxv">1.50</b></label>
+    <label title="Welcher Adaptersatz die Bursts liefert. Vorgabe folgt pro Klasse dem, was ihr eigenes Rezept als besten Adapter misst; die festen Saetze dienen dem Vergleich.">
+      Burst-Adapter
+      <select id="burstset" style="background:var(--panel2);border:1px solid var(--line);
+              color:var(--fg);border-radius:6px;padding:2px 6px;font:12px inherit">
+        <option value="recipe" selected>nach Rezept (pro Klasse)</option>
+        <option value="shipped">shipped (71)</option>
+        <option value="v2">v2 pro Klasse (45)</option>
+        <option value="v2_top1">v2 top-1 (12)</option>
+        <option value="group">v2 pro Gruppe (20)</option>
+      </select></label>
+    <label title="Gemessene Burst-Rezepte statt handgeschriebener Regeln: nur Klangklassen, die nachweislich realisieren, mit dem je Klasse gemessenen Merge-Gewicht, plus die gemessenen Platzierungs- und Formulierungsregeln. Aus = die alten Regeln.">
+      <input type="checkbox" id="skills" checked> Neue Skills <i>(gemessene Bursts)</i></label>
+    <label title="Forced Alignment gegen das Skript: einblenden bis zum ersten Wort, nach dem letzten Wort ausblenden und abschneiden. Beginnt das Skript mit einem Vocal Burst, bleibt der Anfang unberuehrt.">
+      <input type="checkbox" id="align" checked> Ende beschneiden <i>(Alignment)</i></label>
+    <label class="hint" title="SIDON restauriert die Aufnahme, bevor sie bewertet und ausgegeben wird. Gemessen: +0.43 von 5 auf Klang, kein Effekt auf Natuerlichkeit. Standardmaessig AUS: bei Schreien und lauten Bursts verzerrt es. Kostet ausserdem das Streaming.">
+      <input type="checkbox" id="sidon"> SIDON-Restauration <i>(kein Streaming)</i></label>
+    <label title="Preference-Adapter step376. Die Praeferenzaufgabe ist dort geloest; spaetere Schritte vergroessern nur die Marge. Von niemandem gehoert.">
+      <input type="checkbox" id="qdpo" checked> Quality-DPO
+      <input id="qdpos" type="range" min="0" max="2" step="0.05" value="1.5"
+             style="width:70px"><b id="qdposv">1.50</b></label>
+    <label title="Preference-Adapter step896: trainiert auf das Realisieren des angeforderten Vocal Bursts UND auf Aufhoeren statt Weiterbrabbeln. 317 Paare, gepoolt 0.707 -> 0.943. Von niemandem gehoert, daher aus.">
+      <input type="checkbox" id="bsdpo"> Burst+Stop-DPO
+      <input id="bsdpos" type="range" min="0" max="2" step="0.05" value="1.0"
+             style="width:70px"><b id="bsdposv">1.00</b></label>
+    <label title="Classifier-free guidance: der Satz wird zweimal gerechnet, einmal mit und einmal ohne Regieanweisung, und der Unterschied wird verstaerkt. Kostet ~1.9x Rechenzeit und streamt deshalb nicht.">
+      <input type="checkbox" id="cfg" checked> CFG <i>(Guidance)</i></label>
+    <label title="Wie stark der Unterschied zwischen beiden Zweigen verstaerkt wird. 1.0 = aus.">
+      CFG-Staerke
+      <input id="cfgs" type="range" min="1" max="5" step="0.25" value="3.0">
+      <b id="cfgsv">2.00</b></label>
+    <label title="Statt einer Fassung mehrere erzeugen, die sich NUR im CFG-Faktor unterscheiden. Nichts spielt automatisch; du klickst die Fassungen im Chat an.">
+      <input type="checkbox" id="cfgsweep"> CFG-Sweep <i>(mehrere Faktoren)</i></label>
+    <label title="Komma-getrennte CFG-Faktoren fuer den Sweep.">
+      Sweep-Werte
+      <input id="cfgvals" type="text" value="1.0, 1.5, 2.0, 3.0"
+             style="width:110px;background:var(--panel2);border:1px solid var(--line);
+                    color:var(--fg);border-radius:6px;padding:2px 6px;font:12px var(--mono)"></label>
+    <label title="Charakter-Adapter dieser Stimme dazu. Trainiert gegen die ungetunten v2-Gewichte, auf dem SFT+DPO-Checkpoint also off-distribution.">
+      <input type="checkbox" id="charlora" checked> Char-LoRA</label>
+    <label title="Chatterbox schiebt die Ausgabe nachtraeglich auf den Anker-Sprecher — mehr Identität, aber 24 kHz statt 48 kHz">
+      <input type="checkbox" id="vc"> Voice Conversion <i>(Chatterbox, 24 kHz)</i></label>
+    <span id="bankinfo"></span>
+  </div>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const chat = $('chat');
+let busy = false, history = [];
+
+/* ---------------- audio: schedule streamed PCM chunks back-to-back --------- */
+let ac = null, gain = null, nextAt = 0, playing = false;
+function ensureAC(){
+  if(!ac){
+    ac = new (window.AudioContext||window.webkitAudioContext)({sampleRate:48000});
+    // output level varies a lot by reference voice — the deep character voices
+    // come out several times quieter than the bright ones. A gain node keeps the
+    // model's own dynamics intact instead of normalising the performance away.
+    gain = ac.createGain();
+    gain.gain.value = parseFloat($('vol').value);
+    gain.connect(ac.destination);
+  }
+  if(ac.state === 'suspended') ac.resume();
+  return ac;
+}
+function resetAudio(){ nextAt = 0; playing = false; }
+function pushPCM(int16, sr, onFirstAudible){
+  const ctx = ensureAC();
+  const f32 = new Float32Array(int16.length);
+  for(let i=0;i<int16.length;i++) f32[i] = int16[i] / 32768;
+  const buf = ctx.createBuffer(1, f32.length, sr);
+  buf.copyToChannel(f32, 0);
+  const src = ctx.createBufferSource();
+  src.buffer = buf; src.connect(gain);
+  // Generation runs close to realtime once adapters are merged and a long reply
+  // is split into parts, so the first chunk gets a real head start rather than a
+  // token one — otherwise playback catches up with the decoder and stutters.
+  const t = Math.max(ctx.currentTime + (playing ? 0.02 : 0.9), nextAt);
+  if(!playing){ playing = true; src.onended = null; setTimeout(onFirstAudible, Math.max(0,(t-ctx.currentTime)*1000)); }
+  src.start(t);
+  nextAt = t + buf.duration;
+}
+
+/* ---------------- finished takes: replay + save --------------------------- */
+function wavBlob(chunks, sr){
+  let n = 0; for(const c of chunks) n += c.length;
+  const buf = new ArrayBuffer(44 + n*2), v = new DataView(buf);
+  const s = (o,t)=>{ for(let i=0;i<t.length;i++) v.setUint8(o+i, t.charCodeAt(i)); };
+  s(0,'RIFF'); v.setUint32(4, 36+n*2, true); s(8,'WAVEfmt ');
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr*2,true);
+  v.setUint16(32,2,true); v.setUint16(34,16,true);
+  s(36,'data'); v.setUint32(40, n*2, true);
+  let o = 44;
+  for(const c of chunks){ for(let i=0;i<c.length;i++){ v.setInt16(o, c[i], true); o+=2; } }
+  return new Blob([buf], {type:'audio/wav'});
+}
+// base64 -> Int16Array.  wavBlob writes with setInt16, so this must stay Int16:
+// converting to float -1..1 first truncates every sample to zero and produces
+// silence of exactly the right length.
+function b64pcm(b64){
+  const raw = atob(b64);
+  const buf = new Uint8Array(raw.length);
+  for(let i=0;i<raw.length;i++) buf[i]=raw.charCodeAt(i);
+  return new Int16Array(buf.buffer);
+}
+function attachPlayer(node, chunks, sr, secs, label){
+  if(!node || !chunks.length) return null;
+  const url = URL.createObjectURL(wavBlob(chunks, sr));
+  const box = document.createElement('div'); box.className = 'player';
+  const btn = document.createElement('button'); btn.textContent = '▶'; btn.title = 'Play again';
+  const au = new Audio(url);
+  btn.onclick = ()=>{
+    if(au.paused){ au.play(); btn.textContent='■'; }
+    else { au.pause(); btn.textContent='▶'; }
+  };
+  au.onended = ()=>{ btn.textContent = '▶'; };
+  // a clock to a tenth of a second, and a bar you can scrub — this is a
+  // debugging tool as much as a player: "where exactly does it start mumbling"
+  // is not a question you can answer from a play button
+  const t = document.createElement('span'); t.className='dur';
+  t.style.fontVariantNumeric='tabular-nums';
+  const fmt = x => (x||0).toFixed(1).padStart(4,'0');
+  const show = ()=> t.textContent = fmt(au.currentTime)+' / '+fmt(secs)+' s';
+  show();
+  au.ontimeupdate = show;
+  const seek = document.createElement('input');
+  seek.type='range'; seek.min=0; seek.max=Math.max(secs,0.1); seek.step=0.01; seek.value=0;
+  seek.style.cssText='width:150px;accent-color:var(--accent);vertical-align:middle';
+  au.ontimeupdate = ()=>{ show(); if(!seek.dragging) seek.value = au.currentTime; };
+  seek.oninput = ()=>{ seek.dragging=true; au.currentTime = parseFloat(seek.value); show(); };
+  seek.onchange = ()=>{ seek.dragging=false; };
+  const a = document.createElement('a');
+  a.href = url; a.download = 'moss-take-' + Date.now() + '.wav'; a.textContent = 'save .wav';
+  if(label){ const L=document.createElement('b'); L.textContent=label;
+             L.style.cssText='color:var(--accent2);margin-right:6px'; box.appendChild(L); }
+  box.appendChild(btn); box.appendChild(seek); box.appendChild(t); box.appendChild(a);
+  node.appendChild(box);
+  return au;
+}
+
+/* ---------------- CFG sweep --------------------------------------------- */
+// Same script, same adapters, same seed, one number different.  Nothing plays by
+// itself: the whole point is to click between the versions and hear where the
+// guidance starts costing more than it buys.
+async function runSweep(){
+  const t = window._lastTurn;
+  if(!t || !t.script){ addMsg('bot','⚠ Erst eine Antwort erzeugen, dann sweepen.'); return; }
+  const vals = ($('cfgvals').value||'').split(/[,;\s]+/)
+                 .map(parseFloat).filter(x=>!isNaN(x) && x>=1 && x<=8).slice(0,8);
+  if(!vals.length){ addMsg('bot','⚠ Keine gueltigen Sweep-Werte.'); return; }
+  const node = addMsg('bot', 'CFG-Sweep laeuft: ' + vals.join(', ') + ' — das dauert, nichts spielt automatisch.');
+  $('sweepbtn').disabled = true; $('send').disabled = true;
+  const t0 = performance.now();
+  try{
+    const res = await fetch('/api/cfg_sweep', {method:'POST',
+      headers:{'content-type':'application/json'},
+      body: JSON.stringify({general:t.general, general_unc:t.general_unc,
+                            script:t.script, language:t.language,
+                            profile:t.profile, loras:t.loras, guidance:vals,
+                            sidon: $('sidon').checked})});
+    if(!res.ok){ addMsg('bot','⚠ Sweep '+res.status+': '+(await res.text()).slice(0,200)); return; }
+    const j = await res.json();
+    node.querySelector('.bubble').textContent =
+      'CFG-Sweep · ' + vals.length + ' Fassungen · ' +
+      ((performance.now()-t0)/1000).toFixed(0) + ' s';
+    for(const take of (j.takes||[])){
+      if(take.error){ const e=document.createElement('div'); e.className='dur';
+                      e.textContent = 'g='+take.guidance+' fehlgeschlagen: '+take.error;
+                      node.appendChild(e); continue; }
+      const raw = atob(take.pcm);
+      const buf = new Uint8Array(raw.length);
+      for(let i=0;i<raw.length;i++) buf[i]=raw.charCodeAt(i);
+      // wavBlob writes setInt16 and the streaming path hands it Int16Array, so
+      // this must stay Int16.  Converting to float -1..1 first made every
+      // sample truncate to zero and produced silence of exactly the right length.
+      attachPlayer(node, [new Int16Array(buf.buffer)], j.sr||48000,
+                   take.sec, 'g = '+take.guidance + (take.sidon ? ' · restauriert' : ''));
+      if(take.pcm_raw){
+        attachPlayer(node, [b64pcm(take.pcm_raw)], j.sr||48000, take.sec,
+                     'g = '+take.guidance+' · Original');
+      }
+    }
+    const d=document.createElement('details'); d.className='cues';
+    d.innerHTML = '<summary>neutralisierter Zweig</summary><pre>'+
+                  (j.script_unc||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))+'</pre>';
+    node.appendChild(d);
+  } catch(e){ addMsg('bot','⚠ Sweep-Fehler: '+e); }
+  finally { $('sweepbtn').disabled=false; $('send').disabled=false;
+            chat.scrollTop = chat.scrollHeight; }
+}
+
+/* ---------------- UI helpers --------------------------------------------- */
+function addMsg(role, text){
+  const d = document.createElement('div');
+  d.className = 'msg ' + role;
+  const b = document.createElement('div');
+  b.className = 'bubble'; b.textContent = text;
+  d.appendChild(b); chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+function fmt(ms){ return ms==null ? '—' : (ms>=1000 ? (ms/1000).toFixed(2)+' s' : Math.round(ms)+' ms'); }
+function setL(id,v){ $(id).textContent = v; }
+
+// ---- latency panel folds away; it used to cover the chat on short windows
+(function(){
+  const lat=$('lat'), btn=$('latfold');
+  const set=f=>{ lat.classList.toggle('folded',f); btn.textContent=f?'\u25b8':'\u25be';
+                 btn.title=f?'ausklappen':'einklappen';
+                 try{localStorage.setItem('latFolded',f?'1':'0')}catch(e){} };
+  set(localStorage.getItem('latFolded')==='1');
+  btn.onclick=e=>{ e.stopPropagation(); set(!lat.classList.contains('folded')); };
+})();
+
+// ---- adapter overlay: a weight for every adapter the server has
+const ADP = {};
+let ADP_GROUPS = null; const ADP_DEFAULTS = {};
+function adpSave(){ try{ localStorage.setItem('adpOv', JSON.stringify(ADP)); }catch(e){} }
+function adpCount(){
+  const n = Object.keys(ADP).filter(k => Math.abs((ADP[k]||0)-(ADP_DEFAULTS[k]||0))>1e-6).length;
+  $('adpn').textContent = n ? (n+' vom Standard abweichend') : 'alles auf Standard';
+  $('adpbtn').style.color = n ? 'var(--accent2)' : 'var(--accent)';
+}
+function adpRender(){
+  const q = ($('adpq').value||'').toLowerCase();
+  const box = $('adpbody'); box.innerHTML='';
+  for(const g of (ADP_GROUPS||[])){
+    const items = g.items.filter(it => !q || it.label.toLowerCase().includes(q)
+                                    || (it.hint||'').toLowerCase().includes(q));
+    if(!items.length) continue;
+    const d=document.createElement('div'); d.className='grp';
+    const h=document.createElement('h4'); h.textContent=g.title; d.appendChild(h);
+    const pp=document.createElement('p'); pp.textContent=g.note||''; d.appendChild(pp);
+    for(const it of items){
+      const v = (it.name in ADP) ? ADP[it.name] : (it.default||0);
+      const row=document.createElement('div');
+      row.className='row'+(Math.abs(v-(it.default||0))>1e-6?' act':'');
+      const nm=document.createElement('span'); nm.className='nm';
+      nm.textContent=it.label;
+      if(it.hint){ const i=document.createElement('i'); i.textContent=it.hint; nm.appendChild(i); }
+      const sl=document.createElement('input');
+      sl.type='range'; sl.min=0; sl.max=it.max||2; sl.step=0.05; sl.value=v;
+      sl.style.accentColor='var(--accent)';
+      const out=document.createElement('b'); out.textContent=(+v).toFixed(2);
+      sl.oninput=()=>{ const x=parseFloat(sl.value); ADP[it.name]=x;
+                       out.textContent=x.toFixed(2);
+                       row.classList.toggle('act',Math.abs(x-(it.default||0))>1e-6);
+                       adpCount(); adpSave(); };
+      row.appendChild(nm); row.appendChild(sl); row.appendChild(out); d.appendChild(row);
+    }
+    box.appendChild(d);
+  }
+  if(!box.children.length) box.textContent='nichts gefunden';
+}
+async function adpLoad(){
+  try{
+    const r = await fetch('/api/adapters'); const j = await r.json();
+    ADP_GROUPS = j.groups||[];
+    for(const g of ADP_GROUPS) for(const it of g.items){
+      ADP_DEFAULTS[it.name] = it.default||0;
+      if(!(it.name in ADP)) ADP[it.name] = it.default||0;
+    }
+    try{ const sv=JSON.parse(localStorage.getItem('adpOv')||'{}');
+         for(const k in sv) if(k in ADP_DEFAULTS) ADP[k]=sv[k]; }catch(e){}
+    adpRender(); adpCount();
+  }catch(e){ $('adpbody').textContent='Adapter nicht verfuegbar: '+e; }
+}
+function adpPayload(){
+  const q={}, ov={};
+  for(const k in ADP){
+    const v=ADP[k];
+    if(k.indexOf('sft3_quality:')===0) q[k]=v;
+    else if(v>0.001) ov[k]=v;
+  }
+  return {quality_lams:q, adapter_overrides:ov};
+}
+$('adpbtn').onclick=()=>{ $('adpwrap').classList.add('on'); if(!ADP_GROUPS) adpLoad(); };
+$('adpclose').onclick=()=>$('adpwrap').classList.remove('on');
+$('adpwrap').onclick=e=>{ if(e.target===$('adpwrap')) $('adpwrap').classList.remove('on'); };
+$('adpq').oninput=adpRender;
+$('adpreset').onclick=()=>{ for(const k in ADP_DEFAULTS) ADP[k]=ADP_DEFAULTS[k];
+                            adpSave(); adpRender(); adpCount(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('adpwrap').classList.remove('on'); });
+adpLoad();
+
+/* ---------------- one turn ------------------------------------------------ */
+async function send(){
+  const q = $('q'); const text = q.value.trim();
+  if(!text || busy) return;
+  busy = true; $('send').disabled = true; q.value=''; q.style.height='auto';
+  addMsg('user', text);
+  ensureAC(); resetAudio();
+
+
+  ['m_llm','m_sel','m_gpu','m_srv','m_net','m_aud','m_wire','m_dur','m_gen','m_rtf','m_tot','m_sim','m_idv']
+    .forEach(i=>setL(i,'—'));
+  $('lstate').textContent='thinking'; $('bar').firstElementChild.style.width='0';
+
+  const t0 = performance.now();
+  let node=null, meta=null, sr=48000, firstPcmAt=null, startEv=null, gotAudible=false;
+  const takeChunks = [];              // kept so the finished take can be replayed and saved
+
+  try{
+    const res = await fetch('/api/turn', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({message:text, history,
+                            brain: $('brain').value, prompt_style: $('pstyle').value,
+                            profile: $('profile').value,
+                            profile_lora_lam: parseFloat($('plam').value),
+                            voice_conversion: $('vc').checked,
+                            pure_mode: $('pure').checked,
+                            emotion_nuance: $('emonuance').checked,
+                            char_lora: $('charlora').checked,
+                            speaker_lora_lam: parseFloat($('spk').value),
+
+                            stop_bias: parseFloat($('stopb').value),
+                            gen_mode: $('cfg').checked ? 'adapter+cfg' : 'adapter',
+                            align: $('align').checked,
+                            sidon: $('sidon').checked,
+                            skills: $('skills').checked,
+                            burst_set: $('burstset').value,
+                            burst_lam_max: parseFloat($('blmax').value),
+                            best_of: $('bon').checked ? parseInt($('bonn').value) : 1,
+                            best_of_guidance: parseFloat($('bong').value),
+                            qdpo_lams: {
+                              'sft3_qdpo:quality_dpo':
+                                  $('qdpo').checked ? parseFloat($('qdpos').value) : 0,
+                              'sft3_qdpo:burst_stop_dpo':
+                                  $('bsdpo').checked ? parseFloat($('bsdpos').value) : 0},
+                            guidance: parseFloat($('cfgs').value),
+                            ...(()=>{ const q=adpPayload();
+                                 // the Aesthetics slider is the same adapter the
+                                 // overlay lists, so it writes into the same field
+                                 q.quality_lams['sft3_quality:esthetics_high']=parseFloat($('aes').value);
+                                 return q; })()})
+    });
+    if(!res.ok){ addMsg('bot','⚠ '+res.status+' '+await res.text()); throw new Error('http'); }
+
+    const reader = res.body.getReader();
+    let buf = new Uint8Array(0);
+    const need = n => buf.length >= n;
+    const cat = (a,b)=>{ const c=new Uint8Array(a.length+b.length); c.set(a); c.set(b,a.length); return c; };
+
+    while(true){
+      const {done, value} = await reader.read();
+      if(done) break;
+      buf = cat(buf, value);
+      // frames: [tag u8][len u32be][payload]
+      while(need(5)){
+        const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+        const tag = dv.getUint8(0), len = dv.getUint32(1);
+        if(buf.length < 5+len) break;
+        const payload = buf.slice(5, 5+len);
+        buf = buf.slice(5+len);
+
+        if(tag === 0){
+          const ev = JSON.parse(new TextDecoder().decode(payload));
+          if(ev.type === 'llm'){
+            node = addMsg('bot', ev.reply);
+            meta = document.createElement('div'); meta.className='meta';
+            const c = ev.chosen;
+            const label = !c ? 'no reference' :
+              c.block==='emotion' ? `${c.emotion} · ${c.intensity} · ${c.containment}` :
+              c.block==='character' ? `character: ${c.character}` :
+              c.block==='voicenet' ? `${c.dimension} · ${c.level}` :
+              c.block==='edge_case' ? `edge: ${c.edge_case}` : c.block;
+            const styles = (ev.style||[]).map(s=>`${s.dimension} ${s.direction}`).join(' + ');
+            meta.innerHTML = `<span class="chip">${label}</span>`+
+              (c && c.then ? `<span class="chip">→ ${c.then}</span>` : '')+
+              (ev.speed && ev.speed!=='normal' ? `<span class="chip s">${ev.speed.replace('_',' ')}</span>`:'')+
+              (styles ? `<span class="chip s">${styles}</span>` : '')+
+              ((ev.loras||[]).map(l=>`<span class="chip b">${l.name.replace(/^[a-z]+:/,'')} @${l.lam}</span>`).join(''))+
+              `<span>llm ${Math.round(ev.llm_ms)} ms</span>`;
+            const det = document.createElement('details');
+            const mk = t => t.replace(/\(([^)]*)\)/g,'<b style="color:var(--accent2)">($1)</b>')
+                             .replace(/\[([^\]]*)\]/g,'<i style="color:#6fb6f0;font-style:normal">[$1]</i>');
+            det.open = true;
+            det.innerHTML = `<summary>direction</summary><pre>GENERAL: ${ev.general}\n\nSCRIPT:\n${mk(ev.script)}</pre>`;
+            window._lastDet = det; window._mk = mk;
+            window._lastTurn = {general: ev.general, general_unc: ev.general_unc,
+                                script: ev.script, language: ev.language,
+                                profile: ev.profile,
+                                loras: (ev.loras||[]).map(l=>[l.name, l.lam])};
+            $('sweepbtn').disabled = !(ev.script && ev.general_unc);
+            node.appendChild(meta); node.appendChild(det);
+            chat.scrollTop = chat.scrollHeight;
+            setL('m_llm', fmt(ev.llm_ms)); setL('m_sel', fmt(ev.select_ms));
+            $('lstate').textContent='generating';
+            history.push({role:'user',content:text});
+            history.push({role:'assistant',content:ev.reply});
+          } else if(ev.type === 'best_of'){
+            // Every candidate gets a player, best first.  Only rank 0 plays by
+            // itself — it is the one the stream is already carrying; the rest
+            // are here to be checked against it, which is the only way to find
+            // out whether the reward agrees with an ear.
+            const cs = (ev.candidates||[]).slice().sort((a,b)=>a.rank-b.rank);
+            const d = document.createElement('details'); d.className='cues';
+            d.open = true;
+            const h = document.createElement('summary');
+            // With N = 1 this block exists only because SIDON needs the whole
+            // take, so calling it "Best-of-1" would be a lie about why the
+            // reply did not stream.
+            h.textContent = (ev.n > 1 ? 'Best-of-' + ev.n + ' · g=' + ev.guidance
+                                      : 'Offline erzeugt') +
+                            (ev.sidon ? ' · SIDON' : '') +
+                            ' · ' + (ev.ms/1000).toFixed(1) + ' s';
+            d.appendChild(h);
+            for(const c of cs){
+              const row = document.createElement('div');
+              row.style.cssText = 'margin:6px 0 2px;padding-top:6px' +
+                (c.rank ? ';border-top:1px solid var(--line)' : '');
+              const tag = document.createElement('div');
+              tag.style.cssText = 'font:11.5px var(--mono);color:var(--dim);' +
+                                  'display:flex;gap:10px;flex-wrap:wrap';
+              tag.innerHTML =
+                '<b style="color:' + (c.rank ? 'var(--dim)' : 'var(--accent)') +
+                '">#' + c.rank + (c.rank ? '' : ' · gespielt') + '</b>' +
+                '<span>reward <b style="color:var(--fg)">' + c.reward.toFixed(3) + '</b></span>' +
+                '<span>wer ' + c.wer.toFixed(3) + '</span>' +
+                '<span>genuine ' + c.genuineness.toFixed(2) + '</span>' +
+                '<span>blend ' + c.blend.toFixed(2) + '</span>' +
+                '<span>clap ' + c.clap.toFixed(3) + '</span>';
+              row.appendChild(tag);
+              d.appendChild(row);
+              const pcm16 = b64pcm;
+              if(c.pcm){
+                attachPlayer(row, [pcm16(c.pcm)], ev.sr||48000, c.sec,
+                             ev.sidon ? 'restauriert' : null);
+              }
+              // The take as generated, so the restoration can be judged by ear
+              // instead of taken on trust.  It never plays by itself.
+              if(c.pcm_raw){
+                attachPlayer(row, [pcm16(c.pcm_raw)], ev.sr||48000, c.sec,
+                             'Original');
+              }
+            }
+            if(node) node.appendChild(d);
+            chat.scrollTop = chat.scrollHeight;
+          } else if(ev.type === 'start'){
+            startEv = ev; sr = ev.sr || 48000;
+            if(ev.prompt && window._lastDet){
+              window._lastDet.innerHTML =
+                `<summary>Prompt &mdash; exakt so gesendet</summary><pre>${window._mk(ev.prompt)}</pre>`;
+            }
+            setL('m_gpu', fmt(ev.ttfa_gpu_ms)); setL('m_srv', fmt(ev.ttfa_server_ms));
+          } else if(ev.type === 'end'){
+            if(ev.best_of_error && node){
+              const w = document.createElement('div'); w.className='dur';
+              w.style.color='var(--warn)';
+              w.textContent = '⚠ Best-of-N fehlgeschlagen, nur ein Take: ' + ev.best_of_error;
+              node.appendChild(w);
+            }
+            attachPlayer(node, takeChunks, sr, ev.audio_sec || 0);
+            setL('m_dur', ev.audio_sec!=null ? ev.audio_sec.toFixed(2)+' s' : '—');
+            setL('m_gen', fmt(ev.gpu_total_ms));
+            setL('m_rtf', ev.rtf!=null ? ev.rtf.toFixed(2)+'×' : '—');
+            setL('m_tot', fmt(performance.now()-t0));
+            const sim = ev.speaker_sim;
+            if(sim!=null){
+              const el=$('m_sim');
+              el.textContent = sim.toFixed(3);
+              // the manual's thresholds: regenerate under .58, reject under .40
+              el.style.color = sim>=0.58 ? 'var(--accent)' : sim>=0.40 ? 'var(--accent2)' : 'var(--warn)';
+            } else setL('m_sim','—');
+            setL('m_idv', [ev.speaker_lora ? 'LoRA '+(+ev.speaker_lora).toFixed(2) : null,
+                           ev.aesth_lora ? 'ESTH '+(+ev.aesth_lora).toFixed(2) : null,
+                           ev.vc ? 'VC' : null].filter(Boolean).join(' + ') || 'nichts');
+            $('lstate').textContent='done';
+            $('bar').firstElementChild.style.width='100%';
+          } else if(ev.type === 'error'){
+            addMsg('bot','⚠ '+ev.where+': '+ev.message);
+          }
+        } else if(tag === 1){
+          if(firstPcmAt === null){
+            firstPcmAt = performance.now() - t0;
+            setL('m_net', fmt(firstPcmAt));
+            if(startEv) setL('m_wire', fmt(firstPcmAt - startEv.ttfa_server_ms));
+          }
+          const i16 = new Int16Array(payload.buffer, payload.byteOffset,
+                                     payload.byteLength/2);
+          takeChunks.push(new Int16Array(i16));
+          pushPCM(i16, sr, ()=>{
+            if(gotAudible) return; gotAudible = true;
+            setL('m_aud', fmt(performance.now()-t0));
+          });
+          $('bar').firstElementChild.style.width =
+            Math.min(95, 20 + (performance.now()-t0)/60) + '%';
+        }
+      }
+    }
+  }catch(e){ if(e.message!=='http') addMsg('bot','⚠ '+e.message); }
+  busy=false; $('send').disabled=false; $('q').focus();
+}
+
+/* ---------------- wiring -------------------------------------------------- */
+$('send').onclick = send;
+$('vol').addEventListener('input', e=>{ if(gain) gain.gain.value = parseFloat(e.target.value); });
+const dial = (id,out)=>{ const f=()=> $(out).textContent = parseFloat($(id).value).toFixed(2);
+                         $(id).addEventListener('input', f); f(); };
+dial('spk','spkv'); dial('aes','aesv'); dial('stopb','stopbv'); dial('plam','plamv'); dial('cfgs','cfgsv'); dial('qdpos','qdposv'); dial('bsdpos','bsdposv'); dial('blmax','blmaxv'); dial('bong','bongv');
+$('bonn').oninput = ()=> $('bonnv').textContent = $('bonn').value;
+$('sweepbtn').onclick = runSweep;
+// the ten speaker profiles, each with its own anchor recording and adapter
+fetch('/api/state').then(r=>r.json()).then(s=>{
+  const ps=s.profiles||[];
+  $('profile').innerHTML=ps.map(p=>`<option value="${p.id}">${p.name} (${p.short})${p.has_conditions?' \u2605':''}</option>`).join('');
+  if(s.default_profile) $('profile').value=s.default_profile;
+  $('profile').title=(ps.find(x=>x.id===$('profile').value)||{}).identity||'';
+  $('profile').onchange=()=>{ $('profile').title=(ps.find(x=>x.id===$('profile').value)||{}).identity||''; };
+}).catch(()=>{});
+
+/* ---------------- recording: ✓ send, ✎ review, ✕ discard ------------------ */
+let rec=null, stream=null, blobs=[], tick=null, t_rec=0, action='cancel';
+function showRec(on){
+  $('composer').style.display = on ? 'none' : 'flex';
+  $('recbar').style.display   = on ? 'flex' : 'none';
+}
+async function startRec(){
+  if(busy) return;
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,
+             echoCancellation:true, noiseSuppression:true}});
+  }catch(e){ addMsg('bot','⚠ microphone blocked: '+e.message); return; }
+  blobs=[]; action='cancel';
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = e => { if(e.data.size) blobs.push(e.data); };
+  rec.onstop = () => finishRec();
+  rec.start();
+  t_rec = performance.now(); showRec(true);
+  $('recstate').textContent = 'recording — speak now';
+  tick = setInterval(()=>{
+    const s = Math.floor((performance.now()-t_rec)/1000);
+    $('rectime').textContent = Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  }, 200);
+}
+function stopRec(act){ action = act; clearInterval(tick); if(rec && rec.state!=='inactive') rec.stop(); }
+async function finishRec(){
+  if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  const blob = new Blob(blobs, {type: rec.mimeType || 'audio/webm'});
+  showRec(false);
+  if(action==='cancel' || blob.size < 2000) return;      // discarded, or nothing captured
+  $('q').placeholder = 'transcribing…';
+  try{
+    const r = await fetch('/api/asr', {method:'POST',
+      headers:{'Content-Type':'application/octet-stream'}, body: blob});
+    const d = await r.json();
+    if(d.error){ addMsg('bot','⚠ asr: '+d.error); }
+    else if(d.text){
+      setL('m_asr', fmt(d.asr_ms));
+      $('q').value = d.text;
+      $('q').style.height='auto'; $('q').style.height=Math.min(140,$('q').scrollHeight)+'px';
+      if(action==='send') send(); else $('q').focus();
+    }
+  }catch(e){ addMsg('bot','⚠ asr: '+e.message); }
+  $('q').placeholder = 'Say something to your voice actor…  (Enter to send)';
+}
+$('mic').onclick   = startRec;
+$('rok').onclick   = ()=>{ $('recstate').textContent='transcribing…'; stopRec('send'); };
+$('redit').onclick = ()=>{ $('recstate').textContent='transcribing…'; stopRec('edit'); };
+$('rx').onclick    = ()=> stopRec('cancel');
+$('q').addEventListener('keydown', e=>{
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
+});
+$('q').addEventListener('input', function(){
+  this.style.height='auto'; this.style.height=Math.min(140,this.scrollHeight)+'px';
+});
+async function poll(){
+  try{
+    const s = await (await fetch('/api/state')).json();
+    const ok = s.ready && s.llm;
+    $('dot').className = 'dot' + (ok?' ok':'');
+    $('status').textContent = s.error ? ('error: '+s.error)
+      : !s.ready ? 'loading models…' : !s.llm ? 'waiting for language model…'
+      : `ready · ${s.sr/1000} kHz`;
+    if(s.bank) $('bankinfo').textContent =
+      `${s.bank.pre_tokenised}/${s.bank.conditions} reference voices pre-tokenised`;
+  }catch(e){ $('status').textContent='server offline'; $('dot').className='dot'; }
+}
+poll(); setInterval(poll, 3000);
+$('q').focus();
+</script>
+</body>
+</html>
