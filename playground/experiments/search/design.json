@@ -1,0 +1,72 @@
+{
+  "model": "laion/Humaneness-Voice-Small",
+  "revision": "5de86032771c37a3008d14e78ee7cdb39368e2a8",
+  "stage": "S3",
+  "tts_parameters": 715481344,
+  "gpu": [
+    "NVIDIA GeForce RTX 3090",
+    "NVIDIA GeForce RTX 3090"
+  ],
+  "torch": "2.6.0+cu124",
+  "cuda": "12.4",
+  "cfg": 1.5,
+  "temperature": 1.0,
+  "max_seconds": 6.6,
+  "cases": [
+    [
+      "anger_en",
+      "en",
+      "You knew what this meant to me. Tell me the truth.",
+      "Intense contained anger at a betrayal. Tight jaw, clipped attacks and hard consonants, believable confrontation, clear words."
+    ],
+    [
+      "fear_en",
+      "en",
+      "Wait a second. I can hear someone outside the door.",
+      "Strong intimate fear, breath held and trembling, urgent restrained panic, clear words rather than screaming."
+    ],
+    [
+      "affection_de",
+      "de",
+      "Du bist wieder da. Ich habe dich wirklich sehr vermisst.",
+      "Deep warm affection in a private reunion, gentle smiling breath and tender unhurried phrasing, sincere and natural."
+    ],
+    [
+      "burst_en",
+      "en",
+      "Stop. You knew what this meant to me.",
+      "Furious shouted confrontation, a frustrated groan before speech, a forceful angry voice with clear words."
+    ]
+  ],
+  "seeds": [
+    777,
+    2027
+  ],
+  "reference_provenance": {
+    "A": {
+      "source_file": "emolia_c1699__V__VALS__moderately_high__en.c025.mp3",
+      "source_sha256": "aea00caecb0e4c1c9c63f880c4db743978bef8a3e04ffd805a3b91e5ebf093a8",
+      "prepared_wav_sha256": "72785184cf00362559d6fdae88fca9e02bc30676bfffc9adcdf53787aa897d06",
+      "note": "Positive-valence-labelled corpus speech. Not a neutral-speaker control."
+    },
+    "B": {
+      "source_file": "emolia_c1682__B__hiss__en.c001.mp3",
+      "source_sha256": "a50848c6a213a4515449686899de9f5ecc977fd11e65f4a21b3513838b4995b1",
+      "prepared_wav_sha256": "7304d7a041135be2e3fb832cd9b66c21e9622a6f2ea717e7765c2af74dc8dd46",
+      "note": "Hiss-labelled corpus take containing speech. Possible burst/timbre contamination; this is a reference-sensitivity stress check, not a neutral clean-reference replication."
+    },
+    "preparation": "Leading-silence removal at -45 dB, first 2.88 s, mono 48 kHz. Neither clip contains the target utterance. No reference audio is served publicly."
+  },
+  "selection_weights": {
+    "clap": 0.5,
+    "genuineness": 0.25,
+    "blend": 0.25
+  },
+  "reference_used": "A, same locally prepared clip as throughput benchmark",
+  "reference_wav_sha256": "72785184cf00362559d6fdae88fca9e02bc30676bfffc9adcdf53787aa897d06",
+  "extra_burst_case": "Exploratory structured groan/shout case added after the first three speech-only cases, to test an actual requested non-lexical event. No settings re-tuned.",
+  "normalization": "fixed CLAP (cos+1)/2, genuine /6, blend /10; no within-set minmax",
+  "intelligibility_gate": "max(0,1-prefixWER); final EOS/cap uses full-target WER",
+  "device_arrangements": "two_gpu=TTS cuda:0/scorers cuda:1; one_gpu=all active compute/models on cuda:0 (second GPU unused)",
+  "quality_endpoints": "untrimmed output, final full-target Parakeet WER and shared VoiceCLAP proxies; same reward models used for search and evaluation, not independent human validation"
+}

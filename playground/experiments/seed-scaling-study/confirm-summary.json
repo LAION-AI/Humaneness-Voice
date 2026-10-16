@@ -1,0 +1,1156 @@
+{
+  "emolia_c1699": {
+    "conditions": {
+      "n10-top25": {
+        "condition": "n10-top25",
+        "n": 20,
+        "means": {
+          "ecapa": 0.40947713162750005,
+          "anchor_ecapa": 0.21273883963003754,
+          "content_enjoyment": 6.150838107184972,
+          "production_quality": 7.939914179578409,
+          "mos": 3.927895467693452,
+          "wer": 0.06,
+          "aesthetics": 3.238221973180771,
+          "genuineness": 1.1006617218255996,
+          "emotion_score": 0.18199775481792813
+        },
+        "baseline_means": {
+          "ecapa": 0.3340588338673115,
+          "anchor_ecapa": 0.15919950092211366,
+          "content_enjoyment": 5.918440519174328,
+          "production_quality": 7.809531932165555,
+          "mos": 3.65212311596988,
+          "wer": 0.08717948717948718,
+          "aesthetics": 2.925680395960808,
+          "genuineness": 1.1336965680122375,
+          "emotion_score": 0.2317540824121238
+        },
+        "matched": {
+          "ecapa": {
+            "mean": 0.07541829776018857,
+            "low": -0.057021797738141485,
+            "high": 0.1788083396174691,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 10
+          },
+          "anchor_ecapa": {
+            "mean": 0.05353933870792389,
+            "low": -0.016042274236679078,
+            "high": 0.109960109164769,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "content_enjoyment": {
+            "mean": 0.23239758801064453,
+            "low": -0.07212228895098503,
+            "high": 0.4272344655844129,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "production_quality": {
+            "mean": 0.13038224741285376,
+            "low": -0.05671334088603746,
+            "high": 0.2649360729899523,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 11
+          },
+          "mos": {
+            "mean": 0.2757723517235718,
+            "low": 0.05867709892119736,
+            "high": 0.4666096308937995,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "wer": {
+            "mean": -0.027179487179487184,
+            "low": -0.18333333333333332,
+            "high": 0.1606423611111115,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 3
+          },
+          "aesthetics": {
+            "mean": 0.31254157721996306,
+            "low": -0.4459330174658034,
+            "high": 0.9798023727807131,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 12
+          },
+          "genuineness": {
+            "mean": -0.03303484618663788,
+            "low": -0.2860892067352931,
+            "high": 0.22666773034466636,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 9
+          },
+          "emotion_score": {
+            "mean": -0.04975632759419568,
+            "low": -0.2280492169734316,
+            "high": 0.1989541044458747,
+            "pairs": 16,
+            "batch_clusters": 6,
+            "positive_pairs": 6
+          }
+        },
+        "bad_wer_rate_delta": -0.05,
+        "quality_gate_reasons": [],
+        "quality_safe": true,
+        "confirmed_gain": false,
+        "strata": {
+          "language": {
+            "de": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.5030966978520155,
+                "anchor_ecapa": 0.19431386459618807,
+                "content_enjoyment": 5.968504167045467,
+                "production_quality": 7.8556098072956955,
+                "mos": 3.810964306164533,
+                "wer": 0.1,
+                "aesthetics": 3.1089069128036497,
+                "genuineness": 1.1339653134346008,
+                "emotion_score": 0.3319686790382548
+              },
+              "matched_means": {
+                "ecapa": 0.11173664778470993,
+                "anchor_ecapa": 0.05309838782995939,
+                "content_enjoyment": 0.07754032521042972,
+                "production_quality": 0.05756246082528378,
+                "mos": 0.25737460056261624,
+                "wer": 0.041666666666666664,
+                "aesthetics": 0.4484467923641205,
+                "genuineness": 0.02802145481109619,
+                "emotion_score": 0.16887362252782623
+              }
+            },
+            "en": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.3158575654029846,
+                "anchor_ecapa": 0.23116381466388702,
+                "content_enjoyment": 6.333172047324479,
+                "production_quality": 8.024218551861122,
+                "mos": 4.044826629222371,
+                "wer": 0.02,
+                "aesthetics": 3.367537033557892,
+                "genuineness": 1.0673581302165984,
+                "emotion_score": 0.032026830597601474
+              },
+              "matched_means": {
+                "ecapa": 0.03909994773566723,
+                "anchor_ecapa": 0.05398028958588839,
+                "content_enjoyment": 0.38725485081085936,
+                "production_quality": 0.20320203400042375,
+                "mos": 0.2941701028845273,
+                "wer": -0.09602564102564103,
+                "aesthetics": 0.17663636207580566,
+                "genuineness": -0.09409114718437195,
+                "emotion_score": -0.2683862777162176
+              }
+            }
+          },
+          "emotion": {
+            "anger": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.4333440959453583,
+                "anchor_ecapa": 0.22704309970140457,
+                "content_enjoyment": 6.334363447967917,
+                "production_quality": 8.01185383903794,
+                "mos": 3.9439904700266197,
+                "wer": 0.05,
+                "aesthetics": 3.138195514678955,
+                "genuineness": 1.1053148657083511,
+                "emotion_score": -0.000401699075155193
+              },
+              "matched_means": {
+                "ecapa": 0.28853380028158426,
+                "anchor_ecapa": 0.07625664491206408,
+                "content_enjoyment": 0.48400651139672846,
+                "production_quality": 0.3722293756145518,
+                "mos": 0.6069561120821163,
+                "wer": -0.075,
+                "aesthetics": 1.4100286215543747,
+                "genuineness": -0.419894203543663,
+                "emotion_score": -0.2958906022067822
+              }
+            },
+            "fear": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.31384072732180357,
+                "anchor_ecapa": 0.1514013414271176,
+                "content_enjoyment": 5.77614260482369,
+                "production_quality": 7.664176790318379,
+                "mos": 3.703535013482906,
+                "wer": 0.25,
+                "aesthetics": 2.93354731798172,
+                "genuineness": 1.4093827605247498,
+                "emotion_score": 0.36667924746870995
+              },
+              "matched_means": {
+                "ecapa": -0.108391840942204,
+                "anchor_ecapa": -0.0364290508441627,
+                "content_enjoyment": -0.30604104028316215,
+                "production_quality": -0.16907564127359365,
+                "mos": -0.08277776049362728,
+                "wer": 0.25,
+                "aesthetics": -0.9441916942596436,
+                "genuineness": 0.22982719540596008,
+                "emotion_score": 0.2968263542279601
+              }
+            },
+            "joy": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.40904977917671204,
+                "anchor_ecapa": 0.2038295455276966,
+                "content_enjoyment": 6.157639019191265,
+                "production_quality": 8.047917584772222,
+                "mos": 3.9914998142630793,
+                "wer": 0.0,
+                "aesthetics": 3.586296558380127,
+                "genuineness": 0.5998869612812996,
+                "emotion_score": 0.012341320514678955
+              },
+              "matched_means": {
+                "ecapa": 0.12955550197511911,
+                "anchor_ecapa": 0.09007558831945062,
+                "content_enjoyment": 0.4993954363744706,
+                "production_quality": 0.23752699199394556,
+                "mos": 0.4925458545330912,
+                "wer": -0.019230769230769232,
+                "aesthetics": 0.5494182705879211,
+                "genuineness": -0.3876909092068672,
+                "emotion_score": -0.21960598975419998
+              }
+            },
+            "neutral": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.3951760455965996,
+                "anchor_ecapa": 0.20186148211359978,
+                "content_enjoyment": 6.25096540292725,
+                "production_quality": 7.998115269234404,
+                "mos": 4.045796207676176,
+                "wer": 0.0,
+                "aesthetics": 2.8825516998767853,
+                "genuineness": 1.0750892981886864,
+                "emotion_score": null
+              },
+              "matched_means": {
+                "ecapa": -0.05964513123035431,
+                "anchor_ecapa": -0.01652532070875168,
+                "content_enjoyment": 0.07346970634534955,
+                "production_quality": -0.02919446083251387,
+                "mos": 0.05235723650548607,
+                "wer": -0.041666666666666664,
+                "aesthetics": -0.41019532084465027,
+                "genuineness": 0.2760901376605034,
+                "emotion_score": null
+              }
+            },
+            "sadness": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.4959750100970268,
+                "anchor_ecapa": 0.2795587293803692,
+                "content_enjoyment": 6.235080061014742,
+                "production_quality": 7.9775074145291,
+                "mos": 3.954655833018478,
+                "wer": 0.0,
+                "aesthetics": 3.650518774986267,
+                "genuineness": 1.3136347234249115,
+                "emotion_score": 0.3493721503634788
+              },
+              "matched_means": {
+                "ecapa": 0.12703915871679783,
+                "anchor_ecapa": 0.15431883186101913,
+                "content_enjoyment": 0.41115732621983625,
+                "production_quality": 0.24042497156187892,
+                "mos": 0.3097803159907926,
+                "wer": -0.25,
+                "aesthetics": 0.9576480090618134,
+                "genuineness": 0.13649354875087738,
+                "emotion_score": 0.01964492735623935
+              }
+            }
+          }
+        }
+      },
+      "n20-top10": {
+        "condition": "n20-top10",
+        "n": 20,
+        "means": {
+          "ecapa": 0.4693977192044258,
+          "anchor_ecapa": 0.25269336700439454,
+          "content_enjoyment": 6.231108725536615,
+          "production_quality": 7.981972449715249,
+          "mos": 3.92212647589331,
+          "wer": 0.0075,
+          "aesthetics": 3.222612792253494,
+          "genuineness": 1.180860921740532,
+          "emotion_score": 0.09358103664209239
+        },
+        "baseline_means": {
+          "ecapa": 0.3340588338673115,
+          "anchor_ecapa": 0.15919950092211366,
+          "content_enjoyment": 5.918440519174328,
+          "production_quality": 7.809531932165555,
+          "mos": 3.65212311596988,
+          "wer": 0.08717948717948718,
+          "aesthetics": 2.925680395960808,
+          "genuineness": 1.1336965680122375,
+          "emotion_score": 0.2317540824121238
+        },
+        "matched": {
+          "ecapa": {
+            "mean": 0.13533888533711433,
+            "low": 0.032849089987576005,
+            "high": 0.21394459615376862,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 15
+          },
+          "anchor_ecapa": {
+            "mean": 0.09349386608228087,
+            "low": 0.03346477644518018,
+            "high": 0.14238533722236751,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "content_enjoyment": {
+            "mean": 0.3126682063622866,
+            "low": 0.15896373399947253,
+            "high": 0.4384264110227708,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "production_quality": {
+            "mean": 0.17244051754969406,
+            "low": 0.06516279983204892,
+            "high": 0.26021319568231277,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 12
+          },
+          "mos": {
+            "mean": 0.2700033599234303,
+            "low": 0.12189566292091643,
+            "high": 0.4044219461761208,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 14
+          },
+          "wer": {
+            "mean": -0.07967948717948718,
+            "low": -0.22166666666666668,
+            "high": 0.007407407407407408,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 1
+          },
+          "aesthetics": {
+            "mean": 0.2969323962926865,
+            "low": -0.02029695510864258,
+            "high": 0.6270063438198783,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 11
+          },
+          "genuineness": {
+            "mean": 0.047164353728294375,
+            "low": -0.09192046523094177,
+            "high": 0.20158403366804123,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "emotion_score": {
+            "mean": -0.13817304577003142,
+            "low": -0.2927982931335767,
+            "high": 0.07344556041061878,
+            "pairs": 16,
+            "batch_clusters": 6,
+            "positive_pairs": 7
+          }
+        },
+        "bad_wer_rate_delta": -0.1,
+        "quality_gate_reasons": [],
+        "quality_safe": true,
+        "confirmed_gain": true,
+        "strata": {
+          "language": {
+            "de": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.5521207332611084,
+                "anchor_ecapa": 0.23460073471069337,
+                "content_enjoyment": 6.1250740682706235,
+                "production_quality": 7.957586488313973,
+                "mos": 3.8343311469012407,
+                "wer": 0.0,
+                "aesthetics": 3.3588091850280763,
+                "genuineness": 1.1246378421783447,
+                "emotion_score": 0.07490447971815684
+              },
+              "matched_means": {
+                "ecapa": 0.16076068319380282,
+                "anchor_ecapa": 0.09338525794446469,
+                "content_enjoyment": 0.23411022643558682,
+                "production_quality": 0.15953914184356108,
+                "mos": 0.28074144129932393,
+                "wer": -0.058333333333333334,
+                "aesthetics": 0.6983490645885467,
+                "genuineness": 0.018693983554840088,
+                "emotion_score": -0.08819057679227171
+              }
+            },
+            "en": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.3866747051477432,
+                "anchor_ecapa": 0.2707859992980957,
+                "content_enjoyment": 6.337143382802606,
+                "production_quality": 8.006358411116526,
+                "mos": 4.00992180488538,
+                "wer": 0.015,
+                "aesthetics": 3.0864163994789124,
+                "genuineness": 1.2370840013027191,
+                "emotion_score": 0.11225759356602794
+              },
+              "matched_means": {
+                "ecapa": 0.10991708748042583,
+                "anchor_ecapa": 0.09360247422009707,
+                "content_enjoyment": 0.39122618628898637,
+                "production_quality": 0.185341893255827,
+                "mos": 0.25926527854753656,
+                "wer": -0.10102564102564102,
+                "aesthetics": -0.10448427200317383,
+                "genuineness": 0.07563472390174866,
+                "emotion_score": -0.18815551474779113
+              }
+            }
+          },
+          "emotion": {
+            "anger": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.4589792937040329,
+                "anchor_ecapa": 0.28373899310827255,
+                "content_enjoyment": 6.276779083535075,
+                "production_quality": 7.8864893895806745,
+                "mos": 3.8249747148220195,
+                "wer": 0.016666666666666666,
+                "aesthetics": 2.694456696510315,
+                "genuineness": 1.445640116930008,
+                "emotion_score": 0.00011131512292195112
+              },
+              "matched_means": {
+                "ecapa": 0.3141689980402589,
+                "anchor_ecapa": 0.13295253831893206,
+                "content_enjoyment": 0.4264221469638869,
+                "production_quality": 0.2468649261572864,
+                "mos": 0.487940356877516,
+                "wer": -0.10833333333333334,
+                "aesthetics": 0.9662898033857346,
+                "genuineness": -0.07956895232200623,
+                "emotion_score": -0.29537758800870506
+              }
+            },
+            "fear": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.49564671516418457,
+                "anchor_ecapa": 0.24899612739682198,
+                "content_enjoyment": 6.227137390058488,
+                "production_quality": 7.924270456540398,
+                "mos": 3.907631278008921,
+                "wer": 0.0,
+                "aesthetics": 3.729546010494232,
+                "genuineness": 1.2567904740571976,
+                "emotion_score": 0.008575842715799809
+              },
+              "matched_means": {
+                "ecapa": 0.073414146900177,
+                "anchor_ecapa": 0.06116573512554169,
+                "content_enjoyment": 0.1449537449516356,
+                "production_quality": 0.09101802494842559,
+                "mos": 0.12131850403238786,
+                "wer": 0.0,
+                "aesthetics": -0.14819300174713135,
+                "genuineness": 0.0772349089384079,
+                "emotion_score": -0.06127705052495003
+              }
+            },
+            "joy": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.41623760759830475,
+                "anchor_ecapa": 0.23411982506513596,
+                "content_enjoyment": 6.199338041711599,
+                "production_quality": 8.104589185211807,
+                "mos": 3.88727013047901,
+                "wer": 0.0,
+                "aesthetics": 3.1826359629631042,
+                "genuineness": 0.8237978518009186,
+                "emotion_score": 0.19978086836636066
+              },
+              "matched_means": {
+                "ecapa": 0.13674333039671183,
+                "anchor_ecapa": 0.12036586785688996,
+                "content_enjoyment": 0.5410944588948041,
+                "production_quality": 0.2941985924335313,
+                "mos": 0.3883161707490217,
+                "wer": -0.019230769230769232,
+                "aesthetics": 0.14575767517089844,
+                "genuineness": -0.16378001868724823,
+                "emotion_score": -0.03216644190251827
+              }
+            },
+            "neutral": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.46845220774412155,
+                "anchor_ecapa": 0.21533621475100517,
+                "content_enjoyment": 6.252951070666313,
+                "production_quality": 8.027309730066918,
+                "mos": 4.052583256852813,
+                "wer": 0.020833333333333332,
+                "aesthetics": 3.3252775967121124,
+                "genuineness": 0.9857061505317688,
+                "emotion_score": null
+              },
+              "matched_means": {
+                "ecapa": 0.013631030917167664,
+                "anchor_ecapa": -0.003050588071346283,
+                "content_enjoyment": 0.07545537408441305,
+                "production_quality": 0.0,
+                "mos": 0.059144285682123154,
+                "wer": -0.020833333333333332,
+                "aesthetics": 0.03253057599067688,
+                "genuineness": 0.18670699000358582,
+                "emotion_score": null
+              }
+            },
+            "sadness": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.5076727718114853,
+                "anchor_ecapa": 0.281275674700737,
+                "content_enjoyment": 6.199338041711599,
+                "production_quality": 7.967203487176448,
+                "mos": 3.938172999303788,
+                "wer": 0.0,
+                "aesthetics": 3.1811476945877075,
+                "genuineness": 1.3923700153827667,
+                "emotion_score": 0.16585612036328712
+              },
+              "matched_means": {
+                "ecapa": 0.1387369204312563,
+                "anchor_ecapa": 0.15603577718138695,
+                "content_enjoyment": 0.3754153069166932,
+                "production_quality": 0.23012104420922697,
+                "mos": 0.29329748227610253,
+                "wer": -0.25,
+                "aesthetics": 0.4882769286632538,
+                "genuineness": 0.2152288407087326,
+                "emotion_score": -0.16387110264395233
+              }
+            }
+          }
+        }
+      }
+    },
+    "comparisons": {}
+  },
+  "mediathek_0184": {
+    "conditions": {
+      "n10-top10": {
+        "condition": "n10-top10",
+        "n": 20,
+        "means": {
+          "ecapa": 0.3957698382437229,
+          "anchor_ecapa": 0.4418266981840134,
+          "content_enjoyment": 6.115716609050287,
+          "production_quality": 7.932084268116159,
+          "mos": 3.6785683682974195,
+          "wer": 0.030238095238095238,
+          "aesthetics": 3.0606562793254852,
+          "genuineness": 0.904487258195877,
+          "emotion_score": 0.1727723095623901
+        },
+        "baseline_means": {
+          "ecapa": 0.2437830574810505,
+          "anchor_ecapa": 0.2414165978319943,
+          "content_enjoyment": 5.600460651610047,
+          "production_quality": 7.507197530426493,
+          "mos": 3.39454247998583,
+          "wer": 0.12083333333333335,
+          "aesthetics": 2.781653943657875,
+          "genuineness": 1.018553690612316,
+          "emotion_score": 0.5809048343529071
+        },
+        "matched": {
+          "ecapa": {
+            "mean": 0.1519867807626724,
+            "low": 0.06332300417125225,
+            "high": 0.25832451476405066,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 17
+          },
+          "anchor_ecapa": {
+            "mean": 0.20041010035201906,
+            "low": 0.11062299460172653,
+            "high": 0.308275271311868,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 19
+          },
+          "content_enjoyment": {
+            "mean": 0.5152559574402403,
+            "low": 0.19426989045884432,
+            "high": 0.9222185605613049,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "production_quality": {
+            "mean": 0.4248867376896669,
+            "low": 0.2496287400044821,
+            "high": 0.659408417539089,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 16
+          },
+          "mos": {
+            "mean": 0.28402588831158937,
+            "low": 0.09303913246306668,
+            "high": 0.4642705228739942,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "wer": {
+            "mean": -0.09059523809523809,
+            "low": -0.17348484848484846,
+            "high": -0.004629629629629629,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 2
+          },
+          "aesthetics": {
+            "mean": 0.2790023356676102,
+            "low": 0.018320143222808838,
+            "high": 0.5307621777057647,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 14
+          },
+          "genuineness": {
+            "mean": -0.11406643241643906,
+            "low": -0.27173136979002843,
+            "high": 0.030240962902704876,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 7
+          },
+          "emotion_score": {
+            "mean": -0.408132524790517,
+            "low": -0.8051068674602296,
+            "high": -0.06029381039862918,
+            "pairs": 16,
+            "batch_clusters": 6,
+            "positive_pairs": 4
+          }
+        },
+        "bad_wer_rate_delta": -0.09999999999999999,
+        "quality_gate_reasons": [
+          "emotion_score_regression"
+        ],
+        "quality_safe": false,
+        "confirmed_gain": false,
+        "strata": {
+          "language": {
+            "de": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.5127789884805679,
+                "anchor_ecapa": 0.5514052242040635,
+                "content_enjoyment": 6.146916413400322,
+                "production_quality": 8.020096980920062,
+                "mos": 3.598335751245031,
+                "wer": 0.007142857142857143,
+                "aesthetics": 3.2120919942855837,
+                "genuineness": 0.8535869061946869,
+                "emotion_score": 0.3436891528065189
+              },
+              "matched_means": {
+                "ecapa": 0.15679484158754348,
+                "anchor_ecapa": 0.20352583276107908,
+                "content_enjoyment": 0.5248119834344834,
+                "production_quality": 0.3550561633601319,
+                "mos": 0.11436177862633486,
+                "wer": -0.09285714285714286,
+                "aesthetics": 0.46974997520446776,
+                "genuineness": -0.03636369407176972,
+                "emotion_score": -0.5119932155837432
+              }
+            },
+            "en": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.2787606880068779,
+                "anchor_ecapa": 0.3322481721639633,
+                "content_enjoyment": 6.084516804700252,
+                "production_quality": 7.844071555312257,
+                "mos": 3.758800985349808,
+                "wer": 0.05333333333333333,
+                "aesthetics": 2.909220564365387,
+                "genuineness": 0.9553876101970673,
+                "emotion_score": 0.0018554663182612785
+              },
+              "matched_means": {
+                "ecapa": 0.14717871993780135,
+                "anchor_ecapa": 0.19729436794295907,
+                "content_enjoyment": 0.5056999314459972,
+                "production_quality": 0.49471731201920194,
+                "mos": 0.4536899979968439,
+                "wer": -0.08833333333333333,
+                "aesthetics": 0.08825469613075257,
+                "genuineness": -0.1917691707611084,
+                "emotion_score": -0.30427183399729074
+              }
+            }
+          },
+          "emotion": {
+            "anger": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.3613404147326946,
+                "anchor_ecapa": 0.3193206116557121,
+                "content_enjoyment": 5.619398957671365,
+                "production_quality": 7.824236495158402,
+                "mos": 3.444899960930343,
+                "wer": 0.15119047619047618,
+                "aesthetics": 2.4301014244556427,
+                "genuineness": 1.1042031049728394,
+                "emotion_score": 0.5974451423098799
+              },
+              "matched_means": {
+                "ecapa": 0.29097007401287556,
+                "anchor_ecapa": 0.19953536242246628,
+                "content_enjoyment": 0.9902276806242298,
+                "production_quality": 0.8002716910559684,
+                "mos": 0.6696151196592837,
+                "wer": -0.18214285714285713,
+                "aesthetics": 1.0226649194955826,
+                "genuineness": -0.24474869668483734,
+                "emotion_score": -0.6177203048719093
+              }
+            },
+            "fear": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.49080389738082886,
+                "anchor_ecapa": 0.5661209225654602,
+                "content_enjoyment": 6.239051396492869,
+                "production_quality": 7.913966529187746,
+                "mos": 3.6899609151296318,
+                "wer": 0.0,
+                "aesthetics": 3.7005255222320557,
+                "genuineness": 0.48202555626630783,
+                "emotion_score": -0.002689017914235592
+              },
+              "matched_means": {
+                "ecapa": 0.19581377319991589,
+                "anchor_ecapa": 0.2609189413487911,
+                "content_enjoyment": 0.2333159593399614,
+                "production_quality": 0.2893686264869757,
+                "mos": 0.038843736805574736,
+                "wer": 0.0,
+                "aesthetics": 0.13447511196136475,
+                "genuineness": -0.11038605123758316,
+                "emotion_score": -0.17392830923199654
+              }
+            },
+            "joy": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.3286401815712452,
+                "anchor_ecapa": 0.3176270201802254,
+                "content_enjoyment": 6.304578431881964,
+                "production_quality": 8.101154542760924,
+                "mos": 3.7786773436528165,
+                "wer": 0.0,
+                "aesthetics": 3.041641592979431,
+                "genuineness": 0.9308637380599976,
+                "emotion_score": 0.012428367510437965
+              },
+              "matched_means": {
+                "ecapa": 0.06426319666206837,
+                "anchor_ecapa": 0.11103358515538275,
+                "content_enjoyment": 0.6448455982608721,
+                "production_quality": 0.6391654935941915,
+                "mos": 0.5478118263999932,
+                "wer": 0.0,
+                "aesthetics": 0.3024521768093109,
+                "genuineness": 0.026600033044815063,
+                "emotion_score": -0.4347966527566314
+              }
+            },
+            "neutral": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.3639977388083935,
+                "anchor_ecapa": 0.4517558515071869,
+                "content_enjoyment": 6.142746511148289,
+                "production_quality": 7.896793316933326,
+                "mos": 3.7037774080963572,
+                "wer": 0.0,
+                "aesthetics": 3.206501007080078,
+                "genuineness": 1.0249706581234932,
+                "emotion_score": null
+              },
+              "matched_means": {
+                "ecapa": 0.000600472092628479,
+                "anchor_ecapa": 0.0616082027554512,
+                "content_enjoyment": -0.18168859812431037,
+                "production_quality": -0.09273534617386758,
+                "mos": -0.18737103619787376,
+                "wer": -0.020833333333333332,
+                "aesthetics": 0.3081406354904175,
+                "genuineness": 0.014907479286193848,
+                "emotion_score": null
+              }
+            },
+            "sadness": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.4340669587254524,
+                "anchor_ecapa": 0.5543090850114822,
+                "content_enjoyment": 6.272807748056948,
+                "production_quality": 7.924270456540398,
+                "mos": 3.7755262136779493,
+                "wer": 0.0,
+                "aesthetics": 2.9245118498802185,
+                "genuineness": 0.9803732335567474,
+                "emotion_score": 0.08390474634347811
+              },
+              "matched_means": {
+                "ecapa": 0.20828638784587383,
+                "anchor_ecapa": 0.368954410078004,
+                "content_enjoyment": 0.8895791471004486,
+                "production_quality": 0.48836322348506656,
+                "mos": 0.35122979489096906,
+                "wer": -0.25,
+                "aesthetics": -0.3727211654186249,
+                "genuineness": -0.2567049264907837,
+                "emotion_score": -0.4060848323015307
+              }
+            }
+          }
+        }
+      },
+      "n10-top25": {
+        "condition": "n10-top25",
+        "n": 20,
+        "means": {
+          "ecapa": 0.3576324626803398,
+          "anchor_ecapa": 0.3878897987306118,
+          "content_enjoyment": 6.1977495075203475,
+          "production_quality": 7.9112188152270395,
+          "mos": 3.6726781791905525,
+          "wer": 0.03049450549450549,
+          "aesthetics": 3.1088672637939454,
+          "genuineness": 0.9807422280311584,
+          "emotion_score": 0.18487493455018011
+        },
+        "baseline_means": {
+          "ecapa": 0.2437830574810505,
+          "anchor_ecapa": 0.2414165978319943,
+          "content_enjoyment": 5.600460651610047,
+          "production_quality": 7.507197530426493,
+          "mos": 3.39454247998583,
+          "wer": 0.12083333333333335,
+          "aesthetics": 2.781653943657875,
+          "genuineness": 1.018553690612316,
+          "emotion_score": 0.5809048343529071
+        },
+        "matched": {
+          "ecapa": {
+            "mean": 0.11384940519928932,
+            "low": 0.047154554890261755,
+            "high": 0.18367012947120467,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "anchor_ecapa": {
+            "mean": 0.1464732008986175,
+            "low": 0.07253019213676452,
+            "high": 0.21284420990074673,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 17
+          },
+          "content_enjoyment": {
+            "mean": 0.5972888559103012,
+            "low": 0.18290206174262696,
+            "high": 1.06973336560821,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "production_quality": {
+            "mean": 0.4040212848005467,
+            "low": 0.19632320842518108,
+            "high": 0.6272694663554527,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 15
+          },
+          "mos": {
+            "mean": 0.2781356992047222,
+            "low": 0.11427694051162689,
+            "high": 0.449561209747723,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 14
+          },
+          "wer": {
+            "mean": -0.09033882783882784,
+            "low": -0.22943722943722944,
+            "high": 0.0551994301994302,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 2
+          },
+          "aesthetics": {
+            "mean": 0.32721332013607024,
+            "low": 0.06679798662662506,
+            "high": 0.5285839926112782,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 13
+          },
+          "genuineness": {
+            "mean": -0.03781146258115768,
+            "low": -0.20124595680020071,
+            "high": 0.13976448476314546,
+            "pairs": 20,
+            "batch_clusters": 6,
+            "positive_pairs": 8
+          },
+          "emotion_score": {
+            "mean": -0.39602989980272696,
+            "low": -0.7759721624456688,
+            "high": -0.06055238180533706,
+            "pairs": 16,
+            "batch_clusters": 6,
+            "positive_pairs": 5
+          }
+        },
+        "bad_wer_rate_delta": -0.09999999999999999,
+        "quality_gate_reasons": [
+          "emotion_score_regression"
+        ],
+        "quality_safe": false,
+        "confirmed_gain": false,
+        "strata": {
+          "language": {
+            "de": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.4660571336746216,
+                "anchor_ecapa": 0.4953296184539795,
+                "content_enjoyment": 6.110777260549367,
+                "production_quality": 7.94110020454973,
+                "mos": 3.6450209537957563,
+                "wer": 0.007142857142857143,
+                "aesthetics": 3.3055998563766478,
+                "genuineness": 0.9135651588439941,
+                "emotion_score": 0.3599852647166699
+              },
+              "matched_means": {
+                "ecapa": 0.11007298678159713,
+                "anchor_ecapa": 0.14745022701099514,
+                "content_enjoyment": 0.4886728305835277,
+                "production_quality": 0.27605938698980026,
+                "mos": 0.16104698117705993,
+                "wer": -0.09285714285714286,
+                "aesthetics": 0.5632578372955322,
+                "genuineness": 0.023614558577537536,
+                "emotion_score": -0.4956971036735922
+              }
+            },
+            "en": {
+              "n": 10,
+              "means": {
+                "ecapa": 0.24920779168605806,
+                "anchor_ecapa": 0.2804499790072441,
+                "content_enjoyment": 6.284721754491329,
+                "production_quality": 7.8813374259043485,
+                "mos": 3.7003354045853483,
+                "wer": 0.05384615384615384,
+                "aesthetics": 2.9121346712112426,
+                "genuineness": 1.0479192972183227,
+                "emotion_score": 0.009764604383690312
+              },
+              "matched_means": {
+                "ecapa": 0.11762582361698151,
+                "anchor_ecapa": 0.14549617478623986,
+                "content_enjoyment": 0.7059048812370747,
+                "production_quality": 0.5319831826112932,
+                "mos": 0.39522441723238444,
+                "wer": -0.08782051282051281,
+                "aesthetics": 0.09116880297660827,
+                "genuineness": -0.0992374837398529,
+                "emotion_score": -0.2963626959318617
+              }
+            }
+          },
+          "emotion": {
+            "anger": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.34921447932720184,
+                "anchor_ecapa": 0.3167421519756317,
+                "content_enjoyment": 6.167567357886583,
+                "production_quality": 7.948312953696586,
+                "mos": 3.5053774169864482,
+                "wer": 0.017857142857142856,
+                "aesthetics": 2.817378282546997,
+                "genuineness": 1.0668291449546814,
+                "emotion_score": 0.4940925521659665
+              },
+              "matched_means": {
+                "ecapa": 0.2788441386073828,
+                "anchor_ecapa": 0.19695690274238586,
+                "content_enjoyment": 1.5383960808394477,
+                "production_quality": 0.9243481495941523,
+                "mos": 0.7300925757153891,
+                "wer": -0.31547619047619047,
+                "aesthetics": 1.409941777586937,
+                "genuineness": -0.2821226567029953,
+                "emotion_score": -0.7210728950158227
+              }
+            },
+            "fear": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.3762044832110405,
+                "anchor_ecapa": 0.37793057411909103,
+                "content_enjoyment": 6.1774956965819,
+                "production_quality": 7.8796201046789065,
+                "mos": 3.8218235848471522,
+                "wer": 0.0,
+                "aesthetics": 3.7154398560523987,
+                "genuineness": 0.7418323755264282,
+                "emotion_score": 0.04760263580828905
+              },
+              "matched_means": {
+                "ecapa": 0.08121435903012753,
+                "anchor_ecapa": 0.07272859290242195,
+                "content_enjoyment": 0.17176025942899287,
+                "production_quality": 0.25502220197813585,
+                "mos": 0.1707064065230952,
+                "wer": 0.0,
+                "aesthetics": 0.14938944578170776,
+                "genuineness": 0.14942076802253723,
+                "emotion_score": -0.1236366555094719
+              }
+            },
+            "joy": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.38663580268621445,
+                "anchor_ecapa": 0.3605329804122448,
+                "content_enjoyment": 6.21720905136317,
+                "production_quality": 8.022157766390592,
+                "mos": 3.551068801622023,
+                "wer": 0.1346153846153846,
+                "aesthetics": 2.7051377296447754,
+                "genuineness": 1.0738040804862976,
+                "emotion_score": 0.01715509034693241
+              },
+              "matched_means": {
+                "ecapa": 0.12225881777703762,
+                "anchor_ecapa": 0.15393954538740218,
+                "content_enjoyment": 0.557476217742078,
+                "production_quality": 0.5601687172238599,
+                "mos": 0.32020328436919954,
+                "wer": 0.1346153846153846,
+                "aesthetics": -0.03405168652534485,
+                "genuineness": 0.1695403754711151,
+                "emotion_score": -0.43006992992013693
+              }
+            },
+            "neutral": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.33235914260149,
+                "anchor_ecapa": 0.4465215355157852,
+                "content_enjoyment": 6.183452699799091,
+                "production_quality": 7.812644576886669,
+                "mos": 3.802916804997949,
+                "wer": 0.0,
+                "aesthetics": 3.249277353286743,
+                "genuineness": 0.9703473150730133,
+                "emotion_score": null
+              },
+              "matched_means": {
+                "ecapa": -0.03103812411427498,
+                "anchor_ecapa": 0.05637388676404953,
+                "content_enjoyment": -0.1409824094735086,
+                "production_quality": -0.1768840862205252,
+                "mos": -0.08823163929628208,
+                "wer": -0.020833333333333332,
+                "aesthetics": 0.3509169816970825,
+                "genuineness": -0.03971586376428604,
+                "emotion_score": null
+              }
+            },
+            "sadness": {
+              "n": 4,
+              "means": {
+                "ecapa": 0.34374840557575226,
+                "anchor_ecapa": 0.43772175163030624,
+                "content_enjoyment": 6.243022731970996,
+                "production_quality": 7.893358674482442,
+                "mos": 3.6822042874991894,
+                "wer": 0.0,
+                "aesthetics": 3.0571030974388123,
+                "genuineness": 1.0508982241153717,
+                "emotion_score": 0.18064945987953251
+              },
+              "matched_means": {
+                "ecapa": 0.11796783469617367,
+                "anchor_ecapa": 0.252367076696828,
+                "content_enjoyment": 0.8597941310144961,
+                "production_quality": 0.4574514414271107,
+                "mos": 0.25790786871220917,
+                "wer": -0.25,
+                "aesthetics": -0.24012991786003113,
+                "genuineness": -0.18617993593215942,
+                "emotion_score": -0.3093401187654763
+              }
+            }
+          }
+        }
+      }
+    },
+    "comparisons": {}
+  }
+}

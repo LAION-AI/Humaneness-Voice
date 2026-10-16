@@ -1,0 +1,1023 @@
+{
+  "attribution": "LAION VoiceNet taxonomy CC BY 4.0, abbreviated native level definitions; Empathic Insight Plus model-card ranges.",
+  "voicenet_repo": "laion/voicenet-dimension-predictors-commercial",
+  "voicenet_revision": "cdafe5170561eaadb09f012ed5ae48e4f82b7b91",
+  "eiv_repo": "laion/Empathic-Insight-Voice-Plus",
+  "eiv_revision": "9ceb45912f4d555fc0210e92ec8459234b3992ec",
+  "encoder_repo": "laion/BUD-E-Whisper",
+  "encoder_revision": "9400e6740ea103bf619a4ce66374576fab8a4e23",
+  "excluded_unverified_scales": [
+    "Authenticity",
+    "Background_Noise",
+    "Recording_Quality",
+    "Vulnerable_vs._Emotionally_Detached"
+  ],
+  "dimensions": [
+    {
+      "id": "vn:AGEV",
+      "name": "Voice Age",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic signal is dominated by the extremely small vocal tract and unstable, high-pitched fundamental frequency; 3: The audio showcases a voice at peak biological vigor, producing perfectly elastic, incredibly clean harmonic definition; 6: The acoustic profile is heavily defined by extreme biological senescence, characterized by a pronounced, uncontrollable physiological"
+    },
+    {
+      "id": "vn:AROU",
+      "name": "Arousal",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The physiological engine of the speaker is operating at an absolute minimum, producing a severely lethargic,; 3: The audio captures the standard, baseline physiological energy level of a fully alert human engaged in; 6: The vocal apparatus is pushed into maximum physiological mobilization, resulting in a hysterical, violently extreme acoustic"
+    },
+    {
+      "id": "vn:ARSH",
+      "name": "Arousal Shift",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The physiological trajectory begins in a state of high activation before entirely collapsing into a near-comatose,; 3: The autonomic activation level remains entirely static and completely constant, demonstrating exactly zero change in baseline; 6: The physiological trajectory is a completely violent, 0-to-100 explosion of extreme autonomic mobilization that fundamentally shatters"
+    },
+    {
+      "id": "vn:ATCK",
+      "name": "Attack",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice emerges from silence with the softest, most delicate possible onset, barely disturbing the acoustic; 3: The voice initiates with a neutral, standard acoustic onset that is neither particularly soft nor particularly; 6: The acoustic onset is violently explosive and extremely sharp, characterized by an immediate, jarring eruption of"
+    },
+    {
+      "id": "vn:BKGN",
+      "name": "Background Noise",
+      "source": "voicenet",
+      "min": 0,
+      "max": 4,
+      "description": "0: The background noise is absolutely overwhelming and completely dominates the acoustic signal, rendering the foreground speech; 2: The background noise is moderately noticeable and mildly distracting, taking up a meaningful portion of the; 4: The background is acoustically dead and completely silent, with absolutely zero ambient environmental sound visible in"
+    },
+    {
+      "id": "vn:BRGT",
+      "name": "Brightness",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic signal is completely devoid of high-frequency energy, sounding heavily muffled as if submerged underwater; 3: The spectral balance represents the perfect, neutral baseline of natural human speech with an entirely even; 6: The high-frequency energy is overwhelmingly harsh, resulting in a sharply piercing, sizzling acoustic output that feels"
+    },
+    {
+      "id": "vn:CHNK",
+      "name": "Chunking",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speech is severely fragmented into single syllables or isolated words, broken apart by massive, jarring; 3: The speech is grouped into natural, medium-length sentence-sized clauses that align perfectly with standard human breath; 6: The speaker produces a massive, continuous wall of words that lasts the entire duration of the"
+    },
+    {
+      "id": "vn:CLRT",
+      "name": "Articulation Clarity",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speech is an indecipherable, blurry hum where distinct consonants and vowel boundaries are completely invisible; 3: The audio exhibits a neutral, standard level of articulation perfectly suited for everyday, clear acoustic communication.; 6: The phonemes are hyper-articulated to an extreme, unnatural degree, completely over-enunciating every single consonant and vowel."
+    },
+    {
+      "id": "vn:COGL",
+      "name": "Cognitive Load",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speech output is perfectly fluid and completely effortless, possessing absolutely zero cognitive hesitation or processing; 3: The speaker's real-time mental processing becomes audibly noticeable, creating an uneven acoustic rhythm as they actively; 6: The cognitive burden is so catastrophically highâ€”due to extreme shock, complex fabrication, or intellectual overloadâ€”that the"
+    },
+    {
+      "id": "vn:DARC",
+      "name": "Dynamic Arc",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic volume begins at a highly audible level before suffering a total, catastrophic collapse, fading; 3: The decibel level remains absolutely flatlined, exhibiting exactly zero change in audio volume from the beginning; 6: The dynamic arc covers an impossibly extreme range, starting as a tiny, barely audible whisper and"
+    },
+    {
+      "id": "vn:DFLU",
+      "name": "Disfluency",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The audio clip is a pristine, flawless stream of speech with absolutely zero fillers, hesitations, or; 3: The audio contains a standard, entirely natural amount of non-lexical fillers like 'um' or 'uh', along; 6: The speech is entirely shattered into a chaotic, virtually incoherent web of stammers, abandoned words, and"
+    },
+    {
+      "id": "vn:EMPH",
+      "name": "Emphasis",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: Every single word is delivered with identical acoustic weight, perfectly flat volume, and exactly uniform duration.; 3: The speech features a clear, natural emphasis pattern where key informational anchors are distinctly and comfortably; 6: The emphasis is applied with violent, explosive intensity, creating massive acoustic disparities between stressed and unstressed"
+    },
+    {
+      "id": "vn:ESTH",
+      "name": "Esthetics",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The audio is physically intolerable and viscerally repulsive, instantly triggering an immediate, desperate desire to stop; 3: The recording presents a highly acceptable, perfectly functional standard of audio quality typical of average human; 6: The audio achieves a sublime, almost holy level of absolute acoustic beauty, representing the absolute pinnacle"
+    },
+    {
+      "id": "vn:EXPL",
+      "name": "Content Appropriateness (3-point Scale)",
+      "source": "voicenet",
+      "min": 0,
+      "max": 2,
+      "description": "0: **Safe for School (SFS)**: Content is completely harmless and suitable for a K-12 classroom. Normal conversation,; 1: **Safe for Work (SFW)**: Content acceptable for adults in a professional setting during a break. May; 2: **Not Safe for Work (NSFW)**: Content containing extreme gore, pornographic or overtly sexual material, graphic violence,"
+    },
+    {
+      "id": "vn:FOCS",
+      "name": "Focus",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic energy is entirely internalized and heavily dissociated, sounding exactly like a person sleep-talking or; 3: The audio captures a standard, polite interactional focus where the speaker is casually aware of the; 6: The speaker's focus becomes deeply obsessive and almost uncomfortably hypnotic, treating the listener as the sole"
+    },
+    {
+      "id": "vn:FULL",
+      "name": "Fullness",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is overwhelmingly thin and heavily paper-like, completely lacking any spectral body, warmth, or lower-frequency; 3: The audio features a solid, naturally healthy spectral bandwidth that feels organically complete and appropriately sized; 6: The vocal fullness reaches an overwhelming, IMAX-level cinematic scale, completely saturating the entire acoustic field with"
+    },
+    {
+      "id": "vn:GEND",
+      "name": "Perceived Gender",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic profile features an extremely high fundamental frequency combined with the bright, small-cavity resonance characteristic; 3: The acoustic signature sits perfectly centered on the androgynous spectrum, making it completely ambiguous and difficult; 6: The vocal tract produces a hyper-masculinized acoustic profile, heavily dominated by an extremely low fundamental frequency"
+    },
+    {
+      "id": "vn:HARM",
+      "name": "Harmonicity",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic signal is entirely composed of broadband aperiodic noise, lacking even the absolute faintest trace; 3: The signal achieves the standard, healthy ratio of periodic tone to aperiodic noise characteristic of normal; 6: The harmonicity is so absolute and mathematically perfect that the voice sounds entirely computer-generated or digitally"
+    },
+    {
+      "id": "vn:METL",
+      "name": "Metallic Character",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is purely organic and impossibly soft, completely lacking any hard acoustic edges or inharmonic; 3: A distinct firmness begins to visibly infiltrate the acoustic profile, giving the voice a stiff, slightly; 6: The voice is entirely consumed by a pure, robotic metallic resonance, sounding exactly like a synthetic"
+    },
+    {
+      "id": "vn:RANG",
+      "name": "Pitch Range",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The fundamental frequency remains on a perfectly flat, horizontal line with absolutely zero micro-tonal deviation. The; 3: The audio features the moderate, standard intonation range of a typical human conversation, complete with organic; 6: The pitch swings wildly and hyperbolically between the absolute extreme highs and lows of the speaker's"
+    },
+    {
+      "id": "vn:RCQL",
+      "name": "Recording Quality",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The recording is completely unusable and technically catastrophic, dominated by overwhelming background noise, severe distortion, clipping,; 3: The recording is clean and technically solid, captured with standard consumer-grade microphone equipment or basic professional; 6: The recording achieves an almost impossibly perfect technical standard, captured using the absolute highest-end professional studio"
+    },
+    {
+      "id": "vn:REGS",
+      "name": "Register",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The fundamental frequency resides at the extreme low end of human phonation, producing a heavy, cavernous; 3: The acoustic signature occupies the ambiguous 'bridge' register, manifesting either as a uniquely deep, husky female; 6: The pitch sits at the absolute upper limit of biological phonation, producing an impossibly thin, piercing"
+    },
+    {
+      "id": "vn:RESP",
+      "name": "Respiration",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speaker's respiratory cycle is completely invisible and inaudible within the acoustic signal, allowing for impossibly; 3: The speaker's breathing is noticeably elevated, with inhalations occurring more frequently and audibly than strictly necessary; 6: The physical ability to speak is almost entirely destroyed by catastrophic respiratory failure, resulting in an"
+    },
+    {
+      "id": "vn:ROUG",
+      "name": "Roughness",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The vocal fold vibration is impossibly smooth and pure, closely resembling the clean acoustic geometry of; 3: A distinct, grainy texture noticeably permeates the vocal tone, introducing rapid amplitude modulations into the fundamental; 6: The fundamental tone is almost completely obliterated by violent, aperiodic noise and extreme biological crunch. The"
+    },
+    {
+      "id": "vn:R_CHST",
+      "name": "Chest Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of chest resonance, producing only high-frequency head resonance without any low-frequency; 3: Chest resonance is present at a standard, balanced level, providing a healthy foundation of lower-frequency body; 6: Chest resonance is maximally developed and overwhelmingly dominant, completely submerging the voice in a cavernous, booming"
+    },
+    {
+      "id": "vn:R_HEAD",
+      "name": "Head Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of head resonance, producing only non-head-based vibration without any upper resonance.; 3: Head resonance is present at a standard, balanced level, providing healthy brightness and ring without overwhelming; 6: Head resonance is maximally developed and overwhelmingly dominant, completely saturating the voice with brilliant, ringing head"
+    },
+    {
+      "id": "vn:R_MASK",
+      "name": "Mask Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of mask resonance, producing only non-facial cavity vibration without any sinus-based; 3: Mask resonance is present at a standard, balanced level, providing healthy brightness and shimmer without overwhelming; 6: Mask resonance is maximally developed and overwhelmingly dominant, completely saturating the voice with brilliant, forward mask"
+    },
+    {
+      "id": "vn:R_MIXD",
+      "name": "Mixed Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The resonance is entirely one-dimensional and heavily isolated to a single cavity, creating a highly imbalanced; 3: The resonance is nicely balanced and naturally integrated across multiple cavities, creating a cohesive, unified vocal; 6: The resonance is flawlessly integrated and perfectly balanced across all cavities, creating an impossibly unified, complex,"
+    },
+    {
+      "id": "vn:R_NASL",
+      "name": "Nasal Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of nasal resonance, producing only non-nasal cavity vibration. The acoustic output; 3: Nasal resonance is present at a standard, balanced level, providing healthy nasal coloration on nasal consonants; 6: Nasal resonance is maximally developed and overwhelmingly dominant, completely saturating the voice with heavy, pronounced nasal"
+    },
+    {
+      "id": "vn:R_ORAL",
+      "name": "Oral Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of oral resonance, producing only non-oral cavity vibration without any mouth-based; 3: Oral resonance is present at a standard, balanced level, providing healthy clarity and articulation without overwhelming; 6: Oral resonance is maximally developed and overwhelmingly dominant, completely saturating the voice with bright, forward oral"
+    },
+    {
+      "id": "vn:R_THRT",
+      "name": "Throat Resonance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice is entirely stripped of throat resonance, sounding hollow and disconnected from the pharyngeal cavity.; 3: Throat resonance is present at a standard, balanced level, providing a healthy foundation of vocal warmth; 6: Throat resonance is maximally developed and overwhelmingly dominant, completely saturating the voice with deep, cavernous pharyngeal"
+    },
+    {
+      "id": "vn:SMTH",
+      "name": "Smoothness",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The rhythmic timing of the speech is completely chaotic and spasmodic, filled with random, jarring glitches; 3: The audio features the standard, slightly flexible rhythm of natural human speech, complete with minor, organic; 6: The rhythm is mathematically perfect and entirely metronomic, completely devoid of natural human timing deviations. The"
+    },
+    {
+      "id": "vn:STNC",
+      "name": "Stance",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The voice sounds incredibly tiny, submissive, and heavily apologetic, actively attempting to take up as little; 3: The delivery utilizes a neutral, standard interactional style focused entirely on relaying information rather than establishing; 6: The speaker completely dominates and monopolizes the acoustic space, delivering a relentless, aggressive lecture that talks"
+    },
+    {
+      "id": "vn:STRU",
+      "name": "Structure",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speech lacks any logical connection between words, phrases, or ideas, presenting as an entirely scattered; 3: The speech maintains a basic, coherent logical flow that successfully moves from one idea to the; 6: The delivery exhibits perfect, high-level architectural clarity, functioning like a flawlessly structured masterclass or formal oral"
+    },
+    {
+      "id": "vn:S_ASMR",
+      "name": "ASMR Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely loud and completely non-ASMR, entirely rejecting any whispered or intimate element. The; 3: The delivery strikes a balanced middle ground between ASMR and non-ASMR, featuring standard phrasing that is; 6: The delivery is ultra-ASMR and intensely whispered, sounding exactly like a professional ASMR artist with maximum"
+    },
+    {
+      "id": "vn:S_AUTH",
+      "name": "Authoritative Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely non-authoritative and completely submissive, entirely rejecting any commanding or leadership element. The; 3: The delivery strikes a balanced middle ground between authoritative and non-authoritative, featuring standard phrasing that is; 6: The delivery is ultra-authoritative and intensely commanding, sounding exactly like a supreme leader with maximum commanding"
+    },
+    {
+      "id": "vn:S_CART",
+      "name": "Cartoonish Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely naturalistic and completely non-cartoonish, entirely rejecting any exaggerated or character-voiced element. The; 3: The delivery strikes a balanced middle ground between cartoonish and naturalistic, featuring standard phrasing that is; 6: The delivery is ultra-cartoonish and intensely exaggerated, sounding exactly like a professional voice actor with maximum"
+    },
+    {
+      "id": "vn:S_CASU",
+      "name": "Casual Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely formal, highly structured, and entirely devoid of any casual element. It sounds; 3: The delivery balances formality and informality in a neutral, standard conversational tone. The speaker is appropriately; 6: The delivery is ultra-casual and extremely informal, sounding exactly like spontaneous, unscripted conversation with zero attempt"
+    },
+    {
+      "id": "vn:S_CONV",
+      "name": "Conversational Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely monological, completely rejecting any conversational element and sounding exactly like a one-way; 3: The delivery strikes a balanced middle ground between monologue and dialogue, featuring standard conversational phrasing that; 6: The delivery is ultra-conversational and intensely interactive, sounding like an absorbed participant in an intimate, back-and-forth"
+    },
+    {
+      "id": "vn:S_DRAM",
+      "name": "Dramatic Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely understated and flat, completely rejecting any theatrical or dramatically heightened element. The; 3: The delivery strikes a balanced middle ground between dramatic and understated, featuring standard expressive phrasing that; 6: The delivery is ultra-dramatic and intensely theatrical, sounding exactly like an over-the-top, excessively hammy theatrical performance."
+    },
+    {
+      "id": "vn:S_FORM",
+      "name": "Formal Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely casual and completely informal, entirely rejecting any structured, formal element. The acoustic; 3: The delivery strikes a balanced middle ground between formal and casual, featuring standard professional-conversational phrasing that; 6: The delivery is ultra-formal and intensely rigid, sounding exactly like a stiffly codified, excessively pompous formal"
+    },
+    {
+      "id": "vn:S_MONO",
+      "name": "Monologue Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely dialogic and completely non-monologic, entirely rejecting any solo or introspective element. The; 3: The delivery strikes a balanced middle ground between monologic and dialogic, featuring standard phrasing that is; 6: The delivery is ultra-monologic and intensely introspective, sounding exactly like an extreme one-person-show with maximum introspective"
+    },
+    {
+      "id": "vn:S_NARR",
+      "name": "Narrator Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely anti-narrative and completely non-storybook, entirely rejecting any narrative or storytelling element. The; 3: The delivery strikes a balanced middle ground between narrative and non-narrative, featuring standard phrasing that is; 6: The delivery is ultra-narrative and intensely storybook-like, sounding exactly like a professional audiobook narrator with maximum"
+    },
+    {
+      "id": "vn:S_NEWS",
+      "name": "Newsreader Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely non-journalistic and completely non-broadcast, entirely rejecting any newsreader or report-focused element. The; 3: The delivery strikes a balanced middle ground between journalistic and non-journalistic, featuring standard phrasing that is; 6: The delivery is ultra-journalistic and intensely broadcast-like, sounding exactly like a classic network news anchor with"
+    },
+    {
+      "id": "vn:S_PLAY",
+      "name": "Playful Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely serious and completely humorless, entirely rejecting any playful or humorous element. The; 3: The delivery strikes a balanced middle ground between playful and serious, featuring standard phrasing that is; 6: The delivery is ultra-playful and intensely humorous, sounding exactly like a professional comedian with maximum playfulness"
+    },
+    {
+      "id": "vn:S_RANT",
+      "name": "Ranting/Angry Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely calm and completely non-ranting, entirely rejecting any aggressive or angry element. The; 3: The delivery strikes a balanced middle ground between ranting and calm, featuring standard phrasing that is; 6: The delivery is ultra-ranting and intensely angry, sounding exactly like an extreme rant with maximum aggression"
+    },
+    {
+      "id": "vn:S_STRY",
+      "name": "Storytelling Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely non-narrative and completely non-storytelling, entirely rejecting any plot-driven or narrative element. The; 3: The delivery strikes a balanced middle ground between narrative and non-narrative, featuring standard phrasing that is; 6: The delivery is ultra-narrative and intensely storytelling-like, sounding exactly like a master storyteller with maximum narrative"
+    },
+    {
+      "id": "vn:S_TECH",
+      "name": "Teacher/Didactic Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely non-educational and completely non-didactic, entirely rejecting any teaching or instructional element. The; 3: The delivery strikes a balanced middle ground between didactic and non-didactic, featuring standard phrasing that is; 6: The delivery is ultra-pedagogical and intensely teaching-like, sounding exactly like a master teacher with maximum instructional"
+    },
+    {
+      "id": "vn:S_WHIS",
+      "name": "Whisper-Talk Style",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The delivery is intensely loud and completely non-whispered, entirely rejecting any whispered or breath-based element. The; 3: The delivery strikes a balanced middle ground between whispered and non-whispered, featuring standard phrasing that is; 6: The delivery is ultra-whispered and intensely breathy, sounding exactly like an extreme stage-whisper with maximum breath"
+    },
+    {
+      "id": "vn:TEMP",
+      "name": "Tempo",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The speech is glacially slow, with syllables stretched to their absolute breaking point to create a; 3: The audio features a standard, unremarkable human speech tempo typical of an everyday, efficient conversation. The; 6: The tempo reaches the absolute human limit of linguistic speed, resulting in a blistering, hyper-accelerated wall"
+    },
+    {
+      "id": "vn:TENS",
+      "name": "Tension",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The vocal apparatus exhibits absolutely zero muscular resistance, producing an impossibly 'floppy,' wide-open, and entirely tension-free; 3: A faint acoustic 'edge' or mild muscular squeeze becomes audible, indicating a subtle tightening of the; 6: The somatic tension is so extreme that the vocal musculature is entirely rigid and locked, actively"
+    },
+    {
+      "id": "vn:VALN",
+      "name": "Valence",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic signal is completely saturated with pure, unadulterated emotional suffering, broadcasting extreme hostility, deep agony,; 3: The audio presents a perfectly balanced, emotionally neutral baseline completely devoid of any detectable positive or; 6: The vocal delivery explodes with pure, euphoric, and deeply ecstatic emotional joy. The voice sounds as"
+    },
+    {
+      "id": "vn:VALS",
+      "name": "Valence Shift",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The emotional trajectory suffers a catastrophic, heavily tragic turn, plunging instantly from a positive or neutral; 3: The emotional trajectory remains absolutely constant, exhibiting exactly zero change in affective state from the beginning; 6: The emotional arc undergoes a shocking, highly transformative elevation, surging instantly from a neutral or negative"
+    },
+    {
+      "id": "vn:VFLX",
+      "name": "Velocity Flux",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The vocal trajectory begins at a noticeably rapid, high-energy pace before undergoing a massive, continuous deceleration,; 3: The velocity of the speech remains absolutely locked and perfectly steady from the very first syllable; 6: The tempo vector begins extremely slowly, with syllables heavily stretched and drawn out, before undergoing a"
+    },
+    {
+      "id": "vn:VOLT",
+      "name": "Volatility",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The emotional state is absolutely static and heavily frozen, presenting as an unyielding block of psychological; 3: The speech features the natural, organic 'breathing' of standard human emotion, allowing the affective state to; 6: The emotional state is completely chaotic and deeply shattered, featuring violent, rapid-fire affective switching that fundamentally"
+    },
+    {
+      "id": "vn:VULN",
+      "name": "Vulnerability",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic profile is completely impenetrable and heavily armored, projecting an absolute, unyielding emotional defense wall.; 3: The acoustic delivery is open, friendly, and highly accessible, featuring a distinct 'soft' edge to the; 6: The acoustic signal is profoundly raw, completely naked, and overwhelmingly permeable, completely lacking any psychological filter"
+    },
+    {
+      "id": "vn:WARM",
+      "name": "Warmth",
+      "source": "voicenet",
+      "min": 0,
+      "max": 6,
+      "description": "0: The acoustic profile is entirely devoid of low-mid frequency resonance, resulting in a distinctly cold, metallic,; 3: The resonance perfectly strikes the standard human baseline, offering a highly balanced, universally comfortable acoustic profile.; 6: The warmth is so overwhelmingly massive that the voice essentially melts into a gigantic, enveloping physical"
+    },
+    {
+      "id": "eiv:Affection",
+      "name": "Affection",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Affection, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Affection_best.pth"
+    },
+    {
+      "id": "eiv:Age",
+      "name": "Age",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 6,
+      "description": "Perceived age, infant to very old; not identity verification.",
+      "group": "attribute",
+      "filename": "model_Age_best.pth"
+    },
+    {
+      "id": "eiv:Amusement",
+      "name": "Amusement",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Amusement, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Amusement_best.pth"
+    },
+    {
+      "id": "eiv:Anger",
+      "name": "Anger",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Anger, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Anger_best.pth"
+    },
+    {
+      "id": "eiv:Arousal",
+      "name": "Arousal",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Very calm to very excited; midpoint 2.",
+      "group": "attribute",
+      "filename": "model_Arousal_best.pth"
+    },
+    {
+      "id": "eiv:Astonishment_Surprise",
+      "name": "Astonishment Surprise",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Astonishment Surprise, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Astonishment_Surprise_best.pth"
+    },
+    {
+      "id": "eiv:Awe",
+      "name": "Awe",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Awe, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Awe_best.pth"
+    },
+    {
+      "id": "eiv:Bitterness",
+      "name": "Bitterness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Bitterness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Bitterness_best.pth"
+    },
+    {
+      "id": "eiv:Concentration",
+      "name": "Concentration",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Concentration, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Concentration_best.pth"
+    },
+    {
+      "id": "eiv:Confident_vs._Hesitant",
+      "name": "Confident vs. Hesitant",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Certainty/hesitation axis; endpoint direction not fully specified in card.",
+      "group": "attribute",
+      "filename": "model_Confident_vs._Hesitant_best.pth"
+    },
+    {
+      "id": "eiv:Confusion",
+      "name": "Confusion",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Confusion, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Confusion_best.pth"
+    },
+    {
+      "id": "eiv:Contemplation",
+      "name": "Contemplation",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Contemplation, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Contemplation_best.pth"
+    },
+    {
+      "id": "eiv:Contempt",
+      "name": "Contempt",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Contempt, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Contempt_best.pth"
+    },
+    {
+      "id": "eiv:Contentment",
+      "name": "Contentment",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Contentment, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Contentment_best.pth"
+    },
+    {
+      "id": "eiv:Disappointment",
+      "name": "Disappointment",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Disappointment, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Disappointment_best.pth"
+    },
+    {
+      "id": "eiv:Disgust",
+      "name": "Disgust",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Disgust, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Disgust_best.pth"
+    },
+    {
+      "id": "eiv:Distress",
+      "name": "Distress",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Distress, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Distress_best.pth"
+    },
+    {
+      "id": "eiv:Doubt",
+      "name": "Doubt",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Doubt, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Doubt_best.pth"
+    },
+    {
+      "id": "eiv:Elation",
+      "name": "Elation",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Elation, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Elation_best.pth"
+    },
+    {
+      "id": "eiv:Embarrassment",
+      "name": "Embarrassment",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Embarrassment, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Embarrassment_best.pth"
+    },
+    {
+      "id": "eiv:Emotional_Numbness",
+      "name": "Emotional Numbness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Emotional Numbness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Emotional_Numbness_best.pth"
+    },
+    {
+      "id": "eiv:Fatigue_Exhaustion",
+      "name": "Fatigue Exhaustion",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Fatigue Exhaustion, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Fatigue_Exhaustion_best.pth"
+    },
+    {
+      "id": "eiv:Fear",
+      "name": "Fear",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Fear, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Fear_best.pth"
+    },
+    {
+      "id": "eiv:Gender",
+      "name": "Gender",
+      "source": "eiv_plus",
+      "min": -2,
+      "max": 2,
+      "description": "Perceived presentation, masculine to feminine; not identity.",
+      "group": "attribute",
+      "filename": "model_Gender_best.pth"
+    },
+    {
+      "id": "eiv:Helplessness",
+      "name": "Helplessness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Helplessness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Helplessness_best.pth"
+    },
+    {
+      "id": "eiv:High-Pitched_vs._Low-Pitched",
+      "name": "High-Pitched vs. Low-Pitched",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "High-pitched at 0; low-pitched at 4.",
+      "group": "attribute",
+      "filename": "model_High-Pitched_vs._Low-Pitched_best.pth"
+    },
+    {
+      "id": "eiv:Hope_Enthusiasm_Optimism",
+      "name": "Hope Enthusiasm Optimism",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Hope Enthusiasm Optimism, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Hope_Enthusiasm_Optimism_best.pth"
+    },
+    {
+      "id": "eiv:Impatience_and_Irritability",
+      "name": "Impatience and Irritability",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Impatience and Irritability, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Impatience_and_Irritability_best.pth"
+    },
+    {
+      "id": "eiv:Infatuation",
+      "name": "Infatuation",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Infatuation, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Infatuation_best.pth"
+    },
+    {
+      "id": "eiv:Interest",
+      "name": "Interest",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Interest, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Interest_best.pth"
+    },
+    {
+      "id": "eiv:Intoxication_Altered_States_of_Consciousness",
+      "name": "Intoxication Altered States of Consciousness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Intoxication Altered States of Consciousness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Intoxication_Altered_States_of_Consciousness_best.pth"
+    },
+    {
+      "id": "eiv:Jealousy_&_Envy",
+      "name": "Jealousy & Envy",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Jealousy & Envy, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Jealousy_&_Envy_best.pth"
+    },
+    {
+      "id": "eiv:Longing",
+      "name": "Longing",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Longing, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Longing_best.pth"
+    },
+    {
+      "id": "eiv:Malevolence_Malice",
+      "name": "Malevolence Malice",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Malevolence Malice, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Malevolence_Malice_best.pth"
+    },
+    {
+      "id": "eiv:Monotone_vs._Expressive",
+      "name": "Monotone vs. Expressive",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Amount of dynamic pitch/rhythm variation.",
+      "group": "attribute",
+      "filename": "model_Monotone_vs._Expressive_best.pth"
+    },
+    {
+      "id": "eiv:Pain",
+      "name": "Pain",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Pain, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Pain_best.pth"
+    },
+    {
+      "id": "eiv:Pleasure_Ecstasy",
+      "name": "Pleasure Ecstasy",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Pleasure Ecstasy, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Pleasure_Ecstasy_best.pth"
+    },
+    {
+      "id": "eiv:Pride",
+      "name": "Pride",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Pride, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Pride_best.pth"
+    },
+    {
+      "id": "eiv:Relief",
+      "name": "Relief",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Relief, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Relief_best.pth"
+    },
+    {
+      "id": "eiv:Sadness",
+      "name": "Sadness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Sadness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Sadness_best.pth"
+    },
+    {
+      "id": "eiv:Serious_vs._Humorous",
+      "name": "Serious vs. Humorous",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Gravity/humor axis; endpoint direction not fully specified in card.",
+      "group": "attribute",
+      "filename": "model_Serious_vs._Humorous_best.pth"
+    },
+    {
+      "id": "eiv:Sexual_Lust",
+      "name": "Sexual Lust",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Sexual Lust, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Sexual_Lust_best.pth"
+    },
+    {
+      "id": "eiv:Shame",
+      "name": "Shame",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Shame, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Shame_best.pth"
+    },
+    {
+      "id": "eiv:Soft_vs._Harsh",
+      "name": "Soft vs. Harsh",
+      "source": "eiv_plus",
+      "min": -2,
+      "max": 2,
+      "description": "Soothing soft at -2 to abrasive harsh at +2.",
+      "group": "attribute",
+      "filename": "model_Soft_vs._Harsh_best.pth"
+    },
+    {
+      "id": "eiv:Sourness",
+      "name": "Sourness",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Sourness, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Sourness_best.pth"
+    },
+    {
+      "id": "eiv:Submissive_vs._Dominant",
+      "name": "Submissive vs. Dominant",
+      "source": "eiv_plus",
+      "min": -3,
+      "max": 3,
+      "description": "Submission/authority axis; endpoint direction not fully specified in card.",
+      "group": "attribute",
+      "filename": "model_Submissive_vs._Dominant_best.pth"
+    },
+    {
+      "id": "eiv:Teasing",
+      "name": "Teasing",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Teasing, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Teasing_best.pth"
+    },
+    {
+      "id": "eiv:Thankfulness_Gratitude",
+      "name": "Thankfulness Gratitude",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Thankfulness Gratitude, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Thankfulness_Gratitude_best.pth"
+    },
+    {
+      "id": "eiv:Triumph",
+      "name": "Triumph",
+      "source": "eiv_plus",
+      "min": 0,
+      "max": 4,
+      "description": "Intensity of Triumph, absent at 0 to strong at 4; can exceed scale; not a probability.",
+      "group": "emotion",
+      "filename": "model_Triumph_best.pth"
+    },
+    {
+      "id": "eiv:Valence",
+      "name": "Valence",
+      "source": "eiv_plus",
+      "min": -3,
+      "max": 3,
+      "description": "Negative to positive affect; 0 neutral.",
+      "group": "attribute",
+      "filename": "model_Valence_best.pth"
+    },
+    {
+      "id": "eiv:Warm_vs._Cold",
+      "name": "Warm vs. Cold",
+      "source": "eiv_plus",
+      "min": -2,
+      "max": 2,
+      "description": "Friendliness/distance axis; endpoint direction not fully specified in card.",
+      "group": "attribute",
+      "filename": "model_Warm_vs._Cold_best.pth"
+    },
+    {
+      "id": "eiv:score_background_quality",
+      "name": "Background Quality",
+      "source": "eiv_plus",
+      "min": 1,
+      "max": 4.3,
+      "description": "Higher is better. Expected empirical range, not hard bounds or calibrated human MOS.",
+      "group": "quality",
+      "filename": "model_score_background_quality_best.pth"
+    },
+    {
+      "id": "eiv:score_content_enjoyment",
+      "name": "Content Enjoyment",
+      "source": "eiv_plus",
+      "min": 1.9,
+      "max": 5.1,
+      "description": "Higher is better. Expected empirical range, not hard bounds or calibrated human MOS.",
+      "group": "quality",
+      "filename": "model_score_content_enjoyment_best.pth"
+    },
+    {
+      "id": "eiv:score_overall_quality",
+      "name": "Overall Quality",
+      "source": "eiv_plus",
+      "min": 1,
+      "max": 3.7,
+      "description": "Higher is better. Expected empirical range, not hard bounds or calibrated human MOS.",
+      "group": "quality",
+      "filename": "model_score_overall_quality_best.pth"
+    },
+    {
+      "id": "eiv:score_speech_quality",
+      "name": "Speech Quality",
+      "source": "eiv_plus",
+      "min": 1,
+      "max": 2.4,
+      "description": "Higher is better. Expected empirical range, not hard bounds or calibrated human MOS.",
+      "group": "quality",
+      "filename": "model_score_speech_quality_best.pth"
+    }
+  ]
+}

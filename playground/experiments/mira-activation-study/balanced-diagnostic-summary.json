@@ -1,0 +1,991 @@
+{
+  "conditions": [
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-generic-all-mean-semantic_local-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.01677907072007656,
+          "low": -0.07871572561562061,
+          "high": 0.046567849814891815,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.02711376640945673,
+          "low": -0.10089508274104446,
+          "high": 0.045838636346161366,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.2214019529055804,
+          "low": -0.5202945893281139,
+          "high": 0.04470234497566716,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.2331129397816767,
+          "low": -0.430602197393091,
+          "high": -0.058818251971388236,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.13943750138787436,
+          "low": -0.3342136930266861,
+          "high": 0.06327711384146828,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.4411922097206116,
+          "low": -1.0662041433155536,
+          "high": 0.1552536733448507,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.33339908346533775,
+          "low": 0.17046118481084704,
+          "high": 0.5243968999944627,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.09423076923076923,
+          "low": 0.009615384615384609,
+          "high": 0.24423076923076922,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.6653146768609682,
+          "low": -0.10884992654124896,
+          "high": 1.4772306432326634,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.30818930454552174,
+        "anchor_ecapa": 0.12451735557988286,
+        "content_enjoyment": 5.7818513995734975,
+        "production_quality": 7.791620808447078,
+        "mos": 3.7211692216114898,
+        "aesthetics": 2.83270363509655,
+        "genuineness": 1.1371621936559677,
+        "wer": 0.20961538461538462,
+        "emotion_score": 1.718107799688975
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.25,
+      "bad_wer_rate_delta": 0.125,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "insufficient_speaker_gain",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-high-minus-all-layer_20-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.05899897217750549,
+          "low": -0.015774838626384735,
+          "high": 0.1514227882958949,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.03617776418104768,
+          "low": -0.021453957492485642,
+          "high": 0.08324627857655287,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.15041433123406023,
+          "low": -0.13703589484211987,
+          "high": 0.6230032531311736,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.02919446083251387,
+          "low": -0.12879909190814942,
+          "high": 0.07384481269400567,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.022360903090884676,
+          "low": -0.1977940045762807,
+          "high": 0.33424399235336766,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.1370909959077835,
+          "low": -0.8040615238249301,
+          "high": 0.49095995984971535,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.15164044126868248,
+          "low": -0.08696805685758591,
+          "high": 0.42380385315045715,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09752747252747254,
+          "low": -0.33722527472527475,
+          "high": 0.03571428571428571,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.241258155554533,
+          "low": -0.07985243188838163,
+          "high": 0.6239515628665685,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3839673474431038,
+        "anchor_ecapa": 0.18780888617038727,
+        "content_enjoyment": 6.153667683713138,
+        "production_quality": 7.995539287396241,
+        "mos": 3.882967626090249,
+        "aesthetics": 3.136804848909378,
+        "genuineness": 0.9554035514593124,
+        "wer": 0.017857142857142856,
+        "emotion_score": 1.2940512783825397
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-high-minus-all-layer_20-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.10219447314739227,
+          "low": -0.027145591750741004,
+          "high": 0.29737711763009433,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.07853653514757752,
+          "low": 0.007164229080080987,
+          "high": 0.16375132417306304,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.19012768601533026,
+          "low": -0.15589973836322313,
+          "high": 0.7768925029085949,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.04293303063604981,
+          "low": -0.15198292845161632,
+          "high": 0.09101802494842559,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0913827692711493,
+          "low": -0.16337396946619265,
+          "high": 0.4537748361115519,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.32978494465351105,
+          "low": -1.0056332755833863,
+          "high": 0.3841235745698221,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.42770079523324966,
+          "low": 0.06881830822676421,
+          "high": 0.7820971655659378,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.10705128205128206,
+          "low": -0.34615384615384615,
+          "high": 0.025,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.019660884684223372,
+          "low": -0.3580579695602258,
+          "high": 0.4052851369439547,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.42716284841299057,
+        "anchor_ecapa": 0.23016765713691711,
+        "content_enjoyment": 6.193381038494408,
+        "production_quality": 7.981800717592705,
+        "mos": 3.9519894922705134,
+        "aesthetics": 2.9441109001636505,
+        "genuineness": 1.2314639054238796,
+        "wer": 0.008333333333333333,
+        "emotion_score": 1.0724540075122302
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "aesthetics_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-high-minus-all-semantic_local-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0968981683254242,
+          "low": 0.00031243618577718837,
+          "high": 0.22796861706301572,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.055622019339352846,
+          "low": 9.115645661950503e-06,
+          "high": 0.1134902421734296,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.15934983605984598,
+          "low": -0.1449537449516356,
+          "high": 0.6855517869116738,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.004293303063604981,
+          "low": -0.09874597046291456,
+          "high": 0.17173212254419923,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.11562223061628174,
+          "low": -0.12095491211221088,
+          "high": 0.49619995333086997,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.10064302384853363,
+          "low": -0.45869094133377075,
+          "high": 0.7537156384438278,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.192610627040267,
+          "low": -0.13369102217257023,
+          "high": 0.5834816172253341,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09812271062271063,
+          "low": -0.33782051282051284,
+          "high": 0.03511904761904762,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.049878415962060295,
+          "low": -0.18177283431092897,
+          "high": 0.24784433503324793,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4218665435910225,
+        "anchor_ecapa": 0.20725314132869244,
+        "content_enjoyment": 6.162603188538924,
+        "production_quality": 8.02902705129236,
+        "mos": 3.976228953615646,
+        "aesthetics": 3.374538868665695,
+        "genuineness": 0.996373737230897,
+        "wer": 0.017261904761904763,
+        "emotion_score": 1.102671538790067
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-high-minus-all-semantic_local-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.10056089051067829,
+          "low": -0.019504182739183307,
+          "high": 0.28744811564683914,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.039228626526892185,
+          "low": -0.032725009601563215,
+          "high": 0.11882306850748141,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.1285719861043617,
+          "low": -0.3048992813332006,
+          "high": 0.7431857930379921,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.09616998862475157,
+          "low": -0.3357362995739095,
+          "high": 0.14511364354984835,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.04090409101991099,
+          "low": -0.3041446412280493,
+          "high": 0.5059017977342593,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.04491923749446869,
+          "low": -0.6387817755341529,
+          "high": 0.7465484589338303,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.45775995776057243,
+          "low": -0.039609954692423344,
+          "high": 0.9942254164256157,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.05288461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.1875,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.0463707409799099,
+          "low": -0.6019226672748724,
+          "high": 0.43353264033794403,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4255292657762766,
+        "anchor_ecapa": 0.19085974851623178,
+        "content_enjoyment": 6.13182533858344,
+        "production_quality": 7.928563759604003,
+        "mos": 3.901510814019275,
+        "aesthetics": 3.228976607322693,
+        "genuineness": 1.2615230679512024,
+        "wer": 0.0625,
+        "emotion_score": 1.0064223818480968
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "balanced-high-minus-all-semantic_local-a1",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.06968817673623562,
+          "low": -0.04403335228562355,
+          "high": 0.25410494906827813,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.019901726860553026,
+          "low": -0.04634051732718945,
+          "high": 0.1069052807521075,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.19211335375439376,
+          "low": -0.08538371277973056,
+          "high": 0.6934944578679278,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.03949838818516582,
+          "low": -0.11763650394277647,
+          "high": 0.05755172756762485,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.1272571720619453,
+          "low": -0.0596290749090258,
+          "high": 0.44626060309456084,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.0907890647649765,
+          "low": -0.40307438373565674,
+          "high": 0.7463496431708336,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.008004512637853622,
+          "low": -0.2432869259268045,
+          "high": 0.25526621332392097,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.035988217840592064,
+          "low": -0.1632139024635156,
+          "high": 0.03780822471405088,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3946565520018339,
+        "anchor_ecapa": 0.17153284884989262,
+        "content_enjoyment": 6.195366706233472,
+        "production_quality": 7.985235360043589,
+        "mos": 3.9878638950613094,
+        "aesthetics": 3.364684909582138,
+        "genuineness": 0.8117676228284836,
+        "wer": 0.0,
+        "emotion_score": 1.0168049049874146
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "balanced_diagnostic",
+      "condition": "baseline",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3249683752655983,
+        "anchor_ecapa": 0.1516311219893396,
+        "content_enjoyment": 6.003253352479078,
+        "production_quality": 8.024733748228755,
+        "mos": 3.860606722999364,
+        "aesthetics": 3.2738958448171616,
+        "genuineness": 0.80376311019063,
+        "wer": 0.11538461538461539,
+        "emotion_score": 1.0527931228280067
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": false,
+      "heldout_positive_interval": false
+    }
+  ],
+  "selection_gates": {
+    "wer_delta_max": 0.03,
+    "wer_mean_max": 0.15,
+    "bad_wer_rate_delta_max": 0.1,
+    "content_enjoyment_delta_min": -0.3,
+    "production_quality_delta_min": -0.3,
+    "mos_delta_min": -0.2,
+    "aesthetics_delta_min": -0.3,
+    "emotion_score_delta_min": -0.2,
+    "ecapa_delta_min": 0.01,
+    "generation_failures_max": 0
+  },
+  "bootstrap_repetitions": 4000,
+  "secondary_audit": {
+    "phase": "balanced_diagnostic",
+    "n": 56,
+    "failures": 0,
+    "per_language": [
+      {
+        "condition": "balanced-generic-all-mean-semantic_local-a0.25",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.23608706519007683,
+          "anchor_ecapa": 0.1191927446052432,
+          "content_enjoyment": 5.808161497116089,
+          "production_quality": 7.77915681299055,
+          "mos": 3.717472703756357,
+          "aesthetics": 2.8631513118743896,
+          "wer": 0.16923076923076924
+        },
+        "deltas": {
+          "ecapa": -0.053687360137701035,
+          "anchor_ecapa": -0.06937326956540346,
+          "content_enjoyment": -0.5142879444174469,
+          "production_quality": -0.30138987506506965,
+          "mos": -0.370984955887252,
+          "aesthetics": -1.0221337676048279,
+          "wer": 0.16923076923076924
+        }
+      },
+      {
+        "condition": "balanced-generic-all-mean-semantic_local-a0.25",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.38029154390096664,
+          "anchor_ecapa": 0.12984196655452251,
+          "content_enjoyment": 5.755541302030906,
+          "production_quality": 7.804084803903606,
+          "mos": 3.7248657394666225,
+          "aesthetics": 2.8022559583187103,
+          "wer": 0.25
+        },
+        "deltas": {
+          "ecapa": 0.020129218697547913,
+          "anchor_ecapa": 0.015145736746490002,
+          "content_enjoyment": 0.07148403860628605,
+          "production_quality": -0.16483600449828373,
+          "mos": 0.09210995311150327,
+          "aesthetics": 0.13974934816360474,
+          "wer": 0.019230769230769218
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-layer_20-a0.25",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.26295114681124687,
+          "anchor_ecapa": 0.20908506400883198,
+          "content_enjoyment": 6.229123057797551,
+          "production_quality": 8.004984554136172,
+          "mos": 3.9895606573554687,
+          "aesthetics": 3.3476442694664,
+          "wer": 0.017857142857142856
+        },
+        "deltas": {
+          "ecapa": -0.02682327851653099,
+          "anchor_ecapa": 0.02051904983818531,
+          "content_enjoyment": -0.09332638373598456,
+          "production_quality": -0.07556213391944766,
+          "mos": -0.09889700228814036,
+          "aesthetics": -0.5376408100128174,
+          "wer": 0.017857142857142856
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-layer_20-a0.25",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.5049835480749607,
+          "anchor_ecapa": 0.16653270833194256,
+          "content_enjoyment": 6.078212309628725,
+          "production_quality": 7.98609402065631,
+          "mos": 3.776374594825029,
+          "aesthetics": 2.925965428352356,
+          "wer": 0.017857142857142856
+        },
+        "deltas": {
+          "ecapa": 0.14482122287154198,
+          "anchor_ecapa": 0.051836478523910046,
+          "content_enjoyment": 0.394155046204105,
+          "production_quality": 0.017173212254419923,
+          "mos": 0.1436188084699097,
+          "aesthetics": 0.26345881819725037,
+          "wer": -0.21291208791208793
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-layer_20-a0.5",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.27800028026103973,
+          "anchor_ecapa": 0.22991342097520828,
+          "content_enjoyment": 6.185438367538154,
+          "production_quality": 7.941443668794818,
+          "mos": 4.044826629222371,
+          "aesthetics": 3.0544517040252686,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": -0.011774145066738129,
+          "anchor_ecapa": 0.041347406804561615,
+          "content_enjoyment": -0.1370110739953816,
+          "production_quality": -0.13910301926080137,
+          "mos": -0.04363103042123839,
+          "aesthetics": -0.830833375453949,
+          "wer": 0.0
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-layer_20-a0.5",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.5763254165649414,
+          "anchor_ecapa": 0.23042189329862595,
+          "content_enjoyment": 6.201323709450662,
+          "production_quality": 8.022157766390592,
+          "mos": 3.859152355318656,
+          "aesthetics": 2.8337700963020325,
+          "wer": 0.016666666666666666
+        },
+        "deltas": {
+          "ecapa": 0.21616309136152267,
+          "anchor_ecapa": 0.11572566349059343,
+          "content_enjoyment": 0.5172664460260421,
+          "production_quality": 0.05323695798870176,
+          "mos": 0.226396568963537,
+          "aesthetics": 0.17126348614692688,
+          "wer": -0.21410256410256412
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a0.25",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.32134874165058136,
+          "anchor_ecapa": 0.22062264010310173,
+          "content_enjoyment": 6.207280712667853,
+          "production_quality": 7.989528663107194,
+          "mos": 4.0603398844832554,
+          "aesthetics": 3.5855595469474792,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": 0.0315743163228035,
+          "anchor_ecapa": 0.03205662593245506,
+          "content_enjoyment": -0.11516872886568308,
+          "production_quality": -0.09101802494842559,
+          "mos": -0.02811777516035363,
+          "aesthetics": -0.2997255325317383,
+          "wer": 0.0
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a0.25",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.5223843455314636,
+          "anchor_ecapa": 0.19388364255428314,
+          "content_enjoyment": 6.117925664409995,
+          "production_quality": 8.068525439477526,
+          "mos": 3.8921180227480363,
+          "aesthetics": 3.163518190383911,
+          "wer": 0.034523809523809526
+        },
+        "deltas": {
+          "ecapa": 0.1622220203280449,
+          "anchor_ecapa": 0.07918741274625063,
+          "content_enjoyment": 0.43386840098537505,
+          "production_quality": 0.09960463107563555,
+          "mos": 0.2593622363929171,
+          "aesthetics": 0.5010115802288055,
+          "wer": -0.19624542124542127
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a0.75",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.2904595173895359,
+          "anchor_ecapa": 0.1702802712097764,
+          "content_enjoyment": 6.026584948413074,
+          "production_quality": 7.805775291984901,
+          "mos": 3.896844717710337,
+          "aesthetics": 3.3258357644081116,
+          "wer": 0.125
+        },
+        "deltas": {
+          "ecapa": 0.0006850920617580414,
+          "anchor_ecapa": -0.018285742960870266,
+          "content_enjoyment": -0.2958644931204617,
+          "production_quality": -0.27477139607071877,
+          "mos": -0.19161294193327194,
+          "aesthetics": -0.559449315071106,
+          "wer": 0.125
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a0.75",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.5605990141630173,
+          "anchor_ecapa": 0.21143922582268715,
+          "content_enjoyment": 6.237065728753805,
+          "production_quality": 8.051352227223106,
+          "mos": 3.906176910328213,
+          "aesthetics": 3.132117450237274,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": 0.20043668895959854,
+          "anchor_ecapa": 0.09674299601465464,
+          "content_enjoyment": 0.5530084653291851,
+          "production_quality": 0.08243141882121563,
+          "mos": 0.2734211239730939,
+          "aesthetics": 0.4696108400821686,
+          "wer": -0.23076923076923078
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a1",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.26630574092268944,
+          "anchor_ecapa": 0.157556414604187,
+          "content_enjoyment": 6.254936738405377,
+          "production_quality": 8.023875087616034,
+          "mos": 4.085548924282193,
+          "aesthetics": 3.6135624051094055,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": -0.023468684405088425,
+          "anchor_ecapa": -0.031009599566459656,
+          "content_enjoyment": -0.06751270312815905,
+          "production_quality": -0.056671600439585745,
+          "mos": -0.002908735361415893,
+          "aesthetics": -0.271722674369812,
+          "wer": 0.0
+        }
+      },
+      {
+        "condition": "balanced-high-minus-all-semantic_local-a1",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.5230073630809784,
+          "anchor_ecapa": 0.18550928309559822,
+          "content_enjoyment": 6.135796674061567,
+          "production_quality": 7.946595632471144,
+          "mos": 3.8901788658404257,
+          "aesthetics": 3.1158074140548706,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": 0.16284503787755966,
+          "anchor_ecapa": 0.07081305328756571,
+          "content_enjoyment": 0.45173941063694656,
+          "production_quality": -0.0223251759307459,
+          "mos": 0.2574230794853065,
+          "aesthetics": 0.453300803899765,
+          "wer": -0.23076923076923078
+        }
+      },
+      {
+        "condition": "baseline",
+        "language": "en",
+        "n": 4,
+        "means": {
+          "ecapa": 0.28977442532777786,
+          "anchor_ecapa": 0.18856601417064667,
+          "content_enjoyment": 6.322449441533536,
+          "production_quality": 8.08054668805562,
+          "mos": 4.088457659643609,
+          "aesthetics": 3.8852850794792175,
+          "wer": 0.0
+        },
+        "deltas": {
+          "ecapa": 0.0,
+          "anchor_ecapa": 0.0,
+          "content_enjoyment": 0.0,
+          "production_quality": 0.0,
+          "mos": 0.0,
+          "aesthetics": 0.0,
+          "wer": 0.0
+        }
+      },
+      {
+        "condition": "baseline",
+        "language": "de",
+        "n": 4,
+        "means": {
+          "ecapa": 0.36016232520341873,
+          "anchor_ecapa": 0.11469622980803251,
+          "content_enjoyment": 5.68405726342462,
+          "production_quality": 7.96892080840189,
+          "mos": 3.632755786355119,
+          "aesthetics": 2.6625066101551056,
+          "wer": 0.23076923076923078
+        },
+        "deltas": {
+          "ecapa": 0.0,
+          "anchor_ecapa": 0.0,
+          "content_enjoyment": 0.0,
+          "production_quality": 0.0,
+          "mos": 0.0,
+          "aesthetics": 0.0,
+          "wer": 0.0
+        }
+      }
+    ],
+    "limitations": [
+      "Eight matched blocks only, four per language; exploratory comparisons are not multiplicity-corrected or held out.",
+      "Same eight refine blocks used in prior semantic contrast diagnostic; independent baseline regenerated.",
+      "High-minus-all uses 76 selected >.25 samples and all100, with equal ten joint language/emotion cells; not high-minus-low.",
+      "Secondary bank changes threshold, weighting, centering definition and vector norm together; it does not causally isolate language balancing.",
+      "Generic control is all-Mira mean, not cross-speaker/random/norm-matched control; its raw vector RMS is 5.7 times the semantic high-minus-all direction, so results do not establish speaker specificity."
+    ]
+  }
+}

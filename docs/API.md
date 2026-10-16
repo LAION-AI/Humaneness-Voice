@@ -1,5 +1,8 @@
 # Using the server without the web page
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_API.md) and the repository README.
+
 The pages at `/` and `/studio` are one client of an HTTP API, not the product.
 Everything they do is available directly, and two of the endpoints do not involve
 a language model at all.

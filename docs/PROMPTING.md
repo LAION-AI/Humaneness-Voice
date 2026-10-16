@@ -1,5 +1,8 @@
 # Prompting the director
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_PROMPTING.md) and the repository README.
+
 Everything the language model is told, why each rule is there, and what the
 server does with the answer. The prompt itself is reproduced verbatim at the
 bottom — it is generated from `llm_agent.SYSTEM`, so it cannot drift from what is

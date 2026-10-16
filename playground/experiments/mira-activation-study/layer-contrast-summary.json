@@ -1,0 +1,1514 @@
+{
+  "conditions": [
+    {
+      "phase": "layer_contrast",
+      "condition": "baseline",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3249683752655983,
+        "anchor_ecapa": 0.1516311219893396,
+        "content_enjoyment": 6.003253352479078,
+        "production_quality": 8.024733748228755,
+        "mos": 3.860606722999364,
+        "aesthetics": 3.2738958448171616,
+        "genuineness": 0.80376311019063,
+        "wer": 0.11538461538461539,
+        "emotion_score": 1.0527931228280067
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_16-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.042363922111690044,
+          "low": -0.02844052424188703,
+          "high": 0.09541385264601565,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.0004988822620362043,
+          "low": -0.05217190948314965,
+          "high": 0.04372248708386906,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.1317986961803399,
+          "low": -0.04666319186799228,
+          "high": 0.44106644653948024,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.02876513052615337,
+          "low": -0.07985543698305264,
+          "high": 0.024042497156187892,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.018906779849203303,
+          "low": -0.09454601897668909,
+          "high": 0.14932720161668844,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.37203824520111084,
+          "low": -0.8225778639316559,
+          "high": 0.012924928218126306,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.4678169898688793,
+          "low": 0.2304314225912094,
+          "high": 0.709780421666801,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09615384615384616,
+          "low": -0.2884615384615385,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.5367562863975763,
+          "low": -0.07993623986840248,
+          "high": 1.217568539083004,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.36733229737728834,
+        "anchor_ecapa": 0.15113223972730339,
+        "content_enjoyment": 6.135052048659418,
+        "production_quality": 7.9959686177026015,
+        "mos": 3.8795135028485674,
+        "aesthetics": 2.9018575996160507,
+        "genuineness": 1.2715801000595093,
+        "wer": 0.019230769230769232,
+        "emotion_score": 1.589549409225583
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "aesthetics_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_16-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.13667894154787064,
+          "low": 0.016695118322968487,
+          "high": 0.3098824867978692,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.07835207181051373,
+          "low": 0.026203389232978228,
+          "high": 0.14097590080928057,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.20502019405830652,
+          "low": -0.1350254062563181,
+          "high": 0.7729459882772063,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.06439954595407471,
+          "low": -0.06268222472863272,
+          "high": 0.2198385833718931,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.07223359480849467,
+          "low": -0.1391345081210602,
+          "high": 0.41840340214366745,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.2333630472421646,
+          "low": -0.9052594304084778,
+          "high": 0.5731516007333994,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.3044268749654293,
+          "low": 0.047404616978019475,
+          "high": 0.5696486745961011,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.0795787545787546,
+          "low": -0.308974358974359,
+          "high": 0.06071428571428571,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.18776803682461227,
+          "low": -0.05853637863765471,
+          "high": 0.6280119602494476,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.46164731681346893,
+        "anchor_ecapa": 0.22998319379985332,
+        "content_enjoyment": 6.208273546537384,
+        "production_quality": 8.08913329418283,
+        "mos": 3.932840317807859,
+        "aesthetics": 3.040532797574997,
+        "genuineness": 1.1081899851560593,
+        "wer": 0.035805860805860804,
+        "emotion_score": 1.240561159652619
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_17-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.05829961597919464,
+          "low": -0.007582501042634249,
+          "high": 0.12386083975434303,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.025232856161892414,
+          "low": -0.007921523344703018,
+          "high": 0.06145738996565342,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.09233354986645281,
+          "low": -0.20253810938447714,
+          "high": 0.5600575858028609,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.03606374573428184,
+          "low": -0.10561525536468253,
+          "high": 0.04722633369965479,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0298145374545129,
+          "low": -0.12434843670052942,
+          "high": 0.242170398433882,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.06066128611564636,
+          "low": -0.16241174936294556,
+          "high": 0.3020552054047585,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.17211636155843735,
+          "low": -0.025836370419710864,
+          "high": 0.3793987339362503,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.42800592506925267,
+          "low": -0.010686010122299194,
+          "high": 0.9890224399665991,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.38326799124479294,
+        "anchor_ecapa": 0.176863978151232,
+        "content_enjoyment": 6.095586902345531,
+        "production_quality": 7.988670002494473,
+        "mos": 3.890421260453877,
+        "aesthetics": 3.334557130932808,
+        "genuineness": 0.9758794717490673,
+        "wer": 0.0,
+        "emotion_score": 1.4807990478972595
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_17-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0989599134773016,
+          "low": -0.004679098725318909,
+          "high": 0.240276173921302,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.04682786809280515,
+          "low": -0.014462213963270187,
+          "high": 0.11530871243448934,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.21594136662315577,
+          "low": -0.06552703538909554,
+          "high": 0.7024299626937136,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.05795959135866724,
+          "low": -0.11849516455549747,
+          "high": 0.007298615208128467,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.014149785560221062,
+          "low": -0.15173902802052908,
+          "high": 0.28633469700471337,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.5954984724521637,
+          "low": -0.9533582657575608,
+          "high": -0.14882934093475342,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.722615297883749,
+          "low": 0.24835538864135742,
+          "high": 1.1987196952104568,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09812271062271063,
+          "low": -0.33782051282051284,
+          "high": 0.03511904761904762,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.475106343626976,
+          "low": -0.15673546120524406,
+          "high": 1.1601902097463608,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4239282887428999,
+        "anchor_ecapa": 0.19845899008214474,
+        "content_enjoyment": 6.219194719102234,
+        "production_quality": 7.966774156870088,
+        "mos": 3.874756508559585,
+        "aesthetics": 2.678397372364998,
+        "genuineness": 1.526378408074379,
+        "wer": 0.017261904761904763,
+        "emotion_score": 1.5278994664549828
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "aesthetics_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_20+layer_16-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.07516497746109962,
+          "low": -0.03285457072779536,
+          "high": 0.23473987830802798,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.06605082983151078,
+          "low": 0.008223952911794187,
+          "high": 0.1342199355363846,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.183177848928608,
+          "low": -0.09034788212738931,
+          "high": 0.6756234482163563,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.0017173212254419923,
+          "low": -0.07642079453216866,
+          "high": 0.10134341881639565,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.14640634652459994,
+          "low": -0.07514233016991057,
+          "high": 0.48190473100257813,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.14564262330532074,
+          "low": -0.24847587645053865,
+          "high": 0.7267582662403583,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.10486269742250443,
+          "low": -0.19156424701213837,
+          "high": 0.41127884741872556,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.22699430088202158,
+          "low": 0.0798026795188586,
+          "high": 0.3812826207218074,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4001333527266979,
+        "anchor_ecapa": 0.21768195182085037,
+        "content_enjoyment": 6.186431201407686,
+        "production_quality": 8.023016427003313,
+        "mos": 4.007013069523964,
+        "aesthetics": 3.4195384681224823,
+        "genuineness": 0.9086258076131344,
+        "wer": 0.0,
+        "emotion_score": 1.2797874237100284
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_20-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.11344877257943153,
+          "low": -0.0033303433097898925,
+          "high": 0.2876849535852671,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.06443923013284802,
+          "low": 0.003582422342151405,
+          "high": 0.1392970461747609,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.15537850058171898,
+          "low": -0.1449537449516356,
+          "high": 0.6964977803232615,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.018890533479861915,
+          "low": -0.06182356411591172,
+          "high": 0.12280993413442055,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.050418079597875476,
+          "low": -0.15538100708763522,
+          "high": 0.38395306770689785,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.03685908019542694,
+          "low": -0.42674713879823684,
+          "high": 0.677005335688591,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.3565376065671444,
+          "low": 0.10213059186935425,
+          "high": 0.6540949696674945,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.3562544571856658,
+          "low": -0.12409431859850883,
+          "high": 0.9815073038140932,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.43841714784502983,
+        "anchor_ecapa": 0.21607035212218761,
+        "content_enjoyment": 6.158631853060797,
+        "production_quality": 8.043624281708617,
+        "mos": 3.9110248025972396,
+        "aesthetics": 3.3107549250125885,
+        "genuineness": 1.1603007167577744,
+        "wer": 0.0,
+        "emotion_score": 1.4090475800136726
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "layer_contrast",
+      "condition": "contrast-layer_20-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.07608776725828648,
+          "low": -0.045091213658452034,
+          "high": 0.23365545300766838,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.06543528800830245,
+          "low": -0.017886492423713207,
+          "high": 0.1584356660488993,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.191120519884862,
+          "low": -0.11519354971242136,
+          "high": 0.6856014286051506,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.04894365492509678,
+          "low": -0.1313750737463124,
+          "high": 0.060964903503190726,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.06665851869911421,
+          "low": -0.09842433279191028,
+          "high": 0.31297992488835025,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.6046271622180939,
+          "low": -1.0860873505473136,
+          "high": -0.07973557859659193,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.5885983966290951,
+          "low": 0.31983210435137155,
+          "high": 0.8461824147030712,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.058379120879120894,
+          "low": -0.20192307692307696,
+          "high": 0.026785714285714284,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.3243003835280736,
+          "low": -0.16286992530028024,
+          "high": 0.9280261856814226,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4010561425238848,
+        "anchor_ecapa": 0.21706640999764204,
+        "content_enjoyment": 6.19437387236394,
+        "production_quality": 7.975790093303658,
+        "mos": 3.9272652416984783,
+        "aesthetics": 2.6692686825990677,
+        "genuineness": 1.392361506819725,
+        "wer": 0.05700549450549451,
+        "emotion_score": 1.3770935063560803
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [
+        "aesthetics_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    }
+  ],
+  "selection_gates": {
+    "wer_delta_max": 0.03,
+    "wer_mean_max": 0.15,
+    "bad_wer_rate_delta_max": 0.1,
+    "content_enjoyment_delta_min": -0.3,
+    "production_quality_delta_min": -0.3,
+    "mos_delta_min": -0.2,
+    "aesthetics_delta_min": -0.3,
+    "emotion_score_delta_min": -0.2,
+    "ecapa_delta_min": 0.01,
+    "generation_failures_max": 0
+  },
+  "bootstrap_repetitions": 4000,
+  "by_language": {
+    "baseline": {
+      "en": {
+        "ecapa": {
+          "mean": 0.28977442532777786,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.18856601417064667,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.322449441533536,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.08054668805562,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.088457659643609,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.8852850794792175,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.7285395115613937,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 0.8792958408594131,
+          "matched_delta": 0.0,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.36016232520341873,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.11469622980803251,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 5.68405726342462,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.96892080840189,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.632755786355119,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.6625066101551056,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.8789867088198662,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.23076923076923078,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.2262904047966003,
+          "matched_delta": 0.0,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_16-a0.25": {
+      "en": {
+        "ecapa": {
+          "mean": 0.30417632684111595,
+          "matched_delta": 0.014401901513338089,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.16174528002738953,
+          "matched_delta": -0.02682073414325714,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.29067875770852,
+          "matched_delta": -0.03177068382501602,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.056504190899432,
+          "matched_delta": -0.024042497156187892,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.056461570668034,
+          "matched_delta": -0.03199608897557482,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.3835518956184387,
+          "matched_delta": -0.5017331838607788,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.2304470539093018,
+          "matched_delta": 0.501907542347908,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.0696634190777938,
+          "matched_delta": 0.1903675782183806,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.43048826791346073,
+          "matched_delta": 0.070325942710042,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.14051919942721725,
+          "matched_delta": 0.025822969619184732,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 5.979425339610316,
+          "matched_delta": 0.2953680761856958,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.935433044505771,
+          "matched_delta": -0.03348776389611885,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.7025654350291006,
+          "matched_delta": 0.06980964867398143,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.4201633036136627,
+          "matched_delta": -0.24234330654144287,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.3127131462097168,
+          "matched_delta": 0.4337264373898506,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.038461538461538464,
+          "matched_delta": -0.19230769230769232,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 2.1094353993733725,
+          "matched_delta": 0.8831449945767721,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_16-a0.75": {
+      "en": {
+        "ecapa": {
+          "mean": 0.3626879006624222,
+          "matched_delta": 0.07291347533464432,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.24732038378715515,
+          "matched_delta": 0.058754369616508484,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.181467032060027,
+          "matched_delta": -0.1409824094735086,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.047917584772222,
+          "matched_delta": -0.03262910328339785,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.982288818951929,
+          "matched_delta": -0.10616884069168009,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.821989953517914,
+          "matched_delta": -1.0632951259613037,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.3287893235683441,
+          "matched_delta": 0.6002498120069504,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.016666666666666666,
+          "matched_delta": 0.016666666666666666,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.264972561999457,
+          "matched_delta": 0.3856767211400438,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.5606067329645157,
+          "matched_delta": 0.20044440776109695,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.2126460038125515,
+          "matched_delta": 0.09794977400451899,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.235080061014742,
+          "matched_delta": 0.5510227975901216,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.130349003593437,
+          "matched_delta": 0.16142819519154727,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.8833918166637886,
+          "matched_delta": 0.25063603030866943,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.25907564163208,
+          "matched_delta": 0.5965690314769745,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.8875906467437744,
+          "matched_delta": 0.008603937923908234,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.054945054945054944,
+          "matched_delta": -0.17582417582417587,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.2161497573057811,
+          "matched_delta": -0.010140647490819296,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_17-a0.25": {
+      "en": {
+        "ecapa": {
+          "mean": 0.29434360563755035,
+          "matched_delta": 0.0045691803097724915,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.21111920848488808,
+          "matched_delta": 0.02255319431424141,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.119911332149059,
+          "matched_delta": -0.20253810938447714,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.999832590459846,
+          "matched_delta": -0.08071409759577364,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.052583256852813,
+          "matched_delta": -0.03587440279079601,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.748192250728607,
+          "matched_delta": -0.13709282875061035,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.711393915116787,
+          "matched_delta": -0.01714559644460678,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.0676582033435504,
+          "matched_delta": 0.1883623624841372,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.4721923768520355,
+          "matched_delta": 0.11203005164861679,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.14260874781757593,
+          "matched_delta": 0.02791251800954342,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.071262472542003,
+          "matched_delta": 0.38720520911738276,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.9775074145291,
+          "matched_delta": 0.008586606127209961,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.728259264054941,
+          "matched_delta": 0.09550347769982181,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.9209220111370087,
+          "matched_delta": 0.2584154009819031,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.2403650283813477,
+          "matched_delta": 0.3613783195614815,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": -0.23076923076923078,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.8939398924509685,
+          "matched_delta": 0.667649487654368,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_17-a0.75": {
+      "en": {
+        "ecapa": {
+          "mean": 0.32805174216628075,
+          "matched_delta": 0.038277316838502884,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.2238646075129509,
+          "matched_delta": 0.03529859334230423,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.304578431881964,
+          "matched_delta": -0.017871009651571512,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.980942056979984,
+          "matched_delta": -0.09960463107563555,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.019617589423433,
+          "matched_delta": -0.06884007022017613,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.9451082944869995,
+          "matched_delta": -0.940176784992218,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.6492934823036194,
+          "matched_delta": 0.9207539707422256,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.034523809523809526,
+          "matched_delta": 0.034523809523809526,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.119796598951022,
+          "matched_delta": 0.24050075809160867,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.519804835319519,
+          "matched_delta": 0.1596425101161003,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.17305337265133858,
+          "matched_delta": 0.058357142843306065,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.133811006322503,
+          "matched_delta": 0.44975374289788306,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.952606256760191,
+          "matched_delta": -0.016314551641698927,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.7298954276957375,
+          "matched_delta": 0.09713964134061825,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.411686450242996,
+          "matched_delta": -0.2508201599121094,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.4034633338451385,
+          "matched_delta": 0.5244766250252724,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": -0.23076923076923078,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.9360023339589436,
+          "matched_delta": 0.7097119291623434,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_20+layer_16-a0.5": {
+      "en": {
+        "ecapa": {
+          "mean": 0.29060012102127075,
+          "matched_delta": 0.0008256956934928894,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.23248481005430222,
+          "matched_delta": 0.04391879588365555,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.270822080317885,
+          "matched_delta": -0.051627361215651035,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.04620026354678,
+          "matched_delta": -0.034346424508839846,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.100092601089273,
+          "matched_delta": 0.011634941445663571,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.733278214931488,
+          "matched_delta": -0.1520068645477295,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.960689902305603,
+          "matched_delta": 0.2321503907442093,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.1982577294111252,
+          "matched_delta": 0.31896188855171204,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.5096665844321251,
+          "matched_delta": 0.14950425922870636,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.20287909358739853,
+          "matched_delta": 0.08818286377936602,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.102040322497487,
+          "matched_delta": 0.41798305907286704,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.999832590459846,
+          "matched_delta": 0.03091178205795586,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.9139335379586555,
+          "matched_delta": 0.2811777516035363,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.1057987213134766,
+          "matched_delta": 0.44329211115837097,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 0.8565617129206657,
+          "matched_delta": -0.02242499589920044,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": -0.23076923076923078,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.3613171180089314,
+          "matched_delta": 0.13502671321233115,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_20-a0.25": {
+      "en": {
+        "ecapa": {
+          "mean": 0.3143499568104744,
+          "matched_delta": 0.024575531482696533,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.2191387638449669,
+          "matched_delta": 0.03057274967432022,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.213237715885043,
+          "matched_delta": -0.10921172564849257,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 8.08913329418283,
+          "matched_delta": 0.008586606127209961,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.0050739126163535,
+          "matched_delta": -0.0833837470272556,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.5530596375465393,
+          "matched_delta": -0.3322254419326782,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.1312665343284607,
+          "matched_delta": 0.40272702276706696,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": 0.0,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.0632249837120373,
+          "matched_delta": 0.18392914285262427,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.5624843388795853,
+          "matched_delta": 0.20232201367616653,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.21300194039940834,
+          "matched_delta": 0.09830571059137583,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.104025990236551,
+          "matched_delta": 0.41996872681193054,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.998115269234404,
+          "matched_delta": 0.02919446083251387,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.8169756925781257,
+          "matched_delta": 0.18421990622300655,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.0684502124786377,
+          "matched_delta": 0.4059436023235321,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.189334899187088,
+          "matched_delta": 0.31034819036722183,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.0,
+          "matched_delta": -0.23076923076923078,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.7548701763153076,
+          "matched_delta": 0.5285797715187073,
+          "n": 3
+        }
+      }
+    },
+    "contrast-layer_20-a0.75": {
+      "en": {
+        "ecapa": {
+          "mean": 0.2825100012123585,
+          "matched_delta": -0.007264424115419388,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.20127172209322453,
+          "matched_delta": 0.012705707922577858,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.189409703016281,
+          "matched_delta": -0.1330397385172546,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.962051523500122,
+          "matched_delta": -0.11849516455549747,
+          "n": 4
+        },
+        "mos": {
+          "mean": 4.094275130366441,
+          "matched_delta": 0.005817470722831786,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 3.0162760615348816,
+          "matched_delta": -0.8690090179443359,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.2729881405830383,
+          "matched_delta": 0.5444486290216446,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.017857142857142856,
+          "matched_delta": 0.017857142857142856,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 0.8553202400604883,
+          "matched_delta": -0.023975600798924763,
+          "n": 3
+        }
+      },
+      "de": {
+        "ecapa": {
+          "mean": 0.5196022838354111,
+          "matched_delta": 0.15943995863199234,
+          "n": 4
+        },
+        "anchor_ecapa": {
+          "mean": 0.23286109790205956,
+          "matched_delta": 0.11816486809402704,
+          "n": 4
+        },
+        "content_enjoyment": {
+          "mean": 6.199338041711599,
+          "matched_delta": 0.5152807782869786,
+          "n": 4
+        },
+        "production_quality": {
+          "mean": 7.989528663107194,
+          "matched_delta": 0.020607854705303907,
+          "n": 4
+        },
+        "mos": {
+          "mean": 3.760255353030516,
+          "matched_delta": 0.12749956667539664,
+          "n": 4
+        },
+        "aesthetics": {
+          "mean": 2.322261303663254,
+          "matched_delta": -0.3402453064918518,
+          "n": 4
+        },
+        "genuineness": {
+          "mean": 1.5117348730564117,
+          "matched_delta": 0.6327481642365456,
+          "n": 4
+        },
+        "wer": {
+          "mean": 0.09615384615384616,
+          "matched_delta": -0.13461538461538464,
+          "n": 4
+        },
+        "emotion_score": {
+          "mean": 1.8988667726516724,
+          "matched_delta": 0.672576367855072,
+          "n": 3
+        }
+      }
+    }
+  },
+  "scope": "Exploratory eight-fresh-refinement-block diagnostic, not held-out validation. Four emotions, fear absent. Primary strict>.50 high-minus-low vectors from22German+1English high pool; generic steering/language/identity confounds remain."
+}

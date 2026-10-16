@@ -1,0 +1,2967 @@
+{
+  "url": "https://fuji-formal-while-plugin.trycloudflare.com",
+  "cases": [
+    {
+      "model": "small_rl",
+      "mode": "single",
+      "n": 1,
+      "wall_seconds": 4.109847120940685,
+      "request": {
+        "model": "small_rl",
+        "input_mode": "manual",
+        "language": "en",
+        "message": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+        "generation": "single",
+        "n": 1,
+        "batch_size": 1,
+        "streaming": true,
+        "seed": 43217,
+        "voice_conversion": false
+      },
+      "events": [
+        {
+          "event": "model",
+          "model_id": "small_rl",
+          "checkpoint": {
+            "id": "small_rl",
+            "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+            "kind": "small",
+            "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+            "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+            "checkpoint": "checkpoints/step-00006109/model.safetensors",
+            "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+            "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 6109,
+            "rl_updates": 2434,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 8,
+            "search_max_n": 8,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+              "semantic": 112,
+              "local": 2
+            }
+          },
+          "batch_size": 1,
+          "requested_batch_size": 1,
+          "parallel_candidates": false
+        },
+        {
+          "event": "status",
+          "phase": "Preparing prompt"
+        },
+        {
+          "event": "status",
+          "phase": "Using the fixed reference clip of this speaker"
+        },
+        {
+          "event": "reference",
+          "mode": "profile",
+          "voice": "emolia_c1699",
+          "name": "Mira",
+          "language": "en",
+          "reference_language": "de",
+          "dynamic": false,
+          "policy": "fixed",
+          "retriever": null,
+          "fallback": null,
+          "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+          "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+          "seconds": 10.259645833333334,
+          "content_enjoyment": 6.252951070666313,
+          "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+          "retrieval_ms": 118,
+          "url": "/api/audio/5d5372d0dd9142e195484df2c2930952"
+        },
+        {
+          "event": "direction",
+          "prompt": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "unconditional": "GENERAL: plain neutral delivery at a normal conversational volume\nSCRIPT:\n[3.5 seconds duration] I am glad you came back. We can talk now.",
+          "text": "I am glad you came back. We can talk now.",
+          "lang": "en",
+          "frames": 57,
+          "format": "structured",
+          "tagged": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "general": "Gentle, natural and spontaneous delivery.",
+          "edge_script": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "identity_cfg": false,
+          "llm_ms": 0,
+          "reference": "Mira \u00b7 fixed reference clip"
+        },
+        {
+          "event": "speaker_request",
+          "active": false,
+          "method": "ecapa",
+          "weight": 0.6,
+          "reason": "Disabled"
+        },
+        {
+          "event": "status",
+          "phase": "Humaneness Ears medium ranking preparation"
+        },
+        {
+          "event": "ranking",
+          "options": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          }
+        },
+        {
+          "event": "status",
+          "phase": "Preparing selected LoRAs"
+        },
+        {
+          "event": "adapters",
+          "selection": {
+            "id": null,
+            "weight": 1.0,
+            "ref15": false,
+            "ref15_weight": 1.0
+          },
+          "active": [],
+          "switch_ms": 0
+        },
+        {
+          "event": "speaker_steering",
+          "requested": false,
+          "enabled": false,
+          "active": false,
+          "experimental": true,
+          "layer": 16,
+          "alpha": 0.75,
+          "method": "quality_high_minus_low_contrast",
+          "normalization": "raw",
+          "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+          "voice": "emolia_c1699",
+          "reason": "acting_checkpoint_no_steering"
+        },
+        {
+          "event": "status",
+          "phase": "Generating audio"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 2,
+          "seconds": 0.6,
+          "committed_until_seconds": 1.6,
+          "playback_until_seconds": 0.6,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 0.6,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "url": "/api/audio/577eacafafe7460b95422c71bc8576e1"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 3,
+          "seconds": 0.8,
+          "committed_until_seconds": 2.4,
+          "playback_until_seconds": 1.4,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 1.4,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "url": "/api/audio/6e68d46bdbec4dd99eb29c58df21b8ec"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 4,
+          "seconds": 0.8,
+          "committed_until_seconds": 3.2,
+          "playback_until_seconds": 2.2,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 2.2,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "url": "/api/audio/a04a31ac95b84c6881ac3f8abba6e297"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 5,
+          "seconds": 0.8,
+          "committed_until_seconds": 4.0,
+          "playback_until_seconds": 3.0,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 3.0,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "url": "/api/audio/28ea7b64e8764dd18420dedcdab1c451"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 6,
+          "seconds": 1.43,
+          "committed_until_seconds": 4.8,
+          "playback_until_seconds": 4.43,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": 4.28,
+            "stopped": true,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 4.43,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "url": "/api/audio/adfc48df0d7743918de52f7ccdc51e18"
+        },
+        {
+          "event": "progress",
+          "done": 1,
+          "total": 1
+        },
+        {
+          "event": "reference_context",
+          "source_seconds": 10.259645833333334,
+          "used_seconds": 10.259645833333334,
+          "codec_frames": 128,
+          "codec_seconds": 10.24,
+          "max_seconds": 15.0,
+          "truncated": false
+        },
+        {
+          "event": "status",
+          "phase": "Aligning speech boundaries and applying fades"
+        },
+        {
+          "event": "status",
+          "phase": "Scoring takes"
+        },
+        {
+          "event": "result",
+          "candidates": [
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.16,
+                  "end": 0.4
+                },
+                {
+                  "word": "am",
+                  "start": 0.4,
+                  "end": 0.64
+                },
+                {
+                  "word": "glad",
+                  "start": 0.64,
+                  "end": 1.04
+                },
+                {
+                  "word": "you",
+                  "start": 1.04,
+                  "end": 1.28
+                },
+                {
+                  "word": "came",
+                  "start": 1.28,
+                  "end": 1.76
+                },
+                {
+                  "word": "back.",
+                  "start": 1.76,
+                  "end": 2.48
+                },
+                {
+                  "word": "We",
+                  "start": 2.48,
+                  "end": 2.8000000000000003
+                },
+                {
+                  "word": "can",
+                  "start": 2.8000000000000003,
+                  "end": 3.12
+                },
+                {
+                  "word": "talk",
+                  "start": 3.12,
+                  "end": 3.52
+                },
+                {
+                  "word": "now.",
+                  "start": 3.52,
+                  "end": 3.84
+                }
+              ],
+              "sec": 3.95,
+              "clap": 0.018860986456274986,
+              "genuineness": 2.359384775161743,
+              "blend": 7.094954490661621,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5619899440660245,
+              "quality": 0.5619899440660245,
+              "gate": 1.0,
+              "n_clap": 0.5094304932281375,
+              "n_genuineness": 0.3932307958602905,
+              "n_blend": 0.7094954490661621,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.530944554135203,
+                "normalized": 0.6145493949039115,
+                "scores_raw": {
+                  "audiobox:CE": 6.530944554135203,
+                  "audiobox:PQ": 7.932857062667608,
+                  "audiobox:CU": 7.42358766309917,
+                  "audiobox:PC": 1.5551796555519104,
+                  "dnsmos:P808_MOS": 3.8547892522765324,
+                  "dnsmos:OVRL": 3.4488756731152534
+                },
+                "duration_seconds": 3.95,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.5303968078456819,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 0,
+              "index": 0,
+              "url": "/api/audio/b13896789cfe4127bd41fbbb9e324db7",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": 3.8,
+                "removed_s": 0.85,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.48,
+                    0.64,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.64,
+                    1.04,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.04,
+                    1.12,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.12,
+                    1.44,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    1.44,
+                    1.76,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    2.72,
+                    2.8,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    2.8,
+                    3.04,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.04,
+                    3.36,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    3.36,
+                    3.68,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.8,
+                "seconds": 3.95,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            }
+          ],
+          "winner": 0,
+          "generation": "single",
+          "guidance": 2.0,
+          "seed": 43217,
+          "llm_ms": 0,
+          "generation_ms": 3348,
+          "alignment_ms": 64,
+          "scoring_ms": 177,
+          "performance": {
+            "device_seconds": 2.845470338821411,
+            "raw_audio_seconds": 4.8,
+            "aggregate_rtf": 0.592806320587794,
+            "audio_seconds_per_second": 1.6868915955694521,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 2.845470338821411,
+                "audio_seconds": [
+                  4.8
+                ],
+                "model_wall_seconds": 3.227150097489357,
+                "first_audio_seconds": 1.4702857666015625,
+                "graph_capture_seconds": 1.1563432030379772,
+                "live_callback_seconds": 0.381049532443285
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 10,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 1.1563432030379772,
+            "oom_batch_retries": []
+          },
+          "search_performance": null,
+          "live_stream": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": null,
+            "cut_s": 4.28,
+            "stopped": true,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 4.43,
+            "first_playable_seconds": 2.015326790511608
+          },
+          "voice_conversion": {
+            "enabled": false
+          },
+          "checkpoint": {
+            "id": "small_rl",
+            "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+            "kind": "small",
+            "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+            "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+            "checkpoint": "checkpoints/step-00006109/model.safetensors",
+            "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+            "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 6109,
+            "rl_updates": 2434,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 8,
+            "search_max_n": 8,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+              "semantic": 112,
+              "local": 2
+            }
+          },
+          "ranking": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          },
+          "reward_mode": "clap",
+          "reward_plan": null,
+          "reward_style_share": 0.5,
+          "reward_planning_ms": 0,
+          "reward_loading_ms": 16,
+          "burst_request": null,
+          "adapters": {
+            "selection": {
+              "id": null,
+              "weight": 1.0,
+              "ref15": false,
+              "ref15_weight": 1.0
+            },
+            "active": [],
+            "switch_ms": 0
+          },
+          "speaker_steering": {
+            "requested": false,
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "layer": 16,
+            "alpha": 0.75,
+            "method": "quality_high_minus_low_contrast",
+            "normalization": "raw",
+            "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+            "voice": "emolia_c1699",
+            "reason": "acting_checkpoint_no_steering"
+          },
+          "reference": {
+            "mode": "profile",
+            "voice": "emolia_c1699",
+            "name": "Mira",
+            "language": "en",
+            "reference_language": "de",
+            "dynamic": false,
+            "policy": "fixed",
+            "retriever": null,
+            "fallback": null,
+            "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+            "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+            "seconds": 10.259645833333334,
+            "content_enjoyment": 6.252951070666313,
+            "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+            "retrieval_ms": 118,
+            "url": "/api/audio/5d5372d0dd9142e195484df2c2930952",
+            "tts_context": {
+              "source_seconds": 10.259645833333334,
+              "used_seconds": 10.259645833333334,
+              "codec_frames": 128,
+              "codec_seconds": 10.24,
+              "max_seconds": 15.0,
+              "truncated": false
+            }
+          },
+          "speaker_request": {
+            "active": false,
+            "method": "ecapa",
+            "weight": 0.6,
+            "reason": "Disabled"
+          },
+          "speaker_preparation_ms": 0,
+          "total_ms": 3786,
+          "cfg_effective": true
+        }
+      ]
+    },
+    {
+      "model": "small_rl",
+      "mode": "best",
+      "n": 3,
+      "wall_seconds": 4.08928781375289,
+      "request": {
+        "model": "small_rl",
+        "input_mode": "manual",
+        "language": "en",
+        "message": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+        "generation": "best",
+        "n": 3,
+        "batch_size": 1,
+        "streaming": false,
+        "seed": 43217,
+        "voice_conversion": false
+      },
+      "events": [
+        {
+          "event": "model",
+          "model_id": "small_rl",
+          "checkpoint": {
+            "id": "small_rl",
+            "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+            "kind": "small",
+            "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+            "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+            "checkpoint": "checkpoints/step-00006109/model.safetensors",
+            "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+            "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 6109,
+            "rl_updates": 2434,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 8,
+            "search_max_n": 8,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+              "semantic": 112,
+              "local": 2
+            }
+          },
+          "batch_size": 3,
+          "requested_batch_size": 1,
+          "parallel_candidates": true
+        },
+        {
+          "event": "status",
+          "phase": "Preparing prompt"
+        },
+        {
+          "event": "status",
+          "phase": "Using the fixed reference clip of this speaker"
+        },
+        {
+          "event": "reference",
+          "mode": "profile",
+          "voice": "emolia_c1699",
+          "name": "Mira",
+          "language": "en",
+          "reference_language": "de",
+          "dynamic": false,
+          "policy": "fixed",
+          "retriever": null,
+          "fallback": null,
+          "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+          "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+          "seconds": 10.259645833333334,
+          "content_enjoyment": 6.252951070666313,
+          "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+          "retrieval_ms": 102,
+          "url": "/api/audio/e7368fea14554308a065d2954795f25c"
+        },
+        {
+          "event": "direction",
+          "prompt": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "unconditional": "GENERAL: plain neutral delivery at a normal conversational volume\nSCRIPT:\n[3.5 seconds duration] I am glad you came back. We can talk now.",
+          "text": "I am glad you came back. We can talk now.",
+          "lang": "en",
+          "frames": 57,
+          "format": "structured",
+          "tagged": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "general": "Gentle, natural and spontaneous delivery.",
+          "edge_script": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "identity_cfg": false,
+          "llm_ms": 0,
+          "reference": "Mira \u00b7 fixed reference clip"
+        },
+        {
+          "event": "speaker_request",
+          "active": false,
+          "method": "ecapa",
+          "weight": 0.6,
+          "reason": "Disabled"
+        },
+        {
+          "event": "status",
+          "phase": "Humaneness Ears medium ranking preparation"
+        },
+        {
+          "event": "ranking",
+          "options": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          }
+        },
+        {
+          "event": "status",
+          "phase": "Preparing selected LoRAs"
+        },
+        {
+          "event": "adapters",
+          "selection": {
+            "id": null,
+            "weight": 1.0,
+            "ref15": false,
+            "ref15_weight": 1.0
+          },
+          "active": [],
+          "switch_ms": 0
+        },
+        {
+          "event": "speaker_steering",
+          "requested": false,
+          "enabled": false,
+          "active": false,
+          "experimental": true,
+          "layer": 16,
+          "alpha": 0.75,
+          "method": "quality_high_minus_low_contrast",
+          "normalization": "raw",
+          "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+          "voice": "emolia_c1699",
+          "reason": "acting_checkpoint_no_steering"
+        },
+        {
+          "event": "status",
+          "phase": "Generating audio"
+        },
+        {
+          "event": "progress",
+          "done": 3,
+          "total": 3
+        },
+        {
+          "event": "reference_context",
+          "source_seconds": 10.259645833333334,
+          "used_seconds": 10.259645833333334,
+          "codec_frames": 128,
+          "codec_seconds": 10.24,
+          "max_seconds": 15.0,
+          "truncated": false
+        },
+        {
+          "event": "status",
+          "phase": "Aligning speech boundaries and applying fades"
+        },
+        {
+          "event": "status",
+          "phase": "Scoring takes"
+        },
+        {
+          "event": "result",
+          "candidates": [
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.16,
+                  "end": 0.4
+                },
+                {
+                  "word": "am",
+                  "start": 0.4,
+                  "end": 0.64
+                },
+                {
+                  "word": "glad",
+                  "start": 0.64,
+                  "end": 1.04
+                },
+                {
+                  "word": "you",
+                  "start": 1.04,
+                  "end": 1.28
+                },
+                {
+                  "word": "came",
+                  "start": 1.28,
+                  "end": 1.76
+                },
+                {
+                  "word": "back.",
+                  "start": 1.76,
+                  "end": 2.48
+                },
+                {
+                  "word": "We",
+                  "start": 2.48,
+                  "end": 2.8000000000000003
+                },
+                {
+                  "word": "can",
+                  "start": 2.8000000000000003,
+                  "end": 3.12
+                },
+                {
+                  "word": "talk",
+                  "start": 3.12,
+                  "end": 3.52
+                },
+                {
+                  "word": "now.",
+                  "start": 3.52,
+                  "end": 3.84
+                }
+              ],
+              "sec": 3.95,
+              "clap": 0.020170442759990692,
+              "genuineness": 2.3587679862976074,
+              "blend": 7.108420372009277,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5618760486443837,
+              "quality": 0.5618760486443837,
+              "gate": 1.0,
+              "n_clap": 0.5100852213799953,
+              "n_genuineness": 0.3931279977162679,
+              "n_blend": 0.7108420372009278,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.523001883178949,
+                "normalized": 0.6136668759087721,
+                "scores_raw": {
+                  "audiobox:CE": 6.523001883178949,
+                  "audiobox:PQ": 7.912249207962304,
+                  "audiobox:CU": 7.376764954999089,
+                  "audiobox:PC": 1.5236271731555462,
+                  "dnsmos:P808_MOS": 3.8722416644450277,
+                  "dnsmos:OVRL": 3.4488756731152534
+                },
+                "duration_seconds": 3.95,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.5310351194192966,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 1,
+              "index": 0,
+              "url": "/api/audio/afba5d653e764149a4dc877e3156fdf5",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": 3.8,
+                "removed_s": 0.93,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.48,
+                    0.64,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.64,
+                    1.04,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.04,
+                    1.12,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.12,
+                    1.44,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    1.44,
+                    1.76,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    2.72,
+                    2.8,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    2.8,
+                    3.04,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.04,
+                    3.36,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    3.36,
+                    3.68,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.88,
+                "seconds": 3.95,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            },
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.24,
+                  "end": 0.4
+                },
+                {
+                  "word": "am",
+                  "start": 0.4,
+                  "end": 0.56
+                },
+                {
+                  "word": "glad",
+                  "start": 0.72,
+                  "end": 1.04
+                },
+                {
+                  "word": "you",
+                  "start": 1.04,
+                  "end": 1.28
+                },
+                {
+                  "word": "came",
+                  "start": 1.28,
+                  "end": 1.76
+                },
+                {
+                  "word": "back.",
+                  "start": 1.76,
+                  "end": 2.32
+                },
+                {
+                  "word": "We",
+                  "start": 2.32,
+                  "end": 2.64
+                },
+                {
+                  "word": "can",
+                  "start": 2.64,
+                  "end": 2.88
+                },
+                {
+                  "word": "talk",
+                  "start": 2.88,
+                  "end": 3.36
+                },
+                {
+                  "word": "now.",
+                  "start": 3.36,
+                  "end": 3.84
+                }
+              ],
+              "sec": 3.87,
+              "clap": 0.12193699926137924,
+              "genuineness": 1.6112333536148071,
+              "blend": 8.83116626739502,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5776099788231982,
+              "quality": 0.5776099788231982,
+              "gate": 1.0,
+              "n_clap": 0.5609684996306896,
+              "n_genuineness": 0.2685388922691345,
+              "n_blend": 0.883116626739502,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.348263122141361,
+                "normalized": 0.5942514580157068,
+                "scores_raw": {
+                  "audiobox:CE": 6.348263122141361,
+                  "audiobox:PQ": 7.850425643846393,
+                  "audiobox:CU": 7.384568739682436,
+                  "audiobox:PC": 1.4668327048420906,
+                  "dnsmos:P808_MOS": 3.8392759970156476,
+                  "dnsmos:OVRL": 3.486791580915451
+                },
+                "duration_seconds": 3.87,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.5683981295675039,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 0,
+              "index": 1,
+              "url": "/api/audio/9d2da34175e44f27ab8d5aa6757b1a13",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": 3.72,
+                "removed_s": 1.09,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.48,
+                    0.64,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.64,
+                    1.04,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.04,
+                    1.12,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.12,
+                    1.36,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    1.36,
+                    1.84,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    2.56,
+                    2.64,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    2.64,
+                    2.8,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    2.8,
+                    3.12,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    3.12,
+                    3.6,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.96,
+                "seconds": 3.87,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            },
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.24,
+                  "end": 0.56
+                },
+                {
+                  "word": "am",
+                  "start": 0.56,
+                  "end": 0.8
+                },
+                {
+                  "word": "glad",
+                  "start": 0.8,
+                  "end": 1.28
+                },
+                {
+                  "word": "you",
+                  "start": 1.28,
+                  "end": 1.52
+                },
+                {
+                  "word": "came",
+                  "start": 1.52,
+                  "end": 2.08
+                },
+                {
+                  "word": "back.",
+                  "start": 2.08,
+                  "end": 2.88
+                },
+                {
+                  "word": "We",
+                  "start": 2.88,
+                  "end": 3.2
+                },
+                {
+                  "word": "can",
+                  "start": 3.2,
+                  "end": 3.44
+                },
+                {
+                  "word": "talk",
+                  "start": 3.44,
+                  "end": 3.92
+                },
+                {
+                  "word": "now.",
+                  "start": 3.92,
+                  "end": 4.4
+                }
+              ],
+              "sec": 4.43,
+              "clap": 0.021722689270973206,
+              "genuineness": 1.6144170761108398,
+              "blend": 5.959486484527588,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.549467584842609,
+              "quality": 0.549467584842609,
+              "gate": 1.0,
+              "n_clap": 0.5108613446354866,
+              "n_genuineness": 0.26906951268513996,
+              "n_blend": 0.5959486484527587,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.292664425447583,
+                "normalized": 0.5880738250497315,
+                "scores_raw": {
+                  "audiobox:CE": 6.292664425447583,
+                  "audiobox:PQ": 7.836687074042857,
+                  "audiobox:CU": 7.166062768548727,
+                  "audiobox:PC": 1.4731432013213634,
+                  "dnsmos:P808_MOS": 3.7830404466949403,
+                  "dnsmos:OVRL": 3.453615161590278
+                },
+                "duration_seconds": 4.43,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.47168521260221796,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 2,
+              "index": 2,
+              "url": "/api/audio/5ec54562e7a6431db62660c43b62f8cc",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": 4.28,
+                "removed_s": 0.45,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.48,
+                    0.72,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.72,
+                    1.28,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.28,
+                    1.36,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.36,
+                    1.76,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    1.76,
+                    2.4,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    3.04,
+                    3.2,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    3.2,
+                    3.36,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.36,
+                    3.76,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    3.76,
+                    4.16,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.88,
+                "seconds": 4.43,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            }
+          ],
+          "winner": 1,
+          "generation": "best",
+          "guidance": 2.0,
+          "seed": 43217,
+          "llm_ms": 0,
+          "generation_ms": 3044,
+          "alignment_ms": 119,
+          "scoring_ms": 164,
+          "performance": {
+            "device_seconds": 2.923443115234375,
+            "raw_audio_seconds": 14.719999999999999,
+            "aggregate_rtf": 0.1986034725023353,
+            "audio_seconds_per_second": 5.035158687813182,
+            "batches": [
+              {
+                "batch_size": 3,
+                "device_seconds": 2.923443115234375,
+                "audio_seconds": [
+                  4.88,
+                  4.96,
+                  4.88
+                ],
+                "model_wall_seconds": 2.9235296957194805,
+                "first_audio_seconds": 2.923443115234375,
+                "graph_capture_seconds": 1.187822699546814,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 1.187822699546814,
+            "oom_batch_retries": []
+          },
+          "search_performance": null,
+          "live_stream": null,
+          "voice_conversion": {
+            "enabled": false
+          },
+          "checkpoint": {
+            "id": "small_rl",
+            "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+            "kind": "small",
+            "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+            "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+            "checkpoint": "checkpoints/step-00006109/model.safetensors",
+            "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+            "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 6109,
+            "rl_updates": 2434,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 8,
+            "search_max_n": 8,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+              "semantic": 112,
+              "local": 2
+            }
+          },
+          "ranking": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          },
+          "reward_mode": "clap",
+          "reward_plan": null,
+          "reward_style_share": 0.5,
+          "reward_planning_ms": 0,
+          "reward_loading_ms": 7,
+          "burst_request": null,
+          "adapters": {
+            "selection": {
+              "id": null,
+              "weight": 1.0,
+              "ref15": false,
+              "ref15_weight": 1.0
+            },
+            "active": [],
+            "switch_ms": 0
+          },
+          "speaker_steering": {
+            "requested": false,
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "layer": 16,
+            "alpha": 0.75,
+            "method": "quality_high_minus_low_contrast",
+            "normalization": "raw",
+            "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+            "voice": "emolia_c1699",
+            "reason": "acting_checkpoint_no_steering"
+          },
+          "reference": {
+            "mode": "profile",
+            "voice": "emolia_c1699",
+            "name": "Mira",
+            "language": "en",
+            "reference_language": "de",
+            "dynamic": false,
+            "policy": "fixed",
+            "retriever": null,
+            "fallback": null,
+            "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+            "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+            "seconds": 10.259645833333334,
+            "content_enjoyment": 6.252951070666313,
+            "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+            "retrieval_ms": 102,
+            "url": "/api/audio/e7368fea14554308a065d2954795f25c",
+            "tts_context": {
+              "source_seconds": 10.259645833333334,
+              "used_seconds": 10.259645833333334,
+              "codec_frames": 128,
+              "codec_seconds": 10.24,
+              "max_seconds": 15.0,
+              "truncated": false
+            }
+          },
+          "speaker_request": {
+            "active": false,
+            "method": "ecapa",
+            "weight": 0.6,
+            "reason": "Disabled"
+          },
+          "speaker_preparation_ms": 0,
+          "total_ms": 3616,
+          "cfg_effective": true
+        }
+      ]
+    },
+    {
+      "model": "large_rl",
+      "mode": "single",
+      "n": 1,
+      "wall_seconds": 176.13197698816657,
+      "request": {
+        "model": "large_rl",
+        "input_mode": "manual",
+        "language": "en",
+        "message": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+        "generation": "single",
+        "n": 1,
+        "batch_size": 1,
+        "streaming": true,
+        "seed": 43217,
+        "voice_conversion": false
+      },
+      "events": [
+        {
+          "event": "status",
+          "phase": "Acting-Switching model"
+        },
+        {
+          "event": "model",
+          "model_id": "large_rl",
+          "checkpoint": {
+            "id": "large_rl",
+            "label": "Large 1.1 Alpha RL \u00b7 r128 v1",
+            "kind": "large",
+            "repo": "laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1",
+            "revision": "7f050dc0e5c1b2415258c357c1edc27e1452cf07",
+            "checkpoint": "checkpoints/step-00003055/model.safetensors",
+            "sha256": "c7d42ba93fdd0ee6acb0ef7b97da224b681510819f925ae85c4edf3848b29f8e",
+            "adapter_sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 3055,
+            "rl_updates": 2370,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 2,
+            "search_max_n": 2,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+              "semantic": 144,
+              "local": 2
+            }
+          },
+          "batch_size": 1,
+          "requested_batch_size": 1,
+          "parallel_candidates": false
+        },
+        {
+          "event": "status",
+          "phase": "Preparing prompt"
+        },
+        {
+          "event": "status",
+          "phase": "Using the fixed reference clip of this speaker"
+        },
+        {
+          "event": "reference",
+          "mode": "profile",
+          "voice": "emolia_c1699",
+          "name": "Mira",
+          "language": "en",
+          "reference_language": "de",
+          "dynamic": false,
+          "policy": "fixed",
+          "retriever": null,
+          "fallback": null,
+          "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+          "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+          "seconds": 10.259645833333334,
+          "content_enjoyment": 6.252951070666313,
+          "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+          "retrieval_ms": 133,
+          "url": "/api/audio/d6ad2187219f45baa1472137c4dc374f"
+        },
+        {
+          "event": "direction",
+          "prompt": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "unconditional": "GENERAL: plain neutral delivery at a normal conversational volume\nSCRIPT:\n[3.5 seconds duration] I am glad you came back. We can talk now.",
+          "text": "I am glad you came back. We can talk now.",
+          "lang": "en",
+          "frames": 57,
+          "format": "structured",
+          "tagged": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "general": "Gentle, natural and spontaneous delivery.",
+          "edge_script": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "identity_cfg": false,
+          "llm_ms": 0,
+          "reference": "Mira \u00b7 fixed reference clip"
+        },
+        {
+          "event": "speaker_request",
+          "active": false,
+          "method": "ecapa",
+          "weight": 0.6,
+          "reason": "Disabled"
+        },
+        {
+          "event": "status",
+          "phase": "Humaneness Ears medium ranking preparation"
+        },
+        {
+          "event": "ranking",
+          "options": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          }
+        },
+        {
+          "event": "status",
+          "phase": "Preparing selected LoRAs"
+        },
+        {
+          "event": "adapters",
+          "selection": {
+            "id": null,
+            "weight": 1.0,
+            "ref15": false,
+            "ref15_weight": 1.0
+          },
+          "active": [],
+          "switch_ms": 0
+        },
+        {
+          "event": "speaker_steering",
+          "requested": false,
+          "enabled": false,
+          "active": false,
+          "experimental": true,
+          "layer": 16,
+          "alpha": 0.75,
+          "method": "quality_high_minus_low_contrast",
+          "normalization": "raw",
+          "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+          "voice": "emolia_c1699",
+          "reason": "acting_checkpoint_no_steering"
+        },
+        {
+          "event": "status",
+          "phase": "Generating audio"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 2,
+          "seconds": 0.6,
+          "committed_until_seconds": 1.6,
+          "playback_until_seconds": 0.6,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 0.6,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/7a9b272abe7e4b02a128924fdd43d29d"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 3,
+          "seconds": 0.8,
+          "committed_until_seconds": 2.4,
+          "playback_until_seconds": 1.4,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 1.4,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/378d3c2ecaab49d5907cbab9f3184ff9"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 4,
+          "seconds": 0.8,
+          "committed_until_seconds": 3.2,
+          "playback_until_seconds": 2.2,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 2.2,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/03500d3c978e4ce9a1e824961781eceb"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 5,
+          "seconds": 0.8,
+          "committed_until_seconds": 4.0,
+          "playback_until_seconds": 3.0,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 3.0,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/e7287d7b9b4d40e193541213e0916b14"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 6,
+          "seconds": 0.64,
+          "committed_until_seconds": 4.64,
+          "playback_until_seconds": 3.64,
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 3.64,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/13768cb5c4044266934131a25e5cdc8a"
+        },
+        {
+          "event": "progress",
+          "done": 1,
+          "total": 1
+        },
+        {
+          "event": "reference_context",
+          "source_seconds": 10.259645833333334,
+          "used_seconds": 10.259645833333334,
+          "codec_frames": 128,
+          "codec_seconds": 10.24,
+          "max_seconds": 15.0,
+          "truncated": false
+        },
+        {
+          "event": "status",
+          "phase": "Aligning speech boundaries and applying fades"
+        },
+        {
+          "event": "audio_chunk",
+          "step": 7,
+          "seconds": 1.0,
+          "committed_until_seconds": 4.64,
+          "playback_until_seconds": 4.64,
+          "retained_rows": [
+            0
+          ],
+          "live_alignment": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 4.64,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "url": "/api/audio/46fc611a1eae4e0ea1a54092af33ecb1"
+        },
+        {
+          "event": "status",
+          "phase": "Scoring takes"
+        },
+        {
+          "event": "result",
+          "candidates": [
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.32,
+                  "end": 0.64
+                },
+                {
+                  "word": "am",
+                  "start": 0.64,
+                  "end": 0.96
+                },
+                {
+                  "word": "glad",
+                  "start": 0.96,
+                  "end": 1.76
+                },
+                {
+                  "word": "you",
+                  "start": 1.76,
+                  "end": 2.08
+                },
+                {
+                  "word": "came",
+                  "start": 2.08,
+                  "end": 2.64
+                },
+                {
+                  "word": "back.",
+                  "start": 2.64,
+                  "end": 3.36
+                },
+                {
+                  "word": "We",
+                  "start": 3.36,
+                  "end": 3.68
+                },
+                {
+                  "word": "can",
+                  "start": 3.68,
+                  "end": 3.92
+                },
+                {
+                  "word": "talk",
+                  "start": 3.92,
+                  "end": 4.24
+                },
+                {
+                  "word": "now.",
+                  "start": 4.24,
+                  "end": 4.5600000000000005
+                }
+              ],
+              "sec": 4.64,
+              "clap": 0.1555086225271225,
+              "genuineness": 1.1042553186416626,
+              "blend": 5.300060272216797,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5809950444988046,
+              "quality": 0.5809950444988046,
+              "gate": 1.0,
+              "n_clap": 0.5777543112635612,
+              "n_genuineness": 0.18404255310694376,
+              "n_blend": 0.5300060272216797,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.258121999606431,
+                "normalized": 0.5842357777340479,
+                "scores_raw": {
+                  "audiobox:CE": 6.258121999606431,
+                  "audiobox:PQ": 7.747281867801455,
+                  "audiobox:CU": 7.244816502124082,
+                  "audiobox:PC": 1.5746629860438475,
+                  "dnsmos:P808_MOS": 3.547469395476039,
+                  "dnsmos:OVRL": 3.250152861288683
+                },
+                "duration_seconds": 4.64,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.4673893007139365,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 0,
+              "index": 0,
+              "url": "/api/audio/66104d4cec974314a973d94c0140099a",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": null,
+                "removed_s": 0.0,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.64,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.64,
+                    1.04,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    1.04,
+                    1.76,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.76,
+                    1.92,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.92,
+                    2.4,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    2.4,
+                    2.72,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    3.44,
+                    3.68,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    3.68,
+                    3.92,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.92,
+                    4.16,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    4.24,
+                    4.56,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.64,
+                "seconds": 4.64,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            }
+          ],
+          "winner": 0,
+          "generation": "single",
+          "guidance": 2.0,
+          "seed": 43217,
+          "llm_ms": 0,
+          "generation_ms": 20351,
+          "alignment_ms": 2004,
+          "scoring_ms": 3923,
+          "performance": {
+            "device_seconds": 5.511769372463227,
+            "raw_audio_seconds": 4.64,
+            "aggregate_rtf": 1.1878813302722473,
+            "audio_seconds_per_second": 0.8418349329312321,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 5.511769372463227,
+                "audio_seconds": [
+                  4.64
+                ],
+                "model_wall_seconds": 20.242151826620102,
+                "first_audio_seconds": 3.105626220703125,
+                "graph_capture_seconds": 2.4951613545417786,
+                "live_callback_seconds": 14.729599311947823
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 10,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 2.4951613545417786,
+            "oom_batch_retries": []
+          },
+          "search_performance": null,
+          "live_stream": {
+            "enabled": true,
+            "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+            "lead_s": 0.32,
+            "cut_s": null,
+            "stopped": false,
+            "lookahead_seconds": 1.0,
+            "emitted_seconds": 4.64,
+            "first_playable_seconds": 6.071320161223412
+          },
+          "voice_conversion": {
+            "enabled": false
+          },
+          "checkpoint": {
+            "id": "large_rl",
+            "label": "Large 1.1 Alpha RL \u00b7 r128 v1",
+            "kind": "large",
+            "repo": "laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1",
+            "revision": "7f050dc0e5c1b2415258c357c1edc27e1452cf07",
+            "checkpoint": "checkpoints/step-00003055/model.safetensors",
+            "sha256": "c7d42ba93fdd0ee6acb0ef7b97da224b681510819f925ae85c4edf3848b29f8e",
+            "adapter_sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 3055,
+            "rl_updates": 2370,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 2,
+            "search_max_n": 2,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+              "semantic": 144,
+              "local": 2
+            }
+          },
+          "ranking": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          },
+          "reward_mode": "clap",
+          "reward_plan": null,
+          "reward_style_share": 0.5,
+          "reward_planning_ms": 0,
+          "reward_loading_ms": 6,
+          "burst_request": null,
+          "adapters": {
+            "selection": {
+              "id": null,
+              "weight": 1.0,
+              "ref15": false,
+              "ref15_weight": 1.0
+            },
+            "active": [],
+            "switch_ms": 0
+          },
+          "speaker_steering": {
+            "requested": false,
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "layer": 16,
+            "alpha": 0.75,
+            "method": "quality_high_minus_low_contrast",
+            "normalization": "raw",
+            "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+            "voice": "emolia_c1699",
+            "reason": "acting_checkpoint_no_steering"
+          },
+          "reference": {
+            "mode": "profile",
+            "voice": "emolia_c1699",
+            "name": "Mira",
+            "language": "en",
+            "reference_language": "de",
+            "dynamic": false,
+            "policy": "fixed",
+            "retriever": null,
+            "fallback": null,
+            "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+            "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+            "seconds": 10.259645833333334,
+            "content_enjoyment": 6.252951070666313,
+            "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+            "retrieval_ms": 133,
+            "url": "/api/audio/d6ad2187219f45baa1472137c4dc374f",
+            "tts_context": {
+              "source_seconds": 10.259645833333334,
+              "used_seconds": 10.259645833333334,
+              "codec_frames": 128,
+              "codec_seconds": 10.24,
+              "max_seconds": 15.0,
+              "truncated": false
+            }
+          },
+          "speaker_request": {
+            "active": false,
+            "method": "ecapa",
+            "weight": 0.6,
+            "reason": "Disabled"
+          },
+          "speaker_preparation_ms": 0,
+          "total_ms": 175895,
+          "cfg_effective": true
+        }
+      ]
+    },
+    {
+      "model": "large_rl",
+      "mode": "best",
+      "n": 3,
+      "wall_seconds": 19.721327908337116,
+      "request": {
+        "model": "large_rl",
+        "input_mode": "manual",
+        "language": "en",
+        "message": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+        "generation": "best",
+        "n": 3,
+        "batch_size": 1,
+        "streaming": false,
+        "seed": 43217,
+        "voice_conversion": false
+      },
+      "events": [
+        {
+          "event": "model",
+          "model_id": "large_rl",
+          "checkpoint": {
+            "id": "large_rl",
+            "label": "Large 1.1 Alpha RL \u00b7 r128 v1",
+            "kind": "large",
+            "repo": "laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1",
+            "revision": "7f050dc0e5c1b2415258c357c1edc27e1452cf07",
+            "checkpoint": "checkpoints/step-00003055/model.safetensors",
+            "sha256": "c7d42ba93fdd0ee6acb0ef7b97da224b681510819f925ae85c4edf3848b29f8e",
+            "adapter_sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 3055,
+            "rl_updates": 2370,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 2,
+            "search_max_n": 2,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+              "semantic": 144,
+              "local": 2
+            }
+          },
+          "batch_size": 2,
+          "requested_batch_size": 1,
+          "parallel_candidates": true
+        },
+        {
+          "event": "status",
+          "phase": "Preparing prompt"
+        },
+        {
+          "event": "status",
+          "phase": "Using the fixed reference clip of this speaker"
+        },
+        {
+          "event": "reference",
+          "mode": "profile",
+          "voice": "emolia_c1699",
+          "name": "Mira",
+          "language": "en",
+          "reference_language": "de",
+          "dynamic": false,
+          "policy": "fixed",
+          "retriever": null,
+          "fallback": null,
+          "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+          "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+          "seconds": 10.259645833333334,
+          "content_enjoyment": 6.252951070666313,
+          "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+          "retrieval_ms": 103,
+          "url": "/api/audio/78b00e9773ae4151a95a21d069c95643"
+        },
+        {
+          "event": "direction",
+          "prompt": "GENERAL: Gentle, natural and spontaneous delivery.\nSCRIPT:\n(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "unconditional": "GENERAL: plain neutral delivery at a normal conversational volume\nSCRIPT:\n[3.5 seconds duration] I am glad you came back. We can talk now.",
+          "text": "I am glad you came back. We can talk now.",
+          "lang": "en",
+          "frames": 57,
+          "format": "structured",
+          "tagged": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "general": "Gentle, natural and spontaneous delivery.",
+          "edge_script": "(warmly relieved) [3.5 seconds duration] I am glad you came back. We can talk now.",
+          "identity_cfg": false,
+          "llm_ms": 0,
+          "reference": "Mira \u00b7 fixed reference clip"
+        },
+        {
+          "event": "speaker_request",
+          "active": false,
+          "method": "ecapa",
+          "weight": 0.6,
+          "reason": "Disabled"
+        },
+        {
+          "event": "status",
+          "phase": "Humaneness Ears medium ranking preparation"
+        },
+        {
+          "event": "ranking",
+          "options": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          }
+        },
+        {
+          "event": "status",
+          "phase": "Preparing selected LoRAs"
+        },
+        {
+          "event": "adapters",
+          "selection": {
+            "id": null,
+            "weight": 1.0,
+            "ref15": false,
+            "ref15_weight": 1.0
+          },
+          "active": [],
+          "switch_ms": 0
+        },
+        {
+          "event": "speaker_steering",
+          "requested": false,
+          "enabled": false,
+          "active": false,
+          "experimental": true,
+          "layer": 16,
+          "alpha": 0.75,
+          "method": "quality_high_minus_low_contrast",
+          "normalization": "raw",
+          "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+          "voice": "emolia_c1699",
+          "reason": "acting_checkpoint_no_steering"
+        },
+        {
+          "event": "status",
+          "phase": "Generating audio"
+        },
+        {
+          "event": "progress",
+          "done": 2,
+          "total": 3
+        },
+        {
+          "event": "progress",
+          "done": 3,
+          "total": 3
+        },
+        {
+          "event": "reference_context",
+          "source_seconds": 10.259645833333334,
+          "used_seconds": 10.259645833333334,
+          "codec_frames": 128,
+          "codec_seconds": 10.24,
+          "max_seconds": 15.0,
+          "truncated": false
+        },
+        {
+          "event": "status",
+          "phase": "Aligning speech boundaries and applying fades"
+        },
+        {
+          "event": "status",
+          "phase": "Scoring takes"
+        },
+        {
+          "event": "result",
+          "candidates": [
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.32,
+                  "end": 0.64
+                },
+                {
+                  "word": "am",
+                  "start": 0.64,
+                  "end": 0.96
+                },
+                {
+                  "word": "glad",
+                  "start": 0.96,
+                  "end": 1.76
+                },
+                {
+                  "word": "you",
+                  "start": 1.76,
+                  "end": 2.08
+                },
+                {
+                  "word": "came",
+                  "start": 2.08,
+                  "end": 2.64
+                },
+                {
+                  "word": "back.",
+                  "start": 2.64,
+                  "end": 3.36
+                },
+                {
+                  "word": "We",
+                  "start": 3.36,
+                  "end": 3.68
+                },
+                {
+                  "word": "can",
+                  "start": 3.68,
+                  "end": 3.92
+                },
+                {
+                  "word": "talk",
+                  "start": 3.92,
+                  "end": 4.24
+                },
+                {
+                  "word": "now.",
+                  "start": 4.24,
+                  "end": 4.5600000000000005
+                }
+              ],
+              "sec": 4.64,
+              "clap": 0.1566750854253769,
+              "genuineness": 1.0931938886642456,
+              "blend": 5.251061916351318,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5810066109942054,
+              "quality": 0.5810066109942054,
+              "gate": 1.0,
+              "n_clap": 0.5783375427126884,
+              "n_genuineness": 0.18219898144404092,
+              "n_blend": 0.5251061916351318,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.2530811134815,
+                "normalized": 0.5836756792757222,
+                "scores_raw": {
+                  "audiobox:CE": 6.2530811134815,
+                  "audiobox:PQ": 7.749582652686651,
+                  "audiobox:CU": 7.240854238096091,
+                  "audiobox:PC": 1.576505409133972,
+                  "dnsmos:P808_MOS": 3.5514235611701155,
+                  "dnsmos:OVRL": 3.250924214195095
+                },
+                "duration_seconds": 4.64,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.46599506462613743,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 0,
+              "index": 0,
+              "url": "/api/audio/b1f86acbc3c44f27954dcf992e1163ab",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": null,
+                "removed_s": 0.0,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.64,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.64,
+                    1.04,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    1.04,
+                    1.76,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.76,
+                    1.92,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.92,
+                    2.4,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    2.4,
+                    2.72,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    3.44,
+                    3.68,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    3.68,
+                    3.92,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.92,
+                    4.16,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    4.24,
+                    4.56,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.64,
+                "seconds": 4.64,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            },
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.32,
+                  "end": 0.56
+                },
+                {
+                  "word": "am",
+                  "start": 0.56,
+                  "end": 0.88
+                },
+                {
+                  "word": "glad",
+                  "start": 0.88,
+                  "end": 1.44
+                },
+                {
+                  "word": "you",
+                  "start": 1.44,
+                  "end": 1.76
+                },
+                {
+                  "word": "came",
+                  "start": 1.76,
+                  "end": 2.32
+                },
+                {
+                  "word": "back.",
+                  "start": 2.32,
+                  "end": 3.2
+                },
+                {
+                  "word": "We",
+                  "start": 3.2,
+                  "end": 3.52
+                },
+                {
+                  "word": "can",
+                  "start": 3.52,
+                  "end": 3.84
+                },
+                {
+                  "word": "talk",
+                  "start": 3.84,
+                  "end": 4.24
+                },
+                {
+                  "word": "now.",
+                  "start": 4.24,
+                  "end": 4.64
+                }
+              ],
+              "sec": 4.72,
+              "clap": -0.044356074184179306,
+              "genuineness": 1.4195493459701538,
+              "blend": 8.287548065185547,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.533766590055603,
+              "quality": 0.533766590055603,
+              "gate": 1.0,
+              "n_clap": 0.47782196290791035,
+              "n_genuineness": 0.2365915576616923,
+              "n_blend": 0.8287548065185547,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.30740095482966,
+                "normalized": 0.5897112172032956,
+                "scores_raw": {
+                  "audiobox:CE": 6.30740095482966,
+                  "audiobox:PQ": 7.758301223378243,
+                  "audiobox:CU": 7.179028391950312,
+                  "audiobox:PC": 1.3673303031112027,
+                  "dnsmos:P808_MOS": 3.9422424000835683,
+                  "dnsmos:OVRL": 3.427880858666768
+                },
+                "duration_seconds": 4.72,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.505247572499017,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 2,
+              "index": 1,
+              "url": "/api/audio/2f69d1e81f864e30a7f5b07dbb5ab7c8",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.24,
+                "cut_s": null,
+                "removed_s": 0.0,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.24,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.48,
+                    0.96,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.96,
+                    1.36,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.36,
+                    1.6,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.68,
+                    2.0,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    2.0,
+                    2.48,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    3.44,
+                    3.52,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    3.52,
+                    3.76,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.76,
+                    4.16,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    4.16,
+                    4.48,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.72,
+                "seconds": 4.72,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            },
+            {
+              "hyp": "I am glad you came back. We can talk now.",
+              "stable_hyp": "I am glad you came back. We can talk now.",
+              "timestamps": [
+                {
+                  "word": "I",
+                  "start": 0.32,
+                  "end": 0.64
+                },
+                {
+                  "word": "am",
+                  "start": 0.64,
+                  "end": 0.96
+                },
+                {
+                  "word": "glad",
+                  "start": 0.96,
+                  "end": 1.52
+                },
+                {
+                  "word": "you",
+                  "start": 1.52,
+                  "end": 1.84
+                },
+                {
+                  "word": "came",
+                  "start": 1.84,
+                  "end": 2.4
+                },
+                {
+                  "word": "back.",
+                  "start": 2.4,
+                  "end": 3.12
+                },
+                {
+                  "word": "We",
+                  "start": 3.12,
+                  "end": 3.44
+                },
+                {
+                  "word": "can",
+                  "start": 3.44,
+                  "end": 3.7600000000000002
+                },
+                {
+                  "word": "talk",
+                  "start": 3.7600000000000002,
+                  "end": 4.16
+                },
+                {
+                  "word": "now.",
+                  "start": 4.16,
+                  "end": 4.48
+                }
+              ],
+              "sec": 4.64,
+              "clap": -0.018622465431690216,
+              "genuineness": 1.2534133195877075,
+              "blend": 6.403441905975342,
+              "wer": 0.0,
+              "substitutions": 0,
+              "deletions": 0,
+              "insertions": 0,
+              "reference_words": 10,
+              "matched_prefix_words": 10,
+              "prefix_wer": 0.0,
+              "reward": 0.5420788597790771,
+              "quality": 0.5420788597790771,
+              "gate": 1.0,
+              "n_clap": 0.4906887672841549,
+              "n_genuineness": 0.20890221993128458,
+              "n_blend": 0.6403441905975342,
+              "ears": {
+                "available": true,
+                "model": "medium",
+                "metric": "ce",
+                "key": "audiobox:CE",
+                "raw": 6.3412205704659925,
+                "normalized": 0.5934689522739992,
+                "scores_raw": {
+                  "audiobox:CE": 6.3412205704659925,
+                  "audiobox:PQ": 7.986572929389162,
+                  "audiobox:CU": 7.429473485747992,
+                  "audiobox:PC": 1.411930538115712,
+                  "dnsmos:P808_MOS": 4.118475119737166,
+                  "dnsmos:OVRL": 3.437718320180579
+                },
+                "duration_seconds": 4.64,
+                "window_count": 1,
+                "aggregation": "duration-weighted mean over <=30s windows",
+                "repo": "laion/humaneness-ears-base-medium",
+                "revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+                "proxy": true
+              },
+              "previous_quality": 0.45765598627428217,
+              "ranking_available": true,
+              "reward_model": "ears_mix",
+              "ranking_gate": 1.0,
+              "ears_weight": 0.5,
+              "clap_weight": 0.5,
+              "rank": 1,
+              "index": 2,
+              "url": "/api/audio/9665047d684a488fb76237ee25d9b136",
+              "alignment": {
+                "applied": true,
+                "lead_s": 0.32,
+                "cut_s": null,
+                "removed_s": 0.0,
+                "words": 10,
+                "note": "",
+                "spans": [
+                  [
+                    "I",
+                    0.32,
+                    0.48,
+                    1.0
+                  ],
+                  [
+                    "am",
+                    0.56,
+                    0.96,
+                    1.0
+                  ],
+                  [
+                    "glad",
+                    0.96,
+                    1.52,
+                    1.0
+                  ],
+                  [
+                    "you",
+                    1.52,
+                    1.6,
+                    1.0
+                  ],
+                  [
+                    "came",
+                    1.6,
+                    2.0,
+                    1.0
+                  ],
+                  [
+                    "back",
+                    2.0,
+                    2.72,
+                    1.0
+                  ],
+                  [
+                    "We",
+                    3.28,
+                    3.44,
+                    1.0
+                  ],
+                  [
+                    "can",
+                    3.44,
+                    3.68,
+                    1.0
+                  ],
+                  [
+                    "talk",
+                    3.68,
+                    4.0,
+                    1.0
+                  ],
+                  [
+                    "now",
+                    4.0,
+                    4.4,
+                    1.0
+                  ]
+                ],
+                "enabled": true,
+                "available": true,
+                "raw_seconds": 4.64,
+                "seconds": 4.64,
+                "lead_ramp_s": 0.1,
+                "tail_ramp_s": 0.15,
+                "score_kind": "structural plausibility, not model confidence"
+              }
+            }
+          ],
+          "winner": 0,
+          "generation": "best",
+          "guidance": 2.0,
+          "seed": 43217,
+          "llm_ms": 0,
+          "generation_ms": 8191,
+          "alignment_ms": 5454,
+          "scoring_ms": 5272,
+          "performance": {
+            "device_seconds": 8.07360498046875,
+            "raw_audio_seconds": 14.0,
+            "aggregate_rtf": 0.576686070033482,
+            "audio_seconds_per_second": 1.7340457000148113,
+            "batches": [
+              {
+                "batch_size": 2,
+                "device_seconds": 5.45714697265625,
+                "audio_seconds": [
+                  4.64,
+                  4.72
+                ],
+                "model_wall_seconds": 5.457239732146263,
+                "first_audio_seconds": 5.45714697265625,
+                "graph_capture_seconds": 2.3970255628228188,
+                "live_callback_seconds": 0.0
+              },
+              {
+                "batch_size": 1,
+                "device_seconds": 2.6164580078125,
+                "audio_seconds": [
+                  4.64
+                ],
+                "model_wall_seconds": 2.6165431551635265,
+                "first_audio_seconds": 2.6164580078125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 2.3970255628228188,
+            "oom_batch_retries": []
+          },
+          "search_performance": null,
+          "live_stream": null,
+          "voice_conversion": {
+            "enabled": false
+          },
+          "checkpoint": {
+            "id": "large_rl",
+            "label": "Large 1.1 Alpha RL \u00b7 r128 v1",
+            "kind": "large",
+            "repo": "laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1",
+            "revision": "7f050dc0e5c1b2415258c357c1edc27e1452cf07",
+            "checkpoint": "checkpoints/step-00003055/model.safetensors",
+            "sha256": "c7d42ba93fdd0ee6acb0ef7b97da224b681510819f925ae85c4edf3848b29f8e",
+            "adapter_sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+            "rl_bundle": true,
+            "policy_dtype": "fp32",
+            "step": 3055,
+            "rl_updates": 2370,
+            "cache_dir": "/dev/shm/humaneness-rl/hub",
+            "batch_size": 1,
+            "max_batch_size": 2,
+            "search_max_n": 2,
+            "stage": "Acting",
+            "steering": false,
+            "adapters": false,
+            "rl_adapter": {
+              "enabled": true,
+              "rank": 128,
+              "dtype": "fp32",
+              "merged": false,
+              "sha256": "113f4fb4598efcc909dd7ea11422842d5c0dc61e20519ed4d9af5d028ea668d4",
+              "semantic": 144,
+              "local": 2
+            }
+          },
+          "ranking": {
+            "mode": "ears_mix",
+            "model": "medium",
+            "metric": "ce",
+            "weight": 0.5
+          },
+          "reward_mode": "clap",
+          "reward_plan": null,
+          "reward_style_share": 0.5,
+          "reward_planning_ms": 0,
+          "reward_loading_ms": 6,
+          "burst_request": null,
+          "adapters": {
+            "selection": {
+              "id": null,
+              "weight": 1.0,
+              "ref15": false,
+              "ref15_weight": 1.0
+            },
+            "active": [],
+            "switch_ms": 0
+          },
+          "speaker_steering": {
+            "requested": false,
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "layer": 16,
+            "alpha": 0.75,
+            "method": "quality_high_minus_low_contrast",
+            "normalization": "raw",
+            "vector_source": "quality_selected_takes_not_reference_no_reference_delta",
+            "voice": "emolia_c1699",
+            "reason": "acting_checkpoint_no_steering"
+          },
+          "reference": {
+            "mode": "profile",
+            "voice": "emolia_c1699",
+            "name": "Mira",
+            "language": "en",
+            "reference_language": "de",
+            "dynamic": false,
+            "policy": "fixed",
+            "retriever": null,
+            "fallback": null,
+            "gid": "emolia_c1699__V__S_WHIS__moderately_low__de.c024",
+            "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+            "seconds": 10.259645833333334,
+            "content_enjoyment": 6.252951070666313,
+            "note": "Fixed clip of this speaker; unchanged across emotion, language and direction.",
+            "retrieval_ms": 103,
+            "url": "/api/audio/78b00e9773ae4151a95a21d069c95643",
+            "tts_context": {
+              "source_seconds": 10.259645833333334,
+              "used_seconds": 10.259645833333334,
+              "codec_frames": 128,
+              "codec_seconds": 10.24,
+              "max_seconds": 15.0,
+              "truncated": false
+            }
+          },
+          "speaker_request": {
+            "active": false,
+            "method": "ecapa",
+            "weight": 0.6,
+            "reason": "Disabled"
+          },
+          "speaker_preparation_ms": 0,
+          "total_ms": 19225,
+          "cfg_effective": true
+        }
+      ]
+    }
+  ]
+}

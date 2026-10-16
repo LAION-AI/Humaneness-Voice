@@ -1,0 +1,825 @@
+{
+  "created_utc": "2026-10-08T13:50:03.062436+00:00",
+  "completed": 240,
+  "planned": 240,
+  "cells": [
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "script_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.2435860440135002,
+      "heldout_cosine_sd": 0.10085044996767356,
+      "conditioning_cosine_mean": 0.2953298754990101,
+      "conditioning_cosine_raw_mean": 0.29794216752052305,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 1.0363636363636364,
+      "pairwise_cosine_mean": 0.24701889925216058,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.2250150041654706,
+      "genuineness_mean": 1.4021128058433532
+    },
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "caption_reference",
+      "n": 10,
+      "heldout_cosine_mean": 0.16170571632683278,
+      "heldout_cosine_sd": 0.11988266777943274,
+      "conditioning_cosine_mean": 0.15686494670808315,
+      "conditioning_cosine_raw_mean": 0.15815196763724088,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.42727272727272736,
+      "pairwise_cosine_mean": 0.2819772794059828,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.16779579799622296,
+      "genuineness_mean": 1.3323755383491516
+    },
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "caption_gender",
+      "n": 10,
+      "heldout_cosine_mean": 0.20837566033005714,
+      "heldout_cosine_sd": 0.10526222375121813,
+      "conditioning_cosine_mean": 0.22388558834791183,
+      "conditioning_cosine_raw_mean": 0.22367123141884804,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.1,
+      "pairwise_cosine_mean": 0.24448893903713176,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.1944202583283186,
+      "genuineness_mean": 1.5409336805343627
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "caption_reference",
+      "n": 10,
+      "heldout_cosine_mean": 0.08783223107457161,
+      "heldout_cosine_sd": 0.07470172277479256,
+      "conditioning_cosine_mean": 0.15349916592240334,
+      "conditioning_cosine_raw_mean": 0.15310272723436355,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.10909090909090909,
+      "pairwise_cosine_mean": 0.32071267842772777,
+      "two_anchor_accuracy": 0.5,
+      "identity_margin_mean": -0.009491826221346856,
+      "genuineness_mean": 1.0058341026306152
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "caption_gender",
+      "n": 10,
+      "heldout_cosine_mean": 0.07077907957136631,
+      "heldout_cosine_sd": 0.04959220251488503,
+      "conditioning_cosine_mean": 0.19779452234506606,
+      "conditioning_cosine_raw_mean": 0.19983645491302013,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.08181818181818182,
+      "pairwise_cosine_mean": 0.3253290906952569,
+      "two_anchor_accuracy": 0.4,
+      "identity_margin_mean": 0.0018975399434566498,
+      "genuineness_mean": 0.8465233117341995
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "caption_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.050129135325551036,
+      "heldout_cosine_sd": 0.078635443942265,
+      "conditioning_cosine_mean": 0.16746719293296336,
+      "conditioning_cosine_raw_mean": 0.18532837099499172,
+      "conditioning_cosine_raw_n": 9,
+      "wer_mean": 0.11818181818181817,
+      "pairwise_cosine_mean": 0.2811236910557832,
+      "two_anchor_accuracy": 0.5,
+      "identity_margin_mean": -0.03118213564157486,
+      "genuineness_mean": 1.0310770988464355
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "caption_traits",
+      "n": 10,
+      "heldout_cosine_mean": 0.052401426061987874,
+      "heldout_cosine_sd": 0.05228076029448138,
+      "conditioning_cosine_mean": 0.11849378272891045,
+      "conditioning_cosine_raw_mean": 0.1161228820681572,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.14545454545454545,
+      "pairwise_cosine_mean": 0.2582815902565688,
+      "two_anchor_accuracy": 0.4,
+      "identity_margin_mean": 0.005553701752796769,
+      "genuineness_mean": 1.1049744009971618
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "script_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.06475030183792115,
+      "heldout_cosine_sd": 0.07337550642581095,
+      "conditioning_cosine_mean": 0.206557647138834,
+      "conditioning_cosine_raw_mean": 0.20483675487339498,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.909090909090909,
+      "pairwise_cosine_mean": 0.24479101602099007,
+      "two_anchor_accuracy": 0.6,
+      "identity_margin_mean": 0.05021992940455675,
+      "genuineness_mean": 1.645113480091095
+    },
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "caption_traits",
+      "n": 10,
+      "heldout_cosine_mean": 0.22841325476765634,
+      "heldout_cosine_sd": 0.09802382217110585,
+      "conditioning_cosine_mean": 0.3183299139142036,
+      "conditioning_cosine_raw_mean": 0.31888440400362017,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.08181818181818182,
+      "pairwise_cosine_mean": 0.30289539164944296,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.21532431659288703,
+      "genuineness_mean": 1.2915495872497558
+    },
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "transcript",
+      "n": 10,
+      "heldout_cosine_mean": 0.24752973280847074,
+      "heldout_cosine_sd": 0.12407552360934045,
+      "conditioning_cosine_mean": 0.28047130182385444,
+      "conditioning_cosine_raw_mean": 0.2810289695858955,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.13636363636363638,
+      "pairwise_cosine_mean": 0.29864825451172416,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.25727823805063965,
+      "genuineness_mean": 1.3124724507331849
+    },
+    {
+      "voice": "idris",
+      "adapter": "base",
+      "condition": "caption_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.24811138734221458,
+      "heldout_cosine_sd": 0.15138988666625175,
+      "conditioning_cosine_mean": 0.251974980160594,
+      "conditioning_cosine_raw_mean": 0.297170498718818,
+      "conditioning_cosine_raw_n": 9,
+      "wer_mean": 0.2545454545454545,
+      "pairwise_cosine_mean": 0.24521256909417327,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.2558581275865436,
+      "genuineness_mean": 1.445322686433792
+    },
+    {
+      "voice": "selma",
+      "adapter": "base",
+      "condition": "transcript",
+      "n": 10,
+      "heldout_cosine_mean": 0.059495367016643284,
+      "heldout_cosine_sd": 0.08099275552454824,
+      "conditioning_cosine_mean": 0.12608923353254795,
+      "conditioning_cosine_raw_mean": 0.14145301427278253,
+      "conditioning_cosine_raw_n": 9,
+      "wer_mean": 0.3181818181818182,
+      "pairwise_cosine_mean": 0.23198492699861034,
+      "two_anchor_accuracy": 0.6,
+      "identity_margin_mean": 0.011569180991500616,
+      "genuineness_mean": 1.0030668944120407
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "script_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.07104692794382572,
+      "heldout_cosine_sd": 0.05893836190170518,
+      "conditioning_cosine_mean": 0.1922331355512142,
+      "conditioning_cosine_raw_mean": 0.19110185615718364,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.8545454545454545,
+      "pairwise_cosine_mean": 0.19562326789264525,
+      "two_anchor_accuracy": 0.4,
+      "identity_margin_mean": 0.0026654602959752085,
+      "genuineness_mean": 1.631395447254181
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "caption_gender",
+      "n": 10,
+      "heldout_cosine_mean": 0.2485976777970791,
+      "heldout_cosine_sd": 0.10006968965376482,
+      "conditioning_cosine_mean": 0.3319224312901497,
+      "conditioning_cosine_raw_mean": 0.37180904630157685,
+      "conditioning_cosine_raw_n": 9,
+      "wer_mean": 0.1181818181818182,
+      "pairwise_cosine_mean": 0.30948598486407414,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.26930959718301895,
+      "genuineness_mean": 1.487241280078888
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "caption_traits",
+      "n": 10,
+      "heldout_cosine_mean": 0.30095351934432985,
+      "heldout_cosine_sd": 0.06371068924884017,
+      "conditioning_cosine_mean": 0.37731015533208845,
+      "conditioning_cosine_raw_mean": 0.37714358866214753,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.05454545454545454,
+      "pairwise_cosine_mean": 0.4593864116975155,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.2916205143555999,
+      "genuineness_mean": 1.2450433254241944
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "caption_traits",
+      "n": 10,
+      "heldout_cosine_mean": 0.0670513354241848,
+      "heldout_cosine_sd": 0.04818505315999968,
+      "conditioning_cosine_mean": 0.19167483858764173,
+      "conditioning_cosine_raw_mean": 0.19171994663774966,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.15454545454545454,
+      "pairwise_cosine_mean": 0.3454341228662998,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.078304776083678,
+      "genuineness_mean": 0.9664994299411773
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "caption_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.05578218884766102,
+      "heldout_cosine_sd": 0.05445101868763877,
+      "conditioning_cosine_mean": 0.175219963863492,
+      "conditioning_cosine_raw_mean": 0.17438686080276966,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.06363636363636363,
+      "pairwise_cosine_mean": 0.36371886649481244,
+      "two_anchor_accuracy": 0.6,
+      "identity_margin_mean": 0.015088842995464802,
+      "genuineness_mean": 1.2012533783912658
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "caption_reference",
+      "n": 10,
+      "heldout_cosine_mean": 0.058651255629956725,
+      "heldout_cosine_sd": 0.08209004833849835,
+      "conditioning_cosine_mean": 0.24509389847517013,
+      "conditioning_cosine_raw_mean": 0.24443501979112625,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.06363636363636363,
+      "pairwise_cosine_mean": 0.4150827348395469,
+      "two_anchor_accuracy": 0.7,
+      "identity_margin_mean": 0.09040304096415638,
+      "genuineness_mean": 1.0052961587905884
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "transcript",
+      "n": 10,
+      "heldout_cosine_mean": 0.2583427712321281,
+      "heldout_cosine_sd": 0.09422374423788003,
+      "conditioning_cosine_mean": 0.3373606450855732,
+      "conditioning_cosine_raw_mean": 0.33900259658694265,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.10909090909090909,
+      "pairwise_cosine_mean": 0.35064052628931247,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.2717860122676939,
+      "genuineness_mean": 1.2730490952730178
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "caption_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.2687704361975193,
+      "heldout_cosine_sd": 0.11153156166504048,
+      "conditioning_cosine_mean": 0.3194768577814102,
+      "conditioning_cosine_raw_mean": 0.3203438945114613,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.09090909090909091,
+      "pairwise_cosine_mean": 0.3265599735378215,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.270076254196465,
+      "genuineness_mean": 1.3375823616981506
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "transcript",
+      "n": 10,
+      "heldout_cosine_mean": 0.0662667129188776,
+      "heldout_cosine_sd": 0.07868564411299203,
+      "conditioning_cosine_mean": 0.18461058847606182,
+      "conditioning_cosine_raw_mean": 0.18403443768620492,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.05454545454545454,
+      "pairwise_cosine_mean": 0.4143488464060497,
+      "two_anchor_accuracy": 0.6,
+      "identity_margin_mean": 0.00792902410030365,
+      "genuineness_mean": 1.1450862884521484
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "caption_reference",
+      "n": 10,
+      "heldout_cosine_mean": 0.310732401907444,
+      "heldout_cosine_sd": 0.07165884017689106,
+      "conditioning_cosine_mean": 0.4266398221254349,
+      "conditioning_cosine_raw_mean": 0.42666655629873274,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.06363636363636363,
+      "pairwise_cosine_mean": 0.41981194054052245,
+      "two_anchor_accuracy": 1.0,
+      "identity_margin_mean": 0.32757545858621595,
+      "genuineness_mean": 1.474740844964981
+    },
+    {
+      "voice": "selma",
+      "adapter": "dpo",
+      "condition": "caption_gender",
+      "n": 10,
+      "heldout_cosine_mean": 0.07379372641444207,
+      "heldout_cosine_sd": 0.058142921996060526,
+      "conditioning_cosine_mean": 0.20408194214105607,
+      "conditioning_cosine_raw_mean": 0.20307720378041266,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.09090909090909091,
+      "pairwise_cosine_mean": 0.3382208961888896,
+      "two_anchor_accuracy": 0.8,
+      "identity_margin_mean": 0.07887457311153412,
+      "genuineness_mean": 1.0654430508613586
+    },
+    {
+      "voice": "idris",
+      "adapter": "dpo",
+      "condition": "script_affect",
+      "n": 10,
+      "heldout_cosine_mean": 0.23458728194236755,
+      "heldout_cosine_sd": 0.09774467672689136,
+      "conditioning_cosine_mean": 0.3346154436469078,
+      "conditioning_cosine_raw_mean": 0.33602787405252454,
+      "conditioning_cosine_raw_n": 10,
+      "wer_mean": 0.8181818181818183,
+      "pairwise_cosine_mean": 0.30250345249813704,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.24682663325220347,
+      "genuineness_mean": 1.3807615011930465
+    }
+  ],
+  "pooled": [
+    {
+      "adapter": "base",
+      "condition": "transcript",
+      "n": 20,
+      "heldout_cosine_mean": 0.153512549912557,
+      "heldout_cosine_ci": [
+        0.10475191731238738,
+        0.19665978099452333
+      ],
+      "conditioning_cosine_raw_n": 19,
+      "conditioning_cosine_mean": 0.20328026767820118,
+      "conditioning_cosine_raw_mean": 0.21124099192933904,
+      "wer_mean": 0.2272727272727273,
+      "pairwise_cosine_mean": 0.2653165907551672,
+      "two_anchor_accuracy": 0.8,
+      "identity_margin_mean": 0.13442370952107013,
+      "genuineness_mean": 1.1577696725726128,
+      "each_speaker_wer_eligible": false,
+      "eligible": false
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_affect",
+      "n": 20,
+      "heldout_cosine_mean": 0.14912026133388281,
+      "heldout_cosine_ci": [
+        0.11394518571905793,
+        0.18741418320685624
+      ],
+      "conditioning_cosine_raw_n": 18,
+      "conditioning_cosine_mean": 0.20972108654677868,
+      "conditioning_cosine_raw_mean": 0.24124943485690487,
+      "wer_mean": 0.18636363636363634,
+      "pairwise_cosine_mean": 0.26316813007497825,
+      "two_anchor_accuracy": 0.7,
+      "identity_margin_mean": 0.11233799597248437,
+      "genuineness_mean": 1.2381998926401137,
+      "each_speaker_wer_eligible": false,
+      "eligible": false
+    },
+    {
+      "adapter": "base",
+      "condition": "script_affect",
+      "n": 20,
+      "heldout_cosine_mean": 0.15416817292571067,
+      "heldout_cosine_ci": [
+        0.11503181565087289,
+        0.18874170718714595
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.25094376131892204,
+      "conditioning_cosine_raw_mean": 0.25138946119695904,
+      "wer_mean": 0.9727272727272727,
+      "pairwise_cosine_mean": 0.24590495763657533,
+      "two_anchor_accuracy": 0.75,
+      "identity_margin_mean": 0.1376174667850137,
+      "genuineness_mean": 1.523613142967224,
+      "each_speaker_wer_eligible": false,
+      "eligible": false
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_gender",
+      "n": 20,
+      "heldout_cosine_mean": 0.13957736995071174,
+      "heldout_cosine_ci": [
+        0.10129866246134042,
+        0.17389389479532835
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.21084005534648895,
+      "conditioning_cosine_raw_mean": 0.2117538431659341,
+      "wer_mean": 0.09090909090909091,
+      "pairwise_cosine_mean": 0.28490901486619435,
+      "two_anchor_accuracy": 0.7,
+      "identity_margin_mean": 0.09815889913588763,
+      "genuineness_mean": 1.1937284961342811,
+      "each_speaker_wer_eligible": true,
+      "eligible": true
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_traits",
+      "n": 20,
+      "heldout_cosine_mean": 0.1404073404148221,
+      "heldout_cosine_ci": [
+        0.1035587127506733,
+        0.17781219586730004
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.21841184832155702,
+      "conditioning_cosine_raw_mean": 0.21750364303588868,
+      "wer_mean": 0.11363636363636363,
+      "pairwise_cosine_mean": 0.28058849095300586,
+      "two_anchor_accuracy": 0.65,
+      "identity_margin_mean": 0.1104390091728419,
+      "genuineness_mean": 1.1982619941234587,
+      "each_speaker_wer_eligible": true,
+      "eligible": false
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_reference",
+      "n": 20,
+      "heldout_cosine_mean": 0.1247689737007022,
+      "heldout_cosine_ci": [
+        0.07762273874133825,
+        0.1705695619620383
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.15518205631524323,
+      "conditioning_cosine_raw_mean": 0.1556273474358022,
+      "wer_mean": 0.26818181818181824,
+      "pairwise_cosine_mean": 0.3013449789168553,
+      "two_anchor_accuracy": 0.75,
+      "identity_margin_mean": 0.07915198588743805,
+      "genuineness_mean": 1.1691048204898835,
+      "each_speaker_wer_eligible": false,
+      "eligible": false
+    },
+    {
+      "adapter": "dpo",
+      "condition": "transcript",
+      "n": 20,
+      "heldout_cosine_mean": 0.16230474207550288,
+      "heldout_cosine_ci": [
+        0.11805206874385475,
+        0.19733474504901097
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.2609856167808175,
+      "conditioning_cosine_raw_mean": 0.2615185171365738,
+      "wer_mean": 0.08181818181818182,
+      "pairwise_cosine_mean": 0.3824946863476811,
+      "two_anchor_accuracy": 0.8,
+      "identity_margin_mean": 0.13985751818399877,
+      "genuineness_mean": 1.2090676918625831,
+      "each_speaker_wer_eligible": true,
+      "eligible": false
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_affect",
+      "n": 20,
+      "heldout_cosine_mean": 0.16227631252259017,
+      "heldout_cosine_ci": [
+        0.1300244592083618,
+        0.19206182475900277
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.24734841082245113,
+      "conditioning_cosine_raw_mean": 0.24736537765711547,
+      "wer_mean": 0.07727272727272727,
+      "pairwise_cosine_mean": 0.345139420016317,
+      "two_anchor_accuracy": 0.8,
+      "identity_margin_mean": 0.14258254859596492,
+      "genuineness_mean": 1.269417870044708,
+      "each_speaker_wer_eligible": true,
+      "eligible": true
+    },
+    {
+      "adapter": "dpo",
+      "condition": "script_affect",
+      "n": 20,
+      "heldout_cosine_mean": 0.15281710494309664,
+      "heldout_cosine_ci": [
+        0.10930848254356534,
+        0.18924200705718247
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.263424289599061,
+      "conditioning_cosine_raw_mean": 0.2635648651048541,
+      "wer_mean": 0.8363636363636364,
+      "pairwise_cosine_mean": 0.24906336019539116,
+      "two_anchor_accuracy": 0.65,
+      "identity_margin_mean": 0.12474604677408933,
+      "genuineness_mean": 1.5060784742236137,
+      "each_speaker_wer_eligible": false,
+      "eligible": false
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_gender",
+      "n": 20,
+      "heldout_cosine_mean": 0.16119570210576056,
+      "heldout_cosine_ci": [
+        0.13612660769140347,
+        0.18528789032017812
+      ],
+      "conditioning_cosine_raw_n": 19,
+      "conditioning_cosine_mean": 0.2680021867156029,
+      "conditioning_cosine_raw_mean": 0.2874431250409948,
+      "wer_mean": 0.10454545454545455,
+      "pairwise_cosine_mean": 0.3238534405264819,
+      "two_anchor_accuracy": 0.9,
+      "identity_margin_mean": 0.17409208514727653,
+      "genuineness_mean": 1.2763421654701232,
+      "each_speaker_wer_eligible": true,
+      "eligible": false
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_traits",
+      "n": 20,
+      "heldout_cosine_mean": 0.18400242738425732,
+      "heldout_cosine_ci": [
+        0.16886321476195007,
+        0.19963539894670249
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.2844924969598651,
+      "conditioning_cosine_raw_mean": 0.2844317676499486,
+      "wer_mean": 0.10454545454545454,
+      "pairwise_cosine_mean": 0.40241026728190765,
+      "two_anchor_accuracy": 0.95,
+      "identity_margin_mean": 0.18496264521963895,
+      "genuineness_mean": 1.1057713776826859,
+      "each_speaker_wer_eligible": true,
+      "eligible": false
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_reference",
+      "n": 20,
+      "heldout_cosine_mean": 0.18469182876870036,
+      "heldout_cosine_ci": [
+        0.16208925320068376,
+        0.21327670014230535
+      ],
+      "conditioning_cosine_raw_n": 20,
+      "conditioning_cosine_mean": 0.3358668603003025,
+      "conditioning_cosine_raw_mean": 0.3355507880449295,
+      "wer_mean": 0.06363636363636363,
+      "pairwise_cosine_mean": 0.41744733769003467,
+      "two_anchor_accuracy": 0.85,
+      "identity_margin_mean": 0.20898924977518618,
+      "genuineness_mean": 1.2400185018777847,
+      "each_speaker_wer_eligible": true,
+      "eligible": true
+    }
+  ],
+  "dpo_paired_deltas": [
+    {
+      "condition": "transcript",
+      "dpo_minus_base": 0.008792192162945866,
+      "ci": [
+        -0.03778499876148998,
+        0.05338588758255355
+      ]
+    },
+    {
+      "condition": "caption_affect",
+      "dpo_minus_base": 0.013156051188707352,
+      "ci": [
+        -0.016554696585517375,
+        0.04722936640260739
+      ]
+    },
+    {
+      "condition": "script_affect",
+      "dpo_minus_base": -0.0013510679826140403,
+      "ci": [
+        -0.06847700228914619,
+        0.06505654212553053
+      ]
+    },
+    {
+      "condition": "caption_gender",
+      "dpo_minus_base": 0.021618332155048846,
+      "ci": [
+        -0.022807839820161463,
+        0.06561833527637645
+      ]
+    },
+    {
+      "condition": "caption_traits",
+      "dpo_minus_base": 0.04359508696943522,
+      "ci": [
+        0.00844358056318015,
+        0.08287678258027881
+      ]
+    },
+    {
+      "condition": "caption_reference",
+      "dpo_minus_base": 0.059922855067998174,
+      "ci": [
+        0.004551551055628806,
+        0.11705583662260322
+      ]
+    }
+  ],
+  "prompt_paired_deltas": [
+    {
+      "adapter": "base",
+      "condition": "transcript",
+      "minus_affect_caption": 0.004392288578674197,
+      "ci": [
+        -0.04054379486478865,
+        0.04605013279477133
+      ]
+    },
+    {
+      "adapter": "base",
+      "condition": "script_affect",
+      "minus_affect_caption": 0.005047911591827869,
+      "ci": [
+        -0.041737091927789155,
+        0.05145964276045561
+      ]
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_gender",
+      "minus_affect_caption": -0.009542891383171081,
+      "ci": [
+        -0.06510763123165815,
+        0.043926781397312875
+      ]
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_traits",
+      "minus_affect_caption": -0.008712920919060707,
+      "ci": [
+        -0.05300669995136559,
+        0.03261106943711638
+      ]
+    },
+    {
+      "adapter": "base",
+      "condition": "caption_reference",
+      "minus_affect_caption": -0.02435128763318062,
+      "ci": [
+        -0.07612423352897167,
+        0.028366455310024304
+      ]
+    },
+    {
+      "adapter": "dpo",
+      "condition": "transcript",
+      "minus_affect_caption": 2.8429552912712097e-05,
+      "ci": [
+        -0.05939083952223882,
+        0.055141566856764246
+      ]
+    },
+    {
+      "adapter": "dpo",
+      "condition": "script_affect",
+      "minus_affect_caption": -0.009459207579493523,
+      "ci": [
+        -0.06452150466153397,
+        0.04179224830353632
+      ]
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_gender",
+      "minus_affect_caption": -0.0010806104168295861,
+      "ci": [
+        -0.031080536022782324,
+        0.03178783806040883
+      ]
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_traits",
+      "minus_affect_caption": 0.021726114861667156,
+      "ci": [
+        -0.008318606491666287,
+        0.052033682754263254
+      ]
+    },
+    {
+      "adapter": "dpo",
+      "condition": "caption_reference",
+      "minus_affect_caption": 0.0224155162461102,
+      "ci": [
+        -0.00765459359390661,
+        0.05813122696476054
+      ]
+    }
+  ],
+  "recommended": {
+    "adapter": "dpo",
+    "condition": "caption_reference",
+    "n": 20,
+    "heldout_cosine_mean": 0.18469182876870036,
+    "heldout_cosine_ci": [
+      0.16208925320068376,
+      0.21327670014230535
+    ],
+    "conditioning_cosine_raw_n": 20,
+    "conditioning_cosine_mean": 0.3358668603003025,
+    "conditioning_cosine_raw_mean": 0.3355507880449295,
+    "wer_mean": 0.06363636363636363,
+    "pairwise_cosine_mean": 0.41744733769003467,
+    "two_anchor_accuracy": 0.85,
+    "identity_margin_mean": 0.20898924977518618,
+    "genuineness_mean": 1.2400185018777847,
+    "each_speaker_wer_eligible": true,
+    "eligible": true
+  },
+  "all_outputs_retained": true,
+  "reference_controls": {
+    "ecapa_repo": "speechbrain/spkrec-ecapa-voxceleb",
+    "ecapa_revision": "0f99f2d0ebe89ac095bcc5903c4dd8f72b367286",
+    "torch": "2.6.0+cu124",
+    "controls": {
+      "idris": {
+        "conditioning_to_same_speaker_anchor": 0.4420264661312103,
+        "conditioning_to_other_speaker_anchor": -0.02123563550412655,
+        "conditioning_seconds": 5.475666666666666,
+        "conditioning_sha256": "97ecab4dc1d14b0e00108e8731410475893191e9346574c2ef0db05b12891d74",
+        "heldout_anchor_seconds": 8.48,
+        "heldout_anchor_sha256": "2b4154ffc7986f349778699fb308f0e283ec037581c9f5f24fb0f2e14ed32c74"
+      },
+      "selma": {
+        "conditioning_to_same_speaker_anchor": 0.25997161865234375,
+        "conditioning_to_other_speaker_anchor": -0.1268404722213745,
+        "conditioning_seconds": 15.0,
+        "conditioning_sha256": "5bef29be96f7bd35fd69104bde4b3a4df153e72ce738835daef76394013c8228",
+        "heldout_anchor_seconds": 8.88,
+        "heldout_anchor_sha256": "fa7c7fbc642df6d2b2f8a89049023c97e6c63ce1e593f7add23c4d29a0fea67e"
+      }
+    }
+  },
+  "raw_speaker_unavailable": [
+    "selma-base-transcript-s73680",
+    "selma-base-caption_affect-s73680",
+    "idris-dpo-caption_gender-s73874",
+    "idris-base-caption_affect-s73874"
+  ]
+}

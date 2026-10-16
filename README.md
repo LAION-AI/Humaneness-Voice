@@ -1,5 +1,121 @@
 # Humaneness Voice
 
+An expressive speech system: a **director LLM** turns a brief into words and
+acting directions, a **speech model** performs them in a reference voice, and
+optional **perceptual models** rank alternative takes. You can chat, perform
+exact text, or bypass the LLM with a manual prompt.
+
+## Start here: October 2026 Playground
+
+**Current default: [Small 1.1 Alpha RL r128 v1](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1).**
+The [Large RL counterpart](https://huggingface.co/laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1)
+and four earlier checkpoints are selectable. RL releases contain a **pinned
+final SFT5 base plus its own fixed RL adapter**. They are not the old DPO or
+speaker LoRAs, and must not be mixed with those by filename or rank alone.
+
+| Find it quickly | Read / download |
+| --- | --- |
+| All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
+| Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
+| Hosted API or local LLM director | [LLM connection and JSON contract](docs/PLAYGROUND_LLM.md) |
+| Exact **current Luna system prompt**, not the older Gemma prompt | [Full prompt](docs/LUNA_SYSTEM_PROMPT.md) · [source](playground/runtime/actor_prompt.py) · [request/validation code](playground/runtime/director.py) |
+| How to write an emotional performance while retaining the speaker | [Prompting and settings](docs/PLAYGROUND_PROMPTING.md) |
+| HTTP requests, streaming events and parallel Best-of-N | [Current API](docs/PLAYGROUND_API.md) |
+| Studies, listening reports, code, conclusions and limitations | [Experiment map](docs/PLAYGROUND_EXPERIMENTS.md) |
+| Actual current integration source and environment | [Playground snapshot](playground/README.md) · [environment](playground/environment-2026-10-16.json) · [source hashes](playground/source-manifest.json) |
+| Older SFT3 agent, tools and compatible LoRAs | [Historical stack below](#historical-sft3-agent-september-2026) · [legacy model guide](docs/MODELS_AND_ADAPTERS.md) |
+
+### System architecture
+
+```mermaid
+flowchart TD
+    U[Browser: chat, exact text or manual prompt] --> MODE{Input mode}
+    MODE -->|chat / exact text| LLM[Director: hosted Luna API or compatible local LLM]
+    LLM --> JSON[Validated JSON: words, GENERAL / SCRIPT, caption, tags]
+    MODE -->|manual: no LLM or API key| PACK[Prompt and reference packer]
+    JSON --> PACK
+    REF[Consented reference audio: fixed profile or upload] --> CODECIN[Reference codec encoding: up to 15 s by default]
+    CODECIN --> PACK
+    REF --> RET[Optional same-speaker VoiceCLAP retrieval]
+    RET --> CODECIN
+    PACK --> TTS[Selected Small / Large model: semantic decoder + local acoustic decoder]
+    BASE[Pinned base + its matching RL adapter, or earlier full checkpoint] --> TTS
+    TTS --> TOK[12 acoustic codebooks per 80 ms frame]
+    TOK --> PCM[Stateful codec: incremental 48 kHz audio]
+    PCM --> VC[Optional Humaneness Voice Converter: off by default]
+    VC --> FADE[Word-timestamp / forced-alignment fades]
+    FADE -->|single-take buffered chunks| OUT[Browser playback: mono MP3, 96 kbps]
+    FADE --> RANK[ASR + VoiceCLAP / Ears / optional speaker or emotion rewards]
+    RANK --> SELECT[Parallel Best-of-N: rank completed candidates]
+    SELECT --> OUT
+```
+
+The global/semantic autoregressive decoder supplies a conditioning vector to
+the local autoregressive acoustic decoder for each frame. The latter predicts
+12 codebook tokens; a frame represents 80 ms. The codec reconstructs audio.
+The LLM directs the performance but **does not synthesize audio or choose LoRAs**.
+Chunk-level winner/top-2 search is a separate experimental path, not ordinary
+full-utterance Best-of-N; [its RL precision limitation is disclosed here](docs/PLAYGROUND_EXPERIMENTS.md#current-rl-validation-boundary).
+
+### Current defaults and how to use the UI
+
+1. Choose **Small RL** or another checkpoint at the top. Choose a profile,
+   upload a reference you have permission to use, or choose no reference.
+2. Choose **Chat** for an acting brief, **Perform exact text** to preserve every
+   spoken word, or **Manual** to supply GENERAL/SCRIPT or CAPTION/TRANSCRIPT.
+3. Generate one streaming take, or choose Best-of-N / All N for parallel
+   candidates. Explore scoring, conversion and experimental search separately.
+
+Defaults at this snapshot: **Small RL · Mira · fixed reference · one take ·
+streaming · 800-ms codec chunks · temperature 0.70 · CFG 2.0 · fades on**.
+Dynamic reference selection, voice conversion, legacy DPO/voice adapters and
+hidden-state speaker steering are **off**. Reference audio is capped at 15 s
+by default, configurable up to 20 s; do not reintroduce the old 2.96-s limit.
+The separate optional VC stage currently uses at most 10 s of target audio.
+
+The default ranking is **50% normalized VoiceCLAP prompt fit + 50% Ears Medium
+Content Enjoyment**, multiplied by `max(0, 1 − prefix_WER)`. The UI also exposes
+quality-only ranking and legacy speaker/dimension/burst rewards; a visible
+speaker slider is **not** secretly included in the Ears mixture. There is no
+unbounded `1/WER` singularity. [Exact formulas and alternatives](docs/PLAYGROUND_PROMPTING.md).
+
+**Small RL and Large RL use BF16-rounded bases upcast to FP32, separate FP32
+residual adapters, policy autocast off and TF32 off** on the tested single/
+Best-of-N paths. The codec remains BF16. Do not silently merge/cast the RL
+policy to BF16 to make it fit. Small's parallel cap is 8; Large RL's is 2 on
+the tested 24-GB GPU. Large RL offloads ASR, Ears and alignment to CPU; this adds
+latency. First-use compilation can take minutes. CFG 2.0 is a demo extension,
+not a claim that the published RL baseline or earlier CFG studies prove it optimal.
+
+### Reproduction boundary
+
+For a **standalone speech-model run**, begin with the pinned model repository's
+own `infer.py` and README: [Small RL](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1),
+[Large RL](https://huggingface.co/laion/Humaneness-Voice-Large-1.1-Alpha-RL-r128-v1).
+For the **whole web pipeline**, use [the application guide](docs/PLAYGROUND_INSTALL.md)
+and checked-in source/environment manifests. The October snapshot is working-host
+integration source with disclosed asset paths, **not a newly validated clean-machine
+installer**. The original root-level installer/launcher still runs the September
+SFT3 agent; it does not magically start the October RL demo.
+
+The working-host checks recorded 359 passing CPU tests, two skipped Node checks,
+Chrome desktop/mobile checks and four real HTTPS/GPU RL smoke requests. They
+are [published as evidence](playground/evidence/), not proof of general quality
+or bit-identical results on arbitrary hardware. Source recordings, uploads,
+credentials and weights are not copied into Git. Record the actual reference
+hash and all resolved dependency revisions before claiming exact reproduction.
+Some historical loaders still resolve unpinned upstream heads: the inventory
+is explicit about that remaining gap.
+
+Permanent reports: [study Space](https://huggingface.co/spaces/laion/humaneness-voice-small-studies).
+The [working-host live UI](https://fuji-formal-while-plugin.trycloudflare.com/)
+uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
+
+## Historical SFT3 agent (September 2026)
+
+The following preserved installation, defaults, tool calls and adapter doses
+describe the older root-level application, **not the current RL Playground**.
+
 Humaneness Voice is an open voice-acting agent, not a single text-to-speech checkpoint. A language-model **director** interprets a scene and writes local performance cues; a speech **instrument** renders the words with a chosen voice, references and compatible LoRA adapters; perceptual **ears** can compare candidate takes. The included web app is one way to run that pipeline.
 
 This repository is a reviewed, standalone snapshot of the [Humaneness Voice Demo Server](https://github.com/LAION-AI/Humaneness-Voice-Demo-Server) at commit [`aa299f1`](https://github.com/LAION-AI/Humaneness-Voice-Demo-Server/commit/aa299f18879b4985136375ccb0c8d2d533995932). The original remains available. This repository contains code, director prompts, WikiSkills, tests and an exact asset manifest; model weights and reference audio remain in their respective Hugging Face repositories. The historical `sft3_*` names in Python and adapter keys identify training-lineage compatibility. They do not name a different serving system.
@@ -16,7 +132,7 @@ scene or chat message
 
 The director uses the checked-in [`wikiskills/`](wikiskills/) to turn measured acting recipes into a prompt. The instrument is the full-parameter [Humaneness Voice Base](https://huggingface.co/laion/moss-tts-local-transformer-4.55b-voice-acting-v2-sft3), historically called the MOSS SFT3 checkpoint, with the [MOSS Audio Tokenizer v2](https://huggingface.co/OpenMOSS-Team/MOSS-Audio-Tokenizer-v2). Its starting point was [MOSS-TTS-Local-Transformer-v1.5](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5), followed by the documented voice-acting adaptation. The ears use [VoiceCLAP Commercial](https://huggingface.co/laion/voiceclap-commercial), the separate [genuineness](https://huggingface.co/laion/voiceclap-commercial-genuineness) and [vocal-burst blend](https://huggingface.co/laion/voiceclap-commercial-vocalburst-blend) heads, audio/text fit and ASR. These heads help select takes; they are not a substitute for human judgments of acting.
 
-## Reproduce a local run
+## Reproduce the historical SFT3 local run
 
 The original server was developed for Linux, Python 3.12, CUDA 12.4 and two 24 GB GPUs. A smaller configuration may be possible but is not measured here. Install `ffmpeg`, a CUDA-compatible PyTorch build, and [llama.cpp](https://github.com/ggml-org/llama.cpp) with `llama-server` for the optional local director. You need substantial free disk space for the base model, LoRAs, director and temporary reference-data shards; the full upstream reference dataset is **not** downloaded by the setup below.
 
@@ -53,7 +169,7 @@ For candidate selection, change `"best_of":1` to `"best_of":10`. That requires t
 
 The installer writes a gitignored `.env.generated` containing only local paths to pinned downloaded snapshots. Put personal overrides or hosted-provider credentials in `.env.local`, also gitignored. `run.sh` sources both. The preferred asset root is `HUMANENESS_DATA_DIR` (default `~/.cache/humaneness-voice`); `MOSS_DATA_DIR` and other historical `MOSS_*` environment names remain supported for existing deployments. No API key is needed for the local director.
 
-## The serving stack
+## Historical SFT3 serving stack (not the RL defaults)
 
 The labels below refer to the *role* of each asset. The linked repository IDs retain their original names for traceable provenance; nothing has been silently renamed or relicensed.
 

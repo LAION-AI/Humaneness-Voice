@@ -1,5 +1,8 @@
 # Best-of-N
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_PROMPTING.md) and the repository README.
+
 Generate the turn N times, score every candidate, keep one. The case for it is
 already written into the material this server loads: the burst recipes quote an
 `N` per class — *"at a hit rate of 0.27 it takes 8 candidates for 90 %

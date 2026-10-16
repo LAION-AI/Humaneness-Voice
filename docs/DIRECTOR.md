@@ -1,5 +1,8 @@
 # The director's manual
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_LLM.md) and the repository README.
+
 This is the authoritative page for the language model that directs a turn, and
 for anyone changing what that model is told. Everything here is checked against
 the code; where a rule exists because something was measured, the number is

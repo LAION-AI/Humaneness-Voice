@@ -1,5 +1,8 @@
 # Shipped defaults
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_PROMPTING.md) and the repository README.
+
 This page describes the **Humaneness Voice agent-default-v1** release. The source of truth is [`../config.py`](../config.py); [`../manifests/agent-default-v1.json`](../manifests/agent-default-v1.json) pins the external artifacts. `python setup/check_release.py` checks the main values against the code. Environment variables and request fields can override them, so record the effective configuration of a particular take.
 
 | Setting | Shipped value | Meaning |
