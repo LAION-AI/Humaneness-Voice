@@ -1,5 +1,8 @@
 # Provenance, release boundary and known limits
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_EXPERIMENTS.md) and the repository README.
+
 ## What this repository is
 
 The initial code, UI and WikiSkills came from the public [Humaneness Voice Demo Server](https://github.com/LAION-AI/Humaneness-Voice-Demo-Server) at commit [`aa299f18879b4985136375ccb0c8d2d533995932`](https://github.com/LAION-AI/Humaneness-Voice-Demo-Server/commit/aa299f18879b4985136375ccb0c8d2d533995932). This is a new release snapshot with its own history, not a rename or deletion of that repository. The release adds a system-level README, pinned asset manifest, portable installer/path defaults, a corrected LoRA directory layout, local-run instructions and checks. It preserves the implementation and prompt/skill files so earlier experiments remain traceable. The historical `sft3_*` adapter keys are implementation identifiers; the public system name is **Humaneness Voice**.

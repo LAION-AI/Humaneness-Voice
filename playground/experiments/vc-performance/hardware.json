@@ -1,0 +1,85 @@
+{
+  "scope": "Isolated hardware experiment; single VC replica; no serving policy changes",
+  "rows": [
+    {
+      "method": "fp32_batch",
+      "n": 1,
+      "seconds": 0.3410109877586365,
+      "repeats": [
+        0.3385484367609024,
+        0.3431400768458843,
+        0.3410109877586365
+      ],
+      "aggregate_audio_seconds": 1.6,
+      "aggregate_rtf": 0.2131318673491478,
+      "audio_seconds_per_second": 4.691930927259333
+    },
+    {
+      "method": "fp32_batch",
+      "n": 8,
+      "seconds": 2.021929547190666,
+      "repeats": [
+        2.017070859670639,
+        2.021929547190666,
+        2.023095801472664
+      ],
+      "aggregate_audio_seconds": 12.8,
+      "aggregate_rtf": 0.1579632458742708,
+      "audio_seconds_per_second": 6.33058655173457
+    },
+    {
+      "method": "tf32_batch",
+      "n": 1,
+      "seconds": 0.3086855262517929,
+      "repeats": [
+        0.30862924084067345,
+        0.3086855262517929,
+        0.3095889538526535
+      ],
+      "aggregate_audio_seconds": 1.6,
+      "aggregate_rtf": 0.19292845390737057,
+      "audio_seconds_per_second": 5.183268614592865
+    },
+    {
+      "method": "tf32_batch",
+      "n": 8,
+      "seconds": 1.6800804995000362,
+      "repeats": [
+        1.6800804995000362,
+        1.681226473301649,
+        1.6774517521262169
+      ],
+      "aggregate_audio_seconds": 12.8,
+      "aggregate_rtf": 0.13125628902344033,
+      "audio_seconds_per_second": 7.61868255944228
+    }
+  ],
+  "parity": [
+    {
+      "method": "tf32",
+      "n": 1,
+      "relative_rms": [
+        0.009236345067620277
+      ]
+    },
+    {
+      "method": "tf32",
+      "n": 8,
+      "relative_rms": [
+        0.008808516897261143,
+        0.006743534002453089,
+        0.0277994554489851,
+        0.01039513573050499,
+        0.03155012056231499,
+        0.12502460181713104,
+        0.04501716420054436,
+        0.00571346003562212
+      ]
+    }
+  ],
+  "precision_baseline": {
+    "matmul_tf32": false,
+    "cudnn_tf32": true
+  },
+  "compile_error": "integer division or modulo by zero"
+}

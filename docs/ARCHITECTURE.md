@@ -1,5 +1,9 @@
 # How Humaneness Voice is assembled
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current architecture diagram](../README.md#system-architecture)
+> and [the current model guide](PLAYGROUND_MODELS.md).
+
 An ordinary TTS call asks a model to read a string. Humaneness Voice treats a scene as a performance problem: it decides *how* each sentence should be spoken, gives the speech model a compatible prompt and reference, then can listen to several takes before returning one. The four functional parts are deliberately separate so a new director, instrument or judge can be evaluated without renaming the whole agent.
 
 ## Actor's mind: direction

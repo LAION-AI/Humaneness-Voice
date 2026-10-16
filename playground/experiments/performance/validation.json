@@ -1,0 +1,92 @@
+{
+  "environment": {
+    "date_utc": "2026-09-30T10:08:45Z",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "vram_gib": 23.68426513671875,
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "transformers": "5.15.0",
+    "python": "3.12.13",
+    "model": "laion/Humaneness-Voice-Small",
+    "revision": "5de86032771c37a3008d14e78ee7cdb39368e2a8",
+    "stage": "S3",
+    "codec_revision": "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169",
+    "tts_dtype": "bfloat16",
+    "codec_baseline_weights": "float32",
+    "codec_compute": "bfloat16",
+    "frames": 30,
+    "fixed_audio_seconds_per_stream": 2.4,
+    "cfg": 1.5,
+    "temperature": 1.0,
+    "reference_frames": 36,
+    "caption": {
+      "text": "The train was late, but we made it home before the rain started. I never thought we would be this lucky.",
+      "caption": "Warm, natural, softly relieved conversation.",
+      "general": "Warm natural conversation."
+    },
+    "gpu_isolated": true,
+    "server_stopped": true,
+    "gpu_processes": "4185921, 12542 MiB"
+  },
+  "checks": [
+    {
+      "check": "fused_eager_vs_cuda_graph_codes",
+      "batch": 1,
+      "exact": true
+    },
+    {
+      "check": "fused_eager_vs_cuda_graph_codes",
+      "batch": 4,
+      "exact": true
+    },
+    {
+      "check": "incremental_vs_full_pcm",
+      "row": 0,
+      "frames": 30,
+      "samples": 115200,
+      "rms_difference": 0.0006942852633073926,
+      "maximum_difference": 0.0185546875,
+      "rms_signal": 0.1222173348069191
+    },
+    {
+      "check": "incremental_vs_full_pcm",
+      "row": 1,
+      "frames": 19,
+      "samples": 72960,
+      "rms_difference": 0.0004933033487759531,
+      "maximum_difference": 0.006011962890625,
+      "rms_signal": 0.09262988716363907
+    },
+    {
+      "check": "incremental_vs_full_pcm",
+      "row": 2,
+      "frames": 7,
+      "samples": 26880,
+      "rms_difference": 0.000836996070574969,
+      "maximum_difference": 0.01025390625,
+      "rms_signal": 0.1477363407611847
+    },
+    {
+      "check": "incremental_vs_full_pcm",
+      "row": 3,
+      "frames": 25,
+      "samples": 96000,
+      "rms_difference": 0.001646272256039083,
+      "maximum_difference": 0.04931640625,
+      "rms_signal": 0.1355268955230713
+    },
+    {
+      "check": "codec_fp32_weights_vs_supported_bf16",
+      "samples": 460800,
+      "rms_difference": 0.0008630052907392383,
+      "maximum_difference": 0.0419921875,
+      "rms_signal": 0.10095827281475067
+    },
+    {
+      "check": "compiled_global_vs_eager_codes",
+      "exact": false,
+      "same_token_fraction": 0.1354166716337204,
+      "note": "BF16 rounding can change stochastic trajectories; quality is evaluated separately."
+    }
+  ]
+}

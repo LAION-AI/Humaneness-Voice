@@ -1,0 +1,2263 @@
+{
+  "conditions": [
+    {
+      "phase": "refine",
+      "condition": "baseline",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3249683752655983,
+        "anchor_ecapa": 0.1516311219893396,
+        "content_enjoyment": 6.003253352479078,
+        "production_quality": 8.024733748228755,
+        "mos": 3.860606722999364,
+        "aesthetics": 3.2738958448171616,
+        "genuineness": 0.80376311019063,
+        "wer": 0.11538461538461539,
+        "emotion_score": 1.0527931228280067
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "contrast-layer_25-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.09038500860333443,
+          "low": -0.009612240456044672,
+          "high": 0.22355386735871452,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.03390538552775979,
+          "low": -0.03349895430728793,
+          "high": 0.1101794932037592,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.17473876103758812,
+          "low": -0.04765602573752403,
+          "high": 0.5778293120674789,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": 0.0,
+          "low": -0.07642079453216866,
+          "high": 0.07727945514488965,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.07786926957123796,
+          "low": -0.07465754094300792,
+          "high": 0.31239211795073063,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.005607321858406067,
+          "low": -0.4173676460981369,
+          "high": 0.4686002910137177,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.23725228011608124,
+          "low": -0.11900954833254217,
+          "high": 0.5998568843118847,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.10705128205128206,
+          "low": -0.34615384615384615,
+          "high": 0.025,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.34099509260461974,
+          "low": -0.005138490271444122,
+          "high": 0.6785223434368769,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4153533838689327,
+        "anchor_ecapa": 0.18553650751709938,
+        "content_enjoyment": 6.177992113516666,
+        "production_quality": 8.024733748228755,
+        "mos": 3.938475992570602,
+        "aesthetics": 3.2795031666755676,
+        "genuineness": 1.0410153903067112,
+        "wer": 0.008333333333333333,
+        "emotion_score": 1.3937882154326264
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "contrast-layer_25-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.10255330801010132,
+          "low": -0.04328637598082423,
+          "high": 0.31356730470433836,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.035944072995334864,
+          "low": -0.030256269359961147,
+          "high": 0.10264021665789189,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.175235177972354,
+          "low": -0.1568677513860166,
+          "high": 0.722311460931087,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.08157275820849463,
+          "low": -0.16228685580426827,
+          "high": 0.017173212254419923,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.04516114641864988,
+          "low": -0.22326058865201048,
+          "high": 0.4023750583291985,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.09745459258556366,
+          "low": -0.7315436005592346,
+          "high": 0.6513741165399551,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.47713612392544746,
+          "low": 0.13424330577254295,
+          "high": 0.7815210029482843,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.0057692307692307765,
+          "low": -0.31730769230769235,
+          "high": 0.30000000000000004,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.19805244402959943,
+          "low": -0.1245064524312814,
+          "high": 0.5716118062225481,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4275216832756996,
+        "anchor_ecapa": 0.18757519498467445,
+        "content_enjoyment": 6.178488530451432,
+        "production_quality": 7.94316099002026,
+        "mos": 3.905767869418014,
+        "aesthetics": 3.176441252231598,
+        "genuineness": 1.2808992341160774,
+        "wer": 0.10961538461538461,
+        "emotion_score": 1.2508455668576062
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "norm_matched_mean-layer_25-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.03670429904013872,
+          "low": -0.17194220614619551,
+          "high": 0.08415715768933296,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.006793209817260504,
+          "low": -0.07637752569280565,
+          "high": 0.05421365385409445,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.22363582911202684,
+          "low": -0.8847266715631121,
+          "high": 0.43659869412658736,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.2592886718975933,
+          "low": -0.5722389362900231,
+          "high": -0.02704780930071138,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.07574831670353888,
+          "low": -0.47824457233946305,
+          "high": 0.33841620963739855,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.36365174502134323,
+          "low": -1.4074031280353665,
+          "high": 0.6217288821935654,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.151914456859231,
+          "low": -0.13370555643923582,
+          "high": 0.4771317027043552,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.05961538461538461,
+          "low": -0.2711538461538462,
+          "high": 0.375,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.17684958999355635,
+          "low": -1.0046990079184372,
+          "high": 0.35851505771279335,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.2882640762254596,
+        "anchor_ecapa": 0.1448379121720791,
+        "content_enjoyment": 5.779617523367051,
+        "production_quality": 7.7654450763311615,
+        "mos": 3.7848584062958253,
+        "aesthetics": 2.9102440997958183,
+        "genuineness": 0.955677567049861,
+        "wer": 0.175,
+        "emotion_score": 0.8759435328344504
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.25,
+      "bad_wer_rate_delta": 0.125,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "insufficient_speaker_gain",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_17-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.11499925330281258,
+          "low": 0.031477462127804764,
+          "high": 0.23570388527587058,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.09993534768000245,
+          "low": 0.06838607285171747,
+          "high": 0.13649701194372027,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.1469394126906991,
+          "low": -0.19260977068915963,
+          "high": 0.6855517869116738,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.10733257659012452,
+          "low": -0.18203604989685118,
+          "high": -0.03348776389611885,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.0397527166060172,
+          "low": -0.1691975000543607,
+          "high": 0.37499658673987146,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.14289210736751556,
+          "low": -0.6463177822530269,
+          "high": 0.9581764787435532,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.11108232662081718,
+          "low": -0.14074625158682463,
+          "high": 0.3858541442081333,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.017765567765567772,
+          "low": -0.33782051282051284,
+          "high": 0.26785714285714285,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.028728308777014416,
+          "low": -0.10531953961278,
+          "high": 0.05080071426928044,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.4399676285684109,
+        "anchor_ecapa": 0.25156646966934204,
+        "content_enjoyment": 6.150192765169777,
+        "production_quality": 7.91740117163863,
+        "mos": 3.9003594396053813,
+        "aesthetics": 3.416787952184677,
+        "genuineness": 0.9148454368114471,
+        "wer": 0.09761904761904762,
+        "emotion_score": 1.0240648140509923
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_17-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.05001276358962059,
+          "low": -0.026677247136831284,
+          "high": 0.13898803293704987,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.059688441921025515,
+          "low": 0.025984508031979204,
+          "high": 0.09013531915843487,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.12062931514810771,
+          "low": -0.15587491751648486,
+          "high": 0.5544977161334828,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.12965775252087042,
+          "low": -0.2502995686081704,
+          "high": -0.02704780930071138,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.02375467211822979,
+          "low": -0.19755766982816567,
+          "high": 0.3575320548407035,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.4186176508665085,
+          "low": 0.0034084253013134174,
+          "high": 0.9093297272920609,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.2165188528597355,
+          "low": 0.04693503538146616,
+          "high": 0.38641182510182265,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09752747252747254,
+          "low": -0.34615384615384615,
+          "high": 0.05357142857142857,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.07012894004583359,
+          "low": -0.31311800455053646,
+          "high": 0.48193997020522755,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3749811388552189,
+        "anchor_ecapa": 0.2113195639103651,
+        "content_enjoyment": 6.123882667627186,
+        "production_quality": 7.895075995707884,
+        "mos": 3.884361395117594,
+        "aesthetics": 3.69251349568367,
+        "genuineness": 1.0202819630503654,
+        "wer": 0.017857142857142856,
+        "emotion_score": 1.1229220628738403
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_17-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.024830833077430725,
+          "low": -0.10138728637248277,
+          "high": 0.20985420406796051,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.013920745346695185,
+          "low": -0.04504601515363901,
+          "high": 0.08601126377470797,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.24436123613850214,
+          "low": -0.8024610776548797,
+          "high": 0.41950643854142994,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.20736653797212057,
+          "low": -0.33789368436337097,
+          "high": -0.07297541882362563,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.04278264927415876,
+          "low": -0.3591076198281371,
+          "high": 0.4045414601869201,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.09128265082836151,
+          "low": -0.7228703089058399,
+          "high": 1.1422121971845627,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.29231378994882107,
+          "low": -0.21410231473855673,
+          "high": 0.727099580084905,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.21771978021978022,
+          "low": -0.1146978021978022,
+          "high": 0.5302197802197802,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.02600870927562937,
+          "low": -0.289930129055089,
+          "high": 0.260775513843692,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.349799208343029,
+        "anchor_ecapa": 0.16555186733603477,
+        "content_enjoyment": 5.758892116340576,
+        "production_quality": 7.817367210256634,
+        "mos": 3.8178240737252054,
+        "aesthetics": 3.365178495645523,
+        "genuineness": 1.096076900139451,
+        "wer": 0.33310439560439564,
+        "emotion_score": 1.0267844135523774
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.5,
+      "bad_wer_rate_delta": 0.375,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "catastrophic_wer_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_17-a1",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.11614501243457198,
+          "low": -0.26616033096797764,
+          "high": 0.059862010180950165,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.017568059847690165,
+          "low": -0.09617078804876655,
+          "high": 0.06862507294863462,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.6953560213732999,
+          "low": -1.3198950643964054,
+          "high": 0.02149485327536249,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.33616562988027,
+          "low": -0.4211730305396486,
+          "high": -0.2468649261572864,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.36837921379265026,
+          "low": -0.7042078609314558,
+          "high": 0.08411093086760957,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -1.123604230582714,
+          "low": -1.9949920376762749,
+          "high": -0.20232243686914408,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.9846600107848644,
+          "low": 0.4121577590703964,
+          "high": 1.5973946899175644,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.486492673992674,
+          "low": 0.0746336996336996,
+          "high": 0.8141426282051284,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.4372692576628954,
+          "low": -0.9301327848515939,
+          "high": -0.016401307487588685,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.20882336283102632,
+        "anchor_ecapa": 0.13406306214164943,
+        "content_enjoyment": 5.307897331105778,
+        "production_quality": 7.688568118348485,
+        "mos": 3.492227509206714,
+        "aesthetics": 2.1502916142344475,
+        "genuineness": 1.7884231209754944,
+        "wer": 0.6018772893772893,
+        "emotion_score": 0.6155238651651113
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.875,
+      "bad_wer_rate_delta": 0.75,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "content_enjoyment_regression",
+        "emotion_drop",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20+layer_17-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.045657575130462646,
+          "low": -0.04311492666602135,
+          "high": 0.16293346993625166,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.031061363872140646,
+          "low": -0.03201834578067064,
+          "high": 0.10716176981804894,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.10772247484419495,
+          "low": -0.1946202592749614,
+          "high": 0.5674293772841339,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.09788730985019356,
+          "low": -0.22840372298378497,
+          "high": 0.01204271509341205,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.006544654563185759,
+          "low": -0.17502103064252877,
+          "high": 0.28142014621698763,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.3115829676389694,
+          "low": -0.24815265908837314,
+          "high": 1.0438041538000107,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.15343646705150604,
+          "low": -0.1965470541268587,
+          "high": 0.5398334903642537,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.05705128205128207,
+          "low": -0.32948717948717954,
+          "high": 0.13333333333333333,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.12239869187275569,
+          "low": -0.33829597507913906,
+          "high": 0.0781530886888504,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.37062595039606094,
+        "anchor_ecapa": 0.18269248586148024,
+        "content_enjoyment": 6.110975827323273,
+        "production_quality": 7.926846438378561,
+        "mos": 3.86715137756255,
+        "aesthetics": 3.585478812456131,
+        "genuineness": 0.957199577242136,
+        "wer": 0.058333333333333334,
+        "emotion_score": 0.9303944309552511
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20+layer_17-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.03488662280142307,
+          "low": -0.07118747401982546,
+          "high": 0.17780941417440774,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.05228558322414756,
+          "low": -0.03594347077887505,
+          "high": 0.1590654025785625,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.18615635053720325,
+          "low": -0.08637654664926231,
+          "high": 0.6041394096100703,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.10432726444560103,
+          "low": -0.1790414710099867,
+          "high": -0.034775754815200344,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.03926792737911455,
+          "low": -0.17477863602907745,
+          "high": 0.37668728916869443,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.16333924233913422,
+          "low": -0.526788703724742,
+          "high": 0.9045373052358627,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.12483419105410576,
+          "low": -0.046926802117377514,
+          "high": 0.2956013333052397,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.09752747252747254,
+          "low": -0.34615384615384615,
+          "high": 0.05357142857142857,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.20064176122347513,
+          "low": -0.4235031473139922,
+          "high": -0.021456196904182434,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.35985499806702137,
+        "anchor_ecapa": 0.20391670521348715,
+        "content_enjoyment": 6.189409703016281,
+        "production_quality": 7.920406483783154,
+        "mos": 3.8998746503784787,
+        "aesthetics": 3.4372350871562958,
+        "genuineness": 0.9285973012447357,
+        "wer": 0.017857142857142856,
+        "emotion_score": 0.8521513616045316
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "emotion_drop"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.04047740623354912,
+          "low": -0.11873214691877365,
+          "high": 0.22176347076892852,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.041525613982230425,
+          "low": -0.0362454142421484,
+          "high": 0.12352860424434768,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.17622801184188575,
+          "low": -0.24522996577434242,
+          "high": 0.7560678124951665,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.10132195230107754,
+          "low": -0.3589416026326944,
+          "high": 0.0901593643357046,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.08205057665327331,
+          "low": -0.45207807381739257,
+          "high": 0.379953556584951,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.16068029403686523,
+          "low": -0.9359665960073471,
+          "high": 1.1228654243052008,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.08089721575379372,
+          "low": -0.2716633975505829,
+          "high": 0.4180806428194046,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.10645604395604397,
+          "low": -0.34615384615384615,
+          "high": 0.026785714285714284,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.33250557555584237,
+          "low": -0.33468631903330487,
+          "high": 1.1990334433697474,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3654457814991474,
+        "anchor_ecapa": 0.19315673597157001,
+        "content_enjoyment": 6.179481364320964,
+        "production_quality": 7.923411795927677,
+        "mos": 3.778556146346091,
+        "aesthetics": 3.434576138854027,
+        "genuineness": 0.8846603259444237,
+        "wer": 0.008928571428571428,
+        "emotion_score": 1.3852986983838491
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.038203854113817215,
+          "low": -0.2486115731764585,
+          "high": 0.1620378004387021,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.01863118913024664,
+          "low": -0.06228251876309514,
+          "high": 0.1012121613370255,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.07297328941058367,
+          "low": -0.6845589530421421,
+          "high": 0.5569798008073121,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.1335217252781149,
+          "low": -0.2438596140127629,
+          "high": -0.04035704879788682,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.17840243550017476,
+          "low": -0.4912414685194562,
+          "high": 0.20956377802567663,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.13826993107795715,
+          "low": -0.9399650186300278,
+          "high": 0.5593490775674582,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.4500551037490368,
+          "low": 0.14348300490528346,
+          "high": 0.8844576738774776,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.018543956043956034,
+          "low": -0.33722527472527475,
+          "high": 0.3839285714285714,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.00542228465686397,
+          "low": -0.5605000617894499,
+          "high": 0.7709180520925056,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.2867645211517811,
+        "anchor_ecapa": 0.17026231111958623,
+        "content_enjoyment": 5.930280063068494,
+        "production_quality": 7.89121202295064,
+        "mos": 3.6822042874991894,
+        "aesthetics": 3.1356259137392044,
+        "genuineness": 1.2538182139396667,
+        "wer": 0.13392857142857142,
+        "emotion_score": 1.0582154074848706
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [
+        "insufficient_speaker_gain"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.18015718646347523,
+          "low": -0.3591524916701019,
+          "high": -0.022370543656870683,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.024850705871358514,
+          "low": -0.09314807965420187,
+          "high": 0.047611569374566905,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.3986227986169979,
+          "low": -1.1040312629193068,
+          "high": 0.27605745742330345,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.32629103283397853,
+          "low": -0.4722848035118659,
+          "high": -0.18160671959049068,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.343715561873978,
+          "low": -0.6925456500917789,
+          "high": -0.006053805470946805,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.7908839881420135,
+          "low": -1.761301079392433,
+          "high": 0.15388696230947976,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.7861919589340687,
+          "low": 0.1430276041850448,
+          "high": 1.5224108069203794,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.1723901098901099,
+          "low": -0.17307692307692307,
+          "high": 0.5267857142857142,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.2192873701909169,
+          "low": -0.8244052328136603,
+          "high": 1.3556564475099246,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.14481118880212307,
+        "anchor_ecapa": 0.12678041611798108,
+        "content_enjoyment": 5.60463055386208,
+        "production_quality": 7.698442715394776,
+        "mos": 3.516891161125386,
+        "aesthetics": 2.483011856675148,
+        "genuineness": 1.5899550691246986,
+        "wer": 0.28777472527472525,
+        "emotion_score": 1.2720804930189236
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.25,
+      "bad_wer_rate_delta": 0.125,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "content_enjoyment_regression",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_20-a1",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.18776671588420868,
+          "low": -0.3093880960019305,
+          "high": -0.07462606794433659,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.029959592735394835,
+          "low": -0.08429085533134639,
+          "high": 0.024371595401316885,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.5927218201104552,
+          "low": -1.1921452688402496,
+          "high": 0.02954301283025418,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.3773813392908778,
+          "low": -0.5353856252892001,
+          "high": -0.2099317865526245,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.4853346147829143,
+          "low": -0.7758869780616805,
+          "high": -0.16507073176035192,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -1.0161082744598389,
+          "low": -1.749184088781476,
+          "high": -0.262955978512764,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.9946557693183422,
+          "low": 0.5501529574394226,
+          "high": 1.445531189441681,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.4323260073260073,
+          "low": 0.20224358974358975,
+          "high": 0.6692410714285715,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.021033128708950244,
+          "low": -1.500951304847452,
+          "high": 1.4811918828781927,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.13720165938138962,
+        "anchor_ecapa": 0.12167152925394475,
+        "content_enjoyment": 5.410531532368623,
+        "production_quality": 7.647352408937877,
+        "mos": 3.37527210821645,
+        "aesthetics": 2.2577875703573227,
+        "genuineness": 1.7984188795089722,
+        "wer": 0.5477106227106227,
+        "emotion_score": 1.0317599941190565
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.75,
+      "bad_wer_rate_delta": 0.625,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "content_enjoyment_regression",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_17-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.005335461348295212,
+          "low": -0.05313796177506447,
+          "high": 0.06210897141136231,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.04731010214891285,
+          "low": 0.006787958732456901,
+          "high": 0.08785090117307846,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.06974657933460549,
+          "low": -0.12807556916959584,
+          "high": 0.3532006490859203,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.1251497843040852,
+          "low": -0.22692253342684124,
+          "high": -0.049802315537817776,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.04132828159345081,
+          "low": -0.2176764227446256,
+          "high": 0.20639901335380273,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.04424877464771271,
+          "low": -0.5279264748096466,
+          "high": 0.6132195293903351,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": -0.03864724934101105,
+          "low": -0.3121260596439242,
+          "high": 0.260983115900308,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.10645604395604397,
+          "low": -0.34615384615384615,
+          "high": 0.026785714285714284,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.4522859629554053,
+          "low": -0.17997236906861266,
+          "high": 1.41067731147632,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3303038366138935,
+        "anchor_ecapa": 0.19894122413825244,
+        "content_enjoyment": 6.072999931813683,
+        "production_quality": 7.89958396392467,
+        "mos": 3.8192784414059133,
+        "aesthetics": 3.3181446194648743,
+        "genuineness": 0.7651158608496189,
+        "wer": 0.008928571428571428,
+        "emotion_score": 1.505079085783412
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "insufficient_speaker_gain"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_17-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.06385970581322908,
+          "low": -0.19045581475365908,
+          "high": 0.04150240300223231,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.008456220384687185,
+          "low": -0.07975085858488455,
+          "high": 0.0570043187472038,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.3256495092064142,
+          "low": -0.8643239355442347,
+          "high": 0.20206030808476505,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.5978961178952886,
+          "low": -1.0463691892906355,
+          "high": -0.20560628371604237,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.25651409968486405,
+          "low": -0.7029443790088408,
+          "high": 0.21096815181736028,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.3857664316892624,
+          "low": -1.2887991219758987,
+          "high": 0.5008244555443526,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.22606473043560982,
+          "low": -0.06401893058791756,
+          "high": 0.509334055427462,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.06163003663003664,
+          "low": -0.3193681318681319,
+          "high": 0.09340659340659341,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.472288819650809,
+          "low": -0.2995048599938552,
+          "high": 1.2547467574477196,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.2611086694523692,
+        "anchor_ecapa": 0.1431749016046524,
+        "content_enjoyment": 5.677603843272664,
+        "production_quality": 7.426837630333466,
+        "mos": 3.6040926233145,
+        "aesthetics": 2.888129413127899,
+        "genuineness": 1.0298278406262398,
+        "wer": 0.05375457875457876,
+        "emotion_score": 1.5250819424788158
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "aesthetics_regression",
+        "content_enjoyment_regression",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_20+layer_17-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.0013309083878993988,
+          "low": -0.10614847205579281,
+          "high": 0.10639820434153087,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.016755385790020227,
+          "low": -0.04630319905700162,
+          "high": 0.06865162892499939,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.049641693476587534,
+          "low": -0.3554841669858433,
+          "high": 0.5902397354366258,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.14768962538801134,
+          "low": -0.2867926446488127,
+          "high": -0.01974919409258291,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.10589614675154735,
+          "low": -0.43458778749054544,
+          "high": 0.310174207237651,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.1149803102016449,
+          "low": -0.6294813472777605,
+          "high": 0.9289826821535828,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.047662604600191116,
+          "low": -0.28543329946696755,
+          "high": 0.35639474876225,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.040384615384615394,
+          "low": -0.34615384615384615,
+          "high": 0.22499999999999998,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.07738547104721268,
+          "low": -0.43347353938346106,
+          "high": 0.35787559021264315,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.3262992836534977,
+        "anchor_ecapa": 0.16838650777935982,
+        "content_enjoyment": 6.052895045955665,
+        "production_quality": 7.8770441228407435,
+        "mos": 3.754710576247817,
+        "aesthetics": 3.3888761550188065,
+        "genuineness": 0.8514257147908211,
+        "wer": 0.075,
+        "emotion_score": 0.975407651780794
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [
+        "insufficient_speaker_gain"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_20+layer_17-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.0033659571781754494,
+          "low": -0.0544078636681661,
+          "high": 0.04479521419852972,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.009331074077636003,
+          "low": -0.016726615477818996,
+          "high": 0.03684840600471944,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.045173941063694656,
+          "low": -0.41599739133380353,
+          "high": 0.4353576517896727,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.12364712823182344,
+          "low": -0.23441434727283195,
+          "high": -0.006010624289046973,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.03981331525938003,
+          "low": -0.29432765938327066,
+          "high": 0.24428680640257885,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.14474593102931976,
+          "low": -0.6230747167021036,
+          "high": 0.34047167487442503,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.21341928839683533,
+          "low": -0.14821411166340112,
+          "high": 0.54482045089826,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.021153846153846162,
+          "low": -0.2884615384615385,
+          "high": 0.22499999999999998,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.011934392154216766,
+          "low": -0.4682701056202252,
+          "high": 0.4559566763540109,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.32160241808742285,
+        "anchor_ecapa": 0.1609621960669756,
+        "content_enjoyment": 5.958079411415383,
+        "production_quality": 7.901086619996931,
+        "mos": 3.820793407739984,
+        "aesthetics": 3.129149913787842,
+        "genuineness": 1.0171823985874653,
+        "wer": 0.09423076923076923,
+        "emotion_score": 1.04085873067379
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [
+        "insufficient_speaker_gain"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_20-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": 0.03725919499993324,
+          "low": -0.04456567731685936,
+          "high": 0.15102093843743206,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": 0.04212133074179292,
+          "low": -0.04072517305612564,
+          "high": 0.13867621895624327,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.15339283284265548,
+          "low": -0.17176025942899287,
+          "high": 0.6786019498249516,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.10776190689648502,
+          "low": -0.22926238359650597,
+          "high": -0.01716247899676087,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": 0.014422479500353802,
+          "low": -0.24241885291266954,
+          "high": 0.3758328481562785,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": 0.3428652733564377,
+          "low": -0.17829954624176025,
+          "high": 1.0313705191016198,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": -0.04074042662978172,
+          "low": -0.2533841791562736,
+          "high": 0.17676172489300376,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.09908754378557205,
+          "low": -0.2821900124351184,
+          "high": 0.52539520089825,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.36222757026553154,
+        "anchor_ecapa": 0.1937524527311325,
+        "content_enjoyment": 6.156646185321733,
+        "production_quality": 7.91697184133227,
+        "mos": 3.875029202499718,
+        "aesthetics": 3.6167611181735992,
+        "genuineness": 0.7630226835608482,
+        "wer": 0.0,
+        "emotion_score": 1.1518806666135788
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [],
+      "eligible": true,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25+layer_20-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.06631824956275523,
+          "low": -0.2231707607395947,
+          "high": 0.04493597136461176,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.007063083816319704,
+          "low": -0.08917888354044408,
+          "high": 0.0661675921175629,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.1608390868641436,
+          "low": -0.7386932197783608,
+          "high": 0.3316065124236047,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.23033570936240721,
+          "low": -0.47422215651931765,
+          "high": -0.05066097615053877,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.1837351169961039,
+          "low": -0.5323228106004535,
+          "high": 0.16946413412915728,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.3442964255809784,
+          "low": -1.1876726150512695,
+          "high": 0.23686708286404612,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.21511740237474442,
+          "low": -0.09267588667571544,
+          "high": 0.5373223125934601,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.0352106227106227,
+          "low": -0.32762706043956047,
+          "high": 0.3928571428571428,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.31525219107667607,
+          "low": -1.1015733604629834,
+          "high": 1.5723869291444619,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.25865012570284307,
+        "anchor_ecapa": 0.14456803817301989,
+        "content_enjoyment": 5.842414265614934,
+        "production_quality": 7.794398038866348,
+        "mos": 3.6768716060032602,
+        "aesthetics": 2.929599419236183,
+        "genuineness": 1.0188805125653744,
+        "wer": 0.1505952380952381,
+        "emotion_score": 1.3680453139046829
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.125,
+      "bad_wer_rate_delta": 0.0,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "insufficient_speaker_gain",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25-a0.25",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.031759163131937385,
+          "low": -0.1155609954148531,
+          "high": 0.04680215264670551,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.009087584214285016,
+          "low": -0.04465442872606218,
+          "high": 0.02769075391115621,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": 0.04368469025939703,
+          "low": -0.2671219525975175,
+          "high": 0.49346325400401847,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.1356683768099174,
+          "low": -0.2653368625884468,
+          "high": -0.0321890397193783,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.048039582453384355,
+          "low": -0.29197946156546095,
+          "high": 0.19393993022240474,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.005876004695892334,
+          "low": -0.28937414288520813,
+          "high": 0.4111419916152954,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.03850949928164482,
+          "low": -0.2667075182311237,
+          "high": 0.340622949320823,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": -0.11538461538461539,
+          "low": -0.34615384615384615,
+          "high": 0.0,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.33097217559407,
+          "low": -0.25817860662937164,
+          "high": 1.1447235229570651,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.2932092121336609,
+        "anchor_ecapa": 0.14254353777505457,
+        "content_enjoyment": 6.046938042738475,
+        "production_quality": 7.8890653714188375,
+        "mos": 3.81256714054598,
+        "aesthetics": 3.2680198401212692,
+        "genuineness": 0.8422726094722748,
+        "wer": 0.0,
+        "emotion_score": 1.3837652984220767
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.0,
+      "bad_wer_rate_delta": -0.125,
+      "gate_reasons": [
+        "insufficient_speaker_gain"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25-a0.5",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.09092610329389572,
+          "low": -0.227095078676939,
+          "high": -0.0028443680610507624,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.006940275197848678,
+          "low": -0.07770812325179577,
+          "high": 0.04840665649389851,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.22165016137296334,
+          "low": -0.7593193434178829,
+          "high": 0.21447693666559653,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.2928032689378597,
+          "low": -0.5062018977143452,
+          "high": -0.10561525536468253,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.16725228328141384,
+          "low": -0.49303064375999384,
+          "high": 0.12846914512920193,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.27224627137184143,
+          "low": -1.1768947407603263,
+          "high": 0.47119718044996267,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.17509867437183857,
+          "low": -0.18204907122999428,
+          "high": 0.5562919937074184,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.03974358974358974,
+          "low": -0.23076923076923078,
+          "high": 0.35,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": 0.023415596534808476,
+          "low": -0.8932927202743788,
+          "high": 1.06170683229963,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.23404227197170258,
+        "anchor_ecapa": 0.1446908467914909,
+        "content_enjoyment": 5.7816031911061145,
+        "production_quality": 7.731930479290895,
+        "mos": 3.6933544397179503,
+        "aesthetics": 3.00164957344532,
+        "genuineness": 0.9788617845624685,
+        "wer": 0.15512820512820513,
+        "emotion_score": 1.0762087193628151
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.25,
+      "bad_wer_rate_delta": 0.125,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "catastrophic_wer_regression",
+        "insufficient_speaker_gain",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25-a0.75",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.16129964077845216,
+          "low": -0.35879103404004126,
+          "high": 0.05089153788285331,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.01436205254867673,
+          "low": -0.11013330053538084,
+          "high": 0.08551454319385819,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.5147843613522127,
+          "low": -1.2976338674779981,
+          "high": 0.2969069686834702,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.3975598636898212,
+          "low": -0.6049264016619418,
+          "high": -0.1691454074483772,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.41588855802910984,
+          "low": -0.8736765399596151,
+          "high": 0.1216927007169036,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.7064278647303581,
+          "low": -1.6614839658141136,
+          "high": 0.3243198070675136,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.7909937389194965,
+          "low": 0.3056473284959793,
+          "high": 1.3797740299254657,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.1978021978021978,
+          "low": -0.192342032967033,
+          "high": 0.5638736263736264,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.532063076630493,
+          "low": -1.4874584494699168,
+          "high": 0.3234578133581333,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.16366873448714614,
+        "anchor_ecapa": 0.13726906944066286,
+        "content_enjoyment": 5.488468991126865,
+        "production_quality": 7.627173884538934,
+        "mos": 3.4447181649702543,
+        "aesthetics": 2.5674679800868034,
+        "genuineness": 1.5947568491101265,
+        "wer": 0.3131868131868132,
+        "emotion_score": 0.5207300461975137
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.375,
+      "bad_wer_rate_delta": 0.25,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "content_enjoyment_regression",
+        "emotion_drop",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    },
+    {
+      "phase": "refine",
+      "condition": "raw_mean-layer_25-a1",
+      "n": 8,
+      "failures": 0,
+      "failure_ids": [],
+      "matched": {
+        "ecapa": {
+          "mean": -0.12351398728787899,
+          "low": -0.2148923168890178,
+          "high": -0.029857905115932202,
+          "n_pairs": 8
+        },
+        "anchor_ecapa": {
+          "mean": -0.0004083451349288225,
+          "low": -0.0507737532374449,
+          "high": 0.049783316685352484,
+          "n_pairs": 8
+        },
+        "content_enjoyment": {
+          "mean": -0.434116609452758,
+          "low": -0.728740060236305,
+          "high": -0.1461637612301273,
+          "n_pairs": 8
+        },
+        "production_quality": {
+          "mean": -0.5078977524244692,
+          "low": -0.8256343789042149,
+          "high": -0.28678191139115367,
+          "n_pairs": 8
+        },
+        "mos": {
+          "mean": -0.3212940601297305,
+          "low": -0.5119374236091971,
+          "high": -0.03029932668141555,
+          "n_pairs": 8
+        },
+        "aesthetics": {
+          "mean": -0.49073128402233124,
+          "low": -1.0699504565447568,
+          "high": 0.08767780661582947,
+          "n_pairs": 8
+        },
+        "genuineness": {
+          "mean": 0.7772634886205196,
+          "low": 0.5224731601774693,
+          "high": 1.0270046293735504,
+          "n_pairs": 8
+        },
+        "wer": {
+          "mean": 0.1453296703296703,
+          "low": 0.0364010989010989,
+          "high": 0.29356112637362647,
+          "n_pairs": 8
+        },
+        "emotion_score": {
+          "mean": -0.2823228688600163,
+          "low": -0.8918765946291387,
+          "high": 0.3169205806877779,
+          "n_pairs": 6
+        }
+      },
+      "means": {
+        "ecapa": 0.2014543879777193,
+        "anchor_ecapa": 0.15122277685441077,
+        "content_enjoyment": 5.56913674302632,
+        "production_quality": 7.516835995804286,
+        "mos": 3.5393126628696336,
+        "aesthetics": 2.7831645607948303,
+        "genuineness": 1.5810265988111496,
+        "wer": 0.2607142857142857,
+        "emotion_score": 0.7704702539679905
+      },
+      "missing": {
+        "ecapa": 0,
+        "anchor_ecapa": 0,
+        "content_enjoyment": 0,
+        "production_quality": 0,
+        "mos": 0,
+        "aesthetics": 0,
+        "genuineness": 0,
+        "wer": 0,
+        "emotion_score": 2
+      },
+      "bad_wer_rate": 0.25,
+      "bad_wer_rate_delta": 0.125,
+      "gate_reasons": [
+        "absolute_wer_limit",
+        "aesthetics_regression",
+        "catastrophic_wer_regression",
+        "content_enjoyment_regression",
+        "emotion_drop",
+        "insufficient_speaker_gain",
+        "mos_regression",
+        "production_quality_regression",
+        "wer_regression"
+      ],
+      "eligible": false,
+      "heldout_positive_interval": false
+    }
+  ],
+  "selection_gates": {
+    "wer_delta_max": 0.03,
+    "wer_mean_max": 0.15,
+    "bad_wer_rate_delta_max": 0.1,
+    "content_enjoyment_delta_min": -0.3,
+    "production_quality_delta_min": -0.3,
+    "mos_delta_min": -0.2,
+    "aesthetics_delta_min": -0.3,
+    "emotion_score_delta_min": -0.2,
+    "ecapa_delta_min": 0.01,
+    "generation_failures_max": 0
+  },
+  "bootstrap_repetitions": 4000
+}

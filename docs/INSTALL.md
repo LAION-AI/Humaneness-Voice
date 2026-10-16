@@ -1,5 +1,8 @@
 # Install and run Humaneness Voice
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_INSTALL.md) and the repository README.
+
 This guide describes the public agent stack in [`../manifests/agent-default-v1.json`](../manifests/agent-default-v1.json). The base model is a full checkpoint; the voice, preference, emotion, delivery, quality and reaction LoRAs are separate. A download of the base model alone will not give the performance controls shown in the demo.
 
 ## Prerequisites

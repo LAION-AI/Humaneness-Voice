@@ -1,5 +1,8 @@
 # Models, adapters and serving compatibility
 
+> Historical September SFT3 guide. For the October Small/Large RL Playground,
+> start with [the current guide](PLAYGROUND_MODELS.md) and the repository README.
+
 Humaneness Voice is an agent assembled from several separately licensed artifacts. [`../manifests/agent-default-v1.json`](../manifests/agent-default-v1.json) records their full Hugging Face revisions. The table below is a navigation map, not an assertion that every upstream recording has the same rights as its annotation or model card. The base is a complete fine-tuned checkpoint. LoRAs are *deltas trained against it* and cannot be treated as independent models or interchanged freely with the older untuned MOSS v2 line.
 
 ## Humaneness Voice Base and required audio path
