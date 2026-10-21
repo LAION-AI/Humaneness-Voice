@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robby · a little more human</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/controls.css"><link rel="stylesheet" href="/static/expressions.css"></head>
+<body>
+<header><a class="back" href="https://fuji-formal-while-plugin.trycloudflare.com/">← Voice Playground</a><div class="brand">◉ robby<span class="brand-note">a little more human</span></div><a class="model-pill" href="/desk-robot/">3D desk robot ↗</a></header>
+<main><section class="stage">
+<div class="eyebrow">A FACE. A VOICE. A CONVERSATION.</div><h1>Talk to Robby.</h1>
+<div id="quick-controls" class="quick-controls">
+<div class="call-controls"><button id="call" class="primary" disabled>◉ Start talking</button><button id="camera" class="secondary">Starting camera…</button><button id="interrupt" class="secondary" aria-label="Stop Robby speaking">Stop reply</button></div>
+<div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox" checked> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
+<p id="follow-status" role="status">Camera permission is needed. Head movement follows your position, not your head rotation.</p>
+</div>
+<section class="interaction-controls" aria-label="Live interruptions">
+<label><input id="allow-proactive" type="checkbox" checked> Allow Robby to interrupt me</label>
+<label><input id="allow-helpful" type="checkbox" checked> Also allow useful conversational interjections (experimental)</label>
+<details><summary>Agreed rules & interruption details</summary><p>For example: “When I talk about bananas, interrupt me and say Stop, stop.” No pause is required. Say “Stop” to silence Robby.</p>
+<p>Decisions are scheduled every 320 ms, with one check in flight. Agreed keywords use a direct path; usefulness uses Luna with conversation context and asks briefly to jump in, at most once per 12 seconds. Unchanged text reuses its decision. Speaker checks apply; visible-speech checks apply only when face VAD is enabled. Recognition and speech generation add latency.</p>
+<p id="interaction-status" role="status">No agreed rules yet. Introduce yourself with “Hey Robbie, I’m …” first.</p>
+<div id="interaction-rules"></div><button id="clear-interaction-rules" type="button" class="text-button">Clear agreed rules</button>
+</details><p id="live-interruption-health" role="status">Agree a rule first. Waiting reasons will appear here.</p>
+</section>
+<div id="avatar" class="avatar" aria-label="Animated Robby robot"></div>
+<div class="under-avatar"><div id="phase" class="phase"><span class="dot"></span><span id="phase-text">Getting my ears ready…</span></div><p id="subtitle">Meet Robby. Talk naturally, interrupt whenever you need to.</p></div>
+<div class="input-health"><label>Microphone <meter id="mic-level" min="0" max="1" value="0"></meter></label><p id="mic-status" role="status">Microphone off. Click Start talking and allow microphone access.</p><p id="asr-status" role="status">Speech recognition: waiting for audio.</p><p id="asr-preview" aria-live="polite"></p><button id="unfiltered-talk" class="secondary">Talk without speaker filter</button></div>
+<div id="speaker-controls" class="speaker-controls"><strong>Talk to Robby, not the background</strong><p>Say “Hey Robbie, I’m Christoph” or “Hey Robby, ich bin Christoph.” Another person can join the same way. Robby remembers each voice for this session and submits after about one second without that speaker.</p><div id="speaker-chips" aria-live="polite"></div><p class="speaker-caution">Experimental voice matching, not authentication. Overlapping speech can still be uncertain. Typed messages bypass voice enrollment.</p></div>
+<div class="expression-controls"><label for="expression">Face preview</label><select id="expression"><option value="auto">Automatic · Luna’s acting directions</option><option value="neutral">Neutral</option></select><a href="/expressions/">Explore and blend all 40 ↗</a><p id="acting-status">Luna’s sentence-level acting directions drive the face. Audio only moves the mouth.</p></div>
+<p class="privacy">Camera tracking stays in your browser. Voice is processed on this server.<br>Conversation text is sent to the configured Luna API. Speaker cues are not authentication.</p>
+</section>
+<aside><details class="people-panel" open><summary>People · voice, face & reference images</summary><p>Local camera previews. A face match is not authentication. Old profiles may have no saved reference image.</p><div id="people-overview" aria-live="polite"></div></details><div class="chat-heading"><span>Our conversation</span><button id="clear" class="text-button">Clear</button></div>
+<div id="chat" class="chat" aria-live="polite"><div class="welcome"><span class="mini-heart">◉</span><h2>Hey, I’m Robby.</h2><p>Tell me about your day, try an acting scene, or just say hello.</p><div class="suggestions"><button data-text="Hello Robby. Tell me something comforting.">A gentle hello</button><button data-text="Tell me a tiny story: begin worried, then end with delighted relief.">A little acting scene</button></div></div></div>
+<form id="form"><label class="sr-only" for="message">Message Robby</label><input id="message" placeholder="Or type something…" maxlength="2000" autocomplete="off"><button type="submit" aria-label="Send message">↑</button></form>
+<details class="settings"><summary>Advanced · animation & audio diagnostics <span>↗</span></summary>
+<p>One shared Humaneness Small 1.1 Alpha RL model, Luna acting director, original Nemotron 3.5 + TYGER turn-taking. Forty authored expressions; smoothly varying brows, eyelids, gaze, mouth, head and arms.</p>
+<label><input id="acting" type="checkbox" checked> Let Luna’s TTS acting directions animate the face</label>
+<label>Expression intensity <input id="face-intensity" type="range" min="0" max="1" step=".05" value="1"></label>
+<label><input id="robot-keypoints" type="checkbox"> Show the robot’s 101 animation anchors</label>
+<label><input id="landmarks" type="checkbox"> Show camera landmarks locally</label>
+<video id="video" autoplay playsinline muted hidden></video><canvas id="mesh" hidden></canvas>
+<p id="camera-status">Camera is off. Face tracking uses local MediaPipe processing.</p>
+<div class="meters"><label>Endpoint <meter id="end-meter" min="0" max="1"></meter></label><label>Interruption <meter id="barge-meter" min="0" max="1"></meter></label></div>
+<p id="sync-status">Playback sync: waiting for microphone.</p><p id="identity-status">Speaker identity extension: experimental; no voiceprint stored.</p>
+<a href="/static/sync-report.html" target="_blank" rel="noopener">Synchronization checks ↗</a>
+<a href="/static/report.html" target="_blank" rel="noopener">Implementation, tests and limitations ↗</a>
+<a href="/static/turn-latency.html" target="_blank" rel="noopener">One-second pause · latency and speaker-context tests ↗</a>
+<a href="/speaker-training/" target="_blank" rel="noopener">Larger speaker training · live progress ↗</a>
+</details></aside></main>
+<footer>HUMANENESS VOICE · LAION <span>Authored cartoon expressions, not an emotion detector or medical service.</span></footer>
+<script type="module" src="/static/ui.js"></script></body></html>

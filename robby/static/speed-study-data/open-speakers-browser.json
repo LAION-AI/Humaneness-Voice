@@ -1,0 +1,2631 @@
+{
+  "started": 1792617810.0269015,
+  "runtime_source_sha256": "9c9383d5eff03f05befa8c91e12ec205ce3d3d7d8f30d4a496928baed2f9af37",
+  "synthetic_only": true,
+  "passed": true,
+  "cases": [
+    {
+      "fixture": "christoph-followup",
+      "open_enrollment": true,
+      "passed": true,
+      "start": 1792617811.7015347,
+      "metrics": {
+        "mic_blocks": 453,
+        "tagged_blocks": 0,
+        "chunks": 1,
+        "reply_chunks": 1
+      },
+      "events": [
+        {
+          "type": "ready",
+          "hop_ms": 320,
+          "sr": 16000,
+          "mouth": true,
+          "voices": [
+            "emolia_c1699"
+          ],
+          "voice": "emolia_c1699",
+          "labels": {
+            "emolia_c1699": "Mira · fixed reference"
+          },
+          "max_session_s": 1800.0,
+          "thresholds": {
+            "ep_thr": 0.915,
+            "ep_deb": 2,
+            "barge_thr": 0.2,
+            "barge_deb": 1,
+            "bc_thr": 0.4,
+            "bc_deb": 2
+          },
+          "sliders": [
+            {
+              "name": "ep_thr",
+              "type": "float",
+              "label": "endpoint p_end τ",
+              "lo": 0.3,
+              "hi": 0.99,
+              "step": 0.005,
+              "decimals": 3,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "p_end",
+              "off": null
+            },
+            {
+              "name": "ep_deb",
+              "type": "int",
+              "label": "endpoint deb",
+              "lo": 1,
+              "hi": 5,
+              "step": 1,
+              "decimals": 0,
+              "scale": 1.0,
+              "unit": "",
+              "meter": null,
+              "off": null
+            },
+            {
+              "name": "barge_thr",
+              "type": "float",
+              "label": "barge (yield)",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "yield",
+              "off": null
+            },
+            {
+              "name": "bc_thr",
+              "type": "float",
+              "label": "backchannel",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "bc",
+              "off": null
+            }
+          ],
+          "identity_enabled": true,
+          "identity_mode": "v4-long3",
+          "interaction": {
+            "enabled": true,
+            "helpful_enabled": true,
+            "rules": [],
+            "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+            "decision_interval_ms": 320,
+            "checks": 0,
+            "last_decision": null,
+            "waiting_for": "No agreed rules yet",
+            "attempts": 0,
+            "semantic_error": null,
+            "scope": "session-only conversational rules; acoustic verification is separate"
+          },
+          "visual_identity": {
+            "type": "visual_identity",
+            "settings": {
+              "ignoreOffscreenSpeakers": false,
+              "lookAtActiveSpeaker": true,
+              "greetUnknownSpeakers": true,
+              "faceIdEnabled": false
+            },
+            "camera": "off",
+            "fallback": true,
+            "people": [],
+            "note": "Acoustic speaker recognition; face VAD disabled"
+          },
+          "speaker_instruction": "Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.",
+          "received_at": 1792617812.0220068
+        },
+        {
+          "type": "visual_identity",
+          "settings": {
+            "ignoreOffscreenSpeakers": false,
+            "lookAtActiveSpeaker": true,
+            "greetUnknownSpeakers": true,
+            "faceIdEnabled": false
+          },
+          "camera": "off",
+          "fallback": true,
+          "people": [],
+          "note": "Acoustic speaker recognition; face VAD disabled",
+          "received_at": 1792617812.073935
+        },
+        {
+          "type": "stop_feedback_setting",
+          "enabled": false,
+          "received_at": 1792617812.0740762
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "received_at": 1792617812.0741887
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "received_at": 1792617812.074303
+        },
+        {
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 0,
+          "last_decision": null,
+          "waiting_for": "No agreed rules yet",
+          "attempts": 0,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "received_at": 1792617812.0744011
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "speech"
+          },
+          "received_at": 1792617814.378617
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617815.0427408
+        },
+        {
+          "type": "asr_preview",
+          "text": "Kannst du mir eine kleine",
+          "status": "awaiting_wake_or_stable_voice",
+          "source": "speaker_candidate",
+          "track": "channel-0",
+          "audio_seconds": 0.96,
+          "voiced_seconds": 0.72,
+          "channel": 0,
+          "energy_coverage": 0.692,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617815.092728
+        },
+        {
+          "type": "asr_preview",
+          "text": "Kannst du mir eine kleine",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617815.3447616
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617815.7113187
+        },
+        {
+          "type": "asr_preview",
+          "text": "Kannst du mir eine kleine Geschichte erzählen?",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617816.2878146
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617816.6773999
+        },
+        {
+          "type": "asr_preview",
+          "text": "Kannst du mir eine kleine Geschichte erzählen?",
+          "status": "enrolled",
+          "source": "speaker_candidate",
+          "track": "speaker-f7eb64c233af",
+          "audio_seconds": 2.56,
+          "voiced_seconds": 2.07,
+          "channel": 0,
+          "energy_coverage": 1.0,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617816.7430196
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "decision": {
+            "kind": "enrolled",
+            "id": "speaker-f7eb64c233af",
+            "name": "Guest 1",
+            "new_user": true,
+            "coherence": 0.9302024160112653,
+            "accepted": true
+          },
+          "received_at": 1792617816.7435563
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617817.3202276
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617818.2512436
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617819.194053
+        },
+        {
+          "type": "asr_preview",
+          "text": "Kannst du mir eine kleine Geschichte erzählen?",
+          "status": "checking_identity",
+          "source": "speaker_turn",
+          "track": "speaker-f7eb64c233af",
+          "audio_seconds": 2.87,
+          "voiced_seconds": 2.07,
+          "channel": 0,
+          "received_at": 1792617819.2471197
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "decision": {
+            "accepted": true,
+            "kind": "enrolled",
+            "id": "speaker-f7eb64c233af",
+            "name": "Guest 1",
+            "reason": "One second without this speaker; background voices do not extend the turn"
+          },
+          "received_at": 1792617819.3446527
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Kannst du mir eine kleine Geschichte erzählen?",
+          "speaker_id": "speaker-f7eb64c233af",
+          "speaker_name": "Guest 1",
+          "by": "speaker_silence_1s",
+          "turn_s": 2.07,
+          "timing": {
+            "speaker_last_audio_s": 2.07,
+            "silence_detected_audio_s": 4.8,
+            "prefetch_used": false,
+            "finalization_ms": 150.85,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          },
+          "received_at": 1792617819.3453538
+        },
+        {
+          "type": "service_status",
+          "text": "Preparing a useful spoken answer…",
+          "stage": "planning",
+          "received_at": 1792617819.347505
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617820.1317246
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617821.1098444
+        },
+        {
+          "type": "reply",
+          "text": "Eines Abends entdeckte ein kleiner Roboter einen Stern, der in einer Pfütze schwamm. Er hob ihn vorsichtig auf und trug ihn zum Himmel zurück. Seitdem leuchtet der Stern jede Nacht ein wenig heller – und der Roboter wusste, dass selbst kleine Helfer Großes bewirken können. Schön, dich kennenzulernen. Wie heißt du?",
+          "reply_id": 1,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "amusement, warm and gentle",
+                "text": "Eines Abends entdeckte ein kleiner Roboter einen Stern, der in einer Pfütze schwamm.",
+                "start_s": 0.0,
+                "end_s": 4.42
+              },
+              {
+                "emotion": "affection",
+                "secondary": "interest",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "affection, tenderly curious",
+                "text": "Er hob ihn vorsichtig auf und trug ihn zum Himmel zurück.",
+                "start_s": 4.42,
+                "end_s": 8.16
+              },
+              {
+                "emotion": "pleasure_ecstasy",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "pleasure_ecstasy, softly delighted",
+                "text": "Seitdem leuchtet der Stern jede Nacht ein wenig heller – und der Roboter wusste, dass selbst kleine Helfer Großes bewirken können.",
+                "start_s": 8.16,
+                "end_s": 15.3
+              },
+              {
+                "emotion": "interest",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "interest, welcoming and gently curious",
+                "text": "Schön, dich kennenzulernen.",
+                "start_s": 15.3,
+                "end_s": 16.32
+              },
+              {
+                "emotion": "interest",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "interest, welcoming and gently curious",
+                "text": "Wie heißt du?",
+                "start_s": 16.32,
+                "end_s": 17.34
+              }
+            ],
+            "planned_duration_s": 17.34
+          },
+          "speaker_id": "speaker-f7eb64c233af",
+          "speaker_name": "Guest 1",
+          "speaker_update": null,
+          "timing": {
+            "director_ms": 2661.25,
+            "director_mode": "compact",
+            "completion_tokens": 122,
+            "director_model": "gpt-5.6-luna",
+            "interjection_cache_hit": false
+          },
+          "sources": [],
+          "lookups": [],
+          "received_at": 1792617822.013042
+        },
+        {
+          "type": "service_status",
+          "text": "Voice model available. Preparing your spoken reply…",
+          "stage": "preparing",
+          "received_at": 1792617822.0229506
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617822.064636
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-f7eb64c233af",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617823.0288928
+        }
+      ],
+      "page_errors": [],
+      "asked_name": true
+    },
+    {
+      "fixture": "selma-followup-clear",
+      "open_enrollment": true,
+      "passed": true,
+      "start": 1792617825.0340567,
+      "metrics": {
+        "mic_blocks": 604,
+        "tagged_blocks": 0,
+        "chunks": 1,
+        "reply_chunks": 1
+      },
+      "events": [
+        {
+          "type": "ready",
+          "hop_ms": 320,
+          "sr": 16000,
+          "mouth": true,
+          "voices": [
+            "emolia_c1699"
+          ],
+          "voice": "emolia_c1699",
+          "labels": {
+            "emolia_c1699": "Mira · fixed reference"
+          },
+          "max_session_s": 1800.0,
+          "thresholds": {
+            "ep_thr": 0.915,
+            "ep_deb": 2,
+            "barge_thr": 0.2,
+            "barge_deb": 1,
+            "bc_thr": 0.4,
+            "bc_deb": 2
+          },
+          "sliders": [
+            {
+              "name": "ep_thr",
+              "type": "float",
+              "label": "endpoint p_end τ",
+              "lo": 0.3,
+              "hi": 0.99,
+              "step": 0.005,
+              "decimals": 3,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "p_end",
+              "off": null
+            },
+            {
+              "name": "ep_deb",
+              "type": "int",
+              "label": "endpoint deb",
+              "lo": 1,
+              "hi": 5,
+              "step": 1,
+              "decimals": 0,
+              "scale": 1.0,
+              "unit": "",
+              "meter": null,
+              "off": null
+            },
+            {
+              "name": "barge_thr",
+              "type": "float",
+              "label": "barge (yield)",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "yield",
+              "off": null
+            },
+            {
+              "name": "bc_thr",
+              "type": "float",
+              "label": "backchannel",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "bc",
+              "off": null
+            }
+          ],
+          "identity_enabled": true,
+          "identity_mode": "v4-long3",
+          "interaction": {
+            "enabled": true,
+            "helpful_enabled": true,
+            "rules": [],
+            "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+            "decision_interval_ms": 320,
+            "checks": 0,
+            "last_decision": null,
+            "waiting_for": "No agreed rules yet",
+            "attempts": 0,
+            "semantic_error": null,
+            "scope": "session-only conversational rules; acoustic verification is separate"
+          },
+          "visual_identity": {
+            "type": "visual_identity",
+            "settings": {
+              "ignoreOffscreenSpeakers": false,
+              "lookAtActiveSpeaker": true,
+              "greetUnknownSpeakers": true,
+              "faceIdEnabled": false
+            },
+            "camera": "off",
+            "fallback": true,
+            "people": [],
+            "note": "Acoustic speaker recognition; face VAD disabled"
+          },
+          "speaker_instruction": "Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.",
+          "received_at": 1792617825.3597593
+        },
+        {
+          "type": "visual_identity",
+          "settings": {
+            "ignoreOffscreenSpeakers": false,
+            "lookAtActiveSpeaker": true,
+            "greetUnknownSpeakers": true,
+            "faceIdEnabled": false
+          },
+          "camera": "off",
+          "fallback": true,
+          "people": [],
+          "note": "Acoustic speaker recognition; face VAD disabled",
+          "received_at": 1792617825.4101372
+        },
+        {
+          "type": "stop_feedback_setting",
+          "enabled": false,
+          "received_at": 1792617825.4102387
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "received_at": 1792617825.4103465
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "received_at": 1792617825.410441
+        },
+        {
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 0,
+          "last_decision": null,
+          "waiting_for": "No agreed rules yet",
+          "attempts": 0,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "received_at": 1792617825.410533
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617825.676817
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617826.3307102
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617826.9877143
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617827.959567
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617828.9514537
+        },
+        {
+          "type": "asr_preview",
+          "text": "Was können wir heute",
+          "status": "awaiting_wake_or_stable_voice",
+          "source": "speaker_candidate",
+          "track": "channel-0",
+          "audio_seconds": 2.04,
+          "voiced_seconds": 0.72,
+          "channel": 0,
+          "energy_coverage": 0.728,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617829.623668
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617829.8940291
+        },
+        {
+          "type": "asr_preview",
+          "text": "Was können wir heute zusammen?",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617830.165983
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "uncertain"
+          },
+          "received_at": 1792617830.8659282
+        },
+        {
+          "type": "asr_preview",
+          "text": "Was können wir heute zusammen machen?",
+          "status": "enrolled",
+          "source": "speaker_candidate",
+          "track": "speaker-586dfbd92bb7",
+          "audio_seconds": 3.32,
+          "voiced_seconds": 2.05,
+          "channel": 0,
+          "energy_coverage": 1.0,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617830.9446976
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "decision": {
+            "kind": "enrolled",
+            "id": "speaker-586dfbd92bb7",
+            "name": "Guest 1",
+            "new_user": true,
+            "coherence": 0.8912054300308228,
+            "accepted": true
+          },
+          "received_at": 1792617830.9450336
+        },
+        {
+          "type": "asr_preview",
+          "text": "Was können wir heute zusammen machen?",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617831.1298642
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617831.5203178
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617832.442799
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": false,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617833.394472
+        },
+        {
+          "type": "asr_preview",
+          "text": "Was können wir heute zusammen machen?",
+          "status": "checking_identity",
+          "source": "speaker_turn",
+          "track": "speaker-586dfbd92bb7",
+          "audio_seconds": 3.05,
+          "voiced_seconds": 2.05,
+          "channel": 0,
+          "received_at": 1792617833.5099802
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "decision": {
+            "accepted": true,
+            "kind": "enrolled",
+            "id": "speaker-586dfbd92bb7",
+            "name": "Guest 1",
+            "reason": "One second without this speaker; background voices do not extend the turn"
+          },
+          "received_at": 1792617833.6763606
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute zusammen machen?",
+          "speaker_id": "speaker-586dfbd92bb7",
+          "speaker_name": "Guest 1",
+          "by": "speaker_silence_1s",
+          "turn_s": 3.05,
+          "timing": {
+            "speaker_last_audio_s": 5.17,
+            "silence_detected_audio_s": 7.68,
+            "prefetch_used": false,
+            "finalization_ms": 277.06,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          },
+          "received_at": 1792617833.6771388
+        },
+        {
+          "type": "service_status",
+          "text": "Preparing a useful spoken answer…",
+          "stage": "planning",
+          "received_at": 1792617833.677204
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617834.3303897
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617834.9940295
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617835.9389882
+        },
+        {
+          "type": "reply",
+          "text": "Wir können heute zusammen plaudern, ein Rätsel lösen, eine kleine Geschichte erfinden oder etwas Neues lernen. Wie darf ich dich nennen?",
+          "reply_id": 1,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "pleasure_ecstasy",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "pleasure, warm and inviting",
+                "text": "Wir können heute zusammen plaudern, ein Rätsel lösen, eine kleine Geschichte erfinden oder etwas Neues lernen.",
+                "start_s": 0.0,
+                "end_s": 5.44
+              },
+              {
+                "emotion": "interest",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "interest, gently curious",
+                "text": "Wie darf ich dich nennen?",
+                "start_s": 5.44,
+                "end_s": 7.14
+              }
+            ],
+            "planned_duration_s": 7.14
+          },
+          "speaker_id": "speaker-586dfbd92bb7",
+          "speaker_name": "Guest 1",
+          "speaker_update": null,
+          "timing": {
+            "director_ms": 2615.38,
+            "director_mode": "compact",
+            "completion_tokens": 72,
+            "director_model": "gpt-5.6-luna",
+            "interjection_cache_hit": false
+          },
+          "sources": [],
+          "lookups": [],
+          "received_at": 1792617836.2909725
+        },
+        {
+          "type": "service_status",
+          "text": "Voice model available. Preparing your spoken reply…",
+          "stage": "preparing",
+          "received_at": 1792617836.296301
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [
+            "Guest 1"
+          ],
+          "speakers": [
+            {
+              "id": "speaker-586dfbd92bb7",
+              "name": "Guest 1",
+              "named": false,
+              "reference_ready": true,
+              "voice_variants": 1
+            }
+          ],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": true,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617836.594833
+        }
+      ],
+      "page_errors": [],
+      "asked_name": true
+    },
+    {
+      "fixture": "robert-followup",
+      "open_enrollment": false,
+      "passed": true,
+      "start": 1792617839.4333866,
+      "metrics": {
+        "mic_blocks": 996,
+        "tagged_blocks": 0,
+        "chunks": 0,
+        "reply_chunks": 0
+      },
+      "events": [
+        {
+          "type": "ready",
+          "hop_ms": 320,
+          "sr": 16000,
+          "mouth": true,
+          "voices": [
+            "emolia_c1699"
+          ],
+          "voice": "emolia_c1699",
+          "labels": {
+            "emolia_c1699": "Mira · fixed reference"
+          },
+          "max_session_s": 1800.0,
+          "thresholds": {
+            "ep_thr": 0.915,
+            "ep_deb": 2,
+            "barge_thr": 0.2,
+            "barge_deb": 1,
+            "bc_thr": 0.4,
+            "bc_deb": 2
+          },
+          "sliders": [
+            {
+              "name": "ep_thr",
+              "type": "float",
+              "label": "endpoint p_end τ",
+              "lo": 0.3,
+              "hi": 0.99,
+              "step": 0.005,
+              "decimals": 3,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "p_end",
+              "off": null
+            },
+            {
+              "name": "ep_deb",
+              "type": "int",
+              "label": "endpoint deb",
+              "lo": 1,
+              "hi": 5,
+              "step": 1,
+              "decimals": 0,
+              "scale": 1.0,
+              "unit": "",
+              "meter": null,
+              "off": null
+            },
+            {
+              "name": "barge_thr",
+              "type": "float",
+              "label": "barge (yield)",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "yield",
+              "off": null
+            },
+            {
+              "name": "bc_thr",
+              "type": "float",
+              "label": "backchannel",
+              "lo": 0.2,
+              "hi": 1.0,
+              "step": 0.01,
+              "decimals": 2,
+              "scale": 1.0,
+              "unit": "",
+              "meter": "bc",
+              "off": null
+            }
+          ],
+          "identity_enabled": true,
+          "identity_mode": "v4-long3",
+          "interaction": {
+            "enabled": true,
+            "helpful_enabled": true,
+            "rules": [],
+            "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+            "decision_interval_ms": 320,
+            "checks": 0,
+            "last_decision": null,
+            "waiting_for": "No agreed rules yet",
+            "attempts": 0,
+            "semantic_error": null,
+            "scope": "session-only conversational rules; acoustic verification is separate"
+          },
+          "visual_identity": {
+            "type": "visual_identity",
+            "settings": {
+              "ignoreOffscreenSpeakers": false,
+              "lookAtActiveSpeaker": true,
+              "greetUnknownSpeakers": true,
+              "faceIdEnabled": false
+            },
+            "camera": "off",
+            "fallback": true,
+            "people": [],
+            "note": "Acoustic speaker recognition; face VAD disabled"
+          },
+          "speaker_instruction": "Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.",
+          "received_at": 1792617839.7136366
+        },
+        {
+          "type": "visual_identity",
+          "settings": {
+            "ignoreOffscreenSpeakers": false,
+            "lookAtActiveSpeaker": true,
+            "greetUnknownSpeakers": true,
+            "faceIdEnabled": false
+          },
+          "camera": "off",
+          "fallback": true,
+          "people": [],
+          "note": "Acoustic speaker recognition; face VAD disabled",
+          "received_at": 1792617839.7620618
+        },
+        {
+          "type": "stop_feedback_setting",
+          "enabled": false,
+          "received_at": 1792617839.7621586
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "received_at": 1792617839.7631493
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": false,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "received_at": 1792617839.7646573
+        },
+        {
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 0,
+          "last_decision": null,
+          "waiting_for": "No agreed rules yet",
+          "attempts": 0,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "received_at": 1792617839.7647524
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617840.0459337
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617840.7100224
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": null,
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617841.356468
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617842.338582
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte ein",
+          "status": "awaiting_wake_or_stable_voice",
+          "source": "speaker_candidate",
+          "track": "channel-0",
+          "audio_seconds": 2.09,
+          "voiced_seconds": 0.85,
+          "channel": 0,
+          "energy_coverage": 0.774,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617842.7073655
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte kürzen",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617843.2538772
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "received_at": 1792617843.309668
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte einen kurzen Witz.",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617844.2192705
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617844.260002
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte einen kurzen Witz",
+          "status": "awaiting_wake_or_stable_voice",
+          "source": "speaker_candidate",
+          "track": "channel-0",
+          "audio_seconds": 3.59,
+          "voiced_seconds": 1.79,
+          "channel": 0,
+          "energy_coverage": 1.0,
+          "continuous_audio": true,
+          "identity_probe": null,
+          "received_at": 1792617844.3380036
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617845.223089
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617846.1750808
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 1,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617847.1380086
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617848.1090965
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte einen kurzen Witz",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617849.0216258
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617849.0628905
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte einen kurzen Witz.",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617849.9751234
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617850.020494
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617850.9822428
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617851.91024
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617852.877227
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617853.8421602
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617854.7910974
+        },
+        {
+          "type": "asr_preview",
+          "text": "Erzähl mir bitte einen kurzen Witz",
+          "status": "not_submitted",
+          "source": "native_asr",
+          "received_at": 1792617855.7157824
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617855.7570996
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617856.7161367
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617857.6736028
+        },
+        {
+          "type": "identity",
+          "enabled": true,
+          "mode": "v4-long3",
+          "users": [],
+          "speakers": [],
+          "timeout_s": 900,
+          "threshold": 0.619811549782753,
+          "margin": 0.04,
+          "similarity": "mean-centered cosine",
+          "secure_authentication": false,
+          "storage": "RAM for this session; cleared on disconnect",
+          "quiet_seconds": 1.0,
+          "buffered_speakers": 0,
+          "ignored_hops": 0,
+          "active": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": null
+          },
+          "diarization_active": true,
+          "utterance_threshold": 0.32,
+          "identity_context_s": 3.04,
+          "open_enrollment": false,
+          "prediction": {
+            "kind": "silence"
+          },
+          "received_at": 1792617858.6436365
+        }
+      ],
+      "page_errors": []
+    }
+  ],
+  "finished": 1792617860.275497
+}
