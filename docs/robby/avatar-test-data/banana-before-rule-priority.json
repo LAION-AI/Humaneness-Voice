@@ -1,0 +1,517 @@
+{
+  "runtime_source_sha256": "379a36e3742722a16cc59c4c96b3eb3b12db2dc1eb860996155b3e82d61a5954",
+  "owned_server_pid": 4098331,
+  "physical_microphone_used": false,
+  "public_synthetic_only": true,
+  "simulated_echo_delay_ms": 120,
+  "simulated_playback_buffer_ms": 240,
+  "echo_gain": 0.05,
+  "started": 1792625237.9827015,
+  "passed": false,
+  "synthetic_visual_identity": false,
+  "cases": [
+    {
+      "condition": "repeated",
+      "passed": false,
+      "user_start_s": 39.98,
+      "user_end_s": 89.27,
+      "fixture": "christoph-bananas",
+      "rules": [
+        {
+          "id": "8b466f6608c6",
+          "owner": "speaker-ad1323a084f6",
+          "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+          "reply": "Stopp, stopp!",
+          "match_mode": "any_term",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ]
+        }
+      ],
+      "interrupted": true,
+      "decision_at_s": 48.84,
+      "first_new_audio_s": 49.08,
+      "spoken_before_user_end": true,
+      "actual_streamed_tts": true,
+      "error": "Consumed monologue generated an unrequested ordinary reply",
+      "diagnostic_events": [
+        {
+          "at_s": 43.64,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 12,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 12,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.461,
+            "required": 0.55,
+            "fast": 0.442,
+            "long": 0.415,
+            "initial": 0.46061989665031433,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 44.94,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 16,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 16,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.474,
+            "required": 0.55,
+            "fast": 0.275,
+            "long": 0.323,
+            "initial": 0.46061989665031433,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 48.84,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Wenn Herrn sind gesund und Bananen haben viele wunderbare Eigenschaften.  Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-ad1323a084f6",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "8b466f6608c6"
+        },
+        {
+          "at_s": 55.48,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 27,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 121.6,
+            "partial_audio_s": 48.32,
+            "asr_to_decision_ms": 320,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 27,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.621,
+            "required": 0.55,
+            "fast": 0.413,
+            "long": 0.448,
+            "initial": 0.46061989665031433,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 57.84,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 30,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 121.6,
+            "partial_audio_s": 48.32,
+            "asr_to_decision_ms": 320,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 30,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.62,
+            "required": 0.55,
+            "fast": 0.405,
+            "long": 0.456,
+            "initial": 0.46061989665031433,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 58.02,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "ganzen Tag Bananen essen.  Und ich möchte jetzt immer weiter über Bananen und ihre gelbe Farbe sprechen.",
+          "speaker_id": "speaker-ad1323a084f6",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "helpful-interjection"
+        },
+        {
+          "at_s": 64.42,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-ad1323a084f6",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "8b466f6608c6"
+        },
+        {
+          "at_s": 69.88,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 43,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 56.1,
+            "partial_audio_s": 64.32,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 43,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.639,
+            "required": 0.55,
+            "fast": 0.093,
+            "long": 0.178,
+            "initial": 0.46061989665031433,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 71.46,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 45,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 56.1,
+            "partial_audio_s": 64.32,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 45,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.678,
+            "required": 0.55,
+            "fast": 0.291,
+            "long": 0.332,
+            "initial": 0.46061989665031433,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 72.76,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 49,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 56.1,
+            "partial_audio_s": 64.32,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 49,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.698,
+            "required": 0.55,
+            "fast": 0.366,
+            "long": 0.428,
+            "initial": 0.46061989665031433,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 76.9,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Man könnte den ganzen Tag Bananen essen und ich möchte jetzt immer weiter über Bananen und ihre gelbe Farbe sprechen.  Bananen sind gesund und Bananen haben",
+          "speaker_id": "speaker-ad1323a084f6",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "8b466f6608c6"
+        },
+        {
+          "at_s": 81.7,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-ad1323a084f6",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "8b466f6608c6"
+        },
+        {
+          "at_s": 87.78,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 66,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 57.5,
+            "partial_audio_s": 81.6,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 66,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.697,
+            "required": 0.55,
+            "fast": 0.236,
+            "long": 0.276,
+            "initial": 0.46061989665031433,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 89.08,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "8b466f6608c6",
+              "owner": "speaker-ad1323a084f6",
+              "condition": "Den Sprecher sofort unterbrechen, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 70,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "8b466f6608c6",
+            "speaker_id": "speaker-ad1323a084f6",
+            "decision_ms": 57.5,
+            "partial_audio_s": 81.6,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 70,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.704,
+            "required": 0.55,
+            "fast": 0.328,
+            "long": 0.363,
+            "initial": 0.46061989665031433,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        }
+      ],
+      "interruption_times_s": [
+        48.84,
+        58.02,
+        64.42,
+        76.9,
+        81.7
+      ]
+    }
+  ]
+}

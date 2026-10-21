@@ -32,6 +32,29 @@ class AudioInputTests(unittest.IsolatedAsyncioTestCase):
         np.testing.assert_array_equal(suppress_aligned_leakage(mic,np.zeros_like(mic)),mic)
         unrelated=rng.normal(0,.03,48000).astype(np.float32)
         np.testing.assert_array_equal(suppress_aligned_leakage(unrelated,reference),unrelated)
+    def test_unknown_browser_acoustic_delay_preserves_the_foreground_word(self):
+        from audio_sync import suppress_aligned_leakage
+        rng=np.random.default_rng(1997)
+        reference=rng.normal(0,.12,48000).astype(np.float32)
+        for delay in (-640,1920,4000):
+            shifted=np.zeros_like(reference)
+            if delay>0:shifted[delay:]=reference[:-delay]
+            else:shifted[:delay]=reference[-delay:]
+            user=np.zeros_like(reference);user[32000:38400]=rng.normal(0,.09,6400)
+            mic=shifted*.05+user
+            residual=suppress_aligned_leakage(mic,reference)
+            self.assertLess(float(np.sqrt(np.mean((residual-user)**2))),1e-5)
+            np.testing.assert_array_equal(mic,shifted*.05+user)
+    def test_phase_coloured_echo_is_removed_without_fitting_the_user(self):
+        from audio_sync import suppress_aligned_leakage
+        rng=np.random.default_rng(38)
+        reference=rng.normal(0,.08,48000).astype(np.float32)
+        echo=.04*reference+.008*np.r_[0,reference[:-1]]
+        user=np.zeros(48000,np.float32);user[18000:22000]=rng.normal(0,.1,4000)
+        mic=(echo+user).astype(np.float32);saved=mic.copy()
+        residual=suppress_aligned_leakage(mic,reference)
+        self.assertLess(np.sqrt(np.mean((residual-user)**2)),2e-5)
+        np.testing.assert_array_equal(mic,saved)
     def conversation(self):
         c=RoboConversation.__new__(RoboConversation)
         c.ws=SimpleNamespace(send_json=AsyncMock())

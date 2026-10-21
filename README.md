@@ -15,7 +15,8 @@ speaker LoRAs, and must not be mixed with those by filename or rank alone.
 
 | Find it quickly | Read / download |
 | --- | --- |
-| **Robby conversational robot:** live ASR, speaker memory, interruptible TTS, gaze and public-information tools | [Robby source, setup and limitations](robby/README.md) · [current stop/reading report](robby/static/stop-reading-update.html) |
+| **Robby conversational robot:** live ASR, speaker memory, interruptible TTS, gaze and public-information tools | [Robby source, setup and limitations](robby/README.md) · [current short-command correction report](robby/static/stop-fix-update.html) |
+| **Robby expressions & little tricks:** 40 poses, head turns, grimaces and LLM action tools | [Interactive GitHub Pages manual](https://laion-ai.github.io/Humaneness-Voice/robby/) · [tests and banana-game diagnosis](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-checks.html) |
 | All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
 | Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
 | Hosted API or local LLM director | [LLM connection and JSON contract](docs/PLAYGROUND_LLM.md) |
@@ -128,7 +129,8 @@ accepted interruptions cancel queued audio and generation. Silence is the defaul
 brief polite acknowledgments are optional. News and longer explanations request
 calm, gentle, unhurried delivery.
 
-[Tests and limitations](robby/static/stop-reading-update.html),
+[Current short-command/acknowledgment tests](robby/static/stop-fix-update.html),
+[retained earlier failures](robby/static/stop-reading-update.html),
 [speed/model comparison](robby/static/speed-and-tools.html), and
 [task log](robby/static/worklog.html) retain unsuccessful experiments as well as
 passing tests. Working-host synthetic/browser checks are not physical-room human

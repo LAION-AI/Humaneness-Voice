@@ -24,6 +24,6 @@ jobs:
         run: >-
           python -m unittest test_stop_commands test_stop_feedback
           test_conversation_prompt test_conversation_director test_knowledge_tools
-          test_live_decisions test_laya_policy test_release_scan
+          test_live_decisions test_laya_policy test_release_scan test_avatar_actions
       - name: Compile all exported Python without executing model loaders
         run: python -m compileall -q robby

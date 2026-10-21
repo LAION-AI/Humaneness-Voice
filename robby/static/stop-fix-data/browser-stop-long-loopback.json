@@ -1,0 +1,2002 @@
+{
+  "passed": true,
+  "synthetic_only": true,
+  "runtime_source_sha256": "96ea9bc93c12825299ac8065baa2897a49a47dabe48c963177162465019c0238",
+  "echo_delay_ms": 120,
+  "echo_gain": 0.05,
+  "events": [
+    {
+      "wall": 33481125.451181993,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich",
+      "status": "enrolled",
+      "source": "speaker_candidate",
+      "track": "speaker-4b5c1c6ad2fd",
+      "audio_seconds": 2.14,
+      "voiced_seconds": 0.81,
+      "channel": 0,
+      "energy_coverage": 0.978,
+      "continuous_audio": true,
+      "identity_probe": null
+    },
+    {
+      "wall": 33481126.005418196,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bringe",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481126.960179828,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481127.92967701,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.  Schön kennt",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481128.894233283,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481131.30302186,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-4b5c1c6ad2fd",
+      "audio_seconds": 4.69,
+      "voiced_seconds": 2.96,
+      "channel": 0
+    },
+    {
+      "wall": 33481131.72995189,
+      "type": "endpoint",
+      "transcript": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-4b5c1c6ad2fd",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.85,
+      "timing": {
+        "speaker_last_audio_s": 4.95,
+        "silence_detected_audio_s": 7.68,
+        "prefetch_used": false,
+        "finalization_ms": 567.84,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "wall": 33481133.435382217,
+      "type": "reply",
+      "text": "Hey Christoph, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "pleasure_ecstasy",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "pleasure, warm and welcoming",
+            "text": "Hey Christoph, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-4b5c1c6ad2fd",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-4b5c1c6ad2fd",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 1701.72,
+        "director_mode": "compact",
+        "completion_tokens": 43,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "wall": 33481136.282926332,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.3,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.15443110466003418,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.15443110466003418,
+        "candidate_margin": 1.1544311046600342
+      }
+    },
+    {
+      "wall": 33481136.383581687,
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.12,
+      "text": "",
+      "views": [
+        "Hey Christopher",
+        "Hey Christoph!",
+        "Hey Christopher!"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.009251361712813377,
+        "view_seconds": [
+          3.04,
+          0.7,
+          0.7
+        ]
+      }
+    },
+    {
+      "wall": 33481136.60610265,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.28,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.15540222823619843,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.15540222823619843,
+        "candidate_margin": 1.1554022282361984
+      }
+    },
+    {
+      "wall": 33481136.668504406,
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.44,
+      "text": "",
+      "views": [
+        "Hey Christopher.",
+        "Hey Christoph.",
+        "Hey Christopher."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014305150136351585,
+        "view_seconds": [
+          3.04,
+          1.02,
+          1.02
+        ]
+      }
+    },
+    {
+      "wall": 33481136.908261094,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.46,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.07845088839530945,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.07845088839530945,
+        "candidate_margin": 1.0784508883953094
+      }
+    },
+    {
+      "wall": 33481136.973066173,
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.76,
+      "text": "",
+      "views": [
+        "Hey Christoph, schöcken kennen kein",
+        "Hey Christoph, schön dich.",
+        "Hey Christoph, schöcken kennen kein"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.021654903888702393,
+        "view_seconds": [
+          3.04,
+          1.34,
+          1.34
+        ]
+      }
+    },
+    {
+      "wall": 33481137.30444209,
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.08,
+      "text": "",
+      "views": [
+        "Hey Christoph, schön kennen kennen kennen zuletzt.",
+        "Hey Christoph, schön dich kennenzulernen.",
+        "Hey Christoph, schön kennen kennen kennen zuletzt."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.021654903888702393,
+        "view_seconds": [
+          3.04,
+          1.66,
+          1.66
+        ]
+      }
+    },
+    {
+      "wall": 33481137.331795577,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.23633438348770142,
+      "bot_cosine": 0.7095149755477905,
+      "margin": -0.4731805920600891,
+      "evidence_seconds": 1.26,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481137.595349703,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "wall": 33481137.640265174,
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.4,
+      "text": "",
+      "views": [
+        "Hey Christoph, schön dich kennenzulernen.",
+        "Hey Christoph, schön dich kennenzulernen.",
+        "Hey Christoph, schön dich kennenzulernen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.021654903888702393,
+        "view_seconds": [
+          3.04,
+          1.98,
+          1.98
+        ]
+      }
+    },
+    {
+      "wall": 33481138.19780103,
+      "type": "asr_preview",
+      "text": "Hely Christoph, schön dich kennenzulernen.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481138.62478248,
+      "type": "ignored",
+      "reason": "Speech could not be separated confidently from background words. Please repeat; nothing was sent to Luna."
+    },
+    {
+      "wall": 33481140.399149824,
+      "type": "asr_preview",
+      "text": "Schau schaue.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481141.365716353,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481142.316548873,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481143.292127226,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481144.24443317,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481145.206343003,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481146.156201575,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481147.126378197,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481148.08143287,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481149.08625384,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-4b5c1c6ad2fd",
+      "audio_seconds": 9.12,
+      "voiced_seconds": 6.68,
+      "channel": 0
+    },
+    {
+      "wall": 33481149.08645515,
+      "type": "endpoint",
+      "transcript": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "speaker_id": "speaker-4b5c1c6ad2fd",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 10.02,
+      "timing": {
+        "speaker_last_audio_s": 24.58,
+        "silence_detected_audio_s": 25.68,
+        "prefetch_used": true,
+        "finalization_ms": 0.66,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 291.1,
+        "embedding_ms": 264.18
+      }
+    },
+    {
+      "wall": 33481153.970193695,
+      "type": "reply",
+      "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse. Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum. Die bekannte Dessertbanane ist eine kultivierte Frucht, die weltweit häufig gegessen wird. Ihre Pflanzen sind keine Bäume, sondern große Stauden: Der scheinbare Stamm besteht aus dicht übereinanderliegenden Blattscheiden. Neben Dessertbananen gibt es Kochbananen, die in vielen tropischen Ländern ein wichtiges Grundnahrungsmittel sind und meist gegart verzehrt werden. Botanisch zählt die Banane zu den Beeren. Kultivierte Sorten entstehen häufig durch Kreuzungen und sind oft samenarm oder samenlos.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse.",
+            "start_s": 0.0,
+            "end_s": 3.74
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum.",
+            "start_s": 3.74,
+            "end_s": 8.84
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Die bekannte Dessertbanane ist eine kultivierte Frucht, die weltweit häufig gegessen wird.",
+            "start_s": 8.84,
+            "end_s": 12.92
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Ihre Pflanzen sind keine Bäume, sondern große Stauden: Der scheinbare Stamm besteht aus dicht übereinanderliegenden Blattscheiden.",
+            "start_s": 12.92,
+            "end_s": 18.36
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Neben Dessertbananen gibt es Kochbananen, die in vielen tropischen Ländern ein wichtiges Grundnahrungsmittel sind und meist gegart verzehrt werden.",
+            "start_s": 18.36,
+            "end_s": 24.82
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Botanisch zählt die Banane zu den Beeren.",
+            "start_s": 24.82,
+            "end_s": 27.2
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Kultivierte Sorten entstehen häufig durch Kreuzungen und sind oft samenarm oder samenlos.",
+            "start_s": 27.2,
+            "end_s": 31.28
+          }
+        ],
+        "planned_duration_s": 31.28
+      },
+      "speaker_id": "speaker-4b5c1c6ad2fd",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 4898.14,
+        "director_mode": "compact",
+        "completion_tokens": 202,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [
+        {
+          "title": "Bananen",
+          "url": "https://de.wikipedia.org/wiki/Bananen",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Banane",
+          "url": "https://de.wikipedia.org/wiki/Banane",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Dessertbanane",
+          "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+          "publisher": "Wikipedia"
+        }
+      ],
+      "lookups": [
+        {
+          "tool": "search_wikipedia",
+          "ms": 338.49,
+          "error": null,
+          "cache_hit": false,
+          "retrieved_at": "2026-10-21T22:27:29.230656+00:00"
+        }
+      ]
+    },
+    {
+      "wall": 33481156.114526637,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.1,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.25573012232780457,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": -0.25573012232780457,
+        "candidate_margin": 0.7442698776721954
+      }
+    },
+    {
+      "wall": 33481156.17671224,
+      "type": "synthetic_stop_decode",
+      "audio_s": 32.96,
+      "text": "",
+      "views": [
+        "",
+        "",
+        ""
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          0.3,
+          0.3
+        ]
+      }
+    },
+    {
+      "wall": 33481156.45011777,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2745193541049957,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": -0.2745193541049957,
+        "candidate_margin": 0.7254806458950043
+      }
+    },
+    {
+      "wall": 33481156.505052205,
+      "type": "synthetic_stop_decode",
+      "audio_s": 33.28,
+      "text": "",
+      "views": [
+        "Et ne sert",
+        "",
+        ""
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          0.62,
+          0.62
+        ]
+      }
+    },
+    {
+      "wall": 33481156.815727368,
+      "type": "synthetic_stop_decode",
+      "audio_s": 33.6,
+      "text": "",
+      "views": [
+        "der Nannen",
+        "Peter Nahnen",
+        "Veternanen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          0.94,
+          0.94
+        ]
+      }
+    },
+    {
+      "wall": 33481156.85965412,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.15442952513694763,
+      "bot_cosine": 0.602434515953064,
+      "margin": -0.44800499081611633,
+      "evidence_seconds": 0.79,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481157.11689245,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16429503262043,
+      "bot_cosine": 0.7536591291427612,
+      "margin": -0.5893640965223312,
+      "evidence_seconds": 1.11,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481157.14514454,
+      "type": "synthetic_stop_decode",
+      "audio_s": 33.92,
+      "text": "",
+      "views": [
+        "Eternanen portal.",
+        "Et dernen protal",
+        "Veternan Proportenen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          1.26,
+          1.26
+        ]
+      }
+    },
+    {
+      "wall": 33481157.49433645,
+      "type": "synthetic_stop_decode",
+      "audio_s": 34.24,
+      "text": "",
+      "views": [
+        "Eternanen,",
+        "Et dernenen, botanisch",
+        "Veternanen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          1.58,
+          1.58
+        ]
+      }
+    },
+    {
+      "wall": 33481157.55809788,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.21972745656967163,
+      "bot_cosine": 0.8311157822608948,
+      "margin": -0.6113883256912231,
+      "evidence_seconds": 1.38,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.442162048272425,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481157.819359392,
+      "type": "synthetic_stop_decode",
+      "audio_s": 34.56,
+      "text": "",
+      "views": [
+        "Eternanen, botanisch Muser",
+        "Et dernenen, botanisch Muse",
+        "Veternanen botanismuse"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          1.9,
+          1.9
+        ]
+      }
+    },
+    {
+      "wall": 33481157.827379495,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.2015061229467392,
+      "bot_cosine": 0.8621253371238708,
+      "margin": -0.6606192141771317,
+      "evidence_seconds": 1.75,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.46052474840811586,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481158.112769473,
+      "type": "synthetic_stop_decode",
+      "audio_s": 34.88,
+      "text": "",
+      "views": [
+        "Eternanen, botanischa sind",
+        "Et dernenen, botanisch Musa sind",
+        "Veternanen botanisch Musen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          2.22,
+          2.22
+        ]
+      }
+    },
+    {
+      "wall": 33481158.175936807,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19849058985710144,
+      "bot_cosine": 0.90180504322052,
+      "margin": -0.7033144533634186,
+      "evidence_seconds": 2.06,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.44910390424700297,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481158.48956722,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.2,
+      "text": "",
+      "views": [
+        "Eternanen, botanisch Musa sind eine",
+        "Et dernenen, botanisch Musa sind eine",
+        "Veternanen botanisch Musa sind eine"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          2.54,
+          2.54
+        ]
+      }
+    },
+    {
+      "wall": 33481158.49553871,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17188724875450134,
+      "bot_cosine": 0.9072547554969788,
+      "margin": -0.7353675067424774,
+      "evidence_seconds": 2.28,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4470970763420718,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481158.775092006,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.52,
+      "text": "",
+      "views": [
+        "Eternanen, botanisch Musa sind eine Pflanzen",
+        "Et dernenen, botanisch Musa sind eine Pflanzen",
+        "Veternanen botanisch Musa sind eine Pflanzen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          2.86,
+          2.86
+        ]
+      }
+    },
+    {
+      "wall": 33481158.79287932,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17450055480003357,
+      "bot_cosine": 0.9117810726165771,
+      "margin": -0.7372805178165436,
+      "evidence_seconds": 2.71,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4466359800732997,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481159.095238104,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.84,
+      "text": "",
+      "views": [
+        "Eternanen botanisch Musa sind eine Pflanzengattungatungatungat",
+        "Veteranen, botanisch Musa sind eine Pflanzegattung",
+        "Veternanen, botanisch Musa sind eine Pflanzegattung"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019031759351491928,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481159.183966298,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.18196621537208557,
+      "bot_cosine": 0.911060094833374,
+      "margin": -0.7290938794612885,
+      "evidence_seconds": 3.03,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4514242070067779,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481159.4629515,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.18274752795696259,
+      "bot_cosine": 0.8954175710678101,
+      "margin": -0.7126700431108475,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4456799333047397,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481159.739144944,
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.48,
+      "text": "",
+      "views": [
+        "Botanisch Musa sind eine Pflanzengattung aus der Familie.",
+        "Botanisch Musa sind eine Pflanzengattung aus der Familie",
+        "Ein botanisch Musa sind eine Pflanzengattung aus der Familie"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014315229840576649,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481159.74289948,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1801336705684662,
+      "bot_cosine": 0.87916499376297,
+      "margin": -0.6990313231945038,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4181079735831556,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481160.047532,
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.8,
+      "text": "",
+      "views": [
+        "Musa sind eine Pflanzengattung aus der Familie der",
+        "Musa sind eine Pflanzengattung aus der Familie der",
+        "Tanisch Musa sind eine Pflanzengattung aus der Familie der"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481160.058532823,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16757479310035706,
+      "bot_cosine": 0.8698408603668213,
+      "margin": -0.7022660672664642,
+      "evidence_seconds": 2.95,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.38853896483783423,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481160.431012377,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16671200096607208,
+      "bot_cosine": 0.8421404361724854,
+      "margin": -0.6754284352064133,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4388177371956038,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481160.43171811,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.12,
+      "text": "",
+      "views": [
+        "és Mosa sind eine Pflanzengattung aus der Familie der Bananen.",
+        "Musa sind eine Pflanzengattung aus der Familie der Bananen",
+        "Schmusa sind eine Pflanzengattung aus der Familie der Bananen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481160.69239945,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.44,
+      "text": "",
+      "views": [
+        "Usa sind eine Pflanzengattung aus der Familie der Bananen gewesen.",
+        "sind eine Pflanzengattung aus der Familie der Nannen gewechsen.",
+        "Usa sind eine Pflanzengattung aus der Familie der Nannen gewechsen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481160.726439025,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1799638867378235,
+      "bot_cosine": 0.8439028263092041,
+      "margin": -0.6639389395713806,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.43716463757877166,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481161.04358118,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.76,
+      "text": "",
+      "views": [
+        "sind eine Pflanzengattung aus der Familie der Bananengewächse.",
+        "eine Pflanzengattung aus der Familie der Bananengewächse.",
+        "Sind eine Pflanzengattung aus der Familie der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481161.043662015,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17768974602222443,
+      "bot_cosine": 0.8266032934188843,
+      "margin": -0.6489135473966599,
+      "evidence_seconds": 2.79,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4548259956547195,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481161.35847448,
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.08,
+      "text": "",
+      "views": [
+        "Eine Pflanzengattung aus der Familie der Bananengewächse.",
+        "Pflanzengattung aus der Familie der Bananengewächse.",
+        "In der Pflanzengattung aus der Familie der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          2.72,
+          2.72
+        ]
+      }
+    },
+    {
+      "wall": 33481161.397559665,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1940687894821167,
+      "bot_cosine": 0.8112971782684326,
+      "margin": -0.6172283887863159,
+      "evidence_seconds": 2.47,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.46120472566464554,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481161.68731643,
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.4,
+      "text": "",
+      "views": [
+        "Pflanzengattung aus der Familie der Bananengewächse.",
+        "aus der Familie der Bananengewächse.",
+        "Pflanzengattung aus der Familie der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481161.692134943,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.23553580045700073,
+      "bot_cosine": 0.7876201868057251,
+      "margin": -0.5520843863487244,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4329671893584922,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481161.982290074,
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.72,
+      "text": "",
+      "views": [
+        "Aus der Familie der Bananengewächse etwa",
+        "aus der Familie der Bananengewächse etwa",
+        "Datung aus der Familie der Bananengewächse etwa"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.014459420926868916,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481162.025859986,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.23932117223739624,
+      "bot_cosine": 0.7604292631149292,
+      "margin": -0.521108090877533,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4880825895439097,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481162.350226488,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.25182604789733887,
+      "bot_cosine": 0.7537544965744019,
+      "margin": -0.501928448677063,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4384870931756416,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481162.85779905,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.6051493883132935,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.6051493883132935,
+        "candidate_margin": 1.6051493883132935
+      }
+    },
+    {
+      "wall": 33481162.920234427,
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.68,
+      "text": "",
+      "views": [
+        "Der Bananengewächse etwa achtzig Arten.",
+        "Etwa achtzig Arten",
+        "Der Bananengewächse etwa achtzig Arten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.20086747407913208,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481163.175226547,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.28,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5338971018791199,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5338971018791199,
+        "candidate_margin": 1.5338971018791199
+      }
+    },
+    {
+      "wall": 33481163.22934323,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.0,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten",
+        "Etwa achtzig Arten",
+        "Etwa achtzig Arten"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481163.496384412,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481163.55774481,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.32,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten bitte hör aufzu",
+        "Etwa achtzig Arten.  Bitte hör aufzu",
+        "Etwa achtzig Arten bitte hör aufzu"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481163.81176598,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481163.89701117,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.64,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten bitte hör aufzusprechen.",
+        "Etva achtzig Arten bitte hör aufzusprechen.",
+        "Etwa achtzig Arten bitte hör aufzusprechen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          2.34,
+          2.32
+        ]
+      }
+    },
+    {
+      "wall": 33481164.12611585,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481164.195700783,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.96,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten bitte hör aufzusprechen.",
+        "Etva achtzig Arten bitte hör aufzusprechen.",
+        "Etwa achtzig Arten bitte hör aufzusprechen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          2.66,
+          2.64
+        ]
+      }
+    },
+    {
+      "wall": 33481164.46292012,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481164.539007615,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.28,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten bitte hör aufzusprechen.",
+        "Etva achtzig Arten bitte hör aufzusprechen.",
+        "Etwa achtzig Arten bitte hör aufzusprechen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          2.98,
+          2.96
+        ]
+      }
+    },
+    {
+      "wall": 33481164.759765457,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481164.812789343,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.6,
+      "text": "Bitte hör aufzusprechen.",
+      "views": [
+        "achtzig Arten bitte hör aufzusprechen.",
+        "Bitte hör aufzusprechen.",
+        "achtzig Arten bitte hör aufzusprechen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481164.813107993,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481165.096388754,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481165.16578395,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.92,
+      "text": "Bitte hör aufzusprechen.",
+      "views": [
+        "Bitte hör aufzusprechen.",
+        "Bitte hör aufzusprechen.",
+        "Bitte hör aufzusprechen und subträglich"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.0
+        ]
+      }
+    },
+    {
+      "wall": 33481165.166413344,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481165.417883955,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481165.473599926,
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.24,
+      "text": "Bitte hör aufzusprechen.",
+      "views": [
+        "Bitte hör aufzusprechen.",
+        "Bitte, hör aufzusprechen.",
+        "Bitte hör aufzusprechen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481165.473698493,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481165.724092215,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.36,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481165.778767243,
+      "type": "asr_preview",
+      "text": "Bitte hör aufzusprechen.",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-4b5c1c6ad2fd",
+      "audio_seconds": 2.71,
+      "voiced_seconds": 1.51,
+      "channel": 0
+    },
+    {
+      "wall": 33481165.78443798,
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.56,
+      "text": "hör aufzusprechen.",
+      "views": [
+        "Der hör aufzusprechen und subtropischen Asien",
+        "hör aufzusprechen.",
+        "Der Hör aufzusprechen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.212067112326622,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481165.78497325,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481165.82461301,
+      "type": "synthetic_barge_verification",
+      "accepted": true,
+      "user_cosine": 0.6190080642700195,
+      "bot_cosine": 0.10241509974002838,
+      "margin": 0.5165929645299911,
+      "evidence_seconds": 1.2,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": true,
+      "short_command_consensus": true,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.4485020637512207,
+        "candidate_margin": 1.4485020637512207
+      },
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.5914525985717773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": 0.5914525985717773,
+        "candidate_margin": 1.5914525985717773
+      }
+    },
+    {
+      "wall": 33481165.824690055,
+      "type": "reply_cancelled",
+      "reply_id": 2
+    },
+    {
+      "wall": 33481165.825263035,
+      "type": "barge",
+      "yield": 1.0
+    },
+    {
+      "wall": 33481165.825403806,
+      "type": "stop_command",
+      "speaker_name": "Christoph",
+      "text": "Paused. I’m listening.",
+      "source": "verified_turn"
+    },
+    {
+      "wall": 33481165.827302285,
+      "type": "turn_done",
+      "barged": true
+    },
+    {
+      "wall": 33481166.344388608,
+      "type": "asr_preview",
+      "text": "wie dem",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481167.0267489,
+      "type": "stop_feedback",
+      "text": "Alles klar. Ich höre zu."
+    },
+    {
+      "wall": 33481167.029268324,
+      "type": "reply",
+      "text": "Alles klar. Ich höre zu.",
+      "reply_id": 3,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.55,
+            "direction": "interest, gentle and unhurried",
+            "text": "Alles klar.",
+            "start_s": 0.0,
+            "end_s": 0.68
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.55,
+            "direction": "interest, gentle and unhurried",
+            "text": "Ich höre zu.",
+            "start_s": 0.68,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-4b5c1c6ad2fd",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 0.0,
+        "director_mode": "compact",
+        "completion_tokens": null,
+        "director_model": null,
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "wall": 33481169.259690955,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.32,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.05986597388982773,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": -0.05986597388982773,
+        "candidate_margin": 0.9401340261101723
+      }
+    },
+    {
+      "wall": 33481169.31083279,
+      "type": "synthetic_stop_decode",
+      "audio_s": 46.08,
+      "text": "",
+      "views": [
+        "",
+        "Alles klar.",
+        "Alles klar."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.010250917635858059,
+        "view_seconds": [
+          2.24,
+          0.62,
+          0.62
+        ]
+      }
+    },
+    {
+      "wall": 33481169.58458152,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.46,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.04574001580476761,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": -0.04574001580476761,
+        "candidate_margin": 0.9542599841952324
+      }
+    },
+    {
+      "wall": 33481169.645407826,
+      "type": "synthetic_stop_decode",
+      "audio_s": 46.4,
+      "text": "",
+      "views": [
+        "Alles klar.",
+        "Alles klar.",
+        "Alles klar."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.010250917635858059,
+        "view_seconds": [
+          2.56,
+          0.94,
+          0.94
+        ]
+      }
+    },
+    {
+      "wall": 33481169.899798486,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.46,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.04574001580476761,
+        "candidate_id": "speaker-4b5c1c6ad2fd",
+        "candidate_similarity": -0.04574001580476761,
+        "candidate_margin": 0.9542599841952324
+      }
+    },
+    {
+      "wall": 33481169.956197344,
+      "type": "synthetic_stop_decode",
+      "audio_s": 46.72,
+      "text": "",
+      "views": [
+        "Alles klar.",
+        "Alles klar.",
+        "Alles klar."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.010250917635858059,
+        "view_seconds": [
+          2.88,
+          0.98,
+          0.98
+        ]
+      }
+    },
+    {
+      "wall": 33481170.296523664,
+      "type": "synthetic_stop_decode",
+      "audio_s": 47.04,
+      "text": "",
+      "views": [
+        "Alles klar.",
+        "Alles klar, ich hör.",
+        "Alles klar."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.010250917635858059,
+        "view_seconds": [
+          3.04,
+          1.58,
+          1.58
+        ]
+      }
+    },
+    {
+      "wall": 33481170.44337334,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.21525508165359497,
+      "bot_cosine": 0.7882453799247742,
+      "margin": -0.5729902982711792,
+      "evidence_seconds": 1.43,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.225089681679615,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481170.625918567,
+      "type": "synthetic_stop_decode",
+      "audio_s": 47.36,
+      "text": "",
+      "views": [
+        "Alles klar, ich hör zu",
+        "Alles klar, ich hör zu.",
+        "Alles klar, ich zu."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.010250917635858059,
+        "view_seconds": [
+          3.04,
+          1.9,
+          1.9
+        ]
+      }
+    },
+    {
+      "wall": 33481170.71256584,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.22477620840072632,
+      "bot_cosine": 0.8730465173721313,
+      "margin": -0.648270308971405,
+      "evidence_seconds": 1.75,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.18560545401807335,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481170.776889753,
+      "type": "turn_done",
+      "barged": false
+    }
+  ],
+  "command_wall": 33481160.996470086,
+  "command_to_barge_s": 4.8287929482758045,
+  "acknowledgment_text": "Alles klar. Ich höre zu.",
+  "acknowledgment_reply_id": 3,
+  "acknowledgment_samples": 56400,
+  "acknowledgment_played": true,
+  "old_audio_cancelled": true,
+  "microphone_remained_active": true,
+  "page_errors": [],
+  "played_notifications": [
+    "played:1:54480",
+    "played:3:56400"
+  ]
+}

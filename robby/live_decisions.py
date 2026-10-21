@@ -53,6 +53,11 @@ in the UI. Select it sparingly when the user explicitly wants you to jump in now
 asks why you have not interrupted, or is clearly stuck and would benefit from a
 brief clarification. Never for a normal question, explanation, hesitation or an
 instruction configuring future interruptions. Prefer the exact agreed rule if applicable.
+For a listen action only, you may additionally return gesture: "nod", "shake", or null.
+Use a tiny nod sparingly to signal attentive listening, not factual agreement.
+Shake only for clear contextual negation or a direct request, never random disagreement.
+Do not gesture at distress, sensitive disclosures or incomplete ambiguous claims.
+Never add gestures during agent speech. The client can disable these silent visuals.
 Otherwise listen. Never interrupt on negated/quoted topic mentions unless the agreed
 condition actually calls for it. agent_full_reply is planned text, not all heard;
 agent_played_seconds is the real playback position. Do not infer speaker identity.'''
@@ -65,7 +70,8 @@ agent_played_seconds is the real playback position. Do not infer speaker identit
             response=await client.post(base+'/v1/chat/completions',json=body,headers=headers)
             response.raise_for_status();message=response.json()['choices'][0]['message']
         value=json.loads(message.get('content') or '{}')
-        if (set(value)!={'action','rule_id'} or value['action'] not in ('listen','stop_reply','interrupt_user')
+        if (not {'action','rule_id'}<=set(value) or set(value)-{'action','rule_id','gesture'} or value['action'] not in ('listen','stop_reply','interrupt_user')
+            or value.get('gesture') not in (None,'nod','shake')
             or (value['rule_id'] is not None and not isinstance(value['rule_id'],str))):raise ValueError('Invalid decision output')
         return value
 
@@ -79,6 +85,8 @@ class LiveDecisions:
         self.checks=0;self.last_decision=None
         self.agent_candidates=[];self.agent_at=-100.;self.last_agent_candidates=None;self.last_agent_check=-100.
         self.language='de'
+        self.last_gesture=-100.
+        self.listening_gestures=True
         self.semantic_error=None;self.error_notice_at=-100.
         self.blocker='No agreed rules yet';self.last_status_at=-100.;self.attempts=0
         self.semantic_cache=None;self.task_phase=None
@@ -247,7 +255,10 @@ class LiveDecisions:
                 trigger=self.trigger_partial if end-self.trigger_at<=4. else ''
                 candidates=[r for r in self.book.rules.values() if r.id not in self.latched and r.matches(trigger,partial=True)]
                 semantic=[r for r in self.book.rules.values() if r.id not in self.latched and r.match_mode=='semantic']
-                helpful=self.helpful and end-self.last_helpful>=12. and len(text.split())>=8
+                # An explicit game owns its interjections, including cooldowns.
+                # Generic helpfulness must not replace its exact response while
+                # a keyword rule waits for fresh words or re-arming.
+                helpful=self.helpful and not self.book.rules and end-self.last_helpful>=12. and len(text.split())>=8
                 if not candidates and not semantic and not helpful:
                     await self.waiting('No agreed trigger in the current words');return
                 # Decide meaning before running an expensive voice check.
@@ -263,6 +274,8 @@ class LiveDecisions:
                         choice=await self.client.choose(context);self.semantic_cache=(key,choice)
                     self.semantic_error=None
                     if choice['action']!='interrupt_user':
+                        if choice['action']=='listen' and choice.get('gesture'):
+                            await self.emit_gesture(choice['gesture'],hop_end,epoch)
                         await self.waiting('Listening · no useful interruption selected');return
                 self.task_phase='verification'
                 speaker=await ext.confirm_live_speaker(hop_end)
@@ -307,6 +320,19 @@ class LiveDecisions:
                 self.semantic_error=type(exc).__name__
                 await self.waiting('Decision unavailable; retrying on the next processing hop')
         self.task=asyncio.create_task(decide())
+    async def emit_gesture(self,kind,hop_end,epoch):
+        """Reuse the existing decision call; never generate speech or skip identity."""
+        end=hop_end/self.c.ears.sr;ext=self.c.speaker_ext
+        if not self.listening_gestures or kind not in ('nod','shake') or end-self.last_gesture<10. or self.c.speaking or not ext:return False
+        speaker=await ext.confirm_live_speaker(hop_end)
+        if (not speaker or epoch!=self.epoch or not self.enabled or not self.listening_gestures or self.c.speaking or self.c.halting
+            or self.c.hop_pos/self.c.ears.sr-self.partial_at>4. or not ext.live_speech_recent(self.c.hop_pos)):return False
+        visual=getattr(self.c,'visual',None)
+        if visual and not visual.gate(max(0,end-3.2),end)['allowed']:return False
+        self.last_gesture=end
+        await self.c.ws.send_json({'type':'avatar_gesture','kind':kind,'speaker_id':speaker['speaker_id']})
+        return True
+
     def helpful_reply(self):
         return 'Darf ich kurz einhaken?' if self.language=='de' else 'May I jump in briefly?'
     def context(self,text,end,rules):

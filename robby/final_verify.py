@@ -16,6 +16,12 @@ def runtime_signature():
     files.append(ROOT/'visual_identity.py')
     files.extend([ROOT/'open_speakers.py',ROOT/'knowledge_tools.py'])
     files.append(ROOT/'stop_feedback.py')
+    files.append(ROOT/'stop_voice.py')
+    files.append(ROOT/'avatar_actions.py')
+    shared=ROOT.parent/'humaneness-small'
+    if not shared.exists():shared=ROOT.parent/'playground/runtime'
+    for name in ('small_app.py','turn_cancellation.py'):
+        if (shared/name).exists():files.append(shared/name)
     for pattern in ('*.js','*.css','emotion-catalog.json','index.html','robby.svg'):files+=sorted((ROOT/'static').glob(pattern))
     config=ROOT/'config.local.json'
     values=json.loads(config.read_text()) if config.exists() else {}
