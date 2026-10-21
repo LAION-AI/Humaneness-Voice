@@ -7,7 +7,7 @@ MODULES=['test_audio_input','test_asr_priority','test_gpu_guard','test_enrollmen
     'speaker_v2.test_predictor','speaker_v4.test_v4','speaker_v5.test_v5','speaker_live.test_playback']
 
 def main():
-    MODULES.extend(['test_open_speakers','test_knowledge_tools','test_audio_transport','test_stop_feedback','test_release_scan'])
+    MODULES.extend(['test_open_speakers','test_knowledge_tools','test_audio_transport','test_stop_feedback','test_stop_voice','test_release_scan'])
     if 'test_visual_identity' not in MODULES:MODULES.append('test_visual_identity')
     suite=unittest.defaultTestLoader.loadTestsFromNames(MODULES)
     result=unittest.TextTestRunner(verbosity=1).run(suite)

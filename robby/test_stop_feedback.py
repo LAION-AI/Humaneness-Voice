@@ -40,3 +40,23 @@ class FeedbackTests(unittest.IsolatedAsyncioTestCase):
         f,c=self.make();f.enabled=True;f.schedule({'source':'verified_stop_command','stop_text':'Stopp'})
         task=f.task;f.cancel();await asyncio.gather(task,return_exceptions=True)
         c.to_mouth.assert_not_awaited()
+    async def test_consumed_command_can_finish_after_initial_grace(self):
+        f,c=self.make();f.enabled=True;c.halting=True
+        calls=0
+        async def advance(delay):
+            nonlocal calls
+            calls+=1
+            if calls==3:c.halting=False
+        with patch('stop_feedback.asyncio.sleep',side_effect=advance):
+            f.schedule({'source':'verified_stop_command','stop_text':'Stopp'});await f.task
+        self.assertEqual(calls,3);c.to_mouth.assert_awaited_once()
+    async def test_ongoing_delivery_blocks_ack_until_resolved(self):
+        f,c=self.make();f.enabled=True;c.speaker_ext.delivering_turn=object()
+        calls=0
+        async def advance(delay):
+            nonlocal calls
+            calls+=1
+            if calls==2:c.speaker_ext.delivering_turn=None
+        with patch('stop_feedback.asyncio.sleep',side_effect=advance):
+            f.schedule({'source':'verified_stop_command','stop_text':'Stopp'});await f.task
+        self.assertEqual(calls,2);c.to_mouth.assert_awaited_once()

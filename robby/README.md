@@ -14,16 +14,95 @@ it is approximate session memory, not reliable biometric authentication.
 
 ## Current update: stopping a long spoken reply
 
-**Release validation, 2026-10-21:** 301 local automated tests and 62 isolated,
+**Release status (21 October 2026): short spoken Stop is NOT reliably fixed.**
+The latest synthetic browser test still failed when bot echo mixed with a brief
+user command. Longer-command cancellation and actual spoken acknowledgment
+passed a browser test; cooperative GPU cancellation reached idle in 0.49 s.
+The last complete offline run passed 311 tests, but this is not evidence of
+reliable real-room interruption. Retained failed receipts are intentional.
+
+### Follow-up correction: short commands and acknowledgment lifecycle
+
+The [current correction report](https://diane-asylum-understood-invoice.trycloudflare.com/static/stop-fix-update.html)
+separates the latest source-hashed timing/identity controls from the failed
+initial release described below. Reproduce with `python -m speaker_live.stop_regressions`,
+`python -m speaker_live.stop_negative_regressions`, `python -m speaker_live.feedback_check`
+and `python reading_final_regressions.py`, sequentially with the single ASR slot free.
+
+The follow-up preserves quiet consonants in short ASR crops. Isolated ASR views
+use distinct fixed leading-silence contexts (0 and 1.28 seconds), not the same
+200-ms padding: the same clean Stop fixture decoded empty in that old context.
+This padding is supplied immediately; it does not wait for microphone time.
+The 24-condition synthetic padding ablation is retained in the correction report.
+A nine-tap echo
+filter may refine the scalar residual only when quiet, correlated training frames
+and separate validation frames support it. It never alters native TYGER/mic input.
+An inconclusive literal short Stop can now reuse the **existing** frozen encoder
+and CPU student at three fixed, causal frame alignments. The vectors are averaged,
+not chosen by whichever identity score looks best. This extra bounded pass is
+not performed on every microphone frame. The classic speaker model must still
+separate the current addressee from bot/other users. Only previously verified
+recent voice examples are additional stop-reference anchors; no new enrollment,
+name change, permanent voiceprint or second GPU model is introduced.
+
+The ordinary short-word recheck requires teacher ≥ max(0.25, UI threshold−0.15), phase-stable student
+≥0.40, current-person victory in the combined ranking and rival margins. It then
+requires either teacher×student ≥0.12 or **both** live and phase-stable student
+views ≥0.40 with stronger teacher/rival separation. ASR must agree across two
+acoustic views or two distinct adjacent decode hops for a brief imperative.
+For an especially short word with teacher below 0.25, the pre-existing brief-word
+floor max(0.20, UI threshold−0.15) is usable only when **both** live and phase-stable
+student views reach 0.45 and teacher/rival separation is at least 0.15. A weak
+teacher plus just one favorable student view does not qualify. These cues are
+correlated, so their agreement must not be interpreted as independent probability.
+Ordinary turn-matching settings are unchanged. These are explicit development
+operating points, not probability estimates or biometric authentication.
+
+Optional feedback now waits boundedly for producer shutdown and consumed-command
+processing rather than permanently disappearing after a single busy check.
+Ongoing delivery is explicitly tracked and cleared in `finally`. Stop fragments
+after cancellation are not re-enrolled or submitted as new questions. A new reply,
+owner, user turn or disconnect still wins over acknowledgment; explicit wait/quiet
+commands remain silent. The live acknowledgment test requires **matching reply
+text and non-empty streamed PCM**, not just a metadata event.
+`browser_spoken_stop_check.py` additionally feeds a synthetic MediaStream through
+the actual HTTPS UI and checks that the canceled reply leaves the browser queue,
+the acknowledgment is scheduled, a playback-complete notification arrives for
+its reply ID, and microphone capture stays active. It includes delayed bot echo.
+
+Implementation: `stop_voice.py`, `audio_sync.py`, `speaker_session.py`,
+`stop_feedback.py`. Optional loopback-only `synthetic_stop_audio` diagnostics
+require the existing local-only research guard. They are for explicitly synthetic
+fixtures, disabled for public browser sessions, never stored by the application,
+and excluded from publication/export. Do not use them to collect private sessions.
+
+The shared speech backend also needs the accompanying `playground/runtime/`
+update: previously it intentionally continued a disconnected generation, leaving
+the acknowledgment queued behind that work. Robby now sends
+`cancel_on_disconnect: true`; the backend cooperatively aborts only that request
+at an audio callback and releases model ownership only after its GPU worker
+unwinds. Normal Playground clients retain the old `false` default. No global
+cancel endpoint or cancellation of unrelated jobs is introduced. The real
+`shared_cancel_check.py` measures disconnect-to-idle latency separately from
+browser audio cancellation. Runtime evidence hashes include these backend files.
+
+A sparse longer phrase no longer gets the single-word identity exception merely
+because few loud frames were present: its acoustic span must also be ≤800 ms.
+Longer literal commands require teacher cosine at least max(0.35, UI threshold).
+Silent probes clear old ASR views instead of refreshing stale command candidates.
+
+### Initial release evidence (historical, before the correction)
+
+**Initial validation, 2026-10-21:** 301 local automated tests and 62 isolated,
 CPU-only export contract tests pass. The HTTPS browser test cleared queued audio
 in 39.6 ms after the manual Stop click and rejected a late cancelled audio packet.
-These numbers do **not** establish reliable voice-command detection: the latest
+These historical numbers did **not** establish reliable voice-command detection: that
 six-case synthetic long-reading replay passed only three cases. “Hör bitte auf”
 stopped playback in 1.94 s, “Bitte hör auf zu sprechen” in 2.26 s, and the unknown
 background voice was correctly ignored. “Stopp” and “Warte bitte” were missed;
 the other-enrolled-speaker case timed out during setup and is inconclusive.
 Earlier attempts include successes as well as misses. Consequently short-command
-reliability remains an **open task**, not a completed or human-validated claim.
+reliability was left an **open task**, not a completed or human-validated claim.
 The manual Stop button is the tested fallback. All attempts are retained in the
 linked report; do not interpret passing offline CI as passing the live replay.
 
@@ -93,10 +172,10 @@ Explicit wait/quiet/pause commands always stay silent. Acknowledgments can also
 be interrupted; microphone capture never pauses for them. This preference stores
 only a boolean, not voiceprints or microphone audio.
 
-The additional real-ASR acknowledgment replay successfully cancelled the long
+The initial real-ASR acknowledgment replay successfully cancelled the long
 reply in 2.28 s but produced **no acknowledgment**, so the optional spoken
-feedback is unit/browser-tested but **not end-to-end verified**. The retained
-`reading-feedback-live.json` marks this probe as failed, separately from its
+feedback was then unit/browser-tested but **not end-to-end verified**. The initial
+report retains this failed probe, separately from its
 successful cancellation. Suppressing feedback while the floor is still busy is
 intentional; do not promise that checking the option guarantees a spoken phrase.
 
@@ -112,7 +191,7 @@ remain intact.
 Code: `stop_commands.py`, `live_decisions.py`, `speaker_session.py`,
 `stop_feedback.py`, `server.py`, `tts_bridge.py`, `static/ui.js`,
 `conversation_prompt.py`, `conversation_director.py`.
-[Latest test report and retained limitations](https://diane-asylum-understood-invoice.trycloudflare.com/static/stop-reading-update.html).
+[Initial test report and retained limitations](https://diane-asylum-understood-invoice.trycloudflare.com/static/stop-reading-update.html).
 Reproduce sequentially; the working host has one live ASR slot:
 
 ```sh

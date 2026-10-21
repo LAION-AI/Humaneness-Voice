@@ -33,12 +33,23 @@ class StopFeedback:
             # Let the user keep the floor; never overlap the cancelled producer
             # or answer over continuing speech, pending turns or a new reply.
             await asyncio.sleep(1.2)
-            ext=c.speaker_ext
-            if (not self.enabled or c.ws.closed or c.speaking or c.halting or c.playback.rid!=rid
-                or c.pending is not None or not ext or ext.closed
-                or speaker.get('speaker_id') not in ext.memory.users
-                or (c.current_speaker or {}).get('speaker_id')!=speaker.get('speaker_id')
-                or ext.pending_turns or ext.live_speech_recent(c.hop_pos)):return
+            # Producer shutdown and the consumed command's ASR/identity work
+            # can finish after the grace period. Poll boundedly, not just once.
+            # New replies, owners or conversational turns still cancel feedback.
+            for attempt in range(21):
+                ext=c.speaker_ext
+                if (not self.enabled or c.ws.closed or c.speaking or c.playback.rid!=rid
+                    or c.pending is not None or not ext or ext.closed
+                    or speaker.get('speaker_id') not in ext.memory.users
+                    or (c.current_speaker or {}).get('speaker_id')!=speaker.get('speaker_id')):return
+                busy=(c.halting or ext.pending_turns or getattr(ext,'delivering_turn',None)
+                    or ext.live_speech_recent(c.hop_pos))
+                if not busy:break
+                if attempt==20:
+                    if getattr(c,'synthetic_diagnostics',False):
+                        await c.ws.send_json({'type':'stop_feedback_suppressed','reason':'floor_busy_timeout'})
+                    return
+                await asyncio.sleep(.1)
             phrase=PHRASES[language][self.index%4];self.index+=1
             c.session.reset();c._start_speaking()
             await c.ws.send_json({'type':'stop_feedback','text':phrase})
