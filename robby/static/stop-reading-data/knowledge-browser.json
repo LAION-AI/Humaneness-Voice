@@ -1,0 +1,154 @@
+{
+  "started": 1792617860.492586,
+  "passed": true,
+  "runtime_source_sha256": "9c9383d5eff03f05befa8c91e12ec205ce3d3d7d8f30d4a496928baed2f9af37",
+  "physical_microphone_used": false,
+  "links": [
+    {
+      "text": "Wikipedia · Bananen",
+      "url": "https://de.wikipedia.org/wiki/Bananen",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "text": "Wikipedia · Banane",
+      "url": "https://de.wikipedia.org/wiki/Banane",
+      "rel": "noopener noreferrer"
+    },
+    {
+      "text": "Wikipedia · Dessertbanane",
+      "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+      "rel": "noopener noreferrer"
+    }
+  ],
+  "events": [
+    {
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": false
+    },
+    {
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": false
+    },
+    {
+      "type": "reply",
+      "text": "Kurzer Fakt aus Wikipedia: Bananen stammen ursprünglich aus dem tropischen bis subtropischen Asien und dem westlichen Pazifikraum.",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, freundlich und klar",
+            "text": "Kurzer Fakt aus Wikipedia: Bananen stammen ursprünglich aus dem tropischen bis subtropischen Asien und dem westlichen Pazifikraum.",
+            "start_s": 0.0,
+            "end_s": 5.78
+          }
+        ],
+        "planned_duration_s": 5.78
+      },
+      "speaker_id": null,
+      "speaker_name": null,
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 4058.58,
+        "director_mode": "compact",
+        "completion_tokens": 63,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [
+        {
+          "title": "Bananen",
+          "url": "https://de.wikipedia.org/wiki/Bananen",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Banane",
+          "url": "https://de.wikipedia.org/wiki/Banane",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Dessertbanane",
+          "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+          "publisher": "Wikipedia"
+        }
+      ],
+      "lookups": [
+        {
+          "tool": "search_wikipedia",
+          "ms": 0.06,
+          "error": null,
+          "cache_hit": true,
+          "retrieved_at": "2026-10-21T21:22:39.406503+00:00"
+        }
+      ]
+    },
+    {
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true
+    }
+  ],
+  "page_errors": [],
+  "metrics": {
+    "mic_blocks": 0,
+    "tagged_blocks": 0,
+    "chunks": 1,
+    "reply_chunks": 1
+  },
+  "finished": 1792617868.772861
+}

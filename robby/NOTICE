@@ -1,0 +1,37 @@
+Robby integration uses TYGER EARS, wire framing and playback concepts from
+nineninesix-ai/tyger-s2s, source revision
+97d011dcd4c8d2a117e54f00bf5b2d457cefa160, under Apache License 2.0.
+https://github.com/nineninesix-ai/tyger-s2s
+
+The Robby SVG and bounded rig.js are the separate MIT-licensed addon in
+christophschuhmann/cartoon-face-generator, revision
+210ca55ca464ef1be03017eb784b29aaa0a67ef8.
+https://github.com/christophschuhmann/cartoon-face-generator/tree/main/robby
+See static/LICENSE-MIT.txt. The original Python 101-keypoint rig is unchanged.
+
+Third-party model and dataset licenses are separate from this integration code:
+TYGER inference bundle: OpenMDW 1.1; SpeechBrain ECAPA: its own model card/license;
+MediaPipe code: Apache 2.0; public voice profiles: CC BY 4.0 with source attribution.
+No encoder, teacher, TTS or private microphone weights/data are distributed here.
+
+The desk-robot procedural geometry and software 3D renderer are new integration
+code. Face recipes/curve controls reuse the MIT robot addon above, with its
+license retained. The user-supplied design PDFs, images and dense 3MF/FBX mesh
+archives were inspected as references, but are not distributed or relicensed.
+Nominal dimensions are a design proposal, not manufacturing certification.
+
+Optional local Laya decision worker: Convai Innovations / NandhaKishorM,
+https://github.com/NandhaKishorM/laya (Apache-2.0), source revision
+ffc142012af63d015fa19f05f29f9c5ff329a2cc. Multilingual model:
+https://huggingface.co/convaiinnovations/laya-multilingual (Apache-2.0).
+The audited text-only source ZIP does not redistribute those model weights.
+
+Browser visual extension: MediaPipe Tasks Vision 0.10.21 (Apache-2.0),
+https://github.com/google-ai-edge/mediapipe ; face-api.js 0.22.2 (MIT),
+https://github.com/justadudewhohacks/face-api.js , source revision
+8609b25a15f417398a4d2b95dc91985cd1e0c0c3. Recognition model credits and
+training-data provenance are upstream; no model is relicensed as our own.
+bootstrap_visual_assets.py restores pinned assets and their library licenses.
+No face/voice profiles, private camera frames, or third-party model weights
+are included in the text-source archive. NASA/skimage astronaut imagery is
+fetched only for local smoke tests, not embedded in the published report.

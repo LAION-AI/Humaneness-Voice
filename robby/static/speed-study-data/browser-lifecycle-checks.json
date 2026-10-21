@@ -1,0 +1,19 @@
+{
+  "passed": 11,
+  "checks": [
+    "initial_reply_reserve_without_per_chunk_or_backchannel_delay",
+    "connection_resets_microphone_clock_and_counters",
+    "concurrent_start_uses_one_websocket",
+    "worklet_failure_stops_microphone",
+    "late_get_user_media_after_stop_is_released",
+    "old_media_result_cannot_close_new_session",
+    "stale_websocket_close_is_ignored",
+    "existing_suspended_audio_context_resumes",
+    "late_worklet_cannot_reattach_microphone",
+    "late_audio_cannot_restart_a_stopped_reply",
+    "server_cancellation_blocks_first_in_flight_audio_packet"
+  ],
+  "physical_microphone_used": false,
+  "hosted_api_calls": 0,
+  "real_websockets": 0
+}
