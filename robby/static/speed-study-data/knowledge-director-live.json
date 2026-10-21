@@ -1,0 +1,192 @@
+{
+  "rows": [
+    {
+      "case": "news",
+      "request": "Was sind gerade die neuesten Nachrichten bei Tagesschau und BBC? Fasse zwei Themen kurz zusammen.",
+      "result": {
+        "general": "Deliver a concise, calm news summary with clear attribution and measured pacing.",
+        "script": "(interest, calm and unhurried) Bei Tagesschau: Meta soll in den USA wegen des Missbrauchs von Nutzerdaten eine Milliardenstrafe zahlen. (concern, measured) Die BBC berichtet, Russland sei zu neuen Gesprächen mit der Ukraine und den USA über ein Kriegsende bereit; konkrete Fortschritte bleiben offen.",
+        "language": "de",
+        "text": "Bei Tagesschau: Meta soll in den USA wegen des Missbrauchs von Nutzerdaten eine Milliardenstrafe zahlen. Die BBC berichtet, Russland sei zu neuen Gesprächen mit der Ukraine und den USA über ein Kriegsende bereit; konkrete Fortschritte bleiben offen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Deliver a concise, calm news summary with clear attribution and measured pacing.\nSCRIPT:\n(interest, calm and unhurried) Bei Tagesschau: Meta soll in den USA wegen des Missbrauchs von Nutzerdaten eine Milliardenstrafe zahlen. (concern, measured) Die BBC berichtet, Russland sei zu neuen Gesprächen mit der Ukraine und den USA über ein Kriegsende bereit; konkrete Fortschritte bleiben offen.",
+        "director_ms": 4896.93,
+        "interaction_actions": [],
+        "completion_tokens": 98,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Datenschutzskandal: Facebook-Konzern Meta soll Milliardenstrafe zahlen",
+            "url": "https://www.tagesschau.de/ausland/meta-cambrigde-skandal-milliardenstrafe-100.html",
+            "publisher": "Tagesschau"
+          },
+          {
+            "title": "Russia says it is ready to resume talks with Ukraine and US to end war",
+            "url": "https://www.bbc.co.uk/news/articles/cq3djn5nxx12o?at_medium=RSS&at_campaign=rss",
+            "publisher": "BBC News"
+          },
+          {
+            "title": "KI - teuer und ineffizient? Konzerne fahren Nutzung zurück",
+            "url": "https://www.dw.com/de/ki-teuer-und-ineffizient-konzerne-fahren-nutzung-zurück/a-79724848?maca=de-rss-de-all-1119-rdf",
+            "publisher": "Deutsche Welle"
+          },
+          {
+            "title": "Pendeldiplomatie - Russland zu Verhandlungen mit der Ukraine und den USA Mitte November bereit, Selenskyj schlägt Einfrieren der Frontlinie vor",
+            "url": "https://www.deutschlandfunk.de/russland-zu-verhandlungen-mit-der-ukraine-und-den-usa-mitte-november-bereit-selenskyj-schlaegt-einfr-102.html",
+            "publisher": "Deutschlandfunk"
+          },
+          {
+            "title": "Controversial US-backed vaccine trial in African newborns halted",
+            "url": "https://www.theguardian.com/world/2026/oct/21/us-vaccine-trial-african-newborns-hepatitis-b",
+            "publisher": "The Guardian"
+          },
+          {
+            "title": "Papst Leo braucht nach Lungenkrebs-OP keine weitere Behandlung",
+            "url": "https://www.tagesschau.de/ausland/europa/papst-leo-lungenkrebs-100.html",
+            "publisher": "Tagesschau"
+          },
+          {
+            "title": "Rosenberg: US diplomatic push offers little hope for imminent Ukraine peace",
+            "url": "https://www.bbc.co.uk/news/articles/cm98zn5j89kdo?at_medium=RSS&at_campaign=rss",
+            "publisher": "BBC News"
+          },
+          {
+            "title": "Warum eskalieren die Studentenproteste in Albanien? Edi Rama munkelt über die Antifa, Experten sehen das anders",
+            "url": "https://www.dw.com/de/warum-eskalieren-die-studentenproteste-in-albanien-edi-rama-munkelt-über-die-antifa-experten-sehen-das-anders/a-79725653?maca=de-rss-de-all-1119-rdf",
+            "publisher": "Deutsche Welle"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "search_news",
+            "ms": 248.97,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T21:25:37.745596+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 4900.838807225227
+    },
+    {
+      "case": "weather",
+      "request": "Wie wird das Wetter heute und morgen in Berlin? Bitte schau nach.",
+      "result": {
+        "general": "Respond calmly and clearly, with a concise weather summary for Berlin and the relevant dates.",
+        "script": "(interest, calm and clear) Für Berlin: Heute, am 21. Oktober, ist es bewölkt bei etwa 9 bis 14 Grad, mit einer Regenwahrscheinlichkeit von 45 Prozent. (concentration, gently informative) Morgen, am 22. Oktober, wird leichter Regen erwartet, bei etwa 10 bis 13 Grad und hundert Prozent Regenwahrscheinlichkeit.",
+        "language": "de",
+        "text": "Für Berlin: Heute, am 21. Oktober, ist es bewölkt bei etwa 9 bis 14 Grad, mit einer Regenwahrscheinlichkeit von 45 Prozent. Morgen, am 22. Oktober, wird leichter Regen erwartet, bei etwa 10 bis 13 Grad und hundert Prozent Regenwahrscheinlichkeit.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Respond calmly and clearly, with a concise weather summary for Berlin and the relevant dates.\nSCRIPT:\n(interest, calm and clear) Für Berlin: Heute, am 21. Oktober, ist es bewölkt bei etwa 9 bis 14 Grad, mit einer Regenwahrscheinlichkeit von 45 Prozent. (concentration, gently informative) Morgen, am 22. Oktober, wird leichter Regen erwartet, bei etwa 10 bis 13 Grad und hundert Prozent Regenwahrscheinlichkeit.",
+        "director_ms": 5008.07,
+        "interaction_actions": [],
+        "completion_tokens": 109,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Open-Meteo forecast · Berlin",
+            "url": "https://open-meteo.com/",
+            "publisher": "Open-Meteo"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "get_weather",
+            "ms": 271.27,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T21:25:42.215721+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 5008.798636496067
+    },
+    {
+      "case": "wiki",
+      "request": "Suche bei Wikipedia nach Bananen. Was ist eine Banane botanisch?",
+      "result": {
+        "general": "Answer calmly and clearly, briefly distinguishing the botanical plant from the fruit.",
+        "script": "(interest, calm and clear) Botanisch ist die Banane eine Pflanzengattung namens Musa aus der Familie der Bananengewächse. (concentration, gently explanatory) Die essbare Banane ist botanisch eine Beere; viele kultivierte Sorten sind Hybriden und bilden meist keine Samen.",
+        "language": "de",
+        "text": "Botanisch ist die Banane eine Pflanzengattung namens Musa aus der Familie der Bananengewächse. Die essbare Banane ist botanisch eine Beere; viele kultivierte Sorten sind Hybriden und bilden meist keine Samen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer calmly and clearly, briefly distinguishing the botanical plant from the fruit.\nSCRIPT:\n(interest, calm and clear) Botanisch ist die Banane eine Pflanzengattung namens Musa aus der Familie der Bananengewächse. (concentration, gently explanatory) Die essbare Banane ist botanisch eine Beere; viele kultivierte Sorten sind Hybriden und bilden meist keine Samen.",
+        "director_ms": 4209.87,
+        "interaction_actions": [],
+        "completion_tokens": 95,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Bananen",
+            "url": "https://de.wikipedia.org/wiki/Bananen",
+            "publisher": "Wikipedia"
+          },
+          {
+            "title": "Banane",
+            "url": "https://de.wikipedia.org/wiki/Banane",
+            "publisher": "Wikipedia"
+          },
+          {
+            "title": "Dessertbanane",
+            "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+            "publisher": "Wikipedia"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "search_wikipedia",
+            "ms": 313.97,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T21:25:47.282430+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 4210.463911294937
+    },
+    {
+      "case": "where",
+      "request": "Wie ist das Wetter bei mir?",
+      "result": {
+        "general": "Be helpful and gently clarify the missing location.",
+        "script": "(interest, freundlich und direkt) Für welchen Ort soll ich das Wetter nachsehen?",
+        "language": "de",
+        "text": "Für welchen Ort soll ich das Wetter nachsehen?",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be helpful and gently clarify the missing location.\nSCRIPT:\n(interest, freundlich und direkt) Für welchen Ort soll ich das Wetter nachsehen?",
+        "director_ms": 3868.17,
+        "interaction_actions": [],
+        "completion_tokens": 42,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "passed": true,
+      "ms": 3868.7629252672195
+    },
+    {
+      "case": "guest",
+      "request": "Kannst du mir eine kleine Geschichte erzählen?",
+      "result": {
+        "general": "Tell a brief, warm story with gentle, playful delivery.",
+        "script": "(amusement, warm and playful) Eines Abends fand ein kleiner Roboter eine leuchtende Murmel im Gras. (interest, sanft neugierig) Er folgte ihrem Licht bis zu einer einsamen Blume und stellte sie daneben. (contentment, ruhig zufrieden) Am nächsten Morgen war die Blume aufgeblüht – und der Roboter hatte einen neuen Freund. (interest, welcoming and gently curious) Schön, dich kennenzulernen. Wie heißt du?",
+        "language": "de",
+        "text": "Eines Abends fand ein kleiner Roboter eine leuchtende Murmel im Gras. Er folgte ihrem Licht bis zu einer einsamen Blume und stellte sie daneben. Am nächsten Morgen war die Blume aufgeblüht – und der Roboter hatte einen neuen Freund. Schön, dich kennenzulernen. Wie heißt du?",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Tell a brief, warm story with gentle, playful delivery.\nSCRIPT:\n(amusement, warm and playful) Eines Abends fand ein kleiner Roboter eine leuchtende Murmel im Gras. (interest, sanft neugierig) Er folgte ihrem Licht bis zu einer einsamen Blume und stellte sie daneben. (contentment, ruhig zufrieden) Am nächsten Morgen war die Blume aufgeblüht – und der Roboter hatte einen neuen Freund. (interest, welcoming and gently curious) Schön, dich kennenzulernen. Wie heißt du?",
+        "director_ms": 3130.32,
+        "interaction_actions": [],
+        "completion_tokens": 106,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "passed": true,
+      "ms": 3130.6765191257
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,346 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby voice-match sensitivity</title><style>body{font:16px/1.5 system-ui;max-width:1050px;margin:30px auto;padding:15px}table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}pre{white-space:pre-wrap}</style><a href="/desk-robot/">Open Robby</a> · <a href="/static/worklog.html">Current worklog and defaults</a><h1>Voice-match threshold replay</h1><p>The current user-requested normal-turn default is 0.32, previously 0.45. This permissive setting is not human-calibrated and can accept unrelated voices. The visible slider supports 0.30–0.90; Reset adopts 0.32 while custom saved settings are preserved. Fast-cue strictness is separate.</p><p>The configured normal cosine also applies when a known person gets a new diarization channel; that path still requires a 0.12 rival gap and an independently agreeing strong fast cue below 0.50. Ordinary turns retain the 0.08 gap. View consistency, transcript provenance and playback-echo rejection remain enabled. Voice interruptions have additional current-addressee checks; their short-command experiments are documented separately in the worklog.</p><p>The existing default combines streaming Nemotron diarization, Nemotron-feature speaker prediction and full-sentence ECAPA references. Diarization channel numbers are session-local, not persistent identities. Voiceprints stay in RAM. The table below re-scores earlier development cosines only: it is NOT a live success rate for the current source.</p><table><tr><th>Context (s)</th><th>Cosine threshold</th><th>Correct / cases</th><th>Wrong</th><th>Rejected</th><th>Background admitted / probes</th></tr><tr><td>1.0</td><td>0.32</td><td>11 / 18</td><td>0</td><td>7</td><td>2 / 10</td></tr><tr><td>1.0</td><td>0.35</td><td>11 / 18</td><td>0</td><td>7</td><td>2 / 10</td></tr><tr><td>1.0</td><td>0.4</td><td>9 / 18</td><td>0</td><td>9</td><td>0 / 10</td></tr><tr><td>1.0</td><td>0.45</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>1.0</td><td>0.5</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>1.0</td><td>0.55</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>1.0</td><td>0.6</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>2.0</td><td>0.32</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>2.0</td><td>0.35</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>2.0</td><td>0.4</td><td>18 / 18</td><td>0</td><td>0</td><td>0 / 10</td></tr><tr><td>2.0</td><td>0.45</td><td>12 / 18</td><td>0</td><td>6</td><td>0 / 10</td></tr><tr><td>2.0</td><td>0.5</td><td>7 / 18</td><td>0</td><td>11</td><td>0 / 10</td></tr><tr><td>2.0</td><td>0.55</td><td>5 / 18</td><td>0</td><td>13</td><td>0 / 10</td></tr><tr><td>2.0</td><td>0.6</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>3.04</td><td>0.32</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>3.04</td><td>0.35</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>3.04</td><td>0.4</td><td>18 / 18</td><td>0</td><td>0</td><td>0 / 10</td></tr><tr><td>3.04</td><td>0.45</td><td>18 / 18</td><td>0</td><td>0</td><td>0 / 10</td></tr><tr><td>3.04</td><td>0.5</td><td>16 / 18</td><td>0</td><td>2</td><td>0 / 10</td></tr><tr><td>3.04</td><td>0.55</td><td>8 / 18</td><td>0</td><td>10</td><td>0 / 10</td></tr><tr><td>3.04</td><td>0.6</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr><tr><td>6.0</td><td>0.32</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>6.0</td><td>0.35</td><td>18 / 18</td><td>0</td><td>0</td><td>2 / 10</td></tr><tr><td>6.0</td><td>0.4</td><td>16 / 18</td><td>0</td><td>2</td><td>0 / 10</td></tr><tr><td>6.0</td><td>0.45</td><td>14 / 18</td><td>0</td><td>4</td><td>0 / 10</td></tr><tr><td>6.0</td><td>0.5</td><td>12 / 18</td><td>0</td><td>6</td><td>0 / 10</td></tr><tr><td>6.0</td><td>0.55</td><td>9 / 18</td><td>0</td><td>9</td><td>0 / 10</td></tr><tr><td>6.0</td><td>0.6</td><td>0 / 18</td><td>0</td><td>18</td><td>0 / 10</td></tr></table><h2>Targeted implementation checks</h2><p>These checks use public synthetic audio, fake browser microphone devices and simulated echo, not a physical microphone or held-out human voices. They are targeted regressions, not a rerun of every historical integration study.</p><table><tr><th>Check</th><th>Passed</th><th>Scope / observations</th></tr><tr><td>Offline contracts</td><td>True</td><td>206 unit tests</td></tr><tr><td>Browser settings/status</td><td>True</td><td>Visible slider, reload persistence, reset and score display</td></tr><tr><td>Actual browser microphone path and settings</td><td>True</td><td>Synthetic fake-device getUserMedia → ASR → Luna → TTS; backend acknowledgments for both sliders and model switching</td></tr><tr><td>Software 3D</td><td>True</td><td>Initial gaze error 0.000°, 40 distinct expressions; reset/front/Home, mechanical limits and mobile layout</td></tr><tr><td>Returning speaker with continuous background</td><td>True</td><td>[{&#x27;submit_s&#x27;: 1.129, &#x27;first_audio_s&#x27;: 4.957, &#x27;wer&#x27;: 0.1429}]</td></tr><tr><td>Streamed playback echo and interruption</td><td>True</td><td>False echo barges: 0; real interruption 1.5599999999999987 s</td></tr><tr><td>Three-speaker live replay</td><td>True</td><td>6 replies, 0 explicit repeats; max one repeat permitted per request</td></tr></table><p>Historical 0.45 development run: an unconditionally relaxed new-channel recovery floor failed, binding a weak background candidate to the known person. That failed receipt is retained as browser-pause-sensitivity-default-045.json. The corrected path requires independent strong fast corroboration below 0.50. These historical live receipts do not validate the current 0.32 setting; see the worklog for current-source checks.</p><details><summary>Targeted verification receipt</summary><pre>{
+  &quot;generated&quot;: 1792574415.0831697,
+  &quot;runtime_source_sha256&quot;: &quot;e2e030733561deccff1e10947752f2fb9d6a64c781f6ef97535f1feda6bb1553&quot;,
+  &quot;physical_microphone_used&quot;: false,
+  &quot;scope&quot;: &quot;Targeted sensitivity, browser, 3D and live synthetic regressions; not full historical sweep&quot;,
+  &quot;checks&quot;: [
+    [
+      &quot;Offline contracts&quot;,
+      true,
+      &quot;206 unit tests&quot;
+    ],
+    [
+      &quot;Browser settings/status&quot;,
+      true,
+      &quot;Visible slider, reload persistence, reset and score display&quot;
+    ],
+    [
+      &quot;Actual browser microphone path and settings&quot;,
+      true,
+      &quot;Synthetic fake-device getUserMedia \u2192 ASR \u2192 Luna \u2192 TTS; backend acknowledgments for both sliders and model switching&quot;
+    ],
+    [
+      &quot;Software 3D&quot;,
+      true,
+      &quot;Initial gaze error 0.000\u00b0, 40 distinct expressions; reset/front/Home, mechanical limits and mobile layout&quot;
+    ],
+    [
+      &quot;Returning speaker with continuous background&quot;,
+      true,
+      &quot;[{&#x27;submit_s&#x27;: 1.129, &#x27;first_audio_s&#x27;: 4.957, &#x27;wer&#x27;: 0.1429}]&quot;
+    ],
+    [
+      &quot;Streamed playback echo and interruption&quot;,
+      true,
+      &quot;False echo barges: 0; real interruption 1.5599999999999987 s&quot;
+    ],
+    [
+      &quot;Three-speaker live replay&quot;,
+      true,
+      &quot;6 replies, 0 explicit repeats; max one repeat permitted per request&quot;
+    ]
+  ],
+  &quot;all_selected_checks_passed&quot;: true,
+  &quot;receipt_sha256&quot;: {
+    &quot;unit&quot;: &quot;9bcc7aad8d0f7f5c27bd5126b00c1f1ce9ca96db2135b3124674fe26fce92afe&quot;,
+    &quot;ui&quot;: &quot;c6dbc93def39e103cf9fda49c6560af82d9697a5b651e9e50945efecdc368517&quot;,
+    &quot;desk&quot;: &quot;f263abf7de7a402aa4e59ee10f7904a696695cfe2d3118dd2e7f04d521cd0527&quot;,
+    &quot;microphone_controls&quot;: &quot;aca7ed8a76075d3258b5c79eb0d772bacc25d14df42bb798daa82c70202b25a6&quot;,
+    &quot;default_pause&quot;: &quot;7c6ad4b56983826c7a7371134e89b08045b38544f60d3e287251cfa56761e275&quot;,
+    &quot;echo&quot;: &quot;ca0933a4a51d2d6d4574344ca3324e3cc3bc7e5d83f54d34a81daa4b72bc941a&quot;,
+    &quot;multi_speaker&quot;: &quot;929088638490eb2fdb1edf5d7b4ab044d75fa4c7f133040f93908544aa4bf8bb&quot;
+  },
+  &quot;known_failed_exploration&quot;: &quot;browser-pause-sensitivity-default-045.json; unconditional new-channel floor relaxation; corrected with independent fast corroboration&quot;
+}</pre></details><h2>Method and limitations</h2><p>Re-score stored ECAPA cosines with fixed 0.08 rival margin. No ASR, fast-cue, view-agreement, energy, playback or timing gates are simulated.</p><p>Three development synthetic identities, repeated prompts, correlated noise conditions and one unrelated background identity. Genuine fixed-length references and multi-duration background galleries differ. Not held-out real-human validation or an end-to-end success rate.</p><details><summary>Auditable synthetic-only receipt</summary><pre>{
+  &quot;finished&quot;: 1792574415.0738835,
+  &quot;public_synthetic_only&quot;: true,
+  &quot;real_person_calibration&quot;: false,
+  &quot;method&quot;: &quot;Re-score stored ECAPA cosines with fixed 0.08 rival margin. No ASR, fast-cue, view-agreement, energy, playback or timing gates are simulated.&quot;,
+  &quot;source_sha256&quot;: {
+    &quot;speaker-context-lengths.json&quot;: &quot;760b0861912d51c03e3d862ffdff95ed82996e72e6c25bebdc16d846621c9dff&quot;,
+    &quot;background-gallery-checks.json&quot;: &quot;ff143c34ef18c121ef141f620e2f556174519c903116ad7c04fcb3ddd360d767&quot;
+  },
+  &quot;rows&quot;: [
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.32,
+      &quot;correct&quot;: 11,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 7,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.35,
+      &quot;correct&quot;: 11,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 7,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.4,
+      &quot;correct&quot;: 9,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 9,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.45,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.5,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.55,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 1.0,
+      &quot;threshold&quot;: 0.6,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.32,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.35,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.4,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.45,
+      &quot;correct&quot;: 12,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 6,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.5,
+      &quot;correct&quot;: 7,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 11,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.55,
+      &quot;correct&quot;: 5,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 13,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 2.0,
+      &quot;threshold&quot;: 0.6,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.32,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.35,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.4,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.45,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.5,
+      &quot;correct&quot;: 16,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 2,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.55,
+      &quot;correct&quot;: 8,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 10,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 3.04,
+      &quot;threshold&quot;: 0.6,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.32,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.35,
+      &quot;correct&quot;: 18,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 0,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 2,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.4,
+      &quot;correct&quot;: 16,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 2,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.45,
+      &quot;correct&quot;: 14,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 4,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.5,
+      &quot;correct&quot;: 12,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 6,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.55,
+      &quot;correct&quot;: 9,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 9,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    },
+    {
+      &quot;context_s&quot;: 6.0,
+      &quot;threshold&quot;: 0.6,
+      &quot;correct&quot;: 0,
+      &quot;wrong&quot;: 0,
+      &quot;rejected&quot;: 18,
+      &quot;cases&quot;: 18,
+      &quot;background_admitted&quot;: 0,
+      &quot;background_cases&quot;: 10
+    }
+  ],
+  &quot;limitations&quot;: &quot;Three development synthetic identities, repeated prompts, correlated noise conditions and one unrelated background identity. Genuine fixed-length references and multi-duration background galleries differ. Not held-out real-human validation or an end-to-end success rate.&quot;
+}</pre></details></html>

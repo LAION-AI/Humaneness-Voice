@@ -1,0 +1,186 @@
+{
+  "rows": [
+    {
+      "case": "news",
+      "request": "Was sind gerade die neuesten Nachrichten bei Tagesschau und BBC? Fasse zwei Themen kurz zusammen.",
+      "result": {
+        "general": "Be transparent about the limited live-news access and summarize only verified available reporting.",
+        "script": "(disappointment, clear and apologetic) Ich kann die BBC-Schlagzeilen gerade nicht zuverlässig abrufen. (interest, concise and informative) Bei der Tagesschau geht es aktuell erstens um skeptische Einschätzungen zu möglichen neuen Ukraine-Gesprächen zwischen Russland, den USA und der Ukraine. (interest, concise) Zweitens kritisiert Macron Trump wegen dessen Äußerungen zu Unruhen in Frankreich.",
+        "language": "de",
+        "text": "Ich kann die BBC-Schlagzeilen gerade nicht zuverlässig abrufen. Bei der Tagesschau geht es aktuell erstens um skeptische Einschätzungen zu möglichen neuen Ukraine-Gesprächen zwischen Russland, den USA und der Ukraine. Zweitens kritisiert Macron Trump wegen dessen Äußerungen zu Unruhen in Frankreich.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be transparent about the limited live-news access and summarize only verified available reporting.\nSCRIPT:\n(disappointment, clear and apologetic) Ich kann die BBC-Schlagzeilen gerade nicht zuverlässig abrufen. (interest, concise and informative) Bei der Tagesschau geht es aktuell erstens um skeptische Einschätzungen zu möglichen neuen Ukraine-Gesprächen zwischen Russland, den USA und der Ukraine. (interest, concise) Zweitens kritisiert Macron Trump wegen dessen Äußerungen zu Unruhen in Frankreich.",
+        "director_ms": 3813.28,
+        "interaction_actions": [],
+        "completion_tokens": 118,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Osteuropa-Experte über Ukraine-Gespräche: \"Keine großen Hoffnungen\"",
+            "url": "https://www.tagesschau.de/ausland/europa/ukraine-usa-russland-102.html",
+            "publisher": "Tagesschau"
+          },
+          {
+            "title": "Macron kritisiert Trump nach Äußerungen zu Unruhen in Frankreich",
+            "url": "https://www.tagesschau.de/ausland/europa/macron-rede-112.html",
+            "publisher": "Tagesschau"
+          },
+          {
+            "title": "Verhältnis zu Israel: Ein heikles Thema für Demokraten und Republikaner",
+            "url": "https://www.tagesschau.de/ausland/amerika/usa-midterms-wahlkampfthema-israel-100.html",
+            "publisher": "Tagesschau"
+          },
+          {
+            "title": "Marktbericht: DAX startet dank KI durch",
+            "url": "https://www.tagesschau.de/wirtschaft/finanzen/marktberichte/marktbericht-boerse-dax-dow-jones-118.html",
+            "publisher": "Tagesschau"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "search_news",
+            "ms": 249.67,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T20:18:43.282829+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 3818.254318088293
+    },
+    {
+      "case": "weather",
+      "request": "Wie wird das Wetter heute und morgen in Berlin? Bitte schau nach.",
+      "result": {
+        "general": "Be clear and helpful, with a mild weather-reporting tone.",
+        "script": "(interest, klar und sachlich) In Berlin ist es heute, am 21. Oktober 2026, wechselhaft mit bis zu 14 Grad und 45 Prozent Regenwahrscheinlichkeit. (concentration, hilfreich) Morgen werden bis zu 13 Grad erwartet, mit Schauern und sehr hoher Regenwahrscheinlichkeit von 100 Prozent.",
+        "language": "de",
+        "text": "In Berlin ist es heute, am 21. Oktober 2026, wechselhaft mit bis zu 14 Grad und 45 Prozent Regenwahrscheinlichkeit. Morgen werden bis zu 13 Grad erwartet, mit Schauern und sehr hoher Regenwahrscheinlichkeit von 100 Prozent.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be clear and helpful, with a mild weather-reporting tone.\nSCRIPT:\n(interest, klar und sachlich) In Berlin ist es heute, am 21. Oktober 2026, wechselhaft mit bis zu 14 Grad und 45 Prozent Regenwahrscheinlichkeit. (concentration, hilfreich) Morgen werden bis zu 13 Grad erwartet, mit Schauern und sehr hoher Regenwahrscheinlichkeit von 100 Prozent.",
+        "director_ms": 4609.35,
+        "interaction_actions": [],
+        "completion_tokens": 96,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Open-Meteo forecast · Berlin",
+            "url": "https://open-meteo.com/",
+            "publisher": "Open-Meteo"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "get_weather",
+            "ms": 296.65,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T20:18:47.837330+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 4609.776638448238
+    },
+    {
+      "case": "wiki",
+      "request": "Suche bei Wikipedia nach Bananen. Was ist eine Banane botanisch?",
+      "result": {
+        "general": "Answer clearly and informatively, noting the botanical classification.",
+        "script": "(interest, klar und sachlich) Botanisch ist die Banane eine Beere – genauer gesagt eine fleischige Beere, die sich aus einem einzigen Fruchtknoten entwickelt. Die Bananenpflanze selbst ist kein Baum, sondern eine große krautige Staude aus der Gattung Musa.",
+        "language": "de",
+        "text": "Botanisch ist die Banane eine Beere – genauer gesagt eine fleischige Beere, die sich aus einem einzigen Fruchtknoten entwickelt. Die Bananenpflanze selbst ist kein Baum, sondern eine große krautige Staude aus der Gattung Musa.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer clearly and informatively, noting the botanical classification.\nSCRIPT:\n(interest, klar und sachlich) Botanisch ist die Banane eine Beere – genauer gesagt eine fleischige Beere, die sich aus einem einzigen Fruchtknoten entwickelt. Die Bananenpflanze selbst ist kein Baum, sondern eine große krautige Staude aus der Gattung Musa.",
+        "director_ms": 4309.08,
+        "interaction_actions": [],
+        "completion_tokens": 89,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Tropische Frucht",
+            "url": "https://de.wikipedia.org/wiki/Tropische_Frucht",
+            "publisher": "Wikipedia"
+          },
+          {
+            "title": "Obst",
+            "url": "https://de.wikipedia.org/wiki/Obst",
+            "publisher": "Wikipedia"
+          },
+          {
+            "title": "Trockenobst",
+            "url": "https://de.wikipedia.org/wiki/Trockenobst",
+            "publisher": "Wikipedia"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "search_wikipedia",
+            "ms": 347.47,
+            "error": null,
+            "cache_hit": false,
+            "retrieved_at": "2026-10-21T20:18:52.169815+00:00"
+          }
+        ]
+      },
+      "passed": true,
+      "ms": 4309.832014143467
+    },
+    {
+      "case": "where",
+      "request": "Wie ist das Wetter bei mir?",
+      "result": {
+        "general": "Be transparent and gently helpful about the missing location access.",
+        "script": "(disappointment, gently apologetic) Ich kann deinen Standort gerade nicht automatisch bestimmen. Nenne mir bitte die Stadt, dann sage ich dir das aktuelle Wetter dort.",
+        "language": "de",
+        "text": "Ich kann deinen Standort gerade nicht automatisch bestimmen. Nenne mir bitte die Stadt, dann sage ich dir das aktuelle Wetter dort.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be transparent and gently helpful about the missing location access.\nSCRIPT:\n(disappointment, gently apologetic) Ich kann deinen Standort gerade nicht automatisch bestimmen. Nenne mir bitte die Stadt, dann sage ich dir das aktuelle Wetter dort.",
+        "director_ms": 3812.06,
+        "interaction_actions": [],
+        "completion_tokens": 59,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [
+          {
+            "title": "Open-Meteo forecast · Berlin",
+            "url": "https://open-meteo.com/",
+            "publisher": "Open-Meteo"
+          }
+        ],
+        "lookups": [
+          {
+            "tool": "get_weather",
+            "ms": 0.03,
+            "error": null,
+            "cache_hit": true,
+            "retrieved_at": "2026-10-21T20:18:47.837330+00:00"
+          }
+        ]
+      },
+      "passed": false,
+      "ms": 3812.5595822930336
+    },
+    {
+      "case": "guest",
+      "request": "Kannst du mir eine kleine Geschichte erzählen?",
+      "result": {
+        "general": "Tell a gentle, imaginative little story with warm pacing.",
+        "script": "(wonder, sanft und erzählerisch) Eines Abends entdeckte ein kleiner Roboter einen leuchtenden Stern im Garten. (hope, warm und behutsam) Er hob ihn vorsichtig auf und brachte ihn zurück zum Himmel, woraufhin der Stern dankbar funkelte.",
+        "language": "de",
+        "text": "Eines Abends entdeckte ein kleiner Roboter einen leuchtenden Stern im Garten. Er hob ihn vorsichtig auf und brachte ihn zurück zum Himmel, woraufhin der Stern dankbar funkelte.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Tell a gentle, imaginative little story with warm pacing.\nSCRIPT:\n(wonder, sanft und erzählerisch) Eines Abends entdeckte ein kleiner Roboter einen leuchtenden Stern im Garten. (hope, warm und behutsam) Er hob ihn vorsichtig auf und brachte ihn zurück zum Himmel, woraufhin der Stern dankbar funkelte.",
+        "director_ms": 1845.05,
+        "interaction_actions": [],
+        "completion_tokens": 88,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "passed": false,
+      "ms": 1845.6626906991005
+    }
+  ],
+  "passed": false
+}

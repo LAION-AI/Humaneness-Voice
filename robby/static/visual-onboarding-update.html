@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robby · visible-speaker onboarding fix</title><style>body{max-width:1000px;margin:40px auto;padding:0 20px;font:17px/1.55 system-ui;color:#203839;background:#f6f8f4}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #becdc7;padding:8px;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:#21665f}.scroll{overflow:auto}</style>
+<h1>Visible-speaker onboarding fix</h1><p><strong>Latest default: face VAD OFF and webcam Face ID OFF.</strong> Both are independent opt-in checkboxes next to the camera controls. Position tracking and acoustic speaker embeddings remain active. Old v1 camera-gating preferences migrate OFF; subsequent explicit choices persist. The audio_default test below exercises enrollment without mouth-motion or face-identity evidence.</p><p><a href="/desk-robot/">Open Robby</a> · <a href="/static/worklog.html">Task log</a></p><p>Generated 2026-10-21T15:33:19.566200+00:00. Current runtime live regression: <strong>True</strong>.</p><h2>What was wrong?</h2><p>“No time-aligned visible speaking face” rejected the sentence before final acoustic identity resolution. It did not mean that the name Christoph failed to parse. The 10-Hz visual detector required unusually large per-frame lip movement and multiple reversals in a 700-ms window. A modest 2-Hz articulation fixture was rejected by that rule. The browser also accumulated its packet counter across reconnects while the server reset its seconds counter.</p>
+<h2>Changes</h2><ul><li>800-ms temporal window, motion per second, hysteresis and excursion/reversal checks; a secondary normalized lip-width cue. No extra model, GPU use or face upload.</li><li>Static mouths, small jitter, one opening held open, slow non-speech movement and rigid translation/scale remain negative controls. This is a heuristic, not proof that sound came from the face.</li><li>Missing timestamps, missing faces and insufficient mouth activity have different recovery messages. Invalid timestamps cannot keep a camera observation fresh.</li><li>The recovery button automatically appears in the expanded microphone panel. It disables only the camera/offscreen filter, preserving the voice recognition setting, camera and gaze. It asks for a new introduction, without replaying a rejected turn or guessing a face binding.</li><li>Per-connection microphone counters now match the server session. Voice-match threshold remains 0.32; no identity check was bypassed.</li></ul>
+<h2>End-to-end browser checks</h2><p>Actual public HTTPS page, Chrome capture worklet, ASR, speaker enrollment, Luna and streamed TTS. Facial landmarks are synthetic and processed by the actual JavaScript mouth-motion detector; speaking flags are not injected. Synthetic movement follows the fixture's captured speech, not an assumed file start time. The session is opened before starting the fake microphone so the fixture's wake phrase is not lost during connection establishment. A 35-second deadline prevents success by automatic fixture looping.</p><div class="scroll"><table><tr><th>Condition</th><th>Passed</th><th>Submitted turns</th><th>Moving frames</th><th>TTS chunks</th><th>Recovery state</th></tr><tr><td>audio_default</td><td>True</td><td>1</td><td>0</td><td>1</td><td>{}</td></tr><tr><td>modest</td><td>True</td><td>1</td><td>41</td><td>1</td><td>{}</td></tr><tr><td>static</td><td>True</td><td>0</td><td>0</td><td>0</td><td>{&quot;voice_filter&quot;: true, &quot;visual_filter&quot;: false, &quot;camera&quot;: &quot;on&quot;, &quot;persisted&quot;: false}</td></tr></table></div><h2>Detector and regression results</h2><pre>{
+  &quot;geometry&quot;: {
+    &quot;two_faces_stable&quot;: true,
+    &quot;static_open_rejected&quot;: true,
+    &quot;static_closed_rejected&quot;: true,
+    &quot;rigid_motion_rejected&quot;: true,
+    &quot;modest_articulation_frames&quot;: 35,
+    &quot;modest_onset_ms&quot;: 500,
+    &quot;jitter_rejected&quot;: true,
+    &quot;held_open_transition_rejected&quot;: true,
+    &quot;slow_motion_rejected&quot;: true,
+    &quot;moving_frames_detected&quot;: 995,
+    &quot;geometry_two_faces_ms&quot;: 0.16620000076293945,
+    &quot;consent_checks&quot;: true
+  },
+  &quot;unit_tests&quot;: 267,
+  &quot;unit_passed&quot;: true,
+  &quot;microphone_lifecycle&quot;: {
+    &quot;passed&quot;: 10,
+    &quot;checks&quot;: [
+      &quot;connection_resets_microphone_clock_and_counters&quot;,
+      &quot;concurrent_start_uses_one_websocket&quot;,
+      &quot;worklet_failure_stops_microphone&quot;,
+      &quot;late_get_user_media_after_stop_is_released&quot;,
+      &quot;old_media_result_cannot_close_new_session&quot;,
+      &quot;stale_websocket_close_is_ignored&quot;,
+      &quot;existing_suspended_audio_context_resumes&quot;,
+      &quot;late_worklet_cannot_reattach_microphone&quot;,
+      &quot;late_audio_cannot_restart_a_stopped_reply&quot;,
+      &quot;server_cancellation_blocks_first_in_flight_audio_packet&quot;
+    ],
+    &quot;physical_microphone_used&quot;: false,
+    &quot;hosted_api_calls&quot;: 0,
+    &quot;real_websockets&quot;: 0
+  },
+  &quot;camera_to_head_passed&quot;: true
+}</pre><h2>Limits and retained failures</h2><p>No physical recording of the user was available, so human webcam recognition accuracy, lighting robustness and true A/V offset are not claimed. Real MediaPipe and face-api CPU smoke tests use public still imagery; the live onboarding test uses artificial moving landmarks. Chewing and other plausible mouth movements can resemble speech. Multiple overlapping faces remain uncertain. An initial harness assumed the fake file started with the WebSocket clock and failed; another run only enrolled on the file's second loop. A separate failed browser run exposed the recovery button hidden inside a collapsed panel, which is now automatically opened. Those receipts are retained locally rather than counted as passes.</p>
+<p>To try the fix: reload the page, start talking, wait for readiness, face the camera and say “Hi Robbie, I am Christoph.” If the visual filter still rejects the sentence, use <strong>Use voice recognition without camera filtering</strong> and repeat. This leaves acoustic recognition active, rather than using “Talk without speaker filter.”</p><p>Runtime SHA-256: <code>c52c924d355bf9d9945ad7cac1b22ce636d8e6074d16e135f5f91757105d0332</code></p></html>
