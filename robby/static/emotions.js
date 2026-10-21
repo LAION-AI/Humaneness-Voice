@@ -1,6 +1,6 @@
 // MIT. Robot transfer of cartoon-face-generator's EmoNet-Face 40 recipes.
 // Intended authored expressions, not recognition or universal facial codes.
-export const catalog=await fetch('/static/emotion-catalog.json').then(r=>r.json());
+export const catalog=await fetch(new URL('./emotion-catalog.json',import.meta.url)).then(r=>r.json());
 export const profiles=catalog.profiles;
 export const clamp=(v,a,b)=>Math.max(a,Math.min(b,Number.isFinite(+v)?+v:0));
 export const neutral={brow_raise:0,brow_inner:0,brow_outer:0,brow_arch:0,brow_asym:0,frown:0,

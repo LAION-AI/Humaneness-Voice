@@ -17,6 +17,7 @@ def runtime_signature():
     files.extend([ROOT/'open_speakers.py',ROOT/'knowledge_tools.py'])
     files.append(ROOT/'stop_feedback.py')
     files.append(ROOT/'stop_voice.py')
+    files.append(ROOT/'avatar_actions.py')
     shared=ROOT.parent/'humaneness-small'
     if not shared.exists():shared=ROOT.parent/'playground/runtime'
     for name in ('small_app.py','turn_cancellation.py'):

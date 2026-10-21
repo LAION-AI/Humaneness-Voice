@@ -61,6 +61,23 @@ def validate(data):
         'manual_prompt':'GENERAL: '+REFERENCE+' '+general+'\nSCRIPT:\n'+script}
 
 
+def complete_visual_acknowledgment(raw,steps):
+    """A validated visual plan may contain only silent cues. Preserve other errors.
+
+    The current speech transport needs at least one spoken word to anchor the
+    action to playback. A brief local acknowledgment avoids an extra LLM retry.
+    This never invents tools and never repairs arbitrary malformed responses.
+    """
+    if (steps and isinstance(raw,dict) and set(raw)=={'general','script','language'}
+        and isinstance(raw.get('script'),str) and len(raw['script'])<=6000
+        and isinstance(raw.get('general'),str) and len(raw['general'])<=600
+        and raw.get('language') in ('de','en')
+        and not re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script']).strip()):
+        return {**raw,'general':raw['general'].strip() or 'Brief, warm and playful.',
+            'script':'(amusement, warm and playful) '+('Schau mal!' if raw['language']=='de' else 'Watch this!')}
+    return raw
+
+
 async def provider_post(client,url,**kwargs):
     """One bounded retry for the provider's observed transient rejection only.
 
@@ -92,6 +109,8 @@ class CompactDirector:
         from knowledge_tools import NOTE as KNOWLEDGE_NOTE,TOOLS as KNOWLEDGE_TOOLS,NAMES as KNOWLEDGE_NAMES,execute as lookup,relevant
         knowledge_enabled=relevant(text,history)
         messages=[{'role':'system','content':POLICY+'\n'+DIRECTOR_NOTE+'\n'+RECIPE}]
+        from avatar_actions import TOOL as AVATAR_TOOL, NOTE as AVATAR_NOTE, TOOL_NAME as AVATAR_NAME, validate as validate_avatar
+        messages[0]['content']+='\nException to the no-tools rule: visual-only avatar tools are available.\n'+AVATAR_NOTE
         if knowledge_enabled:
             messages[0]['content']+='\nException to the no-tools rule: the following real read-only tools are available.\n'+KNOWLEDGE_NOTE
             messages[0]['content']+='\nCurrent UTC date: '+str(datetime.datetime.now(datetime.timezone.utc).date())
@@ -114,6 +133,7 @@ class CompactDirector:
         body={'model':model,'messages':messages,'reasoning_effort':'instant' if model.startswith('mercury') else 'none',
             'max_completion_tokens':900,'response_format':{'type':'json_object'}}
         selected_tools=list(KNOWLEDGE_TOOLS) if knowledge_enabled else []
+        selected_tools.append(AVATAR_TOOL)
         if action_tools_enabled:
             from interaction_policy import TOOLS
             selected_tools+=TOOLS
@@ -122,7 +142,7 @@ class CompactDirector:
         response,retries=await provider_post(client,base+'/v1/chat/completions',
             json=body,headers={'Authorization':'Bearer '+key},timeout=25.)
         response.raise_for_status()
-        packet=response.json();assistant=packet['choices'][0]['message'];actions=[];sources=[];lookups=[]
+        packet=response.json();assistant=packet['choices'][0]['message'];actions=[];sources=[];lookups=[];avatar_steps=[]
         calls=assistant.get('tool_calls') or []
         if calls:
             from interaction_policy import validate_action,rule_authorized,cancellation_authorized
@@ -131,6 +151,11 @@ class CompactDirector:
             messages.append({'role':'assistant','content':assistant.get('content'),'tool_calls':calls})
             for call in calls:
                 try:
+                    if call['function']['name']==AVATAR_NAME:
+                        if avatar_steps:raise ValueError('Only one avatar sequence per reply')
+                        avatar_steps=validate_avatar(call['function']['arguments'])
+                        messages.append({'role':'tool','tool_call_id':call['id'],'content':json.dumps({'ok':True,'scheduled_not_completed':True,'steps':avatar_steps,'scope':'visual-only; client settings apply'})})
+                        continue
                     if call['function']['name'] in KNOWLEDGE_NAMES:
                         if not knowledge_enabled:raise ValueError('Lookup not offered for this turn')
                         before=time.perf_counter()
@@ -172,7 +197,7 @@ class CompactDirector:
             retries+=extra_retries
             response.raise_for_status();packet=response.json();assistant=packet['choices'][0]['message']
         value=assistant.get('content') or ''
-        raw=json.loads(value)
+        raw=complete_visual_acknowledgment(json.loads(value),avatar_steps)
         if identity.get('needs_name') and isinstance(raw,dict) and isinstance(raw.get('script'),str):
             spoken=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script'])
             if not re.search(r'(?:wie\s+hei(?:ß|ss)t|dein(?:en)?\s+name|dich\s+nennen|your\s+name|call\s+you)',spoken,re.I):
@@ -180,6 +205,7 @@ class CompactDirector:
                     else ' (interest, welcoming and gently curious) Nice to meet you. What is your name?')
                 if len(spoken.split())<=105:raw['script']+=extra
         result=validate(ensure_addressee(raw,text,identity));result['director_ms']=round((time.perf_counter()-start)*1000,2)
+        result['avatar_actions']=avatar_steps
         if tools_enabled:result['interaction_actions']=actions
         usage=packet.get('usage',{})
         result['completion_tokens']=usage.get('completion_tokens')

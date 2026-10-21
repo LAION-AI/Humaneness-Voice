@@ -4,6 +4,8 @@ import {profiles,pose,mix,ActingTimeline} from './emotions.js';
 import {GazeTracker} from './gaze.js';
 import {MultimodalUI} from './multimodal-ui.js';
 import {organisePlayground} from './playground-layout.js';
+import {AvatarActions} from './avatar-actions.js';
+import {attachActionControls} from './avatar-action-controls.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let desiredGate=true,lastServerAudio=0,lastCapture=0,micStarted=0,serverAudioSeconds=0;
@@ -23,8 +25,9 @@ let rig;
 if(deskView){const {createDeskRobotRig}=await import('./desk-robot3d.js');rig=createDeskRobotRig($('avatar'));}
 else{const avatar=await fetch('/static/robby.svg').then(r=>r.text());$('avatar').innerHTML=avatar;rig=createRobbyRig($('avatar').querySelector('svg'));}
 const timeline=new ActingTimeline();
+const avatarActions=new AvatarActions();attachActionControls(avatarActions);
 for(const p of profiles){const o=document.createElement('option');o.value=p.slug;o.textContent=p.label;$('expression').append(o);}
-window.robotFace={rig,timeline,profiles,pose};
+window.robotFace={rig,timeline,profiles,pose,actions:avatarActions};
 if(deskView){const {attachDeskControls}=await import('./desk-controls.js');attachDeskControls(rig);}
 window.robotFace.gaze=gaze;
 window.robotFace.cameraStats={targetFps:CAMERA_FPS,inferences:0};
@@ -51,14 +54,18 @@ function showInteraction(m){
   d?.action==='interrupt_user'?`Rule triggered · decision ${d.decision_ms} ms. Microphone remains active.`:'Agreed rules armed · listening continuously.';
 }
 const client=window.robo=new RoboClient({
- connection(on){connected=on;if(!on){replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
+ connection(on){connected=on;if(!on){avatarActions.clear();replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
  microphone(on){mic=on;micStarted=on?performance.now():0;lastCapture=lastServerAudio=0;serverAudioSeconds=0;$('mic-level').value=0;$('mic-status').textContent=on?'Microphone started. Waiting for audio frames…':'Microphone off. Click Start talking and allow microphone access.';$('call').textContent=on?'■ End conversation':'◉ Start talking';$('call').classList.toggle('active',on);phase(on?'Listening to you':'Ready when you are',on?'ready':'');},
- input(s){lastCapture=performance.now();$('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
+ input(s){lastCapture=performance.now();if(s.rms>.003)avatarActions.touch();$('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
+  if(['asr_preview','partial','endpoint','reply','backchannel'].includes(m.type))avatarActions.touch();
+  if(['barge','stop_command','reply_cancelled','error'].includes(m.type))avatarActions.clear();
+  if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
+  if(m.type==='reply')avatarActions.set(m.reply_id,m.avatar_actions,m.performance);
   multimodal?.message(m);
-  if(m.type==='ready'){multimodal?.ready();client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
+  if(m.type==='ready'){multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
   if(m.type==='stop_feedback_setting')$('stop-feedback').checked=!!m.enabled;
   if(m.type==='stop_feedback')$('asr-status').textContent='Stop accepted. A brief acknowledgment follows; you can interrupt it too.';
   if(m.type==='ready'){phase(mic?(desiredGate&&!desiredOpenSpeakers?'Say Hey Robbie to join':'Listening to you'):'Ready when you are','ready');if(m.identity_mode)identityModel.value=m.identity_mode;if(m.identity_enabled!==desiredGate)client.send('identity:'+(desiredGate?'on':'off'));applySpeakerSettings();gate.checked=desiredGate;$('asr-status').textContent=desiredGate?(desiredOpenSpeakers?'Speak clearly, then pause. New foreground voices can join without a wake phrase.':'Speaker filter ON. Say “Hey Robbie, ich bin …” to join. Recognition previews below are not sent to Luna.'):'Speaker filter OFF. Speak normally; TYGER submits your turn after a pause.';}
@@ -98,13 +105,14 @@ const client=window.robo=new RoboClient({
  }
 });
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
+for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
 $('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
 $('unfiltered-talk').onclick=async()=>{desiredGate=false;try{await client.start(true);client.send('identity:off');gate.checked=false;$('asr-status').textContent='Speaker filter OFF. Speak normally; background voices may also be transcribed.';phase('Listening to you','ready');}catch(e){$('mic-status').textContent='Microphone unavailable: '+e.message;}};
 setInterval(()=>{if(!mic)return;const now=performance.now();if(now-micStarted<2500)return;
  if(!lastCapture||now-lastCapture>2500)$('mic-status').textContent=`No audio frames from the microphone (${client.ctx?.state||'no audio context'}). Check browser permission/input device, then End conversation and Start talking.`;
  else if(!lastServerAudio||now-lastServerAudio>4000)$('mic-status').textContent='Microphone captures audio, but the server has not acknowledged recent packets. Reconnect the conversation.';
 },1000);
-$('interrupt').onclick=()=>{timeline.clear();client.stopAudio();client.send('interrupt');};
+$('interrupt').onclick=()=>{avatarActions.clear();timeline.clear();client.stopAudio();client.send('interrupt');};
 $('allow-proactive').onchange=()=>{desiredProactive=$('allow-proactive').checked;client.send('interaction:'+(desiredProactive?'on':'off'));if(!connected)$('interaction-status').textContent=desiredProactive?'Enabled for your next conversation. Agree a rule with Robby first.':'Paused for your next conversation. You can still interrupt Robby.';};
 $('allow-helpful').checked=desiredHelpful;$('allow-helpful').onchange=()=>{desiredHelpful=$('allow-helpful').checked;try{localStorage.setItem('robby.helpfulInterruptions',String(desiredHelpful));}catch{}client.send('interaction:helpful:'+(desiredHelpful?'on':'off'));};
 $('clear-interaction-rules').onclick=()=>{client.send('interaction:clear');if(!connected){$('interaction-rules').replaceChildren();$('interaction-status').textContent='Rules are session-only. No active conversation.';}};
@@ -112,7 +120,7 @@ const calibrate=document.createElement('button');calibrate.className='text-butto
 const stopLabel=document.createElement('label'),stopFeedback=document.createElement('input');stopFeedback.type='checkbox';stopFeedback.id='stop-feedback';stopFeedback.checked=desiredStopFeedback;stopLabel.append(stopFeedback,' Brief spoken acknowledgment after I stop Robby (otherwise stay silent)');$('allow-helpful').parentElement.after(stopLabel);
 const stopHelp=document.createElement('p');stopHelp.textContent='Keep your microphone on. Say “Stopp”, “Hör bitte auf” or “Warte bitte” while Robby speaks. The current speaker is checked continuously, independently of proactive-interruption settings. Wait/quiet commands always stay silent. Acknowledgments yield to continuing speech.';stopLabel.after(stopHelp);
 stopFeedback.onchange=()=>{desiredStopFeedback=stopFeedback.checked;saveThreshold('robby.stopFeedback',desiredStopFeedback);client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));};
-async function submit(text){if(!ready)return;try{await client.start(false);bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
+async function submit(text){if(!ready)return;avatarActions.touch();try{await client.start(false);bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
 $('form').onsubmit=e=>{e.preventDefault();const text=$('message').value.trim();if(text){$('message').value='';submit(text);}};
 for(const b of document.querySelectorAll('[data-text]'))b.onclick=()=>submit(b.dataset.text);
 $('clear').onclick=()=>{timeline.clear();client.stop();$('chat').replaceChildren();partial=answer=null;};
@@ -200,6 +208,7 @@ async function observeFace(){
 }
 let lastFace=0,lastAnimation=0;
 function animate(t){
+ if(eyeContact?.state.active)avatarActions.clear();
  if(eyeContact?.state.frozen){const f=eyeContact.state.frozen;rig.update(f.input,lastAnimation?t-lastAnimation:16.7,f.time);lastAnimation=t;requestAnimationFrame(animate);return;}
  if(t-lastFace>=FACE_INTERVAL_MS){try{observeFace();}catch{}lastFace=t;}
  const cue=timeline.at(client.ctx?.state==='running'?client.clock?.position():null);
@@ -214,7 +223,10 @@ function animate(t){
   'Luna’s sentence-level acting directions drive the face. Audio only moves the mouth.';
  if($('acting-status').textContent!==description)$('acting-status').textContent=description;
  const automaticBlink=Math.pow(Math.max(0,Math.cos(t/900)),160)*.85;
- rig.update({...controls,gazeTarget:deskView?gazeTarget:null,pose:chosen,blinkLeft:Math.max(controls.blinkLeft||0,automaticBlink),blinkRight:Math.max(controls.blinkRight||0,automaticBlink),audioLevel:Math.min(1,client.level()*7)},lastAnimation?t-lastAnimation:16.7,matchMedia('(prefers-reduced-motion: reduce)').matches?0:t);lastAnimation=t;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const action=avatarActions.frame(t,chosen,{position:client.ctx?.state==='running'?client.clock?.position():null,busy:speaking||replyPending,reduced,hidden:document.hidden,calibrating:!!eyeContact?.state.active});
+ rig.update({...controls,...action.controls,gazeTarget:deskView?gazeTarget:null,pose:action.pose,actionMotion:action.motion,actionEyes:action.eyes,
+  blinkLeft:Math.max(action.controls.blinkLeft||0,controls.blinkLeft||0,automaticBlink),blinkRight:Math.max(action.controls.blinkRight||0,controls.blinkRight||0,automaticBlink),audioLevel:Math.min(1,client.level()*7)},lastAnimation?t-lastAnimation:16.7,reduced?0:t);lastAnimation=t;
  requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);

@@ -1,0 +1,267 @@
+{
+  "passed": false,
+  "url": "https://diane-asylum-understood-invoice.trycloudflare.com",
+  "typed_synthetic_request": true,
+  "real_llm_and_tts": true,
+  "replies": [
+    {
+      "text": "Schau mal!",
+      "actions": [
+        {
+          "kind": "spin",
+          "duration_s": 3,
+          "sentence": 0,
+          "direction": "counterclockwise"
+        }
+      ]
+    }
+  ],
+  "observed_frames": 59,
+  "max_visual_pan": 360.00738160105436,
+  "actual_pcm_chunks": 2,
+  "restored": false,
+  "error": "",
+  "errors": [],
+  "events": [
+    {
+      "type": "ready",
+      "hop_ms": 320,
+      "sr": 16000,
+      "mouth": true,
+      "voices": [
+        "emolia_c1699"
+      ],
+      "voice": "emolia_c1699",
+      "labels": {
+        "emolia_c1699": "Mira \u00b7 fixed reference"
+      },
+      "max_session_s": 1800,
+      "thresholds": {
+        "ep_thr": 0.915,
+        "ep_deb": 2,
+        "barge_thr": 0.2,
+        "barge_deb": 1,
+        "bc_thr": 0.4,
+        "bc_deb": 2
+      },
+      "sliders": [
+        {
+          "name": "ep_thr",
+          "type": "float",
+          "label": "endpoint p_end \u03c4",
+          "lo": 0.3,
+          "hi": 0.99,
+          "step": 0.005,
+          "decimals": 3,
+          "scale": 1,
+          "unit": "",
+          "meter": "p_end",
+          "off": null
+        },
+        {
+          "name": "ep_deb",
+          "type": "int",
+          "label": "endpoint deb",
+          "lo": 1,
+          "hi": 5,
+          "step": 1,
+          "decimals": 0,
+          "scale": 1,
+          "unit": "",
+          "meter": null,
+          "off": null
+        },
+        {
+          "name": "barge_thr",
+          "type": "float",
+          "label": "barge (yield)",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "yield",
+          "off": null
+        },
+        {
+          "name": "bc_thr",
+          "type": "float",
+          "label": "backchannel",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "bc",
+          "off": null
+        }
+      ],
+      "identity_enabled": true,
+      "identity_mode": "v4-long3",
+      "interaction": {
+        "enabled": true,
+        "helpful_enabled": true,
+        "rules": [],
+        "decision_model": "convaiinnovations/laya-multilingual (Stop) \u00b7 Luna (context)",
+        "decision_interval_ms": 320,
+        "checks": 0,
+        "last_decision": null,
+        "waiting_for": "No agreed rules yet",
+        "attempts": 0,
+        "semantic_error": null,
+        "scope": "session-only conversational rules; acoustic verification is separate"
+      },
+      "visual_identity": {
+        "type": "visual_identity",
+        "settings": {
+          "ignoreOffscreenSpeakers": false,
+          "lookAtActiveSpeaker": true,
+          "greetUnknownSpeakers": true,
+          "faceIdEnabled": false
+        },
+        "camera": "off",
+        "fallback": true,
+        "people": [],
+        "note": "Acoustic speaker recognition; face VAD disabled"
+      },
+      "speaker_instruction": "Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open."
+    },
+    {
+      "type": "service_status",
+      "text": "Preparing a useful spoken answer\u2026",
+      "stage": "planning"
+    },
+    {
+      "type": "visual_identity",
+      "settings": {
+        "ignoreOffscreenSpeakers": false,
+        "lookAtActiveSpeaker": true,
+        "greetUnknownSpeakers": true,
+        "faceIdEnabled": false
+      },
+      "camera": "off",
+      "fallback": true,
+      "people": [],
+      "note": "Acoustic speaker recognition; face VAD disabled"
+    },
+    {
+      "type": "stop_feedback_setting",
+      "enabled": false
+    },
+    {
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true
+    },
+    {
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true
+    },
+    {
+      "type": "interaction",
+      "enabled": true,
+      "helpful_enabled": true,
+      "rules": [],
+      "decision_model": "convaiinnovations/laya-multilingual (Stop) \u00b7 Luna (context)",
+      "decision_interval_ms": 320,
+      "checks": 0,
+      "last_decision": null,
+      "waiting_for": "No agreed rules yet",
+      "attempts": 0,
+      "semantic_error": null,
+      "scope": "session-only conversational rules; acoustic verification is separate"
+    },
+    {
+      "type": "reply",
+      "text": "Schau mal!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "amusement",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "amusement, playful",
+            "text": "Schau mal!",
+            "start_s": 0,
+            "end_s": 0.68
+          }
+        ],
+        "planned_duration_s": 0.68
+      },
+      "avatar_actions": [
+        {
+          "kind": "spin",
+          "duration_s": 3,
+          "sentence": 0,
+          "direction": "counterclockwise"
+        }
+      ],
+      "speaker_id": null,
+      "speaker_name": null,
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 4199.24,
+        "director_mode": "compact",
+        "completion_tokens": 31,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "type": "service_status",
+      "text": "Voice model available. Preparing your spoken reply\u2026",
+      "stage": "preparing"
+    },
+    {
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": null,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability"
+    }
+  ]
+}
