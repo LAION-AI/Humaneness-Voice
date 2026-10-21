@@ -15,6 +15,7 @@ speaker LoRAs, and must not be mixed with those by filename or rank alone.
 
 | Find it quickly | Read / download |
 | --- | --- |
+| **Robby conversational robot:** live ASR, speaker memory, interruptible TTS, gaze and public-information tools | [Robby source, setup and limitations](robby/README.md) · [current stop/reading report](robby/static/stop-reading-update.html) |
 | All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
 | Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
 | Hosted API or local LLM director | [LLM connection and JSON contract](docs/PLAYGROUND_LLM.md) |
@@ -110,6 +111,31 @@ is explicit about that remaining gap.
 Permanent reports: [study Space](https://huggingface.co/spaces/laion/humaneness-voice-small-studies).
 The [working-host live UI](https://fuji-formal-while-plugin.trycloudflare.com/)
 uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
+
+## Robby: conversational robot integration
+
+The additive [`robby/`](robby/) snapshot connects the existing Small RL speech
+service to a browser-local robot, frozen Nemotron ASR/diarization, TYGER turn
+taking, fast/long speaker predictors and ECAPA verification. It does not replace
+the Playground or its launcher. Robby uses 1.6-second TTS chunks and a separate
+compact Luna director prompt; [the exact policies and setup are included](robby/README.md).
+
+New foreground speakers can optionally join without a wake phrase. Explicit
+claims can associate multiple session voice anchors; this is not authentication.
+Read-only news, weather and Wikipedia tools expose actual source links. During
+speech, bounded 320-ms scheduling checks for current-speaker stop requests;
+accepted interruptions cancel queued audio and generation. Silence is the default;
+brief polite acknowledgments are optional. News and longer explanations request
+calm, gentle, unhurried delivery.
+
+[Tests and limitations](robby/static/stop-reading-update.html),
+[speed/model comparison](robby/static/speed-and-tools.html), and
+[task log](robby/static/worklog.html) retain unsuccessful experiments as well as
+passing tests. Working-host synthetic/browser checks are not physical-room human
+accuracy claims or a clean-machine installation certification. Source includes
+no API keys, microphone recordings, enrolled voiceprints or model weights.
+The [live Robby demo](https://diane-asylum-understood-invoice.trycloudflare.com/desk-robot/)
+uses temporary Cloudflare hosting.
 
 ## Historical SFT3 agent (September 2026)
 

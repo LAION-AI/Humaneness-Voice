@@ -1,0 +1,3198 @@
+{
+  "started": 1792594397.1205323,
+  "physical_microphone_used": false,
+  "public_synthetic_only": true,
+  "owned_server_pid": 3584060,
+  "owned_server_started_utc": "2026-10-21T14:45:39Z",
+  "runtime_source_sha256": "40756a1cc81aa052b8d5efca26f9aeef9e68ffb5e91a8645b7c7172ff6b17c02",
+  "simulated_echo_delay_ms": 120,
+  "simulated_playback_buffer_ms": 240,
+  "echo_gain": 0.05,
+  "passed": true,
+  "cases": [
+    {
+      "command": "christoph-stop-speaking",
+      "authorized": true,
+      "other_enrolled": false,
+      "passed": true,
+      "command_start_s": 35.66,
+      "command_duration_s": 3.07,
+      "interruption_latency_s": 3.0400000000000063,
+      "interrupted": true,
+      "stop_acknowledged": true,
+      "new_spoken_replies": 0,
+      "actual_streamed_tts": true,
+      "events": [
+        {
+          "at_s": 9.17,
+          "phase": "intro",
+          "type": "endpoint",
+          "transcript": "Hey Rabi, ich bin Christoph.  Sch\u00f6n dich kennenzulernen.",
+          "speaker_id": "speaker-5f241be14bc5",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.83,
+          "timing": {
+            "speaker_last_audio_s": 5.76,
+            "silence_detected_audio_s": 8.4,
+            "prefetch_used": false,
+            "finalization_ms": 426.51,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          }
+        },
+        {
+          "at_s": 9.65,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 9.6,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 9.95,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 9.92,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 10.29,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.24,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 10.59,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.56,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 10.91,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.88,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 11.27,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.2,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 11.55,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.52,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 11.89,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.84,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 12.21,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.16,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 12.53,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.48,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 12.85,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.8,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 13.19,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.12,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 13.49,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.44,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 13.81,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.76,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 14.13,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.08,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 14.43,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.4,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 14.55,
+          "phase": "intro",
+          "type": "reply",
+          "text": "Hey Christoph, sch\u00f6n, dich kennenzulernen!",
+          "reply_id": 1,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "pleasure_ecstasy",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "pleasure, warm and welcoming",
+                "text": "Hey Christoph, sch\u00f6n, dich kennenzulernen!",
+                "start_s": 0.0,
+                "end_s": 1.7
+              }
+            ],
+            "planned_duration_s": 1.7
+          },
+          "speaker_id": "speaker-5f241be14bc5",
+          "speaker_name": "Christoph",
+          "speaker_update": {
+            "speaker_id": "speaker-5f241be14bc5",
+            "display_name": "Christoph",
+            "is_self_introduction": true,
+            "source": "validated_acoustic_transcript"
+          },
+          "timing": {
+            "director_ms": 5389.99,
+            "director_mode": "compact",
+            "completion_tokens": 43,
+            "interjection_cache_hit": false
+          }
+        },
+        {
+          "at_s": 14.77,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.72,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 15.15,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.04,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 15.43,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.36,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 15.75,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.68,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 16.11,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.0,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 16.39,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.32,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 16.75,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.64,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 17.09,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.96,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.19971053302288055,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.19971053302288055,
+            "candidate_margin": 0.8002894669771194
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 17.39,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.28,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.005081654526293278,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.005081654526293278,
+            "candidate_margin": 0.9949183454737067
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 17.69,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 17.6,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.242,
+              "onset_s": 0.88
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 17.71,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.6,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.043767765164375305,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.043767765164375305,
+            "candidate_margin": 0.9562322348356247
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 17.71,
+          "phase": "intro",
+          "type": "synthetic_stop_decode",
+          "audio_s": 17.6,
+          "text": "",
+          "views": []
+        },
+        {
+          "at_s": 17.71,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.36,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.043767765164375305,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.043767765164375305,
+            "candidate_margin": 0.9562322348356247
+          }
+        },
+        {
+          "at_s": 18.05,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.92,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.04379589110612869,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.04379589110612869,
+            "candidate_margin": 0.9562041088938713
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 18.05,
+          "phase": "intro",
+          "type": "synthetic_stop_decode",
+          "audio_s": 17.92,
+          "text": "",
+          "views": []
+        },
+        {
+          "at_s": 18.17,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.2443189024925232,
+          "bot_cosine": 0.6555668115615845,
+          "margin": -0.4112479090690613,
+          "evidence_seconds": 1.21,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.33,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 18.24,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.267,
+              "onset_s": 1.52
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.28,
+              "onset_s": 1.52
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 18.47,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.27717554569244385,
+          "bot_cosine": 0.7465692758560181,
+          "margin": -0.4693937301635742,
+          "evidence_seconds": 1.28,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.9941517817646631,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.61,
+          "phase": "intro",
+          "type": "turn_done",
+          "barged": false
+        },
+        {
+          "at_s": 18.65,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 18.56,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.322,
+              "onset_s": 1.84
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-5f241be14bc5",
+            "name": "Christoph",
+            "similarity": 0.15384377539157867,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 20.21,
+          "phase": "intro",
+          "type": "ignored",
+          "reason": "Speech could not be separated confidently from background words. Please repeat; nothing was sent to Luna."
+        },
+        {
+          "at_s": 26.0,
+          "phase": "request",
+          "type": "endpoint",
+          "transcript": "Kannst du mir eine kleine Geschichte erz\u00e4hlen?",
+          "speaker_id": "speaker-5f241be14bc5",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.26,
+          "timing": {
+            "speaker_last_audio_s": 24.64,
+            "silence_detected_audio_s": 25.68,
+            "prefetch_used": true,
+            "finalization_ms": 0.56,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 170.15,
+            "embedding_ms": 174.44
+          }
+        },
+        {
+          "at_s": 26.62,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 26.56,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 26.94,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 26.88,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 27.24,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.2,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 27.58,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.52,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 27.9,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.84,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 28.22,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.16,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 28.54,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.48,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 28.86,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.8,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 29.18,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.12,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 29.52,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.44,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 29.82,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.76,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 30.14,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.08,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 30.48,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.4,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 30.74,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.72,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 31.06,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.04,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 31.42,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.36,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 31.7,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.68,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 32.02,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.0,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 32.38,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.32,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 32.66,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.64,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 32.84,
+          "phase": "request",
+          "type": "reply",
+          "text": "Ein kleiner Roboter fand im Garten einen goldenen Knopf. Als er ihn dr\u00fcckte, begann der alte Baum leise zu singen. Seitdem besuchte der Roboter ihn jeden Abend \u2013 und beide wurden beste Freunde.",
+          "reply_id": 2,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "amusement, warm and playful",
+                "text": "Ein kleiner Roboter fand im Garten einen goldenen Knopf.",
+                "start_s": 0.0,
+                "end_s": 3.06
+              },
+              {
+                "emotion": "affection",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "curiosity, gently engaged",
+                "text": "Als er ihn dr\u00fcckte, begann der alte Baum leise zu singen.",
+                "start_s": 3.06,
+                "end_s": 6.8
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "contentment, soft and pleased",
+                "text": "Seitdem besuchte der Roboter ihn jeden Abend \u2013 und beide wurden beste Freunde.",
+                "start_s": 6.8,
+                "end_s": 11.22
+              }
+            ],
+            "planned_duration_s": 11.22
+          },
+          "speaker_id": "speaker-5f241be14bc5",
+          "speaker_name": "Christoph",
+          "speaker_update": null,
+          "timing": {
+            "director_ms": 6821.77,
+            "director_mode": "compact",
+            "completion_tokens": 97,
+            "interjection_cache_hit": false
+          }
+        },
+        {
+          "at_s": 32.98,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.96,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 33.34,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.28,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 33.64,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.6,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 33.96,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.92,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 34.3,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.24,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 34.6,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.56,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 34.9,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.88,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 35.28,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.2,
+          "fast_vote": {},
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 35.58,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.52,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.23825377225875854,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.23825377225875854,
+            "candidate_margin": 0.7617462277412415
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 35.9,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.84,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.2450471669435501,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.2450471669435501,
+            "candidate_margin": 0.7549528330564499
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 36.18,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 36.16,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.229,
+              "onset_s": 0.96
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 36.28,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.16,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.24678173661231995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.24678173661231995,
+            "candidate_margin": 0.75321826338768
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 36.28,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 36.16,
+          "text": "",
+          "views": []
+        },
+        {
+          "at_s": 36.4,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": -0.008851859718561172,
+          "bot_cosine": 0.8098223209381104,
+          "margin": -0.8186741806566715,
+          "evidence_seconds": 0.95,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 36.5,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 36.48,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.229,
+              "onset_s": 1.28
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 36.56,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.48,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.24927541613578796,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.24927541613578796,
+            "candidate_margin": 0.750724583864212
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 36.56,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 36.48,
+          "text": "",
+          "views": []
+        },
+        {
+          "at_s": 36.6,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": -0.013681605458259583,
+          "bot_cosine": 0.8702760934829712,
+          "margin": -0.8839576989412308,
+          "evidence_seconds": 1.16,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 36.86,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.8,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.2536277770996094,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.2536277770996094,
+            "candidate_margin": 0.7463722229003906
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 36.86,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 36.8,
+          "text": "",
+          "views": []
+        },
+        {
+          "at_s": 36.96,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.021065570414066315,
+          "bot_cosine": 0.9696959257125854,
+          "margin": -0.9486303552985191,
+          "evidence_seconds": 1.59,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.9978626393921098,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 37.2,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.12,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.248,
+              "onset_s": 1.92
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 37.26,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.12,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.18226537108421326,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.18226537108421326,
+            "candidate_margin": 0.8177346289157867
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 37.26,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.06,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.18226537108421326,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": -0.18226537108421326,
+            "candidate_margin": 0.8177346289157867
+          }
+        },
+        {
+          "at_s": 37.36,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.12,
+          "text": "",
+          "views": [
+            "Kleiner Roboter fand im Garden.",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 37.52,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.44,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.319,
+              "onset_s": 2.24
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 37.56,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.44,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.23053810000419617,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.23053810000419617,
+            "candidate_margin": 1.2305381000041962
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 37.56,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.12,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.23053810000419617,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.23053810000419617,
+            "candidate_margin": 1.2305381000041962
+          }
+        },
+        {
+          "at_s": 37.66,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.44,
+          "text": "",
+          "views": [
+            "Kleiner Roboter fand im Garten.  Bitte",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 37.84,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.76,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.275,
+              "onset_s": 2.56
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.322,
+              "onset_s": 2.56
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.282,
+              "onset_s": 2.56
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-5f241be14bc5",
+            "name": "Christoph",
+            "similarity": 0.741175651550293,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 37.88,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.76,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 37.88,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          }
+        },
+        {
+          "at_s": 37.98,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.76,
+          "text": "Bitte h\u00f6r auf",
+          "views": [
+            "Kleiner Roboter fand im Garten Bitte h\u00f6r auf",
+            "Bitte h\u00f6r auf",
+            "Bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 38.02,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.3643457293510437,
+          "bot_cosine": 0.017881304025650024,
+          "margin": 0.3464644253253937,
+          "evidence_seconds": 0.71,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.45484188199043274,
+            "candidate_margin": 1.4548418819904327
+          },
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          }
+        },
+        {
+          "at_s": 38.22,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 38.08,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 38.24,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.4,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          }
+        },
+        {
+          "at_s": 38.34,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 38.08,
+          "text": "",
+          "views": [
+            "Kleiner Roboter fand im Garten Bitte h\u00f6r aufzuschauen.",
+            "Bitte h\u00f6r aufzus",
+            "Bitte h\u00f6r aufzus"
+          ]
+        },
+        {
+          "at_s": 38.46,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 38.4,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.205,
+              "onset_s": 3.2
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.215,
+              "onset_s": 3.2
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.362,
+              "onset_s": 3.2
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-5f241be14bc5",
+            "name": "Christoph",
+            "similarity": 0.6880780458450317,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 38.48,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 38.4,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          },
+          "target": "speaker-5f241be14bc5"
+        },
+        {
+          "at_s": 38.5,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.42,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          }
+        },
+        {
+          "at_s": 38.6,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 38.4,
+          "text": "Bitte h\u00f6r aufzusprechen.",
+          "views": [
+            "Kleiner Roboter fand im Garten bitte h\u00f6r aufzusprechen.",
+            "Bitte h\u00f6r aufzusprechen.",
+            "Bitte h\u00f6r aufzusprechen."
+          ]
+        },
+        {
+          "at_s": 38.7,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": true,
+          "user_cosine": 0.5700137615203857,
+          "bot_cosine": 0.015742994844913483,
+          "margin": 0.5542707666754723,
+          "evidence_seconds": 1.28,
+          "strong_native_continuity": true,
+          "waveform_correlation": 0.09519005121637007,
+          "different_playback_content": true,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.45484188199043274,
+            "candidate_margin": 1.4548418819904327
+          },
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.4663485288619995,
+            "candidate_id": "speaker-5f241be14bc5",
+            "candidate_similarity": 0.4663485288619995,
+            "candidate_margin": 1.4663485288619995
+          }
+        },
+        {
+          "at_s": 38.7,
+          "phase": "stop",
+          "type": "barge",
+          "yield": 1.0
+        },
+        {
+          "at_s": 38.7,
+          "phase": "stop",
+          "type": "stop_command",
+          "speaker_name": "Christoph",
+          "text": "Paused. I\u2019m listening.",
+          "source": "verified_stop_command"
+        },
+        {
+          "at_s": 38.7,
+          "phase": "stop",
+          "type": "turn_done",
+          "barged": true
+        },
+        {
+          "at_s": 40.13,
+          "phase": "stop",
+          "type": "warning",
+          "text": "Speaker views disagree (0.24 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+        },
+        {
+          "at_s": 40.13,
+          "phase": "stop",
+          "type": "ignored",
+          "reason": "Speaker views disagree (0.24 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+        }
+      ]
+    },
+    {
+      "command": "background-stop",
+      "authorized": false,
+      "other_enrolled": false,
+      "passed": true,
+      "command_start_s": 35.66,
+      "command_duration_s": 2.27,
+      "interruption_latency_s": null,
+      "interrupted": false,
+      "stop_acknowledged": false,
+      "new_spoken_replies": 0,
+      "actual_streamed_tts": true,
+      "events": [
+        {
+          "at_s": 8.97,
+          "phase": "intro",
+          "type": "endpoint",
+          "transcript": "Hey Rabi, ich bin Christoph.  Sch\u00f6n dich kennenzulernen.",
+          "speaker_id": "speaker-b02ea690660c",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.83,
+          "timing": {
+            "speaker_last_audio_s": 5.76,
+            "silence_detected_audio_s": 8.4,
+            "prefetch_used": false,
+            "finalization_ms": 282.72,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          }
+        },
+        {
+          "at_s": 9.65,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 9.6,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 9.95,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 9.92,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 10.29,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.24,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 10.59,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.56,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 10.91,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 10.88,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 11.27,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.2,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 11.55,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.52,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 11.87,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 11.84,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 12.23,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.16,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 12.51,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.48,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 12.83,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 12.8,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 13.17,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.12,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 13.47,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.44,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 13.79,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 13.76,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 14.15,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.08,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 14.43,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.4,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 14.73,
+          "phase": "intro",
+          "type": "reply",
+          "text": "Hey Christoph, sch\u00f6n, dich kennenzulernen!",
+          "reply_id": 1,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "pleasure_ecstasy",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "pleasure_ecstasy, warm and welcoming",
+                "text": "Hey Christoph, sch\u00f6n, dich kennenzulernen!",
+                "start_s": 0.0,
+                "end_s": 1.7
+              }
+            ],
+            "planned_duration_s": 1.7
+          },
+          "speaker_id": "speaker-b02ea690660c",
+          "speaker_name": "Christoph",
+          "speaker_update": {
+            "speaker_id": "speaker-b02ea690660c",
+            "display_name": "Christoph",
+            "is_self_introduction": true,
+            "source": "validated_acoustic_transcript"
+          },
+          "timing": {
+            "director_ms": 5754.64,
+            "director_mode": "compact",
+            "completion_tokens": 45,
+            "interjection_cache_hit": false
+          }
+        },
+        {
+          "at_s": 14.79,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 14.72,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 15.15,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.04,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 15.43,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.36,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 15.75,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 15.68,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 16.09,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.0,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 16.39,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.32,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 16.71,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.64,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 17.09,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 16.96,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.24586373567581177,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.24586373567581177,
+            "candidate_margin": 0.7541362643241882
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 17.39,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.28,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.19560140371322632,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.19560140371322632,
+            "candidate_margin": 0.8043985962867737
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 17.69,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 17.6,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.272,
+              "onset_s": 0.8
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.22,
+              "onset_s": 0.8
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 17.71,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.6,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.14112231135368347,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.14112231135368347,
+            "candidate_margin": 0.8588776886463165
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 17.81,
+          "phase": "intro",
+          "type": "synthetic_stop_decode",
+          "audio_s": 17.6,
+          "text": "",
+          "views": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 17.81,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.03679454326629639,
+          "bot_cosine": 0.6378093361854553,
+          "margin": -0.6010147929191589,
+          "evidence_seconds": 0.81,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.05,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 17.92,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.150751531124115,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.150751531124115,
+            "candidate_margin": 0.849248468875885
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 18.09,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.043724510818719864,
+          "bot_cosine": 0.6852607727050781,
+          "margin": -0.6415362618863583,
+          "evidence_seconds": 1.0,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.15,
+          "phase": "intro",
+          "type": "synthetic_stop_decode",
+          "audio_s": 17.92,
+          "text": "",
+          "views": [
+            "Christoph Sch\u00f6nig",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 18.33,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 18.24,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.215,
+              "onset_s": 1.44
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.222,
+              "onset_s": 1.44
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 18.45,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.15347570180892944,
+          "bot_cosine": 0.8746674060821533,
+          "margin": -0.7211917042732239,
+          "evidence_seconds": 1.41,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.9869174452725205,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.65,
+          "phase": "intro",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 18.56,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.248,
+              "onset_s": 1.76
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.342,
+              "onset_s": 1.76
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.32,
+              "onset_s": 1.76
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 18.67,
+          "phase": "intro",
+          "type": "synthetic_stop_probe",
+          "audio_s": 18.56,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.14653834700584412,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.14653834700584412,
+            "candidate_margin": 0.8534616529941559
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 18.77,
+          "phase": "intro",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.15285128355026245,
+          "bot_cosine": 0.8726590871810913,
+          "margin": -0.7198078036308289,
+          "evidence_seconds": 1.42,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.9869336539896401,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 18.79,
+          "phase": "intro",
+          "type": "turn_done",
+          "barged": false
+        },
+        {
+          "at_s": 18.79,
+          "phase": "intro",
+          "type": "synthetic_stop_decode",
+          "audio_s": 18.56,
+          "text": "",
+          "views": [
+            "Christoph sch\u00f6n dich kennenzulernen.",
+            "Sch\u00f6n dich kennenzulernen.",
+            "Sch\u00f6n dich kennenzulernen."
+          ]
+        },
+        {
+          "at_s": 26.02,
+          "phase": "request",
+          "type": "endpoint",
+          "transcript": "Kannst du mir eine kleine Geschichte erz\u00e4hlen?",
+          "speaker_id": "speaker-b02ea690660c",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.24,
+          "timing": {
+            "speaker_last_audio_s": 24.64,
+            "silence_detected_audio_s": 25.68,
+            "prefetch_used": true,
+            "finalization_ms": 0.9,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 164.06,
+            "embedding_ms": 142.31
+          }
+        },
+        {
+          "at_s": 26.64,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 26.56,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 26.94,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 26.88,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 27.26,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.2,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 27.6,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.52,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 27.88,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 27.84,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 28.22,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.16,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 28.56,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.48,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 28.86,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 28.8,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 29.18,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.12,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 29.52,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.44,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 29.82,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 29.76,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 30.14,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.08,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 30.48,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.4,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 30.74,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 30.72,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 31.06,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.04,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 31.4,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.36,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 31.7,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 31.68,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 32.02,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.0,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 32.36,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.32,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 32.64,
+          "phase": "request",
+          "type": "reply",
+          "text": "Eines Abends entdeckte ein kleiner Roboter einen Stern, der in einer Pf\u00fctze glitzerte. Er hob ihn vorsichtig auf\u2014und merkte, dass es nur das Licht des Mondes war, aber pl\u00f6tzlich f\u00fchlte sich die ganze Nacht magisch an.",
+          "reply_id": 2,
+          "performance": {
+            "source": "Luna SCRIPT acting directions",
+            "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "amusement, warm and gentle",
+                "text": "Eines Abends entdeckte ein kleiner Roboter einen Stern, der in einer Pf\u00fctze glitzerte.",
+                "start_s": 0.0,
+                "end_s": 4.42
+              },
+              {
+                "emotion": "hope",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "hope, softly hopeful",
+                "text": "Er hob ihn vorsichtig auf\u2014und merkte, dass es nur das Licht des Mondes war, aber pl\u00f6tzlich f\u00fchlte sich die ganze Nacht magisch an.",
+                "start_s": 4.42,
+                "end_s": 12.24
+              }
+            ],
+            "planned_duration_s": 12.24
+          },
+          "speaker_id": "speaker-b02ea690660c",
+          "speaker_name": "Christoph",
+          "speaker_update": null,
+          "timing": {
+            "director_ms": 6625.81,
+            "director_mode": "compact",
+            "completion_tokens": 97,
+            "interjection_cache_hit": false
+          }
+        },
+        {
+          "at_s": 32.66,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.64,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 33.0,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 32.96,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 33.34,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.28,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 33.64,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.6,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 33.96,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 33.92,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 34.3,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.24,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 34.6,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.56,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 34.94,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 34.88,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 35.3,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.2,
+          "fast_vote": {},
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 35.58,
+          "phase": "request",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.52,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.20283228158950806,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.20283228158950806,
+            "candidate_margin": 0.7971677184104919
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 35.96,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 35.84,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.2222377210855484,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.2222377210855484,
+            "candidate_margin": 0.7777622789144516
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 36.3,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.16,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.18853510916233063,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.18853510916233063,
+            "candidate_margin": 0.8114648908376694
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 36.58,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.48,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.061370257288217545,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.061370257288217545,
+            "candidate_margin": 1.0613702572882175
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 36.88,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 36.8,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.237,
+              "onset_s": 1.6
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 36.92,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 36.8,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.061370257288217545,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.061370257288217545,
+            "candidate_margin": 1.0613702572882175
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 36.92,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.12,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.061370257288217545,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.061370257288217545,
+            "candidate_margin": 1.0613702572882175
+          }
+        },
+        {
+          "at_s": 37.02,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 36.8,
+          "text": "",
+          "views": [
+            "Abends stop",
+            "Stap",
+            ""
+          ]
+        },
+        {
+          "at_s": 37.2,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.12,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.212,
+              "onset_s": 1.92
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 37.26,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.12,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.3329962193965912,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.3329962193965912,
+            "candidate_margin": 1.3329962193965912
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 37.26,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.18,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.3329962193965912,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.3329962193965912,
+            "candidate_margin": 1.3329962193965912
+          }
+        },
+        {
+          "at_s": 37.36,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.12,
+          "text": "Stop bitte.",
+          "views": [
+            "Abendstop bitte",
+            "Stop bitte.",
+            "Stop bitte."
+          ]
+        },
+        {
+          "at_s": 37.48,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.27649828791618347,
+          "bot_cosine": 0.07133554667234421,
+          "margin": 0.20516274124383926,
+          "evidence_seconds": 1.18,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.3329962193965912,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.3329962193965912,
+            "candidate_margin": 1.3329962193965912
+          }
+        },
+        {
+          "at_s": 37.52,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.44,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.27,
+              "onset_s": 2.24
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.206,
+              "onset_s": 2.24
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-b02ea690660c",
+            "name": "Christoph",
+            "similarity": 0.3690487742424011,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 37.56,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.44,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.44003182649612427,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.44003182649612427,
+            "candidate_margin": 1.4400318264961243
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 37.56,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.34,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.44003182649612427,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.44003182649612427,
+            "candidate_margin": 1.4400318264961243
+          }
+        },
+        {
+          "at_s": 37.66,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.44,
+          "text": "Stop, bitte h\u00f6r auf.",
+          "views": [
+            "Es abends, bitte h\u00f6r auf",
+            "Stop, bitte h\u00f6r auf.",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 37.7,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.2823988199234009,
+          "bot_cosine": 0.13246123492717743,
+          "margin": 0.14993758499622345,
+          "evidence_seconds": 1.27,
+          "strong_native_continuity": false,
+          "waveform_correlation": null,
+          "different_playback_content": false,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.5114532709121704,
+            "candidate_margin": 1.5114532709121704
+          },
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.44003182649612427,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.44003182649612427,
+            "candidate_margin": 1.4400318264961243
+          }
+        },
+        {
+          "at_s": 37.84,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 37.76,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.206,
+              "onset_s": 2.56
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.252,
+              "onset_s": 2.56
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.223,
+              "onset_s": 2.56
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.381,
+              "onset_s": 2.56
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-b02ea690660c",
+            "name": "Christoph",
+            "similarity": 0.5357397794723511,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 37.86,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 37.76,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 37.88,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 37.88,
+          "phase": "stop",
+          "type": "synthetic_semantic_decision",
+          "error_type": "HTTPStatusError"
+        },
+        {
+          "at_s": 37.97,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 37.76,
+          "text": "Stop, bitte h\u00f6r auf",
+          "views": [
+            "Abends Top, bitte h\u00f6r auf",
+            "Stop, bitte h\u00f6r auf",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 38.07,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.30949944257736206,
+          "bot_cosine": 0.12889926135540009,
+          "margin": 0.18060018122196198,
+          "evidence_seconds": 1.32,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.08503481097969588,
+          "different_playback_content": false,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.5155239701271057,
+            "candidate_margin": 1.5155239701271057
+          },
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 38.17,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 38.08,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.303,
+              "onset_s": 2.88
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.3,
+              "onset_s": 2.88
+            }
+          ],
+          "speaker_cue": {
+            "kind": "enrolled",
+            "id": "speaker-b02ea690660c",
+            "name": "Christoph",
+            "similarity": 0.5357397794723511,
+            "source": "enrolled Nemotron session channel + predicted reference"
+          }
+        },
+        {
+          "at_s": 38.23,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 38.08,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 38.23,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 38.33,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 38.08,
+          "text": "Stop, bitte h\u00f6r auf",
+          "views": [
+            "Abends Top, bitte h\u00f6r auf",
+            "Stop, bitte h\u00f6r auf",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 38.43,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.3094905614852905,
+          "bot_cosine": 0.12894895672798157,
+          "margin": 0.18054160475730896,
+          "evidence_seconds": 1.32,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.08503123333081174,
+          "different_playback_content": false,
+          "literal_stop": true,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.5155239701271057,
+            "candidate_margin": 1.5155239701271057
+          },
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 38.49,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 38.4,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 38.49,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 38.49,
+          "phase": "stop",
+          "type": "synthetic_semantic_decision",
+          "error_type": "HTTPStatusError"
+        },
+        {
+          "at_s": 38.59,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 38.4,
+          "text": "Stop, bitte h\u00f6r auf",
+          "views": [
+            "Abends stop bitte h\u00f6r auf",
+            "Stop, bitte h\u00f6r auf",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 38.59,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "stale_stop_audio"
+        },
+        {
+          "at_s": 38.85,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 38.72,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 38.85,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 38.95,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 38.72,
+          "text": "Stop, bitte, h\u00f6r auf",
+          "views": [
+            "Stop, bitte, h\u00f6r auf",
+            "Stop, bitte h\u00f6r auf",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 38.95,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "stale_stop_audio"
+        },
+        {
+          "at_s": 39.19,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 39.04,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 39.19,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.38,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 39.19,
+          "phase": "stop",
+          "type": "synthetic_semantic_decision",
+          "error_type": "HTTPStatusError"
+        },
+        {
+          "at_s": 39.51,
+          "phase": "stop",
+          "type": "synthetic_barge_proposal",
+          "audio_s": 39.36,
+          "proposals": [
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.277,
+              "onset_s": 4.0
+            },
+            {
+              "kind": "BARGE",
+              "yield_prob": 0.305,
+              "onset_s": 4.0
+            }
+          ],
+          "speaker_cue": null
+        },
+        {
+          "at_s": 39.55,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.32,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.447137713432312,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.447137713432312,
+            "candidate_margin": 1.447137713432312
+          }
+        },
+        {
+          "at_s": 39.61,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 39.04,
+          "text": "Stop bitte h\u00f6r auf",
+          "views": [
+            "Stap, bitte h\u00f6r auf",
+            "Stap, bitte h\u00f6r auf",
+            "Stop bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 39.61,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "stale_stop_audio"
+        },
+        {
+          "at_s": 39.79,
+          "phase": "stop",
+          "type": "warning",
+          "text": "Likely playback echo rather than an enrolled user; no turn was submitted."
+        },
+        {
+          "at_s": 39.79,
+          "phase": "stop",
+          "type": "ignored",
+          "reason": "Speaker identity or words were uncertain. Please repeat or say Hey Robbie and introduce yourself again."
+        },
+        {
+          "at_s": 39.79,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 39.68,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.47657227516174316,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.47657227516174316,
+            "candidate_margin": 1.4765722751617432
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 39.81,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.32,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.47657227516174316,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.47657227516174316,
+            "candidate_margin": 1.4765722751617432
+          }
+        },
+        {
+          "at_s": 39.81,
+          "phase": "stop",
+          "type": "synthetic_semantic_decision",
+          "error_type": "HTTPStatusError"
+        },
+        {
+          "at_s": 39.91,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 39.68,
+          "text": "Bitte h\u00f6r auf",
+          "views": [
+            "Bitte h\u00f6r auf",
+            "Bitte h\u00f6r auf",
+            "Bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 39.91,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "stale_stop_audio"
+        },
+        {
+          "at_s": 40.15,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 40.0,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.47657227516174316,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.47657227516174316,
+            "candidate_margin": 1.4765722751617432
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 40.17,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.34,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.47657227516174316,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.47657227516174316,
+            "candidate_margin": 1.4765722751617432
+          }
+        },
+        {
+          "at_s": 40.27,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 40.0,
+          "text": "Bitte h\u00f6r auf",
+          "views": [
+            "Bitte h\u00f6r auf",
+            "Bitte h\u00f6r auf.",
+            "Bitte h\u00f6r auf"
+          ]
+        },
+        {
+          "at_s": 40.27,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "stale_stop_audio"
+        },
+        {
+          "at_s": 40.45,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 40.32,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.531741738319397,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.531741738319397,
+            "candidate_margin": 1.531741738319397
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 40.45,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "reason": "insufficient_voiced_duration",
+          "voiced_seconds": 0.2,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.531741738319397,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.531741738319397,
+            "candidate_margin": 1.531741738319397
+          }
+        },
+        {
+          "at_s": 40.45,
+          "phase": "stop",
+          "type": "synthetic_semantic_decision",
+          "error_type": "HTTPStatusError"
+        },
+        {
+          "at_s": 40.55,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 40.32,
+          "text": "",
+          "views": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 40.75,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 40.64,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": 0.46671822667121887,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": 0.46671822667121887,
+            "candidate_margin": 1.4667182266712189
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 40.85,
+          "phase": "stop",
+          "type": "synthetic_stop_decode",
+          "audio_s": 40.64,
+          "text": "",
+          "views": [
+            "",
+            "",
+            ""
+          ]
+        },
+        {
+          "at_s": 40.89,
+          "phase": "stop",
+          "type": "synthetic_barge_verification",
+          "accepted": false,
+          "user_cosine": 0.10347989946603775,
+          "bot_cosine": 0.8327537775039673,
+          "margin": -0.7292738780379295,
+          "evidence_seconds": 3.04,
+          "strong_native_continuity": false,
+          "waveform_correlation": 0.9803069771350418,
+          "different_playback_content": false,
+          "literal_stop": false,
+          "short_command_consensus": false,
+          "long_student_consensus": false,
+          "long_vote": {},
+          "fast_vote": {}
+        },
+        {
+          "at_s": 41.13,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 40.96,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.08184142410755157,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.08184142410755157,
+            "candidate_margin": 0.9181585758924484
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 41.39,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 41.28,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.14922842383384705,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.14922842383384705,
+            "candidate_margin": 0.850771576166153
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 41.71,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 41.6,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.18503081798553467,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.18503081798553467,
+            "candidate_margin": 0.8149691820144653
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 42.01,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 41.92,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.18902385234832764,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.18902385234832764,
+            "candidate_margin": 0.8109761476516724
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 42.31,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 42.24,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.2505199909210205,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.2505199909210205,
+            "candidate_margin": 0.7494800090789795
+          },
+          "target": "speaker-b02ea690660c"
+        },
+        {
+          "at_s": 42.63,
+          "phase": "stop",
+          "type": "synthetic_stop_probe",
+          "audio_s": 42.56,
+          "fast_vote": {
+            "kind": "unknown",
+            "id": null,
+            "name": null,
+            "similarity": -0.21608012914657593,
+            "candidate_id": "speaker-b02ea690660c",
+            "candidate_similarity": -0.21608012914657593,
+            "candidate_margin": 0.7839198708534241
+          },
+          "target": "speaker-b02ea690660c"
+        }
+      ]
+    }
+  ],
+  "source_unchanged": true,
+  "finished": 1792594484.853595
+}

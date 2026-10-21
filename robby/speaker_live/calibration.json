@@ -1,0 +1,51 @@
+{
+  "centered": true,
+  "threshold": 0.619811549782753,
+  "margin": 0.04,
+  "validation_genuine_pass_rate": 0.4634989754098361,
+  "validation_max_impostor_pass_rate": 0.050076844262295084,
+  "validation_macro_identification": 0.7930766015178141,
+  "validation_accept_correct": 0.45146004098360654,
+  "windows": 7808,
+  "voices": 10,
+  "completed": 1792498923.1134107,
+  "alternatives": [
+    {
+      "centered": false,
+      "threshold": 0.7427142918109894,
+      "margin": 0.04,
+      "validation_genuine_pass_rate": 0.4261014344262295,
+      "validation_max_impostor_pass_rate": 0.050076844262295084,
+      "validation_macro_identification": 0.7975303174257002,
+      "validation_accept_correct": 0.4099641393442623,
+      "windows": 7808,
+      "voices": 10
+    },
+    {
+      "centered": true,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "validation_genuine_pass_rate": 0.4634989754098361,
+      "validation_max_impostor_pass_rate": 0.050076844262295084,
+      "validation_macro_identification": 0.7930766015178141,
+      "validation_accept_correct": 0.45146004098360654,
+      "windows": 7808,
+      "voices": 10
+    }
+  ],
+  "protocol": "Validation identities only; predicted gallery/probes use disjoint source UIDs. 95th percentile maximum other-speaker cosine, margin .04.",
+  "reference_source_ids": {
+    "44": 30,
+    "79": 96,
+    "115": 128,
+    "175": 175,
+    "251": 213,
+    "255": 261,
+    "272": 336,
+    "347": 347,
+    "380": 403,
+    "389": 491
+  },
+  "training_or_test_identities_used": false,
+  "limitations": "Repeated synthetic validation set; gallery averages augmented sampled windows, not exactly consecutive real-user enrollment. Session thresholds remain approximate and adjustable."
+}

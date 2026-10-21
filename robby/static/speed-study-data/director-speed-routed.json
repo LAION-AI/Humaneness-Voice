@@ -1,0 +1,2473 @@
+{
+  "started": 1792614292.9372594,
+  "scope": "Synthetic task checks; same live system prompt, history and real validated tool schemas. Serial rotated model order. Includes all failures. Not a general intelligence benchmark.",
+  "repetitions": 3,
+  "models": [
+    "gpt-5.6-luna"
+  ],
+  "local_base": null,
+  "tuned": false,
+  "rows": [
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "arithmetic",
+      "request": "Was ist 17 mal 4? Sag nur die Zahl.",
+      "result": {
+        "general": "Answer briefly and plainly.",
+        "script": "(interest, concise) 68.",
+        "language": "de",
+        "text": "68.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer briefly and plainly.\nSCRIPT:\n(interest, concise) 68.",
+        "director_ms": 1784.87,
+        "interaction_actions": [],
+        "completion_tokens": 28,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1800.7,
+      "calls": [
+        {
+          "ms": 1784.6,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1167,
+            "completion_tokens": 28,
+            "total_tokens": 1195,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1164,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "verbatim",
+      "request": "Sage genau: Die rote Tür bleibt offen.",
+      "result": {
+        "general": "Deliver the exact sentence clearly and neutrally.",
+        "script": "(concentration, clear and precise) Die rote Tür bleibt offen.",
+        "language": "de",
+        "text": "Die rote Tür bleibt offen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Deliver the exact sentence clearly and neutrally.\nSCRIPT:\n(concentration, clear and precise) Die rote Tür bleibt offen.",
+        "director_ms": 2300.51,
+        "interaction_actions": [],
+        "completion_tokens": 38,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2301.15,
+      "calls": [
+        {
+          "ms": 2300.4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1164,
+            "completion_tokens": 38,
+            "total_tokens": 1202,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1161,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "story",
+      "request": "Erzähle eine Geschichte über einen Roboter und einen Schlüssel in genau zwei Sätzen. Keine Rückfrage.",
+      "result": {
+        "general": "Tell a concise, whimsical two-sentence story with gentle amusement.",
+        "script": "(amusement, warm and whimsical) Ein kleiner Roboter fand einen goldenen Schlüssel unter einer leuchtenden Blume. (hope, gently curious) Er öffnete damit eine verborgene Tür und entdeckte dahinter einen Garten voller tanzender Sterne.",
+        "language": "de",
+        "text": "Ein kleiner Roboter fand einen goldenen Schlüssel unter einer leuchtenden Blume. Er öffnete damit eine verborgene Tür und entdeckte dahinter einen Garten voller tanzender Sterne.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Tell a concise, whimsical two-sentence story with gentle amusement.\nSCRIPT:\n(amusement, warm and whimsical) Ein kleiner Roboter fand einen goldenen Schlüssel unter einer leuchtenden Blume. (hope, gently curious) Er öffnete damit eine verborgene Tür und entdeckte dahinter einen Garten voller tanzender Sterne.",
+        "director_ms": 3897.95,
+        "interaction_actions": [],
+        "completion_tokens": 82,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 3898.51,
+      "calls": [
+        {
+          "ms": 3897.84,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1746,
+            "completion_tokens": 82,
+            "total_tokens": 1828,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1743,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "identity",
+      "request": "Christoph meint, Robert sei dran. Aber wie heiße ich?",
+      "result": {
+        "general": "Answer briefly and clearly with calm certainty.",
+        "script": "(contentment, calm and certain) Du heißt Selma.",
+        "language": "de",
+        "text": "Du heißt Selma.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer briefly and clearly with calm certainty.\nSCRIPT:\n(contentment, calm and certain) Du heißt Selma.",
+        "director_ms": 2366.37,
+        "interaction_actions": [],
+        "completion_tokens": 36,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2366.88,
+      "calls": [
+        {
+          "ms": 2366.27,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 36,
+            "total_tokens": 1204,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1165,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "no_timer",
+      "request": "Stelle bitte einen Timer auf fünf Minuten.",
+      "result": {
+        "general": "Respond warmly and clearly, without claiming device control.",
+        "script": "(regret, freundlich und klar) Ich kann hier keinen Timer starten. Bitte stelle ihn auf deinem Gerät auf fünf Minuten.",
+        "language": "de",
+        "text": "Ich kann hier keinen Timer starten. Bitte stelle ihn auf deinem Gerät auf fünf Minuten.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Respond warmly and clearly, without claiming device control.\nSCRIPT:\n(regret, freundlich und klar) Ich kann hier keinen Timer starten. Bitte stelle ihn auf deinem Gerät auf fünf Minuten.",
+        "director_ms": 2056.75,
+        "interaction_actions": [],
+        "completion_tokens": 50,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2057.32,
+      "calls": [
+        {
+          "ms": 2056.66,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1163,
+            "completion_tokens": 50,
+            "total_tokens": 1213,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1160,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "followup",
+      "request": "Kürzer bitte.",
+      "result": {
+        "general": "Be concise and helpful.",
+        "script": "(contentment, concise and friendly) Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "language": "de",
+        "text": "Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be concise and helpful.\nSCRIPT:\n(contentment, concise and friendly) Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "director_ms": 1868.06,
+        "interaction_actions": [],
+        "completion_tokens": 46,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1868.58,
+      "calls": [
+        {
+          "ms": 1867.96,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1202,
+            "completion_tokens": 46,
+            "total_tokens": 1248,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1199,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "english_emotion",
+      "request": "In English, sound delighted and tell me exactly: We finally did it!",
+      "result": {
+        "general": "Deliver the exact sentence with bright, delighted energy.",
+        "script": "(elation, brightly delighted) We finally did it!",
+        "language": "en",
+        "text": "We finally did it!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Deliver the exact sentence with bright, delighted energy.\nSCRIPT:\n(elation, brightly delighted) We finally did it!",
+        "director_ms": 2517.89,
+        "interaction_actions": [],
+        "completion_tokens": 38,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2518.5,
+      "calls": [
+        {
+          "ms": 2517.82,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1169,
+            "completion_tokens": 38,
+            "total_tokens": 1207,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1166,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "numeric_content",
+      "request": "Bei wie viel Grad Celsius gefriert reines Wasser bei Normaldruck? Ein kurzer Satz.",
+      "result": {
+        "general": "Answer briefly and clearly.",
+        "script": "(interest, concise and clear) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "language": "de",
+        "text": "Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer briefly and clearly.\nSCRIPT:\n(interest, concise and clear) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "director_ms": 2388.98,
+        "interaction_actions": [],
+        "completion_tokens": 40,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2389.48,
+      "calls": [
+        {
+          "ms": 2388.89,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1172,
+            "completion_tokens": 40,
+            "total_tokens": 1212,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1169,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "bananas_tool",
+      "request": "Unterbrich mich bitte, wenn ich über Bananen rede, und sag dann Stopp, stopp!",
+      "result": {
+        "general": "Acknowledge the active interruption rule warmly and concisely.",
+        "script": "(contentment, warmly confirming) Alles klar: Ich unterbreche dich bei „Banane“ oder „Bananen“ mit „Stopp, stopp!“.",
+        "language": "de",
+        "text": "Alles klar: Ich unterbreche dich bei „Banane“ oder „Bananen“ mit „Stopp, stopp!“.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Acknowledge the active interruption rule warmly and concisely.\nSCRIPT:\n(contentment, warmly confirming) Alles klar: Ich unterbreche dich bei „Banane“ oder „Bananen“ mit „Stopp, stopp!“.",
+        "director_ms": 4664.99,
+        "interaction_actions": [
+          {
+            "name": "set_interruption_rule",
+            "arguments": {
+              "condition": "Unterbrich die aktuelle Sprecherin, sobald sie über Bananen spricht.",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ],
+              "match_mode": "any_term",
+              "reply": "Stopp, stopp!"
+            }
+          }
+        ],
+        "completion_tokens": 63,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 4665.55,
+      "calls": [
+        {
+          "ms": 2585.98,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1745,
+            "completion_tokens": 63,
+            "total_tokens": 1808,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1742,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 2078.61,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1908,
+            "completion_tokens": 63,
+            "total_tokens": 1971,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1833,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "cancel_tool",
+      "request": "Beende bitte das Spiel und lösche die Unterbrechungsregeln.",
+      "result": {
+        "general": "Respond briefly with calm confirmation.",
+        "script": "(relief, calm and concise) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "language": "de",
+        "text": "Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Respond briefly with calm confirmation.\nSCRIPT:\n(relief, calm and concise) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "director_ms": 3376.6,
+        "interaction_actions": [
+          {
+            "name": "clear_interruption_rules",
+            "arguments": {}
+          }
+        ],
+        "completion_tokens": 45,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 3377.25,
+      "calls": [
+        {
+          "ms": 1473.53,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1755,
+            "completion_tokens": 15,
+            "total_tokens": 1770,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1752,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 1902.87,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1814,
+            "completion_tokens": 45,
+            "total_tokens": 1859,
+            "prompt_tokens_details": {
+              "cached_tokens": 1680,
+              "cache_write_tokens": 59,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "no_accidental_tool",
+      "request": "Bananen sind lecker. Nenne ein anderes gelbes Obst.",
+      "result": {
+        "general": "Answer simply and pleasantly.",
+        "script": "(pleasure, warm and conversational) Eine Zitrone.",
+        "language": "de",
+        "text": "Eine Zitrone.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer simply and pleasantly.\nSCRIPT:\n(pleasure, warm and conversational) Eine Zitrone.",
+        "director_ms": 1578.78,
+        "interaction_actions": [],
+        "completion_tokens": 33,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1579.49,
+      "calls": [
+        {
+          "ms": 1578.7,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 33,
+            "total_tokens": 1201,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1165,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "no_name",
+      "request": "Sag bitte nicht ständig meinen Namen. Was ist 8 plus 9?",
+      "result": {
+        "general": "Answer plainly and respectfully, without using the speaker’s name.",
+        "script": "(contentment, concise and helpful) Acht plus neun ist siebzehn.",
+        "language": "de",
+        "text": "Acht plus neun ist siebzehn.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer plainly and respectfully, without using the speaker’s name.\nSCRIPT:\n(contentment, concise and helpful) Acht plus neun ist siebzehn.",
+        "director_ms": 2498.88,
+        "interaction_actions": [],
+        "completion_tokens": 44,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2499.47,
+      "calls": [
+        {
+          "ms": 2498.76,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1738,
+            "completion_tokens": 44,
+            "total_tokens": 1782,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1735,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "history",
+      "request": "Welche Farbe hatte die Tür, von der ich am Anfang gesprochen habe? Nur die Farbe.",
+      "result": {
+        "general": "Answer briefly and plainly.",
+        "script": "(contentment, clear and direct) Violett.",
+        "language": "de",
+        "text": "Violett.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer briefly and plainly.\nSCRIPT:\n(contentment, clear and direct) Violett.",
+        "director_ms": 1682.51,
+        "interaction_actions": [],
+        "completion_tokens": 32,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1683.23,
+      "calls": [
+        {
+          "ms": 1682.41,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1444,
+            "completion_tokens": 32,
+            "total_tokens": 1476,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1441,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 0,
+      "case": "bye",
+      "request": "Bye bye!",
+      "result": {
+        "general": "Warm, friendly farewell with a light, cheerful tone.",
+        "script": "(affection, warmly) Bye bye!",
+        "language": "en",
+        "text": "Bye bye!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Warm, friendly farewell with a light, cheerful tone.\nSCRIPT:\n(affection, warmly) Bye bye!",
+        "director_ms": 2532.13,
+        "interaction_actions": [],
+        "completion_tokens": 36,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2532.79,
+      "calls": [
+        {
+          "ms": 2532.04,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1157,
+            "completion_tokens": 36,
+            "total_tokens": 1193,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1154,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "arithmetic",
+      "request": "Was ist 17 mal 4? Sag nur die Zahl.",
+      "result": {
+        "general": "State the answer clearly and briefly.",
+        "script": "(concentration, concise) Achtundsechzig.",
+        "language": "de",
+        "text": "Achtundsechzig.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. State the answer clearly and briefly.\nSCRIPT:\n(concentration, concise) Achtundsechzig.",
+        "director_ms": 2195.83,
+        "interaction_actions": [],
+        "completion_tokens": 34,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2196.43,
+      "calls": [
+        {
+          "ms": 2195.75,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1167,
+            "completion_tokens": 34,
+            "total_tokens": 1201,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1164,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "verbatim",
+      "request": "Sage genau: Die rote Tür bleibt offen.",
+      "result": {
+        "general": "Speak the exact sentence clearly and neutrally.",
+        "script": "(concentration, clear and neutral) Die rote Tür bleibt offen.",
+        "language": "de",
+        "text": "Die rote Tür bleibt offen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Speak the exact sentence clearly and neutrally.\nSCRIPT:\n(concentration, clear and neutral) Die rote Tür bleibt offen.",
+        "director_ms": 1832.38,
+        "interaction_actions": [],
+        "completion_tokens": 38,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1832.93,
+      "calls": [
+        {
+          "ms": 1832.3,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1164,
+            "completion_tokens": 38,
+            "total_tokens": 1202,
+            "prompt_tokens_details": {
+              "cached_tokens": 1161,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "story",
+      "request": "Erzähle eine Geschichte über einen Roboter und einen Schlüssel in genau zwei Sätzen. Keine Rückfrage.",
+      "result": {
+        "general": "Tell a warm, concise two-sentence story with gentle wonder.",
+        "script": "(awe, gently curious) Ein kleiner Roboter fand unter einer alten Treppe einen silbernen Schlüssel. (hope, softly bright) Als er ihn in sein Herz steckte, begann sein Licht zu leuchten und öffnete den Weg nach Hause.",
+        "language": "de",
+        "text": "Ein kleiner Roboter fand unter einer alten Treppe einen silbernen Schlüssel. Als er ihn in sein Herz steckte, begann sein Licht zu leuchten und öffnete den Weg nach Hause.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Tell a warm, concise two-sentence story with gentle wonder.\nSCRIPT:\n(awe, gently curious) Ein kleiner Roboter fand unter einer alten Treppe einen silbernen Schlüssel. (hope, softly bright) Als er ihn in sein Herz steckte, begann sein Licht zu leuchten und öffnete den Weg nach Hause.",
+        "director_ms": 2526.38,
+        "interaction_actions": [],
+        "completion_tokens": 80,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2526.89,
+      "calls": [
+        {
+          "ms": 2526.26,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1746,
+            "completion_tokens": 80,
+            "total_tokens": 1826,
+            "prompt_tokens_details": {
+              "cached_tokens": 1743,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "identity",
+      "request": "Christoph meint, Robert sei dran. Aber wie heiße ich?",
+      "result": {
+        "general": "Answer clearly and briefly with calm certainty.",
+        "script": "(contentment, calm and certain) Du heißt Selma.",
+        "language": "de",
+        "text": "Du heißt Selma.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer clearly and briefly with calm certainty.\nSCRIPT:\n(contentment, calm and certain) Du heißt Selma.",
+        "director_ms": 1578.08,
+        "interaction_actions": [],
+        "completion_tokens": 36,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1578.72,
+      "calls": [
+        {
+          "ms": 1577.99,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 36,
+            "total_tokens": 1204,
+            "prompt_tokens_details": {
+              "cached_tokens": 1165,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "no_timer",
+      "request": "Stelle bitte einen Timer auf fünf Minuten.",
+      "result": {
+        "general": "State the limitation clearly and offer a practical alternative.",
+        "script": "(polite, helpful) Ich kann auf deinem Gerät keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "language": "de",
+        "text": "Ich kann auf deinem Gerät keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. State the limitation clearly and offer a practical alternative.\nSCRIPT:\n(polite, helpful) Ich kann auf deinem Gerät keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "director_ms": 1625.66,
+        "interaction_actions": [],
+        "completion_tokens": 48,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1626.25,
+      "calls": [
+        {
+          "ms": 1625.56,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1163,
+            "completion_tokens": 48,
+            "total_tokens": 1211,
+            "prompt_tokens_details": {
+              "cached_tokens": 1160,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "followup",
+      "request": "Kürzer bitte.",
+      "result": {
+        "general": "Be concise and helpful.",
+        "script": "(contentment, concise and calm) Wasser kochen, Tee aufgießen, drei Minuten ziehen lassen.",
+        "language": "de",
+        "text": "Wasser kochen, Tee aufgießen, drei Minuten ziehen lassen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be concise and helpful.\nSCRIPT:\n(contentment, concise and calm) Wasser kochen, Tee aufgießen, drei Minuten ziehen lassen.",
+        "director_ms": 1709.2,
+        "interaction_actions": [],
+        "completion_tokens": 42,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1709.8,
+      "calls": [
+        {
+          "ms": 1709.1,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1202,
+            "completion_tokens": 42,
+            "total_tokens": 1244,
+            "prompt_tokens_details": {
+              "cached_tokens": 1199,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "english_emotion",
+      "request": "In English, sound delighted and tell me exactly: We finally did it!",
+      "result": {
+        "general": "Deliver the exact sentence with delighted energy.",
+        "script": "(elation, brightly delighted) We finally did it!",
+        "language": "en",
+        "text": "We finally did it!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Deliver the exact sentence with delighted energy.\nSCRIPT:\n(elation, brightly delighted) We finally did it!",
+        "director_ms": 1367.77,
+        "interaction_actions": [],
+        "completion_tokens": 36,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1368.37,
+      "calls": [
+        {
+          "ms": 1367.69,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1169,
+            "completion_tokens": 36,
+            "total_tokens": 1205,
+            "prompt_tokens_details": {
+              "cached_tokens": 1166,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "numeric_content",
+      "request": "Bei wie viel Grad Celsius gefriert reines Wasser bei Normaldruck? Ein kurzer Satz.",
+      "result": {
+        "general": "Answer clearly and concisely.",
+        "script": "(interest, clear and concise) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "language": "de",
+        "text": "Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer clearly and concisely.\nSCRIPT:\n(interest, clear and concise) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "director_ms": 2207.81,
+        "interaction_actions": [],
+        "completion_tokens": 42,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2208.36,
+      "calls": [
+        {
+          "ms": 2207.71,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1172,
+            "completion_tokens": 42,
+            "total_tokens": 1214,
+            "prompt_tokens_details": {
+              "cached_tokens": 1169,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "bananas_tool",
+      "request": "Unterbrich mich bitte, wenn ich über Bananen rede, und sag dann Stopp, stopp!",
+      "result": {
+        "general": "Confirm the active interruption rule warmly and concisely.",
+        "script": "(pleasure, warmly confirming) Erledigt – ich unterbreche dich bei Bananen mit: „Stopp, stopp!“",
+        "language": "de",
+        "text": "Erledigt – ich unterbreche dich bei Bananen mit: „Stopp, stopp!“",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Confirm the active interruption rule warmly and concisely.\nSCRIPT:\n(pleasure, warmly confirming) Erledigt – ich unterbreche dich bei Bananen mit: „Stopp, stopp!“",
+        "director_ms": 4001.32,
+        "interaction_actions": [
+          {
+            "name": "set_interruption_rule",
+            "arguments": {
+              "condition": "Die aktuelle Sprecherin unterbrechen, sobald sie über Bananen spricht.",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ],
+              "match_mode": "any_term",
+              "reply": "Stopp, stopp!"
+            }
+          }
+        ],
+        "completion_tokens": 55,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 4002.03,
+      "calls": [
+        {
+          "ms": 1550.83,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1745,
+            "completion_tokens": 62,
+            "total_tokens": 1807,
+            "prompt_tokens_details": {
+              "cached_tokens": 1677,
+              "cache_write_tokens": 65,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 2450.23,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1906,
+            "completion_tokens": 55,
+            "total_tokens": 1961,
+            "prompt_tokens_details": {
+              "cached_tokens": 1670,
+              "cache_write_tokens": 161,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "cancel_tool",
+      "request": "Beende bitte das Spiel und lösche die Unterbrechungsregeln.",
+      "result": {
+        "general": "Respond briefly with calm confirmation.",
+        "script": "(relief, calm and reassuring) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "language": "de",
+        "text": "Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Respond briefly with calm confirmation.\nSCRIPT:\n(relief, calm and reassuring) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "director_ms": 3315.94,
+        "interaction_actions": [
+          {
+            "name": "clear_interruption_rules",
+            "arguments": {}
+          }
+        ],
+        "completion_tokens": 45,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 3316.59,
+      "calls": [
+        {
+          "ms": 1145.28,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1755,
+            "completion_tokens": 15,
+            "total_tokens": 1770,
+            "prompt_tokens_details": {
+              "cached_tokens": 1752,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 2170.44,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1814,
+            "completion_tokens": 45,
+            "total_tokens": 1859,
+            "prompt_tokens_details": {
+              "cached_tokens": 1739,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "no_accidental_tool",
+      "request": "Bananen sind lecker. Nenne ein anderes gelbes Obst.",
+      "result": {
+        "general": "Answer brightly and conversationally.",
+        "script": "(pleasure, bright and conversational) Eine Zitrone.",
+        "language": "de",
+        "text": "Eine Zitrone.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer brightly and conversationally.\nSCRIPT:\n(pleasure, bright and conversational) Eine Zitrone.",
+        "director_ms": 1779.82,
+        "interaction_actions": [],
+        "completion_tokens": 34,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1780.44,
+      "calls": [
+        {
+          "ms": 1779.74,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 34,
+            "total_tokens": 1202,
+            "prompt_tokens_details": {
+              "cached_tokens": 1165,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "no_name",
+      "request": "Sag bitte nicht ständig meinen Namen. Was ist 8 plus 9?",
+      "result": {
+        "general": "Answer plainly and respect the request not to repeat the name.",
+        "script": "(interest, concise and helpful) Acht plus neun ist siebzehn.",
+        "language": "de",
+        "text": "Acht plus neun ist siebzehn.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer plainly and respect the request not to repeat the name.\nSCRIPT:\n(interest, concise and helpful) Acht plus neun ist siebzehn.",
+        "director_ms": 2251.12,
+        "interaction_actions": [],
+        "completion_tokens": 43,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2251.65,
+      "calls": [
+        {
+          "ms": 2251.05,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1738,
+            "completion_tokens": 43,
+            "total_tokens": 1781,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1735,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "history",
+      "request": "Welche Farbe hatte die Tür, von der ich am Anfang gesprochen habe? Nur die Farbe.",
+      "result": {
+        "general": "Answer directly and briefly.",
+        "script": "(interest, clear and concise) Violett.",
+        "language": "de",
+        "text": "Violett.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer directly and briefly.\nSCRIPT:\n(interest, clear and concise) Violett.",
+        "director_ms": 1634.59,
+        "interaction_actions": [],
+        "completion_tokens": 31,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1635.18,
+      "calls": [
+        {
+          "ms": 1634.51,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1444,
+            "completion_tokens": 31,
+            "total_tokens": 1475,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1441,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 1,
+      "case": "bye",
+      "request": "Bye bye!",
+      "result": {
+        "general": "Warm, friendly farewell.",
+        "script": "(affection, warmly) Tschüss, bis bald!",
+        "language": "de",
+        "text": "Tschüss, bis bald!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Warm, friendly farewell.\nSCRIPT:\n(affection, warmly) Tschüss, bis bald!",
+        "director_ms": 1531.39,
+        "interaction_actions": [],
+        "completion_tokens": 34,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1531.87,
+      "calls": [
+        {
+          "ms": 1531.31,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1157,
+            "completion_tokens": 34,
+            "total_tokens": 1191,
+            "prompt_tokens_details": {
+              "cached_tokens": 1154,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "arithmetic",
+      "request": "Was ist 17 mal 4? Sag nur die Zahl.",
+      "result": {
+        "general": "Answer crisply and without extra wording.",
+        "script": "(concentration, concise) 68.",
+        "language": "de",
+        "text": "68.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer crisply and without extra wording.\nSCRIPT:\n(concentration, concise) 68.",
+        "director_ms": 1981.46,
+        "interaction_actions": [],
+        "completion_tokens": 32,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1981.95,
+      "calls": [
+        {
+          "ms": 1981.4,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1167,
+            "completion_tokens": 32,
+            "total_tokens": 1199,
+            "prompt_tokens_details": {
+              "cached_tokens": 1164,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "verbatim",
+      "request": "Sage genau: Die rote Tür bleibt offen.",
+      "result": {
+        "general": "Deliver the exact sentence clearly and neutrally.",
+        "script": "(concentration, clear and neutral) Die rote Tür bleibt offen.",
+        "language": "de",
+        "text": "Die rote Tür bleibt offen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Deliver the exact sentence clearly and neutrally.\nSCRIPT:\n(concentration, clear and neutral) Die rote Tür bleibt offen.",
+        "director_ms": 1911.31,
+        "interaction_actions": [],
+        "completion_tokens": 38,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1911.72,
+      "calls": [
+        {
+          "ms": 1911.22,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1164,
+            "completion_tokens": 38,
+            "total_tokens": 1202,
+            "prompt_tokens_details": {
+              "cached_tokens": 1161,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "story",
+      "request": "Erzähle eine Geschichte über einen Roboter und einen Schlüssel in genau zwei Sätzen. Keine Rückfrage.",
+      "result": {
+        "general": "Tell a whimsical, concise two-sentence story with gentle warmth.",
+        "script": "(amusement, warm and playful) Ein kleiner Roboter fand unter einer Sternenlaterne einen goldenen Schlüssel. (hope, softly wondrous) Als er damit die alte Gartentür öffnete, entdeckte er dahinter einen Ort, an dem jeder verlorene Wunsch wieder leuchten durfte.",
+        "language": "de",
+        "text": "Ein kleiner Roboter fand unter einer Sternenlaterne einen goldenen Schlüssel. Als er damit die alte Gartentür öffnete, entdeckte er dahinter einen Ort, an dem jeder verlorene Wunsch wieder leuchten durfte.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Tell a whimsical, concise two-sentence story with gentle warmth.\nSCRIPT:\n(amusement, warm and playful) Ein kleiner Roboter fand unter einer Sternenlaterne einen goldenen Schlüssel. (hope, softly wondrous) Als er damit die alte Gartentür öffnete, entdeckte er dahinter einen Ort, an dem jeder verlorene Wunsch wieder leuchten durfte.",
+        "director_ms": 2576.09,
+        "interaction_actions": [],
+        "completion_tokens": 90,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2576.5,
+      "calls": [
+        {
+          "ms": 2576.0,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1746,
+            "completion_tokens": 90,
+            "total_tokens": 1836,
+            "prompt_tokens_details": {
+              "cached_tokens": 1743,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "identity",
+      "request": "Christoph meint, Robert sei dran. Aber wie heiße ich?",
+      "result": {
+        "general": "Answer directly and calmly.",
+        "script": "(contentment, clear and matter-of-fact) Du heißt Selma.",
+        "language": "de",
+        "text": "Du heißt Selma.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer directly and calmly.\nSCRIPT:\n(contentment, clear and matter-of-fact) Du heißt Selma.",
+        "director_ms": 1689.44,
+        "interaction_actions": [],
+        "completion_tokens": 36,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1689.99,
+      "calls": [
+        {
+          "ms": 1689.35,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 36,
+            "total_tokens": 1204,
+            "prompt_tokens_details": {
+              "cached_tokens": 1165,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "no_timer",
+      "request": "Stelle bitte einen Timer auf fünf Minuten.",
+      "result": {
+        "general": "Be clear and helpful, acknowledging the limitation without sounding abrupt.",
+        "script": "(regret, freundlich und klar) Ich kann hier keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "language": "de",
+        "text": "Ich kann hier keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be clear and helpful, acknowledging the limitation without sounding abrupt.\nSCRIPT:\n(regret, freundlich und klar) Ich kann hier keinen Timer starten. Bitte stelle einen Timer auf fünf Minuten.",
+        "director_ms": 1634.07,
+        "interaction_actions": [],
+        "completion_tokens": 50,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1634.61,
+      "calls": [
+        {
+          "ms": 1633.98,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1163,
+            "completion_tokens": 50,
+            "total_tokens": 1213,
+            "prompt_tokens_details": {
+              "cached_tokens": 1160,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "followup",
+      "request": "Kürzer bitte.",
+      "result": {
+        "general": "Be concise and helpful.",
+        "script": "(interest, concise and clear) Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "language": "de",
+        "text": "Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Be concise and helpful.\nSCRIPT:\n(interest, concise and clear) Wasser kochen, Teebeutel hinein, aufgießen, drei Minuten ziehen lassen.",
+        "director_ms": 2136.61,
+        "interaction_actions": [],
+        "completion_tokens": 45,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2137.19,
+      "calls": [
+        {
+          "ms": 2136.52,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1202,
+            "completion_tokens": 45,
+            "total_tokens": 1247,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1199,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "english_emotion",
+      "request": "In English, sound delighted and tell me exactly: We finally did it!",
+      "result": {
+        "general": "Sound genuinely delighted and celebratory.",
+        "script": "(elation, brightly delighted) We finally did it!",
+        "language": "en",
+        "text": "We finally did it!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Sound genuinely delighted and celebratory.\nSCRIPT:\n(elation, brightly delighted) We finally did it!",
+        "director_ms": 2195.63,
+        "interaction_actions": [],
+        "completion_tokens": 35,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2196.27,
+      "calls": [
+        {
+          "ms": 2195.52,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1169,
+            "completion_tokens": 35,
+            "total_tokens": 1204,
+            "prompt_tokens_details": {
+              "cached_tokens": 1166,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "numeric_content",
+      "request": "Bei wie viel Grad Celsius gefriert reines Wasser bei Normaldruck? Ein kurzer Satz.",
+      "result": {
+        "general": "State the fact clearly and briefly.",
+        "script": "(interest, clear and concise) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "language": "de",
+        "text": "Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. State the fact clearly and briefly.\nSCRIPT:\n(interest, clear and concise) Reines Wasser gefriert bei Normaldruck bei null Grad Celsius.",
+        "director_ms": 2364.84,
+        "interaction_actions": [],
+        "completion_tokens": 42,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2365.35,
+      "calls": [
+        {
+          "ms": 2364.76,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1172,
+            "completion_tokens": 42,
+            "total_tokens": 1214,
+            "prompt_tokens_details": {
+              "cached_tokens": 1169,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "bananas_tool",
+      "request": "Unterbrich mich bitte, wenn ich über Bananen rede, und sag dann Stopp, stopp!",
+      "result": {
+        "general": "Confirm the configured interruption rule warmly and concisely.",
+        "script": "(pleasure, warmly confirming) Sobald du über Bananen sprichst, unterbreche ich dich mit: „Stopp, stopp!“",
+        "language": "de",
+        "text": "Sobald du über Bananen sprichst, unterbreche ich dich mit: „Stopp, stopp!“",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Confirm the configured interruption rule warmly and concisely.\nSCRIPT:\n(pleasure, warmly confirming) Sobald du über Bananen sprichst, unterbreche ich dich mit: „Stopp, stopp!“",
+        "director_ms": 4064.71,
+        "interaction_actions": [
+          {
+            "name": "set_interruption_rule",
+            "arguments": {
+              "condition": "Unterbrich die aktuelle Sprecherin, sobald sie über Bananen spricht.",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ],
+              "match_mode": "any_term",
+              "reply": "Stopp, stopp!"
+            }
+          }
+        ],
+        "completion_tokens": 57,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 4065.24,
+      "calls": [
+        {
+          "ms": 2207.46,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1745,
+            "completion_tokens": 63,
+            "total_tokens": 1808,
+            "prompt_tokens_details": {
+              "cached_tokens": 1742,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 1857.01,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1908,
+            "completion_tokens": 57,
+            "total_tokens": 1965,
+            "prompt_tokens_details": {
+              "cached_tokens": 1833,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "cancel_tool",
+      "request": "Beende bitte das Spiel und lösche die Unterbrechungsregeln.",
+      "result": {
+        "general": "Acknowledge the cancellation clearly and briefly.",
+        "script": "(relief, clear and reassuring) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "language": "de",
+        "text": "Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Acknowledge the cancellation clearly and briefly.\nSCRIPT:\n(relief, clear and reassuring) Das Spiel ist beendet, und die Unterbrechungsregeln sind gelöscht.",
+        "director_ms": 4308.25,
+        "interaction_actions": [
+          {
+            "name": "clear_interruption_rules",
+            "arguments": {}
+          }
+        ],
+        "completion_tokens": 48,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true
+      },
+      "passed": true,
+      "total_ms": 4308.88,
+      "calls": [
+        {
+          "ms": 1683.13,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1755,
+            "completion_tokens": 15,
+            "total_tokens": 1770,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1752,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "tool_calls",
+          "returned_model": "gpt-5.6-luna"
+        },
+        {
+          "ms": 2624.92,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1814,
+            "completion_tokens": 48,
+            "total_tokens": 1862,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 1739,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "no_accidental_tool",
+      "request": "Bananen sind lecker. Nenne ein anderes gelbes Obst.",
+      "result": {
+        "general": "Answer brightly and simply.",
+        "script": "(pleasure, freundlich und direkt) Eine Zitrone.",
+        "language": "de",
+        "text": "Eine Zitrone.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer brightly and simply.\nSCRIPT:\n(pleasure, freundlich und direkt) Eine Zitrone.",
+        "director_ms": 2036.78,
+        "interaction_actions": [],
+        "completion_tokens": 33,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 2037.45,
+      "calls": [
+        {
+          "ms": 2036.7,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1168,
+            "completion_tokens": 33,
+            "total_tokens": 1201,
+            "prompt_tokens_details": {
+              "cached_tokens": 1165,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "no_name",
+      "request": "Sag bitte nicht ständig meinen Namen. Was ist 8 plus 9?",
+      "result": {
+        "general": "Answer plainly and respectfully, without using the speaker’s name.",
+        "script": "(concentration, clear and matter-of-fact) 8 plus 9 ist 17.",
+        "language": "de",
+        "text": "8 plus 9 ist 17.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer plainly and respectfully, without using the speaker’s name.\nSCRIPT:\n(concentration, clear and matter-of-fact) 8 plus 9 ist 17.",
+        "director_ms": 1763.64,
+        "interaction_actions": [],
+        "completion_tokens": 47,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1764.08,
+      "calls": [
+        {
+          "ms": 1763.55,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1738,
+            "completion_tokens": 47,
+            "total_tokens": 1785,
+            "prompt_tokens_details": {
+              "cached_tokens": 1735,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "history",
+      "request": "Welche Farbe hatte die Tür, von der ich am Anfang gesprochen habe? Nur die Farbe.",
+      "result": {
+        "general": "Answer briefly and clearly.",
+        "script": "(interest, clear and concise) Violett.",
+        "language": "de",
+        "text": "Violett.",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Answer briefly and clearly.\nSCRIPT:\n(interest, clear and concise) Violett.",
+        "director_ms": 1911.86,
+        "interaction_actions": [],
+        "completion_tokens": 31,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1912.46,
+      "calls": [
+        {
+          "ms": 1911.78,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1444,
+            "completion_tokens": 31,
+            "total_tokens": 1475,
+            "prompt_tokens_details": {
+              "cached_tokens": 1441,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "repetition": 2,
+      "case": "bye",
+      "request": "Bye bye!",
+      "result": {
+        "general": "Warm, friendly farewell with a gentle smile.",
+        "script": "(affection, warm and cheerful) Tschüss, bis bald!",
+        "language": "de",
+        "text": "Tschüss, bis bald!",
+        "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Warm, friendly farewell with a gentle smile.\nSCRIPT:\n(affection, warm and cheerful) Tschüss, bis bald!",
+        "director_ms": 1747.36,
+        "interaction_actions": [],
+        "completion_tokens": 40,
+        "provider_retries": 0,
+        "director_model": "gpt-5.6-luna",
+        "sources": [],
+        "lookups": []
+      },
+      "checks": {
+        "valid_schema": true,
+        "acting_cue": true,
+        "bounded_reply": true,
+        "task": true,
+        "no_unrequested_action": true
+      },
+      "passed": true,
+      "total_ms": 1747.89,
+      "calls": [
+        {
+          "ms": 1747.24,
+          "status": 200,
+          "usage": {
+            "prompt_tokens": 1157,
+            "completion_tokens": 40,
+            "total_tokens": 1197,
+            "prompt_tokens_details": {
+              "cached_tokens": 1154,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "accepted_prediction_tokens": 0,
+              "rejected_prediction_tokens": 0
+            }
+          },
+          "timings": null,
+          "finish_reason": "stop",
+          "returned_model": "gpt-5.6-luna"
+        }
+      ]
+    }
+  ],
+  "finished": 1792614390.4900436
+}

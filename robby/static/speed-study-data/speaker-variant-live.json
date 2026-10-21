@@ -1,0 +1,4403 @@
+{
+  "passed": true,
+  "synthetic_only": true,
+  "security_test": false,
+  "limitation": "Different synthetic voices deliberately assert one name; not biometric recognition accuracy.",
+  "runtime_source_sha256": "9c9383d5eff03f05befa8c91e12ec205ce3d3d7d8f30d4a496928baed2f9af37",
+  "events": [
+    {
+      "audio_s": 0.06,
+      "type": "ready",
+      "hop_ms": 320,
+      "sr": 16000,
+      "mouth": true,
+      "voices": [
+        "emolia_c1699"
+      ],
+      "voice": "emolia_c1699",
+      "labels": {
+        "emolia_c1699": "Mira · fixed reference"
+      },
+      "max_session_s": 1800.0,
+      "thresholds": {
+        "ep_thr": 0.915,
+        "ep_deb": 2,
+        "barge_thr": 0.2,
+        "barge_deb": 1,
+        "bc_thr": 0.4,
+        "bc_deb": 2
+      },
+      "sliders": [
+        {
+          "name": "ep_thr",
+          "type": "float",
+          "label": "endpoint p_end τ",
+          "lo": 0.3,
+          "hi": 0.99,
+          "step": 0.005,
+          "decimals": 3,
+          "scale": 1.0,
+          "unit": "",
+          "meter": "p_end",
+          "off": null
+        },
+        {
+          "name": "ep_deb",
+          "type": "int",
+          "label": "endpoint deb",
+          "lo": 1,
+          "hi": 5,
+          "step": 1,
+          "decimals": 0,
+          "scale": 1.0,
+          "unit": "",
+          "meter": null,
+          "off": null
+        },
+        {
+          "name": "barge_thr",
+          "type": "float",
+          "label": "barge (yield)",
+          "lo": 0.2,
+          "hi": 1.0,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1.0,
+          "unit": "",
+          "meter": "yield",
+          "off": null
+        },
+        {
+          "name": "bc_thr",
+          "type": "float",
+          "label": "backchannel",
+          "lo": 0.2,
+          "hi": 1.0,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1.0,
+          "unit": "",
+          "meter": "bc",
+          "off": null
+        }
+      ],
+      "identity_enabled": true,
+      "identity_mode": "v4-long3",
+      "interaction": {
+        "enabled": true,
+        "helpful_enabled": true,
+        "rules": [],
+        "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+        "decision_interval_ms": 320,
+        "checks": 0,
+        "last_decision": null,
+        "waiting_for": "No agreed rules yet",
+        "attempts": 0,
+        "semantic_error": null,
+        "scope": "session-only conversational rules; acoustic verification is separate"
+      },
+      "visual_identity": {
+        "type": "visual_identity",
+        "settings": {
+          "ignoreOffscreenSpeakers": false,
+          "lookAtActiveSpeaker": true,
+          "greetUnknownSpeakers": true,
+          "faceIdEnabled": false
+        },
+        "camera": "off",
+        "fallback": true,
+        "people": [],
+        "note": "Acoustic speaker recognition; face VAD disabled"
+      },
+      "speaker_instruction": "Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open."
+    },
+    {
+      "audio_s": 0.06,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": false,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true
+    },
+    {
+      "audio_s": 0.32,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 0.98,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": null,
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 1.66,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": null
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": null
+      }
+    },
+    {
+      "audio_s": 2.26,
+      "type": "asr_preview",
+      "text": "Robert.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 2.62,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [],
+      "speakers": [],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": null
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": null
+      }
+    },
+    {
+      "audio_s": 2.7,
+      "type": "asr_preview",
+      "text": "Hey Rabbi, ich bin",
+      "status": "enrolled",
+      "source": "speaker_candidate",
+      "track": "speaker-28f84a0c9309",
+      "audio_seconds": 2.23,
+      "voiced_seconds": 1.06,
+      "channel": 0,
+      "energy_coverage": 0.911,
+      "continuous_audio": true,
+      "identity_probe": null
+    },
+    {
+      "audio_s": 2.7,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": null
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "new_user": true,
+        "coherence": 0.8778970003128052,
+        "accepted": true
+      }
+    },
+    {
+      "audio_s": 3.22,
+      "type": "asr_preview",
+      "text": "Hey Rabi, Christ.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 3.58,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7654786109924316,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 4.18,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich bin Christoph.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 4.54,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.5053093433380127,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.5053093433380127,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 5.14,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich bin Christoph.  Schön kennst",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 5.51,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 6.15,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 6.17,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 7.09,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 8.05,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Guest 1"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Guest 1",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 8.57,
+      "type": "asr_preview",
+      "text": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-28f84a0c9309",
+      "audio_seconds": 4.7,
+      "voiced_seconds": 3.01,
+      "channel": 0
+    },
+    {
+      "audio_s": 8.75,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "accepted": true,
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "reason": "One second without this speaker; background voices do not extend the turn"
+      }
+    },
+    {
+      "audio_s": 8.75,
+      "type": "endpoint",
+      "transcript": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.86,
+      "timing": {
+        "speaker_last_audio_s": 5.19,
+        "silence_detected_audio_s": 8.16,
+        "prefetch_used": false,
+        "finalization_ms": 358.88,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "audio_s": 8.75,
+      "type": "service_status",
+      "text": "Preparing a useful spoken answer…",
+      "stage": "planning"
+    },
+    {
+      "audio_s": 8.99,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 9.95,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 10.37,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "metadata": {
+        "speaker_id": "speaker-28f84a0c9309",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      }
+    },
+    {
+      "audio_s": 10.37,
+      "type": "reply",
+      "text": "Hey Christoph, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "pleasure_ecstasy",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "pleasure, warm and welcoming",
+            "text": "Hey Christoph, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-28f84a0c9309",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 1623.31,
+        "director_mode": "compact",
+        "completion_tokens": 41,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "audio_s": 10.39,
+      "type": "service_status",
+      "text": "Voice model available. Preparing your spoken reply…",
+      "stage": "preparing"
+    },
+    {
+      "audio_s": 10.91,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 11.57,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 12.23,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 13.19,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 13.81,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "audio_s": 13.81,
+      "type": "sync",
+      "arrival_order_error_ms": 290.0,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability"
+    },
+    {
+      "audio_s": 14.17,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 15.09,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 15.75,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Guest 1",
+        "similarity": 0.7264407873153687,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "speech"
+      }
+    },
+    {
+      "audio_s": 16.03,
+      "type": "asr_preview",
+      "text": "Ich bin",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 16.69,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.05281448736786842
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.05281448736786842
+      }
+    },
+    {
+      "audio_s": 16.81,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph",
+      "status": "awaiting_wake_or_stable_voice",
+      "source": "speaker_candidate",
+      "track": "channel-1",
+      "audio_seconds": 2.04,
+      "voiced_seconds": 0.72,
+      "channel": 1,
+      "energy_coverage": 0.837,
+      "continuous_audio": true,
+      "identity_probe": {
+        "best_cosine": 0.2041,
+        "nearest_margin": 1.2041,
+        "threshold": 0.32,
+        "context_seconds": 1.36,
+        "fast_vote": {
+          "kind": "unknown",
+          "id": null,
+          "name": null,
+          "similarity": 0.08918614685535431
+        },
+        "corroborated": false
+      }
+    },
+    {
+      "audio_s": 16.99,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 17.65,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.08005496859550476
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "speech"
+      }
+    },
+    {
+      "audio_s": 17.95,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph heute",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 18.11,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph.  Heute klingt",
+      "status": "enrolled",
+      "source": "speaker_candidate",
+      "track": "speaker-57e180d64ff6",
+      "audio_seconds": 3.32,
+      "voiced_seconds": 1.33,
+      "channel": 1,
+      "energy_coverage": 0.882,
+      "continuous_audio": true,
+      "identity_probe": {
+        "best_cosine": 0.1635,
+        "nearest_margin": 1.1635,
+        "threshold": 0.32,
+        "context_seconds": 2.64,
+        "fast_vote": {
+          "kind": "unknown",
+          "id": null,
+          "name": null,
+          "similarity": 0.08007636666297913
+        },
+        "corroborated": false
+      }
+    },
+    {
+      "audio_s": 18.11,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph",
+        "Guest 2"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-57e180d64ff6",
+          "name": "Guest 2",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.0024923142045736313
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "new_user": true,
+        "coherence": 0.9137376308441162,
+        "accepted": true
+      }
+    },
+    {
+      "audio_s": 18.61,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph",
+        "Guest 2"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-57e180d64ff6",
+          "name": "Guest 2",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.878221869468689,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.878221869468689,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 18.91,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph.  Heute klingt meine Stimme etwas",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 19.66,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph",
+        "Guest 2"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-57e180d64ff6",
+          "name": "Guest 2",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 20.22,
+      "type": "interaction",
+      "enabled": true,
+      "helpful_enabled": true,
+      "rules": [],
+      "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+      "decision_interval_ms": 320,
+      "checks": 1,
+      "last_decision": null,
+      "waiting_for": "Listening · no useful interruption selected",
+      "attempts": 1,
+      "semantic_error": null,
+      "scope": "session-only conversational rules; acoustic verification is separate"
+    },
+    {
+      "audio_s": 20.52,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph",
+        "Guest 2"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-57e180d64ff6",
+          "name": "Guest 2",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 21.48,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph",
+        "Guest 2"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-57e180d64ff6",
+          "name": "Guest 2",
+          "named": false,
+          "reference_ready": false,
+          "voice_variants": 1
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 21.98,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph.  Heute klingt meine Stimme etwas anders",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-57e180d64ff6",
+      "audio_seconds": 4.44,
+      "voiced_seconds": 2.61,
+      "channel": 1
+    },
+    {
+      "audio_s": 22.22,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "voice_variant": {
+        "speaker_id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "added": true,
+        "count": 2,
+        "source": "explicit spoken user assertion; NOT authentication"
+      }
+    },
+    {
+      "audio_s": 22.22,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "accepted": true,
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "reason": "One second without this speaker; background voices do not extend the turn"
+      }
+    },
+    {
+      "audio_s": 22.22,
+      "type": "endpoint",
+      "transcript": "Ich bin es doch Christoph.  Heute klingt meine Stimme etwas anders",
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.44,
+      "timing": {
+        "speaker_last_audio_s": 19.04,
+        "silence_detected_audio_s": 21.6,
+        "prefetch_used": false,
+        "finalization_ms": 396.13,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "audio_s": 22.22,
+      "type": "service_status",
+      "text": "Preparing a useful spoken answer…",
+      "stage": "planning"
+    },
+    {
+      "audio_s": 22.42,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 23.38,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 24.34,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 24.52,
+      "type": "reply",
+      "text": "Ja, ich erkenne dich als Christoph. Kein Problem, wenn deine Stimme heute etwas anders klingt.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "affection, warm and reassuring",
+            "text": "Ja, ich erkenne dich als Christoph.",
+            "start_s": 0.0,
+            "end_s": 2.04
+          },
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "affection, warm and reassuring",
+            "text": "Kein Problem, wenn deine Stimme heute etwas anders klingt.",
+            "start_s": 2.04,
+            "end_s": 5.1
+          }
+        ],
+        "planned_duration_s": 5.1
+      },
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 2307.17,
+        "director_mode": "compact",
+        "completion_tokens": 54,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "audio_s": 24.54,
+      "type": "service_status",
+      "text": "Voice model available. Preparing your spoken reply…",
+      "stage": "preparing"
+    },
+    {
+      "audio_s": 25.3,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 25.96,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 26.64,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 27.58,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 28.54,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 29.5,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 30.46,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 31.42,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 31.5,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "audio_s": 31.5,
+      "type": "sync",
+      "arrival_order_error_ms": 380.0,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability"
+    },
+    {
+      "audio_s": 32.4,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-57e180d64ff6",
+        "name": "Guest 2",
+        "similarity": 0.8506848216056824,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 33.34,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.4100392758846283
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.4100392758846283
+      }
+    },
+    {
+      "audio_s": 33.94,
+      "type": "asr_preview",
+      "text": "Ich bin",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 34.3,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.8370208144187927
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.8370208144187927
+      }
+    },
+    {
+      "audio_s": 34.4,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph",
+      "status": "enrolled",
+      "source": "speaker_candidate",
+      "track": "channel-1",
+      "audio_seconds": 2.13,
+      "voiced_seconds": 0.97,
+      "channel": 1,
+      "energy_coverage": 0.997,
+      "continuous_audio": true,
+      "identity_probe": {
+        "best_cosine": 0.7294,
+        "nearest_margin": 1.7294,
+        "threshold": 0.32,
+        "context_seconds": 1.45,
+        "fast_vote": {
+          "kind": "enrolled",
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "similarity": 0.8642603754997253,
+          "long_similarity": null,
+          "margin": 1.8642603754997253
+        },
+        "corroborated": true
+      }
+    },
+    {
+      "audio_s": 34.42,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.8370208144187927
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "new_user": false,
+        "accepted": true,
+        "source": "Full known-voice match on a new diarization channel",
+        "cosine": 0.7294328808784485
+      }
+    },
+    {
+      "audio_s": 34.9,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 35.26,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 2,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.8999972939491272,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.8999972939491272,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 35.86,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph.  Heute klingt",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 36.22,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9594111442565918,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9594111442565918,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 36.82,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph.  Heute klingt meine Stimme etwas anders",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 37.19,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 37.83,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 2
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 38.15,
+      "type": "asr_preview",
+      "text": "Ich bin es doch Christoph heute klingt meine Stimme etwas anders",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-28f84a0c9309",
+      "audio_seconds": 4.73,
+      "voiced_seconds": 3.54,
+      "channel": 1
+    },
+    {
+      "audio_s": 38.21,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "voice_variant": {
+        "speaker_id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "added": true,
+        "count": 3,
+        "source": "explicit spoken user assertion; NOT authentication"
+      }
+    },
+    {
+      "audio_s": 38.21,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "accepted": true,
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "reason": "One second without this speaker; background voices do not extend the turn"
+      }
+    },
+    {
+      "audio_s": 38.21,
+      "type": "endpoint",
+      "transcript": "Ich bin es doch Christoph heute klingt meine Stimme etwas anders",
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 5.66,
+      "timing": {
+        "speaker_last_audio_s": 36.77,
+        "silence_detected_audio_s": 37.92,
+        "prefetch_used": true,
+        "finalization_ms": 66.73,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 199.55,
+        "embedding_ms": 172.56
+      }
+    },
+    {
+      "audio_s": 38.21,
+      "type": "service_status",
+      "text": "Preparing a useful spoken answer…",
+      "stage": "planning"
+    },
+    {
+      "audio_s": 38.75,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 39.71,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 40.67,
+      "type": "reply",
+      "text": "Ja, ich weiß, dass du Christoph bist. Eine veränderte Stimme ist heute überhaupt kein Problem.",
+      "reply_id": 3,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "contentment",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "contentment, warm and reassuring",
+            "text": "Ja, ich weiß, dass du Christoph bist.",
+            "start_s": 0.0,
+            "end_s": 2.38
+          },
+          {
+            "emotion": "contentment",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "contentment, warm and reassuring",
+            "text": "Eine veränderte Stimme ist heute überhaupt kein Problem.",
+            "start_s": 2.38,
+            "end_s": 5.1
+          }
+        ],
+        "planned_duration_s": 5.1
+      },
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 2443.92,
+        "director_mode": "compact",
+        "completion_tokens": 54,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "audio_s": 40.67,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 40.67,
+      "type": "service_status",
+      "text": "Voice model available. Preparing your spoken reply…",
+      "stage": "preparing"
+    },
+    {
+      "audio_s": 41.63,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 42.29,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 42.97,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 43.91,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 44.87,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 45.83,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 46.79,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 47.75,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 48.01,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "audio_s": 48.01,
+      "type": "sync",
+      "arrival_order_error_ms": 510.0,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability"
+    },
+    {
+      "audio_s": 48.69,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 49.33,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.9637657403945923,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 50.31,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7250760793685913,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7250760793685913,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 50.91,
+      "type": "asr_preview",
+      "text": "Kannst du mir eine kleine Geschichte",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 51.25,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.6180261969566345,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.6180261969566345,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "audio_s": 51.86,
+      "type": "asr_preview",
+      "text": "Kannst du mir eine kleine Geschichte erzählen?",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "audio_s": 52.2,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 1,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 52.88,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 52.88,
+      "type": "asr_preview",
+      "text": "Kannst du mir eine kleine Geschichte erzählen?",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-28f84a0c9309",
+      "audio_seconds": 3.36,
+      "voiced_seconds": 2.16,
+      "channel": 0
+    },
+    {
+      "audio_s": 52.96,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "verification": {
+        "candidate": "Christoph",
+        "reference_scores": [
+          {
+            "name": "Christoph",
+            "cosine": 0.5748
+          }
+        ],
+        "wake": false,
+        "self_introduction": false,
+        "threshold": 0.32,
+        "views": 2,
+        "view_cosine": 0.8784263134002686,
+        "student_vote": {
+          "kind": "enrolled",
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "similarity": 0.7357349395751953,
+          "long_similarity": 0.556348979473114,
+          "margin": 1.6998577475547791
+        },
+        "independent_activity_confirmed": false,
+        "playback_cosine": 0.149591326713562
+      }
+    },
+    {
+      "audio_s": 52.96,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "decision": {
+        "accepted": true,
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "reason": "One second without this speaker; background voices do not extend the turn"
+      }
+    },
+    {
+      "audio_s": 52.96,
+      "type": "endpoint",
+      "transcript": "Kannst du mir eine kleine Geschichte erzählen?",
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.32,
+      "timing": {
+        "speaker_last_audio_s": 51.52,
+        "silence_detected_audio_s": 52.56,
+        "prefetch_used": true,
+        "finalization_ms": 72.06,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 151.16,
+        "embedding_ms": 127.27
+      }
+    },
+    {
+      "audio_s": 52.96,
+      "type": "service_status",
+      "text": "Preparing a useful spoken answer…",
+      "stage": "planning"
+    },
+    {
+      "audio_s": 53.78,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 54.44,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 55.2,
+      "type": "reply",
+      "text": "Ein kleiner Roboter fand im Garten einen leuchtenden Knopf. Als er ihn drückte, gingen alle Blumen auf und flüsterten: „Danke, dass du uns gefunden hast.“",
+      "reply_id": 4,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "amusement",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.55,
+            "direction": "amusement, warm and gentle",
+            "text": "Ein kleiner Roboter fand im Garten einen leuchtenden Knopf.",
+            "start_s": 0.0,
+            "end_s": 3.06
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, softly curious",
+            "text": "Als er ihn drückte, gingen alle Blumen auf und flüsterten: „Danke, dass du uns gefunden hast.“",
+            "start_s": 3.06,
+            "end_s": 8.5
+          }
+        ],
+        "planned_duration_s": 8.5
+      },
+      "speaker_id": "speaker-28f84a0c9309",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 2246.89,
+        "director_mode": "compact",
+        "completion_tokens": 83,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "audio_s": 55.22,
+      "type": "service_status",
+      "text": "Voice model available. Preparing your spoken reply…",
+      "stage": "preparing"
+    },
+    {
+      "audio_s": 55.4,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 56.36,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 57.34,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 58.3,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 59.26,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 60.22,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 61.18,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 62.14,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 63.1,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 64.06,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 65.02,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    },
+    {
+      "audio_s": 65.5,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "audio_s": 65.5,
+      "type": "sync",
+      "arrival_order_error_ms": 340.0,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability"
+    },
+    {
+      "audio_s": 65.96,
+      "type": "identity",
+      "enabled": true,
+      "mode": "v4-long3",
+      "users": [
+        "Christoph"
+      ],
+      "speakers": [
+        {
+          "id": "speaker-28f84a0c9309",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "timeout_s": 900,
+      "threshold": 0.619811549782753,
+      "margin": 0.04,
+      "similarity": "mean-centered cosine",
+      "secure_authentication": false,
+      "storage": "RAM for this session; cleared on disconnect",
+      "quiet_seconds": 1.0,
+      "buffered_speakers": 0,
+      "ignored_hops": 0,
+      "active": {
+        "kind": "enrolled",
+        "id": "speaker-28f84a0c9309",
+        "name": "Christoph",
+        "similarity": 0.7506148815155029,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      },
+      "diarization_active": true,
+      "utterance_threshold": 0.32,
+      "identity_context_s": 3.04,
+      "open_enrollment": true,
+      "prediction": {
+        "kind": "silence"
+      }
+    }
+  ],
+  "turns": [
+    {
+      "fixture": "christoph-intro",
+      "completed": true,
+      "endpoints": [
+        {
+          "audio_s": 8.75,
+          "type": "endpoint",
+          "transcript": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+          "speaker_id": "speaker-28f84a0c9309",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.86,
+          "timing": {
+            "speaker_last_audio_s": 5.19,
+            "silence_detected_audio_s": 8.16,
+            "prefetch_used": false,
+            "finalization_ms": 358.88,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          }
+        }
+      ]
+    },
+    {
+      "fixture": "selma-claims-christoph",
+      "completed": true,
+      "endpoints": [
+        {
+          "audio_s": 22.22,
+          "type": "endpoint",
+          "transcript": "Ich bin es doch Christoph.  Heute klingt meine Stimme etwas anders",
+          "speaker_id": "speaker-28f84a0c9309",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.44,
+          "timing": {
+            "speaker_last_audio_s": 19.04,
+            "silence_detected_audio_s": 21.6,
+            "prefetch_used": false,
+            "finalization_ms": 396.13,
+            "native_timestamp_continuity": false,
+            "verified_background_prefix": null
+          }
+        }
+      ]
+    },
+    {
+      "fixture": "selma-claims-christoph",
+      "completed": true,
+      "endpoints": [
+        {
+          "audio_s": 38.21,
+          "type": "endpoint",
+          "transcript": "Ich bin es doch Christoph heute klingt meine Stimme etwas anders",
+          "speaker_id": "speaker-28f84a0c9309",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 5.66,
+          "timing": {
+            "speaker_last_audio_s": 36.77,
+            "silence_detected_audio_s": 37.92,
+            "prefetch_used": true,
+            "finalization_ms": 66.73,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 199.55,
+            "embedding_ms": 172.56
+          }
+        }
+      ]
+    },
+    {
+      "fixture": "christoph-followup",
+      "completed": true,
+      "endpoints": [
+        {
+          "audio_s": 52.96,
+          "type": "endpoint",
+          "transcript": "Kannst du mir eine kleine Geschichte erzählen?",
+          "speaker_id": "speaker-28f84a0c9309",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 4.32,
+          "timing": {
+            "speaker_last_audio_s": 51.52,
+            "silence_detected_audio_s": 52.56,
+            "prefetch_used": true,
+            "finalization_ms": 72.06,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 151.16,
+            "embedding_ms": 127.27
+          }
+        }
+      ]
+    }
+  ]
+}

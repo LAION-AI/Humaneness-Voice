@@ -1,0 +1,1971 @@
+{
+  "command": "christoph-stop-speaking",
+  "authorized": true,
+  "other_enrolled": false,
+  "long_reading": true,
+  "feedback_enabled": true,
+  "passed": false,
+  "reading_words": 86,
+  "playback_before_command_s": 6.020000000000003,
+  "command_start_s": 40.78,
+  "command_duration_s": 3.07,
+  "interruption_latency_s": 2.280000000000001,
+  "interrupted": true,
+  "stop_acknowledged": true,
+  "new_spoken_replies": 0,
+  "actual_streamed_tts": true,
+  "feedback_events": [],
+  "events": [
+    {
+      "at_s": 8.99,
+      "phase": "intro",
+      "type": "endpoint",
+      "transcript": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-ed1c68c81bd7",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.83,
+      "timing": {
+        "speaker_last_audio_s": 5.76,
+        "silence_detected_audio_s": 8.4,
+        "prefetch_used": false,
+        "finalization_ms": 288.35,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "at_s": 9.63,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 9.6,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 9.95,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 9.92,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 10.29,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.24,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 10.59,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.56,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 10.91,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.88,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 11.25,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.2,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 11.33,
+      "phase": "intro",
+      "type": "reply",
+      "text": "Hallo Christoph, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "affection, warm and welcoming",
+            "text": "Hallo Christoph, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-ed1c68c81bd7",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-ed1c68c81bd7",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 2348.02,
+        "director_mode": "compact",
+        "completion_tokens": 41,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "at_s": 11.55,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.52,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 11.87,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.84,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 12.23,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.16,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 12.51,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.48,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 12.85,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.8,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 13.19,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.0981593057513237,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.0981593057513237,
+        "candidate_margin": 0.9018406942486763
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 13.47,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 13.44,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.221,
+          "onset_s": 0.72
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.255,
+          "onset_s": 0.72
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 13.51,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.44,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.12340077012777328,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.12340077012777328,
+        "candidate_margin": 0.8765992298722267
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 13.51,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.42,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.12340077012777328,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.12340077012777328,
+        "candidate_margin": 0.8765992298722267
+      }
+    },
+    {
+      "at_s": 13.57,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.44,
+      "text": "",
+      "views": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "at_s": 13.79,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 13.76,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.225,
+          "onset_s": 1.04
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.211,
+          "onset_s": 1.04
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 13.81,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.76,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.17736226320266724,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.17736226320266724,
+        "candidate_margin": 0.8226377367973328
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 13.87,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.76,
+      "text": "",
+      "views": [
+        "doch schön.",
+        "",
+        ""
+      ]
+    },
+    {
+      "at_s": 13.91,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.0006120363250374794,
+      "bot_cosine": 0.5725934505462646,
+      "margin": -0.5719814142212272,
+      "evidence_seconds": 0.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.15,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 14.08,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.18304303288459778,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.18304303288459778,
+        "candidate_margin": 0.8169569671154022
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 14.21,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.08,
+      "text": "",
+      "views": [
+        "schön kennst.",
+        "",
+        ""
+      ]
+    },
+    {
+      "at_s": 14.25,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.07647328823804855,
+      "bot_cosine": 0.8669453859329224,
+      "margin": -0.7904720976948738,
+      "evidence_seconds": 1.3,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9945422580801435,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.43,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 14.4,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.256,
+          "onset_s": 1.68
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.3,
+          "onset_s": 1.68
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.362,
+          "onset_s": 1.68
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 14.45,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 14.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.18641191720962524,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.18641191720962524,
+        "candidate_margin": 0.8135880827903748
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 14.51,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.4,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 14.55,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.09806692600250244,
+      "bot_cosine": 0.9416812062263489,
+      "margin": -0.8436142802238464,
+      "evidence_seconds": 1.63,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9933491193879287,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.65,
+      "phase": "intro",
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "at_s": 27.58,
+      "phase": "request",
+      "type": "endpoint",
+      "transcript": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "speaker_id": "speaker-ed1c68c81bd7",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 9.67,
+      "timing": {
+        "speaker_last_audio_s": 26.15,
+        "silence_detected_audio_s": 27.36,
+        "prefetch_used": true,
+        "finalization_ms": 0.51,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 271.13,
+        "embedding_ms": 236.31
+      }
+    },
+    {
+      "at_s": 28.18,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.16,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 28.52,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.48,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 28.82,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.8,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 29.14,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.12,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 29.48,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.44,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 29.78,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.76,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 30.1,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.08,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 30.44,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.4,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 30.74,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.72,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 31.06,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.04,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 31.4,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.36,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 31.7,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.68,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 32.04,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.0,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 32.36,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.32,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 32.66,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.64,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 32.98,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.96,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 33.32,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.28,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 33.42,
+      "phase": "request",
+      "type": "reply",
+      "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse. Ungefähr achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum. Einige Arten und Hybriden tragen essbare Früchte. Dessertbananen werden weltweit als Obst angebaut und roh gegessen. Kochbananen dagegen dienen in vielen tropischen Ländern als Grundnahrungsmittel und werden meist gekocht, gebraten oder gebacken. Die Banane ist botanisch gesehen eine Beere und wächst an großen, krautigen Pflanzen, nicht an Bäumen. Wikipedia beschreibt sie außerdem als eine der weltweit am häufigsten verzehrten Früchte.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse.",
+            "start_s": 0.0,
+            "end_s": 3.74
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, klar erklärend",
+            "text": "Ungefähr achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum.",
+            "start_s": 3.74,
+            "end_s": 8.84
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, informativ",
+            "text": "Einige Arten und Hybriden tragen essbare Früchte.",
+            "start_s": 8.84,
+            "end_s": 11.22
+          },
+          {
+            "emotion": "contentment",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "contentment, freundlich erklärend",
+            "text": "Dessertbananen werden weltweit als Obst angebaut und roh gegessen.",
+            "start_s": 11.22,
+            "end_s": 14.28
+          },
+          {
+            "emotion": "contentment",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "contentment, freundlich erklärend",
+            "text": "Kochbananen dagegen dienen in vielen tropischen Ländern als Grundnahrungsmittel und werden meist gekocht, gebraten oder gebacken.",
+            "start_s": 14.28,
+            "end_s": 19.72
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig",
+            "text": "Die Banane ist botanisch gesehen eine Beere und wächst an großen, krautigen Pflanzen, nicht an Bäumen.",
+            "start_s": 19.72,
+            "end_s": 25.16
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig",
+            "text": "Wikipedia beschreibt sie außerdem als eine der weltweit am häufigsten verzehrten Früchte.",
+            "start_s": 25.16,
+            "end_s": 29.24
+          }
+        ],
+        "planned_duration_s": 29.24
+      },
+      "speaker_id": "speaker-ed1c68c81bd7",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 5838.44,
+        "director_mode": "compact",
+        "completion_tokens": 214,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [
+        {
+          "title": "Bananen",
+          "url": "https://de.wikipedia.org/wiki/Bananen",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Banane",
+          "url": "https://de.wikipedia.org/wiki/Banane",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Dessertbanane",
+          "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+          "publisher": "Wikipedia"
+        }
+      ],
+      "lookups": [
+        {
+          "tool": "search_wikipedia",
+          "ms": 326.82,
+          "error": null,
+          "cache_hit": false,
+          "retrieved_at": "2026-10-21T21:27:45.318440+00:00"
+        }
+      ]
+    },
+    {
+      "at_s": 33.62,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.6,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 33.94,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.92,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 34.28,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.24,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 34.58,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.56,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 34.9,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.88,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 35.28,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.2,
+      "fast_vote": {},
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 35.54,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 35.52,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.21,
+          "onset_s": 0.32
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 35.58,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.52,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.3319615423679352,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.3319615423679352,
+        "candidate_margin": 0.6680384576320648
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 35.58,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.52,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 35.58,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.18,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.3319615423679352,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.3319615423679352,
+        "candidate_margin": 0.6680384576320648
+      }
+    },
+    {
+      "at_s": 35.88,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 35.84,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.215,
+          "onset_s": 0.64
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.217,
+          "onset_s": 0.64
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.226,
+          "onset_s": 0.64
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 35.9,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.84,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.34031522274017334,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.34031522274017334,
+        "candidate_margin": 0.6596847772598267
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 35.9,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.84,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 36.02,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.06394979357719421,
+      "bot_cosine": 0.3864937424659729,
+      "margin": -0.3225439488887787,
+      "evidence_seconds": 0.67,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 36.18,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 36.16,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.224,
+          "onset_s": 0.96
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.202,
+          "onset_s": 0.96
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 36.28,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.06051016226410866,
+      "bot_cosine": 0.5472831726074219,
+      "margin": -0.4867730103433132,
+      "evidence_seconds": 0.96,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 36.54,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 36.48,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2688601315021515,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2688601315021515,
+        "candidate_margin": 0.7311398684978485
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 36.54,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.48,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 36.64,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.08611224591732025,
+      "bot_cosine": 0.7683549523353577,
+      "margin": -0.6822427064180374,
+      "evidence_seconds": 1.31,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9984282127903098,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 36.86,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 36.8,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.26075828075408936,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.26075828075408936,
+        "candidate_margin": 0.7392417192459106
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 36.86,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.8,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 36.94,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.049278587102890015,
+      "bot_cosine": 0.8875948190689087,
+      "margin": -0.8383162319660187,
+      "evidence_seconds": 1.63,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9969338823700601,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.14,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 37.12,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.209,
+          "onset_s": 1.92
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 37.2,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2600598931312561,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2600598931312561,
+        "candidate_margin": 0.7399401068687439
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 37.2,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.12,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 37.34,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.05197634547948837,
+      "bot_cosine": 0.9299697875976562,
+      "margin": -0.8779934421181679,
+      "evidence_seconds": 1.95,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9968481438283295,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.5,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.44,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2654654085636139,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2654654085636139,
+        "candidate_margin": 0.7345345914363861
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 37.5,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.44,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 37.6,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.04582145810127258,
+      "bot_cosine": 0.9501521587371826,
+      "margin": -0.90433070063591,
+      "evidence_seconds": 2.27,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9968427934441347,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.82,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.76,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2734088599681854,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2734088599681854,
+        "candidate_margin": 0.7265911400318146
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 37.82,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.76,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 37.94,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.031719524413347244,
+      "bot_cosine": 0.9533877968788147,
+      "margin": -0.9216682724654675,
+      "evidence_seconds": 2.57,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9966951845267482,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.1,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 38.08,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.273,
+          "onset_s": 2.88
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 38.16,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.08,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2773207724094391,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2773207724094391,
+        "candidate_margin": 0.7226792275905609
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 38.16,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.08,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 38.26,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.042144954204559326,
+      "bot_cosine": 0.9738869667053223,
+      "margin": -0.9317420125007629,
+      "evidence_seconds": 2.89,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9967103800759134,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.44,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.27955135703086853,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.27955135703086853,
+        "candidate_margin": 0.7204486429691315
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 38.44,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.4,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 38.56,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.08443018794059753,
+      "bot_cosine": 0.9724688529968262,
+      "margin": -0.8880386650562286,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9963335636940687,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.76,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.72,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28114527463912964,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.28114527463912964,
+        "candidate_margin": 0.7188547253608704
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 38.76,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.72,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 38.88,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.07379916310310364,
+      "bot_cosine": 0.9861949682235718,
+      "margin": -0.9123958051204681,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9964638013220646,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.06,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.04,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.205,
+          "onset_s": 3.84
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.338,
+          "onset_s": 3.84
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.12,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.04,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2705615162849426,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2705615162849426,
+        "candidate_margin": 0.7294384837150574
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 39.12,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.04,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 39.24,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.09297770261764526,
+      "bot_cosine": 0.9737333655357361,
+      "margin": -0.8807556629180908,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9959657904519993,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.38,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.36,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.227,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.21,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.4,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.36,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2663229703903198,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2663229703903198,
+        "candidate_margin": 0.7336770296096802
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 39.4,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.36,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 39.54,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.08842092752456665,
+      "bot_cosine": 0.9672647714614868,
+      "margin": -0.8788438439369202,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9961699029750196,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.7,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.68,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.284,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.273,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.399,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.201,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.72,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.68,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28727060556411743,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.28727060556411743,
+        "candidate_margin": 0.7127293944358826
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 39.72,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.68,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 39.84,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.09357373416423798,
+      "bot_cosine": 0.9578198790550232,
+      "margin": -0.8642461448907852,
+      "evidence_seconds": 2.69,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.996719566775734,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.06,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.0,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.29285621643066406,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.29285621643066406,
+        "candidate_margin": 0.7071437835693359
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 40.06,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.0,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 40.16,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.103116974234581,
+      "bot_cosine": 0.9449894428253174,
+      "margin": -0.8418724685907364,
+      "evidence_seconds": 2.37,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9970230710299296,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.38,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.32,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2926298677921295,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2926298677921295,
+        "candidate_margin": 0.7073701322078705
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 40.38,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.32,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 40.5,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14345023036003113,
+      "bot_cosine": 0.9244276881217957,
+      "margin": -0.7809774577617645,
+      "evidence_seconds": 2.86,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9969292747534222,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.7,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.64,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.29110050201416016,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.29110050201416016,
+        "candidate_margin": 0.7088994979858398
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 40.7,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.64,
+      "text": "",
+      "views": [
+        "schön dike kennenlernen.",
+        "schön dich kennenzul.",
+        "schön dich kennenzul."
+      ]
+    },
+    {
+      "at_s": 40.78,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16051185131072998,
+      "bot_cosine": 0.9032377600669861,
+      "margin": -0.7427259087562561,
+      "evidence_seconds": 2.92,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9972048689582104,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.04,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.96,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2860679030418396,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.2860679030418396,
+        "candidate_margin": 0.7139320969581604
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 41.16,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16658079624176025,
+      "bot_cosine": 0.8783387541770935,
+      "margin": -0.7117579579353333,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.996413808027469,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.34,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.28,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28384020924568176,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.28384020924568176,
+        "candidate_margin": 0.7161597907543182
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 41.66,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.6,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28011465072631836,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.28011465072631836,
+        "candidate_margin": 0.7198853492736816
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 41.98,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.92,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.26892977952957153,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.26892977952957153,
+        "candidate_margin": 0.7310702204704285
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 42.3,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.24,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.1701321303844452,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": -0.1701321303844452,
+        "candidate_margin": 0.8298678696155548
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 42.62,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.56,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.23448015749454498,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": 0.23448015749454498,
+        "candidate_margin": 1.234480157494545
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 42.68,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.56,
+      "text": "",
+      "views": [
+        "Ungefähr achtzig Arten stammen ursprünglich auf bitte.",
+        "Bitte",
+        ""
+      ]
+    },
+    {
+      "at_s": 42.9,
+      "phase": "stop",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 42.88,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.276,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.233,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 42.96,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.88,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.4977092146873474,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": 0.4977092146873474,
+        "candidate_margin": 1.4977092146873474
+      },
+      "target": "speaker-ed1c68c81bd7"
+    },
+    {
+      "at_s": 42.96,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.38,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.4977092146873474,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": 0.4977092146873474,
+        "candidate_margin": 1.4977092146873474
+      }
+    },
+    {
+      "at_s": 43.02,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.88,
+      "text": "Bitte hör auf",
+      "views": [
+        "Ungefähr achtzig Arten stammen ursprünglich auf.  Bitte hör auf",
+        "Bitte hör auf",
+        "Bitte hör auf"
+      ]
+    },
+    {
+      "at_s": 43.06,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": true,
+      "user_cosine": 0.4347432553768158,
+      "bot_cosine": 0.038202036172151566,
+      "margin": 0.39654121920466423,
+      "evidence_seconds": 0.71,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": true,
+      "short_command_consensus": false,
+      "compact_command_consensus": true,
+      "brief_crop_consensus": false,
+      "long_student_consensus": false,
+      "long_vote": {
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": 0.4735679030418396,
+        "candidate_margin": 1.4735679030418396
+      },
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.4977092146873474,
+        "candidate_id": "speaker-ed1c68c81bd7",
+        "candidate_similarity": 0.4977092146873474,
+        "candidate_margin": 1.4977092146873474
+      }
+    },
+    {
+      "at_s": 43.06,
+      "phase": "stop",
+      "type": "barge",
+      "yield": 1.0
+    },
+    {
+      "at_s": 43.06,
+      "phase": "stop",
+      "type": "stop_command",
+      "speaker_name": "Christoph",
+      "text": "Paused. I’m listening.",
+      "source": "verified_stop_command"
+    },
+    {
+      "at_s": 43.06,
+      "phase": "stop",
+      "type": "turn_done",
+      "barged": true
+    },
+    {
+      "at_s": 45.19,
+      "phase": "stop",
+      "type": "warning",
+      "text": "Speaker views disagree (0.12 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+    },
+    {
+      "at_s": 45.19,
+      "phase": "stop",
+      "type": "ignored",
+      "reason": "Speaker views disagree (0.12 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+    },
+    {
+      "at_s": 45.35,
+      "phase": "stop",
+      "type": "synthetic_semantic_decision",
+      "choice": {
+        "action": "stop_reply",
+        "rule_id": null
+      },
+      "decision_ms": 2402.1
+    }
+  ],
+  "acknowledgment_observed": false,
+  "stop_case_passed": true,
+  "runtime_source_sha256": "9c9383d5eff03f05befa8c91e12ec205ce3d3d7d8f30d4a496928baed2f9af37",
+  "synthetic_only": true
+}
