@@ -63,6 +63,29 @@ session data are not exported. Failed development attempts remain documented.
 
 ## Current update: stopping a long spoken reply
 
+### Banana-game verification and rule priority
+
+The continuous synthetic replay reproduced delayed interruptions even with
+correct topic transcription: classic teacher and fast/long student identity
+checks are stricter than the ordinary utterance slider. One 49.29-second replay
+produced five interruptions, first after 8.12 seconds; this is not immediate
+every-mention reliability. No broad speaker-threshold relaxation was made.
+A second replay exposed a separate priority bug: generic helpfulness sometimes
+said “Darf ich kurz einhaken?” instead of the agreed “Stopp, stopp!”. Generic
+helpfulness is now suppressed while explicit rules are installed, including
+their rearm/cooldown periods. Clear the game to restore generic interjections.
+The current and failed receipts are retained in the
+[actions and banana-game report](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-checks.html).
+
+Final corrected replay: **six exact “Stopp, stopp!” replies in 49.29 seconds**,
+first decision after **8.14 seconds**; unrelated topic, unknown voice and disabled
+rule controls all passed on the same source hash. The 12.46-second largest gap
+between these interventions is still not an immediate every-mention guarantee.
+The action release also passed 317 offline tests, 8 real director-tool cases,
+3 real decision-gesture cases and a full HTTPS typed-request → TTS → visible
+360° turn → restored-position test. The CPU-only browser action fixture measured
+36.6 ms render p95 on this host; this is not a universal device performance claim.
+
 **Release status (21 October 2026): short spoken Stop is NOT reliably fixed.**
 The latest synthetic browser test still failed when bot echo mixed with a brief
 user command. Longer-command cancellation and actual spoken acknowledgment

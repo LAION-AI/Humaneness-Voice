@@ -255,7 +255,10 @@ class LiveDecisions:
                 trigger=self.trigger_partial if end-self.trigger_at<=4. else ''
                 candidates=[r for r in self.book.rules.values() if r.id not in self.latched and r.matches(trigger,partial=True)]
                 semantic=[r for r in self.book.rules.values() if r.id not in self.latched and r.match_mode=='semantic']
-                helpful=self.helpful and end-self.last_helpful>=12. and len(text.split())>=8
+                # An explicit game owns its interjections, including cooldowns.
+                # Generic helpfulness must not replace its exact response while
+                # a keyword rule waits for fresh words or re-arming.
+                helpful=self.helpful and not self.book.rules and end-self.last_helpful>=12. and len(text.split())>=8
                 if not candidates and not semantic and not helpful:
                     await self.waiting('No agreed trigger in the current words');return
                 # Decide meaning before running an expensive voice check.
