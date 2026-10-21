@@ -12,6 +12,55 @@ ECAPA full-utterance identity check. It submits by the enrolled speaker's own
 inactivity, not global room silence. Speaker filtering is enabled by default;
 it is approximate session memory, not reliable biometric authentication.
 
+## Expressive actions and the illustrated manual
+
+Open **Personality & little tricks** in the demo, or use the
+[interactive manual](https://laion-ai.github.io/Humaneness-Voice/robby/)
+([same manual on the demo](https://diane-asylum-understood-invoice.trycloudflare.com/static/avatar-manual.html)).
+The manual has a CPU-only 3-D preview and all 40 authored expression cards;
+it needs no microphone, credentials, API call or model download.
+
+- Ask for a nod, head shake, 360° yaw turn in either direction, eye roll, wink,
+  curious glance, or one of four gentle grimaces: crossed, opposite, wiggle, cheeky.
+- Ask for any of the 40 existing expressions, including anger and bitterness,
+  or ordered sequences: “Erst wütend schauen, dann eine süße Grimasse.”
+- `perform_avatar` is a real bounded LLM function tool. It returns separate
+  `avatar_actions`, never TTS text. Actions may attach to a zero-based sentence.
+  Scheduling follows actual playback position; sentence times remain estimates.
+- A silent listening `nod`/`shake` can be chosen by the existing live decision
+  call, after speaker/visual checks, at most once per 10 seconds. It does not
+  create another model polling loop or change TYGER's turn-taking policy.
+- Three persisted, initially enabled switches control all actions, idle antics,
+  and listening gestures independently. Idle antics are limited to a curious
+  glance or wink after 45 seconds without activity, then once per minute.
+  Listening gestures piggyback on enabled existing live usefulness/rule checks.
+- Stop/cancel, disconnect, hidden tabs and calibration clear queued actions.
+  Idle antics yield to speech. Reduced-motion preferences disable spins,
+  nod/shake movement and idle antics; expression poses still work.
+
+Implementation: `avatar_actions.py` (schema/validation/prompt),
+`conversation_director.py` → `tts_bridge.py` → `server.py` (tool/transport),
+`static/avatar-actions.js` (bounded queue and motion), `static/rig.js` and
+`static/desk-robot3d.js` (independent eyes / additive virtual motion),
+`static/avatar-action-controls.js` and `static/ui.js` (settings and lifecycle).
+`live_decisions.py` handles optional silent listening gestures. No new GPU model
+or browser library is loaded. Six steps / 24 seconds maximum; turns last at
+least 3 seconds. Only explicit requests should provoke spins or eye rolling.
+
+The desk renderer's **360° turn is a visual-only exception** to physical pan
+limits; it is not a motor command or mechanical safety claim. The older SVG
+avatar uses a flat cartoon turn instead of a 3-D yaw. Grimaces retain soft
+eye/mouth geometry; whether every viewer finds them cute is subjective.
+
+Reproduce: `python -m unittest test_avatar_actions test_live_decisions`,
+`python avatar_director_checks.py` (actual configured API),
+`python avatar_browser_checks.py` (Playwright; Chrome; CPU-only), and
+`python avatar_live_browser_check.py` (actual HTTPS UI → LLM tool → TTS → motion;
+run with the single conversation slot free). The default manual is generated
+from the same live rig and expression catalogue, not an unrelated illustration.
+Synthetic JSON receipts are published with the source; screenshots and private
+session data are not exported. Failed development attempts remain documented.
+
 ## Current update: stopping a long spoken reply
 
 **Release status (21 October 2026): short spoken Stop is NOT reliably fixed.**

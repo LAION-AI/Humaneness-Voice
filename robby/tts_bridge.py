@@ -176,6 +176,7 @@ class MouthBridge:
                         director_ms=directed['director_ms'];reply=directed['text'];record['reply']=reply
                         await send(b'X',{'text':reply,'performance':plan(directed),'speaker':identity,
                             'language':directed['language'],
+                            'avatar_actions':directed.get('avatar_actions',[]),
                             'interaction_actions':directed.get('interaction_actions',[]),
                             'sources':directed.get('sources',[]),'lookups':directed.get('lookups',[]),
                             'speaker_update':speaker_update,'timing':{'director_ms':director_ms,

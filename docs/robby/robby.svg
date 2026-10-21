@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" role="img" aria-label="Robby, an expressive cream-white robot">
+<defs>
+ <radialGradient id="shell" cx="35%" cy="15%" r="90%"><stop stop-color="#fffdfa"/><stop offset=".55" stop-color="#f2eee7"/><stop offset="1" stop-color="#d5cec4"/></radialGradient>
+ <linearGradient id="metal" x2="1" y2="1"><stop stop-color="#d5d0cc"/><stop offset=".55" stop-color="#aaa4a0"/><stop offset="1" stop-color="#e2dcd7"/></linearGradient>
+ <radialGradient id="eye" cx="35%" cy="25%"><stop stop-color="#4e4037"/><stop offset=".7" stop-color="#292320"/><stop offset="1" stop-color="#191715"/></radialGradient>
+ <radialGradient id="blush"><stop stop-color="#edb4a5" stop-opacity=".6"/><stop offset="1" stop-color="#edb4a5" stop-opacity="0"/></radialGradient>
+ <clipPath id="clip-eye-left"><path id="eye-mask-left" d="M233 267a37 43 0 1 0 74 0a37 43 0 1 0-74 0"/></clipPath>
+ <clipPath id="clip-eye-right"><path id="eye-mask-right" d="M493 267a37 43 0 1 0 74 0a37 43 0 1 0-74 0"/></clipPath>
+ <clipPath id="clip-mouth"><path id="mouth-mask" d="M360 350Q400 375 440 350Q400 380 360 350"/></clipPath>
+ <filter id="shade" x="-.3" y="-.3" width="1.6" height="1.7"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#716457" flood-opacity=".14"/></filter>
+</defs>
+<ellipse cx="400" cy="850" rx="230" ry="24" fill="#8d8173" opacity=".1"/>
+<g id="body" filter="url(#shade)">
+ <ellipse cx="400" cy="671" rx="220" ry="208" fill="url(#shell)" stroke="#d4cec6" stroke-width="2"/>
+ <ellipse cx="400" cy="482" rx="156" ry="35" fill="url(#metal)" stroke="#b1aaa3" stroke-width="2"/>
+ <ellipse cx="400" cy="473" rx="126" ry="20" fill="#8b8580"/>
+ <g id="arm-left">
+  <ellipse cx="182" cy="660" rx="86" ry="156" transform="rotate(18 182 660)" fill="url(#shell)" stroke="#d3ccc3" stroke-width="2"/>
+  <ellipse cx="203" cy="743" rx="66" ry="42" transform="rotate(25 203 743)" fill="url(#metal)"/>
+  <ellipse cx="270" cy="805" rx="132" ry="89" transform="rotate(20 270 805)" fill="url(#shell)" stroke="#d5cec5" stroke-width="2"/>
+  <ellipse cx="375" cy="835" rx="43" ry="60" transform="rotate(20 375 835)" fill="url(#shell)" stroke="#d3ccc4" stroke-width="2"/>
+ </g>
+ <g id="arm-right">
+  <ellipse cx="618" cy="660" rx="86" ry="156" transform="rotate(-18 618 660)" fill="url(#shell)" stroke="#d3ccc3" stroke-width="2"/>
+  <ellipse cx="597" cy="743" rx="66" ry="42" transform="rotate(-25 597 743)" fill="url(#metal)"/>
+  <ellipse cx="530" cy="805" rx="132" ry="89" transform="rotate(-20 530 805)" fill="url(#shell)" stroke="#d5cec5" stroke-width="2"/>
+  <ellipse cx="425" cy="835" rx="43" ry="60" transform="rotate(-20 425 835)" fill="url(#shell)" stroke="#d3ccc4" stroke-width="2"/>
+ </g>
+ <g id="body-keypoints" fill="#ad784c" stroke="#fff" stroke-width=".5" opacity="0"/>
+</g>
+<g id="head" transform="rotate(0 400 290)" filter="url(#shade)">
+ <ellipse cx="145" cy="272" rx="45" ry="91" fill="url(#metal)" stroke="#c5bfb9" stroke-width="2"/>
+ <ellipse cx="655" cy="272" rx="45" ry="91" fill="url(#metal)" stroke="#c5bfb9" stroke-width="2"/>
+ <path d="M124 206 Q97 270 124 337" fill="none" stroke="#fff2da" stroke-width="7" stroke-linecap="round"/>
+ <path d="M676 206 Q703 270 676 337" fill="none" stroke="#fff2da" stroke-width="7" stroke-linecap="round"/>
+ <path d="M170 211 C195 65 312 44 400 44 C499 44 610 76 632 211 L637 365 C634 437 561 471 400 471 C240 471 167 437 163 365Z" fill="url(#shell)" stroke="#d5cec6" stroke-width="2.5"/>
+ <path d="M290 65 L300 98 Q400 75 500 98 L511 67" fill="none" stroke="#dbd5cd" stroke-width="3"/>
+ <ellipse id="blush-left" cx="242" cy="345" rx="66" ry="48" fill="url(#blush)"/>
+ <ellipse id="blush-right" cx="558" cy="345" rx="66" ry="48" fill="url(#blush)"/>
+ <path id="brow-left" d="M251 192 Q269 174 288 180" fill="none" stroke="#69594d" stroke-width="7" stroke-linecap="round"/>
+ <path id="brow-right" d="M512 180 Q532 175 550 195" fill="none" stroke="#69594d" stroke-width="7" stroke-linecap="round"/>
+ <g id="eye-left">
+  <path id="eye-outline-left" d="M233 267a37 43 0 1 0 74 0a37 43 0 1 0-74 0" fill="#fffdf7" stroke="#69584b" stroke-width="2.5"/>
+  <g clip-path="url(#clip-eye-left)"><g id="iris-left" transform="translate(270 267)"><ellipse rx="29" ry="35" fill="url(#eye)"/><circle cx="10" cy="-17" r="6" fill="#fffdf7"/></g></g>
+ </g>
+ <g id="eye-right">
+  <path id="eye-outline-right" d="M493 267a37 43 0 1 0 74 0a37 43 0 1 0-74 0" fill="#fffdf7" stroke="#69584b" stroke-width="2.5"/>
+  <g clip-path="url(#clip-eye-right)"><g id="iris-right" transform="translate(530 267)"><ellipse rx="29" ry="35" fill="url(#eye)"/><circle cx="10" cy="-17" r="6" fill="#fffdf7"/></g></g>
+ </g>
+ <path id="cheek-left" fill="none" stroke="#b19b87" stroke-width="2.5" opacity="0"/>
+ <path id="cheek-right" fill="none" stroke="#b19b87" stroke-width="2.5" opacity="0"/>
+ <path id="nose" fill="none" stroke="#9b8573" stroke-width="3" opacity="0"/>
+ <path id="mouth-shape" d="M360 350Q400 375 440 350Q400 380 360 350" fill="#49382f" stroke="#604d40" stroke-width="3" stroke-linejoin="round"/>
+ <g clip-path="url(#clip-mouth)"><path id="teeth" d="M305 341Q400 363 495 341L495 356Q400 379 305 356Z" fill="#fffaf0" opacity="0"/>
+ <ellipse id="tongue" cx="405" cy="379" rx="16" ry="12" fill="#c7867b" opacity="0"/></g>
+ <g id="keypoints" fill="#ad784c" stroke="#fff" stroke-width=".5" opacity="0"/>
+</g>
+</svg>

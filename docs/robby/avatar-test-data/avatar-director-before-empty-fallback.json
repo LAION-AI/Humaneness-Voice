@@ -1,0 +1,99 @@
+{
+  "passed": false,
+  "synthetic_text_only": true,
+  "cases": [
+    {
+      "prompt": "Drehe deinen Kopf bitte einmal um 360 Grad gegen den Uhrzeigersinn.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "spin",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "direction": "counterclockwise"
+        }
+      ],
+      "text": "Schau mal, ich drehe mich einmal gegen den Uhrzeigersinn.",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.725916128605604
+    },
+    {
+      "prompt": "Please rotate your head once clockwise by 360 degrees.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "spin",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "direction": "clockwise"
+        }
+      ],
+      "text": "Schau mal — ich habe meinen Kopf einmal im Uhrzeigersinn um 360 Grad gedreht.",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.6188708804547787
+    },
+    {
+      "prompt": "Kannst du zuerst wütend gucken und danach eine süße Grimasse schneiden?",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "emotion",
+          "duration_s": 2,
+          "sentence": 0,
+          "emotion": "anger"
+        },
+        {
+          "kind": "grimace",
+          "duration_s": 2,
+          "sentence": 0,
+          "variant": "cheeky"
+        }
+      ],
+      "text": "Erst wütend, danach eine süße Grimasse.",
+      "model": "gpt-5.6-luna",
+      "seconds": 5.167173497378826
+    },
+    {
+      "prompt": "Bitte rolle mit den Augen und nicke danach.",
+      "passed": false,
+      "error": "Invalid compact spoken reply"
+    },
+    {
+      "prompt": "Schau bitte bitter und schüttle dann den Kopf.",
+      "passed": false,
+      "error": "Invalid compact spoken reply"
+    },
+    {
+      "prompt": "Please show a cute crossed-eye face.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.2669476121664047
+    },
+    {
+      "prompt": "Please do not spin your head. Just say hello.",
+      "passed": true,
+      "steps": [],
+      "text": "Hallo!",
+      "model": "gpt-5.6-luna",
+      "seconds": 1.5224487259984016
+    },
+    {
+      "prompt": "What is seventeen times four? Answer only the number.",
+      "passed": true,
+      "steps": [],
+      "text": "68.",
+      "model": "gpt-5.6-luna",
+      "seconds": 1.7006896696984768
+    }
+  ],
+  "finished": 1792624693.0292583
+}

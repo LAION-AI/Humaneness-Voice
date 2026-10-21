@@ -16,6 +16,7 @@ speaker LoRAs, and must not be mixed with those by filename or rank alone.
 | Find it quickly | Read / download |
 | --- | --- |
 | **Robby conversational robot:** live ASR, speaker memory, interruptible TTS, gaze and public-information tools | [Robby source, setup and limitations](robby/README.md) · [current short-command correction report](robby/static/stop-fix-update.html) |
+| **Robby expressions & little tricks:** 40 poses, head turns, grimaces and LLM action tools | [Interactive GitHub Pages manual](https://laion-ai.github.io/Humaneness-Voice/robby/) · [tests and banana-game diagnosis](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-checks.html) |
 | All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
 | Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
 | Hosted API or local LLM director | [LLM connection and JSON contract](docs/PLAYGROUND_LLM.md) |

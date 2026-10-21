@@ -146,7 +146,7 @@ export function createDeskRobotRig(container){
   for(let i=1;i<p.length-1;i++){n=cross(sub(p[i],p[0]),sub(p[i+1],p[0]));if(Math.hypot(...n)>1e-5)break;}
   return Math.hypot(...n)>1e-5?[{indices,normal:unit(n)}]:[];
  });
- let cp=1,sp=0,ct=1,st=0,cv=1,sv=0,ce=1,se=0,bodyCache=null;
+ let cp=1,sp=0,ct=1,st=0,cv=1,sv=0,ce=1,se=0,bodyCache=null,actionPan=0,actionTilt=0;
  let smooth=pose(),controls=normalizeControls(),last={},showPoints=false,lastRender=-1,renderCount=0,totalRenderMs=0,durations=[],disposed=false;
  let width=500,height=490,drag=null;
  const ro=new ResizeObserver(()=>{const rect=container.getBoundingClientRect();width=Math.max(1,rect.width);height=Math.max(1,rect.height);
@@ -176,7 +176,7 @@ export function createDeskRobotRig(container){
  function facing(world,normal){const p=view(world),n=viewVector(normal);return dot(n,[-p[0],-p[1],state.distance-p[2]])>0;}
  const light=unit([-.5,.8,.75]),halfLight=unit([-.25,.4,1]);
  function render(time){
-  const pan=rad(Math.round(state.pan*50)/50),tilt=rad(Math.round(state.tilt*50)/50);
+  const pan=rad(Math.round((state.pan+actionPan)*50)/50),tilt=rad(Math.round(clamp(state.tilt+actionTilt,-15,15)*50)/50);
   cp=Math.cos(pan);sp=Math.sin(pan);ct=Math.cos(tilt);st=Math.sin(tilt);
   cv=Math.cos(state.view);sv=Math.sin(state.view);ce=Math.cos(state.elevation);se=Math.sin(state.elevation);
   const started=performance.now(),ratio=canvas.width/width;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);
@@ -217,7 +217,7 @@ export function createDeskRobotRig(container){
   }
   const ms=performance.now()-started;renderCount++;totalRenderMs+=ms;durations.push(ms);if(durations.length>120)durations.shift();
   const sorted=[...durations].sort((a,b)=>a-b);
-  last={...last,pan:state.pan,tilt:state.tilt,roll:0,dimensions:DIMENSIONS,renderer:'CPU z-buffer · smooth vertex normals · no WebGL',
+   last={...last,pan:state.pan,tilt:state.tilt,visualPan:state.pan+actionPan,visualTilt:clamp(state.tilt+actionTilt,-15,15),roll:0,dimensions:DIMENSIONS,renderer:'CPU z-buffer · smooth vertex normals · no WebGL',
    meshFaces:meshes.reduce((n,m)=>n+m.polys.length,0),visibleFaces,renderCount,triangles:surface.triangles,
    smoothShading:true,depthBuffer:true,controls:{...controls},
    renderMs:ms,renderP50Ms:sorted[Math.floor(sorted.length*.5)],renderP95Ms:sorted[Math.floor(sorted.length*.95)],
@@ -236,6 +236,7 @@ export function createDeskRobotRig(container){
   setExploded(value){state.exploded=clamp(+value,0,1);},setBlueprint(on){state.blueprint=!!on;},setTour(on){state.tour=!!on;},
   center(){state.view=0;state.elevation=0;state.distance=650;state.manual=false;state.tour=false;},
   update(input={},dtMs=16.7,timeMs=0){if(disposed)return last;
+   const motion=input.actionMotion||{};actionPan=clamp(motion.pan,-20,20)+clamp(motion.spin,-360,360);actionTilt=clamp(motion.tilt,-12,12);
    const dt=clamp(dtMs,0,100),alpha=1-Math.exp(-dt/160),target=input.pose||pose();smooth=input.freezeExpression?target:{...mix(smooth,target,alpha),slug:target.slug};
    const c=normalizeControls(input);for(const key in controls)controls[key]+=alpha*(c[key]-controls[key]);
    const gesture=smooth.gesture;
@@ -253,7 +254,7 @@ export function createDeskRobotRig(container){
    // While maintaining eye contact, emotion acts through lids/brows/mouth,
    // not an unrelated sideways gaze. The pupils make a SMALL lead movement
    // while the slower mechanical head catches up, then return to centre.
-   const displayPose=eyeContact?{...smooth,actions:{...smooth.actions,gaze_x:clamp((panTarget-state.pan)/35,-.35,.35),gaze_y:clamp(-(tiltTarget-state.tilt)/25,-.3,.3)}}:smooth;
+   const displayPose=eyeContact&&!input.actionEyes?{...smooth,actions:{...smooth.actions,gaze_x:clamp((panTarget-state.pan)/35,-.35,.35),gaze_y:clamp(-(tiltTarget-state.tilt)/25,-.3,.3)}}:smooth;
    const displayControls=eyeContact?{...controls,x:0,y:0}:controls;
    const g=paintFace(faceCanvas,displayPose,displayControls,showPoints);last={...last,pose:smooth,displayPose,geometry:g,gazeActive:!!eyeContact};render(timeMs);return last;
   },snapshot(){return last;},reset(){smooth=pose();controls=normalizeControls();this.center();this.update({},1000,0);},

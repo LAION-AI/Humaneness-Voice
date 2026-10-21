@@ -48,6 +48,7 @@ class RoboConversation(Conversation):
         if self.speaker_ext is not None:await self.speaker_ext.metadata(data)
         await self.ws.send_json({'type':'backchannel' if data.get('bc') else 'reply','text':data['text'],
             'reply_id':self.playback.rid,'performance':data.get('performance'),
+            'avatar_actions':data.get('avatar_actions',[]),
             'speaker_id':(data.get('speaker') or {}).get('speaker_id'),'speaker_name':(data.get('speaker') or {}).get('display_name'),
             'speaker_update':data.get('speaker_update'),'timing':data.get('timing'),
             'sources':data.get('sources',[]),'lookups':data.get('lookups',[])})
@@ -368,6 +369,8 @@ class RoboConversation(Conversation):
         if data.startswith('interaction:'):
             command=data.split(':',1)[1]
             if command in ('on','off'):await self.decisions.toggle(command=='on')
+            elif command in ('gestures:on','gestures:off'):
+                self.decisions.listening_gestures=command.endswith(':on')
             elif command in ('stop-feedback:on','stop-feedback:off'):
                 self.stop_feedback.enabled=command.endswith(':on')
                 if not self.stop_feedback.enabled:self.stop_feedback.cancel()
