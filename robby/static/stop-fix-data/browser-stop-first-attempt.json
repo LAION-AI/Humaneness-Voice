@@ -1,0 +1,190 @@
+{
+  "passed": false,
+  "synthetic_only": true,
+  "runtime_source_sha256": "d50595f2741855c9cb8e369377d666bc0e8015c3a7f1e8b0a445a7d68857b75a",
+  "echo_delay_ms": 120,
+  "echo_gain": 0.05,
+  "events": [
+    {
+      "wall": 33480672.076172456,
+      "type": "endpoint",
+      "transcript": "Hey Rabbi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-d4c0f3fc9e76",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.72,
+      "timing": {
+        "speaker_last_audio_s": 4.8,
+        "silence_detected_audio_s": 7.44,
+        "prefetch_used": false,
+        "finalization_ms": 316.31,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "wall": 33480675.021434177,
+      "type": "reply",
+      "text": "Hallo Christoph, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "pleasure_ecstasy",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "pleasure, warm and welcoming",
+            "text": "Hallo Christoph, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-d4c0f3fc9e76",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-d4c0f3fc9e76",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 2942.82,
+        "director_mode": "compact",
+        "completion_tokens": 42,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "wall": 33480678.60012868,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "wall": 33480690.350300103,
+      "type": "endpoint",
+      "transcript": "nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "speaker_id": "speaker-d4c0f3fc9e76",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 9.03,
+      "timing": {
+        "speaker_last_audio_s": 24.79,
+        "silence_detected_audio_s": 25.92,
+        "prefetch_used": true,
+        "finalization_ms": 30.66,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 430.15,
+        "embedding_ms": 236.87
+      }
+    },
+    {
+      "wall": 33480693.665379163,
+      "type": "reply",
+      "text": "Bananen sind die länglichen Früchte der Bananenpflanze und gehören botanisch zu den Beeren. Sie liefern vor allem Kohlenhydrate, darunter natürlichen Zucker und Stärke, und sind deshalb ein schneller Energiespender. Außerdem enthalten sie Ballaststoffe, Kalium und Vitamin B sechs. Reife Bananen schmecken süßer und sind weicher, während grüne Bananen mehr resistente Stärke enthalten, die langsamer verdaut wird. Die Früchte wachsen in großen Büscheln und werden meist unreif geerntet, damit sie den Transport gut überstehen. Anschließend reifen sie bei Raumtemperatur nach. Ihre Schale schützt das Fruchtfleisch, verfärbt sich beim Reifen von Grün zu Gelb und kann schließlich braune Flecken bekommen.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm and unhurried",
+            "text": "Bananen sind die länglichen Früchte der Bananenpflanze und gehören botanisch zu den Beeren.",
+            "start_s": 0.0,
+            "end_s": 4.42
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, clear and measured",
+            "text": "Sie liefern vor allem Kohlenhydrate, darunter natürlichen Zucker und Stärke, und sind deshalb ein schneller Energiespender.",
+            "start_s": 4.42,
+            "end_s": 9.86
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, clear and measured",
+            "text": "Außerdem enthalten sie Ballaststoffe, Kalium und Vitamin B sechs.",
+            "start_s": 9.86,
+            "end_s": 12.92
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, gently explanatory",
+            "text": "Reife Bananen schmecken süßer und sind weicher, während grüne Bananen mehr resistente Stärke enthalten, die langsamer verdaut wird.",
+            "start_s": 12.92,
+            "end_s": 19.04
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, gently explanatory",
+            "text": "Die Früchte wachsen in großen Büscheln und werden meist unreif geerntet, damit sie den Transport gut überstehen.",
+            "start_s": 19.04,
+            "end_s": 24.82
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, gently explanatory",
+            "text": "Anschließend reifen sie bei Raumtemperatur nach.",
+            "start_s": 24.82,
+            "end_s": 26.86
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, gently explanatory",
+            "text": "Ihre Schale schützt das Fruchtfleisch, verfärbt sich beim Reifen von Grün zu Gelb und kann schließlich braune Flecken bekommen.",
+            "start_s": 26.86,
+            "end_s": 33.32
+          }
+        ],
+        "planned_duration_s": 33.32
+      },
+      "speaker_id": "speaker-d4c0f3fc9e76",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 3311.11,
+        "director_mode": "compact",
+        "completion_tokens": 219,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    }
+  ],
+  "error": "Browser spoken-stop stage did not complete",
+  "page_errors": [],
+  "played_notifications": [
+    "played:1:50640"
+  ]
+}

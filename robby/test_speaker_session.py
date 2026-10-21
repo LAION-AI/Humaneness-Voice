@@ -206,9 +206,9 @@ class RefineTests(unittest.IsolatedAsyncioTestCase):
         with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda q:self.b if len(q)==64000 else query)):
             self.assertIsNone(await s.confirm_interrupt({'yield_prob':1.},32000))
             s.interrupt_checked_at=-100.
-            self.assertEqual(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command'},32000),self.christoph.id)
+            self.assertEqual(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Stopp'},32000),self.christoph.id)
             s.interrupt_checked_at=-100.;s.records=deque([(1.68,2.,{'raw_embedding':self.b},wave)])
-            self.assertIsNone(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command'},32000))
+            self.assertIsNone(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Stopp'},32000))
         s.interrupt_checked_at=-100.;s.interrupt_reference=None;s.records=deque([(1.68,2.,{'raw_embedding':self.a},wave)])
         with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda q:self.a)):
             self.assertIsNone(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command'},32000),'Literal stop is not an echo bypass')
@@ -224,6 +224,41 @@ class RefineTests(unittest.IsolatedAsyncioTestCase):
         s.stop_task=None;s.stop_checked_at=-100.
         s.records=deque([(0.,2.,{'raw_embedding':self.b},np.full(32000,.05,np.float32))])
         s.schedule_stop_probe(32000);self.assertIsNone(s.stop_task)
+    async def test_stop_crops_keep_quiet_consonants_above_relative_floor(self):
+        s=self.s;s.asr_lock=asyncio.Lock();s.decode_count=0
+        s.foreground_floor=lambda:.05
+        wave=np.zeros(48000,np.float32)
+        wave[16000:19200]=.01;wave[19200:22400]=.1;wave[22400:25600]=.01
+        batches=[]
+        def decode(batch):batches.extend(batch);return ['Stopp']*len(batch)
+        s.c=SimpleNamespace(ears=SimpleNamespace(service=SimpleNamespace(engine=SimpleNamespace(asr=SimpleNamespace(transcribe=decode)))))
+        await s.transcribe_stop(wave)
+        self.assertEqual(len(batches),3)
+        self.assertEqual(np.count_nonzero(batches[1]==np.float32(.01)),6400)
+    def test_stop_decode_agreement_never_reuses_a_hop_reply_or_owner(self):
+        s=self.s
+        self.assertFalse(s.stop_agreement('Stopp',['Stopp'],'a',1,1.))
+        self.assertFalse(s.stop_agreement('Stopp',['Stopp'],'a',1,1.))
+        self.assertTrue(s.stop_agreement('Stop',['Stop'],'a',1,1.32))
+        self.assertFalse(s.stop_agreement('Stop',['Stop'],'b',1,1.64))
+        self.assertFalse(s.stop_agreement('Stop',['Stop'],'b',2,1.96))
+        self.assertFalse(s.stop_agreement('Stop',['Stop'],'b',2,3.))
+    async def test_silent_probe_clears_old_decoder_views(self):
+        s=self.s;s.last_stop_texts=['Stop'];s.last_stop_audio_stats={'old':True}
+        self.assertEqual(await s.transcribe_stop(np.zeros(48000,np.float32)),'')
+        self.assertEqual(s.last_stop_texts,[]);self.assertEqual(s.last_stop_audio_stats,{})
+    async def test_sparse_long_phrase_cannot_use_single_word_identity_exception(self):
+        s=self.s;s.interrupt_checked_at=-100.;s.interrupt_reference=None;s.epoch=0;s.closed=False;s.utterance_threshold=.32
+        wave=np.full(24000,.006,np.float32);wave[4000:7200]=.1
+        s.c=SimpleNamespace(current_speaker={'speaker_id':self.christoph.id},ears=SimpleNamespace(sr=16000),speaking=True,
+            playback=SimpleNamespace(rid=7,n16=64000,audio=np.full(64000,.1,np.float32)))
+        s.audio_between=lambda a,b:wave
+        q=.306*self.a+np.sqrt(1-.306**2)*np.eye(192,dtype=np.float32)[2]
+        raw=.59*self.a+np.sqrt(1-.59**2)*np.eye(192,dtype=np.float32)[3]
+        s.records=deque([(.5,2.,{'raw_embedding':raw},wave)])
+        with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda w:self.b if len(w)==64000 else q)):
+            self.assertIsNone(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command',
+                'stop_text':'Stop bitte','stop_views_agree':True},32000))
     async def test_weak_short_stop_is_not_admitted_by_lowering_guards_until_it_passes(self):
         s=self.s;s.interrupt_checked_at=-100.;s.interrupt_reference=None;s.epoch=0;s.closed=False
         s.utterance_threshold=.32
@@ -278,6 +313,37 @@ class RefineTests(unittest.IsolatedAsyncioTestCase):
             with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda w:self.b if len(w)==64000 else q)):
                 result=await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Warte bitte','stop_views_agree':consensus},32000)
             self.assertEqual(result,expected)
+    async def test_isolated_short_word_requires_teacher_and_independent_student(self):
+        s=self.s;s.interrupt_reference=None;s.epoch=0;s.closed=False;s.utterance_threshold=.32
+        wave=np.full(5120,.05,np.float32);s.predictor=SimpleNamespace()
+        s.c=SimpleNamespace(current_speaker={'speaker_id':self.christoph.id},ears=SimpleNamespace(sr=16000,
+            service=SimpleNamespace(engine=SimpleNamespace(asr=object()))),speaking=True,
+            playback=SimpleNamespace(rid=7,n16=64000,audio=np.full(64000,.1,np.float32)))
+        s.audio_between=lambda a,b:wave
+        weak=.2*self.a+np.sqrt(1-.2**2)*np.eye(192,dtype=np.float32)[3]
+        s.records=deque([(1.68,2.,{'raw_embedding':weak},wave)])
+        for teacher,clean,agree,expected in ((.31,.6,True,self.christoph.id),(.26,.6,True,self.christoph.id),(.24,.6,True,None),(.26,.45,True,None),(.31,.39,True,None),(.31,.6,False,None)):
+            s.interrupt_checked_at=-100.
+            q=teacher*self.a+np.sqrt(1-teacher**2)*np.eye(192,dtype=np.float32)[2]
+            v=clean*self.a+np.sqrt(1-clean**2)*np.eye(192,dtype=np.float32)[3]
+            with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda w:self.b if len(w)==64000 else q)),patch('stop_voice.isolated_stop_embedding',return_value=v):
+                result=await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Stopp','stop_views_agree':agree},32000)
+            self.assertEqual(result,expected)
+        raw=.44*self.a+np.sqrt(1-.44**2)*np.eye(192,dtype=np.float32)[3]
+        s.records=deque([(1.68,2.,{'raw_embedding':raw},wave)]);s.interrupt_checked_at=-100.
+        q=.26*self.a+np.sqrt(1-.26**2)*np.eye(192,dtype=np.float32)[2]
+        v=.44*self.a+np.sqrt(1-.44**2)*np.eye(192,dtype=np.float32)[3]
+        with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda w:self.b if len(w)==64000 else q)),patch('stop_voice.isolated_stop_embedding',return_value=v):
+            self.assertEqual(await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Stopp','stop_views_agree':True},32000),self.christoph.id)
+        for teacher,raw_score,clean_score,expected in ((.23,.48,.48,self.christoph.id),(.19,.6,.6,None),(.23,.44,.6,None),(.23,.48,.44,None)):
+            s.interrupt_checked_at=-100.
+            raw=raw_score*self.a+np.sqrt(1-raw_score**2)*np.eye(192,dtype=np.float32)[3]
+            s.records=deque([(1.68,2.,{'raw_embedding':raw},wave)])
+            q=teacher*self.a+np.sqrt(1-teacher**2)*np.eye(192,dtype=np.float32)[2]
+            v=clean_score*self.a+np.sqrt(1-clean_score**2)*np.eye(192,dtype=np.float32)[3]
+            with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=lambda w:self.b if len(w)==64000 else q)),patch('stop_voice.isolated_stop_embedding',return_value=v):
+                result=await s.confirm_interrupt({'yield_prob':1.,'source':'verified_stop_command','stop_text':'Stopp','stop_views_agree':True},32000)
+            self.assertEqual(result,expected)
     async def test_late_redecode_cannot_rescue_an_expired_short_stop(self):
         s=self.s;s.interrupt_checked_at=-100.;s.epoch=0;s.closed=False
         s.c=SimpleNamespace(current_speaker={'speaker_id':self.christoph.id},ears=SimpleNamespace(sr=16000),speaking=True)
@@ -317,6 +383,8 @@ class RefineTests(unittest.IsolatedAsyncioTestCase):
         batch=decoder.call_args.args[0];self.assertEqual(len(batch),3)
         self.assertTrue(all(len(v)>=40960 for v in batch))
         np.testing.assert_array_equal(batch[0][3200:3200+len(wave)],wave)
+        # The two isolated views must not repeat the same ASR padding failure.
+        self.assertEqual(np.flatnonzero(batch[2])[0]-np.flatnonzero(batch[1])[0],20480)
         self.assertEqual(s.decode_count,1)
         decoder.return_value=['What does stop mean?','Das ist halt so.','']
         self.assertEqual(await s.transcribe_stop(wave),'')

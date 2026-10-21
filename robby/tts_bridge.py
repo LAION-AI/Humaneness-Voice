@@ -156,6 +156,7 @@ class MouthBridge:
                     identity=record.get('speaker') or {};speaker_update=validated_speaker_update(text,identity)
                     body={'model':'small_rl','message':conversation_message(text,identity),'input_mode':'chat','format':'structured',
                         'generation':'single','n':1,'streaming':True,'chunk_frames':TTS_CHUNK_FRAMES,
+                        'cancel_on_disconnect':True,
                         'temperature':.7,'guidance':2.,'voice_mode':'profile','voice_profile':turn_voice,
                         'voice_conversion':False,'history':history[-16:]}
                     async def waiting(text,stage):await send(b'X',{'text':text,'status_only':True,'stage':stage})
@@ -221,7 +222,7 @@ class MouthBridge:
                     await send(b'D',{})
                 except asyncio.CancelledError:
                     remember(record,interrupted=True)
-                    # Closing SSE triggers the existing backend's disconnect cancellation.
+                    # This request opted into cooperative disconnect cancellation.
                     raise
                 except Exception as exc:
                     status=getattr(getattr(exc,'response',None),'status_code',None)

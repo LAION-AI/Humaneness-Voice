@@ -10,6 +10,7 @@ from final_verify import runtime_signature
 def main():
     py=sys.executable;b=['uv','run','--no-project','--with','playwright','--python',py]
     stages=[('unit',[py,'run_unit_checks.py'],90),
+        ('browser_spoken_stop',['uv','run','--no-project','--with','playwright','--with','numpy==1.26.4','--with','aiohttp','--with','httpx','--python',py,'browser_spoken_stop_check.py'],240),
         ('browser_stop',b+['browser_stop_controls.py'],150),
         ('lifecycle',b+['browser_lifecycle_checks.py'],90),
         ('gaze_privacy_ui',b+['browser_reliability_checks.py'],120),

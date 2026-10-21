@@ -557,6 +557,7 @@ async def socket(request):
         conv=RoboConversation(ws,ears,sess,request.app['cfg'],voices=['emolia_c1699'],
             default_voice='emolia_c1699',labels={'emolia_c1699':'Mira · fixed reference'})
         conv.synthetic_diagnostics=synthetic_diagnostics
+        conv.synthetic_stop_audio=synthetic_diagnostics and request.query.get('synthetic_stop_audio')=='1'
         await conv.run()
     finally:ears.close(sess)
     return ws

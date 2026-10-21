@@ -1,0 +1,2462 @@
+{
+  "command": "christoph-stop-speaking",
+  "authorized": true,
+  "other_enrolled": false,
+  "long_reading": true,
+  "feedback_enabled": true,
+  "passed": true,
+  "enrollment_order": [
+    "Christoph"
+  ],
+  "request_includes_spoken_introduction": false,
+  "reading_words": 87,
+  "playback_before_command_s": 6.160000000000004,
+  "command_start_s": 41.1,
+  "command_duration_s": 3.07,
+  "interruption_latency_s": 2.299999999999997,
+  "interrupted": true,
+  "stop_acknowledged": true,
+  "new_spoken_replies": 1,
+  "actual_streamed_tts": true,
+  "phase_offset_s": 0.0,
+  "reply_audio_samples": {
+    "1": 54480,
+    "2": 398390,
+    "3": 56400
+  },
+  "feedback_events": [
+    {
+      "at_s": 44.89,
+      "phase": "stop",
+      "type": "stop_feedback",
+      "text": "Alles klar. Ich höre zu."
+    }
+  ],
+  "events": [
+    {
+      "at_s": 8.97,
+      "phase": "intro",
+      "type": "endpoint",
+      "transcript": "Hey Rabi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-16e64dcaac5c",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.83,
+      "timing": {
+        "speaker_last_audio_s": 5.76,
+        "silence_detected_audio_s": 8.4,
+        "prefetch_used": false,
+        "finalization_ms": 280.22,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "at_s": 9.63,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 9.6,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 9.95,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 9.92,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 10.29,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.24,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 10.59,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.56,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 10.91,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 10.88,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 11.17,
+      "phase": "intro",
+      "type": "reply",
+      "text": "Hallo Christoph, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "affection, warm and welcoming",
+            "text": "Hallo Christoph, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-16e64dcaac5c",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-16e64dcaac5c",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 2186.47,
+        "director_mode": "compact",
+        "completion_tokens": 42,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "at_s": 11.25,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.2,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 11.55,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.52,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 11.87,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 11.84,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 12.21,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.16,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 12.53,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.48,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 12.85,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 12.8,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.02312443032860756,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.02312443032860756,
+        "candidate_margin": 0.9768755696713924
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 13.15,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 13.12,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.227,
+          "onset_s": 0.56
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 13.19,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.03804345056414604,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.03804345056414604,
+        "candidate_margin": 0.961956549435854
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 13.19,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.12,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 13.19,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.34,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.03804345056414604,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.03804345056414604,
+        "candidate_margin": 0.961956549435854
+      }
+    },
+    {
+      "at_s": 13.47,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 13.44,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.295,
+          "onset_s": 0.88
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.25,
+          "onset_s": 0.88
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.22,
+          "onset_s": 0.88
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 13.49,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.44,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.06745293736457825,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.06745293736457825,
+        "candidate_margin": 0.9325470626354218
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 13.49,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.44,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 13.49,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.44,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.06745293736457825,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.06745293736457825,
+        "candidate_margin": 0.9325470626354218
+      }
+    },
+    {
+      "at_s": 13.81,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 13.76,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.11795556545257568,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.11795556545257568,
+        "candidate_margin": 0.8820444345474243
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 13.83,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.76,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 13.95,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": -0.020303666591644287,
+      "bot_cosine": 0.5523306131362915,
+      "margin": -0.5726342797279358,
+      "evidence_seconds": 1.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.15,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 14.08,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.11710084974765778,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.11710084974765778,
+        "candidate_margin": 0.8828991502523422
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 14.15,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.08,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 14.25,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14758095145225525,
+      "bot_cosine": 0.7567278146743774,
+      "margin": -0.6091468632221222,
+      "evidence_seconds": 1.49,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9965255616414019,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.43,
+      "phase": "intro",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 14.4,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.254,
+          "onset_s": 1.84
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.36,
+          "onset_s": 1.84
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.437,
+          "onset_s": 1.84
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 14.45,
+      "phase": "intro",
+      "type": "synthetic_stop_probe",
+      "audio_s": 14.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.12657833099365234,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.12657833099365234,
+        "candidate_margin": 0.8734216690063477
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 14.45,
+      "phase": "intro",
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.4,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 14.53,
+      "phase": "intro",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19053789973258972,
+      "bot_cosine": 0.7721800208091736,
+      "margin": -0.5816421210765839,
+      "evidence_seconds": 1.72,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9965721894481984,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 14.55,
+      "phase": "intro",
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "at_s": 27.58,
+      "phase": "request",
+      "type": "endpoint",
+      "transcript": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "speaker_id": "speaker-16e64dcaac5c",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 9.67,
+      "timing": {
+        "speaker_last_audio_s": 26.15,
+        "silence_detected_audio_s": 27.36,
+        "prefetch_used": true,
+        "finalization_ms": 0.96,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 280.19,
+        "embedding_ms": 253.44
+      }
+    },
+    {
+      "at_s": 28.18,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.16,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 28.52,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.48,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 28.82,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 28.8,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 29.14,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.12,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 29.48,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.44,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 29.78,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 29.76,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 30.1,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.08,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 30.44,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.4,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 30.74,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 30.72,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 31.06,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.04,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 31.4,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.36,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 31.7,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 31.68,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 32.02,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.0,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 32.36,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.32,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 32.66,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.64,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 32.98,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 32.96,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 33.32,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.28,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 33.62,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.6,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 33.72,
+      "phase": "request",
+      "type": "reply",
+      "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse. Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum. Einige Arten und Hybriden tragen essbare Früchte. Besonders verbreitet ist die Dessertbanane, die weltweit als Obst angebaut und gegessen wird. Kochbananen werden dagegen meist gegart und dienen in vielen tropischen und subtropischen Ländern als wichtiges Grundnahrungsmittel. Botanisch betrachtet ist die Banane eine Beere, die an einer großen, krautartigen Pflanze wächst. Wikipedia unterscheidet außerdem zwischen der Pflanzengattung, der Frucht und verschiedenen Nutzungsmöglichkeiten.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Bananen, botanisch Musa, sind eine Pflanzengattung aus der Familie der Bananengewächse.",
+            "start_s": 0.0,
+            "end_s": 3.74
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum.",
+            "start_s": 3.74,
+            "end_s": 8.84
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Einige Arten und Hybriden tragen essbare Früchte.",
+            "start_s": 8.84,
+            "end_s": 11.22
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Besonders verbreitet ist die Dessertbanane, die weltweit als Obst angebaut und gegessen wird.",
+            "start_s": 11.22,
+            "end_s": 15.64
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Kochbananen werden dagegen meist gegart und dienen in vielen tropischen und subtropischen Ländern als wichtiges Grundnahrungsmittel.",
+            "start_s": 15.64,
+            "end_s": 21.08
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Botanisch betrachtet ist die Banane eine Beere, die an einer großen, krautartigen Pflanze wächst.",
+            "start_s": 21.08,
+            "end_s": 25.84
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sachlich",
+            "text": "Wikipedia unterscheidet außerdem zwischen der Pflanzengattung, der Frucht und verschiedenen Nutzungsmöglichkeiten.",
+            "start_s": 25.84,
+            "end_s": 29.58
+          }
+        ],
+        "planned_duration_s": 29.58
+      },
+      "speaker_id": "speaker-16e64dcaac5c",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 6135.93,
+        "director_mode": "compact",
+        "completion_tokens": 193,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [
+        {
+          "title": "Bananen",
+          "url": "https://de.wikipedia.org/wiki/Bananen",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Banane",
+          "url": "https://de.wikipedia.org/wiki/Banane",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Dessertbanane",
+          "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+          "publisher": "Wikipedia"
+        }
+      ],
+      "lookups": [
+        {
+          "tool": "search_wikipedia",
+          "ms": 478.48,
+          "error": null,
+          "cache_hit": false,
+          "retrieved_at": "2026-10-21T22:30:36.787162+00:00"
+        }
+      ]
+    },
+    {
+      "at_s": 33.94,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 33.92,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 34.28,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.24,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 34.58,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.56,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 34.9,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 34.88,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 35.26,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.2,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 35.58,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.52,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.17680174112319946,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.17680174112319946,
+        "candidate_margin": 0.8231982588768005
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 35.9,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 35.84,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.281344473361969,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.281344473361969,
+        "candidate_margin": 0.718655526638031
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 36.18,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 36.16,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.282,
+          "onset_s": 0.88
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 36.24,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 36.16,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2910168170928955,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2910168170928955,
+        "candidate_margin": 0.7089831829071045
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 36.24,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.16,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 36.38,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17583897709846497,
+      "bot_cosine": 0.5279905200004578,
+      "margin": -0.3521515429019928,
+      "evidence_seconds": 0.74,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 36.5,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 36.48,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.211,
+          "onset_s": 1.2
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.214,
+          "onset_s": 1.2
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.278,
+          "onset_s": 1.2
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.247,
+          "onset_s": 1.2
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 36.54,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 36.48,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2756861746311188,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2756861746311188,
+        "candidate_margin": 0.7243138253688812
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 36.54,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.48,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 36.62,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.22218674421310425,
+      "bot_cosine": 0.7726028561592102,
+      "margin": -0.550416111946106,
+      "evidence_seconds": 1.12,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 36.82,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 36.8,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.259,
+          "onset_s": 1.52
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.235,
+          "onset_s": 1.52
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 36.86,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 36.8,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.261381596326828,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.261381596326828,
+        "candidate_margin": 0.738618403673172
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 36.86,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.8,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 36.94,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.20667143166065216,
+      "bot_cosine": 0.8289213180541992,
+      "margin": -0.6222498863935471,
+      "evidence_seconds": 1.49,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9975376829140703,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.14,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 37.12,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.214,
+          "onset_s": 1.84
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.264,
+          "onset_s": 1.84
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.211,
+          "onset_s": 1.84
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 37.2,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2598315477371216,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2598315477371216,
+        "candidate_margin": 0.7401684522628784
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 37.2,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.12,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 37.28,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19251079857349396,
+      "bot_cosine": 0.8460566997528076,
+      "margin": -0.6535459011793137,
+      "evidence_seconds": 1.76,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9967891864386598,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.46,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 37.44,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.218,
+          "onset_s": 2.16
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 37.5,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.44,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2585402727127075,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2585402727127075,
+        "candidate_margin": 0.7414597272872925
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 37.5,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.44,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 37.6,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1869356632232666,
+      "bot_cosine": 0.9192651510238647,
+      "margin": -0.7323294878005981,
+      "evidence_seconds": 2.1,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9965592536458586,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 37.78,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 37.76,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.212,
+          "onset_s": 2.48
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 37.8,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 37.76,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.25931650400161743,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.25931650400161743,
+        "candidate_margin": 0.7406834959983826
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 37.82,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.76,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 37.92,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19608132541179657,
+      "bot_cosine": 0.9442931413650513,
+      "margin": -0.7482118159532547,
+      "evidence_seconds": 2.44,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9967306784107914,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.1,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 38.08,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.203,
+          "onset_s": 2.8
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.244,
+          "onset_s": 2.8
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 38.14,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.08,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2611457109451294,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2611457109451294,
+        "candidate_margin": 0.7388542890548706
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 38.16,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.08,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 38.26,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.20141087472438812,
+      "bot_cosine": 0.9460183382034302,
+      "margin": -0.744607463479042,
+      "evidence_seconds": 2.72,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9966388342312262,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.42,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 38.4,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.236,
+          "onset_s": 3.12
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 38.46,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2650488317012787,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2650488317012787,
+        "candidate_margin": 0.7349511682987213
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 38.46,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.4,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 38.54,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.20580540597438812,
+      "bot_cosine": 0.9582910537719727,
+      "margin": -0.7524856477975845,
+      "evidence_seconds": 2.95,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9964730334089554,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 38.74,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 38.72,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.201,
+          "onset_s": 3.44
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.204,
+          "onset_s": 3.44
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 38.76,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 38.72,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.27319639921188354,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.27319639921188354,
+        "candidate_margin": 0.7268036007881165
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 38.76,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.72,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 38.86,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.21023710072040558,
+      "bot_cosine": 0.9735424518585205,
+      "margin": -0.7633053511381149,
+      "evidence_seconds": 3.03,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9958224620417846,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.06,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.04,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.231,
+          "onset_s": 3.76
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.27,
+          "onset_s": 3.76
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.284,
+          "onset_s": 3.76
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.12,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.04,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.26015734672546387,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.26015734672546387,
+        "candidate_margin": 0.7398426532745361
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 39.14,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.04,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 39.22,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.20420190691947937,
+      "bot_cosine": 0.9705138206481934,
+      "margin": -0.766311913728714,
+      "evidence_seconds": 3.03,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9953323984306478,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.38,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.36,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.244,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.35,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.42,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.36,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2566359043121338,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2566359043121338,
+        "candidate_margin": 0.7433640956878662
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 39.42,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.36,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 39.56,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.21206222474575043,
+      "bot_cosine": 0.9610368013381958,
+      "margin": -0.7489745765924454,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9956219565924007,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 39.7,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 39.68,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.272,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.291,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.315,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 39.72,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 39.68,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.26111310720443726,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.26111310720443726,
+        "candidate_margin": 0.7388868927955627
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 39.74,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.68,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 39.84,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19947615265846252,
+      "bot_cosine": 0.9404147267341614,
+      "margin": -0.7409385740756989,
+      "evidence_seconds": 2.95,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9967471441149659,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.02,
+      "phase": "request",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 40.0,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.265,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.419,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 40.08,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.0,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.27155420184135437,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.27155420184135437,
+        "candidate_margin": 0.7284457981586456
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 40.1,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.0,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 40.2,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.20106031000614166,
+      "bot_cosine": 0.9282519221305847,
+      "margin": -0.727191612124443,
+      "evidence_seconds": 2.63,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9968938376432672,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.36,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.32,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2736051678657532,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2736051678657532,
+        "candidate_margin": 0.7263948321342468
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 40.38,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.32,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 40.48,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.212576761841774,
+      "bot_cosine": 0.9086779952049255,
+      "margin": -0.6961012333631516,
+      "evidence_seconds": 2.31,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9973918037072809,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 40.68,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.64,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2771584987640381,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2771584987640381,
+        "candidate_margin": 0.7228415012359619
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 40.7,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.64,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 40.8,
+      "phase": "request",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.25698792934417725,
+      "bot_cosine": 0.8948612809181213,
+      "margin": -0.6378733515739441,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.996707540069371,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.04,
+      "phase": "request",
+      "type": "synthetic_stop_probe",
+      "audio_s": 40.96,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2817160487174988,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2817160487174988,
+        "candidate_margin": 0.7182839512825012
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 41.04,
+      "phase": "request",
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.96,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 41.16,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.25271350145339966,
+      "bot_cosine": 0.8683271408081055,
+      "margin": -0.6156136393547058,
+      "evidence_seconds": 3.0,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.99573080751715,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.34,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.28,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28467079997062683,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.28467079997062683,
+        "candidate_margin": 0.7153292000293732
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 41.46,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.25524500012397766,
+      "bot_cosine": 0.8280428647994995,
+      "margin": -0.5727978646755219,
+      "evidence_seconds": 2.95,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9951323999250333,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.62,
+      "phase": "stop",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 41.6,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.447,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.256,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": null
+    },
+    {
+      "at_s": 41.66,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.6,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.28462904691696167,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.28462904691696167,
+        "candidate_margin": 0.7153709530830383
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 41.66,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.6,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 41.78,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.24706362187862396,
+      "bot_cosine": 0.8519350290298462,
+      "margin": -0.6048714071512222,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9954267260651284,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 41.98,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 41.92,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2694969177246094,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2694969177246094,
+        "candidate_margin": 0.7305030822753906
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 42.02,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.92,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 42.14,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.25421252846717834,
+      "bot_cosine": 0.8382712602615356,
+      "margin": -0.5840587317943573,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9946699481422804,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 42.28,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.24,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.2716279625892639,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.2716279625892639,
+        "candidate_margin": 0.7283720374107361
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 42.28,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.24,
+      "text": "",
+      "views": [],
+      "audio_stats": {}
+    },
+    {
+      "at_s": 42.38,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.24829965829849243,
+      "bot_cosine": 0.844247579574585,
+      "margin": -0.5959479212760925,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.9945264909580067,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "at_s": 42.62,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.56,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.22746896743774414,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.22746896743774414,
+        "candidate_margin": 0.7725310325622559
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 42.62,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.06,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": -0.22746896743774414,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": -0.22746896743774414,
+        "candidate_margin": 0.7725310325622559
+      }
+    },
+    {
+      "at_s": 42.68,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.56,
+      "text": "",
+      "views": [
+        "Speech.",
+        "",
+        ""
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.20268119871616364,
+        "view_seconds": [
+          3.04,
+          0.24,
+          0.24
+        ]
+      }
+    },
+    {
+      "at_s": 42.94,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 42.88,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.16003544628620148,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.16003544628620148,
+        "candidate_margin": 1.1600354462862015
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 42.94,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.16003544628620148,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.16003544628620148,
+        "candidate_margin": 1.1600354462862015
+      }
+    },
+    {
+      "at_s": 43.22,
+      "phase": "stop",
+      "type": "synthetic_barge_proposal",
+      "audio_s": 43.2,
+      "proposals": [
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.265,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.465,
+          "onset_s": 4.0
+        },
+        {
+          "kind": "BARGE",
+          "yield_prob": 0.255,
+          "onset_s": 4.0
+        }
+      ],
+      "speaker_cue": {
+        "kind": "enrolled",
+        "id": "speaker-16e64dcaac5c",
+        "name": "Christoph",
+        "similarity": 0.6326439380645752,
+        "source": "enrolled Nemotron session channel + predicted reference"
+      }
+    },
+    {
+      "at_s": 43.24,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 43.2,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.47334927320480347,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.47334927320480347,
+        "candidate_margin": 1.4733492732048035
+      },
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 43.26,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.38,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.47334927320480347,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.47334927320480347,
+        "candidate_margin": 1.4733492732048035
+      }
+    },
+    {
+      "at_s": 43.32,
+      "phase": "stop",
+      "type": "synthetic_stop_decode",
+      "audio_s": 43.2,
+      "text": "Bitte hör auf",
+      "views": [
+        "Bitte hör auf",
+        "Bitte hör auf",
+        "Bitte hör auf."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.2147957682609558,
+        "view_seconds": [
+          3.04,
+          0.88,
+          0.88
+        ]
+      }
+    },
+    {
+      "at_s": 43.4,
+      "phase": "stop",
+      "type": "synthetic_barge_verification",
+      "accepted": true,
+      "user_cosine": 0.4081653654575348,
+      "bot_cosine": 0.05044913291931152,
+      "margin": 0.35771623253822327,
+      "evidence_seconds": 0.71,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": true,
+      "short_command_consensus": false,
+      "compact_command_consensus": true,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.4532112777233124,
+        "candidate_margin": 1.4532112777233124
+      },
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.47334927320480347,
+        "candidate_id": "speaker-16e64dcaac5c",
+        "candidate_similarity": 0.47334927320480347,
+        "candidate_margin": 1.4733492732048035
+      }
+    },
+    {
+      "at_s": 43.4,
+      "phase": "stop",
+      "type": "barge",
+      "yield": 1.0
+    },
+    {
+      "at_s": 43.4,
+      "phase": "stop",
+      "type": "stop_command",
+      "speaker_name": "Christoph",
+      "text": "Paused. I’m listening.",
+      "source": "verified_stop_command"
+    },
+    {
+      "at_s": 43.4,
+      "phase": "stop",
+      "type": "turn_done",
+      "barged": true
+    },
+    {
+      "at_s": 44.89,
+      "phase": "stop",
+      "type": "stop_feedback",
+      "text": "Alles klar. Ich höre zu."
+    },
+    {
+      "at_s": 44.89,
+      "phase": "stop",
+      "type": "reply",
+      "text": "Alles klar. Ich höre zu.",
+      "reply_id": 3,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.55,
+            "direction": "interest, gentle and unhurried",
+            "text": "Alles klar.",
+            "start_s": 0.0,
+            "end_s": 0.68
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.55,
+            "direction": "interest, gentle and unhurried",
+            "text": "Ich höre zu.",
+            "start_s": 0.68,
+            "end_s": 1.7
+          }
+        ],
+        "planned_duration_s": 1.7
+      },
+      "speaker_id": "speaker-16e64dcaac5c",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 0.0,
+        "director_mode": "compact",
+        "completion_tokens": null,
+        "director_model": null,
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "at_s": 45.47,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 45.44,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 45.81,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 45.76,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 46.11,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 46.08,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 46.43,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 46.4,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 46.53,
+      "phase": "stop",
+      "type": "warning",
+      "text": "Speaker views disagree (0.23 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+    },
+    {
+      "at_s": 46.53,
+      "phase": "stop",
+      "type": "ignored",
+      "reason": "Speaker views disagree (0.23 < 0.50). Please repeat with less overlap; lowering voice-match strictness does not disable this overlap check."
+    },
+    {
+      "at_s": 46.77,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 46.72,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 47.07,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 47.04,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 47.39,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 47.36,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 47.73,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 47.68,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 48.03,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 48.0,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 48.35,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 48.32,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 48.69,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 48.64,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 48.99,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 48.96,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 49.31,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 49.28,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 49.65,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 49.6,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 49.95,
+      "phase": "stop",
+      "type": "synthetic_stop_probe",
+      "audio_s": 49.92,
+      "fast_vote": {},
+      "target": "speaker-16e64dcaac5c"
+    },
+    {
+      "at_s": 50.15,
+      "phase": "stop",
+      "type": "turn_done",
+      "barged": false
+    }
+  ],
+  "acknowledgment_observed": true,
+  "stop_case_passed": true,
+  "runtime_source_sha256": "96ea9bc93c12825299ac8065baa2897a49a47dabe48c963177162465019c0238",
+  "synthetic_only": true
+}
