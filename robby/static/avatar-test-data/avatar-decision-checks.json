@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "synthetic_text_only": true,
+  "cases": [
+    {
+      "prompt": "Ich erz\u00e4hle noch weiter. Bitte nicke jetzt nur kurz mit dem Kopf, ohne mich sprachlich zu unterbrechen.",
+      "expected": "nod",
+      "passed": true,
+      "result": {
+        "action": "listen",
+        "rule_id": null,
+        "gesture": "nod"
+      },
+      "seconds": 1.8201875649392605
+    },
+    {
+      "prompt": "Bitte sch\u00fcttle kurz den Kopf, ohne etwas zu sagen. Ich rede danach einfach weiter.",
+      "expected": "shake",
+      "passed": true,
+      "result": {
+        "action": "listen",
+        "rule_id": null,
+        "gesture": "shake"
+      },
+      "seconds": 1.930437110364437
+    },
+    {
+      "prompt": "Bitte bewege deinen Kopf jetzt nicht und h\u00f6re einfach still zu.",
+      "expected": null,
+      "passed": true,
+      "result": {
+        "action": "listen",
+        "rule_id": null
+      },
+      "seconds": 1.282814383506775
+    }
+  ]
+}

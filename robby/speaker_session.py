@@ -102,16 +102,28 @@ class SpeakerSession:
         decoder from sub-second input. Neither view is selected by voice score.
         The caller still requires independent current-owner/echo verification.
         """
+        self.last_stop_texts=[];self.last_stop_audio_stats={}
         if len(wave)<2560:return ''
         views=[wave];n=len(wave)//320
         levels=np.sqrt(np.mean(wave[:n*320].reshape(n,320)**2,axis=1))
         if float(levels.max())<max(.003,self.foreground_floor()):return ''
-        for fraction in (.05,.20):
-            active=np.flatnonzero(levels>=max(.002,self.foreground_floor(),float(levels.max())*fraction))
+        # Room energy admits a probe; it must not also trim quiet consonants
+        # from an admitted word. A vowel alone often decodes as silence.
+        for fraction in (.025,.03):
+            active=np.flatnonzero(levels>=max(.001,float(levels.max())*fraction))
             if len(active):
-                lo=max(0,int(active[0])*320-1920);hi=min(len(wave),(int(active[-1])+1)*320+1920)
+                lo=max(0,int(active[0])*320-2560);hi=min(len(wave),(int(active[-1])+1)*320+2560)
                 views.append(wave[lo:hi])
-        batch=[np.pad(v,(3200,max(0,40960-len(v)-3200))).astype(np.float32) for v in views]
+        self.last_stop_audio_stats={'foreground_floor':self.foreground_floor(),
+            'peak_frame_rms':float(levels.max()),'view_seconds':[len(v)/16000 for v in views]}
+        # Short isolated words are sensitive to decoder context: the same
+        # clean Stop can decode empty with 200 ms of leading silence. Two
+        # near-identical crops with identical padding repeat that failure.
+        # Use fixed distinct contexts, never a score-selected alignment. These
+        # are synthetic zeros, NOT extra waiting or borrowed room speech.
+        leads=(3200,0,20480)
+        batch=[np.pad(v,(lead,max(0,40960-len(v)-lead))).astype(np.float32)
+               for v,lead in zip(views,leads)]
         async with self.asr_slot(0):
             self.decode_count+=1
             texts=await asyncio.to_thread(self.c.ears.service.engine.asr.transcribe,batch)
@@ -189,6 +201,11 @@ class SpeakerSession:
         # A sub-second word needs its weak consonants; on a longer phrase,
         # expanding to quiet surrounding playback dilutes the voice cue.
         context_active=(np.flatnonzero(levels>=max(.001,float(levels.max())*.03)) if brief else active)
+        # Voiced-frame COUNT is not word duration. A longer, softly spoken
+        # phrase can have only 200 ms above the peak-relative threshold.
+        # Such speech must never inherit the single-imperative exception.
+        if brief and (int(context_active[-1])-int(context_active[0])+1)*.02>.80:
+            brief=False;context_active=active
         pad=1280 if brief else 160
         lo=max(0,int(context_active[0])*320-pad);hi=min(len(wave),(int(context_active[-1])+1)*320+pad)
         query=wave[lo:hi]
@@ -201,6 +218,17 @@ class SpeakerSession:
             from audio_sync import estimate_echo_delay
             waveform_correlation=estimate_echo_delay(query,aligned_playback,symmetric=True,absolute=True)['confidence']
         playback=self.c.playback;rid=playback.rid;epoch=self.epoch
+        if literal and getattr(self.c,'synthetic_stop_audio',False) and not getattr(self,'stop_audio_sent',False):
+            # Explicit loopback-only synthetic-fixture debugging, never enabled
+            # by a public browser or stored by the application itself.
+            import base64
+            self.stop_audio_sent=True
+            pack=lambda x:base64.b64encode(np.asarray(x,dtype='<f4').tobytes()).decode()
+            await self.c.ws.send_json({'type':'synthetic_stop_audio','sample_rate':16000,
+                'raw':pack(self.audio_between(begin,end)),'reference':pack(self.playback_between(begin,end)),
+                'residual':pack(wave),'query':pack(query),'crop':[lo,hi],
+                'teachers':{u.id:[pack(v) for v in [u.teacher,*u.teacher_templates,*getattr(u,'teacher_examples',())]] for u in references},
+                'fast':{u.id:pack(u.fast) for u in references},'target':addressee})
         size=min(playback.n16,4*16000)
         reference=playback.audio[:size].copy()
         cached=self.interrupt_reference
@@ -213,7 +241,10 @@ class SpeakerSession:
             # if available, without preventing known users cancelling a wait.
             bot=(cached[2] if cached else None) if size<10240 else cached[2] if reuse else unit(teacher.embed(reference))
             user=unit(teacher.embed(query))
-            values=sorted(((u.teacher_score(user),u.id) for u in references),reverse=True)
+            # Existing high-quality, independently verified full-turn examples
+            # preserve phonetic diversity lost by averaging into one centroid.
+            # Only the stop verifier uses them as separate recent anchors.
+            values=sorted(((max([u.teacher_score(user)]+[float(user@v) for v in getattr(u,'teacher_examples',())]),u.id) for u in references),reverse=True)
             return bot,cached[1] if reuse else size,float(user@bot) if bot is not None else -1.,values
         try:bot,bot_size,bot_score,values=await asyncio.to_thread(score)
         except Exception:return None
@@ -262,7 +293,7 @@ class SpeakerSession:
         fast_floor=.40 if brief else max(.58,self.memory.threshold-.04)
         short_command=bool(literal and fast.get('candidate_id')==addressee and
             fast_score>=fast_floor and fast.get('candidate_margin',0)>=.12 and
-            best>=max(.25,self.utterance_threshold-.15) and best-runner>=max(.10,self.utterance_margin)
+            best>=(max(.25,self.utterance_threshold-.15) if brief else max(.35,self.utterance_threshold)) and best-runner>=max(.10,self.utterance_margin)
             and best*fast_score>=.12)
         long_vote=self.stop_long_vote(begin,end) if literal and not brief else {}
         # A clearly recognized short phrase is often 0.5–1.2 s, too long for
@@ -284,6 +315,40 @@ class SpeakerSession:
             fast.get('candidate_margin',0)>=.15 and best>=max(.20,self.utterance_threshold-.15) and
             best-runner>=max(.15,self.utterance_margin) and best*fast_score>=.12)
         accepted=accepted or short_command or compact_command or brief_consensus
+        isolated_consensus=False;isolated_scores={}
+        if (not accepted and brief and proposal.get('stop_views_agree') and
+            hasattr(self,'predictor') and best>=max(.20,self.utterance_threshold-.15) and
+            best-bot_score>=max(.15,self.utterance_margin)):
+            from stop_voice import isolated_stop_embedding
+            try:
+                vector=await asyncio.to_thread(isolated_stop_embedding,self.c.ears.service.engine.asr,
+                    self.predictor,wave[lo:hi],(int(context_active[-1])+1)*320-lo)
+            except Exception:vector=None
+            if vector is not None:
+                isolated_scores={u.id:self.memory.fast_score(vector,u) for u in references}
+                joint=sorted(((.5*(score+isolated_scores[who]),who) for score,who in values),reverse=True)
+                rival=joint[1][0] if len(joint)>1 else -1.
+                # Cosines are not probabilities: multiplying two just-above-
+                # threshold cues can reject them despite agreement. Retain the
+                # strong joint-score route, or require BOTH raw live and
+                # phase-stable views independently above the existing .40
+                # short-word floor, with stronger teacher/rival separation.
+                dual_view=bool(fast.get('candidate_id')==addressee and fast_score>=.40
+                    and fast.get('candidate_margin',0)>=.12 and best-runner>=max(.15,self.utterance_margin))
+                clean_score=isolated_scores.get(addressee,-1)
+                # Below the ordinary short-word teacher floor, demand stronger
+                # agreement from BOTH student contexts, never one lucky view.
+                # Keep the existing .20 brief-command teacher floor and .15
+                # rival/bot separation; no ordinary utterance is admitted here.
+                strong_dual=dual_view and fast_score>=.45 and clean_score>=.45
+                evidence=(best>=max(.25,self.utterance_threshold-.15) and
+                          (best*clean_score>=.12 or dual_view)) or strong_dual
+                isolated_consensus=bool(joint[0][1]==addressee and joint[0][0]-rival>=max(.08,self.utterance_margin)
+                    and clean_score>=.40 and evidence
+                    and best-runner>=max(.10,self.utterance_margin))
+                accepted=accepted or isolated_consensus
+            if (self.closed or self.epoch!=epoch or not self.c.speaking or playback.rid!=rid or
+                (getattr(self.c,'current_speaker',None) or {}).get('speaker_id')!=addressee):return None
         if getattr(self.c,'synthetic_diagnostics',False):
             await self.c.ws.send_json({'type':'synthetic_barge_verification','accepted':accepted,
                 'user_cosine':best,'bot_cosine':bot_score,'margin':best-runner,'evidence_seconds':len(query)/16000,
@@ -291,6 +356,7 @@ class SpeakerSession:
                 'different_playback_content':content_confirmed,'literal_stop':literal,'short_command_consensus':short_command,
                 'compact_command_consensus':compact_command,
                 'brief_crop_consensus':brief_consensus,
+                'isolated_stop_consensus':isolated_consensus,'isolated_fast_scores':isolated_scores,
                 'long_student_consensus':False,'long_vote':long_vote,'fast_vote':fast})
         return sid if accepted and sid in self.memory.users else None
 
@@ -309,6 +375,19 @@ class SpeakerSession:
             score,sid=scores[0];runner=scores[1][0] if len(scores)>1 else -1.
             result.update(candidate_id=sid,candidate_similarity=score,candidate_margin=score-runner)
         return result
+
+    def stop_agreement(self,text,views,target,rid,end):
+        """Acoustic-view agreement OR a repeated short decode one hop later.
+
+        Re-decoding the same hop, another reply/owner, or old audio cannot add
+        confidence. This is only lexical evidence; identity checks still run.
+        """
+        key=(target,rid,tuple('stop' if w=='stopp' else w for w in words(text)))
+        previous=getattr(self,'stop_evidence',None)
+        stable=bool(is_brief_stop_command(text) and previous and previous[0]==key
+            and .24<=end-previous[1]<=.48)
+        self.stop_evidence=(key,end) if is_stop_command(text) else None
+        return sum(is_stop_command(t) for t in views)>=2 or stable
 
     def schedule_stop_probe(self,hop_end):
         """Bounded ASR fallback for literal stop requests while TYGER speaks.
@@ -342,11 +421,12 @@ class SpeakerSession:
                 controller=getattr(self.c,'decisions',None)
                 if controller:controller.offer_agent(getattr(self,'last_stop_texts',[]),hop_end)
                 if getattr(self.c,'synthetic_diagnostics',False):
-                    await self.c.ws.send_json({'type':'synthetic_stop_decode','audio_s':end,'text':text,'views':getattr(self,'last_stop_texts',[])})
+                    await self.c.ws.send_json({'type':'synthetic_stop_decode','audio_s':end,'text':text,'views':getattr(self,'last_stop_texts',[]),
+                        'audio_stats':getattr(self,'last_stop_audio_stats',{})})
                 if (self.closed or epoch!=self.epoch or not self.c.speaking or self.c.playback.rid!=rid or
                     (getattr(self.c,'current_speaker',None) or {}).get('speaker_id')!=target or not has_stop_intent(text)):return
                 proposal={'kind':'BARGE','onset_s':min(2.,end-begin),'yield_prob':1.,'source':'verified_stop_command','stop_text':text,
-                    'stop_views_agree':sum(is_stop_command(t) for t in getattr(self,'last_stop_texts',[]))>=2}
+                    'stop_views_agree':self.stop_agreement(text,getattr(self,'last_stop_texts',[]),target,rid,end)}
                 self.interrupt_checked_at=-100.
                 confirmed=await self.confirm_interrupt(proposal,hop_end)
                 if confirmed==target:
@@ -1311,6 +1391,7 @@ class SpeakerSession:
             while True:
                 track=await self.queue.get()
                 self.pending_turns.pop(track.token,None)
+                self.delivering_turn=track
                 epoch=self.epoch
                 try:
                     if self.merge_continuation(track):continue
@@ -1329,6 +1410,10 @@ class SpeakerSession:
                         await self.c.ws.send_json({'type':'ignored','reason':'Speech could not be separated confidently from background words. Please repeat; nothing was sent to Luna.'})
                         continue
                     text=text or track.partial
+                    # A consumed Stop's tail is not a fresh conversational turn.
+                    # Once playback is stopped, a literal Stop needs neither
+                    # enrollment nor another noisy short-word identity check.
+                    if not self.c.speaking and (is_stop_command(text) or self.stopped_fragment(track,text)):continue
                     visual=getattr(self.c,'visual',None)
                     view=visual.gate(track.voiced_start if track.voiced_start is not None else track.start,track.last_speech) if visual else {'allowed':True}
                     if not view['allowed'] and not is_stop_command(text):
@@ -1388,6 +1473,7 @@ class SpeakerSession:
                 except Exception as exc:
                     logging.getLogger('robo.speakers').warning('Speaker submit failed: %s',type(exc).__name__)
                     await self.c.ws.send_json({'type':'warning','text':'Speaker turn could not be submitted; please repeat.'})
+                finally:self.delivering_turn=None
         except asyncio.CancelledError:pass
 
     async def identity_embedding(self,track,text):

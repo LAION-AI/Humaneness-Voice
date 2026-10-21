@@ -1,0 +1,128 @@
+{
+  "passed": true,
+  "synthetic_text_only": true,
+  "cases": [
+    {
+      "prompt": "Drehe deinen Kopf bitte einmal um 360 Grad gegen den Uhrzeigersinn.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "spin",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "direction": "counterclockwise"
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 6.02098210901022
+    },
+    {
+      "prompt": "Please rotate your head once clockwise by 360 degrees.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "spin",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "direction": "clockwise"
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.5226829536259174
+    },
+    {
+      "prompt": "Kannst du zuerst wütend gucken und danach eine süße Grimasse schneiden?",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "emotion",
+          "duration_s": 2,
+          "sentence": 0,
+          "emotion": "anger"
+        },
+        {
+          "kind": "grimace",
+          "duration_s": 2,
+          "sentence": 0,
+          "variant": "cheeky"
+        }
+      ],
+      "text": "Schau mal! Erst wütend, danach eine süße Grimasse.",
+      "model": "gpt-5.6-luna",
+      "seconds": 4.335356596857309
+    },
+    {
+      "prompt": "Bitte rolle mit den Augen und nicke danach.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "eye_roll",
+          "duration_s": 2,
+          "sentence": 0
+        },
+        {
+          "kind": "nod",
+          "duration_s": 1,
+          "sentence": 0
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.848459303379059
+    },
+    {
+      "prompt": "Schau bitte bitter und schüttle dann den Kopf.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "emotion",
+          "duration_s": 2,
+          "sentence": 0,
+          "emotion": "bitterness"
+        },
+        {
+          "kind": "shake",
+          "duration_s": 2,
+          "sentence": 0
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 3.529606867581606
+    },
+    {
+      "prompt": "Please show a cute crossed-eye face.",
+      "passed": true,
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 2,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "text": "Schau mal!",
+      "model": "gpt-5.6-luna",
+      "seconds": 2.959744043648243
+    },
+    {
+      "prompt": "Please do not spin your head. Just say hello.",
+      "passed": true,
+      "steps": [],
+      "text": "Hello!",
+      "model": "gpt-5.6-luna",
+      "seconds": 1.8470006212592125
+    },
+    {
+      "prompt": "What is seventeen times four? Answer only the number.",
+      "passed": true,
+      "steps": [],
+      "text": "68.",
+      "model": "gpt-5.6-luna",
+      "seconds": 2.2711890041828156
+    }
+  ],
+  "finished": 1792625050.301045
+}

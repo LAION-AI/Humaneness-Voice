@@ -29,6 +29,7 @@ from dpo_adapters import AdapterSelection, catalog as adapter_catalog, validate_
 import dynamic_references
 from voice_conversion import ConversionManager
 from ears_reward import RankingOptions, catalog as ears_catalog
+from turn_cancellation import DisconnectCancellation, TurnCancelled
 
 log = logging.getLogger("small")
 STATE = {"engine": None, "scorers": None, "finisher": None, "error": None, "phase": "starting", "busy": False,
@@ -481,6 +482,7 @@ def state(request: Request):
     from acting_models import MODELS
     release=getattr(STATE['engine'],'release',MODELS[settings.DEFAULT_MODEL])
     return {"ready": STATE["phase"] == "ready", "phase": STATE["phase"], "error": STATE["error"],
+            "cooperative_disconnect_cancellation": True,
             "model": release.get('repo',settings.REPO), "stage":release.get('label',STATE['phase']), "revision":release.get('revision',settings.REVISION),
             "model_id":getattr(STATE['engine'],'model_id',settings.DEFAULT_MODEL),
             "model_default":settings.DEFAULT_MODEL,"batch_size_default":release.get('batch_size',1),
@@ -636,6 +638,7 @@ class Turn(BaseModel):
     align: bool = True
     temperature: float = Field(default=settings.DEFAULT_TEMPERATURE, ge=0, le=1.5)
     streaming: bool = settings.DEFAULT_STREAMING
+    cancel_on_disconnect: bool = False
     voice_conversion: bool = settings.DEFAULT_VOICE_CONVERSION
     vc_precision: Literal['bf16','fp32'] = 'bf16'
     speaker_steering: bool = settings.DEFAULT_SPEAKER_STEERING
@@ -724,6 +727,7 @@ async def turn(body: Turn, request: Request):
     if reference:
         reference.active += 1
     queue = asyncio.Queue()
+    cancellation = DisconnectCancellation(body.cancel_on_disconnect)
     loop = asyncio.get_running_loop()
     owner = request.state.sid
 
@@ -878,9 +882,11 @@ async def turn(body: Turn, request: Request):
             steering_report = await prepare_speaker_steering(STATE['engine'], body, reference)
             await queue.put({'event': 'speaker_steering', **steering_report})
             STATE["job_phase"] = "Generating audio"
+            cancellation.check()
             await queue.put({"event": "status", "phase": "Generating audio"})
             n = 1 if body.generation == "single" else body.n
             def progress(done, total):
+                cancellation.check()
                 loop.call_soon_threadsafe(queue.put_nowait, {"event": "progress", "done": done, "total": total})
             generation_started = time.monotonic()
             # Stack-only watchdog for unexpectedly stalled generation. Never
@@ -901,6 +907,7 @@ async def turn(body: Turn, request: Request):
                 live_cutoff=LiveCutoff(spec,body.align)
                 live_detail={}
                 def committed(wave, detail):
+                    cancellation.check()
                     live_detail.update(detail)
                     rows=detail.get('retained_rows',[0]);scores=detail.get('scores',[{}])
                     edited=live_cutoff.feed(wave,scores[rows[0]] if scores else {})
@@ -931,6 +938,7 @@ async def turn(body: Turn, request: Request):
                     timestamp_reader=SearchScorer.__new__(SearchScorer) if body.align else None
                     if timestamp_reader is not None:timestamp_reader.asr=STATE['scorers'].asr
                     def single_chunk(chunk):
+                        cancellation.check()
                         if conversion:
                             chunk=conversion.chunk(chunk,vc_stream)
                             converted_chunks.append(chunk)
@@ -977,6 +985,7 @@ async def turn(body: Turn, request: Request):
                         await queue.put({'event':'status','phase':'Converting all takes to the reference speaker before scoring'})
                         waves=await asyncio.to_thread(conversion.full,waves,body.streaming,body.chunk_frames)
             generation_ms = round((time.monotonic() - generation_started) * 1000)
+            cancellation.check()
             faulthandler.cancel_dump_traceback_later()
             if reference:
                 context=getattr(STATE['engine'],'reference_info',{}).get(str(reference.path))
@@ -1043,6 +1052,8 @@ async def turn(body: Turn, request: Request):
                 'speaker_request':speaker_request,'speaker_preparation_ms':speaker_preparation_ms,
                 "total_ms": round((time.monotonic() - started) * 1000),
                 "cfg_effective": body.guidance != 1 and spec["prompt"] != spec["unconditional"]})
+        except TurnCancelled:
+            log.info('Disconnected opt-in turn stopped at a cooperative audio boundary')
         except Exception as exc:
             log.exception("Turn failed")
             await queue.put({"event": "error", "message": str(exc) or f"{type(exc).__name__}: Generierung fehlgeschlagen."})
@@ -1069,7 +1080,8 @@ async def turn(body: Turn, request: Request):
             await queue.put(None)
 
     task = asyncio.create_task(work())
-    # Work survives a disconnected browser, then releases its active reference.
+    # Existing Playground requests still survive disconnects. Opt-in callers
+    # stop cooperatively; model ownership remains held until the GPU unwinds.
     tasks.add(task)
     task.add_done_callback(tasks.discard)
 
@@ -1093,7 +1105,7 @@ async def turn(body: Turn, request: Request):
                     log.exception("Search chunk encoding failed")
                     item = {"event": "status", "phase": "Live MP3 encoding failed; wait for the completed take"}
             yield "data: " + json.dumps(item, ensure_ascii=False) + "\n\n"
-    return StreamingResponse(events(), media_type="text/event-stream",
+    return StreamingResponse(cancellation.watch(events()), media_type="text/event-stream",
         headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache"})
 
 

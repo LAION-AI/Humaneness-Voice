@@ -1,0 +1,825 @@
+{
+  "runtime_source_sha256": "e8d101f3daeeb08c794be0525f29065d296dc8152b736efbb3d98a9eefe9dc23",
+  "owned_server_pid": 4103265,
+  "physical_microphone_used": false,
+  "public_synthetic_only": true,
+  "simulated_echo_delay_ms": 120,
+  "simulated_playback_buffer_ms": 240,
+  "echo_gain": 0.05,
+  "started": 1792625465.1588705,
+  "passed": true,
+  "synthetic_visual_identity": false,
+  "finished": 1792625756.580795,
+  "cases": [
+    {
+      "condition": "repeated",
+      "passed": true,
+      "user_start_s": 38.06,
+      "user_end_s": 87.35,
+      "fixture": "christoph-bananas",
+      "rules": [
+        {
+          "id": "4a169994756d",
+          "owner": "speaker-4273721a0910",
+          "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+          "reply": "Stopp, stopp!",
+          "match_mode": "any_term",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ]
+        }
+      ],
+      "interrupted": true,
+      "decision_at_s": 46.2,
+      "first_new_audio_s": 46.44,
+      "spoken_before_user_end": true,
+      "actual_streamed_tts": true,
+      "diagnostic_events": [
+        {
+          "at_s": 42.66,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 11,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 11,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.511,
+            "required": 0.55,
+            "fast": 0.371,
+            "long": 0.527,
+            "initial": 0.49420085549354553,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 46.2,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Wein sind gesund und Bananen haben viele wunderbare Eigenschaften.  Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 51.66,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 30,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 61.5,
+            "partial_audio_s": 46.08,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 30,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.621,
+            "required": 0.55,
+            "fast": 0.136,
+            "long": 0.158,
+            "initial": 0.49420085549354553,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 52.9,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 34,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 61.5,
+            "partial_audio_s": 46.08,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 34,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.651,
+            "required": 0.55,
+            "fast": 0.273,
+            "long": 0.334,
+            "initial": 0.49420085549354553,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 54.2,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 38,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 61.5,
+            "partial_audio_s": 46.08,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 38,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.676,
+            "required": 0.55,
+            "fast": 0.308,
+            "long": 0.426,
+            "initial": 0.49420085549354553,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 58.66,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Man könnte den ganzen Tag Bananen essen und ich möchte jetzt immer weiter über Bananen und ihre gelbe Farbe sprechen.  Banan sind gesund und Bananen haben viele",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 62.82,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 66.72,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 59,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 56.6,
+            "partial_audio_s": 62.4,
+            "asr_to_decision_ms": 320,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 59,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.589,
+            "required": 0.55,
+            "fast": 0.062,
+            "long": 0.161,
+            "initial": 0.49420085549354553,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 68.92,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 66,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 56.6,
+            "partial_audio_s": 62.4,
+            "asr_to_decision_ms": 320,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 66,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.683,
+            "required": 0.55,
+            "fast": 0.331,
+            "long": 0.351,
+            "initial": 0.49420085549354553,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 69.88,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "könnte den ganzen Tag Bananen essen und ich möchte jetzt immer weiter über Bananen",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 74.7,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "gesund und Bananen",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 79.48,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "wunderbare Eigenschaften.  Ich könnte noch lange über Bananen reden.",
+          "speaker_id": "speaker-4273721a0910",
+          "speaker_name": "Christoph",
+          "by": "agreed_interruption",
+          "rule_id": "4a169994756d"
+        },
+        {
+          "at_s": 83.32,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 83,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 61.2,
+            "partial_audio_s": 79.36,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 83,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.607,
+            "required": 0.55,
+            "fast": 0.06,
+            "long": 0.156,
+            "initial": 0.49420085549354553,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 85.86,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "4a169994756d",
+              "owner": "speaker-4273721a0910",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 90,
+          "last_decision": {
+            "action": "interrupt_user",
+            "rule_id": "4a169994756d",
+            "speaker_id": "speaker-4273721a0910",
+            "decision_ms": 61.2,
+            "partial_audio_s": 79.36,
+            "asr_to_decision_ms": 0,
+            "kind": "agreed"
+          },
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 90,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.703,
+            "required": 0.55,
+            "fast": 0.225,
+            "long": 0.27,
+            "initial": 0.49420085549354553,
+            "recovered": true,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        }
+      ],
+      "interruption_times_s": [
+        46.2,
+        58.66,
+        62.82,
+        69.88,
+        74.7,
+        79.48
+      ]
+    },
+    {
+      "condition": "unrelated",
+      "passed": true,
+      "user_start_s": 37.74,
+      "user_end_s": 52.89,
+      "fixture": "christoph-apples",
+      "rules": [
+        {
+          "id": "8adb910492aa",
+          "owner": "speaker-7508f637e286",
+          "condition": "Der Nutzer soll sofort unterbrochen werden, sobald er über Bananen spricht.",
+          "reply": "Stopp, stopp!",
+          "match_mode": "any_term",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ]
+        }
+      ],
+      "interrupted": false,
+      "decision_at_s": null,
+      "first_new_audio_s": 56.37,
+      "spoken_before_user_end": false,
+      "actual_streamed_tts": true,
+      "diagnostic_events": [
+        {
+          "at_s": 52.12,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Apfels sind gesund und knackig.  Ich esse gerne einen roten Apfel am Nachmittag.  Es gibt viele unterschiedliche Apfelsorten und auch Birnen und anderes Obst",
+          "speaker_id": "speaker-7508f637e286",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 14.14,
+          "timing": {
+            "speaker_last_audio_s": 50.4,
+            "silence_detected_audio_s": 51.6,
+            "prefetch_used": true,
+            "finalization_ms": 224.3,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": {
+              "offset_s": 0.96,
+              "prefix_cosine": 0.0172,
+              "prefix_to_speech_energy": 0.0015,
+              "retained_cosine": 0.794,
+              "original_view_cosine": 0.9866,
+              "owned_word_error": 0.0417
+            },
+            "asr_ms": 1191.56,
+            "embedding_ms": 0.0
+          }
+        }
+      ],
+      "interruption_times_s": []
+    },
+    {
+      "condition": "unknown",
+      "passed": true,
+      "user_start_s": 37.1,
+      "user_end_s": 57.1,
+      "fixture": "background-bananas",
+      "rules": [
+        {
+          "id": "3a8e32442cd9",
+          "owner": "speaker-e5e4017aae98",
+          "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder ein entsprechendes Wort nennt.",
+          "reply": "Stopp, stopp!",
+          "match_mode": "any_term",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ]
+        }
+      ],
+      "interrupted": false,
+      "decision_at_s": null,
+      "first_new_audio_s": 61.22,
+      "spoken_before_user_end": false,
+      "actual_streamed_tts": true,
+      "diagnostic_events": [
+        {
+          "at_s": 49.38,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "3a8e32442cd9",
+              "owner": "speaker-e5e4017aae98",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder ein entsprechendes Wort nennt.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 7,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 7,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.364,
+            "required": 0.55,
+            "fast": 0.766,
+            "long": 0.83,
+            "initial": 0.3635936379432678,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 50.68,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "3a8e32442cd9",
+              "owner": "speaker-e5e4017aae98",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder ein entsprechendes Wort nennt.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 11,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 11,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.403,
+            "required": 0.55,
+            "fast": 0.655,
+            "long": 0.737,
+            "initial": 0.3635936379432678,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 54.2,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "3a8e32442cd9",
+              "owner": "speaker-e5e4017aae98",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder ein entsprechendes Wort nennt.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 22,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 22,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.392,
+            "required": 0.55,
+            "fast": 0.56,
+            "long": 0.709,
+            "initial": 0.3635936379432678,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 56.44,
+          "phase": "probe",
+          "type": "interaction",
+          "enabled": true,
+          "helpful_enabled": true,
+          "rules": [
+            {
+              "id": "3a8e32442cd9",
+              "owner": "speaker-e5e4017aae98",
+              "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder ein entsprechendes Wort nennt.",
+              "reply": "Stopp, stopp!",
+              "match_mode": "any_term",
+              "trigger_terms": [
+                "Banane",
+                "Bananen",
+                "banana",
+                "bananas"
+              ]
+            }
+          ],
+          "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+          "decision_interval_ms": 320,
+          "checks": 29,
+          "last_decision": null,
+          "waiting_for": "Speaker identity is not yet certain",
+          "attempts": 29,
+          "semantic_error": null,
+          "scope": "session-only conversational rules; acoustic verification is separate",
+          "verification": {
+            "teacher": 0.4,
+            "required": 0.55,
+            "fast": 0.511,
+            "long": 0.582,
+            "initial": 0.3635936379432678,
+            "recovered": false,
+            "accepted": false,
+            "face_confirmed": false
+          }
+        },
+        {
+          "at_s": 58.48,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Bananen sind gesund und Bananen haben viele wunderbare Eigenschaften.  Ich könnte noch lange über Bananen reden.  Man könnte den ganzen Tag Bananen essen und immer weiter davon erzählen.",
+          "speaker_id": "speaker-e5e4017aae98",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 12.39,
+          "timing": {
+            "speaker_last_audio_s": 57.02,
+            "silence_detected_audio_s": 58.08,
+            "prefetch_used": true,
+            "finalization_ms": 170.52,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 399.96,
+            "embedding_ms": 314.73
+          }
+        }
+      ],
+      "interruption_times_s": []
+    },
+    {
+      "condition": "disabled",
+      "passed": true,
+      "user_start_s": 37.42,
+      "user_end_s": 53.85,
+      "fixture": "christoph-bananas",
+      "rules": [
+        {
+          "id": "d7be406f88d9",
+          "owner": "speaker-abfc1539c9f3",
+          "condition": "Unterbrich Christoph sofort, sobald er über Bananen spricht oder die Wörter Banane, Bananen, banana oder bananas verwendet.",
+          "reply": "Stopp, stopp!",
+          "match_mode": "any_term",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ]
+        }
+      ],
+      "interrupted": false,
+      "decision_at_s": null,
+      "first_new_audio_s": 58.59,
+      "spoken_before_user_end": false,
+      "actual_streamed_tts": true,
+      "diagnostic_events": [
+        {
+          "at_s": 49.38,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Wenn er sind gesund und Bananen haben viele wunderbare Eigenschaften.  Ich könnte noch lange über Bananen reden.  Man könnte den ganzen Tag Bananen essen",
+          "speaker_id": "speaker-abfc1539c9f3",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 11.92,
+          "timing": {
+            "speaker_last_audio_s": 47.84,
+            "silence_detected_audio_s": 48.96,
+            "prefetch_used": true,
+            "finalization_ms": 47.61,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 341.3,
+            "embedding_ms": 341.15
+          }
+        },
+        {
+          "at_s": 55.09,
+          "phase": "probe",
+          "type": "endpoint",
+          "transcript": "Immer weiter über Bananen und ihre gelbe Farbe sprechen.",
+          "speaker_id": "speaker-abfc1539c9f3",
+          "speaker_name": "Christoph",
+          "by": "speaker_silence_1s",
+          "turn_s": 5.68,
+          "timing": {
+            "speaker_last_audio_s": 53.6,
+            "silence_detected_audio_s": 54.72,
+            "prefetch_used": true,
+            "finalization_ms": 0.97,
+            "native_timestamp_continuity": true,
+            "verified_background_prefix": null,
+            "asr_ms": 295.19,
+            "embedding_ms": 169.88
+          }
+        }
+      ],
+      "interruption_times_s": []
+    }
+  ]
+}

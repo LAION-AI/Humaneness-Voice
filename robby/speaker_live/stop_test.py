@@ -13,10 +13,10 @@ from final_verify import runtime_signature
 
 FOLDER=Path('/mnt/nvme/robo-speaker-studies/speaker-live-results')
 
-async def case(command,authorized=True,enroll_other=False,long_reading=False,feedback=False):
+async def case(command,authorized=True,enroll_other=False,long_reading=False,feedback=False,phase_offset_s=0.,debug_audio=False,request_intro=False):
     events=[];segments=[];received={};stopped=set();done=[];first={};sample=0;reply_end=0;phase='intro';ready=None
     async with aiohttp.ClientSession() as client:
-        async with client.ws_connect('http://127.0.0.1:8793/ws?synthetic_diagnostics=1') as ws:
+        async with client.ws_connect('http://127.0.0.1:8793/ws?synthetic_diagnostics=1'+('&synthetic_stop_audio=1' if debug_audio else '')) as ws:
             t0=time.monotonic()
             async def read():
                 nonlocal reply_end,ready
@@ -31,8 +31,10 @@ async def case(command,authorized=True,enroll_other=False,long_reading=False,fee
                         first.setdefault(rid,start/16000)
                     elif msg.type==aiohttp.WSMsgType.TEXT:
                         item=json.loads(msg.data)
+                        if item.get('type')=='synthetic_stop_audio' and debug_audio:
+                            Path('logs/synthetic-stop-audio.json').write_text(json.dumps(item))
                         if item.get('type')=='ready':ready=item
-                        if item.get('type') in ('reply','endpoint','barge','turn_done','stop_command','stop_feedback','warning','ignored','error','synthetic_barge_proposal','synthetic_barge_verification','synthetic_stop_probe','synthetic_stop_decode','synthetic_semantic_decision'):
+                        if item.get('type') in ('reply','endpoint','barge','turn_done','stop_command','stop_feedback','stop_feedback_suppressed','warning','ignored','error','synthetic_barge_proposal','synthetic_barge_verification','synthetic_stop_probe','synthetic_stop_decode','synthetic_semantic_decision'):
                             events.append({'at_s':round(sample/16000,3),'phase':phase,**item})
                         if item.get('type')=='barge':stopped.update(received)
                         if item.get('type')=='turn_done':done.append(item)
@@ -81,24 +83,34 @@ async def case(command,authorized=True,enroll_other=False,long_reading=False,fee
                 await until(lambda:ready is not None,limit=5)
                 await ws.send_str('interaction:stop-feedback:'+('on' if feedback else 'off'))
                 assert ready.get('identity_enabled') and ready.get('identity_mode')=='v4-long3','Expected hybrid speaker gate was not active; invalid test setup'
-                await feed(seconds=1.28);await feed(audio('christoph-intro'));await until(lambda:len(done)>=1)
+                # Establish the rival first, then the intended addressee with
+                # a complete self-introduction. A split story request is not
+                # a reliable setup for testing interruption permission.
+                if enroll_other:
+                    await feed(seconds=1.28);await feed(audio('robert-intro'));await until(lambda:len(done)>=1)
+                    await settle()
+                before=len(done)
+                await feed(seconds=1.28);await feed(audio('christoph-intro'));await until(lambda:len(done)>before)
                 await settle()
                 assert not any(e['type']=='barge' for e in events),'Echo caused an early barge'
+                result['enrollment_order']=['Robert','Christoph'] if enroll_other else ['Christoph']
                 if enroll_other:
-                    await feed(seconds=1.2);await feed(audio('robert-intro'));await until(lambda:len(done)>=2)
-                    await settle()
-                    if long_reading:
-                        # Re-establish the actual intended addressee before a
-                        # long request. Retain failed split-onset attempts;
-                        # never mistake a reply to Robert for a Christoph test.
-                        before=len(done);await feed(audio('christoph-followup'));await until(lambda:len(done)>before);await settle()
-                previous=len(first);phase='request';await feed(seconds=1.2);await feed(audio('christoph-long-reading' if long_reading else 'christoph-followup'))
+                    assert {'Robert','Christoph'} <= {e.get('speaker_name') for e in events if e['type']=='endpoint'},'Both real voice introductions must complete'
+                previous=len(first);phase='request';await feed(seconds=1.2)
+                if request_intro:
+                    # Explicit spoken re-addressing avoids using a rejected,
+                    # rival-ambiguous request to set up a stop-permission test.
+                    # ASR and real speaker enrollment still validate this.
+                    await feed(audio('christoph-intro'));await feed(seconds=.12)
+                result['request_includes_spoken_introduction']=request_intro
+                await feed(audio('christoph-long-reading' if long_reading else 'christoph-followup'))
                 await until(lambda:len(first)>previous);rid=max(first)
                 await until(lambda:sample/16000>=first[rid]+(6. if long_reading else .8),limit=15)
                 reply=next((e for e in reversed(events) if e['type']=='reply'),{})
                 assert reply.get('speaker_name')=='Christoph','Invalid setup: reply is not addressed to the expected current speaker'
                 if long_reading:assert len(reply.get('text','').split())>=70,'Invalid setup: expected genuinely long reading'
                 result['reading_words']=len(reply.get('text','').split());result['playback_before_command_s']=sample/16000-first[rid]
+                if phase_offset_s:await feed(seconds=phase_offset_s)
                 phase='stop';begin=sample/16000;reply_count=sum(e['type']=='reply' for e in events)
                 wave=audio(command);await feed(wave);await feed(seconds=8. if feedback else 5.)
                 barges=[e for e in events if e['type']=='barge' and e['phase']=='stop']
@@ -107,7 +119,8 @@ async def case(command,authorized=True,enroll_other=False,long_reading=False,fee
                 result.update(command_start_s=begin,command_duration_s=len(wave)/16000,
                     interruption_latency_s=(barges[0]['at_s']-begin) if barges else None,
                     interrupted=bool(barges),stop_acknowledged=bool(stop_events),new_spoken_replies=new_replies,
-                    actual_streamed_tts=True,feedback_events=[e for e in events if e['type']=='stop_feedback'],events=events)
+                    actual_streamed_tts=True,phase_offset_s=phase_offset_s,
+                    reply_audio_samples=received,feedback_events=[e for e in events if e['type']=='stop_feedback'],events=events)
                 assert bool(barges)==authorized,'Allowed stop was missed or another person interrupted'
                 if authorized:assert new_replies<=(1 if feedback else 0),'Stop triggered an unrequested spoken answer'
                 if not authorized:

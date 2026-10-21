@@ -8,6 +8,15 @@ streaming/conversion/search code and research harnesses. The adjacent Python
 files are the parent compatibility modules that this integration imports.
 They are separate from the older portable root application; this deliberately
 preserves the working integration rather than silently replacing root files.
+
+The October 21 stop correction adds opt-in `cancel_on_disconnect` to `/api/turn`.
+Robby enables it for its own streamed requests. Closing that request stops its
+worker at the next cooperative audio callback; the GPU busy flag is released
+only after the worker actually unwinds. Existing Playground requests default to
+`false` and retain disconnect-survival behavior. There is no global cancellation
+endpoint that could stop another user's job. See `runtime/turn_cancellation.py`,
+its CPU-only unit test, and [Robby's current test report](../robby/static/stop-fix-update.html).
+
 The published parent `bestofn.py` adds the path-only `HUMANENESS_SCORER_DIR`
 override; its scoring math is unchanged. The lightweight RL schema test uses
 no-reference mode so it needs no private profile files. These publication

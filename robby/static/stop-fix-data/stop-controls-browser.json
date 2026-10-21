@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "started": 1792621917.4553342,
+  "runtime_source_sha256": "96ea9bc93c12825299ac8065baa2897a49a47dabe48c963177162465019c0238",
+  "synthetic_only": true,
+  "button_to_empty_queue_ms": 69.84441354870796,
+  "events": [
+    {
+      "type": "stop_feedback_setting",
+      "enabled": true
+    },
+    {
+      "type": "reply",
+      "text": "Ein Regenbogen entsteht, wenn Sonnenlicht auf Regentropfen trifft. Beim Eindringen in einen Tropfen wird das Licht gebrochen und in seine verschiedenen Farben aufgeteilt: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett. Im Inneren des Tropfens wird das Licht an der Rückseite reflektiert. Beim Austreten wird es erneut gebrochen. Viele Regentropfen lenken die Farben gleichzeitig in unsere Augen, sodass am Himmel ein farbiger Bogen erscheint. Die Form entsteht durch die besondere Stellung von Sonne, Tropfen und Beobachter. Deshalb sieht jeder Mensch seinen eigenen Regenbogen aus einem etwas anderen Blickwinkel.",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, ruhig und sanft",
+            "text": "Ein Regenbogen entsteht, wenn Sonnenlicht auf Regentropfen trifft.",
+            "start_s": 0.0,
+            "end_s": 2.72
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Beim Eindringen in einen Tropfen wird das Licht gebrochen und in seine verschiedenen Farben aufgeteilt: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett.",
+            "start_s": 2.72,
+            "end_s": 10.54
+          },
+          {
+            "emotion": "interest",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "interest, unhurried",
+            "text": "Im Inneren des Tropfens wird das Licht an der Rückseite reflektiert.",
+            "start_s": 10.54,
+            "end_s": 14.28
+          },
+          {
+            "emotion": "contentment",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "contentment, sanft",
+            "text": "Beim Austreten wird es erneut gebrochen.",
+            "start_s": 14.28,
+            "end_s": 16.32
+          },
+          {
+            "emotion": "contentment",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "contentment, sanft",
+            "text": "Viele Regentropfen lenken die Farben gleichzeitig in unsere Augen, sodass am Himmel ein farbiger Bogen erscheint.",
+            "start_s": 16.32,
+            "end_s": 21.76
+          },
+          {
+            "emotion": "awe",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "awe, leise staunend",
+            "text": "Die Form entsteht durch die besondere Stellung von Sonne, Tropfen und Beobachter.",
+            "start_s": 21.76,
+            "end_s": 25.84
+          },
+          {
+            "emotion": "awe",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "awe, leise staunend",
+            "text": "Deshalb sieht jeder Mensch seinen eigenen Regenbogen aus einem etwas anderen Blickwinkel.",
+            "start_s": 25.84,
+            "end_s": 29.92
+          }
+        ],
+        "planned_duration_s": 29.92
+      },
+      "speaker_id": null,
+      "speaker_name": null,
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 2671.48,
+        "director_mode": "compact",
+        "completion_tokens": 202,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "type": "stop_feedback_setting",
+      "enabled": false
+    },
+    {
+      "type": "reply_cancelled",
+      "reply_id": 1
+    },
+    {
+      "type": "barge",
+      "yield": 1.0
+    },
+    {
+      "type": "turn_done",
+      "barged": true
+    }
+  ],
+  "page_errors": [],
+  "late_cancelled_packet_ignored": true,
+  "checkbox_persisted": true,
+  "finished": 1792621926.5273864
+}

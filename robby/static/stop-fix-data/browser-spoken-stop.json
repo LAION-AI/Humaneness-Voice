@@ -1,0 +1,2301 @@
+{
+  "passed": false,
+  "synthetic_only": true,
+  "runtime_source_sha256": "1449e5ee5e427d37a1f35f1b3060059a482844f69d3944027482e53e124d1375",
+  "echo_delay_ms": 120,
+  "echo_gain": 0.05,
+  "command": "christoph-stop",
+  "url": "http://127.0.0.1:8793/desk-robot/",
+  "events": [
+    {
+      "wall": 33481663.51022922,
+      "type": "asr_preview",
+      "text": "Hey Ra",
+      "status": "awaiting_wake_or_stable_voice",
+      "source": "speaker_candidate",
+      "track": "channel-0",
+      "audio_seconds": 2.16,
+      "voiced_seconds": 0.81,
+      "channel": 0,
+      "energy_coverage": 0.978,
+      "continuous_audio": true,
+      "identity_probe": null
+    },
+    {
+      "wall": 33481664.054668132,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bringe",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481664.81147943,
+      "type": "asr_preview",
+      "text": "Hey Rabbi, ich bin Christoph",
+      "status": "enrolled",
+      "source": "speaker_candidate",
+      "track": "speaker-a691e7712cf3",
+      "audio_seconds": 3.44,
+      "voiced_seconds": 1.77,
+      "channel": 0,
+      "energy_coverage": 1.0,
+      "continuous_audio": true,
+      "identity_probe": null
+    },
+    {
+      "wall": 33481665.00873903,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481665.975382157,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.  Schön kennst",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481666.937393848,
+      "type": "asr_preview",
+      "text": "Hey Robbie, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481669.02163584,
+      "type": "asr_preview",
+      "text": "Hey Rabbi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-a691e7712cf3",
+      "audio_seconds": 4.56,
+      "voiced_seconds": 2.88,
+      "channel": 0
+    },
+    {
+      "wall": 33481669.443295818,
+      "type": "endpoint",
+      "transcript": "Hey Rabbi, ich bin Christoph.  Schön dich kennenzulernen.",
+      "speaker_id": "speaker-a691e7712cf3",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 4.72,
+      "timing": {
+        "speaker_last_audio_s": 4.8,
+        "silence_detected_audio_s": 7.44,
+        "prefetch_used": false,
+        "finalization_ms": 560.67,
+        "native_timestamp_continuity": false,
+        "verified_background_prefix": null
+      }
+    },
+    {
+      "wall": 33481672.43886668,
+      "type": "reply",
+      "text": "Hallo, schön, dich kennenzulernen!",
+      "reply_id": 1,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "pleasure_ecstasy",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "pleasure, warm and welcoming",
+            "text": "Hallo, schön, dich kennenzulernen!",
+            "start_s": 0.0,
+            "end_s": 1.36
+          }
+        ],
+        "planned_duration_s": 1.36
+      },
+      "speaker_id": "speaker-a691e7712cf3",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-a691e7712cf3",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "director_ms": 2986.87,
+        "director_mode": "compact",
+        "completion_tokens": 41,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [],
+      "lookups": []
+    },
+    {
+      "wall": 33481674.627509456,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.28,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.012986984103918076,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.012986984103918076,
+        "candidate_margin": 1.012986984103918
+      }
+    },
+    {
+      "wall": 33481674.6871854,
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.44,
+      "text": "",
+      "views": [
+        "Hallo.",
+        "Hallo.",
+        "Hallo."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.012447511777281761,
+        "view_seconds": [
+          3.04,
+          0.64,
+          0.64
+        ]
+      }
+    },
+    {
+      "wall": 33481674.95755503,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.4,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.043730612844228745,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.043730612844228745,
+        "candidate_margin": 1.0437306128442287
+      }
+    },
+    {
+      "wall": 33481675.01994106,
+      "type": "synthetic_stop_decode",
+      "audio_s": 13.76,
+      "text": "",
+      "views": [
+        "",
+        "Halló, schön.",
+        "Hallo, söz."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.01728273369371891,
+        "view_seconds": [
+          3.04,
+          0.96,
+          0.96
+        ]
+      }
+    },
+    {
+      "wall": 33481675.34672038,
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.08,
+      "text": "",
+      "views": [
+        "Hallo, schön.",
+        "Halló, Söndigen.",
+        "Hallo schön."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.01728273369371891,
+        "view_seconds": [
+          3.04,
+          1.28,
+          1.28
+        ]
+      }
+    },
+    {
+      "wall": 33481675.37279352,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.22736844420433044,
+      "bot_cosine": 0.6811167597770691,
+      "margin": -0.45374831557273865,
+      "evidence_seconds": 1.05,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481675.701927546,
+      "type": "synthetic_stop_decode",
+      "audio_s": 14.4,
+      "text": "",
+      "views": [
+        "Hallo, Sönkenszele.",
+        "Halló, Sön dich kennenzulernen.",
+        "Hallo, schön delle."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.01728273369371891,
+        "view_seconds": [
+          3.04,
+          1.6,
+          1.6
+        ]
+      }
+    },
+    {
+      "wall": 33481675.74223012,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.2384120225906372,
+      "bot_cosine": 0.7507500648498535,
+      "margin": -0.5123380422592163,
+      "evidence_seconds": 1.36,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.2578123811727648,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481675.912668027,
+      "type": "turn_done",
+      "barged": false
+    },
+    {
+      "wall": 33481676.577404983,
+      "type": "asr_preview",
+      "text": "Hallo, sön dich kennenzulernen.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481679.72466249,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481681.651101783,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481682.607210193,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481683.574213754,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine führlich",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481684.53915715,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481685.475411363,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481686.439354375,
+      "type": "asr_preview",
+      "text": "Schau bitte bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor.",
+      "status": "not_submitted",
+      "source": "native_asr"
+    },
+    {
+      "wall": 33481687.50486316,
+      "type": "asr_preview",
+      "text": "bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor",
+      "status": "checking_identity",
+      "source": "speaker_turn",
+      "track": "speaker-a691e7712cf3",
+      "audio_seconds": 8.24,
+      "voiced_seconds": 5.72,
+      "channel": 0
+    },
+    {
+      "wall": 33481687.50626421,
+      "type": "endpoint",
+      "transcript": "bei Wikipedia nach Bananen und ließ mir eine ausführliche Erklärung in ungefähr hundert Wörtern vor",
+      "speaker_id": "speaker-a691e7712cf3",
+      "speaker_name": "Christoph",
+      "by": "speaker_silence_1s",
+      "turn_s": 9.08,
+      "timing": {
+        "speaker_last_audio_s": 24.84,
+        "silence_detected_audio_s": 25.92,
+        "prefetch_used": true,
+        "finalization_ms": 57.46,
+        "native_timestamp_continuity": true,
+        "verified_background_prefix": null,
+        "asr_ms": 438.92,
+        "embedding_ms": 255.12
+      }
+    },
+    {
+      "wall": 33481693.024232034,
+      "type": "reply",
+      "text": "Bananen gehören zur Pflanzengattung Musa und zur Familie der Bananengewächse. Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum. Botanisch sind Bananen Beeren, obwohl sie im Alltag meist als Obst gelten. Dessertbananen werden weltweit angebaut und roh gegessen. Kochbananen enthalten mehr Stärke und werden normalerweise gegart; in vielen tropischen Ländern sind sie ein wichtiges Grundnahrungsmittel. Die Pflanzen wachsen aus unterirdischen Rhizomen und bilden große, spiralförmig angeordnete Blätter. Ihre Früchte entwickeln sich oft ohne Befruchtung und enthalten deshalb kaum Samen. Quelle: Wikipedia.",
+      "reply_id": 2,
+      "performance": {
+        "source": "Luna SCRIPT acting directions",
+        "timing": "Prompt-derived sentence estimates, anchored to DAC playback; not forced alignment",
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Bananen gehören zur Pflanzengattung Musa und zur Familie der Bananengewächse.",
+            "start_s": 0.0,
+            "end_s": 3.4
+          },
+          {
+            "emotion": "interest",
+            "secondary": "contentment",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, calm und unhurried",
+            "text": "Etwa achtzig Arten stammen ursprünglich aus dem tropischen und subtropischen Asien sowie dem westlichen Pazifikraum.",
+            "start_s": 3.4,
+            "end_s": 8.5
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Botanisch sind Bananen Beeren, obwohl sie im Alltag meist als Obst gelten.",
+            "start_s": 8.5,
+            "end_s": 12.58
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Dessertbananen werden weltweit angebaut und roh gegessen.",
+            "start_s": 12.58,
+            "end_s": 14.96
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Kochbananen enthalten mehr Stärke und werden normalerweise gegart; in vielen tropischen Ländern sind sie ein wichtiges Grundnahrungsmittel.",
+            "start_s": 14.96,
+            "end_s": 20.74
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Die Pflanzen wachsen aus unterirdischen Rhizomen und bilden große, spiralförmig angeordnete Blätter.",
+            "start_s": 20.74,
+            "end_s": 24.82
+          },
+          {
+            "emotion": "concentration",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "concentration, klar erklärend",
+            "text": "Ihre Früchte entwickeln sich oft ohne Befruchtung und enthalten deshalb kaum Samen.",
+            "start_s": 24.82,
+            "end_s": 28.9
+          },
+          {
+            "emotion": "contentment",
+            "secondary": null,
+            "blend": 0.0,
+            "intensity": 0.72,
+            "direction": "contentment, freundlich abschließend",
+            "text": "Quelle: Wikipedia.",
+            "start_s": 28.9,
+            "end_s": 29.58
+          }
+        ],
+        "planned_duration_s": 29.58
+      },
+      "speaker_id": "speaker-a691e7712cf3",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "director_ms": 5513.93,
+        "director_mode": "compact",
+        "completion_tokens": 206,
+        "director_model": "gpt-5.6-luna",
+        "interjection_cache_hit": false
+      },
+      "sources": [
+        {
+          "title": "Bananen",
+          "url": "https://de.wikipedia.org/wiki/Bananen",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Banane",
+          "url": "https://de.wikipedia.org/wiki/Banane",
+          "publisher": "Wikipedia"
+        },
+        {
+          "title": "Dessertbanane",
+          "url": "https://de.wikipedia.org/wiki/Dessertbanane",
+          "publisher": "Wikipedia"
+        }
+      ],
+      "lookups": [
+        {
+          "tool": "search_wikipedia",
+          "ms": 322.44,
+          "error": null,
+          "cache_hit": false,
+          "retrieved_at": "2026-10-21T22:36:27.711352+00:00"
+        }
+      ]
+    },
+    {
+      "wall": 33481695.81447066,
+      "type": "synthetic_stop_decode",
+      "audio_s": 34.56,
+      "text": "",
+      "views": [
+        "Item gehören gehören",
+        "Iteranern gehören.",
+        "Itrannen gehören"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02088676393032074,
+        "view_seconds": [
+          3.04,
+          0.94,
+          0.94
+        ]
+      }
+    },
+    {
+      "wall": 33481695.847125053,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14491797983646393,
+      "bot_cosine": 0.5962734222412109,
+      "margin": -0.451355442404747,
+      "evidence_seconds": 0.79,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481696.127503112,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17226417362689972,
+      "bot_cosine": 0.6830824017524719,
+      "margin": -0.5108182281255722,
+      "evidence_seconds": 1.11,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481696.15874912,
+      "type": "synthetic_stop_decode",
+      "audio_s": 34.88,
+      "text": "",
+      "views": [
+        "Iteranem gehören zur Pflanzen.",
+        "Iteraneren gehören zur",
+        "Itranen gehören zu hören."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02088676393032074,
+        "view_seconds": [
+          3.04,
+          1.26,
+          1.26
+        ]
+      }
+    },
+    {
+      "wall": 33481696.526394647,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.2,
+      "text": "",
+      "views": [
+        "Irahnem gehören zu Pflanzen.",
+        "It ranen gehören zur Pflanzengang.",
+        "It ranen gehören zu Pflanzen."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02373487316071987,
+        "view_seconds": [
+          3.04,
+          1.6,
+          1.6
+        ]
+      }
+    },
+    {
+      "wall": 33481696.547525216,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1740330457687378,
+      "bot_cosine": 0.7678570747375488,
+      "margin": -0.593824028968811,
+      "evidence_seconds": 1.42,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5352379403223655,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481696.829914868,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17468631267547607,
+      "bot_cosine": 0.8081166744232178,
+      "margin": -0.6334303617477417,
+      "evidence_seconds": 1.75,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5318622062225224,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481696.838199068,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.52,
+      "text": "",
+      "views": [
+        "Itranan gehören zur Pflanzengattungen.",
+        "gehören zu Pflanzengattungen.",
+        "It ranen gehören zu Pflanzengaten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.022732781246304512,
+        "view_seconds": [
+          3.04,
+          1.92,
+          1.92
+        ]
+      }
+    },
+    {
+      "wall": 33481697.149364848,
+      "type": "synthetic_stop_decode",
+      "audio_s": 35.84,
+      "text": "",
+      "views": [
+        "Iteranem gehören zur Pflanzengattung Musa.",
+        "Iteraneren gehören zur Pflanzengattung Musa.",
+        "Itranen gehören zur Pflanzengattung."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02088676393032074,
+        "view_seconds": [
+          3.04,
+          2.22,
+          2.22
+        ]
+      }
+    },
+    {
+      "wall": 33481697.1588846,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.19207611680030823,
+      "bot_cosine": 0.8310820460319519,
+      "margin": -0.6390059292316437,
+      "evidence_seconds": 1.92,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4990812848226738,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481697.495038364,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16936373710632324,
+      "bot_cosine": 0.855021595954895,
+      "margin": -0.6856578588485718,
+      "evidence_seconds": 2.39,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4982358718588423,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481697.815425657,
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.48,
+      "text": "",
+      "views": [
+        "It ranen gehören zur Pflanzengattung Musa und zur Familie.",
+        "gehören zur Pflanzengattung Musa und zu Familie.",
+        "gehören zur Pflanzengattung Musa und zu Familie."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02132107876241207,
+        "view_seconds": [
+          3.04,
+          2.88,
+          2.88
+        ]
+      }
+    },
+    {
+      "wall": 33481697.861103863,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14295029640197754,
+      "bot_cosine": 0.8898061513900757,
+      "margin": -0.7468558549880981,
+      "evidence_seconds": 2.68,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5069242420757687,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481698.149895687,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14855703711509705,
+      "bot_cosine": 0.8954557776451111,
+      "margin": -0.746898740530014,
+      "evidence_seconds": 3.03,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5141617921766299,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481698.154488523,
+      "type": "synthetic_stop_decode",
+      "audio_s": 36.8,
+      "text": "",
+      "views": [
+        "gehören zur Pflanzengattung Musa und zur Familie der Banana.",
+        "Idranen gehören zur Pflanzengattung Musa und zur Familie der Banana.",
+        "Itrannen gehören zur Pflanzengattung Musa und zur Familie der Banana."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.02088676393032074,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481698.47105319,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.14750589430332184,
+      "bot_cosine": 0.897831916809082,
+      "margin": -0.7503260225057602,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4748212774199534,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481698.474182483,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.12,
+      "text": "",
+      "views": [
+        "Anne gehören zur Pflanzengattung Musa und zur Familie der Bananen weg.",
+        "Banan",
+        "Anne gehören zur Pflanzengattungsa und zur Familie der Bananen weg."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019659066572785378,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481698.783893757,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.44,
+      "text": "",
+      "views": [
+        "Der Bananen gewächse.",
+        "zur Pflanzengattung zur Familie der Bananengewächse.",
+        "Der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.016787756234407425,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481698.790763576,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.12302456796169281,
+      "bot_cosine": 0.9069993495941162,
+      "margin": -0.7839747816324234,
+      "evidence_seconds": 2.89,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.443054872103143,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481699.07253147,
+      "type": "synthetic_stop_decode",
+      "audio_s": 37.76,
+      "text": "",
+      "views": [
+        "Pflanzengatumsa und zur Familie der Bananengewächse.",
+        "Pflanzengattu und zur Familie der Bananengewächse.",
+        "Pflanzengaton musa und zur Familie der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.016713541001081467,
+        "view_seconds": [
+          3.04,
+          2.74,
+          2.74
+        ]
+      }
+    },
+    {
+      "wall": 33481699.09058822,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.11352749168872833,
+      "bot_cosine": 0.9071726202964783,
+      "margin": -0.7936451286077499,
+      "evidence_seconds": 2.48,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4630728581439042,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481699.416148532,
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.08,
+      "text": "",
+      "views": [
+        "Gattungsachen zur Familie der Bananengewächse.",
+        "und zur Familie der Bananengewächse.",
+        "Gattungsa und zur Familie der Bananengewächse."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.016713541001081467,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481699.4270235,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16737593710422516,
+      "bot_cosine": 0.8962131142616272,
+      "margin": -0.728837177157402,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4441387765205426,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481699.71139896,
+      "type": "synthetic_stop_decode",
+      "audio_s": 38.4,
+      "text": "",
+      "views": [
+        "Um Sachen zur Familie der Bananen gewächse etwa",
+        "zur Familie der Bananengewächse etwa",
+        "Musa und zur Familie der Bananengewächse.  Etwa acht"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.016622990369796753,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481699.719718568,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16194526851177216,
+      "bot_cosine": 0.8855597376823425,
+      "margin": -0.7236144691705704,
+      "evidence_seconds": 2.97,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4965799764444763,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481700.038378764,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1677263230085373,
+      "bot_cosine": 0.8802911043167114,
+      "margin": -0.7125647813081741,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5459778135210621,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481700.665299673,
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.36,
+      "text": "",
+      "views": [
+        "Etwa achtzig Atemstamm",
+        "Etwa achtzig Arten stammen",
+        "Liert der Bananengewächse etwa achtzig Arten stammen"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.021177230402827263,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481700.674892623,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1633838415145874,
+      "bot_cosine": 0.8541326522827148,
+      "margin": -0.6907488107681274,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.49670767704731933,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481700.891415223,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481700.982382666,
+      "type": "synthetic_stop_decode",
+      "audio_s": 39.68,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten stammen Upstop",
+        "Etwa achtzig Arten stammen.",
+        "Etwa achtzig Arten stammen Upstopp."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19586940109729767,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481701.237261504,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481701.320331488,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.0,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten stammen Ust.",
+        "Etwa achtzig Atenstammen stop.",
+        "Etwa achtzig Arten stammen.  Stop."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19587044417858124,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481701.54194101,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481701.60678585,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.32,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten stammen.",
+        "Etwa achtzig Atenstammen",
+        "Etwa achtzig Arten stammen tropische"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19587044417858124,
+        "view_seconds": [
+          3.04,
+          2.44,
+          2.44
+        ]
+      }
+    },
+    {
+      "wall": 33481701.859784137,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481701.95397354,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.64,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten stammen und so.",
+        "Etwa achtzig Atenstammen und so.",
+        "Etwa achtzig Arten stammen tropischen und so und so."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19587673246860504,
+        "view_seconds": [
+          3.04,
+          2.76,
+          2.76
+        ]
+      }
+    },
+    {
+      "wall": 33481702.189123627,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481702.261177372,
+      "type": "synthetic_stop_decode",
+      "audio_s": 40.96,
+      "text": "",
+      "views": [
+        "Etwa achtzig Arten stammen tropischen subtropischen",
+        "Etwa achtzig Atenstammentropischen und subtroproproteroprotro",
+        "etwa achtzig Atenstammentropischen und subtroproteroprotropro"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19587309658527374,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481702.50989996,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481702.593895193,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.28,
+      "text": "",
+      "views": [
+        "achtzig Arten stammen urpropischen und subtropischen Arten.",
+        "Arten stammen tropischen und subtropischen Arten.",
+        "achtzig Arten stammen tropischen und subtropischen Arten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.1958707869052887,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481702.776530903,
+      "type": "ignored",
+      "reason": "Speech could not be separated confidently from background words. Please repeat; nothing was sent to Luna."
+    },
+    {
+      "wall": 33481702.823443152,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481702.894780803,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.6,
+      "text": "",
+      "views": [
+        "Die Arten stammen urpsyntropischen und subtropischen Asien so",
+        "Atem stammen tropischen und subtropischen Asien zu",
+        "Die Arten stammen stoppischen und subtropischen Asien so."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19587211310863495,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481703.199917976,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481703.236960925,
+      "type": "synthetic_stop_decode",
+      "audio_s": 41.92,
+      "text": "Stop in tropischen und subtropischen Asien so wie dem",
+      "views": [
+        "Stop in tropischen und subtropischen Asien so wie dem",
+        "",
+        "Stop tropischen und subtropischen Asien sowie dem"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19590331614017487,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481703.272898134,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481703.442265652,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.18015600740909576,
+      "bot_cosine": -0.049792610108852386,
+      "margin": 0.22994861751794815,
+      "evidence_seconds": 0.64,
+      "strong_native_continuity": false,
+      "waveform_correlation": null,
+      "different_playback_content": false,
+      "literal_stop": true,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": -0.09671076387166977,
+        "candidate_margin": 0.9032892361283302
+      },
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481703.55630963,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.12,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481703.62986579,
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.24,
+      "text": "",
+      "views": [
+        "Urstoppischen und subtropischen Asien sowie dem",
+        "",
+        ""
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19590836763381958,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481703.804189146,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "insufficient_voiced_duration",
+      "voiced_seconds": 0.1,
+      "fast_vote": {
+        "kind": "unknown",
+        "id": null,
+        "name": null,
+        "similarity": 0.3317810595035553,
+        "candidate_id": "speaker-a691e7712cf3",
+        "candidate_similarity": 0.3317810595035553,
+        "candidate_margin": 1.3317810595035553
+      }
+    },
+    {
+      "wall": 33481703.87930107,
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.56,
+      "text": "",
+      "views": [
+        "und subtropischen Asien sowie dem westlichen Pazen.",
+        "",
+        "und subtropischen Asien sowie dem westlichen Patienten"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.19671306014060974,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481704.192657866,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "reason": "stale_stop_audio"
+    },
+    {
+      "wall": 33481704.226927504,
+      "type": "synthetic_stop_decode",
+      "audio_s": 42.88,
+      "text": "",
+      "views": [
+        "tropischen und subtropischen Asien sowie dem westlichen Pacificium.",
+        "und subtropischen Asien sowie dem westlichen Pafifikraum.",
+        "tropischen und subtropischen Asien sowie dem westlichen Pafifikraum."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.01759454421699047,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481704.28151302,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1405322253704071,
+      "bot_cosine": 0.7257394194602966,
+      "margin": -0.5852071940898895,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.44509540475478315,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481704.47970807,
+      "type": "synthetic_stop_decode",
+      "audio_s": 43.2,
+      "text": "",
+      "views": [
+        "Pischen und subtropischen Asien sowie dem westlichen Pazifikraum.",
+        "und subtropischen Asien sowie dem westlichen Pazifikraum.",
+        "Pischen und subtropischen Asien sowie dem westlichen Pazifikraum."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.011999384500086308,
+        "view_seconds": [
+          3.04,
+          3.0,
+          3.0
+        ]
+      }
+    },
+    {
+      "wall": 33481704.537292533,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.15410271286964417,
+      "bot_cosine": 0.7181469202041626,
+      "margin": -0.5640442073345184,
+      "evidence_seconds": 2.8,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4254707616051411,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481704.80413464,
+      "type": "synthetic_stop_decode",
+      "audio_s": 43.52,
+      "text": "",
+      "views": [
+        "Subtropischen Asien sowie dem westlichen Pazifikraum",
+        "subtropischen Asien sowie dem westlichen Pazifikraum wurde",
+        "Subtropischen Asien sowie dem westlichen Pazifikraum wurde"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017975101247429848,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481704.850562304,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16464126110076904,
+      "bot_cosine": 0.7340996265411377,
+      "margin": -0.5694583654403687,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4314793154375737,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481705.11224224,
+      "type": "synthetic_stop_decode",
+      "audio_s": 43.84,
+      "text": "",
+      "views": [
+        "",
+        "",
+        "topischen Asien sowie dem westlichen Pazifikraum, botanische"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019698863849043846,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481705.183499187,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1841292530298233,
+      "bot_cosine": 0.7585896849632263,
+      "margin": -0.574460431933403,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.48184358730355653,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481705.448417656,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17415210604667664,
+      "bot_cosine": 0.7534765601158142,
+      "margin": -0.5793244540691376,
+      "evidence_seconds": 2.96,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5066561645150089,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481705.749085765,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17825455963611603,
+      "bot_cosine": 0.7642229795455933,
+      "margin": -0.5859684199094772,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5866018638735858,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481706.124265064,
+      "type": "synthetic_stop_decode",
+      "audio_s": 44.8,
+      "text": "",
+      "views": [
+        "Im westlichen Pazifikraum botanisch sind Bananen,",
+        "westlichen Pazifikraum.  Botanisch sind Bananen,",
+        "Dem westlichen Pazifikraum.  Botanisch sind Bananen,"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019698863849043846,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481706.1465514,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16399574279785156,
+      "bot_cosine": 0.8017560839653015,
+      "margin": -0.63776034116745,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6469486550525048,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481706.434976045,
+      "type": "synthetic_stop_decode",
+      "audio_s": 45.12,
+      "text": "",
+      "views": [
+        "östlichen Pazifikraum botanisch sind Bananenwehren.",
+        "Pazifikraum.  Botanisch sind Bananen, Wären.",
+        "Durch einen Pazifikraum botanisch sind Bananenwären."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.019698863849043846,
+        "view_seconds": [
+          3.04,
+          3.0,
+          3.0
+        ]
+      }
+    },
+    {
+      "wall": 33481706.468196236,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1781284660100937,
+      "bot_cosine": 0.7883220314979553,
+      "margin": -0.6101935654878616,
+      "evidence_seconds": 2.78,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6655006025504691,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481706.759210568,
+      "type": "synthetic_stop_decode",
+      "audio_s": 45.44,
+      "text": "",
+      "views": [
+        "Pazifikraum, botanisch sind Bananen, Beeren.",
+        "Botanisch sind Bananen, Bären,",
+        "Pazifikraum botanisch sind Bananen, Bären,"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.018270617350935936,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481706.769733846,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.17087271809577942,
+      "bot_cosine": 0.7626254558563232,
+      "margin": -0.5917527377605438,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6988687201286856,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481707.103596583,
+      "type": "synthetic_stop_decode",
+      "audio_s": 45.76,
+      "text": "",
+      "views": [
+        "Botanisch sind Bananen, Beeren, obwohl sie immer",
+        "Botanisch sind Bananen, Beeren, obwohl sie",
+        "Botanisch sind Bananen, Beeren, obwohl"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.018507681787014008,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481707.127405267,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.16209262609481812,
+      "bot_cosine": 0.7572636008262634,
+      "margin": -0.5951709747314453,
+      "evidence_seconds": 2.91,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.705947035277148,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481707.40085756,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.12921151518821716,
+      "bot_cosine": 0.7597942352294922,
+      "margin": -0.630582720041275,
+      "evidence_seconds": 2.66,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6976738200612868,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481708.322185587,
+      "type": "synthetic_stop_decode",
+      "audio_s": 47.04,
+      "text": "",
+      "views": [
+        "Den Bananen Bären, obwohl sie im Alltag meist als Obst gelten.",
+        "Obwohl sie im Alltag meist als Obst gelten.",
+        "Den Bananenbeeren, obwohl sie im Alltag meist als Obst gelten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017640992999076843,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481708.37096376,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.13350355625152588,
+      "bot_cosine": 0.7982649803161621,
+      "margin": -0.6647614240646362,
+      "evidence_seconds": 2.93,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.7179536581977789,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481708.69143768,
+      "type": "synthetic_stop_decode",
+      "audio_s": 47.36,
+      "text": "",
+      "views": [
+        "Obwohl sie im Alltag meist als Obst gelten.",
+        "Obwohl sie im Alltag meist als Obst gelten.",
+        "Obwohl sie im Alltag meist als Obst gelten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017556283622980118,
+        "view_seconds": [
+          3.04,
+          2.92,
+          2.92
+        ]
+      }
+    },
+    {
+      "wall": 33481708.75195101,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.12645182013511658,
+      "bot_cosine": 0.7867432832717896,
+      "margin": -0.660291463136673,
+      "evidence_seconds": 2.77,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.7166633358968282,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481709.03688216,
+      "type": "synthetic_stop_decode",
+      "audio_s": 47.68,
+      "text": "",
+      "views": [
+        "Obwohl sie im Alltag meist als Obst gelten.",
+        "Obwohl sie im Alltag meist als Obst gelten.",
+        "Obwohl sie im Alltag meist als Obst gelten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017457596957683563,
+        "view_seconds": [
+          3.04,
+          2.6,
+          2.6
+        ]
+      }
+    },
+    {
+      "wall": 33481709.04863122,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.12590649724006653,
+      "bot_cosine": 0.7814165353775024,
+      "margin": -0.6555100381374359,
+      "evidence_seconds": 2.45,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6467296745183562,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481709.33477168,
+      "type": "synthetic_stop_decode",
+      "audio_s": 48.0,
+      "text": "",
+      "views": [
+        "Abwohl sie im Alltag meist als Obst gelten.",
+        "Abwohl sie im Alltag meist als Obst gelten.",
+        "Abwohl Sie im Alltag meist als Obst gelten."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017476767301559448,
+        "view_seconds": [
+          3.04,
+          2.86,
+          2.86
+        ]
+      }
+    },
+    {
+      "wall": 33481709.376858145,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1336500346660614,
+      "bot_cosine": 0.7257356643676758,
+      "margin": -0.5920856297016144,
+      "evidence_seconds": 2.69,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.6262500765991901,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481709.594011847,
+      "type": "synthetic_stop_decode",
+      "audio_s": 48.32,
+      "text": "",
+      "views": [
+        "Abwohl sie im Alltag meist als Obst gelten.  Deshalb",
+        "A posi im Alltag meist als Obst gelten.  Desherr bei",
+        "Obwohl sie im Alltag meist als Obst gelten.  Deshalb"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.01736989989876747,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481709.626989353,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.1486472487449646,
+      "bot_cosine": 0.7382907867431641,
+      "margin": -0.5896435379981995,
+      "evidence_seconds": 3.01,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5592044708069575,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481709.939372893,
+      "type": "synthetic_stop_decode",
+      "audio_s": 48.64,
+      "text": "",
+      "views": [
+        "Sie im Alltag meist als Obst gelten.  Deshalb bannen",
+        "im Alltag meist als Obst gelten.  Desherr bannen",
+        "Sie im Alltag meist als Obst gelten.  Desherband"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017457596957683563,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481710.005087648,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.11117562651634216,
+      "bot_cosine": 0.739944577217102,
+      "margin": -0.6287689507007599,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.5176483286987582,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481710.26745552,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.12235027551651001,
+      "bot_cosine": 0.741257905960083,
+      "margin": -0.618907630443573,
+      "evidence_seconds": 2.99,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.517453345846468,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481710.272531737,
+      "type": "synthetic_stop_decode",
+      "audio_s": 48.96,
+      "text": "",
+      "views": [
+        "Zag meist als Obst gelten.  Desherr Bananen",
+        "",
+        "Tag meist als Obst gelten.  Bisheranan werden"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017754804342985153,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481710.603625327,
+      "type": "synthetic_stop_decode",
+      "audio_s": 49.28,
+      "text": "",
+      "views": [
+        "Ezt az obskelten.  Desher Bananen werden weltwet",
+        "Bisher Bananen werden weltweit",
+        "Als als Obskelten.  Bisher Bananen werden weltweit"
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017761198803782463,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481710.621150207,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.0992501974105835,
+      "bot_cosine": 0.7157081365585327,
+      "margin": -0.6164579391479492,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.482835514752344,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481710.9035489,
+      "type": "synthetic_stop_decode",
+      "audio_s": 49.6,
+      "text": "",
+      "views": [
+        "Bisher Bananen werden weltweit angebaut.",
+        "Bisher Bananen werden weltweit angebaut.",
+        "Bisher Bananen werden weltweit angebaut."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.016350412741303444,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481710.95300625,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.10885563492774963,
+      "bot_cosine": 0.7235356569290161,
+      "margin": -0.6146800220012665,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.4843685412426733,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    },
+    {
+      "wall": 33481711.222347613,
+      "type": "synthetic_stop_decode",
+      "audio_s": 49.92,
+      "text": "",
+      "views": [
+        "The Siabanan werden weltweit angebaut und",
+        "De Serbanan werden weltweit angebaut und",
+        "Der Siabanan werden weltweit angebaut."
+      ],
+      "audio_stats": {
+        "foreground_floor": 0.0,
+        "peak_frame_rms": 0.017448188737034798,
+        "view_seconds": [
+          3.04,
+          3.04,
+          3.04
+        ]
+      }
+    },
+    {
+      "wall": 33481711.237568576,
+      "type": "synthetic_barge_verification",
+      "accepted": false,
+      "user_cosine": 0.11978437006473541,
+      "bot_cosine": 0.7191526889801025,
+      "margin": -0.5993683189153671,
+      "evidence_seconds": 3.04,
+      "strong_native_continuity": false,
+      "waveform_correlation": 0.43793937715588666,
+      "different_playback_content": false,
+      "literal_stop": false,
+      "short_command_consensus": false,
+      "compact_command_consensus": false,
+      "brief_crop_consensus": false,
+      "isolated_stop_consensus": false,
+      "isolated_fast_scores": {},
+      "long_student_consensus": false,
+      "long_vote": {},
+      "fast_vote": {}
+    }
+  ],
+  "command_wall": 33481700.04827537,
+  "error": "Browser spoken-stop stage did not complete",
+  "page_errors": [],
+  "played_notifications": [
+    "played:1:50640"
+  ]
+}

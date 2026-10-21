@@ -17,7 +17,8 @@ async def main():
     replies = [e for e in result.get('events', [])
                if e['type'] == 'reply' and e['phase'] == 'stop']
     result['acknowledgment_observed'] = bool(feedback and any(
-        r.get('text') == f.get('text') for r in replies for f in feedback))
+        r.get('text') == f.get('text') and result.get('reply_audio_samples',{}).get(r.get('reply_id'),0)>0
+        for r in replies for f in feedback))
     result['stop_case_passed'] = result['passed']
     result['passed'] = (result['passed'] and result['acknowledgment_observed']
                         and signature == runtime_signature())

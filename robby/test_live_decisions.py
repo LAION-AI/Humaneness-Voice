@@ -106,10 +106,11 @@ class LiveTests(unittest.IsolatedAsyncioTestCase):
         d.offer_agent(['Die ungefähr stop'],c.hop_pos);d.tick(c.hop_pos);await d.task
         d.client.choose.assert_awaited_once();c._on_barge.assert_not_awaited()
     async def test_new_literal_preempts_slow_semantic_request(self):
-        d,c=self.make();d.book.apply([ACTION],'christoph',REQUEST);started=asyncio.Event()
+        d,c=self.make();semantic={'name':ACTION['name'],'arguments':{**ACTION['arguments'],'condition':'When I explicitly invite a response','match_mode':'semantic'}}
+        d.book.apply([ACTION,semantic],'christoph',REQUEST);started=asyncio.Event()
         async def slow(_):started.set();await asyncio.Event().wait()
         d.client.choose=slow;d.offer('Jetzt werde ich dir noch viele andere Geschichten erzählen',c.hop_pos)
-        d.tick(c.hop_pos);old=d.task;await started.wait()
+        d.tick(c.hop_pos);old=d.task;await asyncio.wait_for(started.wait(),1.)
         c.hop_pos+=5120;d.offer('Jetzt werde ich dir noch viele andere Geschichten erzählen Bananas',c.hop_pos)
         d.tick(c.hop_pos);await d.task;await asyncio.gather(old,return_exceptions=True)
         self.assertTrue(old.cancelled());c._send_interjection.assert_awaited_once()
@@ -180,6 +181,32 @@ class LiveTests(unittest.IsolatedAsyncioTestCase):
         d,c=self.make();self.assertTrue(d.enabled)
         d.offer('Bananen sind gesund.',c.hop_pos);d.tick(c.hop_pos)
         self.assertIsNone(d.task);c._send_interjection.assert_not_awaited()
+    async def test_explicit_game_does_not_fall_back_to_generic_helpful_phrase(self):
+        d,c=self.make();d.book.apply([ACTION],'christoph',REQUEST)
+        d.client.choose=AsyncMock(return_value={'action':'interrupt_user','rule_id':'helpful-interjection'})
+        d.offer('Ich möchte einfach immer noch weiter über ihre gelbe Farbe sprechen.',c.hop_pos)
+        d.tick(c.hop_pos);await d.task
+        d.client.choose.assert_not_awaited();c._send_interjection.assert_not_awaited()
+        # With no agreed game, the original generic usefulness path is retained.
+        d.book=RuleBook();d.last_tick=-100;d.tick(c.hop_pos);await d.task
+        d.client.choose.assert_awaited_once();c._send_interjection.assert_awaited_once()
+    async def test_listening_gesture_is_silent_verified_cooled_down_and_epoch_scoped(self):
+        d,c=self.make();d.partial_at=c.hop_pos/16000
+        d.listening_gestures=False
+        self.assertFalse(await d.emit_gesture('nod',c.hop_pos,d.epoch))
+        c.speaker_ext.confirm_live_speaker.assert_not_awaited()
+        d.listening_gestures=True
+        self.assertTrue(await d.emit_gesture('nod',c.hop_pos,d.epoch))
+        self.assertEqual(c.ws.send_json.call_args.args[0]['type'],'avatar_gesture')
+        c._send_interjection.assert_not_awaited()
+        self.assertFalse(await d.emit_gesture('shake',c.hop_pos,d.epoch))
+        c.hop_pos+=160000;d.partial_at=c.hop_pos/16000
+        c.speaker_ext.confirm_live_speaker.return_value=None
+        self.assertFalse(await d.emit_gesture('nod',c.hop_pos,d.epoch))
+        c.speaker_ext.confirm_live_speaker.return_value={'speaker_id':'christoph'}
+        self.assertFalse(await d.emit_gesture('nod',c.hop_pos,d.epoch-1))
+        c.speaking=True
+        self.assertFalse(await d.emit_gesture('nod',c.hop_pos,d.epoch))
     async def test_rule_fires_from_partial_before_silence_and_not_twice_in_same_turn(self):
         d,c=self.make();d.book.apply([ACTION],'christoph',REQUEST)
         d.offer('Bananen sind',c.hop_pos);d.tick(c.hop_pos);await d.task

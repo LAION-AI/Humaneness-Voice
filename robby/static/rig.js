@@ -4,7 +4,8 @@ export const REQUIRED_IDS=['body','head','arm-left','arm-right','brow-left','bro
  'eye-outline-left','eye-outline-right','eye-mask-left','eye-mask-right','iris-left','iris-right',
  'mouth-mask','teeth','tongue','nose','cheek-left','cheek-right','blush-left','blush-right','keypoints','body-keypoints'];
 export function normalizeControls(c={}){return {x:clamp(c.x,-1,1),y:clamp(c.y,-1,1),roll:clamp(c.roll,-35,35),
- blinkLeft:clamp(c.blinkLeft,0,1),blinkRight:clamp(c.blinkRight,0,1),smile:clamp(c.smile,0,1),jaw:clamp(c.jaw,0,1),audioLevel:clamp(c.audioLevel,0,1)};}
+ blinkLeft:clamp(c.blinkLeft,0,1),blinkRight:clamp(c.blinkRight,0,1),smile:clamp(c.smile,0,1),jaw:clamp(c.jaw,0,1),audioLevel:clamp(c.audioLevel,0,1),
+ eyeLeftX:clamp(c.eyeLeftX,-1,1),eyeRightX:clamp(c.eyeRightX,-1,1),eyeLeftY:clamp(c.eyeLeftY,-1,1),eyeRightY:clamp(c.eyeRightY,-1,1)};}
 export function controlsFromFace(result){const p=result?.faceLandmarks?.[0];if(!p?.[263])return normalizeControls();
  const b=Object.fromEntries((result.faceBlendshapes?.[0]?.categories||[]).map(x=>[x.categoryName,x.score]));
  return normalizeControls({x:(.5-p[1].x)*4,y:(p[1].y-.5)*3,roll:Math.atan2(p[263].y-p[33].y,p[263].x-p[33].x)*180/Math.PI,
@@ -28,7 +29,7 @@ export function geometry(p=pose(),controls={}){
   const h=clamp(43*openness-12*a.squint,1.2,68),rx=37,tilt=a.lid_tilt*sign*.28;
   eyes.push(Array.from({length:12},(_,j)=>{const t=2*Math.PI*j/12,x=rx*Math.cos(t),y=h*Math.sin(t);
    return [cx+x,267+y+tilt*x-(y<0?a.lid_curve*7*Math.sin(t)**2:0)];}));
-  const gx=clamp(a.gaze_x+c.x*.25,-1,1)*13,gy=clamp(a.gaze_y+c.y*.2,-1,1)*13,radius=clamp(a.pupil_scale,.5,1.5)*28;
+  const gx=clamp(a.gaze_x+c.x*.25+(side?c.eyeRightX:c.eyeLeftX),-1,1)*13,gy=clamp(a.gaze_y+c.y*.2+(side?c.eyeRightY:c.eyeLeftY),-1,1)*13,radius=clamp(a.pupil_scale,.5,1.5)*28;
   pupils.push([[cx+gx,267+gy],[cx+gx-radius,267+gy],[cx+gx,267+gy-radius*1.18],[cx+gx+radius,267+gy],[cx+gx,267+gy+radius*1.18]]);
   brows.push(Array.from({length:5},(_,j)=>{const u=j/4,x=(u-.5)*80,inner=side?1-u:u;
    return [cx+x,190-a.brow_raise*25-a.brow_asym*sign*18-a.brow_inner*24*inner-a.brow_outer*19*(1-inner)
@@ -65,7 +66,9 @@ export function createRobbyRig(svg){const n=Object.fromEntries(REQUIRED_IDS.map(
    n.teeth.setAttribute('opacity',String(smooth.teeth));n.tongue.setAttribute('opacity',String(smooth.tongue));
    n.nose.setAttribute('d',curve(g.nose));n.nose.setAttribute('opacity',String(clamp(a.nose_lift*.9,0,.75)));
    const v=smooth.gesture,beat=Math.sin(timeMs/600*v[7]),breath=Math.sin(timeMs/2100);
-   n.head.setAttribute('transform',`translate(${controls.x*7+v[2]} ${breath+v[1]+controls.y*3}) rotate(${v[0]+controls.roll*.3+v[6]*beat*4} 400 440)`);
+   const motion=input.actionMotion||{},yaw=clamp(motion.pan,-20,20),nod=clamp(motion.tilt,-12,12),spin=Number.isFinite(motion.spin)?motion.spin:0;
+   // SVG fallback: a flat cartoon turn; the desk renderer supplies true 3-D yaw.
+   n.head.setAttribute('transform',`translate(${controls.x*7+v[2]+yaw*.5} ${breath+v[1]+controls.y*3+nod}) rotate(${v[0]+controls.roll*.3+v[6]*beat*4+spin} 400 440)`);
    n.body.setAttribute('transform',`translate(${v[2]*.4} ${breath*.6}) rotate(${v[2]*.3} 400 800)`);
    n['arm-left'].setAttribute('transform',`translate(0 ${-v[5]}) rotate(${v[3]+Math.abs(v[3])*.09*beat} 180 550)`);
    n['arm-right'].setAttribute('transform',`translate(0 ${-v[5]}) rotate(${-v[4]-Math.abs(v[4])*.09*beat} 620 550)`);
