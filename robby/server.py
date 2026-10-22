@@ -55,6 +55,8 @@ class RoboConversation(Conversation):
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
+        from avatar_personality import AvatarPersonality
+        self.avatar_personality=AvatarPersonality();self.avatar_optional=False
         self.identity_enabled=False;self.predictor=None;self.last_identity_notice=0
         self.identity_mode='ecapa';self.teacher=None;self.teacher_stream=None
         self.identity_audio=np.zeros(0,np.float32)
@@ -108,9 +110,15 @@ class RoboConversation(Conversation):
             'speaker_instruction':'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
+        self.avatar_optional=False;self.avatar_personality.user()
         self.decisions.note_user(transcript,self.current_speaker)
         self._start_speaking()
-        await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':self.decisions.state()})
+        await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':self.decisions.state(),
+            'avatar_context':self.avatar_personality.snapshot()})
+
+    async def _finish_turn(self,barged):
+        self.avatar_optional=False
+        await super()._finish_turn(barged)
 
     async def _send_interjection(self,transcript,speaker,reply,rule_id):
         if self.speaking or self.halting:return False
@@ -168,6 +176,8 @@ class RoboConversation(Conversation):
         if self.teacher_stream is not None:self.teacher_stream.reset()
 
     async def _on_events(self,events,hop_end):
+        if getattr(self,'avatar_personality',None) and any(e.get('kind')=='PARTIAL' and e.get('text','').strip() for e in events):
+            self.avatar_personality.last_asr=time.monotonic()
         if self.identity_enabled and self.speaker_ext is not None and self.identity_mode.startswith('v4'):
             proposals=[e for e in events if e['kind']=='BARGE']
             if proposals and self.speaking:self.pending_barge_proposal=(max(proposals,key=lambda e:e.get('yield_prob',0)),hop_end)
@@ -316,6 +326,25 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if data=='avatar:cancel':
+            if self.avatar_optional and self.speaking:
+                self.avatar_optional=False
+                await self._on_barge({'onset_s':0.,'yield_prob':1.},self.hop_pos)
+            return
+        if data.startswith('avatar:'):
+            try:
+                if len(data)>600:raise ValueError('Avatar message too large')
+                event=json.loads(data[7:])
+                context=self.avatar_personality.observe(event,busy=self.speaking or self.halting or self.ending,language=self.decisions.language)
+                accepted=bool(context and self.have_mouth)
+                # Claim the optional turn before yielding to the ASR hop task.
+                if accepted:self._start_speaking();self.avatar_optional=True
+                await self.ws.send_json({'type':'avatar_event','event':event.get('event'),'accepted':accepted})
+                if accepted:
+                    await self.to_mouth(b'T',{'transcript':'','speaker':{},'avatar_context':context})
+            except (ValueError,TypeError,KeyError):
+                await self.ws.send_json({'type':'avatar_event','accepted':False,'reason':'Invalid or unavailable avatar event'})
+            return
         if data.startswith('visual:'):
             try:
                 if len(data)>160000:raise ValueError('Visual message too large')

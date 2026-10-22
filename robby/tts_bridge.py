@@ -101,13 +101,16 @@ class MouthBridge:
 
             def remember(record,interrupted=False):
                 if record is None:return
+                if record.get('avatar_context',{}).get('event') and not record.get('reply'):return
                 content=('[My preceding spoken reply was interrupted. Do not assume its remaining words were heard.]'
                     if interrupted else record['reply'])
                 if record.get('index') is None:
                     speaker=record.get('speaker') or {}
                     prefix=('Current session speaker: '+json.dumps({'speaker_id':speaker.get('speaker_id'),'display_name':speaker.get('display_name')})+'\n'
                         if speaker.get('enrolled') else '')
-                    history.append({'role':'user','content':prefix+record['text']})
+                    # A mouse gesture is not a fabricated spoken user turn.
+                    if not record.get('avatar_context',{}).get('event'):
+                        history.append({'role':'user','content':prefix+record['text']})
                     record['index']=len(history)
                     history.append({'role':'assistant','content':content})
                 else:history[record['index']]['content']=content
@@ -172,7 +175,12 @@ class MouthBridge:
                                 'script':('(interest, gentle and unhurried) ' if feedback else '(determination, firm and playful) ')+literal,'language':record.get('interaction_language','de')})
                             directed.update(director_ms=0.,interaction_actions=[])
                         else:
-                            directed=await CompactDirector().generate(client,text,identity,history,interaction_state=record.get('interaction_state'))
+                            request=CompactDirector().generate(client,text,identity,history,interaction_state=record.get('interaction_state'),avatar_context=record.get('avatar_context'))
+                            directed=(await asyncio.wait_for(request,8.) if record.get('avatar_context',{}).get('event') else await request)
+                        if directed.get('silent'):
+                            await send(b'D',{});return
+                        if record.get('avatar_context',{}).get('event') and (await client.get('/api/state',timeout=3.)).json().get('busy'):
+                            await send(b'D',{});return  # optional affection never queues behind someone else's TTS
                         director_ms=directed['director_ms'];reply=directed['text'];record['reply']=reply
                         await send(b'X',{'text':reply,'performance':plan(directed),'speaker':identity,
                             'language':directed['language'],
@@ -189,7 +197,7 @@ class MouthBridge:
                             for at in range(0,len(cached),9600):await send(b'A',cached[at:at+9600].astype(np.float32).tobytes())
                             remember(record);await send(b'D',{});return
                     stage='speech'
-                    async with admitted_turn(client,body,waiting) as response:
+                    async with admitted_turn(client,body,waiting,timeout=.25 if record.get('avatar_context',{}).get('event') else 45.) as response:
                         async for line in response.aiter_lines():
                             if not line.startswith('data: '):continue
                             event=json.loads(line[6:]);kind=event.get('event')
@@ -228,6 +236,8 @@ class MouthBridge:
                 except Exception as exc:
                     status=getattr(getattr(exc,'response',None),'status_code',None)
                     log.warning('Shared service error: stage=%s type=%s status=%s',stage,type(exc).__name__,status)
+                    if record.get('avatar_context',{}).get('event'):
+                        await send(b'D',{});return  # optional comments fail quietly, never a canned emotional fallback
                     await send(b'X',{'text':'The '+stage+' service could not complete this reply. Please try again.',
                         'error_type':type(exc).__name__,'error_stage':stage,'http_status':status})
                     await send(b'D',{})
@@ -243,7 +253,8 @@ class MouthBridge:
                         if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
                         latest={'text':payload['transcript'],'speaker':payload.get('speaker'),'reply':'','index':None,
                             'interaction_state':payload.get('interaction_state'),'interaction_reply':payload.get('interaction_reply'),
-                            'interaction_language':payload.get('interaction_language','de'),'stop_feedback':payload.get('stop_feedback',False)}
+                            'interaction_language':payload.get('interaction_language','de'),'stop_feedback':payload.get('stop_feedback',False),
+                            'avatar_context':payload.get('avatar_context') or {}}
                         task=asyncio.create_task(turn(latest))
                     elif kind==b'W':
                         if warm_task and not warm_task.done():warm_task.cancel();await asyncio.gather(warm_task,return_exceptions=True)
