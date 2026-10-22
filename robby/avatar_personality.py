@@ -45,6 +45,14 @@ with growing amusement then elation; no long explanation or generic greeting.
 Express cartoon joy and playful delight, not literal consciousness, lifelong
 memories or bodily ecstasy. This is nonsexual, childlike carousel play, not
 breathy moaning or aggressive screaming. Brief whoops are explicitly requested.
+The validated play_intensity and cuddle_intensity settings range from 0 to 1.
+Adapt play_vocal acting to play_intensity: below .35 use restrained, quiet amusement,
+below .7 be cheerfully playful, otherwise use the exuberant crescendo described above.
+For petted and ask_pet, adapt warmth to cuddle_intensity: below .35 keep it understated
+and brief (one quiet acknowledgment); below .7 be gently affectionate; above that use
+the soft kitten-like reactions and puppy invitation described above. Intensity never
+authorizes pressure, guilt or literal claims of physical sensation. Zero disables that
+autonomous event. These settings are personality controls, not speaker identity.
 Use the latest conversation language; the supplied language is a fallback.
 For ordinary user questions answer the question, not an unsolicited pet request.'''
 
@@ -62,13 +70,18 @@ class AvatarPersonality:
         return {'recent_events':[dict(e,age_s=round(now-at,1)) for at,e in self.events if now-at<600][-6:]}
 
     def observe(self,message,busy=False,language='en'):
-        if not isinstance(message,dict) or set(message)-{'event','variant','carousel','duration_ms','age_ms'}:raise ValueError('Avatar event fields')
+        if not isinstance(message,dict) or set(message)-{'event','variant','carousel','duration_ms','age_ms','play_intensity','cuddle_intensity'}:raise ValueError('Avatar event fields')
+        levels={key:message.get(key,1) for key in ('play_intensity','cuddle_intensity')}
+        for value in levels.values():
+            if type(value) not in (int,float) or not math.isfinite(value) or not 0<=value<=1:raise ValueError('Avatar intensity')
+        cuddle=levels['cuddle_intensity']
         event=message.get('event');now=self.clock()
         if event not in ('idle_play','play_vocal','petted','ask_pet'):raise ValueError('Avatar event')
         age=message.get('age_ms',0)
         if type(age) is not int or not 0<=age<=600000 or (event!='idle_play' and age):raise ValueError('Avatar event age')
         if now-self.last_event<1:return None
-        entry={'event':event}
+        if (event in ('idle_play','play_vocal') and levels['play_intensity']==0) or (event in ('petted','ask_pet') and cuddle==0):return None
+        entry={'event':event,**levels}
         if event in ('idle_play','play_vocal'):
             if message.get('variant') not in VARIANTS or type(message.get('carousel')) is not bool:raise ValueError('Idle animation')
             if busy or now-self.last_asr<2:return None
@@ -82,15 +95,15 @@ class AvatarPersonality:
         if event=='idle_play':return None
         if busy or now-self.last_asr<2:return None
         if event=='petted':
-            if now-self.last_pet<12:return None
+            if now-self.last_pet<36-24*cuddle:return None
             self.last_pet=now
         elif event=='play_vocal':
             if now-self.last_play<45:return None
             self.last_play=now
         else:
-            if self.invited_quiet or self.invites>=2 or now-self.started<180 or now-self.last_user<60 or now-self.last_invite<600:return None
+            if self.invited_quiet or self.invites>=2 or now-self.started<600-420*cuddle or now-self.last_user<60 or now-self.last_invite<1800-1200*cuddle:return None
             self.invited_quiet=True;self.invites+=1;self.last_invite=now
-        return {'event':event,'language':language if language in ('de','en') else 'en',**self.snapshot()}
+        return {'event':event,**levels,'language':language if language in ('de','en') else 'en',**self.snapshot()}
 
 def event_steps(context):
     """Visual reactions begin on actual speech playback, not network arrival."""

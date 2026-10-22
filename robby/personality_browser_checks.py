@@ -41,6 +41,18 @@ async def main():
              ok(late.pose.actions.smile>early.pose.actions.smile&&late.pose.actions.mouth_open>early.pose.actions.mouth_open,'growing elation');
              ok(sampleAction({kind:'afterglow'},.3,base).pose.actions.smile>.8,'happy afterglow');
              ok(sampleAction({kind:'puppy'},.5,base).pose.actions.gaze_y<0,'puppy looks upward');
+             ok(!a.setIntensity('playIntensity',NaN),'reject invalid intensity');
+             const low={playIntensity:.25,cuddleIntensity:.25},high={playIntensity:1,cuddleIntensity:1};
+             for(const kind of ['grimace','carousel','afterglow','pet','puppy']){
+              const s={kind,variant:'goofy',direction:'clockwise'};
+              const l=sampleAction(s,.5,base,false,low),h=sampleAction(s,.5,base,false,high);
+              ok(l.weight<h.weight,'intensity changes '+kind);
+             }
+             ok(Math.abs(sampleAction({kind:'carousel',direction:'clockwise'},1,base,false,low).motion.spin+360)<1e-6,'low intensity one complete turn');
+             a.setIntensity('playIntensity',0);a.nextIdle=0;a.frame(99999,base);ok(!a.queue.length,'zero disables idle play');
+             a.setIntensity('cuddleIntensity',0);ok(sampleAction({kind:'pet'},.5,base,false,a).weight===0,'zero cuddle expression');
+             a.setIntensity('cuddleIntensity',.5);ok(a.petCooldownMs===24000&&a.inviteStartMs===390000,'scaled cuddling cooldowns');
+             a.setIntensity('playIntensity',1);a.setIntensity('cuddleIntensity',1);
              a.play([{kind:'carousel',direction:'clockwise',duration_s:6}],'optional',100000);a.frame(101000,base,{busy:true});ok(a.queue.length,'own audio keeps animation');a.touch(101001);ok(!a.queue.length,'user activity cancels optional animation');
              const s=new StrokeTracker();s.begin(0,0,0);ok(s.finish(1000)===null,'stationary hold');
              s.begin(0,0,0);for(let i=1;i<=8;i++)s.move(i*10,0,i*100,false);ok(s.finish(900)===null,'off-head ignored');
@@ -67,9 +79,14 @@ async def main():
             assert await page.locator('#avatar-idle-delay').input_value()=='20'
             await page.locator('#avatar-idle-delay').evaluate("e=>{e.value='75';e.dispatchEvent(new Event('input',{bubbles:true}))}")
             assert await page.evaluate('robotFace.actions.idleDelayMs===75000')
+            for id,value in [('avatar-play-intensity','25'),('avatar-cuddle-intensity','60')]:
+                await page.locator('#'+id).evaluate('(e,v)=>{e.value=v;e.dispatchEvent(new Event("input",{bubbles:true}))}',value)
+            assert await page.evaluate('robotFace.actions.playIntensity===.25&&robotFace.actions.cuddleIntensity===.6')
             await page.uncheck('#avatar-petting-enabled');await page.reload();await page.wait_for_function('window.robotFace?.petting')
             assert await page.evaluate('!robotFace.actions.pettingEnabled'),'Persistence'
             assert await page.evaluate('robotFace.actions.idleDelayMs===75000'),'Idle delay persistence'
+            assert await page.evaluate('robotFace.actions.playIntensity===.25&&robotFace.actions.cuddleIntensity===.6'),'Intensity persistence'
+            assert await page.locator('#avatar-cuddle-intensity-value').text_content()=='60%'
             assert await page.locator('#avatar-idle-delay-value').text_content()=='75 seconds'
             assert not errors,errors
             report.update(passed=True,errors=errors,finished=time.time())

@@ -16,6 +16,30 @@ it is approximate session memory, not reliable biometric authentication.
 
 ### Play and petting update (2026-10-22)
 
+Two additional **0–100%** sliders in **Personality & little tricks** apply
+immediately and persist on the current browser. Both default to **100%**, preserving
+the existing expressive style:
+
+- **Silliness intensity** scales grimace/eye-roll exaggeration and carousel
+  delight. Carousel rides make one, two or three complete turns (thresholds
+  33⅓% and 66⅔%), retaining the six-second acceleration/brake envelope and
+  afterglow. Low intensity also requests quieter LLM cheers. Zero suppresses
+  autonomous play and these playful expressions, not conversation, gaze,
+  explicit 360° turns, nods or the 40 normal emotion poses.
+- **Cuddly personality** scales petting/puppy expressions and the warmth of
+  generated responses. Spoken-stroke cooldown is `36 - 24 × intensity` seconds;
+  invitations begin no sooner than `600 - 420 × intensity` seconds, with a
+  `1800 - 1200 × intensity` second cooldown. Zero disables petting reactions
+  and invitations. Requests remain optional, at most two per connection,
+  never repeated in an unanswered quiet spell. Invitations are independent
+  of the silliness slider, require a minute without user activity and yield
+  to ordinary conversation. Existing individual checkboxes remain authoritative.
+
+Slider changes cancel pending optional reactions; later events carry validated
+numeric intensities to the director. Server-side cooldowns independently enforce
+the limits. They do not alter ASR, speaker identity or turn-taking thresholds.
+Model phrasing is sampled, so exact verbal intensity is not guaranteed.
+
 Eight cartoon grimaces, a three-turn accelerating carousel and a soft contentment pose now
 share the existing visual action system. After 20 seconds of inactivity the
 browser may play a short, silent sequence. The **Bored after** slider in
@@ -32,7 +56,7 @@ carousel play** checkbox controls these calls (45-second cooldown). If the
 provider is silent/unavailable, play remains silent. User input cancels optional
 animations as well as optional speech. Accepted petting invitations use a soft,
 upward-looking **puppy** pose, and the model may make one gentle "Bitte, bitte?"
-request without pressure. Invitation cooldowns remain unchanged.
+request without pressure. At 100%, invitation cooldowns remain unchanged.
 
 Hold left-click and stroke the head where the hand cursor appears. At least
 450 ms, five moving samples and 50 CSS pixels of on-head motion are required;

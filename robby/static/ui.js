@@ -11,6 +11,7 @@ const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
+let lastPersonalityUser=personalityStarted;
 function cancelOptionalAvatar(){pendingPlayFallback=null;if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
 function silentPlayFallback(){const steps=pendingPlayFallback;pendingPlayFallback=null;
  if(steps&&avatarActions.enabled&&avatarActions.idleEnabled&&!document.hidden&&!eyeContact?.state.active&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -68,7 +69,7 @@ const client=window.robo=new RoboClient({
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
-  if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){invitedQuiet=false;cancelOptionalAvatar();}
+  if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
   if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
    if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
    else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;silentPlayFallback();}
@@ -123,7 +124,7 @@ const client=window.robo=new RoboClient({
 });
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
 const canPersonalitySpeak=()=>connected&&ready&&!speaking&&!replyPending&&!$('message').value.trim()&&!document.hidden&&!eyeContact?.state.active;
-const avatarEvent=event=>{if(['petted','ask_pet','play_vocal'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify(event));};
+const avatarEvent=event=>{if(['petted','ask_pet','play_vocal'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify({...event,play_intensity:avatarActions.playIntensity,cuddle_intensity:avatarActions.cuddleIntensity}));};
 function sendRecentIdle(){if(lastIdleEvent&&performance.now()-lastIdleEvent.at<600000)avatarEvent({event:'idle_play',...lastIdleEvent.event,age_ms:Math.round(performance.now()-lastIdleEvent.at)});}
 avatarActions.onIdle=event=>{
  lastIdleEvent={event,at:performance.now()};
@@ -132,20 +133,21 @@ avatarActions.onIdle=event=>{
   lastPlaySpeech=now;pendingPlayFallback=[{kind:'carousel',direction:'clockwise',duration_s:6},{kind:'afterglow',duration_s:6}];
   avatarEvent({event:'play_vocal',...event});
  }else if(connected)avatarEvent({event:'idle_play',...event});
- if(avatarActions.petInvitesEnabled&&!invitedQuiet&&petInvites<2&&now-personalityStarted>=180000&&now-lastPetInvite>=600000){
-  // Give the animation time to start; never queue a stale spoken invitation.
-  const activity=avatarActions.lastActivity;
-  setTimeout(()=>{if(!canPersonalitySpeak()||!avatarActions.enabled||!avatarActions.idleEnabled||!avatarActions.petInvitesEnabled||avatarActions.lastActivity!==activity)return;
-   invitedQuiet=true;petInvites++;lastPetInvite=performance.now();avatarEvent({event:'ask_pet'});
-  },2000);
- }
 };
+// Invitations remain independent of the silliness slider and never compete
+// with conversation. Server-side limits independently enforce these bounds.
+setInterval(()=>{const now=performance.now();
+ if(!canPersonalitySpeak()||!avatarActions.enabled||!avatarActions.petInvitesEnabled||avatarActions.cuddleIntensity<=0||invitedQuiet||petInvites>=2||
+    now-personalityStarted<avatarActions.inviteStartMs||now-lastPetInvite<avatarActions.inviteCooldownMs||now-lastPersonalityUser<60000||petting?.stroke.active)return;
+ invitedQuiet=true;petInvites++;lastPetInvite=now;avatarEvent({event:'ask_pet'});
+},2000);
 petting=attachPetting({element:$('avatar'),rig,actions:avatarActions,allowed:()=>!eyeContact?.state.active,
- onStart:()=>{invitedQuiet=false;if(ready)void client.start(false).catch(()=>{});},
- onPet:event=>{if(canPersonalitySpeak()&&avatarActions.petSpeechEnabled&&performance.now()-lastPetSpeech>=12000){
+ onStart:()=>{lastPersonalityUser=performance.now();invitedQuiet=false;if(ready)void client.start(false).catch(()=>{});},
+ onPet:event=>{if(canPersonalitySpeak()&&avatarActions.petSpeechEnabled&&avatarActions.cuddleIntensity>0&&performance.now()-lastPetSpeech>=avatarActions.petCooldownMs){
   lastPetSpeech=performance.now();avatarEvent({event:'petted',duration_ms:event.duration_ms});return true;
  }return false;} });window.robotFace.petting=petting;
 for(const id of ['avatar-actions-enabled','avatar-idle-enabled','avatar-play-voice-enabled','avatar-petting-enabled','avatar-pet-speech-enabled','avatar-pet-invites-enabled'])$(id).addEventListener('change',()=>{petting.reset();cancelOptionalAvatar();});
+for(const id of ['avatar-play-intensity','avatar-cuddle-intensity'])$(id).addEventListener('input',()=>{petting.reset();cancelOptionalAvatar();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelOptionalAvatar();});
 for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
 $('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
@@ -162,10 +164,10 @@ const calibrate=document.createElement('button');calibrate.className='text-butto
 const stopLabel=document.createElement('label'),stopFeedback=document.createElement('input');stopFeedback.type='checkbox';stopFeedback.id='stop-feedback';stopFeedback.checked=desiredStopFeedback;stopLabel.append(stopFeedback,' Brief spoken acknowledgment after I stop Robby (otherwise stay silent)');$('allow-helpful').parentElement.after(stopLabel);
 const stopHelp=document.createElement('p');stopHelp.textContent='Keep your microphone on. Say “Stopp”, “Hör bitte auf” or “Warte bitte” while Robby speaks. The current speaker is checked continuously, independently of proactive-interruption settings. Wait/quiet commands always stay silent. Acknowledgments yield to continuing speech.';stopLabel.after(stopHelp);
 stopFeedback.onchange=()=>{desiredStopFeedback=stopFeedback.checked;saveThreshold('robby.stopFeedback',desiredStopFeedback);client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));};
-async function submit(text){if(!ready)return;avatarActions.touch();invitedQuiet=false;try{
+async function submit(text){if(!ready)return;lastPersonalityUser=performance.now();avatarActions.touch();invitedQuiet=false;try{
  if(optionalAvatarReply){cancelOptionalAvatar();for(let i=0;i<40&&optionalAvatarReply;i++)await new Promise(r=>setTimeout(r,50));}
  await client.start(false);sendRecentIdle();bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
-$('message').addEventListener('input',()=>{avatarActions.touch();cancelOptionalAvatar();});
+$('message').addEventListener('input',()=>{lastPersonalityUser=performance.now();avatarActions.touch();cancelOptionalAvatar();});
 $('form').onsubmit=e=>{e.preventDefault();const text=$('message').value.trim();if(text){$('message').value='';submit(text);}};
 for(const b of document.querySelectorAll('[data-text]'))b.onclick=()=>submit(b.dataset.text);
 $('clear').onclick=()=>{timeline.clear();client.stop();$('chat').replaceChildren();partial=answer=null;};
