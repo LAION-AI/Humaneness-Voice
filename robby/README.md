@@ -40,6 +40,19 @@ numeric intensities to the director. Server-side cooldowns independently enforce
 the limits. They do not alter ASR, speaker identity or turn-taking thresholds.
 Model phrasing is sampled, so exact verbal intensity is not guaranteed.
 
+**Explicit rotation reliability:** short, unambiguous German/English commands
+such as “Dreh dich bitte und rede dabei” now receive a bounded six-second,
+sentence-zero spin plan even if the LLM replies without calling `perform_avatar`.
+Counterclockwise wording is preserved. Negations, quotes, conditional rules and
+explanations do not use this fallback; complex choreography remains model/tool
+driven. The director is instructed to speak playfully during the turn. Playback
+timestamps, not response arrival, trigger the animation. Explicit spins ignore
+the idle-silliness slider, but still respect the master action switch,
+reduced-motion preferences, cancellation and calibration. The action panel
+explains master-switch/reduced-motion suppression. Browser checks exercise a
+complete spin during synthetic PCM playback at zero idle intensity; this is
+separate from acoustic microphone/ASR testing.
+
 Eight cartoon grimaces, a three-turn accelerating carousel and a soft contentment pose now
 share the existing visual action system. After 20 seconds of inactivity the
 browser may play a short, silent sequence. The **Bored after** slider in

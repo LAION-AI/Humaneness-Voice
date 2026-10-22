@@ -67,6 +67,15 @@ async def main():
             await page.locator('#form').evaluate('(e)=>e.requestSubmit()')
             await page.wait_for_function('petEvents.filter(m=>m.type==="reply").length>=4',timeout=45000)
             report['explanation']=await page.evaluate('petEvents.filter(m=>m.type==="reply").at(-1).text')
+            await page.wait_for_function('robo.sources.length===0&&petEvents.filter(m=>m.type==="turn_done").length>=4',timeout=45000)
+            await page.fill('#message','Dreh dich bitte um 360 Grad gegen den Uhrzeigersinn und rede dabei.')
+            await page.locator('#form').evaluate('(e)=>e.requestSubmit()')
+            await page.wait_for_function('petEvents.filter(m=>m.type==="reply").length>=5',timeout=45000)
+            report['requested_spin_reply']=await page.evaluate('petEvents.filter(m=>m.type==="reply").at(-1).text')
+            await page.wait_for_function('robotFace.actions.active?.kind==="spin"&&robo.sources.length>0&&robotFace.rig.snapshot().visualPan>40',timeout=20000)
+            report['requested_spin_while_real_tts_plays']=True
+            await page.wait_for_function('robotFace.rig.snapshot().visualPan>330',timeout=10000)
+            report['requested_counterclockwise_full_turn']=True
             assert not errors,errors
             report.update(passed=True,errors=errors,finished=time.time())
         except Exception as exc:

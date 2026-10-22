@@ -51,11 +51,11 @@ export function attachActionControls(actions){
  }
  for(const [id,key] of [['avatar-actions-enabled','enabled'],['avatar-idle-enabled','idleEnabled'],['avatar-play-voice-enabled','playVoiceEnabled'],['avatar-listening-enabled','listeningEnabled'],['avatar-petting-enabled','pettingEnabled'],['avatar-pet-speech-enabled','petSpeechEnabled'],['avatar-pet-invites-enabled','petInvitesEnabled']]){
   const box=document.getElementById(id);try{box.checked=localStorage.getItem('robby.'+id)!=='false';}catch{}actions[key]=box.checked;
-  box.onchange=()=>{actions[key]=box.checked;actions.clear();try{localStorage.setItem('robby.'+id,String(box.checked));}catch{}};
+  box.onchange=()=>{actions[key]=box.checked;actions.warning='';actions.clear();try{localStorage.setItem('robby.'+id,String(box.checked));}catch{}};
  }
  document.getElementById('avatar-perform').onclick=()=>{const value=items[+select.value][1];actions.play((Array.isArray(value)?value:[value]).map(s=>({duration_s:2,...s})));};
  document.getElementById('avatar-stop').onclick=()=>actions.clear();
- let last='';const timer=setInterval(()=>{const text=actions.active?`Performing ${actions.active.kind.replaceAll('_',' ')} · ${actions.active.source}`:!actions.enabled?'Expressive actions disabled.':'Camera tracking resumes automatically after each trick.';if(text!==last){document.getElementById('avatar-action-status').textContent=text;last=text;}},250);
+ let last='';const timer=setInterval(()=>{const text=actions.warning|| (actions.active?`Performing ${actions.active.kind.replaceAll('_',' ')} · ${actions.active.source}`:!actions.enabled?'Expressive actions disabled.':'Camera tracking resumes automatically after each trick.');if(text!==last){document.getElementById('avatar-action-status').textContent=text;last=text;}},250);
  addEventListener('pagehide',()=>clearInterval(timer),{once:true});
  return panel;
 }
