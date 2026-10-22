@@ -139,7 +139,9 @@ export class AvatarActions{
  get inviteCooldownMs(){return (1800-1200*this.cuddleIntensity)*1000;}
  clear(){this.queue=[];this.plans.clear();this.started.clear();this.active=null;this.touch();}
  touch(now=performance.now(),keepOptional=false){this.lastActivity=now;this.nextIdle=now+this.idleDelayMs;if(this.queue[0]?.source==='idle'||(!keepOptional&&this.queue[0]?.source==='optional')){this.queue=[];this.lastIdleEnd=now;}}
- set(id,steps,plan,source='reply'){const safe=validateSteps(steps);if(!safe.length||!id)return;this.plans.set(id,{steps:safe,plan,source});while(this.plans.size>20)this.plans.delete(this.plans.keys().next().value);}
+ set(id,steps,plan,source='reply'){const safe=validateSteps(steps);if(!safe.length||!id)return;
+  this.warning=!this.enabled?'Requested action is disabled. Turn on Allow expressive actions.':matchMedia('(prefers-reduced-motion: reduce)').matches&&safe.some(s=>['spin','carousel'].includes(s.kind))?'Rotation suppressed by your browser’s reduced-motion preference.':'';
+  this.plans.set(id,{steps:safe,plan,source});while(this.plans.size>20)this.plans.delete(this.plans.keys().next().value);}
  play(steps,source='preview',now=performance.now()){
   if(!this.enabled)return false;const safe=validateSteps(steps);if(!safe.length)return false;
   if(source==='preview'){this.clear();this.touch(now);}
