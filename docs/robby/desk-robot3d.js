@@ -2,7 +2,7 @@
 // Software 3D projection + Canvas 2D: no WebGL, CDN, mesh download or GPU needed.
 // Millimetre proportions follow the supplied 20 Oct 2026 proposal, NOT buildable CAD.
 import {clamp,pose,mix} from './emotions.js';
-import {geometry,normalizeControls} from './rig.js';
+import {geometry,normalizeControls,eyeFill} from './rig.js';
 import {SoftwareSurface} from './software-surface.js';
 
 export const DIMENSIONS=Object.freeze({headDiameter:190,headDepth:110,baseDiameter:220,
@@ -105,7 +105,9 @@ function paintFace(canvas,p,controls,showPoints){
  const s=n/450;c.setTransform(s,0,0,s,n/2-400*s,n/2-275*s);
  const g=geometry(p,controls),a=p.actions;
  for(let i=0;i<2;i++){
-  pathCurve(c,g.eyes[i],true);c.fillStyle='#182129';c.fill();c.save();c.clip();
+  pathCurve(c,g.eyes[i],true);c.fillStyle=eyeFill(controls.cartoon);c.fill();
+  if(controls.cartoon>.001){c.strokeStyle=`rgba(24,33,41,${controls.cartoon})`;c.lineWidth=3;c.stroke();}
+  c.save();c.clip();
   const center=g.pupils[i][0];c.fillStyle='#070c12';c.beginPath();c.ellipse(center[0],center[1],28*a.pupil_scale,33*a.pupil_scale,0,0,2*PI);c.fill();
   c.fillStyle='#fff';c.beginPath();c.arc(center[0]-8,center[1]-15,6,0,2*PI);c.fill();c.restore();
   pathCurve(c,g.brows[i]);c.strokeStyle='#11171d';c.lineWidth=8;c.lineCap='round';c.stroke();
@@ -226,17 +228,20 @@ export function createDeskRobotRig(container){
    exploded:state.exploded,expression:smooth.slug};
  }
  canvas.style.touchAction='none';canvas.style.cursor='grab';
- canvas.onpointerdown=e=>{if(state.gazeCalibration)return;drag=[e.clientX,e.clientY,state.view,state.elevation];canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';};
+ canvas.onpointerdown=e=>{if(state.gazeCalibration||e.defaultPrevented)return;drag=[e.clientX,e.clientY,state.view,state.elevation];canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';};
  canvas.onpointermove=e=>{if(drag){state.view=drag[2]+(e.clientX-drag[0])*.008;state.elevation=clamp(drag[3]+(e.clientY-drag[1])*.005,rad(-10),rad(40));}};
  canvas.onpointerup=canvas.onpointercancel=()=>{drag=null;canvas.style.cursor='grab';};
  canvas.addEventListener('wheel',e=>{e.preventDefault();state.distance=clamp(state.distance+e.deltaY*.4,450,950);},{passive:false});
  canvas.tabIndex=0;canvas.onkeydown=e=>{if(state.gazeCalibration)return;if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home'].includes(e.key)){e.preventDefault();if(e.key==='Home'){state.view=0;state.elevation=0;}else if(e.key==='ArrowLeft')state.view-=rad(10);else if(e.key==='ArrowRight')state.view+=rad(10);else state.elevation=clamp(state.elevation+rad(e.key==='ArrowUp'?5:-5),rad(-10),rad(40));}};
  return {state,idlePose(){const p=pose();p.actions.brow_arch=.42;p.actions.smile=.62;return p;},showKeypoints(on){showPoints=!!on;},
+  headRegion(){const center=project(transform([0,0,0],'head'));
+   const scale=Math.min(width/360,height/380)*650/center[2];
+   return {x:center[0],y:center[1],rx:98*scale,ry:98*scale};},
   setManual(pan,tilt,on=true){state.manual=on;state.manualPan=clamp(+pan,-90,90);state.manualTilt=clamp(+tilt,-15,15);},
   setExploded(value){state.exploded=clamp(+value,0,1);},setBlueprint(on){state.blueprint=!!on;},setTour(on){state.tour=!!on;},
   center(){state.view=0;state.elevation=0;state.distance=650;state.manual=false;state.tour=false;},
   update(input={},dtMs=16.7,timeMs=0){if(disposed)return last;
-   const motion=input.actionMotion||{};actionPan=clamp(motion.pan,-20,20)+clamp(motion.spin,-360,360);actionTilt=clamp(motion.tilt,-12,12);
+   const motion=input.actionMotion||{};actionPan=clamp(motion.pan,-20,20)+clamp(motion.spin,-720,720);actionTilt=clamp(motion.tilt,-12,12);
    const dt=clamp(dtMs,0,100),alpha=1-Math.exp(-dt/160),target=input.pose||pose();smooth=input.freezeExpression?target:{...mix(smooth,target,alpha),slug:target.slug};
    const c=normalizeControls(input);for(const key in controls)controls[key]+=alpha*(c[key]-controls[key]);
    const gesture=smooth.gesture;

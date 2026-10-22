@@ -94,7 +94,7 @@ async def provider_post(client,url,**kwargs):
 
 
 class CompactDirector:
-    async def generate(self,client,text,identity,history,interaction_state=None):
+    async def generate(self,client,text,identity,history,interaction_state=None,avatar_context=None):
         settings=shared_settings();key=settings.luna_key()
         model=os.environ.get('ROBO_DIRECTOR_MODEL',settings.LUNA_MODEL)
         base=os.environ.get('ROBO_DIRECTOR_BASE',settings.LUNA_BASE).rstrip('/')
@@ -107,10 +107,15 @@ class CompactDirector:
             key=os.environ.get('ROBO_DIRECTOR_API_KEY','local' if local else '')
         if not key:raise ValueError('Configured Luna key unavailable')
         from knowledge_tools import NOTE as KNOWLEDGE_NOTE,TOOLS as KNOWLEDGE_TOOLS,NAMES as KNOWLEDGE_NAMES,execute as lookup,relevant
-        knowledge_enabled=relevant(text,history)
+        event=(avatar_context or {}).get('event')
+        knowledge_enabled=not event and relevant(text,history)
         messages=[{'role':'system','content':POLICY+'\n'+DIRECTOR_NOTE+'\n'+RECIPE}]
         from avatar_actions import TOOL as AVATAR_TOOL, NOTE as AVATAR_NOTE, TOOL_NAME as AVATAR_NAME, validate as validate_avatar
         messages[0]['content']+='\nException to the no-tools rule: visual-only avatar tools are available.\n'+AVATAR_NOTE
+        from avatar_personality import NOTE as PERSONALITY_NOTE
+        messages[0]['content']+='\n'+PERSONALITY_NOTE
+        if avatar_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(avatar_context,ensure_ascii=False)
+        if event:messages[0]['content']+='\nThis turn is an optional avatar event, not speech from the user. The three-field JSON speech format is still required unless choosing {"silent": true}.'
         if knowledge_enabled:
             messages[0]['content']+='\nException to the no-tools rule: the following real read-only tools are available.\n'+KNOWLEDGE_NOTE
             messages[0]['content']+='\nCurrent UTC date: '+str(datetime.datetime.now(datetime.timezone.utc).date())
@@ -128,12 +133,15 @@ class CompactDirector:
         for item in history[-16:]:
             if item.get('role') in ('user','assistant') and isinstance(item.get('content'),str):
                 messages.append({'role':item['role'],'content':item['content'][:3000]})
-        messages.append({'role':'user','content':json.dumps({'utterance':text[:2000],
-            'current_speaker':identity},ensure_ascii=False)})
+        current=({'avatar_event':event,'language':(avatar_context or {}).get('language','en'),
+            'task':'React to THIS mouse stroke with a fresh brief warm acknowledgment, not to an older greeting.' if event=='petted' else
+                   'Offer one brief optional invitation to stroke your head, or choose silence. Do not answer an older utterance again.'}
+            if event else {'utterance':text[:2000],'current_speaker':identity})
+        messages.append({'role':'user','content':json.dumps(current,ensure_ascii=False)})
         body={'model':model,'messages':messages,'reasoning_effort':'instant' if model.startswith('mercury') else 'none',
             'max_completion_tokens':900,'response_format':{'type':'json_object'}}
         selected_tools=list(KNOWLEDGE_TOOLS) if knowledge_enabled else []
-        selected_tools.append(AVATAR_TOOL)
+        if not event:selected_tools.append(AVATAR_TOOL)
         if action_tools_enabled:
             from interaction_policy import TOOLS
             selected_tools+=TOOLS
@@ -197,6 +205,7 @@ class CompactDirector:
             retries+=extra_retries
             response.raise_for_status();packet=response.json();assistant=packet['choices'][0]['message']
         value=assistant.get('content') or ''
+        if event and json.loads(value)=={'silent':True}:return {'silent':True}
         raw=complete_visual_acknowledgment(json.loads(value),avatar_steps)
         if identity.get('needs_name') and isinstance(raw,dict) and isinstance(raw.get('script'),str):
             spoken=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script'])
