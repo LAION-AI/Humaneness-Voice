@@ -60,6 +60,26 @@ class PersonalityTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.state.snapshot()['recent_events'][0]['age_s'],30)
         with self.assertRaises(ValueError):self.state.observe({'event':'ask_pet','age_ms':1000})
 
+    def test_intensity_validation_and_zero(self):
+        for v in (-1,1.1,True,'high',float('nan'),float('inf')):
+            with self.assertRaises(ValueError):self.state.observe({'event':'ask_pet','cuddle_intensity':v})
+        self.now=1000
+        for event in ({'event':'petted','duration_ms':1000,'cuddle_intensity':0},
+                      {'event':'ask_pet','cuddle_intensity':0},
+                      {'event':'play_vocal','variant':'fish','carousel':True,'play_intensity':0}):
+            self.assertIsNone(self.state.observe(event))
+        self.assertEqual(self.state.invites,0)
+        self.assertIsNotNone(self.state.observe({'event':'ask_pet','play_intensity':0,'cuddle_intensity':1}))
+
+    def test_intensity_context_and_scaled_cooldown(self):
+        event={'event':'petted','duration_ms':1000,'cuddle_intensity':.5,'play_intensity':.25}
+        self.now=10;r=self.state.observe(event)
+        self.assertEqual(r['cuddle_intensity'],.5);self.assertEqual(r['play_intensity'],.25)
+        self.now=33;self.assertIsNone(self.state.observe(event))
+        self.now=35;self.assertIsNotNone(self.state.observe(event))
+        self.now=389;self.assertIsNone(self.state.observe({'event':'ask_pet','cuddle_intensity':.5}))
+        self.now=391;self.assertIsNotNone(self.state.observe({'event':'ask_pet','cuddle_intensity':.5}))
+
     async def test_silent_event_no_tools_and_no_canned_reply(self):
         seen=[]
         class Client:
