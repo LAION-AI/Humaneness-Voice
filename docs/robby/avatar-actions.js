@@ -24,7 +24,9 @@ export function validateSteps(steps){
  }
  return total<=24?out:[];
 }
-export function sampleAction(s,progress,base=pose(),reduced=false){
+export function sampleAction(s,progress,base=pose(),reduced=false,settings={}){
+ const level=key=>Number.isFinite(settings[key])?clamp(settings[key],0,1):1;
+ const intensity=['grimace','carousel','afterglow','eye_roll'].includes(s.kind)?level('playIntensity'):['pet','puppy'].includes(s.kind)?level('cuddleIntensity'):1;
  const p=clamp(progress,0,1),weight=ease(Math.min(1,p*5))*ease(Math.min(1,(1-p)*5));
  const wave=Math.sin(p*Math.PI*4)*weight,controls={},motion={pan:0,tilt:0,spin:0};
  let target=base,eyes=false,blend=weight;
@@ -39,7 +41,7 @@ export function sampleAction(s,progress,base=pose(),reduced=false){
   Object.assign(target.actions,{smile:.7+.7*excitement,mouth_open:.2+.65*excitement,
    mouth_width:1.15+.4*excitement,brow_raise:.3+.65*excitement});target.blush=.3+.5*excitement;
   blend=ease(Math.min(1,p*5));
-  if(!reduced)motion.spin=(s.direction==='counterclockwise'?1:-1)*1080*carouselProgress(p);
+  if(!reduced)motion.spin=(s.direction==='counterclockwise'?1:-1)*360*Math.ceil(3*intensity)*carouselProgress(p);
  }
  if(s.kind==='afterglow'){
   target=mix(pose('elation',1,0),pose('contentment',.9,0),ease(p));eyes=true;
@@ -118,7 +120,10 @@ export function sampleAction(s,progress,base=pose(),reduced=false){
   if(!reduced){motion.pan=5*w*weight;motion.tilt=-3*weight;}
  }
  // Smooth envelope restores the incoming expression at both endpoints.
- return {pose:mix(base,target,blend),controls,motion,eyes,weight:blend,kind:s.kind,progress:p};
+ for(const key of Object.keys(controls))controls[key]*=intensity;
+ motion.pan*=intensity;motion.tilt*=intensity;
+ blend*=intensity;
+ return {pose:mix(base,target,blend),controls,motion,eyes:eyes&&intensity>0,weight:blend,kind:s.kind,progress:p};
 }
 export class AvatarActions{
  constructor(){this.enabled=true;this.idleEnabled=true;this.playVoiceEnabled=true;this.pettingEnabled=true;this.petSpeechEnabled=true;this.petInvitesEnabled=true;this.listeningEnabled=true;this.queue=[];this.plans=new Map();this.started=new Set();this.idleDelayMs=20000;this.lastIdleEnd=-Infinity;this.lastActivity=performance.now();this.nextIdle=this.lastActivity+this.idleDelayMs;this.lastListening=-Infinity;this.active=null;this.idleIndex=0;this.onIdle=null;}
@@ -126,6 +131,12 @@ export class AvatarActions{
   this.idleDelayMs=Math.round(clamp(seconds,5,180))*1000;
   this.nextIdle=Math.max(this.lastActivity,this.lastIdleEnd)+this.idleDelayMs;return true;
  }
+ get playIntensity(){return this._playIntensity??1;}
+ get cuddleIntensity(){return this._cuddleIntensity??1;}
+ setIntensity(key,value){if(!['playIntensity','cuddleIntensity'].includes(key)||!Number.isFinite(value))return false;this['_'+key]=clamp(value,0,1);return true;}
+ get petCooldownMs(){return (36-24*this.cuddleIntensity)*1000;}
+ get inviteStartMs(){return (600-420*this.cuddleIntensity)*1000;}
+ get inviteCooldownMs(){return (1800-1200*this.cuddleIntensity)*1000;}
  clear(){this.queue=[];this.plans.clear();this.started.clear();this.active=null;this.touch();}
  touch(now=performance.now(),keepOptional=false){this.lastActivity=now;this.nextIdle=now+this.idleDelayMs;if(this.queue[0]?.source==='idle'||(!keepOptional&&this.queue[0]?.source==='optional')){this.queue=[];this.lastIdleEnd=now;}}
  set(id,steps,plan,source='reply'){const safe=validateSteps(steps);if(!safe.length||!id)return;this.plans.set(id,{steps:safe,plan,source});while(this.plans.size>20)this.plans.delete(this.plans.keys().next().value);}
@@ -153,7 +164,7 @@ export class AvatarActions{
    while(this.started.size>120)this.started.delete(this.started.values().next().value);
   }
   while(this.queue.length&&now>=this.queue[0].end)this.queue.shift();
-  if(!this.queue.length&&!busy&&!reduced&&this.idleEnabled&&now>=this.nextIdle){
+  if(!this.queue.length&&!busy&&!reduced&&this.idleEnabled&&this.playIntensity>0&&now>=this.nextIdle){
    const i=this.idleIndex++,variant=GRIMACES[i%GRIMACES.length];
    const steps=[{kind:'grimace',variant,duration_s:2.6},
     ...(i%2===0?[{kind:'carousel',direction:i%4?'counterclockwise':'clockwise',duration_s:6},{kind:'afterglow',duration_s:6}]:
@@ -162,6 +173,6 @@ export class AvatarActions{
    this.nextIdle=this.lastIdleEnd+this.idleDelayMs;this.onIdle?.({variant,carousel:i%2===0});
   }
   const q=this.queue[0];this.active=q?{kind:q.step.kind,source:q.source}:null;
-  return q?sampleAction(q.step,(now-q.start)/(q.end-q.start),base,reduced):{pose:base,controls:{},motion:{},eyes:false};
+  return q?sampleAction(q.step,(now-q.start)/(q.end-q.start),base,reduced,this):{pose:base,controls:{},motion:{},eyes:false};
  }
 }
