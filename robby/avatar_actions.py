@@ -4,8 +4,8 @@ import math
 from pathlib import Path
 
 EMOTIONS = tuple(p['slug'] for p in json.loads((Path(__file__).parent/'static/emotion-catalog.json').read_text())['profiles'])
-KINDS = ('emotion', 'nod', 'shake', 'spin', 'eye_roll', 'grimace', 'wink', 'curious')
-VARIANTS = ('crossed', 'opposite', 'wiggle', 'cheeky')
+KINDS = ('emotion', 'nod', 'shake', 'spin', 'carousel', 'pet', 'eye_roll', 'grimace', 'wink', 'curious')
+VARIANTS = ('crossed', 'opposite', 'wiggle', 'cheeky', 'goofy', 'squishy', 'fish', 'peekaboo')
 TOOL_NAME = 'perform_avatar'
 TOOL = {'type':'function','function':{'name':TOOL_NAME,
     'description':'Perform a gentle visual-only robot action sequence, optionally at a spoken sentence. No hardware movement.',
@@ -24,7 +24,11 @@ grimace, wink or show any of the 40 authored facial emotions. Match German and
 English requests to the English tool values. For example wütend=anger,
 bitter=bitterness, traurig=sadness. Use ordered steps for "first angry, then a
 funny face". emotion steps are full archetypical poses with no random variation.
-spin is exactly one virtual yaw turn; clockwise/counterclockwise are viewed from
+spin is exactly one virtual yaw turn; carousel is two playful turns in at least
+three seconds, only on request or during permitted idle play. pet is a soft,
+contented, eyes-almost-closed grateful expression, not a physical sensation.
+Grimace variants: crossed, opposite, wiggle, cheeky, goofy, squishy, fish, peekaboo.
+clockwise/counterclockwise are viewed from
 above. These are SCREEN animations, never real robot motor commands. Do not
 claim a physical head can safely turn 360 degrees. Grimaces are soft, playful,
 brief and non-threatening. Never mocking or creepy. Use a nod or curious gesture
@@ -55,12 +59,12 @@ def validate(raw):
         sentence=item.get('sentence',last_sentence)
         if isinstance(duration,bool) or not isinstance(duration,(float,int)) or not math.isfinite(duration) or not 1<=duration<=6:raise ValueError('Avatar duration')
         if type(sentence) is not int or not last_sentence<=sentence<=11:raise ValueError('Avatar sentence order')
-        if kind=='spin':duration=max(3.,duration)
+        if kind in ('spin','carousel'):duration=max(3.,duration)
         step={'kind':kind,'duration_s':duration,'sentence':sentence}
         for key,allowed,default in (('emotion',EMOTIONS,None),('variant',VARIANTS,'cheeky'),('direction',('clockwise','counterclockwise'),'clockwise')):
             value=item.get(key,default)
             if key in item and value not in allowed:raise ValueError('Avatar '+key)
-            if (key=='emotion' and kind=='emotion') or (key=='variant' and kind=='grimace') or (key=='direction' and kind=='spin'):
+            if (key=='emotion' and kind=='emotion') or (key=='variant' and kind=='grimace') or (key=='direction' and kind in ('spin','carousel')):
                 if value not in allowed:raise ValueError('Missing avatar '+key)
                 step[key]=value
         total+=duration;last_sentence=sentence;result.append(step)

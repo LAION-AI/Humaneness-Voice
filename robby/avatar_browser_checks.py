@@ -26,6 +26,21 @@ async def main(url):
              assert(sampleAction({kind:'spin',direction:'clockwise'},.5,base,true).motion.spin===0,'reduced motion');
              const g=sampleAction({kind:'grimace',variant:'crossed'},.5,base),points=geometry(g.pose,g.controls).pupils;
              assert(points[0][0][0]>270&&points[1][0][0]<530,'independent crossed eyes');
+             assert(points[0][0][0]-270>25&&530-points[1][0][0]>25,'cartoon pupil travel');
+             const variants=['crossed','opposite','wiggle','cheeky'],signatures=[];
+             for(const variant of variants){
+              const step={kind:'grimace',variant};
+              const peak=sampleAction(step,.375,base);signatures.push(JSON.stringify(geometry(peak.pose,peak.controls).points));
+              assert(peak.controls.cartoon===1&&peak.pose.actions.mouth_width>1.5,'cartoon exaggeration');
+              for(const t of [0,1]){const edge=sampleAction(step,t,base);
+               assert(JSON.stringify(geometry(edge.pose,edge.controls))===JSON.stringify(geometry(base)),'clean grimace endpoints');}
+              const quiet=sampleAction(step,.3,base,true),quiet2=sampleAction(step,.7,base,true);
+              assert(JSON.stringify(quiet.controls)===JSON.stringify(quiet2.controls)&&JSON.stringify(quiet.pose)===JSON.stringify(quiet2.pose),'static reduced-motion grimace');
+              assert(Object.values(quiet.motion).every(x=>x===0),'no reduced-motion head bob');
+              for(let i=0;i<=100;i++){const v=sampleAction(step,i/100,base);assert(geometry(v.pose,v.controls).points.flat().every(Number.isFinite),'finite cartoon geometry');}
+             }
+             assert(new Set(signatures).size===4,'distinct cartoon variants');
+             assert(!sampleAction({kind:'nod'},.5,base).controls.cartoon,'ordinary actions unchanged');
              for(const kind of ['nod','shake','eye_roll','grimace'])for(const t of [0,.01,.25,.5,.75,.99,1]){
               const v=sampleAction({kind,variant:'opposite'},t,base);assert(Math.abs(v.motion.pan)<=17&&Math.abs(v.motion.tilt)<=9,'motion bounds');
               assert(geometry(v.pose,v.controls).points.flat().every(Number.isFinite),'finite geometry');
@@ -46,7 +61,7 @@ async def main(url):
              assert(a.listen('nod',100000)&&!a.listen('shake',100001),'listening cooldown');a.clear();a.listeningEnabled=false;assert(!a.listen('nod',120000),'listening disabled');
              a.set(2,[{kind:'nod',duration_s:2}],{});a.frame(1,base,{calibrating:true});assert(!a.plans.size,'calibration clears');
              a.play([{kind:'nod',duration_s:2}]);a.frame(2,base,{hidden:true});assert(!a.queue.length,'hidden clears');
-             return {unique_archetypes:40,sequence_order:true,independent_eyes:true,playback_anchored:true,reduced_motion:true,disable_and_clear:true,idle_and_listening_cooldowns:true};
+             return {unique_archetypes:40,cartoon_variants:4,cartoon_endpoints:true,static_reduced_grimaces:true,sequence_order:true,independent_eyes:true,playback_anchored:true,reduced_motion:true,disable_and_clear:true,idle_and_listening_cooldowns:true};
             }''')
             await page.locator('#avatar-action-controls').evaluate('(e)=>e.open=true')
             await page.select_option('#avatar-trick','2');await page.click('#avatar-perform');await page.wait_for_timeout(1300)
@@ -62,6 +77,9 @@ async def main(url):
             report['render_p95_ms']=await page.evaluate('robotFace.rig.snapshot().renderP95Ms')
             await page.goto(url+'/static/avatar-manual.html');await page.wait_for_function('window.manualPreview?.profiles.length===40')
             assert await page.locator('#expression-cards .card').count()==40
+            for index,variant in enumerate(['crossed','opposite','wiggle','cheeky'],7):
+                await page.select_option('#manual-action',str(index));await page.click('#manual-play');await page.wait_for_timeout(900)
+                await page.screenshot(path=str(ROOT/f'logs/cartoon-{variant}.png'))
             await page.select_option('#manual-action','11');await page.click('#manual-play');await page.wait_for_timeout(800)
             await page.screenshot(path=str(ROOT/'logs/avatar-manual.png'))
             await page.set_viewport_size({'width':390,'height':844});await page.wait_for_timeout(300)

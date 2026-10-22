@@ -5,7 +5,9 @@ export const REQUIRED_IDS=['body','head','arm-left','arm-right','brow-left','bro
  'mouth-mask','teeth','tongue','nose','cheek-left','cheek-right','blush-left','blush-right','keypoints','body-keypoints'];
 export function normalizeControls(c={}){return {x:clamp(c.x,-1,1),y:clamp(c.y,-1,1),roll:clamp(c.roll,-35,35),
  blinkLeft:clamp(c.blinkLeft,0,1),blinkRight:clamp(c.blinkRight,0,1),smile:clamp(c.smile,0,1),jaw:clamp(c.jaw,0,1),audioLevel:clamp(c.audioLevel,0,1),
- eyeLeftX:clamp(c.eyeLeftX,-1,1),eyeRightX:clamp(c.eyeRightX,-1,1),eyeLeftY:clamp(c.eyeLeftY,-1,1),eyeRightY:clamp(c.eyeRightY,-1,1)};}
+ cartoon:clamp(c.cartoon,0,1),eyeLeftX:clamp(c.eyeLeftX,-1,1),eyeRightX:clamp(c.eyeRightX,-1,1),eyeLeftY:clamp(c.eyeLeftY,-1,1),eyeRightY:clamp(c.eyeRightY,-1,1)};}
+// Brief cartoon sclera makes crossed pupils readable; zero preserves old eyes.
+export function eyeFill(cartoon=0){const t=clamp(cartoon,0,1);return `rgb(${[24,33,41].map(v=>Math.round(v+(248-v)*t)).join(',')})`;}
 export function controlsFromFace(result){const p=result?.faceLandmarks?.[0];if(!p?.[263])return normalizeControls();
  const b=Object.fromEntries((result.faceBlendshapes?.[0]?.categories||[]).map(x=>[x.categoryName,x.score]));
  return normalizeControls({x:(.5-p[1].x)*4,y:(p[1].y-.5)*3,roll:Math.atan2(p[263].y-p[33].y,p[263].x-p[33].x)*180/Math.PI,
@@ -26,10 +28,11 @@ export function geometry(p=pose(),controls={}){
  for(let side=0;side<2;side++){
   const sign=side?-1:1,cx=side?530:270,blink=side?c.blinkRight:c.blinkLeft;
   const openness=clamp(a.eye_open+sign*a.eye_asym*.65,.025,1.6)*(1-blink*.97);
-  const h=clamp(43*openness-12*a.squint,1.2,68),rx=37,tilt=a.lid_tilt*sign*.28;
+  const h=clamp(43*openness-12*a.squint,1.2,68),rx=37+12*c.cartoon,tilt=a.lid_tilt*sign*.28;
   eyes.push(Array.from({length:12},(_,j)=>{const t=2*Math.PI*j/12,x=rx*Math.cos(t),y=h*Math.sin(t);
    return [cx+x,267+y+tilt*x-(y<0?a.lid_curve*7*Math.sin(t)**2:0)];}));
-  const gx=clamp(a.gaze_x+c.x*.25+(side?c.eyeRightX:c.eyeLeftX),-1,1)*13,gy=clamp(a.gaze_y+c.y*.2+(side?c.eyeRightY:c.eyeLeftY),-1,1)*13,radius=clamp(a.pupil_scale,.5,1.5)*28;
+  const travel=13+16*c.cartoon;
+  const gx=clamp(a.gaze_x+c.x*.25+(side?c.eyeRightX:c.eyeLeftX),-1,1)*travel,gy=clamp(a.gaze_y+c.y*.2+(side?c.eyeRightY:c.eyeLeftY),-1,1)*travel,radius=clamp(a.pupil_scale,.5,1.5)*28;
   pupils.push([[cx+gx,267+gy],[cx+gx-radius,267+gy],[cx+gx,267+gy-radius*1.18],[cx+gx+radius,267+gy],[cx+gx,267+gy+radius*1.18]]);
   brows.push(Array.from({length:5},(_,j)=>{const u=j/4,x=(u-.5)*80,inner=side?1-u:u;
    return [cx+x,190-a.brow_raise*25-a.brow_asym*sign*18-a.brow_inner*24*inner-a.brow_outer*19*(1-inner)
@@ -57,6 +60,9 @@ export function createRobbyRig(svg){const n=Object.fromEntries(REQUIRED_IDS.map(
    const g=geometry(smooth,controls),a=smooth.actions;
    for(let i=0;i<2;i++){const side=i?'right':'left',eye=curve(g.eyes[i],true),p=g.pupils[i][0];
     n['eye-outline-'+side].setAttribute('d',eye);n['eye-mask-'+side].setAttribute('d',eye);
+    // Remove the override outside performances to retain the original SVG fill.
+    if(controls.cartoon>.001)n['eye-outline-'+side].style.fill=eyeFill(controls.cartoon);
+    else n['eye-outline-'+side].style.removeProperty('fill');
     n['iris-'+side].setAttribute('transform',`translate(${p[0]} ${p[1]}) scale(${clamp(a.pupil_scale,.5,1.4)})`);
     n['brow-'+side].setAttribute('d',curve(g.brows[i]));n['cheek-'+side].setAttribute('d',curve(g.cheeks[i]));
     n['cheek-'+side].setAttribute('opacity',String(clamp(a.cheek_lift*.5+a.nose_lift*.2,0,.6)));
