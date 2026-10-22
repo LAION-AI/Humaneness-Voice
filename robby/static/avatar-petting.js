@@ -14,14 +14,16 @@ export class StrokeTracker{
   // the head contributes nothing, nor does holding the mouse stationary.
   if(inside&&d>=1&&d<=80){this.distance+=d;this.moves++;this.lastMove=now;return true;}return false;
  }
- finish(now){const value={duration_ms:Math.min(15000,Math.round(now-this.started)),distance:this.distance,moves:this.moves};
+ sample(now){const value={duration_ms:Math.min(15000,Math.round(now-this.started)),distance:this.distance,moves:this.moves};
   const valid=this.active&&value.duration_ms>=450&&value.distance>=50&&value.moves>=5&&now-this.lastMove<1200;
-  this.reset();return valid?value:null;
+  return valid?value:null;
  }
+ finish(now){const result=this.sample(now);this.reset();return result;}
 }
 export function attachPetting({element,rig,actions,allowed=()=>true,onStart=()=>{},onPet=()=>{}}){
  const surface=element.querySelector('canvas,svg'),stroke=new StrokeTracker();
- let pointer=null,strength=0,lastMotion=-Infinity,lastTick=performance.now();
+ let pointer=null,strength=0,lastMotion=-Infinity,lastTick=performance.now(),lastAttempt=-Infinity,lastReaction=-Infinity;
+ function react(result,now){if(result&&now-lastAttempt>=1000&&now-lastReaction>=12000){lastAttempt=now;if(onPet(result)===true)lastReaction=now;}}
  function hit(x,y){const r=surface.getBoundingClientRect();
   if(rig.headRegion){const h=rig.headRegion();return ((x-r.left-h.x)/h.rx)**2+((y-r.top-h.y)/h.ry)**2<=1;}
   const b=surface.querySelector('#head')?.getBoundingClientRect();
@@ -38,7 +40,7 @@ export function attachPetting({element,rig,actions,allowed=()=>true,onStart=()=>
   const inside=hit(e.clientX,e.clientY);
   if(pointer===e.pointerId){e.preventDefault();e.stopImmediatePropagation();
    if(!enabled()||!(e.buttons&1)){reset();return;}
-   if(stroke.move(e.clientX,e.clientY,performance.now(),inside)){lastMotion=performance.now();actions.touch();}
+   if(stroke.move(e.clientX,e.clientY,performance.now(),inside)){lastMotion=performance.now();actions.touch();react(stroke.sample(lastMotion),lastMotion);}
   }else if(!e.buttons)surface.style.cursor=enabled()&&inside?cursor:'grab';
  },true);
  surface.addEventListener('pointerup',e=>{
@@ -46,7 +48,7 @@ export function attachPetting({element,rig,actions,allowed=()=>true,onStart=()=>
   const result=enabled()?stroke.finish(performance.now()):null;stroke.reset();pointer=null;
   if(surface.hasPointerCapture(e.pointerId))surface.releasePointerCapture(e.pointerId);
   surface.style.cursor=enabled()&&hit(e.clientX,e.clientY)?cursor:'grab';
-  if(result)onPet(result);
+  react(result,performance.now());
  },true);
  surface.addEventListener('pointercancel',reset);surface.addEventListener('lostpointercapture',()=>{if(pointer!==null)reset();});
  addEventListener('blur',reset);document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});

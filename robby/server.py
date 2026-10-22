@@ -49,6 +49,7 @@ class RoboConversation(Conversation):
         await self.ws.send_json({'type':'backchannel' if data.get('bc') else 'reply','text':data['text'],
             'reply_id':self.playback.rid,'performance':data.get('performance'),
             'avatar_actions':data.get('avatar_actions',[]),
+            'avatar_event':data.get('avatar_event'),
             'speaker_id':(data.get('speaker') or {}).get('speaker_id'),'speaker_name':(data.get('speaker') or {}).get('display_name'),
             'speaker_update':data.get('speaker_update'),'timing':data.get('timing'),
             'sources':data.get('sources',[]),'lookups':data.get('lookups',[])})

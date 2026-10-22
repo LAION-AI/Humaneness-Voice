@@ -1,9 +1,15 @@
 // Local, bounded visual performances. No network, hardware, or new models.
 import {pose,mix,profiles,clamp} from './emotions.js';
-const kinds=new Set(['emotion','nod','shake','spin','carousel','pet','eye_roll','grimace','wink','curious']);
+const kinds=new Set(['emotion','nod','shake','spin','carousel','afterglow','puppy','pet','eye_roll','grimace','wink','curious']);
 export const GRIMACES=['crossed','opposite','wiggle','cheeky','goofy','squishy','fish','peekaboo'];
 const slugs=new Set(profiles.map(p=>p.slug));
 const ease=t=>t*t*t*(10+t*(-15+6*t));
+// Integral of an accelerating velocity ramp, followed by a short smooth brake.
+// Unlike quintic position easing, speed keeps growing through 80% of the ride.
+export function carouselProgress(t){const p=clamp(t,0,1),a=.8,b=.2,total=a**3/3+a*a*b/2;
+ if(p<=a)return p**3/(3*total);
+ const x=(p-a)/b;return (a**3/3+a*a*b*(x-x**3+.5*x**4))/total;
+}
 export function validateSteps(steps){
  if(!Array.isArray(steps)||!steps.length||steps.length>6)return [];
  let total=0,last=0;const out=[];
@@ -13,7 +19,7 @@ export function validateSteps(steps){
   if(s.kind==='emotion'&&!slugs.has(s.emotion))return [];
   if(['spin','carousel'].includes(s.kind)&&!['clockwise','counterclockwise'].includes(s.direction))return [];
   if(s.kind==='grimace'&&!GRIMACES.includes(s.variant))return [];
-  const duration_s=['spin','carousel'].includes(s.kind)?Math.max(3,s.duration_s):s.duration_s;
+  const duration_s=s.kind==='carousel'?6:s.kind==='spin'?Math.max(3,s.duration_s):s.duration_s;
   total+=duration_s;last=sentence;out.push({...s,duration_s,sentence});
  }
  return total<=24?out:[];
@@ -21,15 +27,31 @@ export function validateSteps(steps){
 export function sampleAction(s,progress,base=pose(),reduced=false){
  const p=clamp(progress,0,1),weight=ease(Math.min(1,p*5))*ease(Math.min(1,(1-p)*5));
  const wave=Math.sin(p*Math.PI*4)*weight,controls={},motion={pan:0,tilt:0,spin:0};
- let target=base,eyes=false;
+ let target=base,eyes=false,blend=weight;
  if(s.kind==='emotion'){target=pose(s.emotion,1,0);eyes=true;}
  if(s.kind==='nod'&&!reduced)motion.tilt=9*wave;
  if(s.kind==='shake'&&!reduced)motion.pan=17*wave;
  // +Y is up; positive yaw is counterclockwise when viewed from above.
  if(s.kind==='spin'&&!reduced)motion.spin=(s.direction==='counterclockwise'?1:-1)*360*ease(p);
  if(s.kind==='carousel'){
-  target=pose('joy',1,0);target.actions.mouth_open=.7;eyes=true;
-  if(!reduced)motion.spin=(s.direction==='counterclockwise'?1:-1)*720*ease(p);
+  const excitement=ease(Math.min(1,p/.85));
+  target=mix(pose('amusement',.7,0),pose('elation',1,0),excitement);eyes=true;
+  Object.assign(target.actions,{smile:.7+.7*excitement,mouth_open:.2+.65*excitement,
+   mouth_width:1.15+.4*excitement,brow_raise:.3+.65*excitement});target.blush=.3+.5*excitement;
+  blend=ease(Math.min(1,p*5));
+  if(!reduced)motion.spin=(s.direction==='counterclockwise'?1:-1)*1080*carouselProgress(p);
+ }
+ if(s.kind==='afterglow'){
+  target=mix(pose('elation',1,0),pose('contentment',.9,0),ease(p));eyes=true;
+  target.actions.smile=1.2-.4*p;target.actions.mouth_open=.45*(1-p);target.blush=.7;
+  blend=1-ease(Math.max(0,(p-.6)/.4));
+ }
+ if(s.kind==='puppy'){
+  target=pose('affection',.85,0);eyes=true;
+  Object.assign(target.actions,{eye_open:1.25,squint:0,eye_asym:0,pupil_scale:1.2,
+   brow_inner:.75,brow_raise:.25,brow_arch:.45,frown:0,gaze_x:0,gaze_y:-.5,
+   smile:.75,mouth_open:.06,mouth_width:.9});target.blush=.6;
+  if(!reduced)motion.tilt=4*weight;
  }
  if(s.kind==='pet'){
   target=pose('contentment',1,0);eyes=true;
@@ -96,13 +118,17 @@ export function sampleAction(s,progress,base=pose(),reduced=false){
   if(!reduced){motion.pan=5*w*weight;motion.tilt=-3*weight;}
  }
  // Smooth envelope restores the incoming expression at both endpoints.
- return {pose:mix(base,target,weight),controls,motion,eyes,weight,kind:s.kind,progress:p};
+ return {pose:mix(base,target,blend),controls,motion,eyes,weight:blend,kind:s.kind,progress:p};
 }
 export class AvatarActions{
- constructor(){this.enabled=true;this.idleEnabled=true;this.pettingEnabled=true;this.petSpeechEnabled=true;this.petInvitesEnabled=true;this.listeningEnabled=true;this.queue=[];this.plans=new Map();this.started=new Set();this.lastActivity=performance.now();this.nextIdle=this.lastActivity+60000;this.lastListening=-Infinity;this.active=null;this.idleIndex=0;this.onIdle=null;}
+ constructor(){this.enabled=true;this.idleEnabled=true;this.playVoiceEnabled=true;this.pettingEnabled=true;this.petSpeechEnabled=true;this.petInvitesEnabled=true;this.listeningEnabled=true;this.queue=[];this.plans=new Map();this.started=new Set();this.idleDelayMs=20000;this.lastIdleEnd=-Infinity;this.lastActivity=performance.now();this.nextIdle=this.lastActivity+this.idleDelayMs;this.lastListening=-Infinity;this.active=null;this.idleIndex=0;this.onIdle=null;}
+ setIdleDelay(seconds){if(!Number.isFinite(seconds))return false;
+  this.idleDelayMs=Math.round(clamp(seconds,5,180))*1000;
+  this.nextIdle=Math.max(this.lastActivity,this.lastIdleEnd)+this.idleDelayMs;return true;
+ }
  clear(){this.queue=[];this.plans.clear();this.started.clear();this.active=null;this.touch();}
- touch(now=performance.now()){this.lastActivity=now;this.nextIdle=Math.max(this.nextIdle,now+60000);if(this.queue[0]?.source==='idle')this.queue=[];}
- set(id,steps,plan){const safe=validateSteps(steps);if(!safe.length||!id)return;this.plans.set(id,{steps:safe,plan});while(this.plans.size>20)this.plans.delete(this.plans.keys().next().value);}
+ touch(now=performance.now(),keepOptional=false){this.lastActivity=now;this.nextIdle=now+this.idleDelayMs;if(this.queue[0]?.source==='idle'||(!keepOptional&&this.queue[0]?.source==='optional')){this.queue=[];this.lastIdleEnd=now;}}
+ set(id,steps,plan,source='reply'){const safe=validateSteps(steps);if(!safe.length||!id)return;this.plans.set(id,{steps:safe,plan,source});while(this.plans.size>20)this.plans.delete(this.plans.keys().next().value);}
  play(steps,source='preview',now=performance.now()){
   if(!this.enabled)return false;const safe=validateSteps(steps);if(!safe.length)return false;
   if(source==='preview'){this.clear();this.touch(now);}
@@ -117,12 +143,12 @@ export class AvatarActions{
  }
  frame(now,base,{position=null,busy=false,reduced=false,hidden=false,calibrating=false}={}){
   if(!this.enabled||hidden||calibrating){this.clear();return {pose:base,controls:{},motion:{},eyes:false};}
-  if(busy)this.touch(now);
+  if(busy)this.touch(now,true);
   if(position&&this.plans.has(position.id)){
-   const {steps,plan}=this.plans.get(position.id),seconds=position.sample/24000;
+   const {steps,plan,source}=this.plans.get(position.id),seconds=position.sample/24000;
    steps.forEach((s,i)=>{const key=position.id+':'+i;
     const cues=plan?.sentences||[],at=cues[Math.min(s.sentence,Math.max(0,cues.length-1))]?.start_s??0;
-    if(!this.started.has(key)&&seconds>=at){this.started.add(key);this.play([s],'reply',now);}
+    if(!this.started.has(key)&&seconds>=at){this.started.add(key);this.play([s],source,now);}
    });
    while(this.started.size>120)this.started.delete(this.started.values().next().value);
   }
@@ -130,9 +156,10 @@ export class AvatarActions{
   if(!this.queue.length&&!busy&&!reduced&&this.idleEnabled&&now>=this.nextIdle){
    const i=this.idleIndex++,variant=GRIMACES[i%GRIMACES.length];
    const steps=[{kind:'grimace',variant,duration_s:2.6},
-    ...(i%2===0?[{kind:'carousel',direction:i%4?'counterclockwise':'clockwise',duration_s:4.5}]:[]),
-    {kind:'grimace',variant:GRIMACES[(i+3)%GRIMACES.length],duration_s:2.4}];
-   this.play(steps,'idle',now);this.nextIdle=now+60000;this.onIdle?.({variant,carousel:i%2===0});
+    ...(i%2===0?[{kind:'carousel',direction:i%4?'counterclockwise':'clockwise',duration_s:6},{kind:'afterglow',duration_s:6}]:
+      [{kind:'grimace',variant:GRIMACES[(i+3)%GRIMACES.length],duration_s:2.4}])];
+   this.play(steps,'idle',now);this.lastIdleEnd=this.queue.at(-1)?.end??now;
+   this.nextIdle=this.lastIdleEnd+this.idleDelayMs;this.onIdle?.({variant,carousel:i%2===0});
   }
   const q=this.queue[0];this.active=q?{kind:q.step.kind,source:q.source}:null;
   return q?sampleAction(q.step,(now-q.start)/(q.end-q.start),base,reduced):{pose:base,controls:{},motion:{},eyes:false};

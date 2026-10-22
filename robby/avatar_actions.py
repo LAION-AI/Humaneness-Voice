@@ -4,7 +4,7 @@ import math
 from pathlib import Path
 
 EMOTIONS = tuple(p['slug'] for p in json.loads((Path(__file__).parent/'static/emotion-catalog.json').read_text())['profiles'])
-KINDS = ('emotion', 'nod', 'shake', 'spin', 'carousel', 'pet', 'eye_roll', 'grimace', 'wink', 'curious')
+KINDS = ('emotion', 'nod', 'shake', 'spin', 'carousel', 'afterglow', 'puppy', 'pet', 'eye_roll', 'grimace', 'wink', 'curious')
 VARIANTS = ('crossed', 'opposite', 'wiggle', 'cheeky', 'goofy', 'squishy', 'fish', 'peekaboo')
 TOOL_NAME = 'perform_avatar'
 TOOL = {'type':'function','function':{'name':TOOL_NAME,
@@ -24,8 +24,11 @@ grimace, wink or show any of the 40 authored facial emotions. Match German and
 English requests to the English tool values. For example wütend=anger,
 bitter=bitterness, traurig=sadness. Use ordered steps for "first angry, then a
 funny face". emotion steps are full archetypical poses with no random variation.
-spin is exactly one virtual yaw turn; carousel is two playful turns in at least
-three seconds, only on request or during permitted idle play. pet is a soft,
+spin is exactly one virtual yaw turn; carousel is three accelerating playful turns,
+prefer duration_s=6, only on request or during permitted idle play. Always follow
+carousel with afterglow (duration_s=6), a lingering euphoric smile that settles
+into contentment. Puppy is a soft, upward-looking, affectionate big-eyed pose
+for a genuinely optional invitation, never sadness or emotional pressure. pet is a soft,
 contented, eyes-almost-closed grateful expression, not a physical sensation.
 Grimace variants: crossed, opposite, wiggle, cheeky, goofy, squishy, fish, peekaboo.
 clockwise/counterclockwise are viewed from
@@ -59,7 +62,8 @@ def validate(raw):
         sentence=item.get('sentence',last_sentence)
         if isinstance(duration,bool) or not isinstance(duration,(float,int)) or not math.isfinite(duration) or not 1<=duration<=6:raise ValueError('Avatar duration')
         if type(sentence) is not int or not last_sentence<=sentence<=11:raise ValueError('Avatar sentence order')
-        if kind in ('spin','carousel'):duration=max(3.,duration)
+        if kind=='spin':duration=max(3.,duration)
+        if kind=='carousel':duration=6.
         step={'kind':kind,'duration_s':duration,'sentence':sentence}
         for key,allowed,default in (('emotion',EMOTIONS,None),('variant',VARIANTS,'cheeky'),('direction',('clockwise','counterclockwise'),'clockwise')):
             value=item.get(key,default)

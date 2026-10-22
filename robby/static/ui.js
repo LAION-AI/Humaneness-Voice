@@ -9,9 +9,13 @@ import {attachActionControls} from './avatar-action-controls.js';
 import {attachPetting} from './avatar-petting.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
-let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null;
+let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
-function cancelOptionalAvatar(){if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
+function cancelOptionalAvatar(){pendingPlayFallback=null;if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
+function silentPlayFallback(){const steps=pendingPlayFallback;pendingPlayFallback=null;
+ if(steps&&avatarActions.enabled&&avatarActions.idleEnabled&&!document.hidden&&!eyeContact?.state.active&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  avatarActions.play(steps,'idle');avatarActions.lastIdleEnd=avatarActions.queue.at(-1)?.end??performance.now();avatarActions.nextIdle=avatarActions.lastIdleEnd+avatarActions.idleDelayMs;
+ }}
 let desiredGate=true,lastServerAudio=0,lastCapture=0,micStarted=0,serverAudioSeconds=0;
 let desiredProactive=true;
 let desiredHelpful=true;try{desiredHelpful=localStorage.getItem('robby.helpfulInterruptions')!=='false';}catch{}
@@ -65,15 +69,18 @@ const client=window.robo=new RoboClient({
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
   if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){invitedQuiet=false;cancelOptionalAvatar();}
-  if(m.type==='avatar_event'&&['petted','ask_pet'].includes(m.event)){
+  if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
    if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
-   else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;}
+   else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;silentPlayFallback();}
   }
+  if(m.type==='reply')pendingPlayFallback=null;
+  if(m.type==='turn_done')silentPlayFallback();
+  if(['barge','stop_command','error','reply_cancelled'].includes(m.type))pendingPlayFallback=null;
   if(['turn_done','stop_command','error'].includes(m.type)){optionalAvatarReply=avatarCancelPending=false;}
   if(['asr_preview','partial','endpoint','reply','backchannel'].includes(m.type))avatarActions.touch();
   if(['barge','stop_command','reply_cancelled','error'].includes(m.type))avatarActions.clear();
   if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
-  if(m.type==='reply')avatarActions.set(m.reply_id,m.avatar_actions,m.performance);
+  if(m.type==='reply')avatarActions.set(m.reply_id,m.avatar_actions,m.performance,m.avatar_event?'optional':'reply');
   multimodal?.message(m);
   if(m.type==='ready'){sendRecentIdle();multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
   if(m.type==='stop_feedback_setting')$('stop-feedback').checked=!!m.enabled;
@@ -116,12 +123,15 @@ const client=window.robo=new RoboClient({
 });
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
 const canPersonalitySpeak=()=>connected&&ready&&!speaking&&!replyPending&&!$('message').value.trim()&&!document.hidden&&!eyeContact?.state.active;
-const avatarEvent=event=>{if(['petted','ask_pet'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify(event));};
+const avatarEvent=event=>{if(['petted','ask_pet','play_vocal'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify(event));};
 function sendRecentIdle(){if(lastIdleEvent&&performance.now()-lastIdleEvent.at<600000)avatarEvent({event:'idle_play',...lastIdleEvent.event,age_ms:Math.round(performance.now()-lastIdleEvent.at)});}
 avatarActions.onIdle=event=>{
  lastIdleEvent={event,at:performance.now()};
- if(connected)avatarEvent({event:'idle_play',...event});
  const now=performance.now();
+ if(event.carousel&&avatarActions.playVoiceEnabled&&canPersonalitySpeak()&&now-lastPlaySpeech>=45000){
+  lastPlaySpeech=now;pendingPlayFallback=[{kind:'carousel',direction:'clockwise',duration_s:6},{kind:'afterglow',duration_s:6}];
+  avatarEvent({event:'play_vocal',...event});
+ }else if(connected)avatarEvent({event:'idle_play',...event});
  if(avatarActions.petInvitesEnabled&&!invitedQuiet&&petInvites<2&&now-personalityStarted>=180000&&now-lastPetInvite>=600000){
   // Give the animation time to start; never queue a stale spoken invitation.
   const activity=avatarActions.lastActivity;
@@ -132,10 +142,10 @@ avatarActions.onIdle=event=>{
 };
 petting=attachPetting({element:$('avatar'),rig,actions:avatarActions,allowed:()=>!eyeContact?.state.active,
  onStart:()=>{invitedQuiet=false;if(ready)void client.start(false).catch(()=>{});},
- onPet:event=>{if(canPersonalitySpeak()&&avatarActions.petSpeechEnabled&&performance.now()-lastPetSpeech>=90000){
-  lastPetSpeech=performance.now();avatarEvent({event:'petted',duration_ms:event.duration_ms});
- }} });window.robotFace.petting=petting;
-for(const id of ['avatar-actions-enabled','avatar-petting-enabled','avatar-pet-speech-enabled','avatar-pet-invites-enabled'])$(id).addEventListener('change',()=>{petting.reset();cancelOptionalAvatar();});
+ onPet:event=>{if(canPersonalitySpeak()&&avatarActions.petSpeechEnabled&&performance.now()-lastPetSpeech>=12000){
+  lastPetSpeech=performance.now();avatarEvent({event:'petted',duration_ms:event.duration_ms});return true;
+ }return false;} });window.robotFace.petting=petting;
+for(const id of ['avatar-actions-enabled','avatar-idle-enabled','avatar-play-voice-enabled','avatar-petting-enabled','avatar-pet-speech-enabled','avatar-pet-invites-enabled'])$(id).addEventListener('change',()=>{petting.reset();cancelOptionalAvatar();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelOptionalAvatar();});
 for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
 $('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
