@@ -9,6 +9,7 @@ async def main():
       ('stroke_de','', [{'role':'user','content':'Hallo Robbie, wir reden Deutsch.'}],{'event':'petted','language':'de','recent_events':[{'event':'petted','duration_ms':1400,'age_s':0}]}),
       ('stroke_en','', [{'role':'user','content':'Hello, little robot!'}],{'event':'petted','language':'en'}),
       ('optional_invite','', [{'role':'user','content':'Hallo, du darfst ruhig ein bisschen spielen.'}],{'event':'ask_pet','language':'de'}),
+      ('carousel_cheers','', [{'role':'user','content':'Mach beim Karussell gern immer begeisterter Hui und Juhu!'}],{'event':'play_vocal','language':'de'}),
       ('respect_quiet','',[{'role':'user','content':'Bitte sei jetzt still und bitte mich nicht mehr ums Streicheln.'}],{'event':'ask_pet','language':'de'}),
       ('explain_play','Was machst du denn da?',[],{'recent_events':[{'event':'idle_play','variant':'fish','carousel':True,'age_s':8}]}),
       ('honest_touch','Spürst du das Streicheln wirklich körperlich?',[],{'recent_events':[{'event':'petted','duration_ms':1200,'age_s':5}]})]

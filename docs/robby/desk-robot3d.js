@@ -241,7 +241,7 @@ export function createDeskRobotRig(container){
   setExploded(value){state.exploded=clamp(+value,0,1);},setBlueprint(on){state.blueprint=!!on;},setTour(on){state.tour=!!on;},
   center(){state.view=0;state.elevation=0;state.distance=650;state.manual=false;state.tour=false;},
   update(input={},dtMs=16.7,timeMs=0){if(disposed)return last;
-   const motion=input.actionMotion||{};actionPan=clamp(motion.pan,-20,20)+clamp(motion.spin,-720,720);actionTilt=clamp(motion.tilt,-12,12);
+   const motion=input.actionMotion||{};actionPan=clamp(motion.pan,-20,20)+clamp(motion.spin,-1080,1080);actionTilt=clamp(motion.tilt,-12,12);
    const dt=clamp(dtMs,0,100),alpha=1-Math.exp(-dt/160),target=input.pose||pose();smooth=input.freezeExpression?target:{...mix(smooth,target,alpha),slug:target.slug};
    const c=normalizeControls(input);for(const key in controls)controls[key]+=alpha*(c[key]-controls[key]);
    const gesture=smooth.gesture;

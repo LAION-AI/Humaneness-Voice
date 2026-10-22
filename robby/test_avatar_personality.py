@@ -2,7 +2,7 @@ import json
 import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
-from avatar_personality import AvatarPersonality
+from avatar_personality import AvatarPersonality,event_steps
 from avatar_actions import validate,VARIANTS
 from conversation_director import CompactDirector
 
@@ -13,8 +13,17 @@ class PersonalityTests(unittest.IsolatedAsyncioTestCase):
     def test_eight_faces_and_bounded_carousel(self):
         self.assertEqual(len(VARIANTS),8)
         for variant in VARIANTS:self.assertEqual(validate({'steps':[{'kind':'grimace','variant':variant}]})[0]['variant'],variant)
-        self.assertEqual(validate({'steps':[{'kind':'carousel','duration_s':1}]})[0]['duration_s'],3)
+        self.assertEqual(validate({'steps':[{'kind':'carousel','duration_s':1}]})[0]['duration_s'],6)
         self.assertEqual(validate({'steps':[{'kind':'pet'}]})[0]['kind'],'pet')
+
+    def test_play_and_invitation_poses_and_cooldown(self):
+        self.assertEqual([s['kind'] for s in event_steps({'event':'play_vocal'})],['carousel','afterglow'])
+        self.assertEqual(event_steps({'event':'ask_pet'})[0]['kind'],'puppy')
+        for event in ('petted','ask_pet','play_vocal'):validate({'steps':event_steps({'event':event})})
+        event={'event':'play_vocal','variant':'fish','carousel':True}
+        self.now=20;self.assertIsNotNone(self.state.observe(event))
+        self.now=40;self.assertIsNone(self.state.observe(event))
+        self.now=66;self.assertIsNotNone(self.state.observe(event))
 
     def test_invites_wait_cooldown_and_never_repeat_during_unanswered_silence(self):
         self.now=60;self.assertIsNone(self.state.observe({'event':'ask_pet'}))
@@ -28,6 +37,8 @@ class PersonalityTests(unittest.IsolatedAsyncioTestCase):
         self.now=10;self.assertIsNone(self.state.observe(event,busy=True))
         self.now=12;self.assertIsNotNone(self.state.observe(event))
         self.now=15;self.assertIsNone(self.state.observe(event))
+        self.now=23.9;self.assertIsNone(self.state.observe(event))
+        self.now=25;self.assertIsNotNone(self.state.observe(event))
         self.now=105;self.state.last_asr=104;self.assertIsNone(self.state.observe(event))
         self.now=110;self.assertIsNotNone(self.state.observe(event))
 

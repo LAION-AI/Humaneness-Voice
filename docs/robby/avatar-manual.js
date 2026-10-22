@@ -7,7 +7,7 @@ const rig=createDeskRobotRig(document.getElementById('manual-avatar')),actions=n
 const petting=attachPetting({element:document.getElementById('manual-avatar'),rig,actions});
 const examples=[['Nod',[{kind:'nod'}]],['Shake head',[{kind:'shake'}]],['360° clockwise',[{kind:'spin',direction:'clockwise',duration_s:4}]],['360° counterclockwise',[{kind:'spin',direction:'counterclockwise',duration_s:4}]],['Roll eyes',[{kind:'eye_roll'}]],['Wink',[{kind:'wink'}]],['Curious peek',[{kind:'curious'}]],...['crossed','opposite','wiggle','cheeky'].map(variant=>['Grimace: '+variant,[{kind:'grimace',variant}]]),['Angry → cheeky → content',[{kind:'emotion',emotion:'anger'},{kind:'grimace',variant:'cheeky'},{kind:'emotion',emotion:'contentment'}]],...profiles.map(p=>[p.label,[{kind:'emotion',emotion:p.slug,duration_s:3}]])];
 examples.push(...GRIMACES.slice(4).map(variant=>['Grimace: '+variant,[{kind:'grimace',variant}]]),
- ['Carousel: two turns',[{kind:'carousel',direction:'clockwise',duration_s:4.5}]],['Contented petting pose',[{kind:'pet',duration_s:3}]]);
+ ['Carousel: accelerating joy + afterglow',[{kind:'carousel',direction:'clockwise',duration_s:6},{kind:'afterglow',duration_s:6}]],['Contented petting pose',[{kind:'pet',duration_s:3}]],['Soft upward puppy eyes',[{kind:'puppy',duration_s:4}]]);
 const select=document.getElementById('manual-action');examples.forEach(([label],i)=>select.add(new Option(label,i)));
 const play=steps=>actions.play(steps.map(s=>({duration_s:2,...s})));
 document.getElementById('manual-play').onclick=()=>play(examples[+select.value][1]);document.getElementById('manual-stop').onclick=()=>actions.clear();
