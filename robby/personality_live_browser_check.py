@@ -26,8 +26,10 @@ async def main():
             for i in range(12):
                 await page.mouse.move(h['x']+(-1 if i%2 else 1)*h['rx']*.35,h['y']-h['ry']*.4,steps=3)
                 await page.wait_for_timeout(80)
-            await page.mouse.up()
             await page.wait_for_function('petEvents.some(m=>m.type==="avatar_event"&&m.event==="petted"&&m.accepted)',timeout=10000)
+            report['reaction_started_while_held']=await page.evaluate('robotFace.petting.stroke.active')
+            assert report['reaction_started_while_held']
+            await page.mouse.up()
             await page.wait_for_function('petEvents.some(m=>m.type==="reply")&&robo.metrics.reply_chunks>0',timeout=45000)
             report['reply']=await page.evaluate('petEvents.find(m=>m.type==="reply").text')
             report['audio_chunks']=await page.evaluate('robo.metrics.reply_chunks')
@@ -39,11 +41,31 @@ async def main():
             await page.wait_for_function('petEvents.filter(m=>m.type==="avatar_event").length>=2')
             report['repeat_rejected']=await page.evaluate('petEvents.filter(m=>m.type==="avatar_event").at(-1).accepted===false')
             assert report['repeat_rejected'],'Missing server cooldown'
+            await page.wait_for_timeout(12500)
+            await page.locator('#avatar canvas').scroll_into_view_if_needed()
+            await page.mouse.move(h['x'],h['y']-h['ry']*.4);await page.mouse.down()
+            for i in range(12):
+                await page.mouse.move(h['x']+(-1 if i%2 else 1)*h['rx']*.35,h['y']-h['ry']*.4,steps=3)
+                await page.wait_for_timeout(80)
+            await page.mouse.up()
+            await page.wait_for_function('petEvents.filter(m=>m.type==="reply").length>=2&&robo.metrics.reply_chunks>0',timeout=45000)
+            report['second_stroke_reply']=await page.evaluate('petEvents.filter(m=>m.type==="reply").at(-1).text')
+            await page.evaluate('robo.on.input({rms:.02,sent:0,state:"running"})')
+            await page.wait_for_function('petEvents.filter(m=>m.type==="turn_done").length>=2',timeout=15000)
+            # Fast-forward only the browser idle timer. LLM, server cooldown,
+            # TTS, PCM playback and animation timing below remain real.
+            await page.evaluate('robotFace.actions.idleIndex=0;robotFace.actions.nextIdle=0')
+            await page.wait_for_function('petEvents.some(m=>m.type==="reply"&&m.avatar_event==="play_vocal")',timeout=45000)
+            report['carousel_reply']=await page.evaluate('petEvents.find(m=>m.type==="reply"&&m.avatar_event==="play_vocal").text')
+            await page.wait_for_function('robotFace.actions.active?.kind==="carousel"&&Math.abs(robotFace.rig.snapshot().visualPan)>500',timeout=15000)
+            report['carousel_playback_pose']=True
+            await page.wait_for_function('robotFace.actions.active?.kind==="afterglow"&&robotFace.rig.snapshot().pose.actions.smile>.7',timeout=10000)
+            report['afterglow_visible']=True
             await page.evaluate('robo.send("avatar:"+JSON.stringify({event:"idle_play",variant:"fish",carousel:true}))')
             await page.wait_for_timeout(1200)
             await page.fill('#message','Was machst du mit deinem kleinen Karussell und dem Fischgesicht? Erklär es kurz.')
             await page.locator('#form').evaluate('(e)=>e.requestSubmit()')
-            await page.wait_for_function('petEvents.filter(m=>m.type==="reply").length>=2',timeout=45000)
+            await page.wait_for_function('petEvents.filter(m=>m.type==="reply").length>=4',timeout=45000)
             report['explanation']=await page.evaluate('petEvents.filter(m=>m.type==="reply").at(-1).text')
             assert not errors,errors
             report.update(passed=True,errors=errors,finished=time.time())

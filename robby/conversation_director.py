@@ -134,7 +134,8 @@ class CompactDirector:
             if item.get('role') in ('user','assistant') and isinstance(item.get('content'),str):
                 messages.append({'role':item['role'],'content':item['content'][:3000]})
         current=({'avatar_event':event,'language':(avatar_context or {}).get('language','en'),
-            'task':'React to THIS mouse stroke with a fresh brief warm acknowledgment, not to an older greeting.' if event=='petted' else
+            'task':'React to THIS ongoing mouse stroke with a fresh soft playful vocalization and/or a few warm words. Vary from your previous reaction; not another greeting or a formulaic thank-you.' if event=='petted' else
+                   'Voice THIS cartoon carousel ride: three short bursts that grow from a gentle Hui/Whee into exuberant Juhu/Woohoo. Brief, playful, increasingly delighted; not an explanation.' if event=='play_vocal' else
                    'Offer one brief optional invitation to stroke your head, or choose silence. Do not answer an older utterance again.'}
             if event else {'utterance':text[:2000],'current_speaker':identity})
         messages.append({'role':'user','content':json.dumps(current,ensure_ascii=False)})

@@ -181,8 +181,12 @@ class MouthBridge:
                             await send(b'D',{});return
                         if record.get('avatar_context',{}).get('event') and (await client.get('/api/state',timeout=3.)).json().get('busy'):
                             await send(b'D',{});return  # optional affection never queues behind someone else's TTS
+                        if record.get('avatar_context',{}).get('event'):
+                            from avatar_personality import event_steps
+                            directed['avatar_actions']=event_steps(record['avatar_context'])
                         director_ms=directed['director_ms'];reply=directed['text'];record['reply']=reply
                         await send(b'X',{'text':reply,'performance':plan(directed),'speaker':identity,
+                            'avatar_event':record.get('avatar_context',{}).get('event'),
                             'language':directed['language'],
                             'avatar_actions':directed.get('avatar_actions',[]),
                             'interaction_actions':directed.get('interaction_actions',[]),

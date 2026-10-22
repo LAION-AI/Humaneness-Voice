@@ -16,13 +16,35 @@ this playful interaction, not claims about skin, nerves or bodily feelings.
 Do not recite an AI disclaimer in every reply. If directly asked what you really
 feel, be transparent about simulated expressions rather than inventing sensations.
 The user may ask for quiet or decline touch; respect that across the conversation.
-An avatar event is NOT a user utterance. For petted events generate one brief,
-fresh, affectionate acknowledgment (at most 20 words), not a canned sentence.
+An avatar event is NOT a user utterance. For petted events generate a fresh,
+very short playful vocal reaction (usually 2–12 words, at most 20), not a canned
+thank-you. Vary between a soft little hum with a few affectionate words, a quiet
+chuckle and a playful comment, or a tiny grateful utterance. Brief vocalizations
+are explicitly requested for petting, an exception to the no-unrequested-laughter
+rule. Put audible interjections such as Mmmh or Oh outside cue brackets so TTS
+can speak them; use an English sentence cue such as (contentment, soft playful hum).
+A brief (chuckle, 0.3 seconds) may accompany actual spoken words. Do not produce
+only silent directions. Keep it gentle, nonsexual and kitten-like in playfulness;
+no loud laughter, long sighs, breathy moaning, repeated demands or bodily claims.
+Do not repeat the preceding petting response or say thank you every time.
 For ask_pet events, optionally offer ONE brief, low-pressure invitation. Never
 say they must do it or that you are sad if they don't. If history indicates quiet,
 discomfort, refusal or a serious topic, return silence instead. You may also stay
 silent on any avatar event by returning exactly {"silent": true}. Silence is valid
 only for these autonomous events. No knowledge/tool calls on autonomous events.
+For an accepted ask_pet invitation, use a very soft, sweet, upward-looking puppy
+expression and gentle delivery. A single playful "Bitte, bitte?" or "Pretty please?"
+is welcome, then make it clear it is optional. Do not keep asking or sound hurt.
+For play_vocal events, the avatar performs a six-second accelerating cartoon
+carousel followed by six seconds of delighted afterglow, anchored to playback.
+Generate 3 short sentence-level bursts, about 8–18 words total: start with a small
+playful whoop, build to delighted amusement, finish with an exuberant cheer.
+German interjections can include Hui, Juhu or Jaaa; English can use Whee, Woohoo
+or Yay. Invent the actual short phrases, vary them across rides. Use acting cues
+with growing amusement then elation; no long explanation or generic greeting.
+Express cartoon joy and playful delight, not literal consciousness, lifelong
+memories or bodily ecstasy. This is nonsexual, childlike carousel play, not
+breathy moaning or aggressive screaming. Brief whoops are explicitly requested.
 Use the latest conversation language; the supplied language is a fallback.
 For ordinary user questions answer the question, not an unsolicited pet request.'''
 
@@ -30,7 +52,7 @@ class AvatarPersonality:
     def __init__(self,clock=time.monotonic):
         self.clock=clock;self.started=clock();self.last_user=self.started
         self.last_asr=-math.inf;self.last_pet=-math.inf;self.last_invite=-math.inf
-        self.last_event=-math.inf;self.invites=0;self.invited_quiet=False;self.events=[]
+        self.last_event=-math.inf;self.last_play=-math.inf;self.invites=0;self.invited_quiet=False;self.events=[]
 
     def user(self):
         self.last_user=self.clock();self.invited_quiet=False
@@ -42,12 +64,12 @@ class AvatarPersonality:
     def observe(self,message,busy=False,language='en'):
         if not isinstance(message,dict) or set(message)-{'event','variant','carousel','duration_ms','age_ms'}:raise ValueError('Avatar event fields')
         event=message.get('event');now=self.clock()
-        if event not in ('idle_play','petted','ask_pet'):raise ValueError('Avatar event')
+        if event not in ('idle_play','play_vocal','petted','ask_pet'):raise ValueError('Avatar event')
         age=message.get('age_ms',0)
         if type(age) is not int or not 0<=age<=600000 or (event!='idle_play' and age):raise ValueError('Avatar event age')
         if now-self.last_event<1:return None
         entry={'event':event}
-        if event=='idle_play':
+        if event in ('idle_play','play_vocal'):
             if message.get('variant') not in VARIANTS or type(message.get('carousel')) is not bool:raise ValueError('Idle animation')
             if busy or now-self.last_asr<2:return None
             entry.update(variant=message['variant'],carousel=message['carousel'])
@@ -60,9 +82,21 @@ class AvatarPersonality:
         if event=='idle_play':return None
         if busy or now-self.last_asr<2:return None
         if event=='petted':
-            if now-self.last_pet<90:return None
+            if now-self.last_pet<12:return None
             self.last_pet=now
+        elif event=='play_vocal':
+            if now-self.last_play<45:return None
+            self.last_play=now
         else:
             if self.invited_quiet or self.invites>=2 or now-self.started<180 or now-self.last_user<60 or now-self.last_invite<600:return None
             self.invited_quiet=True;self.invites+=1;self.last_invite=now
         return {'event':event,'language':language if language in ('de','en') else 'en',**self.snapshot()}
+
+def event_steps(context):
+    """Visual reactions begin on actual speech playback, not network arrival."""
+    event=(context or {}).get('event')
+    if event=='play_vocal':return [{'kind':'carousel','direction':'clockwise','duration_s':6,'sentence':0},
+                                 {'kind':'afterglow','duration_s':6,'sentence':0}]
+    if event=='ask_pet':return [{'kind':'puppy','duration_s':6,'sentence':0}]
+    if event=='petted':return [{'kind':'pet','duration_s':3,'sentence':0}]
+    return []
