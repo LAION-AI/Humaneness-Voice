@@ -23,7 +23,7 @@ export class StrokeTracker{
 export function attachPetting({element,rig,actions,allowed=()=>true,onStart=()=>{},onPet=()=>{}}){
  const surface=element.querySelector('canvas,svg'),stroke=new StrokeTracker();
  let pointer=null,strength=0,lastMotion=-Infinity,lastTick=performance.now(),lastAttempt=-Infinity,lastReaction=-Infinity;
- function react(result,now){if(result&&now-lastAttempt>=1000&&now-lastReaction>=12000){lastAttempt=now;if(onPet(result)===true)lastReaction=now;}}
+ function react(result,now){if(result&&now-lastAttempt>=1000&&now-lastReaction>=actions.petCooldownMs){lastAttempt=now;if(onPet(result)===true)lastReaction=now;}}
  function hit(x,y){const r=surface.getBoundingClientRect();
   if(rig.headRegion){const h=rig.headRegion();return ((x-r.left-h.x)/h.rx)**2+((y-r.top-h.y)/h.ry)**2<=1;}
   const b=surface.querySelector('#head')?.getBoundingClientRect();
@@ -60,7 +60,7 @@ export function attachPetting({element,rig,actions,allowed=()=>true,onStart=()=>
    if(strength<.005)return null;
    // sampleAction's smooth envelope supplies an adjustable blend without
    // taking over the action queue or preventing speech/stop commands.
-   const v=sampleAction({kind:'pet'},.2,base,reduced);
+   const v=sampleAction({kind:'pet'},.2,base,reduced,actions);
    return {...v,pose:mix(base,v.pose,strength),motion:{...v.motion,tilt:v.motion.tilt*strength},strength};
   }};
 }

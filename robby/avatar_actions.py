@@ -1,12 +1,28 @@
 """Allowlisted, bounded visual-only performances. Never controls robot hardware."""
 import json
 import math
+import re
 from pathlib import Path
 
 EMOTIONS = tuple(p['slug'] for p in json.loads((Path(__file__).parent/'static/emotion-catalog.json').read_text())['profiles'])
 KINDS = ('emotion', 'nod', 'shake', 'spin', 'carousel', 'afterglow', 'puppy', 'pet', 'eye_roll', 'grimace', 'wink', 'curious')
 VARIANTS = ('crossed', 'opposite', 'wiggle', 'cheeky', 'goofy', 'squishy', 'fish', 'peekaboo')
 TOOL_NAME = 'perform_avatar'
+
+def explicit_spin(text):
+    """Conservative direct-command fallback, never matches quotes or conditions.
+
+    Complex choreography stays with the director tool. This only guarantees
+    an unambiguous requested turn even if the model merely describes it.
+    """
+    if not isinstance(text,str) or len(text)>400:return []
+    t=text.casefold().strip()
+    if re.search(r'["“”„«»]|\b(?:nicht|kein\w*|never|not|don.t|wenn|falls|if|example|beispiel|zitiere|quote|sag|say|erklär\w*|explain)\b',t):return []
+    direct=re.search(r'\b(?:dreh(?:e|en)?\s+(?:bitte\s+)?(?:dich|deinen?\s+kopf)|(?:kannst|könntest|würdest|willst)\s+du\b.{0,80}\b(?:dich|deinen?\s+kopf)\b.{0,60}\bdrehen|(?:please\s+)?spin(?:\s+(?:around|yourself))?(?:[.!?]|$)|(?:can|could|would)\s+you\b.{0,40}\b(?:spin|rotate)|(?:turn|rotate)\s+(?:your\s+head|around|yourself))',t)
+    if not direct:return []
+    direction='counterclockwise' if re.search(r'gegen\s+den\s+uhrzeigersinn|counter[- ]?clockwise|anti[- ]?clockwise',t) else 'clockwise'
+    return [{'kind':'spin','duration_s':6.,'sentence':0,'direction':direction}]
+
 TOOL = {'type':'function','function':{'name':TOOL_NAME,
     'description':'Perform a gentle visual-only robot action sequence, optionally at a spoken sentence. No hardware movement.',
     'parameters':{'type':'object','additionalProperties':False,'required':['steps'], 'properties':{

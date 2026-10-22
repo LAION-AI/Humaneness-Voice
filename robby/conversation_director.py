@@ -111,7 +111,11 @@ class CompactDirector:
         knowledge_enabled=not event and relevant(text,history)
         messages=[{'role':'system','content':POLICY+'\n'+DIRECTOR_NOTE+'\n'+RECIPE}]
         from avatar_actions import TOOL as AVATAR_TOOL, NOTE as AVATAR_NOTE, TOOL_NAME as AVATAR_NAME, validate as validate_avatar
+        from avatar_actions import explicit_spin
+        requested_spin=explicit_spin(text) if not event else []
         messages[0]['content']+='\nException to the no-tools rule: visual-only avatar tools are available.\n'+AVATAR_NOTE
+        if requested_spin:
+            messages[0]['content']+='\nA direct screen-rotation request has been recognized. The client will schedule this six-second spin on the FIRST spoken audio: '+json.dumps(requested_spin)+'. Speak DURING it: give about 12–22 playful spoken words, one or two short sentences, with natural cheerful delivery. Do not merely promise a future turn or claim it is already finished. This is visual only. You may still call perform_avatar for additional choreography.'
         from avatar_personality import NOTE as PERSONALITY_NOTE
         messages[0]['content']+='\n'+PERSONALITY_NOTE
         if avatar_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(avatar_context,ensure_ascii=False)
@@ -135,7 +139,7 @@ class CompactDirector:
                 messages.append({'role':item['role'],'content':item['content'][:3000]})
         current=({'avatar_event':event,'language':(avatar_context or {}).get('language','en'),
             'task':'React to THIS ongoing mouse stroke with a fresh soft playful vocalization and/or a few warm words. Vary from your previous reaction; not another greeting or a formulaic thank-you.' if event=='petted' else
-                   'Voice THIS cartoon carousel ride: three short bursts that grow from a gentle Hui/Whee into exuberant Juhu/Woohoo. Brief, playful, increasingly delighted; not an explanation.' if event=='play_vocal' else
+                   'Voice THIS cartoon carousel ride: brief, playful bursts, not an explanation. Respect play_intensity: restrained at low settings; only at high settings grow from gentle Hui/Whee into exuberant Juhu/Woohoo.' if event=='play_vocal' else
                    'Offer one brief optional invitation to stroke your head, or choose silence. Do not answer an older utterance again.'}
             if event else {'utterance':text[:2000],'current_speaker':identity})
         messages.append({'role':'user','content':json.dumps(current,ensure_ascii=False)})
@@ -207,6 +211,11 @@ class CompactDirector:
             response.raise_for_status();packet=response.json();assistant=packet['choices'][0]['message']
         value=assistant.get('content') or ''
         if event and json.loads(value)=={'silent':True}:return {'silent':True}
+        if requested_spin:
+            # A verbal promise is not an executed action. Preserve other valid
+            # choreography, but guarantee one immediate requested full turn.
+            rest=[s for s in avatar_steps if s['kind'] not in ('spin','carousel','afterglow')]
+            avatar_steps=validate_avatar({'steps':requested_spin+rest[:5]}) if sum(s['duration_s'] for s in rest[:5])<=18 else requested_spin
         raw=complete_visual_acknowledgment(json.loads(value),avatar_steps)
         if identity.get('needs_name') and isinstance(raw,dict) and isinstance(raw.get('script'),str):
             spoken=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script'])

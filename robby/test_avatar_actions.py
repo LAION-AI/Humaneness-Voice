@@ -2,10 +2,27 @@ import json
 import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
-from avatar_actions import EMOTIONS, validate
+from avatar_actions import EMOTIONS, validate, explicit_spin
 from conversation_director import CompactDirector,complete_visual_acknowledgment
 
 class AvatarTests(unittest.IsolatedAsyncioTestCase):
+    def test_explicit_spin_only_direct_requests(self):
+        for text in ('Dreh dich bitte und rede dabei.','Kannst du dich einmal im Kreis drehen?',
+                     'Dreh bitte deinen Kopf um 360 Grad gegen den Uhrzeigersinn.','Please spin around!','Can you rotate your head?'):
+            self.assertEqual(explicit_spin(text)[0]['kind'],'spin',text)
+        self.assertEqual(explicit_spin('Dreh dich gegen den Uhrzeigersinn')[0]['direction'],'counterclockwise')
+        for text in ('Dreh dich nicht.','Wenn ich sage dreh dich, nicke.','Sag "dreh dich".','Warum dreht sich die Erde?','Do not spin.','Alice spins around.','Explain how to rotate your head.'):
+            self.assertEqual(explicit_spin(text),[],text)
+
+    async def test_direct_rotation_survives_missing_tool_call(self):
+        class Client:
+            async def post(self,url,**kw):
+                return SimpleNamespace(raise_for_status=lambda:None,json=lambda:{'choices':[{'message':{'content':json.dumps({'general':'Playful.','script':'(amusement) Hui, ich drehe eine Runde und erzähle dir währenddessen etwas Lustiges!','language':'de'})}}]})
+        settings=SimpleNamespace(LUNA_MODEL='test',LUNA_BASE='https://example.invalid',luna_key=lambda:'test')
+        with patch('conversation_director.shared_settings',return_value=settings):
+            result=await CompactDirector().generate(Client(),'Dreh dich bitte und rede dabei.',{},[])
+        self.assertEqual(result['avatar_actions'],explicit_spin('Dreh dich bitte und rede dabei.'))
+        self.assertGreater(len(result['text'].split()),8)
     def test_empty_visual_reply_gets_only_a_bounded_local_ack(self):
         raw={'general':'','script':'(amusement) [0.2 seconds pause]','language':'de'}
         self.assertIn('Schau mal!',complete_visual_acknowledgment(raw,[{'kind':'nod'}])['script'])

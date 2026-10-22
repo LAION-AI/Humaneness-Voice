@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parent
 async def main(url):
     report={'passed':False,'url':url,'camera_or_mic_used':False,'gpu_disabled':True}
     async with async_playwright() as p:
-        browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu'])
+        browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
         page=await browser.new_page(viewport={'width':1280,'height':1000});errors=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
         await page.add_init_script("localStorage.setItem('robby.cameraAuto','false')")
@@ -63,6 +63,25 @@ async def main(url):
              a.play([{kind:'nod',duration_s:2}]);a.frame(2,base,{hidden:true});assert(!a.queue.length,'hidden clears');
              return {unique_archetypes:40,cartoon_variants:4,cartoon_endpoints:true,static_reduced_grimaces:true,sequence_order:true,independent_eyes:true,playback_anchored:true,reduced_motion:true,disable_and_clear:true,idle_and_listening_cooldowns:true};
             }''')
+            # Exercise the actual browser playback clock without occupying the
+            # live server: authored reply metadata + eight seconds synthetic PCM.
+            await page.evaluate('''async()=>{
+             const {PlaybackClock}=await import('/static/clock.js');
+             robo.ctx=new AudioContext();await robo.ctx.resume();robo.clock=new PlaybackClock(robo.ctx);
+             robo.output=robo.ctx.createGain();robo.analyser=robo.ctx.createAnalyser();
+             robo.output.connect(robo.analyser);robo.analyser.connect(robo.ctx.destination);
+             robotFace.actions.clear();robotFace.actions.setIntensity('playIntensity',0);
+             robo.on.message({type:'reply',reply_id:777,text:'Watch this, I am turning and talking.',avatar_actions:[{kind:'spin',direction:'clockwise',duration_s:6,sentence:0}],performance:{sentences:[]}});
+             const b=new ArrayBuffer(4+24000*8*2);new DataView(b).setInt32(0,777,true);
+             const pcm=new Int16Array(b,4);for(let i=0;i<pcm.length;i++)pcm[i]=Math.sin(i*2*Math.PI*220/24000)*1000;
+             robo.play(b);
+            }''')
+            await page.wait_for_function('robotFace.actions.active?.kind==="spin"&&Math.abs(robotFace.rig.snapshot().visualPan)>100',timeout=10000)
+            assert await page.evaluate('robo.clock.position()?.id===777&&robo.sources.length>0'),'No audio during spin'
+            report['spin_during_audio_at_zero_idle_intensity']=True
+            await page.wait_for_function('Math.abs(robotFace.rig.snapshot().visualPan)>340',timeout=6000)
+            report['complete_playback_driven_spin']=True
+            await page.evaluate('robo.stopAudio();robo.on.message({type:"turn_done"});robotFace.actions.clear();robotFace.actions.setIntensity("playIntensity",1)')
             await page.locator('#avatar-action-controls').evaluate('(e)=>e.open=true')
             await page.select_option('#avatar-trick','2');await page.click('#avatar-perform');await page.wait_for_timeout(1300)
             report['actual_spin_visual_pan']=await page.evaluate('robotFace.rig.snapshot().visualPan')
