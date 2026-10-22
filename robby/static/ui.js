@@ -6,8 +6,12 @@ import {MultimodalUI} from './multimodal-ui.js';
 import {organisePlayground} from './playground-layout.js';
 import {AvatarActions} from './avatar-actions.js';
 import {attachActionControls} from './avatar-action-controls.js';
+import {attachPetting} from './avatar-petting.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
+let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null;
+const personalityStarted=performance.now();
+function cancelOptionalAvatar(){if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
 let desiredGate=true,lastServerAudio=0,lastCapture=0,micStarted=0,serverAudioSeconds=0;
 let desiredProactive=true;
 let desiredHelpful=true;try{desiredHelpful=localStorage.getItem('robby.helpfulInterruptions')!=='false';}catch{}
@@ -54,18 +58,24 @@ function showInteraction(m){
   d?.action==='interrupt_user'?`Rule triggered · decision ${d.decision_ms} ms. Microphone remains active.`:'Agreed rules armed · listening continuously.';
 }
 const client=window.robo=new RoboClient({
- connection(on){connected=on;if(!on){avatarActions.clear();replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
+ connection(on){connected=on;if(!on){avatarActions.clear();petting?.reset();optionalAvatarReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
  microphone(on){mic=on;micStarted=on?performance.now():0;lastCapture=lastServerAudio=0;serverAudioSeconds=0;$('mic-level').value=0;$('mic-status').textContent=on?'Microphone started. Waiting for audio frames…':'Microphone off. Click Start talking and allow microphone access.';$('call').textContent=on?'■ End conversation':'◉ Start talking';$('call').classList.toggle('active',on);phase(on?'Listening to you':'Ready when you are',on?'ready':'');},
- input(s){lastCapture=performance.now();if(s.rms>.003)avatarActions.touch();$('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
+ input(s){lastCapture=performance.now();if(s.rms>.003){avatarActions.touch();cancelOptionalAvatar();} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
+  if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){invitedQuiet=false;cancelOptionalAvatar();}
+  if(m.type==='avatar_event'&&['petted','ask_pet'].includes(m.event)){
+   if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
+   else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;}
+  }
+  if(['turn_done','stop_command','error'].includes(m.type)){optionalAvatarReply=avatarCancelPending=false;}
   if(['asr_preview','partial','endpoint','reply','backchannel'].includes(m.type))avatarActions.touch();
   if(['barge','stop_command','reply_cancelled','error'].includes(m.type))avatarActions.clear();
   if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
   if(m.type==='reply')avatarActions.set(m.reply_id,m.avatar_actions,m.performance);
   multimodal?.message(m);
-  if(m.type==='ready'){multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
+  if(m.type==='ready'){sendRecentIdle();multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
   if(m.type==='stop_feedback_setting')$('stop-feedback').checked=!!m.enabled;
   if(m.type==='stop_feedback')$('asr-status').textContent='Stop accepted. A brief acknowledgment follows; you can interrupt it too.';
   if(m.type==='ready'){phase(mic?(desiredGate&&!desiredOpenSpeakers?'Say Hey Robbie to join':'Listening to you'):'Ready when you are','ready');if(m.identity_mode)identityModel.value=m.identity_mode;if(m.identity_enabled!==desiredGate)client.send('identity:'+(desiredGate?'on':'off'));applySpeakerSettings();gate.checked=desiredGate;$('asr-status').textContent=desiredGate?(desiredOpenSpeakers?'Speak clearly, then pause. New foreground voices can join without a wake phrase.':'Speaker filter ON. Say “Hey Robbie, ich bin …” to join. Recognition previews below are not sent to Luna.'):'Speaker filter OFF. Speak normally; TYGER submits your turn after a pause.';}
@@ -105,6 +115,28 @@ const client=window.robo=new RoboClient({
  }
 });
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
+const canPersonalitySpeak=()=>connected&&ready&&!speaking&&!replyPending&&!$('message').value.trim()&&!document.hidden&&!eyeContact?.state.active;
+const avatarEvent=event=>{if(['petted','ask_pet'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify(event));};
+function sendRecentIdle(){if(lastIdleEvent&&performance.now()-lastIdleEvent.at<600000)avatarEvent({event:'idle_play',...lastIdleEvent.event,age_ms:Math.round(performance.now()-lastIdleEvent.at)});}
+avatarActions.onIdle=event=>{
+ lastIdleEvent={event,at:performance.now()};
+ if(connected)avatarEvent({event:'idle_play',...event});
+ const now=performance.now();
+ if(avatarActions.petInvitesEnabled&&!invitedQuiet&&petInvites<2&&now-personalityStarted>=180000&&now-lastPetInvite>=600000){
+  // Give the animation time to start; never queue a stale spoken invitation.
+  const activity=avatarActions.lastActivity;
+  setTimeout(()=>{if(!canPersonalitySpeak()||!avatarActions.enabled||!avatarActions.idleEnabled||!avatarActions.petInvitesEnabled||avatarActions.lastActivity!==activity)return;
+   invitedQuiet=true;petInvites++;lastPetInvite=performance.now();avatarEvent({event:'ask_pet'});
+  },2000);
+ }
+};
+petting=attachPetting({element:$('avatar'),rig,actions:avatarActions,allowed:()=>!eyeContact?.state.active,
+ onStart:()=>{invitedQuiet=false;if(ready)void client.start(false).catch(()=>{});},
+ onPet:event=>{if(canPersonalitySpeak()&&avatarActions.petSpeechEnabled&&performance.now()-lastPetSpeech>=90000){
+  lastPetSpeech=performance.now();avatarEvent({event:'petted',duration_ms:event.duration_ms});
+ }} });window.robotFace.petting=petting;
+for(const id of ['avatar-actions-enabled','avatar-petting-enabled','avatar-pet-speech-enabled','avatar-pet-invites-enabled'])$(id).addEventListener('change',()=>{petting.reset();cancelOptionalAvatar();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelOptionalAvatar();});
 for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
 $('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
 $('unfiltered-talk').onclick=async()=>{desiredGate=false;try{await client.start(true);client.send('identity:off');gate.checked=false;$('asr-status').textContent='Speaker filter OFF. Speak normally; background voices may also be transcribed.';phase('Listening to you','ready');}catch(e){$('mic-status').textContent='Microphone unavailable: '+e.message;}};
@@ -120,7 +152,10 @@ const calibrate=document.createElement('button');calibrate.className='text-butto
 const stopLabel=document.createElement('label'),stopFeedback=document.createElement('input');stopFeedback.type='checkbox';stopFeedback.id='stop-feedback';stopFeedback.checked=desiredStopFeedback;stopLabel.append(stopFeedback,' Brief spoken acknowledgment after I stop Robby (otherwise stay silent)');$('allow-helpful').parentElement.after(stopLabel);
 const stopHelp=document.createElement('p');stopHelp.textContent='Keep your microphone on. Say “Stopp”, “Hör bitte auf” or “Warte bitte” while Robby speaks. The current speaker is checked continuously, independently of proactive-interruption settings. Wait/quiet commands always stay silent. Acknowledgments yield to continuing speech.';stopLabel.after(stopHelp);
 stopFeedback.onchange=()=>{desiredStopFeedback=stopFeedback.checked;saveThreshold('robby.stopFeedback',desiredStopFeedback);client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));};
-async function submit(text){if(!ready)return;avatarActions.touch();try{await client.start(false);bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
+async function submit(text){if(!ready)return;avatarActions.touch();invitedQuiet=false;try{
+ if(optionalAvatarReply){cancelOptionalAvatar();for(let i=0;i<40&&optionalAvatarReply;i++)await new Promise(r=>setTimeout(r,50));}
+ await client.start(false);sendRecentIdle();bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
+$('message').addEventListener('input',()=>{avatarActions.touch();cancelOptionalAvatar();});
 $('form').onsubmit=e=>{e.preventDefault();const text=$('message').value.trim();if(text){$('message').value='';submit(text);}};
 for(const b of document.querySelectorAll('[data-text]'))b.onclick=()=>submit(b.dataset.text);
 $('clear').onclick=()=>{timeline.clear();client.stop();$('chat').replaceChildren();partial=answer=null;};
@@ -224,7 +259,8 @@ function animate(t){
  if($('acting-status').textContent!==description)$('acting-status').textContent=description;
  const automaticBlink=Math.pow(Math.max(0,Math.cos(t/900)),160)*.85;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const action=avatarActions.frame(t,chosen,{position:client.ctx?.state==='running'?client.clock?.position():null,busy:speaking||replyPending,reduced,hidden:document.hidden,calibrating:!!eyeContact?.state.active});
+ let action=avatarActions.frame(t,chosen,{position:client.ctx?.state==='running'?client.clock?.position():null,busy:speaking||replyPending,reduced,hidden:document.hidden,calibrating:!!eyeContact?.state.active});
+ const pet=petting?.frame(t,action.pose,reduced);if(pet)action=pet;
  rig.update({...controls,...action.controls,gazeTarget:deskView?gazeTarget:null,pose:action.pose,actionMotion:action.motion,actionEyes:action.eyes,
   blinkLeft:Math.max(action.controls.blinkLeft||0,controls.blinkLeft||0,automaticBlink),blinkRight:Math.max(action.controls.blinkRight||0,controls.blinkRight||0,automaticBlink),audioLevel:Math.min(1,client.level()*7)},lastAnimation?t-lastAnimation:16.7,reduced?0:t);lastAnimation=t;
  requestAnimationFrame(animate);
