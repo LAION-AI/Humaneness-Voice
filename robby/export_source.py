@@ -16,7 +16,8 @@ def main():
     for name in ('bolt-speed.json','bolt-speaker-speed.json','bolt-engine-comparison.json',
                  'bolt-socket-check.json','bolt-browser-check.json','bolt-browser-first-turn.json',
                  'bolt-tts-profile.json','bolt-precision.json','bolt-semantic-graph.json','bolt-local-compile.json',
-                 'speech-pause-check.json','speech-pause-browser.json','long-replies-check.json','long-replies-browser.json'):
+                 'speech-pause-check.json','speech-pause-browser.json','long-replies-check.json','long-replies-browser.json',
+                 'avatar-command-before.json','avatar-command-check.json','avatar-command-browser.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))
@@ -44,7 +45,9 @@ def main():
             raise ValueError('Potential credential in source export')
         name=path.relative_to(ROOT).as_posix();payload[name]=raw
         manifest[name]={'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
-    if sum(len(raw) for raw in payload.values())>5_000_000:raise ValueError('Unexpected source export size')
+    # Additional audited text-only regression reports need modest headroom.
+    # The UTF-8, path allowlist and credential checks above still apply.
+    if sum(len(raw) for raw in payload.values())>6_000_000:raise ValueError('Unexpected source export size')
     folder=ROOT/'releases';folder.mkdir(exist_ok=True)
     target=folder/'robby-source.zip';temporary=folder/'robby-source.tmp.zip'
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as archive:

@@ -55,7 +55,7 @@ export function attachActionControls(actions){
  }
  document.getElementById('avatar-perform').onclick=()=>{const value=items[+select.value][1];actions.play((Array.isArray(value)?value:[value]).map(s=>({duration_s:2,...s})));};
  document.getElementById('avatar-stop').onclick=()=>actions.clear();
- let last='';const timer=setInterval(()=>{const text=actions.warning|| (actions.active?`Performing ${actions.active.kind.replaceAll('_',' ')} · ${actions.active.source}`:!actions.enabled?'Expressive actions disabled.':'Camera tracking resumes automatically after each trick.');if(text!==last){document.getElementById('avatar-action-status').textContent=text;last=text;}},250);
+ let last='';const timer=setInterval(()=>{const text=actions.warning|| (actions.active?`Performing ${actions.active.kind.replaceAll('_',' ')} · ${actions.active.source}`:!actions.enabled?'Expressive actions disabled.':'Camera tracking resumes automatically after each trick.');if(text!==last){document.getElementById('avatar-action-status').textContent=text;last=text;}const notice=document.getElementById('action-notice');if(notice){notice.hidden=!actions.warning;notice.textContent=actions.warning||'';}},250);
  addEventListener('pagehide',()=>clearInterval(timer),{once:true});
  return panel;
 }

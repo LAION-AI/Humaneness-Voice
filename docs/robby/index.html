@@ -9,8 +9,9 @@
 <p><a href="personality-checks.html">Playtime &amp; petting: implementation, tests and limits ↗</a></p>
 <p><a href="speech-pause-update.html">Wait for a speech pause: slider, noise handling and tests ↗</a></p>
 <p><a href="long-replies-update.html">Complete poems, longer replies and playful conversations ↗</a></p>
+<p><a href="avatar-command-update.html">Requested faces and spoken reactions: reliability fix and tests ↗</a></p>
 <div class="hero"><section><p>Robby can perform playful actions and wildly silly cartoon grimaces when you ask, accompany a reply with a small gesture, and quietly acknowledge you while listening.</p>
-<p>Try: “Look angry, then make a funny face.” Or: “Dreh deinen Kopf einmal gegen den Uhrzeigersinn.” German and English requests go through the same language-model tool.</p>
+<p>Try: “Look angry, then make a funny face.” Or: “Dreh deinen Kopf einmal gegen den Uhrzeigersinn.” Clear German and English requests use validated commands; complex choreography retains the language-model tool.</p>
 <label for="manual-action">Silent preview — no microphone, API or GPU needed</label><div class="row"><select id="manual-action"></select><button id="manual-play">Perform</button><button id="manual-stop">Stop</button></div><p id="manual-status" aria-live="polite">Loading the CPU renderer…</p></section><div id="manual-avatar" class="viewer" aria-label="Interactive robot preview"></div></div>
 <h2>Ask Robby to…</h2><div class="scroll"><table><thead><tr><th>Action</th><th>Example</th><th>Behavior</th></tr></thead><tbody>
 <tr><td>Nod / shake</td><td>“Nicke bitte.” / “Shake your head.”</td><td>Two soft beats, then return to eye contact.</td></tr>

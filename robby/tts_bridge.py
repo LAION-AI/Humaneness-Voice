@@ -162,9 +162,11 @@ class MouthBridge:
                         async for event,value in pipeline(client,text,identity,history,voice=turn_voice,
                                 avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state')):
                             if event=='sentence':
+                                stage='speech'
                                 reply=value['text'];record['reply']=reply
                                 await send(b'X',{**value,'speaker_update':speaker_update})
                             elif event=='audio':await send(b'A',value.astype(np.float32).tobytes());played=True
+                            elif event=='avatar_action':await send(b'X',{'avatar_action':value})
                             elif event=='done':
                                 record['bolt_metrics']=value
                                 await send(b'X',{'pipeline_metrics':value})
