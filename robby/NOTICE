@@ -35,3 +35,9 @@ bootstrap_visual_assets.py restores pinned assets and their library licenses.
 No face/voice profiles, private camera frames, or third-party model weights
 are included in the text-source archive. NASA/skimage astronaut imagery is
 fetched only for local smoke tests, not embedded in the published report.
+
+The optional local open-voice input path uses Silero VAD's small 16-kHz ONNX
+model on CPU, MIT-licensed upstream at https://github.com/snakers4/silero-vad.
+Weights are not part of this source archive: bootstrap/startup fetches revision
+066409f3d9db45a30d21dfcbf9147826ffdd7052 and verifies the SHA256 in pause_vad.py.
+The NumPy/ONNX streaming interface retains state only for the current session.

@@ -1,0 +1,447 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby — wait for a speech pause</title>
+<style>body{font:17px/1.65 system-ui;max-width:1120px;margin:30px auto;padding:20px;color:#20333a;background:#f6f8fa}h1,h2{line-height:1.25}.scroll{overflow:auto}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #bfcbd0;padding:10px;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eaf0f4;padding:16px;font-size:13px}a{color:#166a78}.note{padding:18px;background:#e2f1ec}</style>
+<p><a href="https://arrive-locations-parade-research.trycloudflare.com/desk-robot/">Open Robby</a> · <a href="https://github.com/LAION-AI/Humaneness-Voice/tree/main/robby">Source and setup</a></p>
+<h1>Robby sends your complete turn after a speech pause</h1>
+<p>Previously, recognized punctuation could send the first sentence immediately, even while the user continued speaking. The fallback pause timer also treated sufficient sound energy as activity, allowing background noise to hold a turn open.</p>
+<p class="note">The input path now waits for a configurable neural speech pause: <strong>400 ms by default</strong>, adjustable from 200 to 2,000 ms with the prominent <strong>Speech pause before replying</strong> slider. Consecutive sentences before that pause form one LLM request. Punctuation remains a preview. Output sentence-to-TTS streaming is unchanged.</p>
+<h2>Real audio regression checks</h2><div class="scroll"><table><tr><th>Scenario</th><th>Pause setting</th><th>Gap between sentences</th><th>Added noise</th><th>Passed</th><th>Submission after final clip end</th></tr><tr><td>two_sentences</td><td>400 ms</td><td>0.12 s</td><td>False</td><td>True</td><td>441 ms</td></tr><tr><td>two_sentences_with_noise</td><td>400 ms</td><td>0.12 s</td><td>True</td><td>True</td><td>427 ms</td></tr><tr><td>longer_setting_holds</td><td>1000 ms</td><td>0.5 s</td><td>True</td><td>True</td><td>1015 ms</td></tr><tr><td>two_separate_turns</td><td>300 ms</td><td>1.2 s</td><td>False</td><td>True</td><td>See event record</td></tr><tr><td>short_separate_turns</td><td>300 ms</td><td>0.6 s</td><td>False</td><td>True</td><td>See event record</td></tr><tr><td>noise_only</td><td>400 ms</td><td>0.12 s</td><td>True</td><td>True</td><td>See event record</td></tr></table></div>
+<p>These checks send authored synthetic German microphone audio in real time through the actual websocket, Nemotron ASR, local LLM and TTS. Noise is continuous Gaussian noise plus a 120-Hz hum, loud enough to exceed the former energy gate. Short gaps must retain both sentences in one request; longer gaps must produce two turns. Noise alone must produce none. Each committed event must report at least the selected neural quiet duration. Transport acknowledgments do not simulate a physical loudspeaker.</p>
+<h2>Browser and unit checks</h2><p>HTTPS Chrome browser passed: <strong>True</strong>. It checks the visible 400-ms default, saves 950 ms, reloads, confirms server restoration, changes live to 1,000 ms, speaks two sentences with a 500-ms gap and continuous noise, receives one complete turn and real TTS audio, then changes live to 300 ms. CPU browser, authored fake microphone; no physical camera or private microphone recording.</p><p>Unit checks: 349; passed: True. Dedicated regressions cover native endpoint/punctuation buffering, grouped multi-sentence submission, short farewell, resume-during-ASR races, early speech candidates, bounded settings, immediate Stop and avoiding old words in the next turn’s pre-roll.</p><h2>Implementation and measured CPU cost</h2><p>A 1.29-MB Silero ONNX model classifies 32-ms audio windows on one CPU inference thread, retaining recurrent state only for this session. Two positive frames establish speech; probability hysteresis prevents flicker. The same microphone packets and timestamp-aligned playback reference are reused. Inference runs off the event loop. Mean measured detector work per 32-ms frame: <strong>0.126 ms</strong>. This is actual local CPU inference, not a vendor speed claim.</p><p>Native ASR and TYGER remain unchanged. The final transcript check uses a bounded full-window ASR pass; if speech resumes while that pass is running, its old pause cannot submit a turn. An accepted turn resets its input segment so subsequent pre-roll cannot re-submit old words. Explicit Stop while Robby speaks bypasses the pause delay. The browser persists only the selected setting; voice memory remains session RAM.</p>
+<h2>Scope and remaining limits</h2><p>The selected pause is a minimum quiet interval according to a neural detector, not exact ground-truth word timing. Model onset/tail uncertainty, packet scheduling and ASR work add latency. The table measures time after the authored clip end; it is not physical mouth-to-speaker latency. Background speech can still be detected as speech: this detector is not source separation or a guarantee against TV voices. Strong aligned bot echo is suppressed for the pause clock, but real-room echo needs its own test. Passing these synthetic noise cases does not cover every environment.</p>
+<p>A request already decoding in the language model cannot be edited in place. Speech before the configured pause is grouped; speech after a submitted turn becomes the next ordered request. True mutable-context input streaming would require a different generation/control protocol. The older strict speaker-gated mode retains its own endpoint policy.</p>
+<p>Reproduce with <code>python run_unit_checks.py</code>, <code>python validate_speech_pause.py</code>, then the Playwright <code>browser_speech_pause_check.py</code>. Do not run audio tests concurrently: the demo has one ASR session slot. Model weights are fetched only at bootstrap/startup and hash-checked; live microphone inference does not download files.</p>
+<p>Model revision: <code>066409f3d9db45a30d21dfcbf9147826ffdd7052</code>. SHA256: <code>7ed98ddbad84ccac4cd0aeb3099049280713df825c610a8ed34543318f1b2c49</code>. Upstream MIT license and interface: <a href="https://github.com/snakers4/silero-vad">Silero VAD</a>. No extra GPU model is loaded.</p><details><summary>Raw measurements and test receipts</summary><pre>{
+  &quot;audio&quot;: {
+    &quot;model_revision&quot;: &quot;066409f3d9db45a30d21dfcbf9147826ffdd7052&quot;,
+    &quot;sha256&quot;: &quot;7ed98ddbad84ccac4cd0aeb3099049280713df825c610a8ed34543318f1b2c49&quot;,
+    &quot;physical_microphone&quot;: false,
+    &quot;rows&quot;: [
+      {
+        &quot;case&quot;: &quot;two_sentences&quot;,
+        &quot;pause_ms&quot;: 400,
+        &quot;gap_s&quot;: 0.12,
+        &quot;noise&quot;: false,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 400,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 77.12
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;audio_s&quot;: 5.76,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 400,
+            &quot;observed_quiet_ms&quot;: 464,
+            &quot;received_ms&quot;: 6160.74
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 69.381,
+              &quot;speaker_embedding_wait_ms&quot;: 68.935,
+              &quot;speaker_lookup_ms&quot;: 0.446,
+              &quot;speaker_prefetch_used&quot;: false,
+              &quot;speaker_prefetch_compute_ms&quot;: null,
+              &quot;sentence_queue_ms&quot;: 69.55,
+              &quot;sentence_audio_s&quot;: 5.76
+            },
+            &quot;received_ms&quot;: 6230.22
+          }
+        ],
+        &quot;submission_after_clip_end_ms&quot;: 440.7399999999998
+      },
+      {
+        &quot;case&quot;: &quot;two_sentences_with_noise&quot;,
+        &quot;pause_ms&quot;: 400,
+        &quot;gap_s&quot;: 0.12,
+        &quot;noise&quot;: true,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 400,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 57.56
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.&quot;,
+            &quot;audio_s&quot;: 5.76,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 400,
+            &quot;observed_quiet_ms&quot;: 464,
+            &quot;received_ms&quot;: 6146.68
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 61.585,
+              &quot;speaker_embedding_wait_ms&quot;: 61.5,
+              &quot;speaker_lookup_ms&quot;: 0.086,
+              &quot;speaker_prefetch_used&quot;: false,
+              &quot;speaker_prefetch_compute_ms&quot;: null,
+              &quot;sentence_queue_ms&quot;: 61.71,
+              &quot;sentence_audio_s&quot;: 5.76
+            },
+            &quot;received_ms&quot;: 6208.45
+          }
+        ],
+        &quot;submission_after_clip_end_ms&quot;: 426.6800000000003
+      },
+      {
+        &quot;case&quot;: &quot;longer_setting_holds&quot;,
+        &quot;pause_ms&quot;: 1000,
+        &quot;gap_s&quot;: 0.5,
+        &quot;noise&quot;: true,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 1000,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 58.0
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;audio_s&quot;: 7.04,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 1000,
+            &quot;observed_quiet_ms&quot;: 1040,
+            &quot;received_ms&quot;: 7115.26
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 0.086,
+              &quot;speaker_embedding_wait_ms&quot;: 0.002,
+              &quot;speaker_lookup_ms&quot;: 0.084,
+              &quot;speaker_prefetch_used&quot;: true,
+              &quot;speaker_prefetch_compute_ms&quot;: 55.84,
+              &quot;sentence_queue_ms&quot;: 0.23,
+              &quot;sentence_audio_s&quot;: 7.04
+            },
+            &quot;received_ms&quot;: 7115.46
+          }
+        ],
+        &quot;submission_after_clip_end_ms&quot;: 1015.2600000000002
+      },
+      {
+        &quot;case&quot;: &quot;two_separate_turns&quot;,
+        &quot;pause_ms&quot;: 300,
+        &quot;gap_s&quot;: 1.2,
+        &quot;noise&quot;: false,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 59.02
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+            &quot;audio_s&quot;: 3.52,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;observed_quiet_ms&quot;: 360,
+            &quot;received_ms&quot;: 3719.79
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 0.074,
+              &quot;speaker_embedding_wait_ms&quot;: 0.002,
+              &quot;speaker_lookup_ms&quot;: 0.072,
+              &quot;speaker_prefetch_used&quot;: true,
+              &quot;speaker_prefetch_compute_ms&quot;: 52.39,
+              &quot;sentence_queue_ms&quot;: 0.18,
+              &quot;sentence_audio_s&quot;: 3.52
+            },
+            &quot;received_ms&quot;: 3719.95
+          },
+          {
+            &quot;type&quot;: &quot;barge&quot;,
+            &quot;yield&quot;: 0.905,
+            &quot;received_ms&quot;: 4809.9
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;audio_s&quot;: 6.72,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;observed_quiet_ms&quot;: 348,
+            &quot;received_ms&quot;: 7095.15
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 0.1,
+              &quot;speaker_embedding_wait_ms&quot;: 0.002,
+              &quot;speaker_lookup_ms&quot;: 0.098,
+              &quot;speaker_prefetch_used&quot;: true,
+              &quot;speaker_prefetch_compute_ms&quot;: 51.4,
+              &quot;sentence_queue_ms&quot;: 0.21,
+              &quot;sentence_audio_s&quot;: 6.72
+            },
+            &quot;received_ms&quot;: 7095.42
+          }
+        ]
+      },
+      {
+        &quot;case&quot;: &quot;short_separate_turns&quot;,
+        &quot;pause_ms&quot;: 300,
+        &quot;gap_s&quot;: 0.6,
+        &quot;noise&quot;: false,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 60.31
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+            &quot;audio_s&quot;: 3.52,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;observed_quiet_ms&quot;: 360,
+            &quot;received_ms&quot;: 3719.19
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 0.084,
+              &quot;speaker_embedding_wait_ms&quot;: 0.002,
+              &quot;speaker_lookup_ms&quot;: 0.082,
+              &quot;speaker_prefetch_used&quot;: true,
+              &quot;speaker_prefetch_compute_ms&quot;: 51.3,
+              &quot;sentence_queue_ms&quot;: 0.2,
+              &quot;sentence_audio_s&quot;: 3.52
+            },
+            &quot;received_ms&quot;: 3719.38
+          },
+          {
+            &quot;type&quot;: &quot;barge&quot;,
+            &quot;yield&quot;: 0.946,
+            &quot;received_ms&quot;: 4808.86
+          },
+          {
+            &quot;type&quot;: &quot;asr_sentence&quot;,
+            &quot;text&quot;: &quot;Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;audio_s&quot;: 6.4,
+            &quot;queued&quot;: false,
+            &quot;reason&quot;: &quot;neural speech pause&quot;,
+            &quot;speech_pause_ms&quot;: 300,
+            &quot;observed_quiet_ms&quot;: 344,
+            &quot;received_ms&quot;: 6506.81
+          },
+          {
+            &quot;type&quot;: &quot;endpoint&quot;,
+            &quot;transcript&quot;: &quot;Bitte schlage mir ein lustiges Spiel vor.&quot;,
+            &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+            &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+            &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+            &quot;timing&quot;: {
+              &quot;speaker_assignment_ms&quot;: 0.064,
+              &quot;speaker_embedding_wait_ms&quot;: 0.001,
+              &quot;speaker_lookup_ms&quot;: 0.062,
+              &quot;speaker_prefetch_used&quot;: true,
+              &quot;speaker_prefetch_compute_ms&quot;: 55.17,
+              &quot;sentence_queue_ms&quot;: 0.13,
+              &quot;sentence_audio_s&quot;: 6.4
+            },
+            &quot;received_ms&quot;: 6506.96
+          }
+        ]
+      },
+      {
+        &quot;case&quot;: &quot;noise_only&quot;,
+        &quot;pause_ms&quot;: 400,
+        &quot;gap_s&quot;: 0.12,
+        &quot;noise&quot;: true,
+        &quot;passed&quot;: true,
+        &quot;events&quot;: [
+          {
+            &quot;type&quot;: &quot;asr_settings&quot;,
+            &quot;speech_pause_ms&quot;: 400,
+            &quot;min_ms&quot;: 200,
+            &quot;max_ms&quot;: 2000,
+            &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+            &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+            &quot;received_ms&quot;: 55.49
+          }
+        ]
+      }
+    ],
+    &quot;vad_ms_per_32ms_frame&quot;: 0.1264776844177803,
+    &quot;vad_total_wall_ms&quot;: 17.66989380121231,
+    &quot;passed&quot;: true,
+    &quot;finished&quot;: 1792950209.731149
+  },
+  &quot;browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone&quot;: false,
+    &quot;url&quot;: &quot;https://arrive-locations-parade-research.trycloudflare.com&quot;,
+    &quot;started&quot;: 1792950232.3863406,
+    &quot;default_and_persistence&quot;: true,
+    &quot;live_settings_ack&quot;: true,
+    &quot;events&quot;: [
+      {
+        &quot;type&quot;: &quot;asr_settings&quot;,
+        &quot;speech_pause_ms&quot;: 950,
+        &quot;min_ms&quot;: 200,
+        &quot;max_ms&quot;: 2000,
+        &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+        &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+        &quot;at&quot;: 644.7999992370605
+      },
+      {
+        &quot;type&quot;: &quot;asr_settings&quot;,
+        &quot;speech_pause_ms&quot;: 1000,
+        &quot;min_ms&quot;: 200,
+        &quot;max_ms&quot;: 2000,
+        &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+        &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+        &quot;at&quot;: 707.9000015258789
+      },
+      {
+        &quot;type&quot;: &quot;asr_settings&quot;,
+        &quot;speech_pause_ms&quot;: 1000,
+        &quot;min_ms&quot;: 200,
+        &quot;max_ms&quot;: 2000,
+        &quot;vad&quot;: &quot;Silero ONNX CPU · neural speech activity&quot;,
+        &quot;submission&quot;: &quot;All pending sentences after a speech pause&quot;,
+        &quot;at&quot;: 711.2000007629395
+      },
+      {
+        &quot;type&quot;: &quot;asr_sentence&quot;,
+        &quot;text&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.&quot;,
+        &quot;audio_s&quot;: 9.6,
+        &quot;queued&quot;: false,
+        &quot;reason&quot;: &quot;neural speech pause&quot;,
+        &quot;speech_pause_ms&quot;: 1000,
+        &quot;observed_quiet_ms&quot;: 1112,
+        &quot;at&quot;: 12658.100002288818
+      },
+      {
+        &quot;type&quot;: &quot;endpoint&quot;,
+        &quot;transcript&quot;: &quot;Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.&quot;,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;speaker_name&quot;: &quot;Speaker 1&quot;,
+        &quot;by&quot;: &quot;asr_complete_sentence&quot;,
+        &quot;timing&quot;: {
+          &quot;speaker_assignment_ms&quot;: 0.056,
+          &quot;speaker_embedding_wait_ms&quot;: 0.001,
+          &quot;speaker_lookup_ms&quot;: 0.055,
+          &quot;speaker_prefetch_used&quot;: true,
+          &quot;speaker_prefetch_compute_ms&quot;: 59.24,
+          &quot;sentence_queue_ms&quot;: 0.12,
+          &quot;sentence_audio_s&quot;: 9.6
+        },
+        &quot;at&quot;: 12658.79999923706
+      }
+    ],
+    &quot;errors&quot;: [],
+    &quot;audio_chunks&quot;: 1,
+    &quot;live_change_to_300&quot;: true,
+    &quot;finished&quot;: 1792950248.267443
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1792950146.6347888,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_visual_identity&quot;
+    ],
+    &quot;tests&quot;: 349,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  }
+}</pre></details><p>Generated 2026-10-25 17:45 UTC.</p></html>

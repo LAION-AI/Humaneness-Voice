@@ -15,6 +15,46 @@ it is approximate session memory, not reliable biometric authentication.
 
 ## Local sentence streaming and latency report (2026-10-25)
 
+### Input waits for a speech pause
+
+The **Speech pause before replying** slider above the camera controls selects
+200–2,000 ms (default 400 ms), persists as `robby.speechPauseMs` in this browser
+and is sent on every connection using `asr:pause_ms:<milliseconds>`. A live change
+is acknowledged with `asr_settings`. `ROBO_SPEECH_PAUSE_MS` sets the server
+fallback. This control applies to the local open-voice mode, preserving the
+older strict speaker-gated mode's separate endpoint policy.
+
+Neither punctuation nor a native TYGER endpoint submits input immediately.
+They update a preview. All consecutive input sentences become one LLM turn
+after the selected pause. A final bounded ASR pass checks the tail; resuming
+speech while it runs invalidates that flush. Submitted audio is excluded from
+the next turn's pre-roll. Later speech after an already submitted turn queues
+as a new turn: an in-flight LLM request cannot accept retroactive input. LLM
+output sentences still enter streaming TTS as soon as each is complete.
+
+`pause_vad.py` uses the 1.29-MB [Silero VAD](https://github.com/snakers4/silero-vad)
+16-kHz opset-15 ONNX model on CPU, one inference thread, 32-ms windows and
+64-ms speech-onset confirmation with probability hysteresis. It observes the
+existing mic packets on a worker thread; the frozen Nemotron/TYGER inputs are
+unchanged. Background energy does not reset the timer. Actual background
+speech can still count as speech; this is not speaker separation. A strongly
+correlated playback-reference echo is suppressed for the pause clock, but this
+is not certified acoustic echo cancellation. Explicit Stop remains immediate.
+
+`bootstrap.py` and server startup fetch/cache only the pinned public model:
+revision `066409f3d9db45a30d21dfcbf9147826ffdd7052`, SHA256
+`7ed98ddbad84ccac4cd0aeb3099049280713df825c610a8ed34543318f1b2c49`.
+Default cache: `~/.cache/robo-vad/silero_vad_16k_op15.onnx`; `ROBO_VAD_MODEL`
+can point to the same verified model on an offline host. No microphone files
+are written by the live path. The upstream model is MIT-licensed.
+
+Run `python validate_speech_pause.py` for real-time paced authored speech/noise
+checks, then `browser_speech_pause_check.py` via the documented Playwright setup
+for HTTPS slider/default/persistence and actual microphone-to-TTS checks.
+These audio tests must run serially. The [pause update report](static/speech-pause-update.html)
+records results and limits; the earlier speed report retains its original,
+pre-pause-gate latency records.
+
 The current live configuration is `ROBO_DIRECTOR_MODE=bolt` and
 `ROBO_SENTENCE_STREAM=1`. All intelligible voices are admitted without a wake
 phrase or introduction. Approximate nearest-prototype ECAPA matching assigns
@@ -26,8 +66,10 @@ The threshold controls voice labelling rather than permission to speak.
 The local LLM streams short cues and words. One hundred fixed GENERAL templates
 (40 emotions at two strengths, plus 10 delivery styles at two strengths) replace
 generated GENERAL prose for ordinary replies. Completed output sentences enter
-TTS immediately while the LLM continues. Later input sentences queue in order
-for subsequent requests; a running decode cannot be retroactively edited.
+TTS immediately while the LLM continues. Input punctuation stays preview-only:
+all pending input sentences form one turn after a configurable neural speech
+pause (400 ms default). Later turns queue in order; a running LLM decode cannot
+be retroactively edited.
 Read-only information tools and avatar tools retain the verified tool loop
 through the same local model. Direct rotations retain their six-second,
 playback-anchored fallback.

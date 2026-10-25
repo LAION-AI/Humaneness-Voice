@@ -7,6 +7,13 @@
 <div class="eyebrow">A FACE. A VOICE. A CONVERSATION.</div><h1>Talk to Robby.</h1>
 <div id="quick-controls" class="quick-controls">
 <div class="call-controls"><button id="call" class="primary" disabled>◉ Start talking</button><button id="camera" class="secondary">Starting camera…</button><button id="interrupt" class="secondary" aria-label="Stop Robby speaking">Stop reply</button></div>
+<section id="speech-pause-controls" hidden aria-label="Wait for a speech pause">
+<label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">400 ms</output></label>
+<input id="speech-pause" type="range" min="200" max="2000" step="50" value="400">
+<p>Collect all your sentences until you pause. Lower is faster; higher gives you more thinking time. Background sounds do not count as speech. Changes are remembered in this browser.</p>
+<p id="speech-pause-status" role="status">Neural speech detection · waiting for microphone.</p>
+<a href="/static/speech-pause-update.html" target="_blank" rel="noopener">How it works &amp; test results ↗</a>
+</section>
 <div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox" checked> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
 <p id="follow-status" role="status">Camera permission is needed. Head movement follows your position, not your head rotation.</p>
 </div>
