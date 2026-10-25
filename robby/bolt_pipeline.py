@@ -3,7 +3,7 @@
 No generated waveform needs to finish before the first PCM chunk is sent.
 Cancellation closes both upstream streams and drops their bounded queues.
 """
-import asyncio,os,time,json
+import asyncio,os,time,json,uuid
 import paths
 import numpy as np
 from bolt_director import BoltDirector,needs_tools
@@ -19,11 +19,22 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
     start=time.perf_counter();metrics={};queue=asyncio.Queue(maxsize=4)
     chunk_frames=chunk_frames or int(os.environ.get('ROBO_BOLT_CHUNK_FRAMES','20'))
     if chunk_frames not in (2,5,10,20):raise ValueError('Unsupported TTS chunk size')
-    context=avatar_context or {};avatar_steps=explicit_spin(text);actions=[];sources=[]
+    from avatar_commands import explicit_actions,silent_requested
+    context=dict(avatar_context or {})
+    requested=explicit_actions(text,sum(h.get('role')=='user' for h in history)) if preset is None and not context.get('event') else []
+    avatar_steps=list(requested);actions=[];sources=[]
+    silent=bool(requested and silent_requested(text))
+    immediate=bool(requested and (silent or any(s['kind'] not in ('spin','carousel','afterglow') for s in requested)))
+    action_id=uuid.uuid4().hex if immediate else None
+    if requested:context['requested_actions']=requested
     if context.get('event'):
         state=await client.get('/api/state',timeout=3.)
         if state.json().get('busy'):
             yield 'done',{'silent':True,'reason':'optional event skipped while TTS is busy'};return
+    if immediate:
+        yield 'avatar_action',{'action_id':action_id,'steps':requested,'source':'validated_direct_request'}
+    if silent:
+        yield 'done',{'silent':True,'reason':'User explicitly requested a silent visual action'};return
 
     async def produce():
         try:
@@ -37,14 +48,26 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 from bolt_text import SentenceFramer
                 result=await CompactDirector().generate(client,text,identity,history,
                     interaction_state=interaction_state,avatar_context=context,provider=local_config())
-                avatar_steps[:]=result.get('avatar_actions',[]);actions[:]=result.get('interaction_actions',[])
+                avatar_steps[:]=requested or result.get('avatar_actions',[]);actions[:]=result.get('interaction_actions',[])
                 sources[:]=result.get('sources',[])
                 framer=SentenceFramer(lines_only=response_plan(text,history)['kind']=='poem')
                 for sentence in framer.feed(result['script'],final=True):
                     sentence.language=result['language'];await queue.put(sentence)
                 metrics['tool_director_ms']=result['director_ms']
             else:
-                async for sentence in BoltDirector().stream(client,text,identity,history,context,metrics,reply_words=reply_words):await queue.put(sentence)
+                count=0
+                for attempt in range(2 if requested else 1):
+                    try:
+                        async for sentence in BoltDirector().stream(client,text,identity,history,context,metrics,reply_words=reply_words):
+                            await queue.put(sentence);count+=1
+                    except ValueError:
+                        # Retry only an unspoken malformed completion. The
+                        # visual action was already dispatched and cannot be
+                        # duplicated, and no spoken words are replayed.
+                        if not requested or count or attempt:raise
+                    if count or not requested:break
+                    context['force_spoken_reaction']=True;metrics['spoken_reaction_retries']=attempt+1
+                if requested and not count:raise RuntimeError('The language model did not provide a spoken reaction')
         except asyncio.CancelledError:raise
         except Exception as exc:await queue.put(exc)
         await queue.put(None)
@@ -65,7 +88,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
             metadata={'text':join_sentences(spoken),'script':' '.join(scripts),'language':spec['language'],
                 'performance':{'sentences':list(cues),'source':'Local Nemotron sentence cues + fixed GENERAL catalogue',
                     'timing':'Sentence starts anchored to actual preceding PCM duration; within-sentence estimates'},
-                'avatar_actions':avatar_steps,'avatar_event':context.get('event'),
+                'avatar_actions':avatar_steps,'avatar_action_id':action_id,'avatar_event':context.get('event'),
                 'interaction_actions':actions if index==0 else [],'sources':sources,'speaker':identity,
                 'template_id':spec['template_id'],'sentence_index':index,'sentence_text':sentence.text,
                 'timing':{**metrics,'sentence_ready_ms':round((time.perf_counter()-start)*1000,2),'director_mode':'bolt',

@@ -28,7 +28,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','sentence_session.py','pause_vad.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+for _name in ('server.py','sentence_session.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -36,6 +36,8 @@ STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':Non
 class RoboConversation(Conversation):
     async def _on_text(self,payload):
         data=json.loads(payload)
+        if data.get('avatar_action'):
+            await self.ws.send_json({'type':'avatar_action',**data['avatar_action']});return
         if data.get('pipeline_metrics'):
             await self.ws.send_json({'type':'pipeline_metrics','metrics':data['pipeline_metrics']});return
         if data.get('text') and not data.get('status_only'):self.open_agent_text=data['text']
@@ -56,6 +58,7 @@ class RoboConversation(Conversation):
         await self.ws.send_json({'type':'backchannel' if data.get('bc') else 'reply','text':data['text'],
             'reply_id':self.playback.rid,'performance':data.get('performance'),
             'avatar_actions':data.get('avatar_actions',[]),
+            'avatar_action_id':data.get('avatar_action_id'),
             'avatar_event':data.get('avatar_event'),
             'sentence_index':data.get('sentence_index'),'sentence_text':data.get('sentence_text'),
             'speaker_id':(data.get('speaker') or {}).get('speaker_id'),'speaker_name':(data.get('speaker') or {}).get('display_name'),

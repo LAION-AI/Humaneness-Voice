@@ -138,6 +138,16 @@ export class AvatarActions{
  get inviteStartMs(){return (600-420*this.cuddleIntensity)*1000;}
  get inviteCooldownMs(){return (1800-1200*this.cuddleIntensity)*1000;}
  clear(){this.queue=[];this.plans.clear();this.started.clear();this.active=null;this.touch();}
+ hasRequested(id){return !!this.requestIds?.has(id);}
+ request(id,steps,now=performance.now()){
+  if(typeof id!=='string'||id.length>80||this.hasRequested(id))return false;
+  const safe=validateSteps(steps);if(!safe.length)return false;
+  this.requestIds??=new Set();this.requestIds.add(id);
+  while(this.requestIds.size>32)this.requestIds.delete(this.requestIds.values().next().value);
+  if(!this.enabled){this.warning='Requested action is disabled. Turn on Allow expressive actions.';return false;}
+  this.warning=matchMedia('(prefers-reduced-motion: reduce)').matches&&safe.some(s=>['spin','carousel'].includes(s.kind))?'Rotation suppressed by your browser’s reduced-motion preference.':'';
+  this.clear();return this.play(safe,'requested',now);
+ }
  touch(now=performance.now(),keepOptional=false){this.lastActivity=now;this.nextIdle=now+this.idleDelayMs;if(this.queue[0]?.source==='idle'||(!keepOptional&&this.queue[0]?.source==='optional')){this.queue=[];this.lastIdleEnd=now;}}
  set(id,steps,plan,source='reply'){const safe=validateSteps(steps);if(!safe.length||!id)return;
   this.warning=!this.enabled?'Requested action is disabled. Turn on Allow expressive actions.':matchMedia('(prefers-reduced-motion: reduce)').matches&&safe.some(s=>['spin','carousel'].includes(s.kind))?'Rotation suppressed by your browser’s reduced-motion preference.':'';
