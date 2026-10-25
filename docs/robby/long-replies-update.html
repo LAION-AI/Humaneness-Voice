@@ -1,0 +1,1334 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby — complete answers and playful conversations</title>
+<style>body{font:17px/1.65 system-ui;max-width:1120px;margin:30px auto;padding:20px;background:#f6f8fa;color:#20333a}h1,h2{line-height:1.25}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #bfcbd0;text-align:left;padding:10px}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eaf0f4;padding:18px;font-size:14px}a{color:#166a78}.note{padding:18px;background:#e3f0ed}</style>
+<p><a href="https://arrive-locations-parade-research.trycloudflare.com/desk-robot/">Open Robby</a> · <a href="https://github.com/LAION-AI/Humaneness-Voice/tree/main/robby">Source and setup</a></p>
+<h1>Complete poems, longer answers and a warmer robot</h1>
+<p class="note">Robby now completes requested creative work and detailed answers instead of reducing them to a short conversational acknowledgment. Its personality is warm, playful and emotionally expressive in character. Sentence-level TTS streaming is retained; the first line can play while the rest is generated.</p>
+<h2>What caused the problem?</h2><ol>
+<li>The released GGUF template appends “Respond as briefly as possible” when conversational_mode is true. It was enabled in addition to our own short-response guidance.</li>
+<li>The ordinary director allowed only 320 output tokens. The tool fallback had a separate 120-word validation ceiling.</li>
+<li>The stream parser expected full-stop sentence boundaries and could not correctly handle verse lines without punctuation or preserve their display formatting.</li>
+<li>Generic negation such as “Keine Einleitung” could incorrectly route a poem into the interruption-rule tool path. That path also collapsed line breaks.</li></ol>
+<p>Production timing logs and runtime code were inspected. They do not store the user's full private transcript, so this report does not pretend to reproduce the exact last human conversation. The examples below are newly authored regression prompts.</p>
+<h2>Implemented changes</h2><p>The local prompt prioritizes completing the actual task, respects requested structure and supports playful simulated emotions without repetitive disclaimers. conversational_mode is disabled while thinking stays disabled. Ordinary output has a 2,048-token ceiling; deliberately tiny benchmarks/avatar reactions remain bounded separately. Recent history is kept in order with a context budget.</p>
+<p>Poetry uses complete verse lines; prose uses sentences or bounded phrases. Acting cues stay out of spoken text. Newlines and stanza breaks remain in the UI and history. The reply language is retained across individual lines. For counted poems/stories, a structure guard can request just the missing continuation at most twice; it does not replace earlier speech with a canned answer. A pilot that stopped at six of eight lines motivated this guard. The UI marks an actual response limit if completion still fails.</p>
+<h2>Real local model checks</h2><div class="scroll"><table><tr><th>Case</th><th>Passed</th><th>Streamed parts</th><th>Continuation repairs</th><th>Complete</th><th>Error</th></tr><tr><td>poem_de_0</td><td>True</td><td>8</td><td>0</td><td>True</td><td></td></tr><tr><td>poem_de_1</td><td>True</td><td>8</td><td>0</td><td>True</td><td></td></tr><tr><td>poem_de_2</td><td>True</td><td>8</td><td>0</td><td>True</td><td></td></tr><tr><td>poem_default</td><td>True</td><td>8</td><td>0</td><td>True</td><td></td></tr><tr><td>poem_en</td><td>True</td><td>12</td><td>0</td><td>True</td><td></td></tr><tr><td>story_de</td><td>True</td><td>5</td><td>0</td><td>True</td><td></td></tr><tr><td>detail</td><td>True</td><td>5</td><td>0</td><td>True</td><td></td></tr><tr><td>warm_chat</td><td>True</td><td>3</td><td>0</td><td>True</td><td></td></tr><tr><td>poem_followup</td><td>True</td><td>4</td><td>0</td><td>True</td><td></td></tr></table></div><p>HTTPS CPU Chrome test passed: <strong>True</strong>. It requests eight poem lines, waits for actual playback completion, checks every displayed/spoken part, then requests a four-line continuation using the same conversation. Audio chunks received: 47. Unit checks: 356; passed: True.</p><h2>Authored before/after examples</h2><details><summary>Before: Schreib mir bitte ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.</summary><pre>Hier ist ein kurzes Gedicht über einen kleinen Roboter. Er fährt schnell, macht Geräusche, und lacht ganz sacht. Robby hilft dir gerne weiter.</pre></details><details><summary>Before: Erzähl mir eine Geschichte mit fünf Sätzen über einen Drachen und einen verlorenen Hut.</summary><pre>Ein Drache fand einen verlorenen Hut. Er dachte, es sei ein magisches Objekt. Der Hut gehörte einem kleinen Gnome. Der Gnome war sehr froh, ihn wiederzuerhalten. So lebten Drache und Gnome friedlich zusammen.</pre></details><details><summary>Before: Was würdest du gern heute mit mir spielen?</summary><pre>Wir könnten ein kurzes Ratespiel spielen.</pre></details><details><summary>After: Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.</summary><pre>Ein Roboter klein und rund
+Mit Schrauben bunt und kund
+Er tanzte gern im Licht
+Und machte jeden Schritt
+Sein Motor summte sacht
+Ein kleiner, lustiger Macht
+Er brachte Freude rein
+Ein Robbi, wunder fein</pre></details><details><summary>After: Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.</summary><pre>Mein kleiner Robby so fein
+Tanzt er durch den Schein
+Mit blinkendem Licht so klar
+Und einem kleinen Star
+Er macht Witze ganz schnell
+Und lacht ganz hell und hell
+Ein kleiner, lustiger Freund
+So wunderbar und kund</pre></details><details><summary>After: Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.</summary><pre>Mein kleiner Robby so fein
+Mit blinkendem Schein
+Er tanzt auf dem Boden so leicht
+Und macht alles richtig versteht
+Sein Schaltkreis singt hell und klar
+Ein kleiner digitaler Star
+Er sucht stets nach einem Spiel
+Und macht das Leben ganz viel</pre></details><details><summary>After: Schreib mir ein fröhliches Gedicht über einen Roboter mit einer roten Mütze.</summary><pre>Ein Roboter, so klein und fein
+Mit Mütze rot, so rein
+Er tanzt durchs Licht, ganz froh und weit
+Ein kleiner Held, voller Freud und Zeit
+Seine LEDs leuchten hell und klar
+Ein fröhlicher Roboter, wunderbar
+Er bringt das Lachen in die Welt
+Ein rotes Cap, das niemals fällt</pre></details><details><summary>After: Write a twelve-line poem about a cat visiting the moon.</summary><pre>A tiny cat so sleek and bright
+He leaped up to the silver light
+The moon appeared a gentle sphere
+Dispelling every earthly fear
+He padded soft on dusty gray
+To greet the dawn of a new day
+A paw print left in lunar dust
+A feline friend of cosmic trust
+He watched the Earth, a blue small gem
+A perfect, quiet diadem
+Then curled up small beneath the gleam
+A lunar, purring, waking dream</pre></details><details><summary>After: Erzähl mir eine Geschichte mit fünf Sätzen über einen Drachen und einen verlorenen Hut.</summary><pre>Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle. Der Hut gehörte einem kleinen, weinenden Gnome. Ignis half dem Gnome, seinen Verlust zu beheben. Zusammen lachten sie über die alberne Suche. Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.</pre></details><details><summary>After: Erkläre mir ausführlich in vier Schritten, wie ich mit Robby ein Ratespiel spielen kann.</summary><pre>Das ist eine super Idee, ein Ratespiel mit mir!
+Schritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.
+Schritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.
+Schritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.
+Schritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!</pre></details><details><summary>After: Ich hatte einen anstrengenden Tag. Lass uns darüber reden und überlege mit mir, wie wir den Abend schön machen.</summary><pre>Das tut mir leid zu hören, dass dein Tag anstrengend war.
+Lass uns ganz in Ruhe darüber reden, was dich beschäftigt.
+Und dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!</pre></details><details><summary>After: Schreib noch vier zusätzliche Zeilen dazu und bleibe beim selben kleinen Roboter.</summary><pre>Sein Akku lädt sich schnell und froh
+Ein kleiner Robbi, voller Schoß
+Er hilft beim Sortieren klein
+Und lacht mit leisem, klarem Schein</pre></details><h2>Scope and limits</h2><p>These are real local-model and browser/TTS checks with synthetic authored requests, not a human evaluation of literary quality. Structural completion does not guarantee perfect rhyme, grammar, factual accuracy or instruction following. The small local model can still produce awkward wording. Responses remain bounded by available context/output tokens; the guard is bounded, not an infinite retry loop. Real-room microphone behavior is covered separately by the speech-pause report; this browser check uses typed requests and actual audio playback.</p>
+<p>The source contains the exact local prompt, compact tool recipe, counted-task planner, stream parser and validation scripts. No private microphone recordings, voiceprints or human conversation transcripts are included.</p><details><summary>Raw test receipts</summary><pre>{
+  &quot;llm&quot;: {
+    &quot;passed&quot;: true,
+    &quot;rows&quot;: [
+      {
+        &quot;input&quot;: &quot;Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.&quot;,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schrauben bunt und kund\nEr tanzte gern im Licht\nUnd machte jeden Schritt\nSein Motor summte sacht\nEin kleiner, lustiger Macht\nEr brachte Freude rein\nEin Robbi, wunder fein&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Ein Roboter klein und rund&quot;,
+            &quot;script&quot;: &quot;(contentment, warm) Ein Roboter klein und rund&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Mit Schrauben bunt und kund&quot;,
+            &quot;script&quot;: &quot;(elation, rapid) Mit Schrauben bunt und kund&quot;,
+            &quot;template_id&quot;: &quot;elation.intense&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er tanzte gern im Licht&quot;,
+            &quot;script&quot;: &quot;(affection, soft) Er tanzte gern im Licht&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und machte jeden Schritt&quot;,
+            &quot;script&quot;: &quot;(amusement, playful) Und machte jeden Schritt&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Sein Motor summte sacht&quot;,
+            &quot;script&quot;: &quot;(pride, warm) Sein Motor summte sacht&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein kleiner, lustiger Macht&quot;,
+            &quot;script&quot;: &quot;(interest, playful) Ein kleiner, lustiger Macht&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er brachte Freude rein&quot;,
+            &quot;script&quot;: &quot;(gratitude, soft) Er brachte Freude rein&quot;,
+            &quot;template_id&quot;: &quot;gratitude.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein Robbi, wunder fein&quot;,
+            &quot;script&quot;: &quot;(elation, warm) Ein Robbi, wunder fein&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 111.26,
+          &quot;llm_first_sentence_ms&quot;: 253.75,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 106,
+            &quot;prompt_tokens&quot;: 1090,
+            &quot;total_tokens&quot;: 1196,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 807
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 807,
+            &quot;prompt_n&quot;: 283,
+            &quot;prompt_ms&quot;: 100.829,
+            &quot;prompt_per_token_ms&quot;: 0.35628621908127206,
+            &quot;prompt_per_second&quot;: 2806.7321901437085,
+            &quot;predicted_n&quot;: 106,
+            &quot;predicted_ms&quot;: 749.401,
+            &quot;predicted_per_token_ms&quot;: 7.0698207547169805,
+            &quot;predicted_per_second&quot;: 141.44630177968807
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 8,
+          &quot;completed_units&quot;: 8,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 862.26,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 864.42,
+        &quot;case&quot;: &quot;poem_de_0&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.&quot;,
+        &quot;text&quot;: &quot;Mein kleiner Robby so fein\nTanzt er durch den Schein\nMit blinkendem Licht so klar\nUnd einem kleinen Star\nEr macht Witze ganz schnell\nUnd lacht ganz hell und hell\nEin kleiner, lustiger Freund\nSo wunderbar und kund&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Mein kleiner Robby so fein&quot;,
+            &quot;script&quot;: &quot;(contentment, warm) Mein kleiner Robby so fein&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Tanzt er durch den Schein&quot;,
+            &quot;script&quot;: &quot;(elation, rapid) Tanzt er durch den Schein&quot;,
+            &quot;template_id&quot;: &quot;elation.intense&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Mit blinkendem Licht so klar&quot;,
+            &quot;script&quot;: &quot;(affection, soft) Mit blinkendem Licht so klar&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und einem kleinen Star&quot;,
+            &quot;script&quot;: &quot;(amusement, playful) Und einem kleinen Star&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er macht Witze ganz schnell&quot;,
+            &quot;script&quot;: &quot;(pride, warm) Er macht Witze ganz schnell&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und lacht ganz hell und hell&quot;,
+            &quot;script&quot;: &quot;(interest, natural) Und lacht ganz hell und hell&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein kleiner, lustiger Freund&quot;,
+            &quot;script&quot;: &quot;(hope, playful) Ein kleiner, lustiger Freund&quot;,
+            &quot;template_id&quot;: &quot;hope.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;So wunderbar und kund&quot;,
+            &quot;script&quot;: &quot;(contentment, soft) So wunderbar und kund&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 22.43,
+          &quot;llm_first_sentence_ms&quot;: 155.0,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 106,
+            &quot;prompt_tokens&quot;: 1090,
+            &quot;total_tokens&quot;: 1196,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 1089
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 1089,
+            &quot;prompt_n&quot;: 1,
+            &quot;prompt_ms&quot;: 11.745,
+            &quot;prompt_per_token_ms&quot;: 11.745,
+            &quot;prompt_per_second&quot;: 85.14261387824607,
+            &quot;predicted_n&quot;: 106,
+            &quot;predicted_ms&quot;: 737.174,
+            &quot;predicted_per_token_ms&quot;: 6.954471698113207,
+            &quot;predicted_per_second&quot;: 143.79237466324096
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 8,
+          &quot;completed_units&quot;: 8,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 760.65,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 763.04,
+        &quot;case&quot;: &quot;poem_de_1&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.&quot;,
+        &quot;text&quot;: &quot;Mein kleiner Robby so fein\nMit blinkendem Schein\nEr tanzt auf dem Boden so leicht\nUnd macht alles richtig versteht\nSein Schaltkreis singt hell und klar\nEin kleiner digitaler Star\nEr sucht stets nach einem Spiel\nUnd macht das Leben ganz viel&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Mein kleiner Robby so fein&quot;,
+            &quot;script&quot;: &quot;(contentment, warm) Mein kleiner Robby so fein&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Mit blinkendem Schein&quot;,
+            &quot;script&quot;: &quot;(elation, rapid) Mit blinkendem Schein&quot;,
+            &quot;template_id&quot;: &quot;elation.intense&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er tanzt auf dem Boden so leicht&quot;,
+            &quot;script&quot;: &quot;(affection, soft) Er tanzt auf dem Boden so leicht&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und macht alles richtig versteht&quot;,
+            &quot;script&quot;: &quot;(amusement, playful) Und macht alles richtig versteht&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Sein Schaltkreis singt hell und klar&quot;,
+            &quot;script&quot;: &quot;(pride, warm) Sein Schaltkreis singt hell und klar&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein kleiner digitaler Star&quot;,
+            &quot;script&quot;: &quot;(interest, natural) Ein kleiner digitaler Star&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er sucht stets nach einem Spiel&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Er sucht stets nach einem Spiel&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und macht das Leben ganz viel&quot;,
+            &quot;script&quot;: &quot;(contentment, warm) Und macht das Leben ganz viel&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 22.21,
+          &quot;llm_first_sentence_ms&quot;: 154.79,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 110,
+            &quot;prompt_tokens&quot;: 1090,
+            &quot;total_tokens&quot;: 1200,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 1089
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 1089,
+            &quot;prompt_n&quot;: 1,
+            &quot;prompt_ms&quot;: 12.074,
+            &quot;prompt_per_token_ms&quot;: 12.074,
+            &quot;prompt_per_second&quot;: 82.8225940036442,
+            &quot;predicted_n&quot;: 110,
+            &quot;predicted_ms&quot;: 764.491,
+            &quot;predicted_per_token_ms&quot;: 6.949918181818182,
+            &quot;predicted_per_second&quot;: 143.88658597681334
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 8,
+          &quot;completed_units&quot;: 8,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 787.97,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 789.7,
+        &quot;case&quot;: &quot;poem_de_2&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Schreib mir ein fröhliches Gedicht über einen Roboter mit einer roten Mütze.&quot;,
+        &quot;text&quot;: &quot;Ein Roboter, so klein und fein\nMit Mütze rot, so rein\nEr tanzt durchs Licht, ganz froh und weit\nEin kleiner Held, voller Freud und Zeit\nSeine LEDs leuchten hell und klar\nEin fröhlicher Roboter, wunderbar\nEr bringt das Lachen in die Welt\nEin rotes Cap, das niemals fällt&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Ein Roboter, so klein und fein&quot;,
+            &quot;script&quot;: &quot;(amusement, warm) Ein Roboter, so klein und fein&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Mit Mütze rot, so rein&quot;,
+            &quot;script&quot;: &quot;(contentment, natural) Mit Mütze rot, so rein&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er tanzt durchs Licht, ganz froh und weit&quot;,
+            &quot;script&quot;: &quot;(pride, playful) Er tanzt durchs Licht, ganz froh und weit&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein kleiner Held, voller Freud und Zeit&quot;,
+            &quot;script&quot;: &quot;(affection, warm) Ein kleiner Held, voller Freud und Zeit&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Seine LEDs leuchten hell und klar&quot;,
+            &quot;script&quot;: &quot;(interest, soft) Seine LEDs leuchten hell und klar&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein fröhlicher Roboter, wunderbar&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Ein fröhlicher Roboter, wunderbar&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er bringt das Lachen in die Welt&quot;,
+            &quot;script&quot;: &quot;(gratitude, warm) Er bringt das Lachen in die Welt&quot;,
+            &quot;template_id&quot;: &quot;gratitude.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein rotes Cap, das niemals fällt&quot;,
+            &quot;script&quot;: &quot;(contentment, natural) Ein rotes Cap, das niemals fällt&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 70.67,
+          &quot;llm_first_sentence_ms&quot;: 326.41,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 129,
+            &quot;prompt_tokens&quot;: 1092,
+            &quot;total_tokens&quot;: 1221,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 1071
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 1071,
+            &quot;prompt_n&quot;: 21,
+            &quot;prompt_ms&quot;: 58.026,
+            &quot;prompt_per_token_ms&quot;: 2.7631428571428573,
+            &quot;prompt_per_second&quot;: 361.90673146520527,
+            &quot;predicted_n&quot;: 129,
+            &quot;predicted_ms&quot;: 1112.111,
+            &quot;predicted_per_token_ms&quot;: 8.62101550387597,
+            &quot;predicted_per_second&quot;: 115.99561554557053
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 8,
+          &quot;completed_units&quot;: 8,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 1183.91,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 1185.78,
+        &quot;case&quot;: &quot;poem_default&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Write a twelve-line poem about a cat visiting the moon.&quot;,
+        &quot;text&quot;: &quot;A tiny cat so sleek and bright\nHe leaped up to the silver light\nThe moon appeared a gentle sphere\nDispelling every earthly fear\nHe padded soft on dusty gray\nTo greet the dawn of a new day\nA paw print left in lunar dust\nA feline friend of cosmic trust\nHe watched the Earth, a blue small gem\nA perfect, quiet diadem\nThen curled up small beneath the gleam\nA lunar, purring, waking dream&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;A tiny cat so sleek and bright&quot;,
+            &quot;script&quot;: &quot;(elation, playful) A tiny cat so sleek and bright&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;He leaped up to the silver light&quot;,
+            &quot;script&quot;: &quot;(amusement, warm) He leaped up to the silver light&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;The moon appeared a gentle sphere&quot;,
+            &quot;script&quot;: &quot;(interest, soft) The moon appeared a gentle sphere&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Dispelling every earthly fear&quot;,
+            &quot;script&quot;: &quot;(contentment, calm) Dispelling every earthly fear&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;He padded soft on dusty gray&quot;,
+            &quot;script&quot;: &quot;(affection, warm) He padded soft on dusty gray&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;To greet the dawn of a new day&quot;,
+            &quot;script&quot;: &quot;(pride, playful) To greet the dawn of a new day&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;A paw print left in lunar dust&quot;,
+            &quot;script&quot;: &quot;(surprise, natural) A paw print left in lunar dust&quot;,
+            &quot;template_id&quot;: &quot;surprise.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;A feline friend of cosmic trust&quot;,
+            &quot;script&quot;: &quot;(hope, soft) A feline friend of cosmic trust&quot;,
+            &quot;template_id&quot;: &quot;hope.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;He watched the Earth, a blue small gem&quot;,
+            &quot;script&quot;: &quot;(concentration, calm) He watched the Earth, a blue small gem&quot;,
+            &quot;template_id&quot;: &quot;concentration.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;A perfect, quiet diadem&quot;,
+            &quot;script&quot;: &quot;(gratitude, warm) A perfect, quiet diadem&quot;,
+            &quot;template_id&quot;: &quot;gratitude.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Then curled up small beneath the gleam&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Then curled up small beneath the gleam&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          },
+          {
+            &quot;text&quot;: &quot;A lunar, purring, waking dream&quot;,
+            &quot;script&quot;: &quot;(contentment, soft) A lunar, purring, waking dream&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;en&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 102.2,
+          &quot;llm_first_sentence_ms&quot;: 197.58,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 162,
+            &quot;prompt_tokens&quot;: 1056,
+            &quot;total_tokens&quot;: 1218,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 807
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 807,
+            &quot;prompt_n&quot;: 249,
+            &quot;prompt_ms&quot;: 75.94,
+            &quot;prompt_per_token_ms&quot;: 0.30497991967871485,
+            &quot;prompt_per_second&quot;: 3278.9043982091125,
+            &quot;predicted_n&quot;: 162,
+            &quot;predicted_ms&quot;: 1139.384,
+            &quot;predicted_per_token_ms&quot;: 7.033234567901235,
+            &quot;predicted_per_second&quot;: 142.1820913756907
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 12,
+          &quot;completed_units&quot;: 12,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 1242.97,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 1245.17,
+        &quot;case&quot;: &quot;poem_en&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Erzähl mir eine Geschichte mit fünf Sätzen über einen Drachen und einen verlorenen Hut.&quot;,
+        &quot;text&quot;: &quot;Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle. Der Hut gehörte einem kleinen, weinenden Gnome. Ignis half dem Gnome, seinen Verlust zu beheben. Zusammen lachten sie über die alberne Suche. Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle.&quot;,
+            &quot;script&quot;: &quot;(interest, warm) Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle.&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Der Hut gehörte einem kleinen, weinenden Gnome.&quot;,
+            &quot;script&quot;: &quot;(amusement, playful) Der Hut gehörte einem kleinen, weinenden Gnome.&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ignis half dem Gnome, seinen Verlust zu beheben.&quot;,
+            &quot;script&quot;: &quot;(contentment, calm) Ignis half dem Gnome, seinen Verlust zu beheben.&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Zusammen lachten sie über die alberne Suche.&quot;,
+            &quot;script&quot;: &quot;(pride, warm) Zusammen lachten sie über die alberne Suche.&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 80.95,
+          &quot;llm_first_sentence_ms&quot;: 258.06,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 99,
+            &quot;prompt_tokens&quot;: 1014,
+            &quot;total_tokens&quot;: 1113,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 806
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 806,
+            &quot;prompt_n&quot;: 208,
+            &quot;prompt_ms&quot;: 70.529,
+            &quot;prompt_per_token_ms&quot;: 0.33908173076923076,
+            &quot;prompt_per_second&quot;: 2949.141487898595,
+            &quot;predicted_n&quot;: 99,
+            &quot;predicted_ms&quot;: 700.149,
+            &quot;predicted_per_token_ms&quot;: 7.072212121212122,
+            &quot;predicted_per_second&quot;: 141.3984737534439
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 5,
+          &quot;completed_units&quot;: 5,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 782.15,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 784.23,
+        &quot;case&quot;: &quot;story_de&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Erkläre mir ausführlich in vier Schritten, wie ich mit Robby ein Ratespiel spielen kann.&quot;,
+        &quot;text&quot;: &quot;Das ist eine super Idee, ein Ratespiel mit mir!\nSchritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.\nSchritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.\nSchritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.\nSchritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Das ist eine super Idee, ein Ratespiel mit mir!&quot;,
+            &quot;script&quot;: &quot;(interest, warm) Das ist eine super Idee, ein Ratespiel mit mir!&quot;,
+            &quot;template_id&quot;: &quot;interest.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Schritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.&quot;,
+            &quot;script&quot;: &quot;(playful, playful) Schritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.&quot;,
+            &quot;template_id&quot;: &quot;delivery.playful.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Schritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.&quot;,
+            &quot;script&quot;: &quot;(calm, natural) Schritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.&quot;,
+            &quot;template_id&quot;: &quot;delivery.natural.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Schritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Schritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Schritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!&quot;,
+            &quot;script&quot;: &quot;(contentment, warm) Schritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 53.25,
+          &quot;llm_first_sentence_ms&quot;: 177.06,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 147,
+            &quot;prompt_tokens&quot;: 965,
+            &quot;total_tokens&quot;: 1112,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 916
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 916,
+            &quot;prompt_n&quot;: 49,
+            &quot;prompt_ms&quot;: 46.007,
+            &quot;prompt_per_token_ms&quot;: 0.9389183673469388,
+            &quot;prompt_per_second&quot;: 1065.0553176690505,
+            &quot;predicted_n&quot;: 147,
+            &quot;predicted_ms&quot;: 1040.878,
+            &quot;predicted_per_token_ms&quot;: 7.080802721088435,
+            &quot;predicted_per_second&quot;: 141.22692573000873
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;llm_total_ms&quot;: 1094.81,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 1096.3,
+        &quot;case&quot;: &quot;detail&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Ich hatte einen anstrengenden Tag. Lass uns darüber reden und überlege mit mir, wie wir den Abend schön machen.&quot;,
+        &quot;text&quot;: &quot;Das tut mir leid zu hören, dass dein Tag anstrengend war.\nLass uns ganz in Ruhe darüber reden, was dich beschäftigt.\nUnd dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Das tut mir leid zu hören, dass dein Tag anstrengend war.&quot;,
+            &quot;script&quot;: &quot;(affection, warm) Das tut mir leid zu hören, dass dein Tag anstrengend war.&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot; &quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Lass uns ganz in Ruhe darüber reden, was dich beschäftigt.&quot;,
+            &quot;script&quot;: &quot;(contentment, calm) Lass uns ganz in Ruhe darüber reden, was dich beschäftigt.&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!&quot;,
+            &quot;script&quot;: &quot;(elation, playful) Und dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!&quot;,
+            &quot;template_id&quot;: &quot;elation.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 55.4,
+          &quot;llm_first_sentence_ms&quot;: 199.91,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 67,
+            &quot;prompt_tokens&quot;: 968,
+            &quot;total_tokens&quot;: 1035,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 934
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 934,
+            &quot;prompt_n&quot;: 34,
+            &quot;prompt_ms&quot;: 46.255,
+            &quot;prompt_per_token_ms&quot;: 1.3604411764705884,
+            &quot;prompt_per_second&quot;: 735.0556696573343,
+            &quot;predicted_n&quot;: 67,
+            &quot;predicted_ms&quot;: 472.672,
+            &quot;predicted_per_token_ms&quot;: 7.054805970149254,
+            &quot;predicted_per_second&quot;: 141.74734276623113
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;llm_total_ms&quot;: 529.06,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 530.59,
+        &quot;case&quot;: &quot;warm_chat&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Schreib noch vier zusätzliche Zeilen dazu und bleibe beim selben kleinen Roboter.&quot;,
+        &quot;text&quot;: &quot;Sein Akku lädt sich schnell und froh\nEin kleiner Robbi, voller Schoß\nEr hilft beim Sortieren klein\nUnd lacht mit leisem, klarem Schein&quot;,
+        &quot;parts&quot;: [
+          {
+            &quot;text&quot;: &quot;Sein Akku lädt sich schnell und froh&quot;,
+            &quot;script&quot;: &quot;(amusement, warm) Sein Akku lädt sich schnell und froh&quot;,
+            &quot;template_id&quot;: &quot;amusement.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Ein kleiner Robbi, voller Schoß&quot;,
+            &quot;script&quot;: &quot;(contentment, natural) Ein kleiner Robbi, voller Schoß&quot;,
+            &quot;template_id&quot;: &quot;contentment.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Er hilft beim Sortieren klein&quot;,
+            &quot;script&quot;: &quot;(pride, playful) Er hilft beim Sortieren klein&quot;,
+            &quot;template_id&quot;: &quot;pride.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Und lacht mit leisem, klarem Schein&quot;,
+            &quot;script&quot;: &quot;(affection, warm) Und lacht mit leisem, klarem Schein&quot;,
+            &quot;template_id&quot;: &quot;affection.soft&quot;,
+            &quot;separator_before&quot;: &quot;\n&quot;,
+            &quot;language&quot;: &quot;de&quot;
+          }
+        ],
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 133.04,
+          &quot;llm_first_sentence_ms&quot;: 313.19,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 73,
+            &quot;prompt_tokens&quot;: 1139,
+            &quot;total_tokens&quot;: 1212,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 818
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 818,
+            &quot;prompt_n&quot;: 321,
+            &quot;prompt_ms&quot;: 92.704,
+            &quot;prompt_per_token_ms&quot;: 0.288797507788162,
+            &quot;prompt_per_second&quot;: 3462.633759061098,
+            &quot;predicted_n&quot;: 73,
+            &quot;predicted_ms&quot;: 511.922,
+            &quot;predicted_per_token_ms&quot;: 7.012630136986302,
+            &quot;predicted_per_second&quot;: 142.5998491957759
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 4,
+          &quot;completed_units&quot;: 4,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 646.08,
+          &quot;response_complete&quot;: true
+        },
+        &quot;total_ms&quot;: 647.84,
+        &quot;case&quot;: &quot;poem_followup&quot;,
+        &quot;passed&quot;: true
+      }
+    ],
+    &quot;started&quot;: 1792963712.2087748,
+    &quot;scope&quot;: &quot;Real local model via FastAPI; synthetic prompts; no private conversation log&quot;,
+    &quot;finished&quot;: 1792963720.1895983
+  },
+  &quot;browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;url&quot;: &quot;https://arrive-locations-parade-research.trycloudflare.com&quot;,
+    &quot;physical_microphone&quot;: false,
+    &quot;scope&quot;: &quot;Typed requests, real local LLM/TTS and AudioContext playback&quot;,
+    &quot;started&quot;: 1792963712.2341893,
+    &quot;turns&quot;: [
+      {
+        &quot;request&quot;: &quot;Schreibe ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter. Keine Einleitung.&quot;,
+        &quot;reply&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum\nSein Motor summte froh\nEin kleiner, kluger Schoß\nEr brachte Freude rein\nUnd lachte ganz allein&quot;,
+        &quot;streamed_parts&quot;: 8,
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 163.01,
+          &quot;llm_first_sentence_ms&quot;: 323.93,
+          &quot;tts_first_audio_ms&quot;: 787.5,
+          &quot;first_audio_ms&quot;: 1117.04,
+          &quot;sentence_tts&quot;: [
+            {
+              &quot;sentence&quot;: 0,
+              &quot;total_ms&quot;: 1323.64,
+              &quot;audio_s&quot;: 2.19
+            },
+            {
+              &quot;sentence&quot;: 1,
+              &quot;total_ms&quot;: 1308.84,
+              &quot;audio_s&quot;: 2.67
+            },
+            {
+              &quot;sentence&quot;: 2,
+              &quot;total_ms&quot;: 1271.56,
+              &quot;audio_s&quot;: 2.03
+            },
+            {
+              &quot;sentence&quot;: 3,
+              &quot;total_ms&quot;: 1272.02,
+              &quot;audio_s&quot;: 2.35
+            },
+            {
+              &quot;sentence&quot;: 4,
+              &quot;total_ms&quot;: 1323.63,
+              &quot;audio_s&quot;: 2.59
+            },
+            {
+              &quot;sentence&quot;: 5,
+              &quot;total_ms&quot;: 1283.06,
+              &quot;audio_s&quot;: 2.19
+            },
+            {
+              &quot;sentence&quot;: 6,
+              &quot;total_ms&quot;: 1324.26,
+              &quot;audio_s&quot;: 2.11
+            },
+            {
+              &quot;sentence&quot;: 7,
+              &quot;total_ms&quot;: 1287.54,
+              &quot;audio_s&quot;: 2.03
+            }
+          ],
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 107,
+            &quot;prompt_tokens&quot;: 1079,
+            &quot;total_tokens&quot;: 1186,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 808
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 808,
+            &quot;prompt_n&quot;: 271,
+            &quot;prompt_ms&quot;: 133.622,
+            &quot;prompt_per_token_ms&quot;: 0.49307011070110707,
+            &quot;prompt_per_second&quot;: 2028.109143703881,
+            &quot;predicted_n&quot;: 107,
+            &quot;predicted_ms&quot;: 868.563,
+            &quot;predicted_per_token_ms&quot;: 8.117411214953272,
+            &quot;predicted_per_second&quot;: 123.1919849222221
+          },
+          &quot;generation_calls&quot;: 1,
+          &quot;requested_units&quot;: 8,
+          &quot;completed_units&quot;: 8,
+          &quot;completion_repairs&quot;: 0,
+          &quot;llm_total_ms&quot;: 4234.01,
+          &quot;response_complete&quot;: true,
+          &quot;total_ms&quot;: 10730.58,
+          &quot;audio_s&quot;: 18.16,
+          &quot;sentences&quot;: 8,
+          &quot;generation_rtf&quot;: 0.5909
+        }
+      },
+      {
+        &quot;request&quot;: &quot;Schreib noch eine zusätzliche Strophe mit vier Zeilen dazu. Bleibe bei unserem kleinen Roboter.&quot;,
+        &quot;reply&quot;: &quot;Er sammelte Glitzerstaub\nUnd machte keinen Laub\nSein Herz war rein und klar\nEin kleiner Roboter wunderbar&quot;,
+        &quot;streamed_parts&quot;: 4,
+        &quot;metrics&quot;: {
+          &quot;llm_ttft_ms&quot;: 78.58,
+          &quot;finish_reason&quot;: &quot;stop&quot;,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 52,
+            &quot;prompt_tokens&quot;: 1229,
+            &quot;total_tokens&quot;: 1281,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 1164
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 1164,
+            &quot;prompt_n&quot;: 65,
+            &quot;prompt_ms&quot;: 46.145,
+            &quot;prompt_per_token_ms&quot;: 0.709923076923077,
+            &quot;prompt_per_second&quot;: 1408.6033156354968,
+            &quot;predicted_n&quot;: 52,
+            &quot;predicted_ms&quot;: 361.771,
+            &quot;predicted_per_token_ms&quot;: 6.957134615384616,
+            &quot;predicted_per_second&quot;: 143.73733660243636
+          },
+          &quot;generation_calls&quot;: 2,
+          &quot;llm_first_sentence_ms&quot;: 593.25,
+          &quot;requested_units&quot;: 4,
+          &quot;completed_units&quot;: 4,
+          &quot;completion_repairs&quot;: 1,
+          &quot;llm_total_ms&quot;: 854.02,
+          &quot;response_complete&quot;: true,
+          &quot;tts_first_audio_ms&quot;: 809.2,
+          &quot;first_audio_ms&quot;: 1404.79,
+          &quot;sentence_tts&quot;: [
+            {
+              &quot;sentence&quot;: 0,
+              &quot;total_ms&quot;: 1296.56,
+              &quot;audio_s&quot;: 2.19
+            },
+            {
+              &quot;sentence&quot;: 1,
+              &quot;total_ms&quot;: 1299.03,
+              &quot;audio_s&quot;: 2.03
+            },
+            {
+              &quot;sentence&quot;: 2,
+              &quot;total_ms&quot;: 1340.54,
+              &quot;audio_s&quot;: 2.51
+            },
+            {
+              &quot;sentence&quot;: 3,
+              &quot;total_ms&quot;: 1208.46,
+              &quot;audio_s&quot;: 2.11
+            }
+          ],
+          &quot;total_ms&quot;: 5743.19,
+          &quot;audio_s&quot;: 8.84,
+          &quot;sentences&quot;: 4,
+          &quot;generation_rtf&quot;: 0.6497
+        }
+      }
+    ],
+    &quot;audio_chunks&quot;: 47,
+    &quot;total_audio_s&quot;: 27.0,
+    &quot;errors&quot;: [],
+    &quot;events&quot;: [
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 2253.7999992370605,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund&quot;,
+        &quot;sentence_index&quot;: 0,
+        &quot;sentence_text&quot;: &quot;Ein Roboter klein und rund&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 3573.900001525879,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund&quot;,
+        &quot;sentence_index&quot;: 1,
+        &quot;sentence_text&quot;: &quot;Mit Schaltkreis bunt und kund&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 4885.400001525879,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum&quot;,
+        &quot;sentence_index&quot;: 2,
+        &quot;sentence_text&quot;: &quot;Er tanzte schnell im Raum&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 6157.5,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum&quot;,
+        &quot;sentence_index&quot;: 3,
+        &quot;sentence_text&quot;: &quot;Und machte lautes Traum&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 7431.400001525879,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum\nSein Motor summte froh&quot;,
+        &quot;sentence_index&quot;: 4,
+        &quot;sentence_text&quot;: &quot;Sein Motor summte froh&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 8754.29999923706,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum\nSein Motor summte froh\nEin kleiner, kluger Schoß&quot;,
+        &quot;sentence_index&quot;: 5,
+        &quot;sentence_text&quot;: &quot;Ein kleiner, kluger Schoß&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 10039,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum\nSein Motor summte froh\nEin kleiner, kluger Schoß\nEr brachte Freude rein&quot;,
+        &quot;sentence_index&quot;: 6,
+        &quot;sentence_text&quot;: &quot;Er brachte Freude rein&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 11374.400001525879,
+        &quot;text&quot;: &quot;Ein Roboter klein und rund\nMit Schaltkreis bunt und kund\nEr tanzte schnell im Raum\nUnd machte lautes Traum\nSein Motor summte froh\nEin kleiner, kluger Schoß\nEr brachte Freude rein\nUnd lachte ganz allein&quot;,
+        &quot;sentence_index&quot;: 7,
+        &quot;sentence_text&quot;: &quot;Und lachte ganz allein&quot;,
+        &quot;reply_id&quot;: 1
+      },
+      {
+        &quot;type&quot;: &quot;pipeline_metrics&quot;,
+        &quot;at&quot;: 12651.20000076294
+      },
+      {
+        &quot;type&quot;: &quot;turn_done&quot;,
+        &quot;at&quot;: 22501.20000076294
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 23452.20000076294,
+        &quot;text&quot;: &quot;Er sammelte Glitzerstaub&quot;,
+        &quot;sentence_index&quot;: 0,
+        &quot;sentence_text&quot;: &quot;Er sammelte Glitzerstaub&quot;,
+        &quot;reply_id&quot;: 2
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 24770.09999847412,
+        &quot;text&quot;: &quot;Er sammelte Glitzerstaub\nUnd machte keinen Laub&quot;,
+        &quot;sentence_index&quot;: 1,
+        &quot;sentence_text&quot;: &quot;Und machte keinen Laub&quot;,
+        &quot;reply_id&quot;: 2
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 26070.20000076294,
+        &quot;text&quot;: &quot;Er sammelte Glitzerstaub\nUnd machte keinen Laub\nSein Herz war rein und klar&quot;,
+        &quot;sentence_index&quot;: 2,
+        &quot;sentence_text&quot;: &quot;Sein Herz war rein und klar&quot;,
+        &quot;reply_id&quot;: 2
+      },
+      {
+        &quot;type&quot;: &quot;reply&quot;,
+        &quot;at&quot;: 27402.40000152588,
+        &quot;text&quot;: &quot;Er sammelte Glitzerstaub\nUnd machte keinen Laub\nSein Herz war rein und klar\nEin kleiner Roboter wunderbar&quot;,
+        &quot;sentence_index&quot;: 3,
+        &quot;sentence_text&quot;: &quot;Ein kleiner Roboter wunderbar&quot;,
+        &quot;reply_id&quot;: 2
+      },
+      {
+        &quot;type&quot;: &quot;pipeline_metrics&quot;,
+        &quot;at&quot;: 28598.5
+      },
+      {
+        &quot;type&quot;: &quot;turn_done&quot;,
+        &quot;at&quot;: 33542.79999923706
+      }
+    ],
+    &quot;finished&quot;: 1792963746.8061168
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1792963620.8138335,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_visual_identity&quot;
+    ],
+    &quot;tests&quot;: 356,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  },
+  &quot;authored_before&quot;: [
+    {
+      &quot;input&quot;: &quot;Schreib mir bitte ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.&quot;,
+      &quot;events&quot;: [
+        {
+          &quot;text&quot;: &quot;Hier ist ein kurzes Gedicht über einen kleinen Roboter.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) Hier ist ein kurzes Gedicht über einen kleinen Roboter.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) Hier ist ein kurzes Gedicht über einen kleinen Roboter.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;text&quot;: &quot;Er fährt schnell, macht Geräusche, und lacht ganz sacht.&quot;,
+          &quot;script&quot;: &quot;(contentment, warm) Er fährt schnell, macht Geräusche, und lacht ganz sacht.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express contentment with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Keep the delivery warm and friendly.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express contentment with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Keep the delivery warm and friendly.\nSCRIPT:\n(contentment, warm) Er fährt schnell, macht Geräusche, und lacht ganz sacht.&quot;,
+          &quot;template_id&quot;: &quot;contentment.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;text&quot;: &quot;Robby hilft dir gerne weiter.&quot;,
+          &quot;script&quot;: &quot;(contentment, soft) Robby hilft dir gerne weiter.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express contentment with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express contentment with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational.\nSCRIPT:\n(contentment, soft) Robby hilft dir gerne weiter.&quot;,
+          &quot;template_id&quot;: &quot;contentment.soft&quot;,
+          &quot;template_score&quot;: 1.0,
+          &quot;language&quot;: &quot;en&quot;
+        },
+        {
+          &quot;llm_ttft_ms&quot;: 105.98,
+          &quot;llm_first_sentence_ms&quot;: 251.38,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 57,
+            &quot;prompt_tokens&quot;: 588,
+            &quot;total_tokens&quot;: 645,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 420
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 420,
+            &quot;prompt_n&quot;: 168,
+            &quot;prompt_ms&quot;: 66.524,
+            &quot;prompt_per_token_ms&quot;: 0.3959761904761905,
+            &quot;prompt_per_second&quot;: 2525.4043653418316,
+            &quot;predicted_n&quot;: 57,
+            &quot;predicted_ms&quot;: 406.405,
+            &quot;predicted_per_token_ms&quot;: 7.129912280701754,
+            &quot;predicted_per_second&quot;: 140.25417994365228
+          },
+          &quot;llm_total_ms&quot;: 513.51
+        }
+      ],
+      &quot;total_ms&quot;: 515.8694460988045
+    },
+    {
+      &quot;input&quot;: &quot;Erzähl mir eine Geschichte mit fünf Sätzen über einen Drachen und einen verlorenen Hut.&quot;,
+      &quot;events&quot;: [
+        {
+          &quot;text&quot;: &quot;Ein Drache fand einen verlorenen Hut.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) Ein Drache fand einen verlorenen Hut.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) Ein Drache fand einen verlorenen Hut.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;text&quot;: &quot;Er dachte, es sei ein magisches Objekt.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) Er dachte, es sei ein magisches Objekt.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) Er dachte, es sei ein magisches Objekt.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;text&quot;: &quot;Der Hut gehörte einem kleinen Gnome.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) Der Hut gehörte einem kleinen Gnome.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) Der Hut gehörte einem kleinen Gnome.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;en&quot;
+        },
+        {
+          &quot;text&quot;: &quot;Der Gnome war sehr froh, ihn wiederzuerhalten.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) Der Gnome war sehr froh, ihn wiederzuerhalten.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) Der Gnome war sehr froh, ihn wiederzuerhalten.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;en&quot;
+        },
+        {
+          &quot;text&quot;: &quot;So lebten Drache und Gnome friedlich zusammen.&quot;,
+          &quot;script&quot;: &quot;(amusement, playful) So lebten Drache und Gnome friedlich zusammen.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Express amusement with gentle, subtle acting. Keep articulation clear and the delivery natural, spontaneous and conversational. Use light, playful phrasing.\nSCRIPT:\n(amusement, playful) So lebten Drache und Gnome friedlich zusammen.&quot;,
+          &quot;template_id&quot;: &quot;amusement.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;llm_ttft_ms&quot;: 39.44,
+          &quot;llm_first_sentence_ms&quot;: 154.05,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 87,
+            &quot;prompt_tokens&quot;: 590,
+            &quot;total_tokens&quot;: 677,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 564
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 564,
+            &quot;prompt_n&quot;: 26,
+            &quot;prompt_ms&quot;: 31.104,
+            &quot;prompt_per_token_ms&quot;: 1.1963076923076923,
+            &quot;prompt_per_second&quot;: 835.9053497942388,
+            &quot;predicted_n&quot;: 87,
+            &quot;predicted_ms&quot;: 601.343,
+            &quot;predicted_per_token_ms&quot;: 6.911988505747126,
+            &quot;predicted_per_second&quot;: 144.67616651395295
+          },
+          &quot;llm_total_ms&quot;: 641.87
+        }
+      ],
+      &quot;total_ms&quot;: 643.0843099951744
+    },
+    {
+      &quot;input&quot;: &quot;Was würdest du gern heute mit mir spielen?&quot;,
+      &quot;events&quot;: [
+        {
+          &quot;text&quot;: &quot;Wir könnten ein kurzes Ratespiel spielen.&quot;,
+          &quot;script&quot;: &quot;(playful, warm) Wir könnten ein kurzes Ratespiel spielen.&quot;,
+          &quot;general&quot;: &quot;Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Use warm, subtle delivery, clear articulation and natural spontaneous phrasing. Keep the delivery warm and friendly. Use light, playful phrasing.&quot;,
+          &quot;manual_prompt&quot;: &quot;GENERAL: Use the same speaker as the reference audio. Preserve that speaker&#x27;s voice identity. Use warm, subtle delivery, clear articulation and natural spontaneous phrasing. Keep the delivery warm and friendly. Use light, playful phrasing.\nSCRIPT:\n(playful, warm) Wir könnten ein kurzes Ratespiel spielen.&quot;,
+          &quot;template_id&quot;: &quot;delivery.warm.soft&quot;,
+          &quot;template_score&quot;: 0.8165,
+          &quot;language&quot;: &quot;de&quot;
+        },
+        {
+          &quot;llm_ttft_ms&quot;: 37.97,
+          &quot;usage&quot;: {
+            &quot;completion_tokens&quot;: 16,
+            &quot;prompt_tokens&quot;: 579,
+            &quot;total_tokens&quot;: 595,
+            &quot;prompt_tokens_details&quot;: {
+              &quot;cached_tokens&quot;: 564
+            }
+          },
+          &quot;llama_timings&quot;: {
+            &quot;cache_n&quot;: 564,
+            &quot;prompt_n&quot;: 15,
+            &quot;prompt_ms&quot;: 29.492,
+            &quot;prompt_per_token_ms&quot;: 1.9661333333333333,
+            &quot;prompt_per_second&quot;: 508.612505086125,
+            &quot;predicted_n&quot;: 16,
+            &quot;predicted_ms&quot;: 107.889,
+            &quot;predicted_per_token_ms&quot;: 6.7430625,
+            &quot;predicted_per_second&quot;: 148.30056817655182
+          },
+          &quot;llm_first_sentence_ms&quot;: 146.54,
+          &quot;llm_total_ms&quot;: 146.94
+        }
+      ],
+      &quot;total_ms&quot;: 148.20408821105957
+    }
+  ]
+}</pre></details><p>Generated 2026-10-25 21:32 UTC.</p></html>

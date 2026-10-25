@@ -155,7 +155,7 @@ async def websocket(ws:WebSocket):
     except (WebSocketDisconnect,ConnectionError,aiohttp.ClientError):pass
     finally:
         try:await ws.close()
-        except RuntimeError:pass
+        except (RuntimeError,WebSocketDisconnect):pass
 
 @app.api_route('/{path:path}',methods=['GET','POST'])
 async def browser_proxy(path:str,request:Request):

@@ -15,6 +15,42 @@ it is approximate session memory, not reliable biometric authentication.
 
 ## Local sentence streaming and latency report (2026-10-25)
 
+### Complete replies, poems and Robby's personality
+
+The current [local system prompt and task structure](bolt_director.py) make
+Robby a warm-hearted, funny and playful robot. Emotional expressions are
+simulated in character; repeated AI disclaimers do not interrupt ordinary play.
+Literal questions about real feelings/capabilities still get honest answers.
+Requested poems, stories, explanations and revisions must actually be produced,
+with length following the task rather than an all-purpose one-sentence rule.
+
+`conversational_mode` is **false**. The released GGUF template otherwise appends
+“Respond as briefly as possible…” after our instructions. Thinking remains off.
+Ordinary answers have a 2,048-token ceiling; the old 320-token budget remains
+only for explicit short-word benchmarks and optional avatar reactions. Recent
+history is bounded to leave room for complete answers in the local context.
+
+Poetry streams by verse line, including lines with no full stop; prose streams
+by sentence or bounded phrase. Line/stanza breaks survive the UI and session
+history, and every unit still enters TTS promptly. The same reply language is
+retained across short individual lines. For counted poems/stories, a bounded
+structure check requests only missing units (at most two continuation calls),
+without restarting an already spoken answer. All words are LLM-generated;
+there are no canned poems. The check verifies structure, not literary quality.
+The UI reports an actual response limit instead of silently claiming completion.
+
+Generic negation such as “Keine Einleitung” or “kein Smalltalk” no longer routes
+ordinary requests into interruption-rule tools. Genuine knowledge/avatar/rule
+requests retain those tools. The compact tool director's [recipe and validator](conversation_director.py)
+also accept complete longer answers instead of the former 120-word ceiling.
+
+`validate_long_replies.py` checks the real local model with poems, a story,
+detailed instructions, warm chat and a continuation. `browser_long_replies_check.py`
+checks a full eight-line poem and four-line follow-up through the actual HTTPS
+UI, voice bridge, TTS and AudioContext playback. The [English report](static/long-replies-update.html)
+includes authored before/after examples, test receipts and limits. Private
+conversation transcripts and microphone recordings are not logged or published.
+
 ### Input waits for a speech pause
 
 The **Speech pause before replying** slider above the camera controls selects

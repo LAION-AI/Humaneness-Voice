@@ -131,6 +131,13 @@ CPU Silero VAD distinguishes speech from background noise, and resumed speech
 invalidates a pending final ASR check. See the [implementation and synthetic
 browser/audio checks](https://laion-ai.github.io/Humaneness-Voice/robby/speech-pause-update.html).
 
+Robby's current prompt prioritizes complete poems, stories and useful longer
+answers, with a warm, playful robot personality and simulated emotions. The
+GGUF template's extra brevity mode is disabled. Verse lines/stanzas survive
+streaming and session history; a bounded continuation guard can request missing
+lines instead of silently ending a counted task. [Reply-quality update and
+real local-model/browser checks](https://laion-ai.github.io/Humaneness-Voice/robby/long-replies-update.html).
+
 The [English latency and precision report](robby/static/robby-local-speed-report.html)
 contains GPU stage profiling, 54 paired precision/adapter experiments, two CUDA
 experiments and synthetic socket/browser checks. Merged FP32 reduced median

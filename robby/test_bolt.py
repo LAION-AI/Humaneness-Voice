@@ -1,11 +1,25 @@
-import asyncio,unittest
+import asyncio,json,unittest
 from types import SimpleNamespace
 from unittest.mock import AsyncMock,Mock,patch
 import numpy as np
-from bolt_text import SentenceFramer,ASRSentenceCommitter,select_template,CATALOGUE
+from bolt_text import SentenceFramer,ASRSentenceCommitter,select_template,CATALOGUE,join_sentences
 from sentence_session import OpenVoiceMemory,name_claim,SentenceSession
 
 class BoltTextTests(unittest.TestCase):
+    def test_requested_poem_and_story_structure_do_not_get_a_generic_short_reply(self):
+        from bolt_director import response_guidance
+        self.assertIn('exactly 8 actual poem lines',response_guidance('Ein Gedicht mit acht Zeilen.',[]))
+        self.assertIn('exactly 8 actual poem lines',response_guidance('A poem in two stanzas of four lines each.',[]))
+        self.assertIn('exactly 12 actual poem lines',response_guidance('Write a twelve-line poem.',[]))
+        self.assertIn('exactly 4 actual poem lines',response_guidance('Schreib noch vier zusätzliche Zeilen.',[{'role':'user','content':'Schreib ein Gedicht.'}]))
+        self.assertIn('exactly 5 complete prose sentences',response_guidance('Eine Geschichte in fünf Sätzen.',[]))
+        self.assertNotIn('poetry',response_guidance('Bitte kein Gedicht, ich habe eine Frage.',[]))
+    def test_ordinary_negation_does_not_route_poems_into_rule_tools(self):
+        from bolt_director import needs_tools
+        for text in ['Ein Gedicht mit acht Zeilen. Keine Einleitung.','Bitte kein Smalltalk, schreib das Gedicht.']:
+            self.assertFalse(needs_tools(text,[],{'rules':[]}))
+        self.assertTrue(needs_tools('Wenn ich Bananen sage, unterbrich mich.',[],{'rules':[]}))
+        self.assertTrue(needs_tools('Unterbrich mich bitte nicht mehr.',[],{'rules':[]}))
     def test_incremental_cues_and_sentences_at_arbitrary_token_boundaries(self):
         text='(happy, soft) Schön, dich zu sehen! (interest, calm) Was machen wir heute?'
         for width in (1,2,7,100):
@@ -22,6 +36,25 @@ class BoltTextTests(unittest.TestCase):
     def test_decimal_and_abbreviation_not_prematurely_split(self):
         f=SentenceFramer();out=f.feed('(interest) Dr. Bob hat 3.5 Euro. Noch etwas?',final=True)
         self.assertEqual([s.text for s in out],['Dr. Bob hat 3.5 Euro.','Noch etwas?'])
+    def test_poetry_without_full_stops_streams_all_lines_and_stanzas(self):
+        source='(amusement, warm) Ein Roboter tanzt im Mondenschein\n(affection, soft) und lädt die kleinen Sterne ein\n\n(elation) Er lacht und dreht sich rundherum\n(amusement) und fällt vor Freude beinahe um'
+        expected='Ein Roboter tanzt im Mondenschein\nund lädt die kleinen Sterne ein\n\nEr lacht und dreht sich rundherum\nund fällt vor Freude beinahe um'
+        for width in (1,2,7,31,1000):
+            f=SentenceFramer();out=[]
+            for at in range(0,len(source),width):out+=f.feed(source[at:at+width])
+            out+=f.feed('',final=True)
+            self.assertEqual(len(out),4);self.assertEqual(join_sentences(out),expected)
+            self.assertEqual(out[-1].direction,'amusement')
+    def test_new_cue_can_close_an_unpunctuated_line(self):
+        f=SentenceFramer();out=f.feed('(hope) First verse (elation) Second verse',final=True)
+        self.assertEqual([s.text for s in out],['First verse','Second verse'])
+    def test_long_unpunctuated_prose_is_bounded_without_word_loss(self):
+        words=['wort'+str(i) for i in range(220)]
+        source='(interest) '+' '.join(words);f=SentenceFramer();out=[]
+        for at in range(0,len(source),3):out+=f.feed(source[at:at+3])
+        out+=f.feed('',final=True)
+        self.assertEqual(join_sentences(out).split(),words)
+        self.assertTrue(all(len(s.text.split())<=64 for s in out))
     def test_stable_asr_prefix_commits_once_and_keeps_followup(self):
         c=ASRSentenceCommitter();text='Das ist ein Satz. Und noch einer.'
         self.assertEqual(c.update(text,0),[])
@@ -73,6 +106,28 @@ class BoltSpeakersTests(unittest.TestCase):
         self.assertNotEqual(a['speaker_id'],b['speaker_id'])
 
 class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
+    async def test_premature_poem_end_continues_missing_lines_without_restarting(self):
+        from bolt_director import BoltDirector
+        calls=[]
+        class Response:
+            def __init__(self,text):self.text=text
+            async def __aenter__(self):return self
+            async def __aexit__(self,*args):pass
+            def raise_for_status(self):pass
+            async def aiter_lines(self):
+                yield 'data: '+json.dumps({'choices':[{'delta':{'content':self.text}}]})
+                yield 'data: '+json.dumps({'choices':[{'delta':{},'finish_reason':'stop'}]})
+        class Client:
+            def stream(self,*args,**kwargs):
+                calls.append(kwargs['json']);start=1 if len(calls)==1 else 7;end=7 if len(calls)==1 else 9
+                return Response('\n'.join('(amusement) Zeile '+str(i) for i in range(start,end)))
+        metrics={};parts=[]
+        async for part in BoltDirector().stream(Client(),'Schreib ein Gedicht mit acht Zeilen.',{},[],metrics=metrics):parts.append(part)
+        self.assertEqual(join_sentences(parts),'\n'.join('Zeile '+str(i) for i in range(1,9)))
+        self.assertFalse(calls[0]['chat_template_kwargs']['conversational_mode'])
+        self.assertGreaterEqual(calls[0]['max_tokens'],2048)
+        self.assertIn('exactly 2 additional verse lines',calls[1]['messages'][-1]['content'])
+        self.assertTrue(metrics['response_complete']);self.assertEqual(metrics['completion_repairs'],1)
     async def test_current_native_words_arrive_before_quiet_flush(self):
         import paths
         from server import RoboConversation
