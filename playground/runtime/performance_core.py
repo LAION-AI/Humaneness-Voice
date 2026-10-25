@@ -5,6 +5,7 @@ distribution are changed. The legacy path remains available for comparison.
 """
 from collections import OrderedDict
 import time
+import os
 
 import torch
 import torch.nn.functional as F
@@ -33,9 +34,14 @@ class FastGenerator:
         self.graph_limit = graph_limit
         self.capture_seconds = 0.0
         self.candidate_ids = engine.model._local_text_candidate_ids(torch.device(engine.device))
+        self.semantic=None
+        if os.environ.get('HVS_SEMANTIC_CUDA_GRAPH','0')=='1':
+            from semantic_graph import SemanticGraphs
+            self.semantic=SemanticGraphs(engine.model)
 
     def clear_graphs(self):
         self.graphs.clear()
+        if self.semantic:self.semantic.banks.clear()
 
     def local_frame(self, local_input, n, nb, guidance, p, cache):
         mdl = self.engine.model
@@ -119,15 +125,19 @@ class FastGenerator:
         finished = torch.zeros(n, dtype=torch.bool, device=ids.device)
         last = 0
         model_input = ids
+        semantic=self.semantic.prepare(ids,budget) if self.semantic else None
         for step in range(budget):
             mask = mask_buffer[:, :length + step]
-            embeddings = mdl._build_inputs_embeds(model_input)
-            out = mdl.transformer(inputs_embeds=embeddings, input_ids=None,
-                attention_mask=mask, past_key_values=past, use_cache=True,
-                position_ids=None, output_attentions=False, output_hidden_states=False,
-                return_dict=True, cu_seqlens=None, num_sequences=None)
-            past = out.past_key_values
-            local_input = mdl._global_hidden_to_local(out.last_hidden_state[:, -1]).to(mdl.local_transformer.ln_f.weight.dtype)
+            if semantic:
+                local_input=semantic.prefill(model_input,mask) if step==0 else semantic.decode(model_input,mask)
+            else:
+                embeddings = mdl._build_inputs_embeds(model_input)
+                out = mdl.transformer(inputs_embeds=embeddings, input_ids=None,
+                    attention_mask=mask, past_key_values=past, use_cache=True,
+                    position_ids=None, output_attentions=False, output_hidden_states=False,
+                    return_dict=True, cu_seqlens=None, num_sequences=None)
+                past = out.past_key_values
+                local_input = mdl._global_hidden_to_local(out.last_hidden_state[:, -1]).to(mdl.local_transformer.ln_f.weight.dtype)
             token, sampled = self.frame(local_input, n, nb, guidance, p, graph)
             continues = token.eq(cfg.audio_assistant_slot_token_id) & ~finished
             finished = finished | token.eq(cfg.audio_end_token_id)

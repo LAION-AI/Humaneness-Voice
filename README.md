@@ -15,7 +15,7 @@ speaker LoRAs, and must not be mixed with those by filename or rank alone.
 
 | Find it quickly | Read / download |
 | --- | --- |
-| **Robby conversational robot:** live ASR, speaker memory, interruptible TTS, gaze and public-information tools | [Robby source, setup and limitations](robby/README.md) · [current short-command correction report](robby/static/stop-fix-update.html) |
+| **Robby conversational robot:** local Bolt LLM, sentence streaming, voice labels, interruptible TTS and gaze | [Robby source and setup](robby/README.md) · [latency, BF16 and CUDA experiments](robby/static/robby-local-speed-report.html) |
 | **Robby expressions & little tricks:** 40 poses, head turns, grimaces and LLM action tools | [Interactive GitHub Pages manual](https://laion-ai.github.io/Humaneness-Voice/robby/) · [tests and banana-game diagnosis](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-checks.html) |
 | All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
 | Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
@@ -116,10 +116,24 @@ uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
 ## Robby: conversational robot integration
 
 The additive [`robby/`](robby/) snapshot connects the existing Small RL speech
-service to a browser-local robot, frozen Nemotron ASR/diarization, TYGER turn
-taking, fast/long speaker predictors and ECAPA verification. It does not replace
-the Playground or its launcher. Robby uses 1.6-second TTS chunks and a separate
-compact Luna director prompt; [the exact policies and setup are included](robby/README.md).
+service to a browser-local robot, frozen Nemotron ASR and TYGER turn taking.
+The new local mode uses [NVIDIA Nemotron 3.5 Bolt E4B Q4_K_M](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB)
+through CUDA llama.cpp, answers intelligible voices without wake-word enrollment,
+and assigns approximate session voice labels using prefetched ECAPA embeddings.
+Completed output sentences immediately enter streaming TTS; 100 fixed acting
+templates replace generated GENERAL prose. Earlier speaker-gated/Luna paths
+remain configurable. [Exact policies, API and reproducible setup](robby/README.md).
+
+The [English latency and precision report](robby/static/robby-local-speed-report.html)
+contains GPU stage profiling, 54 paired precision/adapter experiments, two CUDA
+experiments and synthetic socket/browser checks. Merged FP32 reduced median
+GPU TTS generation from 973 to 876 ms with matching code sequences in nine
+paired clips. Merged BF16 reached 795 ms but worsened speaker cosine/WER in
+that pilot, so it is experimental. Set `HVS_RL_PRECISION=fp32_merged` on the
+shared TTS service to reproduce the selected live setting; omission retains
+the official strict FP32 fallback. First-use warm-up is excluded and recorded
+separately. These are RTX 3090 engineering measurements, not human quality or
+physical-room accuracy claims.
 
 New foreground speakers can optionally join without a wake phrase. Explicit
 claims can associate multiple session voice anchors; this is not authentication.
@@ -136,7 +150,7 @@ calm, gentle, unhurried delivery.
 passing tests. Working-host synthetic/browser checks are not physical-room human
 accuracy claims or a clean-machine installation certification. Source includes
 no API keys, microphone recordings, enrolled voiceprints or model weights.
-The [live Robby demo](https://diane-asylum-understood-invoice.trycloudflare.com/desk-robot/)
+The [live Robby demo](https://arrive-locations-parade-research.trycloudflare.com/desk-robot/)
 uses temporary Cloudflare hosting.
 
 ## Historical SFT3 agent (September 2026)

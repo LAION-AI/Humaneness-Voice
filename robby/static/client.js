@@ -1,11 +1,11 @@
 // TYGER wire and capture worklet adapted from nineninesix-ai/tyger-s2s (Apache-2.0).
 // One AudioContext owns capture AND playback; tags represent DAC playback, not arrival.
 import {PlaybackClock} from './clock.js';
-export function playbackStart(context,next,firstReply){
+export function playbackStart(context,next,firstReply,reserve=.45){
  const deviceLead=Math.max(128/context.sampleRate,(context.baseLatency||0)*1.25);
  // A short first codec block can run out before the next TTS chunk arrives.
  // This is a real scheduling reserve, NOT a fabricated Second Ear offset.
- return Math.max(next,context.currentTime+deviceLead+(firstReply ? .45 : 0));
+ return Math.max(next,context.currentTime+deviceLead+(firstReply ? reserve : 0));
 }
 const WORKLET=`
 class Mic16k extends AudioWorkletProcessor {
@@ -94,7 +94,13 @@ export class RoboClient {
   }
   for(let i=0;i<pcm.length;i++)ch[i]=pcm[i]/32768;
   const source=this.ctx.createBufferSource();source.roboId=id;source.buffer=b;source.connect(this.output);
-  const start=playbackStart(this.ctx,this.next,!!id&&!this.queued[id]),end=start+b.duration;
+  const firstReply=!!id&&!this.queued[id];
+  this.startupReserve??=.18;
+  if(id&&!firstReply&&this.next>0){const gap=Math.max(0,this.ctx.currentTime-this.next);
+   if(gap>.02){this.startupReserve=Math.min(.65,Math.max(this.startupReserve,gap+.12));this.metrics.underflows=(this.metrics.underflows||0)+1;this.metrics.max_gap_ms=Math.max(this.metrics.max_gap_ms||0,gap*1000);}}
+  const reserve=Math.max(this.startupReserve,b.duration<.8?.3:.18);
+  if(firstReply)this.metrics.startup_buffer_ms=reserve*1000;
+  const start=playbackStart(this.ctx,this.next,firstReply,reserve),end=start+b.duration;
   const first=this.queued[id]||0;this.queued[id]=first+pcm.length;
   if(id)this.clock.add(id,start,pcm.length,first);
   const epoch=this.epoch;this.next=end;source.start(start);this.sources.push(source);this.metrics.chunks++;if(id)this.metrics.reply_chunks++;
