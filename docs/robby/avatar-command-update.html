@@ -1,0 +1,464 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby — reliable requested faces and spoken reactions</title>
+<style>body{font:17px/1.65 system-ui;max-width:1120px;margin:30px auto;padding:20px;background:#f6f8fa;color:#20333a}h1,h2{line-height:1.25}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #bfcbd0;text-align:left;padding:10px}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eaf0f4;padding:18px;font-size:14px}a{color:#166a78}.note{padding:18px;background:#e3f0ed}</style>
+<p><a href="https://arrive-locations-parade-research.trycloudflare.com/desk-robot/">Open Robby</a> · <a href="https://github.com/LAION-AI/Humaneness-Voice/tree/main/robby">Source and setup</a></p>
+<h1>Requested faces now have a direct animation path</h1>
+<p class="note">A clear request such as “Mach eine Grimasse” dispatches a validated screen animation before the language model starts. Robby generates its own spoken reaction alongside that animation. A missing model tool call or a failed speech request no longer silently erases the requested face.</p>
+<h2>Verification summary</h2><div class="scroll"><table><tr><th>Check</th><th>Result</th><th>What was measured</th></tr><tr><td>Local real-model repeats</td><td>10/10 passed</td><td>Five German/English face requests, twice each; valid ordered actions and nonempty spoken text; no tool-JSON fallback.</td></tr><tr><td>HTTPS CPU Chrome</td><td>5 commands; passed=True</td><td>Real WebSocket, local LLM and TTS PCM. Renderer frame outputs verified the requested action kinds, expressive controls and variant changes.</td></tr><tr><td>Paced synthetic microphone</td><td>passed=True</td><td>Authored speech sent in real-time 20-ms packets through Nemotron ASR; recognized grimace command, action event, spoken response and actual TTS PCM.</td></tr><tr><td>Disabled preference</td><td>True</td><td>Expressive actions stay disabled; a prominent notice explains why, while speech still works.</td></tr><tr><td>Automatic regressions</td><td>365 tests; passed=True</td><td>Parser, bounded retries, ordering, negative/quoted commands, 40 emotion slugs, silent requests and retained application tests.</td></tr><tr><td>Server action-event dispatch</td><td>0.17 ms</td><td>Median from entering the Python pipeline to yielding the event; excludes browser/network delay. Includes one first-use import.</td></tr><tr><td>First generated spoken text</td><td>213.74 ms</td><td>Median local pipeline latency with TTS off; not time to physical sound.</td></tr></table></div>
+<h2>Why the old request could do nothing</h2><ol>
+<li>The small model sometimes replied “Schau mal” without calling perform_avatar. No action reached the browser even though its words implied a performance.</li>
+<li>Other responses contained malformed inline acting cues. The planning parser raised “Acting cue must precede its sentence” before speech or animation began.</li>
+<li>A later end-to-end check caught a separate standalone <code>*[grimace]*</code> line after a valid spoken sentence. It was incorrectly sent as another TTS request, containing no literal words. Stage-only lines are now discarded before TTS.</li></ol>
+<p>Technical production errors and source code were inspected. The examples below are independently authored reproductions; no private user conversation is included.</p>
+<h2>How the fix works</h2>
+<p><code>avatar_commands.py</code> recognizes clear German/English requests and calls the existing bounded action validator. Faces, eye rolls, nods, head shakes, winks and all 40 catalogue emotion slugs reuse the existing renderer. Generic grimaces cycle through eight variants. The conservative direct parser excludes quotes, conditional games, explanations and negated actions. The existing LLM tools remain available for complex choreography, knowledge and conversation rules.</p>
+<p>The pipeline emits <code>avatar_action</code> before starting the LLM. A unique ID keeps subsequent sentence metadata from replaying the same action. Normal spoken words still come from the local model and enter sentence TTS immediately. Pure requested rotations retain their previous audio-playback anchor. Explicitly silent actions skip LLM/TTS. Older clients still receive the validated plan in ordinary reply metadata.</p>
+<p>If a direct request gets a wholly empty or malformed unspoken completion, one bounded fresh LLM retry asks for actual spoken words. Already spoken sentences are never replayed. Standalone renderer notes are ignored; real words and ordinary acting cues remain. A real speech-service error stays visible but does not clear a valid requested face. Explicit Stop, interruption or cancellation still clears it.</p>
+<h2>Real HTTPS browser turns</h2><div class="scroll"><table><tr><th>Authored request</th><th>Rendered actions</th><th>Action event before first audio</th><th>PCM chunks</th><th>Generated reply</th></tr><tr><td>Mach bitte eine lustige Grimasse und sag etwas Lustiges dazu.</td><td>grimace</td><td>1056.7 ms</td><td>9</td><td>Na, das ist ja eine lustige Anfrage!
+Mein Schaltkreis kribbelt schon vor Vorfreude auf diesen Ausdruck!</td></tr><tr><td>Mach noch eine Grimasse!</td><td>grimace</td><td>1115.3 ms</td><td>5</td><td>Ich probiere es, mein Sensorik-System ist bereit für mehr albernes Gesichtsspiel!</td></tr><tr><td>Schiele bitte und rolle dann mit den Augen.</td><td>grimace, eye_roll</td><td>1097.2 ms</td><td>5</td><td>Schief schauen und dann ein kleines Augen-Tänzchen veranstalten!</td></tr><tr><td>Guck bitte wütend und mach dann eine lustige Grimasse.</td><td>emotion, grimace</td><td>1186.7 ms</td><td>6</td><td>Wütend gucken, dann direkt in Lach-Modus schalten, das ist mein Spezial-Trick!</td></tr><tr><td>Please make a goofy face.</td><td>grimace</td><td>1067.9 ms</td><td>5</td><td>Here is a goofy face for you!</td></tr></table></div><p>The browser observed actual renderer-frame outputs, not merely the arrival of an action label. These deltas compare the action event with receipt of the first real audio block; physical loudspeaker latency and human perception were not measured.</p>
+<h2>Before-fix authored reproductions</h2><details><summary>Kannst du bitte eine lustige Grimasse schneiden?</summary><pre>{
+  &quot;input&quot;: &quot;Kannst du bitte eine lustige Grimasse schneiden?&quot;,
+  &quot;parts&quot;: [
+    {
+      &quot;text&quot;: &quot;Schau mal&quot;,
+      &quot;actions&quot;: []
+    },
+    {
+      &quot;text&quot;: &quot;Schau mal hier ist eine lustige Grimasse&quot;,
+      &quot;actions&quot;: []
+    }
+  ],
+  &quot;metrics&quot;: [
+    {
+      &quot;tool_director_ms&quot;: 2119.83,
+      &quot;total_ms&quot;: 2130.93,
+      &quot;audio_s&quot;: 0.0,
+      &quot;sentences&quot;: 2
+    }
+  ]
+}</pre></details><details><summary>Mach mal eine verrückte Grimasse!</summary><pre>{
+  &quot;input&quot;: &quot;Mach mal eine verrückte Grimasse!&quot;,
+  &quot;error&quot;: &quot;ValueError: Acting cue must precede its sentence&quot;
+}</pre></details><details><summary>Schiele bitte und rolle dann mit den Augen.</summary><pre>{
+  &quot;input&quot;: &quot;Schiele bitte und rolle dann mit den Augen.&quot;,
+  &quot;parts&quot;: [
+    {
+      &quot;text&quot;: &quot;Schau mal&quot;,
+      &quot;actions&quot;: []
+    }
+  ],
+  &quot;metrics&quot;: [
+    {
+      &quot;tool_director_ms&quot;: 2212.43,
+      &quot;total_ms&quot;: 2214.03,
+      &quot;audio_s&quot;: 0.0,
+      &quot;sentences&quot;: 1
+    }
+  ]
+}</pre></details><details><summary>Guck bitte wütend und mach dann eine lustige Grimasse.</summary><pre>{
+  &quot;input&quot;: &quot;Guck bitte wütend und mach dann eine lustige Grimasse.&quot;,
+  &quot;parts&quot;: [
+    {
+      &quot;text&quot;: &quot;Schau mal&quot;,
+      &quot;actions&quot;: []
+    }
+  ],
+  &quot;metrics&quot;: [
+    {
+      &quot;tool_director_ms&quot;: 2297.74,
+      &quot;total_ms&quot;: 2299.5,
+      &quot;audio_s&quot;: 0.0,
+      &quot;sentences&quot;: 1
+    }
+  ]
+}</pre></details><h2>Reproduce and inspect</h2><pre>python run_unit_checks.py
+python validate_avatar_commands.py
+uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_avatar_commands_check.py
+python render_avatar_command_report.py</pre>
+<p>Run audio/browser checks serially: the live ASR engine has one session slot. The validation script uses the local services; the browser script has a configurable source constant for this deployment's public HTTPS hostname. The source archive includes the command parser, validators, exact prompt changes, bridge/UI handling and regression scripts. Test output contains authored synthetic speech only.</p>
+<h2>Limits</h2><p>This is a targeted engineering regression, not a guarantee for every possible wording. Ambiguous and complex requests retain the model tool path. ASR can misrecognize a real microphone utterance. Device-room echo, human interruption and unrelated background speakers were not certified by these checks. Camera tracking, speaker identity, speech-pause settings, idle play, petting and existing model choices remain in place.</p>
+<p>Animation preferences are respected. Hidden tabs, eye-contact calibration or reduced-motion settings may intentionally suppress motion. The browser test disables camera/idle events to isolate explicit commands. One additional clearly labeled injected speech error confirms action survival; a synthetic BARGE confirms cancellation. Those injected cases are separate from the real-model/TTS turns. No private microphone recording, face profile or enrolled voiceprint is published.</p>
+<details><summary>Machine-readable test receipts</summary><pre>{
+  &quot;local_model_and_asr&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone&quot;: false,
+    &quot;rows&quot;: [
+      {
+        &quot;input&quot;: &quot;Kannst du bitte eine lustige Grimasse schneiden?&quot;,
+        &quot;repeat&quot;: 0,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Meine Grimasse ist schon gesendet, schau mal, wie ich mich bemühe!&quot;,
+        &quot;action_dispatch_ms&quot;: 11.75,
+        &quot;first_spoken_text_ms&quot;: 321.49
+      },
+      {
+        &quot;input&quot;: &quot;Mach mal eine verrückte Grimasse!&quot;,
+        &quot;repeat&quot;: 0,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Hier kommt meine verrückte Grimasse, schau nur!&quot;,
+        &quot;action_dispatch_ms&quot;: 0.16,
+        &quot;first_spoken_text_ms&quot;: 181.41
+      },
+      {
+        &quot;input&quot;: &quot;Schiele bitte und rolle dann mit den Augen.&quot;,
+        &quot;repeat&quot;: 0,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;eye_roll&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0
+          }
+        ],
+        &quot;reply&quot;: &quot;Hui, das mach ich doch schon!\nSchiele und rolle ich mit den Augen, wie du gewünscht hast.&quot;,
+        &quot;action_dispatch_ms&quot;: 0.39,
+        &quot;first_spoken_text_ms&quot;: 175.62
+      },
+      {
+        &quot;input&quot;: &quot;Guck bitte wütend und mach dann eine lustige Grimasse.&quot;,
+        &quot;repeat&quot;: 0,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;emotion&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;emotion&quot;: &quot;anger&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Mein innerer Schaltkreis kribbelt vor Freude, aber ich versuche, das wütende Gesicht zu halten!\nDas war eine lustige Aufforderung, du bist echt kreativ!&quot;,
+        &quot;action_dispatch_ms&quot;: 1.31,
+        &quot;first_spoken_text_ms&quot;: 327.45
+      },
+      {
+        &quot;input&quot;: &quot;Please make a goofy face.&quot;,
+        &quot;repeat&quot;: 0,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;goofy&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;My circuits are buzzing with goofy delight right now&quot;,
+        &quot;action_dispatch_ms&quot;: 0.14,
+        &quot;first_spoken_text_ms&quot;: 196.37
+      },
+      {
+        &quot;input&quot;: &quot;Kannst du bitte eine lustige Grimasse schneiden?&quot;,
+        &quot;repeat&quot;: 1,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Na klar, mein Schaltkreis ist für solche kleinen Albernheiten bereit&quot;,
+        &quot;action_dispatch_ms&quot;: 0.18,
+        &quot;first_spoken_text_ms&quot;: 225.95
+      },
+      {
+        &quot;input&quot;: &quot;Mach mal eine verrückte Grimasse!&quot;,
+        &quot;repeat&quot;: 1,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Ach, diese Grimasse ist schon auf dem Weg, sie ist so verrückt!&quot;,
+        &quot;action_dispatch_ms&quot;: 0.17,
+        &quot;first_spoken_text_ms&quot;: 207.17
+      },
+      {
+        &quot;input&quot;: &quot;Schiele bitte und rolle dann mit den Augen.&quot;,
+        &quot;repeat&quot;: 1,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;eye_roll&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0
+          }
+        ],
+        &quot;reply&quot;: &quot;Das mache ich sofort, kleiner Mensch!\nIch hoffe, es gefällt dir dieses kleine Schauspiel&quot;,
+        &quot;action_dispatch_ms&quot;: 0.15,
+        &quot;first_spoken_text_ms&quot;: 177.77
+      },
+      {
+        &quot;input&quot;: &quot;Guck bitte wütend und mach dann eine lustige Grimasse.&quot;,
+        &quot;repeat&quot;: 1,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;emotion&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;emotion&quot;: &quot;anger&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Ach, diese wütende Pose ist ja urkomisch!\nUnd dann diese Grimasse, das ist pure Robotik-Kunst!&quot;,
+        &quot;action_dispatch_ms&quot;: 0.28,
+        &quot;first_spoken_text_ms&quot;: 220.3
+      },
+      {
+        &quot;input&quot;: &quot;Please make a goofy face.&quot;,
+        &quot;repeat&quot;: 1,
+        &quot;passed&quot;: true,
+        &quot;actions&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3.0,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;goofy&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;My circuits detected that goofy face request already went through, but I can try another little wiggle!&quot;,
+        &quot;action_dispatch_ms&quot;: 0.16,
+        &quot;first_spoken_text_ms&quot;: 285.42
+      }
+    ],
+    &quot;started&quot;: 1792966523.6752057,
+    &quot;spoken_command&quot;: {
+      &quot;passed&quot;: true,
+      &quot;events&quot;: [
+        {
+          &quot;type&quot;: &quot;endpoint&quot;,
+          &quot;transcript&quot;: &quot;Mach bitte eine lustige Grimasse.&quot;
+        },
+        {
+          &quot;type&quot;: &quot;avatar_action&quot;,
+          &quot;action_id&quot;: &quot;9efbfc5f7c914726a36544f24c67f75b&quot;,
+          &quot;steps&quot;: [
+            {
+              &quot;kind&quot;: &quot;grimace&quot;,
+              &quot;duration_s&quot;: 3.0,
+              &quot;sentence&quot;: 0,
+              &quot;variant&quot;: &quot;crossed&quot;
+            }
+          ]
+        },
+        {
+          &quot;type&quot;: &quot;reply&quot;,
+          &quot;text&quot;: &quot;Das war ja eine witzige Grimasse!&quot;,
+          &quot;avatar_action_id&quot;: &quot;9efbfc5f7c914726a36544f24c67f75b&quot;
+        },
+        {
+          &quot;type&quot;: &quot;reply&quot;,
+          &quot;text&quot;: &quot;Das war ja eine witzige Grimasse!\nJetzt probiere ich mal eine noch lustigere für dich!&quot;,
+          &quot;avatar_action_id&quot;: &quot;9efbfc5f7c914726a36544f24c67f75b&quot;
+        },
+        {
+          &quot;type&quot;: &quot;turn_done&quot;
+        }
+      ],
+      &quot;audio_chunks&quot;: 9
+    },
+    &quot;finished&quot;: 1792966534.7231157
+  },
+  &quot;https_cpu_browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone&quot;: false,
+    &quot;url&quot;: &quot;https://arrive-locations-parade-research.trycloudflare.com&quot;,
+    &quot;turns&quot;: [
+      {
+        &quot;request&quot;: &quot;Mach bitte eine lustige Grimasse und sag etwas Lustiges dazu.&quot;,
+        &quot;steps&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Na, das ist ja eine lustige Anfrage!\nMein Schaltkreis kribbelt schon vor Vorfreude auf diesen Ausdruck!&quot;,
+        &quot;action_before_audio_ms&quot;: 1056.7,
+        &quot;pcm_chunks&quot;: 9,
+        &quot;rendered_kinds&quot;: [
+          &quot;grimace&quot;
+        ]
+      },
+      {
+        &quot;request&quot;: &quot;Mach noch eine Grimasse!&quot;,
+        &quot;steps&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;opposite&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Ich probiere es, mein Sensorik-System ist bereit für mehr albernes Gesichtsspiel!&quot;,
+        &quot;action_before_audio_ms&quot;: 1115.3,
+        &quot;pcm_chunks&quot;: 5,
+        &quot;rendered_kinds&quot;: [
+          &quot;grimace&quot;
+        ]
+      },
+      {
+        &quot;request&quot;: &quot;Schiele bitte und rolle dann mit den Augen.&quot;,
+        &quot;steps&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;crossed&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;eye_roll&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0
+          }
+        ],
+        &quot;reply&quot;: &quot;Schief schauen und dann ein kleines Augen-Tänzchen veranstalten!&quot;,
+        &quot;action_before_audio_ms&quot;: 1097.2,
+        &quot;pcm_chunks&quot;: 5,
+        &quot;rendered_kinds&quot;: [
+          &quot;grimace&quot;,
+          &quot;eye_roll&quot;
+        ]
+      },
+      {
+        &quot;request&quot;: &quot;Guck bitte wütend und mach dann eine lustige Grimasse.&quot;,
+        &quot;steps&quot;: [
+          {
+            &quot;kind&quot;: &quot;emotion&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;emotion&quot;: &quot;anger&quot;
+          },
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;cheeky&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Wütend gucken, dann direkt in Lach-Modus schalten, das ist mein Spezial-Trick!&quot;,
+        &quot;action_before_audio_ms&quot;: 1186.7,
+        &quot;pcm_chunks&quot;: 6,
+        &quot;rendered_kinds&quot;: [
+          &quot;emotion&quot;,
+          &quot;grimace&quot;
+        ]
+      },
+      {
+        &quot;request&quot;: &quot;Please make a goofy face.&quot;,
+        &quot;steps&quot;: [
+          {
+            &quot;kind&quot;: &quot;grimace&quot;,
+            &quot;duration_s&quot;: 3,
+            &quot;sentence&quot;: 0,
+            &quot;variant&quot;: &quot;goofy&quot;
+          }
+        ],
+        &quot;reply&quot;: &quot;Here is a goofy face for you!&quot;,
+        &quot;action_before_audio_ms&quot;: 1067.9,
+        &quot;pcm_chunks&quot;: 5,
+        &quot;rendered_kinds&quot;: [
+          &quot;grimace&quot;
+        ]
+      }
+    ],
+    &quot;started&quot;: 1792966538.5741155,
+    &quot;disabled_control_explained&quot;: true,
+    &quot;synthetic_fault_injection&quot;: {
+      &quot;speech_error_keeps_action&quot;: true,
+      &quot;interrupt_clears&quot;: true
+    },
+    &quot;errors&quot;: [],
+    &quot;finished&quot;: 1792966579.4339569
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1792966414.724408,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_commands&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_visual_identity&quot;
+    ],
+    &quot;tests&quot;: 365,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  }
+}</pre></details><p>Generated 2026-10-25 22:17 UTC.</p></html>

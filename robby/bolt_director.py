@@ -106,7 +106,7 @@ class BoltDirector:
             if plan['guidance']:messages[0]['content']+='\n'+plan['guidance']
         if reply_words:messages[0]['content']+=f'\nFor this request use exactly one sentence with about {reply_words} spoken words.'
         language_text=text or ' '.join(str(h.get('content','')) for h in history[-2:] if h.get('role')=='user')
-        language='German' if re.search(r'\b(?:ich|du|wir|was|wie|ist|das|die|und|ein|eine|bitte|können|heute|dich|nicht|mir)\b|[äöüß]',language_text,re.I) else 'English'
+        language='German' if re.search(r'\b(?:ich|du|wir|was|wie|ist|das|die|und|ein|eine|bitte|können|heute|dich|nicht|mir|mach\w*|grimass\w*|schneid\w*|schiel\w*|zwinker\w*|guck\w*|schau\w*|zeig\w*|dreh\w*|augenroll\w*)\b|[äöüß]',language_text,re.I) else 'English'
         messages[0]['content']+=f'\nCurrent reply language: {language}. Use {language} for the actual spoken words in this turn.'
         # Bound context while leaving space for a complete answer in the
         # local server's 8192-token slot. Keep recent completed turns in order.
@@ -120,6 +120,15 @@ class BoltDirector:
         messages.extend(reversed(recent))
         if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps(identity,ensure_ascii=False)
         if avatar_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(avatar_context,ensure_ascii=False)
+        if (avatar_context or {}).get('requested_actions'):
+            messages[0]['content']+='''\nThe requested visual actions have already been sent to the browser. React playfully while
+the screen robot performs them. Do not claim you cannot move your screen face, promise to do it
+later, invent completion or emit tool JSON. Use ordinary short acting cues and actual spoken words.
+Do not write silent animation notes in square brackets or Markdown; the browser handles the visual action.
+For a simple trick, a brief charming reaction is enough. If the user also requested a poem,
+story or other work, still complete that task in full. These are screen effects, not motor commands.'''
+        if (avatar_context or {}).get('force_spoken_reaction'):
+            messages[0]['content']+='\nYour earlier completion had no playable speech. Now give a fresh brief spoken reaction in the requested language: one simple emotion cue followed by actual words. Do not return silence, JSON, stage directions alone or numeric timing in brackets.'
         # Plain user speech matches the model's conversation training format;
         # burying it inside English JSON reduced German answer quality in tests.
         messages.append({'role':'user','content':text[:3000] if text else 'Respond briefly to the current optional avatar event, or output [silent].'})
@@ -181,7 +190,9 @@ class BoltDirector:
 def needs_tools(text,history,interaction_state):
     from interaction_policy import rule_authorized,cancellation_authorized,rule_control_request
     lookup=bool(re.search(r'\b(?:wikipedia|wiki|nachrichten|news|tagesschau|bbc|wetter|weather|recherchier\w*|nachschauen|nachschlagen)\b',text,re.I))
-    avatar=not explicit_spin(text) and bool(re.search(r'\b(?:nick\w*|grimasse\w*|zwinker\w*|schiel\w*|augenrollen|nod|wink|grimace|eye\s+roll|funny\s+face|schüttel\w*|shake\s+(?:your\s+)?head|roll\w*\s+(?:deine\s+|die\s+|your\s+)?(?:augen|eyes)|(?:guck\w*|schau\w*|look)\s+(?:mal\s+)?(?:wütend|angry|traurig|sad|bitter|happy|fröhlich))\b',text,re.I))
+    from avatar_commands import command_intent,explicit_actions
+    avatar=command_intent(text) and not explicit_actions(text) and bool(re.search(r'\b(?:nick\w*|grimasse\w*|zwinker\w*|schiel\w*|augenrollen|nod|wink|grimace|eye\s+roll|funny\s+face|schüttel\w*|shake\s+(?:your\s+)?head|roll\w*\s+(?:deine\s+|die\s+|your\s+)?(?:augen|eyes)|(?:guck\w*|schau\w*|look)\s+(?:mal\s+)?(?:wütend|angry|traurig|sad|bitter|happy|fröhlich))\b',text,re.I))
+    if avatar and re.search(r'\b(?:nicht|kein\w*|not|never|don.t|no)\b',text,re.I):avatar=False
     # Generic negation ('Keine Einleitung', 'kein Smalltalk') is not a request
     # to clear interruption rules and must not divert poems into the tool loop.
     rule_cancel=rule_control_request(text) or (cancellation_authorized(text) and

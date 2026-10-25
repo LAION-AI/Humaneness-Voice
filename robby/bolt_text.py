@@ -128,6 +128,11 @@ class SentenceFramer:
                 end,consume,separator=min(boundaries,key=lambda b:b[0])
                 spoken=self.buffer[:end].strip();self.buffer=self.buffer[consume:]
             if spoken.casefold() not in ('silent','[silent]') and spoken:
+                # A renderer note such as *[grimace]* contains no speech.
+                # Passing it to TTS creates an empty literal-text request.
+                outside=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',spoken)
+                if not re.search(r'\w',outside):
+                    self.separator=separator;continue
                 if '(' in spoken or ')' in spoken:raise ValueError('Acting cue must precede its sentence')
                 out.append(Sentence(spoken,self.direction,self.separator))
             self.separator=separator
