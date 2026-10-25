@@ -124,6 +124,13 @@ Completed output sentences immediately enter streaming TTS; 100 fixed acting
 templates replace generated GENERAL prose. Earlier speaker-gated/Luna paths
 remain configurable. [Exact policies, API and reproducible setup](robby/README.md).
 
+Input now waits for a **400-ms neural speech pause** by default, adjustable
+from 200 to 2,000 ms with a persisted slider. Consecutive spoken sentences are
+grouped into one turn; punctuation alone cannot dispatch a request. A small
+CPU Silero VAD distinguishes speech from background noise, and resumed speech
+invalidates a pending final ASR check. See the [implementation and synthetic
+browser/audio checks](https://laion-ai.github.io/Humaneness-Voice/robby/speech-pause-update.html).
+
 The [English latency and precision report](robby/static/robby-local-speed-report.html)
 contains GPU stage profiling, 54 paired precision/adapter experiments, two CUDA
 experiments and synthetic socket/browser checks. Merged FP32 reduced median
