@@ -28,7 +28,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','sentence_session.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+for _name in ('server.py','sentence_session.py','pause_vad.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -122,6 +122,7 @@ class RoboConversation(Conversation):
             'interaction':self.decisions.state(),
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
+            'asr_settings':self.sentence_stream.settings() if self.sentence_stream else None,
             'speaker_instruction':'Speak normally. All voices are answered and labelled; introductions are optional.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
@@ -342,6 +343,13 @@ class RoboConversation(Conversation):
             block=mic_block(msg.data)
             if block is not None:
                 pcm=block[2];self.input_samples+=len(pcm);self.input_blocks+=1
+                if getattr(self,'sentence_stream',None):
+                    rid,at24,_=block;reference=None
+                    if rid==self.playback.rid and at24>=0:
+                        at=round(at24*16000/24000);reference=np.zeros(len(pcm),np.float32)
+                        count=max(0,min(len(pcm),self.playback.n16-at))
+                        if count:reference[:count]=self.playback.audio[at:at+count]
+                    await self.sentence_stream.microphone(pcm,self.input_samples/16000,reference)
                 now=time.monotonic()
                 if now-self.last_input_notice>.5:
                     self.last_input_notice=now
@@ -359,6 +367,11 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if self.sentence_stream and data.startswith('asr:pause_ms:'):
+            try:self.sentence_stream.set_pause(float(data.split(':',2)[2]))
+            except ValueError:
+                await self.ws.send_json({'type':'warning','text':'Speech pause must be between 200 and 2000 ms.'});return
+            await self.ws.send_json(self.sentence_stream.settings());return
         if self.sentence_stream and data.startswith('identity:'):
             command=data[9:]
             if command=='clear':self.sentence_stream.memory.clear();self.current_speaker=None
@@ -581,6 +594,8 @@ async def startup(app):
             STATE['ears']=await asyncio.to_thread(Tyger,block,PluginContext(None,cfg,'robo-ears'))
             attach_feature_tap(STATE['ears'])
             if os.environ.get('ROBO_SENTENCE_STREAM')=='1':
+                from pause_vad import get_model
+                await asyncio.to_thread(get_model)
                 from speaker_teacher import get_cached_teacher
                 await asyncio.to_thread(lambda:get_cached_teacher().embed(np.ones(16000,np.float32)*.01))
             STATE.update(ready=True,phase='Ready: Small RL + Nemotron 3.5 + TYGER')
@@ -612,6 +627,8 @@ async def state(request):
         'audio_worker_error':failure,
         'llm':os.environ.get('ROBO_DIRECTOR_MODEL','configured Luna'),
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
+        'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')),
+        'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
         'privacy':('Camera inference stays in your browser. ASR, speaker matching, Nemotron LLM and TTS run on this server. No microphone recordings are saved.' if os.environ.get('ROBO_DIRECTOR_MODE')=='bolt' else 'Camera inference is local in your browser. Mic audio goes to this server; transcripts go to the configured Luna API. No mic recordings are saved by Robo.'),
         'identity_model':'V4 layer-mix 320-ms + session enrollment; experimental, not authentication' if students else 'legacy ECAPA baseline',

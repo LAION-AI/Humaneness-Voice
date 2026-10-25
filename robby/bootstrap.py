@@ -23,6 +23,8 @@ def main():
         result=snapshot_download('nineninesix/tyger',revision=paths.BUNDLE_REVISION,cache_dir=paths.CACHE,token=False,
             allow_patterns=['model.safetensors','config.json','manifest.json','nemotron/*','LICENSE*','NOTICE*','licenses/*'])
         print('Pinned EARS bundle:',result)
+        from pause_vad import get_model,REVISION
+        get_model();print('Pinned CPU speech-pause VAD:',REVISION)
     print('Pinned TYGER EARS source:',paths.TYGER_REVISION)
 
 
