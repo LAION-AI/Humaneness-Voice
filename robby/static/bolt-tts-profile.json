@@ -1,0 +1,171 @@
+{
+  "model": "small_rl",
+  "checkpoint": {
+    "id": "small_rl",
+    "label": "Small 1.1 Alpha RL · r128 v1 · Default",
+    "kind": "small",
+    "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+    "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+    "checkpoint": "checkpoints/step-00006109/model.safetensors",
+    "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+    "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+    "rl_bundle": true,
+    "policy_dtype": "fp32",
+    "step": 6109,
+    "rl_updates": 2434,
+    "cache_dir": "/dev/shm/humaneness-rl/hub",
+    "batch_size": 1,
+    "max_batch_size": 8,
+    "search_max_n": 8,
+    "stage": "Acting",
+    "steering": false,
+    "adapters": false,
+    "rl_adapter": {
+      "enabled": true,
+      "rank": 128,
+      "dtype": "fp32",
+      "merged": false,
+      "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "semantic": 112,
+      "local": 2
+    }
+  },
+  "policy_dtype": "torch.float32",
+  "parameters": {
+    "semantic_backbone": 632750080,
+    "local_transformer": 78025728,
+    "waveform_codec": 2123701248
+  },
+  "device": "RTX 3090 GPU 0; temporary duplicate while live GPU1 server remains untouched",
+  "scope": "CUDA event spans around semantic backbone, whole local 12-code token step, and stateful waveform codec; excludes prompt/reference setup and server postprocessing",
+  "caveat": "Instrumentation adds event launch overhead. No per-layer synchronizations. Same weights/precision/reference/CFG/chunk length as production, but an isolated process on the other RTX 3090.",
+  "rows": [
+    {
+      "repeat": 0,
+      "wall_ms": 966.53,
+      "stages_ms": {
+        "semantic_prefill": 39.651,
+        "acoustic_token_prediction": 294.391,
+        "semantic_step": 375.331,
+        "waveform_codec": 189.702
+      },
+      "calls": {
+        "semantic_prefill": 1,
+        "acoustic_token_prediction": 39,
+        "semantic_step": 38,
+        "waveform_codec": 2
+      },
+      "audio_s": 3.04,
+      "performance": {
+        "device_seconds": 0.9640795288085937,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3171314239501953,
+        "audio_seconds_per_second": 3.153266830337972,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9640795288085937,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9641692638397217,
+            "first_audio_seconds": 0.5113783264160157,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      }
+    },
+    {
+      "repeat": 1,
+      "wall_ms": 965.75,
+      "stages_ms": {
+        "semantic_prefill": 40.203,
+        "acoustic_token_prediction": 295.335,
+        "semantic_step": 374.672,
+        "waveform_codec": 189.199
+      },
+      "calls": {
+        "semantic_prefill": 1,
+        "acoustic_token_prediction": 39,
+        "semantic_step": 38,
+        "waveform_codec": 2
+      },
+      "audio_s": 3.04,
+      "performance": {
+        "device_seconds": 0.9633802490234376,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.31690139770507814,
+        "audio_seconds_per_second": 3.1555556625554626,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9633802490234376,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9634623378515244,
+            "first_audio_seconds": 0.5112158203125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      }
+    },
+    {
+      "repeat": 2,
+      "wall_ms": 965.54,
+      "stages_ms": {
+        "semantic_prefill": 40.646,
+        "acoustic_token_prediction": 295.284,
+        "semantic_step": 374.252,
+        "waveform_codec": 189.117
+      },
+      "calls": {
+        "semantic_prefill": 1,
+        "acoustic_token_prediction": 39,
+        "semantic_step": 38,
+        "waveform_codec": 2
+      },
+      "audio_s": 3.04,
+      "performance": {
+        "device_seconds": 0.963145751953125,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3168242605108964,
+        "audio_seconds_per_second": 3.156323945607718,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.963145751953125,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9632319882512093,
+            "first_audio_seconds": 0.5112813110351563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      }
+    }
+  ],
+  "finished": 1792945402.8020253
+}
