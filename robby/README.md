@@ -1,16 +1,96 @@
 # Robby voice chat and TYGER speaker predictor
 
 Robby connects a browser-local animated robot to the existing Humaneness Voice
-Playground. It shares the loaded [Small 1.1 Alpha RL speech model](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1) and configured Luna
-provider/model rather than loading another speech model. Nemotron ASR 3.5 and the
-original TYGER GRU supply transcription, endpointing and interruptions.
+Playground. The current local mode uses [NVIDIA Nemotron 3.5 Bolt E4B Q4_K_M](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB)
+through CUDA llama.cpp and shares the loaded [Small 1.1 Alpha RL speech model](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1).
+Nemotron ASR 3.5 and the original TYGER GRU supply recognition and interruptions.
+The previous configured Luna path remains available as a compatibility mode.
 
 The playback clock and live voice bridge share the existing speech model. The
-current experimental multi-user default combines frozen Nemotron diarization,
+previous experimental multi-user default combines frozen Nemotron diarization,
 the completed V4 320-ms speaker predictor, a longer reference student and an
 ECAPA full-utterance identity check. It submits by the enrolled speaker's own
 inactivity, not global room silence. Speaker filtering is enabled by default;
 it is approximate session memory, not reliable biometric authentication.
+
+## Local sentence streaming and latency report (2026-10-25)
+
+The current live configuration is `ROBO_DIRECTOR_MODE=bolt` and
+`ROBO_SENTENCE_STREAM=1`. All intelligible voices are admitted without a wake
+phrase or introduction. Approximate nearest-prototype ECAPA matching assigns
+Speaker 1, Speaker 2… labels; optional names and explicit corrections such as
+“Ich bin auch Christoph” associate several acoustic anchors with one person.
+Profiles remain in session RAM and expire by the configured inactivity timeout.
+The threshold controls voice labelling rather than permission to speak.
+
+The local LLM streams short cues and words. One hundred fixed GENERAL templates
+(40 emotions at two strengths, plus 10 delivery styles at two strengths) replace
+generated GENERAL prose for ordinary replies. Completed output sentences enter
+TTS immediately while the LLM continues. Later input sentences queue in order
+for subsequent requests; a running decode cannot be retroactively edited.
+Read-only information tools and avatar tools retain the verified tool loop
+through the same local model. Direct rotations retain their six-second,
+playback-anchored fallback.
+
+The speaker teacher is warmed at startup. Background work prepares 1.28–3.04 s
+of already-heard speech, consuming only fresh same-sentence results. Short or
+failed preparations retain the full-utterance fallback. The measured TTS default
+is 20 semantic frames (1,600 ms); smaller chunks were slower on these RTX 3090s.
+The browser uses an adaptive reserve (180 ms for substantial first packets,
+at least 300 ms for short codec packets), increasing it after underruns. Output
+timestamps still drive Second Ear. The tested DFlash companion was slower for
+short responses and is disabled.
+
+The self-contained [English latency report](static/robby-local-speed-report.html)
+contains component timings, complete-audio API measurements, live socket/browser
+tests, speaker-context comparisons, actual word counts, failures and further
+optimization proposals. A standalone copy is generated at the workspace root as
+`robby-local-speed-report.html`.
+
+### Launch and API
+
+The shared TTS server must already run on port 8792. Install the Python
+requirements and use a CUDA llama.cpp build supporting Gemma 4 / Bolt (measured
+binary commit `5d9e5ac`). Main weights are pinned to HF revision
+`1db54d5b12533ff1bcaa8e42cf4c667988a1f1be`.
+On a new checkout, run `python bootstrap.py` first to fetch the pinned TYGER
+source/bundle; these dependencies are not included in the source snapshot.
+Alternatively set `ROBO_TYGER_SOURCE` and `ROBO_TYGER_BUNDLE` to existing copies.
+
+```sh
+python launch_bolt_stack.py --llama-server /path/to/llama-server \
+  --models /path/to/bolt-models --download --with-robo
+```
+
+This starts the LLM on 8799, optional ASR/avatar service on 8793, and FastAPI
+on 8798. It does not replace existing services or stop unrelated GPU processes.
+Use `--reuse-llm` to retain an already loaded compatible model. The UI is
+`/desk-robot/`; interactive API documentation is `/docs`.
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /api/bolt/state` | Model revisions and readiness |
+| `GET /api/bolt/templates` | The 100 acting templates |
+| `POST /api/bolt/llm` | Streamed local reply sentences |
+| `POST /api/bolt/tts` | Supplied text + cue to streamed speech |
+| `POST /api/bolt/chat` | Text to streamed LLM sentences and audio |
+| `POST /api/bolt/asr` | Complete mono float32 LE / 16-kHz PCM, at most 15 s |
+| `POST /api/bolt/audio-chat` | Complete input PCM to streamed reply |
+| `WS /ws` | Live browser capture and playback |
+
+SSE audio events contain base64 PCM16 LE, mono, 24 kHz. `reply_words` supplies an
+approximate target for latency checks; actual counts are reported. Complete-audio
+timings exclude speaking duration, live endpointing and physical devices.
+
+Reproduce with `benchmark_bolt.py`, `benchmark_bolt_speakers.py`,
+`benchmark_bolt_engines.py` (temporary comparison server), `bolt_socket_check.py`,
+`browser_bolt_check.py`, and `render_bolt_report.py`. Keep audio tests serial
+because the shared ASR demo has one conversation slot. Tests use authored
+synthetic fixtures; no private microphone recordings are published.
+
+For the previous speaker-gated system set `ROBO_SENTENCE_STREAM=0`; director
+modes `compact` and `shared` remain available. Historical measurements below
+refer to their original configurations.
 
 ## Expressive actions and the illustrated manual
 
@@ -1067,7 +1147,7 @@ now makes `/api/state` report not ready and rejects new calls with a clear error
 instead of appearing healthy with a broken microphone. Such a CUDA context still
 requires restarting the owned Robby process, not resetting shared GPUs.
 
-The default `ROBO_DIRECTOR_MODE=compact` performs **one** request to the same
+The legacy `ROBO_DIRECTOR_MODE=compact` performs **one** request to the same
 configured Luna model/provider. `conversation_prompt.py` contains the response
 policy; `conversation_director.py` contains the complete three-field JSON recipe
 and validation. The director returns one actual answer/SCRIPT, language and
@@ -2123,3 +2203,57 @@ private microphone recordings or user embeddings. The model/source snapshot is
 published at <https://huggingface.co/laion/tyger-speaker-predictor>; the initial
 credential error mentioned in the historical pilot has been resolved. Use an
 authorized local credential, never place tokens in source or chat logs.
+### TTS precision and CUDA measurements (25 October 2026)
+
+`benchmark_tts_precision.py` compares the same released Small RL checkpoint on
+an isolated RTX 3090: three German/English acting prompts, three paired seeds,
+six arithmetic variants (54 clips). Warm-up is separate. Frozen ECAPA, ASR and
+Humaneness Ears score all clips; representative synthetic MP3s are embedded in
+the English latency report. This is a small engineering comparison, not a
+human listening study.
+
+| Arithmetic | Median GPU generation | First GPU audio | Speaker cosine | WER |
+| --- | ---: | ---: | ---: | ---: |
+| Official strict FP32 | 973 ms | 516 ms | .434 | .079 |
+| FP32 + TF32 | 1093 ms | 572 ms | .401 | .095 |
+| BF16 base + original FP32 LoRA | 973 ms | 499 ms | .433 | .095 |
+| Full BF16 | 954 ms | 491 ms | .361 | .095 |
+| Merged FP32 | 876 ms | 467 ms | .434 | .079 |
+| Merged BF16 | 795 ms | 421 ms | .390 | .127 |
+
+The recommended conservative optimization is **merged FP32**: form `W+B@A`
+once at load, removing two residual-adapter GEMMs per affected projection.
+All nine tested generated code sequences matched the unmerged reference;
+floating-point equivalence is not guaranteed for every future input. Merged
+BF16 is faster but changed all nine sampled sequences and worsened speaker
+cosine/WER in this pilot. TF32 was slower here and is not recommended merely
+because Tensor Cores are available. Quality proxies are not human ratings.
+
+The shared TTS runtime supports `HVS_RL_PRECISION=fp32_merged` before startup.
+Omitting it retains the official `fp32_strict` fallback. Other experimental
+values are `fp32_tf32`, `bf16_base_fp32_lora`, `bf16_all`, `bf16_merged`.
+Never change arithmetic on a model after compilation or graph capture.
+The waveform codec uses the same BF16 autocast path in every arm; these
+experiments vary the semantic/local token predictors, not the codec.
+
+`profile_bolt_tts.py` uses CUDA events: approximately 40 ms semantic prefill,
+375 ms semantic frame steps, 295 ms local twelve-code prediction and 189 ms
+stateful waveform decoding for a three-second sample. Token prediction is
+about 74% of that measured GPU span. These spans are not an additive
+decomposition of HTTP or physical microphone-to-ear latency.
+
+`benchmark_semantic_graph.py` separately tests a bounded static semantic KV
+cache and CUDA graph replay, including cache resets between different
+prompts/seeds. `HVS_SEMANTIC_CUDA_GRAPH=1` is experimental and off by default;
+18 paired generations per arm matched all generated code sequences, but
+generation changed only from 871 to 865 ms and first audio stayed at 461–462
+ms. This negligible gain does not justify changing the live default.
+Use `benchmark_semantic_graph.py --target local` for the separate local-decoder
+compilation/fusion experiment; it does not modify production configuration.
+It gave 870 → 854 ms GPU generation and 459 → 455 ms first GPU audio in nine
+paired clips, all matching generated codes, with 18 seconds additional warm-up.
+The small gain needs a broader workload/batch comparison before deployment.
+Further candidates are fused semantic/local replay, GPU-side stop checks,
+fused sampling and shorter private PCM transport. None is a claimed speedup
+until measured. CUDA graph requirements are documented by
+[PyTorch](https://docs.pytorch.org/docs/2.14/notes/cuda.html#cuda-graphs).

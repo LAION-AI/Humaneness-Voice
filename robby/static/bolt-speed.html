@@ -1,0 +1,1387 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby: local Nemotron latency</title>
+<style>body{font:16px/1.6 system-ui;max-width:1150px;margin:30px auto;padding:20px;background:#faf8f4;color:#20333a}table{border-collapse:collapse;width:100%}td,th{border:1px solid #bfcbd0;padding:10px;text-align:left}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:#176175}</style>
+<h1>Robby: local Nemotron sentence streaming</h1><p>Measured on 25 October 2026. Values below are median milliseconds, measured at the local FastAPI client. Model weights: NVIDIA Nemotron 3.5 Bolt E4B Q4_K_M, served with llama.cpp CUDA; shared Humaneness Small RL TTS and frozen Nemotron ASR. Two RTX 3090 GPUs. Only newly authored synthetic speech is used.</p>
+<div class="scroll"><table><tr><th>Condition</th><th>Successful runs</th><th>LLM first token</th><th>First sentence</th><th>ASR</th><th>First audio</th><th>Full generation</th></tr><tr><td>ASR + LLM + TTS (offline audio)</td><td>3/3</td><td>39</td><td>133</td><td>45</td><td>963</td><td>1525</td></tr><tr><td>LLM + TTS</td><td>3/3</td><td>40</td><td>152</td><td>—</td><td>943</td><td>1484</td></tr><tr><td>LLM only</td><td>3/3</td><td>38</td><td>135</td><td>—</td><td>—</td><td>135</td></tr><tr><td>TTS only · 160 ms chunks</td><td>3/3</td><td>—</td><td>12</td><td>—</td><td>1864</td><td>3854</td></tr><tr><td>TTS only · 1600 ms chunks</td><td>3/3</td><td>—</td><td>11</td><td>—</td><td>797</td><td>1394</td></tr><tr><td>TTS only · 400 ms chunks</td><td>3/3</td><td>—</td><td>11</td><td>—</td><td>1199</td><td>2231</td></tr><tr><td>TTS only · 800 ms chunks</td><td>3/3</td><td>—</td><td>7</td><td>—</td><td>925</td><td>1666</td></tr></table></div>
+<p>TTFT means first text token. First audio means the first playable PCM packet received, not the end of the spoken reply. Full generation is the time to finish generating all audio, not its playback duration. Warm steady-state samples use an already loaded model. Raw rows include actual input and output word counts, failures and per-sentence metrics.</p>
+<p>“ASR + LLM + TTS (offline audio)” sends a complete prerecorded synthetic request to ASR, then its recognized text to the real LLM/TTS path. It excludes speaking duration, streaming endpoint detection, microphone hardware and browser/device/network buffering. A separately documented real-time browser/socket test measures that additional path; these numbers must not be presented as microphone-to-speaker latency.</p>
+<h2>Pipeline and choices</h2><p>Stable ASR sentences are labelled using nearest full-utterance ECAPA voice prototypes. Unknown speakers are answered, numbered and optionally asked their name. Explicit self-identification can attach several acoustic prototypes to the same session person. The LLM outputs short acting cues and spoken words; 100 fixed GENERAL templates are matched in memory. A completed output sentence immediately enters streaming TTS while the remaining LLM output continues. New input sentences queue in order and enter the next LLM request with conversation history. Already decoding LLM requests cannot be retroactively edited.</p>
+<p>The report compares 160, 400, 800 and 1600 ms requested TTS frame chunks (2, 5, 10, 20 frames). Actual MP3/PCM packet lengths can differ because of codec and final-tail boundaries. Smaller chunks may reduce first audio at the cost of more decoding/transport work. See the measured rows before choosing a default.</p>
+<h2>Raw reproducible measurements</h2><pre>{
+  &quot;hardware&quot;: &quot;2 x NVIDIA RTX 3090 24GB; LLM + ASR GPU0, TTS GPU1&quot;,
+  &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+  &quot;input_words&quot;: 7,
+  &quot;tts_only_text&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+  &quot;tts_only_words&quot;: 7,
+  &quot;started&quot;: 1792947495.1444917,
+  &quot;runs&quot;: 3,
+  &quot;rows&quot;: [
+    {
+      &quot;first_sentence_ms&quot;: 182.2679489850998,
+      &quot;first_audio_ms&quot;: null,
+      &quot;total_ms&quot;: 182.71062523126602,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 77.39,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 14,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 608,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 420
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 420,
+          &quot;prompt_n&quot;: 174,
+          &quot;prompt_ms&quot;: 68.014,
+          &quot;prompt_per_token_ms&quot;: 0.39088505747126434,
+          &quot;prompt_per_second&quot;: 2558.2968212426854,
+          &quot;predicted_n&quot;: 14,
+          &quot;predicted_ms&quot;: 98.654,
+          &quot;predicted_per_token_ms&quot;: 7.046714285714286,
+          &quot;predicted_per_second&quot;: 141.91011008169968
+        },
+        &quot;llm_first_sentence_ms&quot;: 176.5,
+        &quot;llm_total_ms&quot;: 177.65
+      },
+      &quot;output&quot;: &quot;Wir können ein kleines Spiel spielen.&quot;,
+      &quot;output_words&quot;: 6,
+      &quot;audio_s&quot;: 0.0,
+      &quot;group&quot;: &quot;LLM only&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 77.39
+    },
+    {
+      &quot;first_sentence_ms&quot;: 135.11930406093597,
+      &quot;first_audio_ms&quot;: null,
+      &quot;total_ms&quot;: 135.4931741952896,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 37.92,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 14,
+          &quot;prompt_tokens&quot;: 593,
+          &quot;total_tokens&quot;: 607,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 14,
+          &quot;prompt_ms&quot;: 30.137,
+          &quot;prompt_per_token_ms&quot;: 2.1526428571428573,
+          &quot;prompt_per_second&quot;: 464.5452433885257,
+          &quot;predicted_n&quot;: 14,
+          &quot;predicted_ms&quot;: 94.832,
+          &quot;predicted_per_token_ms&quot;: 6.773714285714285,
+          &quot;predicted_per_second&quot;: 147.629492154547
+        },
+        &quot;llm_first_sentence_ms&quot;: 133.39,
+        &quot;llm_total_ms&quot;: 133.8
+      },
+      &quot;output&quot;: &quot;Ein kleiner Roboter spielte Ball.&quot;,
+      &quot;output_words&quot;: 5,
+      &quot;audio_s&quot;: 0.0,
+      &quot;group&quot;: &quot;LLM only&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;input&quot;: &quot;Welche kleine Geschichte kannst du mir erzählen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 37.92
+    },
+    {
+      &quot;first_sentence_ms&quot;: 127.60794907808304,
+      &quot;first_audio_ms&quot;: null,
+      &quot;total_ms&quot;: 127.93288379907608,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 37.98,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 13,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 607,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 580
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 580,
+          &quot;prompt_n&quot;: 14,
+          &quot;prompt_ms&quot;: 30.455,
+          &quot;prompt_per_token_ms&quot;: 2.1753571428571425,
+          &quot;prompt_per_second&quot;: 459.69463142341164,
+          &quot;predicted_n&quot;: 13,
+          &quot;predicted_ms&quot;: 87.489,
+          &quot;predicted_per_token_ms&quot;: 6.729923076923077,
+          &quot;predicted_per_second&quot;: 148.59010847077917
+        },
+        &quot;llm_first_sentence_ms&quot;: 126.04,
+        &quot;llm_total_ms&quot;: 126.44
+      },
+      &quot;output&quot;: &quot;Wir spielen Ratespiel zusammen.&quot;,
+      &quot;output_words&quot;: 4,
+      &quot;audio_s&quot;: 0.0,
+      &quot;group&quot;: &quot;LLM only&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;input&quot;: &quot;Welches lustige Spiel könnten wir jetzt spielen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 37.98
+    },
+    {
+      &quot;first_sentence_ms&quot;: 16.77948236465454,
+      &quot;first_audio_ms&quot;: 1864.5796850323677,
+      &quot;total_ms&quot;: 3867.7168264985085,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1847.91,
+        &quot;first_audio_ms&quot;: 1849.11,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 3510,
+            &quot;alignment_ms&quot;: 39,
+            &quot;scoring_ms&quot;: 109,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 3839,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 2.4626265621185306,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.8100745270126746,
+              &quot;audio_seconds_per_second&quot;: 1.234454320749619,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 2.4626265621185306,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 3.397660195827484,
+                  &quot;first_audio_seconds&quot;: 0.1725614013671875,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.9336497783660889
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 2,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 3850.6,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 3851.81,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 1.2882
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 160 ms chunks&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;chunk_frames&quot;: 2
+    },
+    {
+      &quot;first_sentence_ms&quot;: 10.722815990447998,
+      &quot;first_audio_ms&quot;: 1863.6620342731476,
+      &quot;total_ms&quot;: 3854.374162852764,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1853.03,
+        &quot;first_audio_ms&quot;: 1853.52,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 3519,
+            &quot;alignment_ms&quot;: 38,
+            &quot;scoring_ms&quot;: 112,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 3837,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 2.489486961364746,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.8189101846594559,
+              &quot;audio_seconds_per_second&quot;: 1.2211351363469125,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 2.489486961364746,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 3.4032174795866013,
+                  &quot;first_audio_seconds&quot;: 0.17139511108398436,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.912235677242279
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 2,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 3843.51,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 3844.01,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 1.2856
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 160 ms chunks&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;chunk_frames&quot;: 2
+    },
+    {
+      &quot;first_sentence_ms&quot;: 11.67907565832138,
+      &quot;first_audio_ms&quot;: 1800.7417991757393,
+      &quot;total_ms&quot;: 3728.364981710911,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1789.21,
+        &quot;first_audio_ms&quot;: 1790.14,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 3400,
+            &quot;alignment_ms&quot;: 38,
+            &quot;scoring_ms&quot;: 97,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 3711,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 2.4418076477050783,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.8032261999029863,
+              &quot;audio_seconds_per_second&quot;: 1.244979309839221,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 2.4418076477050783,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 3.2915093451738358,
+                  &quot;first_audio_seconds&quot;: 0.1711953887939453,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.8482890352606773
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 2,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 3716.71,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 3717.65,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 1.2434
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 160 ms chunks&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;chunk_frames&quot;: 2
+    },
+    {
+      &quot;first_sentence_ms&quot;: 10.952584445476532,
+      &quot;first_audio_ms&quot;: 1198.6705362796783,
+      &quot;total_ms&quot;: 2230.784833431244,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1187.71,
+        &quot;first_audio_ms&quot;: 1188.2,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1905,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 93,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 2213,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.4164285249710085,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.46593043584572646,
+              &quot;audio_seconds_per_second&quot;: 2.146243136456337,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.4164285249710085,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.793747790157795,
+                  &quot;first_audio_seconds&quot;: 0.22046421813964845,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.3767726719379425
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 5,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 2219.64,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 2220.14,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.7425
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 400 ms chunks&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;chunk_frames&quot;: 5
+    },
+    {
+      &quot;first_sentence_ms&quot;: 9.83601063489914,
+      &quot;first_audio_ms&quot;: 1214.2523303627968,
+      &quot;total_ms&quot;: 2260.1989060640335,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1204.46,
+        &quot;first_audio_ms&quot;: 1204.97,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1928,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 105,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 2244,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.4277948036193846,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.4696693432958502,
+              &quot;audio_seconds_per_second&quot;: 2.129157489783378,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.4277948036193846,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.8131361082196236,
+                  &quot;first_audio_seconds&quot;: 0.22035865783691405,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.38475242257118225
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 5,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 2249.94,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 2250.45,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.7527
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 400 ms chunks&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;chunk_frames&quot;: 5
+    },
+    {
+      &quot;first_sentence_ms&quot;: 11.17522269487381,
+      &quot;first_audio_ms&quot;: 1179.5296296477318,
+      &quot;total_ms&quot;: 2207.7754959464073,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 1168.61,
+        &quot;first_audio_ms&quot;: 1169.37,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1885,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 96,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 2190,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.4124173436164857,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.4646109682948966,
+              &quot;audio_seconds_per_second&quot;: 2.1523383394713202,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.4124173436164857,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.77467492967844,
+                  &quot;first_audio_seconds&quot;: 0.21776998901367187,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.3617336302995682
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 5,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 2196.56,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 2197.32,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.7349
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 400 ms chunks&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;chunk_frames&quot;: 5
+    },
+    {
+      &quot;first_sentence_ms&quot;: 6.7099034786224365,
+      &quot;first_audio_ms&quot;: 924.3387952446938,
+      &quot;total_ms&quot;: 1665.8211573958397,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 917.72,
+        &quot;first_audio_ms&quot;: 918.22,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1350,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 96,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1653,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.05045831823349,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.34554549941891116,
+              &quot;audio_seconds_per_second&quot;: 2.8939748938465604,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.05045831823349,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.2396915555000305,
+                  &quot;first_audio_seconds&quot;: 0.2964643859863281,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.1888590306043625
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 10,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1658.82,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1659.31,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.555
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 800 ms chunks&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;chunk_frames&quot;: 10
+    },
+    {
+      &quot;first_sentence_ms&quot;: 6.912536919116974,
+      &quot;first_audio_ms&quot;: 931.6956177353859,
+      &quot;total_ms&quot;: 1670.11409252882,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 924.93,
+        &quot;first_audio_ms&quot;: 925.45,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1345,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 92,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1657,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.049289686203003,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.34516108098782994,
+              &quot;audio_seconds_per_second&quot;: 2.8971980187860726,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.049289686203003,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.2354553937911987,
+                  &quot;first_audio_seconds&quot;: 0.30012930297851564,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.18573597818613052
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 10,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1663.21,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1663.73,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.5564
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 800 ms chunks&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;chunk_frames&quot;: 10
+    },
+    {
+      &quot;first_sentence_ms&quot;: 11.538214981555939,
+      &quot;first_audio_ms&quot;: 924.9364733695984,
+      &quot;total_ms&quot;: 1662.3022854328156,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 913.34,
+        &quot;first_audio_ms&quot;: 914.25,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1340,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 93,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1644,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 1.0399398298263551,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.3420854703376168,
+              &quot;audio_seconds_per_second&quot;: 2.9232460502138924,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 1.0399398298263551,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 1.2299897000193596,
+                  &quot;first_audio_seconds&quot;: 0.2963978271484375,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.1896444708108902
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 10,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1650.26,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1651.17,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.5522
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 800 ms chunks&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;chunk_frames&quot;: 10
+    },
+    {
+      &quot;first_sentence_ms&quot;: 11.081196367740631,
+      &quot;first_audio_ms&quot;: 798.8472357392311,
+      &quot;total_ms&quot;: 1393.8787803053856,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 788.07,
+        &quot;first_audio_ms&quot;: 788.82,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1071,
+            &quot;alignment_ms&quot;: 36,
+            &quot;scoring_ms&quot;: 97,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1376,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.860546377658844,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.28307446633514605,
+              &quot;audio_seconds_per_second&quot;: 3.532639354395355,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.860546377658844,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9599344581365585,
+                  &quot;first_audio_seconds&quot;: 0.4566138916015625,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.09915220737457275
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1383.06,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1383.81,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.4628
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 1600 ms chunks&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 11.363282799720764,
+      &quot;first_audio_ms&quot;: 791.9584885239601,
+      &quot;total_ms&quot;: 1412.654347717762,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 780.49,
+        &quot;first_audio_ms&quot;: 781.05,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1077,
+            &quot;alignment_ms&quot;: 42,
+            &quot;scoring_ms&quot;: 99,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1395,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8665471472740173,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.28504840370855833,
+              &quot;audio_seconds_per_second&quot;: 3.5081761097053143,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8665471472740173,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9673908799886703,
+                  &quot;first_audio_seconds&quot;: 0.45616128540039064,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.10057909041643143
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1401.0,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1401.57,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.4688
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 1600 ms chunks&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 7.248185575008392,
+      &quot;first_audio_ms&quot;: 796.6237515211105,
+      &quot;total_ms&quot;: 1390.4198482632637,
+      &quot;metrics&quot;: {
+        &quot;tts_first_audio_ms&quot;: 789.8,
+        &quot;first_audio_ms&quot;: 790.34,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1064,
+            &quot;alignment_ms&quot;: 46,
+            &quot;scoring_ms&quot;: 92,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1377,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8569528670310974,
+              &quot;raw_audio_seconds&quot;: 3.04,
+              &quot;aggregate_rtf&quot;: 0.2818923904707557,
+              &quot;audio_seconds_per_second&quot;: 3.5474529778190047,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8569528670310974,
+                  &quot;audio_seconds&quot;: [
+                    3.04
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9541874527931213,
+                  &quot;first_audio_seconds&quot;: 0.4549632263183594,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.09702516347169876
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1383.15,
+            &quot;audio_s&quot;: 2.99
+          }
+        ],
+        &quot;total_ms&quot;: 1383.69,
+        &quot;audio_s&quot;: 2.99,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.4628
+      },
+      &quot;output&quot;: &quot;Natürlich, ich erzähle dir eine kleine Geschichte.&quot;,
+      &quot;output_words&quot;: 7,
+      &quot;audio_s&quot;: 2.99,
+      &quot;group&quot;: &quot;TTS only · 1600 ms chunks&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 162.19192743301392,
+      &quot;first_audio_ms&quot;: 945.3781917691231,
+      &quot;total_ms&quot;: 1525.429219007492,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 47.13,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 14,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 608,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 15,
+          &quot;prompt_ms&quot;: 38.911,
+          &quot;prompt_per_token_ms&quot;: 2.594066666666667,
+          &quot;prompt_per_second&quot;: 385.49510421217644,
+          &quot;predicted_n&quot;: 14,
+          &quot;predicted_ms&quot;: 98.573,
+          &quot;predicted_per_token_ms&quot;: 7.040928571428571,
+          &quot;predicted_per_second&quot;: 142.0267213131385
+        },
+        &quot;llm_first_sentence_ms&quot;: 146.25,
+        &quot;llm_total_ms&quot;: 146.27,
+        &quot;tts_first_audio_ms&quot;: 783.65,
+        &quot;first_audio_ms&quot;: 932.43,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1046,
+            &quot;alignment_ms&quot;: 42,
+            &quot;scoring_ms&quot;: 100,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1356,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8397430429458618,
+              &quot;raw_audio_seconds&quot;: 2.96,
+              &quot;aggregate_rtf&quot;: 0.28369697396819654,
+              &quot;audio_seconds_per_second&quot;: 3.5248877914083905,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8397430429458618,
+                  &quot;audio_seconds&quot;: [
+                    2.96
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9333579689264297,
+                  &quot;first_audio_seconds&quot;: 0.45375897216796873,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.09339266270399094
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1363.35,
+            &quot;audio_s&quot;: 2.35
+          }
+        ],
+        &quot;total_ms&quot;: 1512.14,
+        &quot;audio_s&quot;: 2.35,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.6435
+      },
+      &quot;output&quot;: &quot;Wir können ein kleines Spiel spielen.&quot;,
+      &quot;output_words&quot;: 6,
+      &quot;audio_s&quot;: 2.35,
+      &quot;group&quot;: &quot;LLM + TTS&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;asr_ms&quot;: null,
+      &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 47.13,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 117.952361702919,
+      &quot;first_audio_ms&quot;: 943.892917585373,
+      &quot;total_ms&quot;: 1524.5364382863045,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 19.73,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 14,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 608,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 593
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 593,
+          &quot;prompt_n&quot;: 1,
+          &quot;prompt_ms&quot;: 11.601,
+          &quot;prompt_per_token_ms&quot;: 11.601,
+          &quot;prompt_per_second&quot;: 86.1994655633135,
+          &quot;predicted_n&quot;: 14,
+          &quot;predicted_ms&quot;: 89.797,
+          &quot;predicted_per_token_ms&quot;: 6.414071428571428,
+          &quot;predicted_per_second&quot;: 155.9072129358442
+        },
+        &quot;llm_first_sentence_ms&quot;: 110.1,
+        &quot;llm_total_ms&quot;: 110.12,
+        &quot;tts_first_audio_ms&quot;: 781.63,
+        &quot;first_audio_ms&quot;: 892.81,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1038,
+            &quot;alignment_ms&quot;: 41,
+            &quot;scoring_ms&quot;: 100,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1349,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8419437999725342,
+              &quot;raw_audio_seconds&quot;: 2.96,
+              &quot;aggregate_rtf&quot;: 0.284440472963694,
+              &quot;audio_seconds_per_second&quot;: 3.5156740866748595,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8419437999725342,
+                  &quot;audio_seconds&quot;: [
+                    2.96
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9285438656806946,
+                  &quot;first_audio_seconds&quot;: 0.45418377685546873,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.08632829040288925
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1359.33,
+            &quot;audio_s&quot;: 2.67
+          }
+        ],
+        &quot;total_ms&quot;: 1470.52,
+        &quot;audio_s&quot;: 2.67,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.5508
+      },
+      &quot;output&quot;: &quot;Wir können ein kurzes Spiel spielen.&quot;,
+      &quot;output_words&quot;: 6,
+      &quot;audio_s&quot;: 2.67,
+      &quot;group&quot;: &quot;ASR + LLM + TTS (offline audio)&quot;,
+      &quot;repeat&quot;: 0,
+      &quot;asr_ms&quot;: 44.95,
+      &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 19.73,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 151.64873003959656,
+      &quot;first_audio_ms&quot;: 934.5957189798355,
+      &quot;total_ms&quot;: 1483.650118112564,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 38.9,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 15,
+          &quot;prompt_tokens&quot;: 593,
+          &quot;total_tokens&quot;: 608,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 14,
+          &quot;prompt_ms&quot;: 30.106,
+          &quot;prompt_per_token_ms&quot;: 2.1504285714285714,
+          &quot;prompt_per_second&quot;: 465.0235833388693,
+          &quot;predicted_n&quot;: 15,
+          &quot;predicted_ms&quot;: 101.136,
+          &quot;predicted_per_token_ms&quot;: 6.7424,
+          &quot;predicted_per_second&quot;: 148.31514000949218
+        },
+        &quot;llm_first_sentence_ms&quot;: 140.61,
+        &quot;llm_total_ms&quot;: 140.63,
+        &quot;tts_first_audio_ms&quot;: 783.6,
+        &quot;first_audio_ms&quot;: 925.3,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1022,
+            &quot;alignment_ms&quot;: 40,
+            &quot;scoring_ms&quot;: 95,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1325,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8266990942955017,
+              &quot;raw_audio_seconds&quot;: 2.88,
+              &quot;aggregate_rtf&quot;: 0.28704829663038256,
+              &quot;audio_seconds_per_second&quot;: 3.483734311399343,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8266990942955017,
+                  &quot;audio_seconds&quot;: [
+                    2.88
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9140448495745659,
+                  &quot;first_audio_seconds&quot;: 0.45652377319335935,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.08712891489267349
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1332.17,
+            &quot;audio_s&quot;: 2.83
+          }
+        ],
+        &quot;total_ms&quot;: 1473.88,
+        &quot;audio_s&quot;: 2.83,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.5208
+      },
+      &quot;output&quot;: &quot;Ein kleiner Roboter fand einen Stern.&quot;,
+      &quot;output_words&quot;: 6,
+      &quot;audio_s&quot;: 2.83,
+      &quot;group&quot;: &quot;LLM + TTS&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;asr_ms&quot;: null,
+      &quot;input&quot;: &quot;Welche kleine Geschichte kannst du mir erzählen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 38.9,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 132.6659545302391,
+      &quot;first_audio_ms&quot;: 963.3046596431732,
+      &quot;total_ms&quot;: 1451.5440613031387,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 38.68,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 12,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 606,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 15,
+          &quot;prompt_ms&quot;: 30.418,
+          &quot;prompt_per_token_ms&quot;: 2.0278666666666667,
+          &quot;prompt_per_second&quot;: 493.1290683148136,
+          &quot;predicted_n&quot;: 12,
+          &quot;predicted_ms&quot;: 80.194,
+          &quot;predicted_per_token_ms&quot;: 6.682833333333334,
+          &quot;predicted_per_second&quot;: 149.63712995984736
+        },
+        &quot;llm_first_sentence_ms&quot;: 119.51,
+        &quot;llm_total_ms&quot;: 119.52,
+        &quot;tts_first_audio_ms&quot;: 783.95,
+        &quot;first_audio_ms&quot;: 904.67,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 952,
+            &quot;alignment_ms&quot;: 42,
+            &quot;scoring_ms&quot;: 90,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1262,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.7490753979682923,
+              &quot;raw_audio_seconds&quot;: 2.48,
+              &quot;aggregate_rtf&quot;: 0.30204653143882754,
+              &quot;audio_seconds_per_second&quot;: 3.31074816597431,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.7490753979682923,
+                  &quot;audio_seconds&quot;: [
+                    2.48
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.841345839202404,
+                  &quot;first_audio_seconds&quot;: 0.45552127075195314,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.09204703569412231
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1269.58,
+            &quot;audio_s&quot;: 1.79
+          }
+        ],
+        &quot;total_ms&quot;: 1390.3,
+        &quot;audio_s&quot;: 1.79,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.7767
+      },
+      &quot;output&quot;: &quot;Wir spielen ein kleines Spiel.&quot;,
+      &quot;output_words&quot;: 5,
+      &quot;audio_s&quot;: 1.79,
+      &quot;group&quot;: &quot;ASR + LLM + TTS (offline audio)&quot;,
+      &quot;repeat&quot;: 1,
+      &quot;asr_ms&quot;: 47.54,
+      &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 38.68,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 149.3893712759018,
+      &quot;first_audio_ms&quot;: 943.0217295885086,
+      &quot;total_ms&quot;: 1419.7827652096748,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 40.13,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 14,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 608,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 15,
+          &quot;prompt_ms&quot;: 31.23,
+          &quot;prompt_per_token_ms&quot;: 2.082,
+          &quot;prompt_per_second&quot;: 480.3073967339097,
+          &quot;predicted_n&quot;: 14,
+          &quot;predicted_ms&quot;: 97.531,
+          &quot;predicted_per_token_ms&quot;: 6.966500000000001,
+          &quot;predicted_per_second&quot;: 143.54410392593124
+        },
+        &quot;llm_first_sentence_ms&quot;: 138.27,
+        &quot;llm_total_ms&quot;: 138.29,
+        &quot;tts_first_audio_ms&quot;: 794.35,
+        &quot;first_audio_ms&quot;: 933.7,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 966,
+            &quot;alignment_ms&quot;: 38,
+            &quot;scoring_ms&quot;: 92,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1263,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.7606050753593444,
+              &quot;raw_audio_seconds&quot;: 2.48,
+              &quot;aggregate_rtf&quot;: 0.30669559490296144,
+              &quot;audio_seconds_per_second&quot;: 3.2605619924746563,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.7606050753593444,
+                  &quot;audio_seconds&quot;: [
+                    2.48
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.8528085500001907,
+                  &quot;first_audio_seconds&quot;: 0.46072012329101564,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.09197580814361572
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1270.56,
+            &quot;audio_s&quot;: 2.27
+          }
+        ],
+        &quot;total_ms&quot;: 1409.92,
+        &quot;audio_s&quot;: 2.27,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.6211
+      },
+      &quot;output&quot;: &quot;Wir spielen ein Ratespiel jetzt.&quot;,
+      &quot;output_words&quot;: 5,
+      &quot;audio_s&quot;: 2.27,
+      &quot;group&quot;: &quot;LLM + TTS&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;asr_ms&quot;: null,
+      &quot;input&quot;: &quot;Welches lustige Spiel könnten wir jetzt spielen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 40.13,
+      &quot;chunk_frames&quot;: 20
+    },
+    {
+      &quot;first_sentence_ms&quot;: 157.25772082805634,
+      &quot;first_audio_ms&quot;: 980.0232007360459,
+      &quot;total_ms&quot;: 1553.8133904337883,
+      &quot;metrics&quot;: {
+        &quot;llm_ttft_ms&quot;: 40.12,
+        &quot;usage&quot;: {
+          &quot;completion_tokens&quot;: 15,
+          &quot;prompt_tokens&quot;: 594,
+          &quot;total_tokens&quot;: 609,
+          &quot;prompt_tokens_details&quot;: {
+            &quot;cached_tokens&quot;: 579
+          }
+        },
+        &quot;llama_timings&quot;: {
+          &quot;cache_n&quot;: 579,
+          &quot;prompt_n&quot;: 15,
+          &quot;prompt_ms&quot;: 31.713,
+          &quot;prompt_per_token_ms&quot;: 2.1142,
+          &quot;prompt_per_second&quot;: 472.99214833033767,
+          &quot;predicted_n&quot;: 15,
+          &quot;predicted_ms&quot;: 104.665,
+          &quot;predicted_per_token_ms&quot;: 6.977666666666667,
+          &quot;predicted_per_second&quot;: 143.31438398700615
+        },
+        &quot;llm_first_sentence_ms&quot;: 145.4,
+        &quot;llm_total_ms&quot;: 145.41,
+        &quot;tts_first_audio_ms&quot;: 780.96,
+        &quot;first_audio_ms&quot;: 927.47,
+        &quot;tts_server_stages&quot;: [
+          {
+            &quot;generation_ms&quot;: 1027,
+            &quot;alignment_ms&quot;: 47,
+            &quot;scoring_ms&quot;: 99,
+            &quot;speaker_preparation_ms&quot;: 0,
+            &quot;total_ms&quot;: 1343,
+            &quot;performance&quot;: {
+              &quot;device_seconds&quot;: 0.8268586626052856,
+              &quot;raw_audio_seconds&quot;: 2.88,
+              &quot;aggregate_rtf&quot;: 0.28710370229350196,
+              &quot;audio_seconds_per_second&quot;: 3.4830620156117473,
+              &quot;batches&quot;: [
+                {
+                  &quot;batch_size&quot;: 1,
+                  &quot;device_seconds&quot;: 0.8268586626052856,
+                  &quot;audio_seconds&quot;: [
+                    2.88
+                  ],
+                  &quot;model_wall_seconds&quot;: 0.9169677719473839,
+                  &quot;first_audio_seconds&quot;: 0.45888818359375,
+                  &quot;graph_capture_seconds&quot;: 0.0,
+                  &quot;live_callback_seconds&quot;: 0.08990000188350677
+                }
+              ],
+              &quot;streaming&quot;: true,
+              &quot;chunk_frames&quot;: 20,
+              &quot;backend&quot;: &quot;fused CFG + local CUDA graphs + compiled global&quot;,
+              &quot;includes&quot;: &quot;TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps&quot;,
+              &quot;excludes&quot;: &quot;reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network&quot;,
+              &quot;graph_capture_seconds&quot;: 0.0,
+              &quot;oom_batch_retries&quot;: []
+            }
+          }
+        ],
+        &quot;sentence_tts&quot;: [
+          {
+            &quot;sentence&quot;: 0,
+            &quot;total_ms&quot;: 1352.3,
+            &quot;audio_s&quot;: 2.59
+          }
+        ],
+        &quot;total_ms&quot;: 1498.82,
+        &quot;audio_s&quot;: 2.59,
+        &quot;sentences&quot;: 1,
+        &quot;generation_rtf&quot;: 0.5787
+      },
+      &quot;output&quot;: &quot;Wir könnten ein kurzes Spiel spielen.&quot;,
+      &quot;output_words&quot;: 6,
+      &quot;audio_s&quot;: 2.59,
+      &quot;group&quot;: &quot;ASR + LLM + TTS (offline audio)&quot;,
+      &quot;repeat&quot;: 2,
+      &quot;asr_ms&quot;: 42.61,
+      &quot;input&quot;: &quot;Was können wir heute nachmittags gemeinsam machen?&quot;,
+      &quot;input_words&quot;: 7,
+      &quot;llm_ttft_ms&quot;: 40.12,
+      &quot;chunk_frames&quot;: 20
+    }
+  ],
+  &quot;lowest_first_audio_chunk_frames&quot;: 20,
+  &quot;finished&quot;: 1792947533.267586,
+  &quot;scope&quot;: &quot;Local server generation; no physical microphone/device latency&quot;
+}</pre><p><a href="/docs">FastAPI reference</a> · <a href="/desk-robot/">Robby demo</a></p></html>

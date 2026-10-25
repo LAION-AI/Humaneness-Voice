@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 import time
+import hashlib
 import numpy as np
 
 from aiohttp import web, WSMsgType
@@ -26,12 +27,18 @@ preserve_encoder_precision()
 
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
-STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None}
+_signature=hashlib.sha256()
+for _name in ('server.py','sentence_session.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+    _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
+STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
 
 class RoboConversation(Conversation):
     async def _on_text(self,payload):
         data=json.loads(payload)
+        if data.get('pipeline_metrics'):
+            await self.ws.send_json({'type':'pipeline_metrics','metrics':data['pipeline_metrics']});return
+        if data.get('text') and not data.get('status_only'):self.open_agent_text=data['text']
         if data.get('error_type'):
             await self.ws.send_json({'type':'error','error':data['text'],'stage':data.get('error_stage'),
                 'error_type':data['error_type'],'http_status':data.get('http_status')})
@@ -50,6 +57,7 @@ class RoboConversation(Conversation):
             'reply_id':self.playback.rid,'performance':data.get('performance'),
             'avatar_actions':data.get('avatar_actions',[]),
             'avatar_event':data.get('avatar_event'),
+            'sentence_index':data.get('sentence_index'),'sentence_text':data.get('sentence_text'),
             'speaker_id':(data.get('speaker') or {}).get('speaker_id'),'speaker_name':(data.get('speaker') or {}).get('display_name'),
             'speaker_update':data.get('speaker_update'),'timing':data.get('timing'),
             'sources':data.get('sources',[]),'lookups':data.get('lookups',[])})
@@ -95,6 +103,11 @@ class RoboConversation(Conversation):
             self.identity_mode='v4-long3' if long=='long3' else 'v4-long';self.identity_enabled=True
             self._speaker_barge_sensitivity(True)
         except Exception as exc:log.warning('Completed speaker student unavailable: %s',type(exc).__name__)
+        self.sentence_stream=None
+        if os.environ.get('ROBO_SENTENCE_STREAM','0')=='1' and self.speaker_ext is not None:
+            from sentence_session import SentenceSession
+            self.sentence_stream=SentenceSession(self)
+            self._speaker_barge_sensitivity(False)
 
     def _speaker_barge_sensitivity(self,enabled):
         # The frozen GRU is unchanged. With full acoustic confirmation we can
@@ -108,7 +121,8 @@ class RoboConversation(Conversation):
         return {**super()._ready_message(),'identity_enabled':self.identity_enabled,'identity_mode':self.identity_mode,
             'interaction':self.decisions.state(),
             'visual_identity':self.visual.state(),
-            'speaker_instruction':'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
+            'sentence_stream':self.sentence_stream is not None,
+            'speaker_instruction':'Speak normally. All voices are answered and labelled; introductions are optional.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
@@ -153,9 +167,11 @@ class RoboConversation(Conversation):
         super()._start_speaking()
 
     async def run(self):
-        if self.speaker_ext is not None:self.speaker_ext.start()
+        if self.sentence_stream:self.sentence_stream.start()
+        elif self.speaker_ext is not None:self.speaker_ext.start()
         try:await super().run()
         finally:
+            if self.sentence_stream:await self.sentence_stream.close()
             self.stop_feedback.cancel()
             await self.decisions.close()
             if self.speaker_ext is not None:await self.speaker_ext.close()
@@ -179,6 +195,22 @@ class RoboConversation(Conversation):
     async def _on_events(self,events,hop_end):
         if getattr(self,'avatar_personality',None) and any(e.get('kind')=='PARTIAL' and e.get('text','').strip() for e in events):
             self.avatar_personality.last_asr=time.monotonic()
+        if getattr(self,'sentence_stream',None):
+            # Ingest waveform/activity first, then newest decoder words, then
+            # commit. Neither stale text nor an old quiet clock may win a hop.
+            for event in events:
+                if event['kind']=='SPEAKER_FEATURES':await self.sentence_stream.observe(event,hop_end)
+            for event in events:
+                if event['kind']=='PARTIAL':
+                    await self.ws.send_json({'type':'asr_preview','text':event['text'],'status':'sentence_stream','source':'native_asr'})
+                    await self.sentence_stream.preview_text(event['text'],hop_end/self.ears.sr)
+                elif event['kind']=='ENDPOINT':
+                    await self.sentence_stream.native_endpoint(event.get('transcript',''),hop_end/self.ears.sr)
+                elif event['kind']=='BARGE' and self.speaking and not self.await_onset:
+                    await self._on_barge(event,hop_end)
+            await self.sentence_stream.advance()
+            await super()._on_events([e for e in events if e['kind']=='FRAME'],hop_end)
+            return
         if self.identity_enabled and self.speaker_ext is not None and self.identity_mode.startswith('v4'):
             proposals=[e for e in events if e['kind']=='BARGE']
             if proposals and self.speaking:self.pending_barge_proposal=(max(proposals,key=lambda e:e.get('yield_prob',0)),hop_end)
@@ -327,6 +359,20 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if self.sentence_stream and data.startswith('identity:'):
+            command=data[9:]
+            if command=='clear':self.sentence_stream.memory.clear();self.current_speaker=None
+            if command.startswith('timeout:'):
+                try:self.sentence_stream.memory.timeout_s=max(0,min(3600,float(command.split(':',1)[1])))
+                except ValueError:pass
+            if command.startswith('utterance_threshold:'):
+                try:self.sentence_stream.memory.threshold=max(.25,min(.9,float(command.split(':',1)[1])))
+                except ValueError:pass
+            await self.ws.send_json({'type':'identity','enabled':False,'mode':'open-sentences','sentence_mode':True,
+                'open_enrollment':True,'speakers':self.sentence_stream.memory.status(),
+                'users':[u['name'] for u in self.sentence_stream.memory.users.values()],
+                'threshold':self.sentence_stream.memory.threshold,'storage':'Session RAM'})
+            return
         if data=='avatar:cancel':
             if self.avatar_optional and self.speaking:
                 self.avatar_optional=False
@@ -534,6 +580,9 @@ async def startup(app):
                 'barge_thr':.5,'barge_deb':2,'bc_thr':.4,'bc_deb':2,'cpu_threads':4}
             STATE['ears']=await asyncio.to_thread(Tyger,block,PluginContext(None,cfg,'robo-ears'))
             attach_feature_tap(STATE['ears'])
+            if os.environ.get('ROBO_SENTENCE_STREAM')=='1':
+                from speaker_teacher import get_cached_teacher
+                await asyncio.to_thread(lambda:get_cached_teacher().embed(np.ones(16000,np.float32)*.01))
             STATE.update(ready=True,phase='Ready: Small RL + Nemotron 3.5 + TYGER')
             app['tasks'].append(asyncio.create_task(bridge.prepare_ack()))
         except Exception as exc:
@@ -561,8 +610,10 @@ async def state(request):
     return web.json_response(status|{
         'audio_gpu_serialized':bool(STATE.get('ears') and getattr(STATE['ears'].service.engine,'robo_gpu_serialized',False)),
         'audio_worker_error':failure,
+        'llm':os.environ.get('ROBO_DIRECTOR_MODEL','configured Luna'),
+        'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
-        'privacy':'Camera inference is local in your browser. Mic audio goes to this server; transcripts go to the configured Luna API. No mic recordings are saved by Robo.',
+        'privacy':('Camera inference stays in your browser. ASR, speaker matching, Nemotron LLM and TTS run on this server. No microphone recordings are saved.' if os.environ.get('ROBO_DIRECTOR_MODE')=='bolt' else 'Camera inference is local in your browser. Mic audio goes to this server; transcripts go to the configured Luna API. No mic recordings are saved by Robo.'),
         'identity_model':'V4 layer-mix 320-ms + session enrollment; experimental, not authentication' if students else 'legacy ECAPA baseline',
         'identity_available':bool(students) or teacher,'identity_student_available':bool(students),
         'identity_models':students,'identity_quiet_seconds':1.,

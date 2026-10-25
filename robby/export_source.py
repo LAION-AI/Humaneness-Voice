@@ -13,6 +13,11 @@ def main():
     files += [ROOT/name for name in ['README.md','LICENSE','NOTICE','requirements.txt','config.example.json','.gitignore']]
     for pattern in ['*.js','*.css','*.html','*.svg','LICENSE-MIT.txt']:files+=list((ROOT/'static').glob(pattern))
     files.append(ROOT/'static/emotion-catalog.json')
+    for name in ('bolt-speed.json','bolt-speaker-speed.json','bolt-engine-comparison.json',
+                 'bolt-socket-check.json','bolt-browser-check.json','bolt-browser-first-turn.json',
+                 'bolt-tts-profile.json','bolt-precision.json','bolt-semantic-graph.json','bolt-local-compile.json'):
+        path=ROOT/'static'/name
+        if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))
     for pattern in ['*.py','*.md']:files+=list((ROOT/'speaker_v2').glob(pattern))
     files+=list((ROOT/'speaker_v3').glob('*.py'))
@@ -28,6 +33,12 @@ def main():
     for path in sorted(set(files)):
         if path.is_symlink():raise ValueError('No symlinks in source export')
         raw=path.read_bytes();raw.decode('utf-8')
+        if path.name=='bolt-precision.json':
+            # Representative authored clips are embedded once in the report.
+            # Keep the raw measurement record compact in the source release.
+            record=json.loads(raw)
+            for row in record.get('rows',[]):row.pop('listen_mp3_b64',None)
+            raw=json.dumps(record,indent=2,ensure_ascii=False).encode()
         if re.search(rb'(?:hf_[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)',raw):
             raise ValueError('Potential credential in source export')
         name=path.relative_to(ROOT).as_posix();payload[name]=raw

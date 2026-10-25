@@ -1,0 +1,2870 @@
+{
+  "model": "small_rl",
+  "variants": [
+    "fp32_strict",
+    "fp32_tf32",
+    "bf16_base_fp32_lora",
+    "bf16_all",
+    "fp32_merged",
+    "bf16_merged"
+  ],
+  "seeds": [
+    777,
+    2026,
+    4242
+  ],
+  "started": 1792945856.2777407,
+  "rows": [
+    {
+      "variant": "fp32_strict",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 980.763,
+      "first_audio_device_ms": 513.773,
+      "audio_s": 3.04,
+      "rtf": 0.3226192875912315,
+      "codes_sha256": "af8ef3527623078151b3a321bef9c93a8e8580d6c75b88fa74629b435792eaee",
+      "audio_file": "logs/bolt-precision/fp32_strict-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 0.9807626342773438,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3226192875912315,
+        "audio_seconds_per_second": 3.099628690727972,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9807626342773438,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9808578863739967,
+            "first_audio_seconds": 0.5137725830078125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.56556,
+      "quality": {
+        "audiobox:CE": 5.887588206678629,
+        "audiobox:PQ": 7.561915677972138,
+        "audiobox:CU": 6.79928488843143,
+        "audiobox:PC": 1.4037277400493622,
+        "dnsmos:P808_MOS": 3.533858784066979,
+        "dnsmos:OVRL": 3.282993576489389
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1136.332,
+      "first_audio_device_ms": 519.358,
+      "audio_s": 3.28,
+      "rtf": 0.34644261802115095,
+      "codes_sha256": "d63cb5e263b29599d176b35dc558cf68c5bbf27e4f1abdfcd21a0a47ac3104a2",
+      "audio_file": "logs/bolt-precision/fp32_strict-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.136331787109375,
+        "raw_audio_seconds": 3.28,
+        "aggregate_rtf": 0.34644261802115095,
+        "audio_seconds_per_second": 2.886480900392423,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.136331787109375,
+            "audio_seconds": [
+              3.28
+            ],
+            "model_wall_seconds": 1.1364327743649483,
+            "first_audio_seconds": 0.5193576049804688,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.55124,
+      "quality": {
+        "audiobox:CE": 6.117925664409995,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.963164366781712,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.850910938461311,
+        "dnsmos:OVRL": 3.486791580915451
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 970.008,
+      "first_audio_device_ms": 515.668,
+      "audio_s": 3.04,
+      "rtf": 0.3190814369603207,
+      "codes_sha256": "fd4a37e81709a84a9c1018799e4e6bf17d5b6bca7ec36549bf9e5f158abfd127",
+      "audio_file": "logs/bolt-precision/fp32_strict-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.970007568359375,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3190814369603207,
+        "audio_seconds_per_second": 3.133996165763647,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.970007568359375,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9700975716114044,
+            "first_audio_seconds": 0.51566796875,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.52445,
+      "quality": {
+        "audiobox:CE": 5.967014916241169,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.963164366781712,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.6114250603714027,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 972.169,
+      "first_audio_device_ms": 518.843,
+      "audio_s": 3.04,
+      "rtf": 0.31979249653063324,
+      "codes_sha256": "94ba27e819ac06907925b3d1208e4f3e1465bb57368278a914df4a5f88309827",
+      "audio_file": "logs/bolt-precision/fp32_strict-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 0.972169189453125,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.31979249653063324,
+        "audio_seconds_per_second": 3.127027715937072,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.972169189453125,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9722632542252541,
+            "first_audio_seconds": 0.5188433837890625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.50713,
+      "quality": {
+        "audiobox:CE": 6.078212309628725,
+        "audiobox:PQ": 7.8847720683552325,
+        "audiobox:CU": 6.924145443364978,
+        "audiobox:PC": 1.5425586625933647,
+        "dnsmos:P808_MOS": 3.3738783391891047,
+        "dnsmos:OVRL": 3.1905735512264073
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 973.014,
+      "first_audio_device_ms": 519.854,
+      "audio_s": 3.04,
+      "rtf": 0.320070407265111,
+      "codes_sha256": "d13db7916438dcca3ef432c3168cab4f780ee6369b48d579266e2d6d397317e1",
+      "audio_file": "logs/bolt-precision/fp32_strict-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.9730140380859374,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.320070407265111,
+        "audio_seconds_per_second": 3.1243125802995912,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9730140380859374,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9731166064739227,
+            "first_audio_seconds": 0.5198540649414063,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich drehe mich und habe Spaß",
+      "wer": 0.14285714285714285,
+      "speaker_cosine": 0.50115,
+      "quality": {
+        "audiobox:CE": 5.824046839028597,
+        "audiobox:PQ": 7.987811341881752,
+        "audiobox:CU": 7.009987074881792,
+        "audiobox:PC": 1.6245951168239117,
+        "dnsmos:P808_MOS": 3.309886161237955,
+        "dnsmos:OVRL": 2.8522925613215193
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 970.072,
+      "first_audio_device_ms": 517.438,
+      "audio_s": 3.04,
+      "rtf": 0.31910265872353,
+      "codes_sha256": "75b8dd63d8be8498300c1a127a38afc65b1ee163091a0b3964c0c1fe943cb9a5",
+      "audio_file": "logs/bolt-precision/fp32_strict-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.9700720825195313,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.31910265872353,
+        "audio_seconds_per_second": 3.133787740911298,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9700720825195313,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.970175214111805,
+            "first_audio_seconds": 0.5174375610351563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.3627,
+      "quality": {
+        "audiobox:CE": 6.133811006322503,
+        "audiobox:PQ": 7.8710334985516965,
+        "audiobox:CU": 6.986575720831752,
+        "audiobox:PC": 1.5236271731555462,
+        "dnsmos:P808_MOS": 3.4131462665682193,
+        "dnsmos:OVRL": 2.929901685100049
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 986.906,
+      "first_audio_device_ms": 512.224,
+      "audio_s": 3.12,
+      "rtf": 0.31631589058117987,
+      "codes_sha256": "37f6032edca9c48beef12978f8aaabe5cb62d6cb8348d69003a3c0877766b091",
+      "audio_file": "logs/bolt-precision/fp32_strict-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 0.9869055786132812,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.31631589058117987,
+        "audio_seconds_per_second": 3.161396660037091,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9869055786132812,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.9870431050658226,
+            "first_audio_seconds": 0.5122242431640625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable",
+      "wer": 0.0,
+      "speaker_cosine": 0.22589,
+      "quality": {
+        "audiobox:CE": 6.213237715885043,
+        "audiobox:PQ": 7.740517085418105,
+        "audiobox:CU": 7.5562520027160645,
+        "audiobox:PC": 1.4983851872384548,
+        "dnsmos:P808_MOS": 3.580398549849633,
+        "dnsmos:OVRL": 3.2545566456392407
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 934.201,
+      "first_audio_device_ms": 513.75,
+      "audio_s": 2.88,
+      "rtf": 0.32437547047932946,
+      "codes_sha256": "a5746d16a0ce23869978d057f50ce6966b50d1155e4b540c77c3973695dc1e87",
+      "audio_file": "logs/bolt-precision/fp32_strict-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 0.9342013549804687,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.32437547047932946,
+        "audio_seconds_per_second": 3.082847166348,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9342013549804687,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.9343049824237823,
+            "first_audio_seconds": 0.51375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.37978,
+      "quality": {
+        "audiobox:CE": 6.245008399710059,
+        "audiobox:PQ": 7.774863509926945,
+        "audiobox:CU": 7.603074710816145,
+        "audiobox:PC": 1.5046956837177277,
+        "dnsmos:P808_MOS": 3.5910639128414914,
+        "dnsmos:OVRL": 3.3825228344649076
+      }
+    },
+    {
+      "variant": "fp32_strict",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1003.937,
+      "first_audio_device_ms": 512.37,
+      "audio_s": 3.2,
+      "rtf": 0.31373023986816406,
+      "codes_sha256": "64b0f6cdeb8a2966b46bdcd40ed939d8633102e57f1235c42e62755ee44013d6",
+      "audio_file": "logs/bolt-precision/fp32_strict-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 1.003936767578125,
+        "raw_audio_seconds": 3.2,
+        "aggregate_rtf": 0.31373023986816406,
+        "audio_seconds_per_second": 3.1874517433200595,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.003936767578125,
+            "audio_seconds": [
+              3.2
+            ],
+            "model_wall_seconds": 1.004025548696518,
+            "first_audio_seconds": 0.5123696899414063,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.28489,
+      "quality": {
+        "audiobox:CE": 6.300607096403837,
+        "audiobox:PQ": 8.001549911685288,
+        "audiobox:CU": 7.696720127016306,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.8160061141243204,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1092.867,
+      "first_audio_device_ms": 578.619,
+      "audio_s": 3.04,
+      "rtf": 0.359495745207134,
+      "codes_sha256": "af8ef3527623078151b3a321bef9c93a8e8580d6c75b88fa74629b435792eaee",
+      "audio_file": "logs/bolt-precision/fp32_tf32-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 1.0928670654296875,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.359495745207134,
+        "audio_seconds_per_second": 2.781674090256119,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.0928670654296875,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 1.0929553657770157,
+            "first_audio_seconds": 0.578619384765625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.56607,
+      "quality": {
+        "audiobox:CE": 5.887588206678629,
+        "audiobox:PQ": 7.561915677972138,
+        "audiobox:CU": 6.79928488843143,
+        "audiobox:PC": 1.4037277400493622,
+        "dnsmos:P808_MOS": 3.5328892056131735,
+        "dnsmos:OVRL": 3.282993576489389
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1090.725,
+      "first_audio_device_ms": 604.675,
+      "audio_s": 3.04,
+      "rtf": 0.35879107023540296,
+      "codes_sha256": "a213b8dc5f206cf7b5a576d6a096710cc01485cd6188c64f9a7471c8237c749d",
+      "audio_file": "logs/bolt-precision/fp32_tf32-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.090724853515625,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.35879107023540296,
+        "audio_seconds_per_second": 2.7871373703473155,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.090724853515625,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 1.093058243393898,
+            "first_audio_seconds": 0.604675048828125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte",
+      "wer": 0.0,
+      "speaker_cosine": 0.51352,
+      "quality": {
+        "audiobox:CE": 5.959072245284915,
+        "audiobox:PQ": 7.678693521302193,
+        "audiobox:CU": 6.900734089314938,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.75007477926556,
+        "dnsmos:OVRL": 3.358825392089784
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1128.452,
+      "first_audio_device_ms": 572.105,
+      "audio_s": 3.04,
+      "rtf": 0.37120136461759873,
+      "codes_sha256": "fd4a37e81709a84a9c1018799e4e6bf17d5b6bca7ec36549bf9e5f158abfd127",
+      "audio_file": "logs/bolt-precision/fp32_tf32-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.1284521484375,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.37120136461759873,
+        "audio_seconds_per_second": 2.6939556136335114,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1284521484375,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 1.1285435780882835,
+            "first_audio_seconds": 0.5721046752929687,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.52619,
+      "quality": {
+        "audiobox:CE": 5.967014916241169,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.963164366781712,
+        "audiobox:PC": 1.4415907189249992,
+        "dnsmos:P808_MOS": 3.609485903463792,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1208.483,
+      "first_audio_device_ms": 593.823,
+      "audio_s": 3.12,
+      "rtf": 0.3873343052008213,
+      "codes_sha256": "19c2b120c0d997545c78442758d8cfbc4c398e6b8e3a81c45110d77e51404f1d",
+      "audio_file": "logs/bolt-precision/fp32_tf32-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 1.2084830322265625,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.3873343052008213,
+        "audio_seconds_per_second": 2.581749115874283,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.2084830322265625,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 1.2085765898227692,
+            "first_audio_seconds": 0.5938226928710938,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Hi, ich drehe mich und hab Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.24676,
+      "quality": {
+        "audiobox:CE": 5.935244232416153,
+        "audiobox:PQ": 7.857294928748161,
+        "audiobox:CU": 6.814892457798123,
+        "audiobox:PC": 1.5614901520311832,
+        "dnsmos:P808_MOS": 3.362243397743441,
+        "dnsmos:OVRL": 3.074456083588302
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1397.616,
+      "first_audio_device_ms": 619.012,
+      "audio_s": 3.36,
+      "rtf": 0.41595702398391,
+      "codes_sha256": "6b709f861a2107af6720d9e2e99ae94b907597315660d7a015fc229d87320e70",
+      "audio_file": "logs/bolt-precision/fp32_tf32-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.3976156005859375,
+        "raw_audio_seconds": 3.36,
+        "aggregate_rtf": 0.41595702398391,
+        "audio_seconds_per_second": 2.4040945153956144,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.3976156005859375,
+            "audio_seconds": [
+              3.36
+            ],
+            "model_wall_seconds": 1.3977214023470879,
+            "first_audio_seconds": 0.6190120849609375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich drehe mich und hab Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.49222,
+      "quality": {
+        "audiobox:CE": 6.189409703016281,
+        "audiobox:PQ": 7.857294928748161,
+        "audiobox:CU": 6.869518950581551,
+        "audiobox:PC": 1.611974123865366,
+        "dnsmos:P808_MOS": 3.485379861376714,
+        "dnsmos:OVRL": 3.1905735512264073
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1030.677,
+      "first_audio_device_ms": 538.632,
+      "audio_s": 3.04,
+      "rtf": 0.33903832686574836,
+      "codes_sha256": "75b8dd63d8be8498300c1a127a38afc65b1ee163091a0b3964c0c1fe943cb9a5",
+      "audio_file": "logs/bolt-precision/fp32_tf32-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.030676513671875,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.33903832686574836,
+        "audio_seconds_per_second": 2.9495190388783916,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.030676513671875,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 1.0307698249816895,
+            "first_audio_seconds": 0.5386322021484375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.36465,
+      "quality": {
+        "audiobox:CE": 6.133811006322503,
+        "audiobox:PQ": 7.8710334985516965,
+        "audiobox:CU": 6.986575720831752,
+        "audiobox:PC": 1.529937669634819,
+        "dnsmos:P808_MOS": 3.4112071096606087,
+        "dnsmos:OVRL": 2.929901685100049
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1047.825,
+      "first_audio_device_ms": 552.546,
+      "audio_s": 3.04,
+      "rtf": 0.34467934056332233,
+      "codes_sha256": "9b90ad8b7f17324c2ebae6eb494e43f049f91bea73a7e2e38e360caa4c769fb2",
+      "audio_file": "logs/bolt-precision/fp32_tf32-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 1.0478251953125,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.34467934056332233,
+        "audio_seconds_per_second": 2.9012472820844515,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.0478251953125,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 1.0479163974523544,
+            "first_audio_seconds": 0.5525460815429688,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.23655,
+      "quality": {
+        "audiobox:CE": 6.173524361103773,
+        "audiobox:PQ": 7.695866733556613,
+        "audiobox:CU": 7.5250368639826775,
+        "audiobox:PC": 1.492074690759182,
+        "dnsmos:P808_MOS": 3.593003069749102,
+        "dnsmos:OVRL": 3.282993576489389
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1013.872,
+      "first_audio_device_ms": 549.576,
+      "audio_s": 2.88,
+      "rtf": 0.3520387649536133,
+      "codes_sha256": "a5746d16a0ce23869978d057f50ce6966b50d1155e4b540c77c3973695dc1e87",
+      "audio_file": "logs/bolt-precision/fp32_tf32-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 1.0138716430664063,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.3520387649536133,
+        "audio_seconds_per_second": 2.8405962625501364,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.0138716430664063,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 1.013982243835926,
+            "first_audio_seconds": 0.54957568359375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.3777,
+      "quality": {
+        "audiobox:CE": 6.237065728753805,
+        "audiobox:PQ": 7.767994225025177,
+        "audiobox:CU": 7.603074710816145,
+        "audiobox:PC": 1.5046956837177277,
+        "dnsmos:P808_MOS": 3.589124755933881,
+        "dnsmos:OVRL": 3.377783345989883
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": false,
+      "device_ms": 1119.069,
+      "first_audio_device_ms": 561.983,
+      "audio_s": 3.2,
+      "rtf": 0.3497091293334961,
+      "codes_sha256": "64b0f6cdeb8a2966b46bdcd40ed939d8633102e57f1235c42e62755ee44013d6",
+      "audio_file": "logs/bolt-precision/fp32_tf32-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 1.1190692138671876,
+        "raw_audio_seconds": 3.2,
+        "aggregate_rtf": 0.3497091293334961,
+        "audio_seconds_per_second": 2.859519286516428,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1190692138671876,
+            "audio_seconds": [
+              3.2
+            ],
+            "model_wall_seconds": 1.119165949523449,
+            "first_audio_seconds": 0.5619834594726563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.28923,
+      "quality": {
+        "audiobox:CE": 6.300607096403837,
+        "audiobox:PQ": 8.001549911685288,
+        "audiobox:CU": 7.696720127016306,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.8160061141243204,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 982.615,
+      "first_audio_device_ms": 548.159,
+      "audio_s": 2.96,
+      "rtf": 0.331964585587785,
+      "codes_sha256": "7d68a188e1301397f27bbd77e523bc735c7de89b2e241efa1239853e464895e2",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 0.9826151733398437,
+        "raw_audio_seconds": 2.96,
+        "aggregate_rtf": 0.331964585587785,
+        "audio_seconds_per_second": 3.012369521975889,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9826151733398437,
+            "audio_seconds": [
+              2.96
+            ],
+            "model_wall_seconds": 0.9827113077044487,
+            "first_audio_seconds": 0.5481594848632813,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.63599,
+      "quality": {
+        "audiobox:CE": 5.839932180941105,
+        "audiobox:PQ": 7.62373924208805,
+        "audiobox:CU": 6.877322735264897,
+        "audiobox:PC": 1.4037277400493622,
+        "dnsmos:P808_MOS": 3.726804896374233,
+        "dnsmos:OVRL": 3.2308592032641172
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 1110.788,
+      "first_audio_device_ms": 493.465,
+      "audio_s": 3.28,
+      "rtf": 0.3386549042492378,
+      "codes_sha256": "5a6e91da50df83156bf4f29ed7d77a15cd02d8da24ddba0a80b86ac18d700ade",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.1107880859375,
+        "raw_audio_seconds": 3.28,
+        "aggregate_rtf": 0.3386549042492378,
+        "audio_seconds_per_second": 2.952858462855852,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1107880859375,
+            "audio_seconds": [
+              3.28
+            ],
+            "model_wall_seconds": 1.1108935326337814,
+            "first_audio_seconds": 0.49346456909179687,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle jeder eine kleine Geschichte.",
+      "wer": 0.14285714285714285,
+      "speaker_cosine": 0.58996,
+      "quality": {
+        "audiobox:CE": 6.046441625803709,
+        "audiobox:PQ": 7.702736018458381,
+        "audiobox:CU": 6.861715165898204,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.8353976832004264,
+        "dnsmos:OVRL": 3.4441361846402287
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 1151.915,
+      "first_audio_device_ms": 491.499,
+      "audio_s": 3.52,
+      "rtf": 0.32724859064275563,
+      "codes_sha256": "8841fbc5eb18066cda48ee4a6bbaa9e13aa6f282d188c040e553392cead00669",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.1519150390625,
+        "raw_audio_seconds": 3.52,
+        "aggregate_rtf": 0.32724859064275563,
+        "audio_seconds_per_second": 3.055780921885346,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1519150390625,
+            "audio_seconds": [
+              3.52
+            ],
+            "model_wall_seconds": 1.1520100459456444,
+            "first_audio_seconds": 0.4914985046386719,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.4882,
+      "quality": {
+        "audiobox:CE": 6.038498954847455,
+        "audiobox:PQ": 7.864164213649929,
+        "audiobox:CU": 7.025594644248486,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.841215153923258,
+        "dnsmos:OVRL": 3.4915310693904757
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 946.037,
+      "first_audio_device_ms": 492.429,
+      "audio_s": 3.04,
+      "rtf": 0.3111962770160876,
+      "codes_sha256": "58c4c3fb1b6fdf630683dea2455c8e9ba7adfb3b7b574938c5197cb5430e8e36",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 0.9460366821289062,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3111962770160876,
+        "audio_seconds_per_second": 3.2134060522462615,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9460366821289062,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9461382180452347,
+            "first_audio_seconds": 0.49242926025390626,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Hey, ich drehe mich und hab Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.31219,
+      "quality": {
+        "audiobox:CE": 5.974957587197423,
+        "audiobox:PQ": 7.754255655221641,
+        "audiobox:CU": 6.877322735264897,
+        "audiobox:PC": 1.529937669634819,
+        "dnsmos:P808_MOS": 3.4199333157448564,
+        "dnsmos:OVRL": 3.0578678739257157
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 972.643,
+      "first_audio_device_ms": 506.19,
+      "audio_s": 3.12,
+      "rtf": 0.3117446508163061,
+      "codes_sha256": "9627ccab5c3001e6a4fb626259bf340cb77cf49102db3d2eea10fd6bb6d9306f",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.972643310546875,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.3117446508163061,
+        "audio_seconds_per_second": 3.207753516801303,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.972643310546875,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.9727571606636047,
+            "first_audio_seconds": 0.5061898193359375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich drehe mich und habe Spaß",
+      "wer": 0.14285714285714285,
+      "speaker_cosine": 0.26658,
+      "quality": {
+        "audiobox:CE": 5.951129574328661,
+        "audiobox:PQ": 7.905379923060536,
+        "audiobox:CU": 7.0880249217152596,
+        "audiobox:PC": 1.5804216414690018,
+        "dnsmos:P808_MOS": 3.680265130591579,
+        "dnsmos:OVRL": 3.107632502913475
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 1216.4,
+      "first_audio_device_ms": 554.801,
+      "audio_s": 3.52,
+      "rtf": 0.3455682927911932,
+      "codes_sha256": "2ae69278a1341264ab19319bf572214e6f012d67ad7ab9bd761b39f6a7d435c7",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.216400390625,
+        "raw_audio_seconds": 3.52,
+        "aggregate_rtf": 0.3455682927911932,
+        "audio_seconds_per_second": 2.893784009878018,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.216400390625,
+            "audio_seconds": [
+              3.52
+            ],
+            "model_wall_seconds": 1.2164964526891708,
+            "first_audio_seconds": 0.5548011474609374,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß.",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.56063,
+      "quality": {
+        "audiobox:CE": 5.974957587197423,
+        "audiobox:PQ": 7.939726347569376,
+        "audiobox:CU": 7.009987074881792,
+        "audiobox:PC": 1.5488691590726376,
+        "dnsmos:P808_MOS": 3.3966634328535292,
+        "dnsmos:OVRL": 3.0294309430755675
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 953.298,
+      "first_audio_device_ms": 495.879,
+      "audio_s": 2.96,
+      "rtf": 0.3220601056073163,
+      "codes_sha256": "ae3d5609bcde6e59ee712feb7c014de3a4fd4e0d63bc35bdd6b519f6db9d291c",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 0.9532979125976563,
+        "raw_audio_seconds": 2.96,
+        "aggregate_rtf": 0.3220601056073163,
+        "audio_seconds_per_second": 3.1050104703725303,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9532979125976563,
+            "audio_seconds": [
+              2.96
+            ],
+            "model_wall_seconds": 0.9533934742212296,
+            "first_audio_seconds": 0.49587933349609375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.31813,
+      "quality": {
+        "audiobox:CE": 6.221180386841297,
+        "audiobox:PQ": 7.843556358944625,
+        "audiobox:CU": 7.618682280182838,
+        "audiobox:PC": 1.5362481661140919,
+        "dnsmos:P808_MOS": 3.6395428355317563,
+        "dnsmos:OVRL": 3.268775111064315
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 911.389,
+      "first_audio_device_ms": 498.793,
+      "audio_s": 2.88,
+      "rtf": 0.3164543999565972,
+      "codes_sha256": "197ebdcf6afce9ed3f0acf974b46300e28f64e97988be56e362a3e6f842e667f",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 0.911388671875,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.3164543999565972,
+        "audio_seconds_per_second": 3.160012943846423,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.911388671875,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.911497101187706,
+            "first_audio_seconds": 0.49879345703125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.38636,
+      "quality": {
+        "audiobox:CE": 6.268836412578821,
+        "audiobox:PQ": 7.8779027834534645,
+        "audiobox:CU": 7.681112557649612,
+        "audiobox:PC": 1.5173166766762733,
+        "dnsmos:P808_MOS": 3.670569346053526,
+        "dnsmos:OVRL": 3.2308592032641172
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 944.71,
+      "first_audio_device_ms": 506.395,
+      "audio_s": 2.88,
+      "rtf": 0.3280241860283746,
+      "codes_sha256": "deedcd2e9a5953d44d83441293683c385b3dbdae37643ae6c66b39005fbb5ac2",
+      "audio_file": "logs/bolt-precision/bf16_base_fp32_lora-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 0.9447096557617187,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.3280241860283746,
+        "audio_seconds_per_second": 3.0485556937362497,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9447096557617187,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.9448067545890808,
+            "first_audio_seconds": 0.5063946228027344,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.33975,
+      "quality": {
+        "audiobox:CE": 6.268836412578821,
+        "audiobox:PQ": 7.974072772078216,
+        "audiobox:CU": 7.774757973849773,
+        "audiobox:PC": 1.5425586625933647,
+        "dnsmos:P808_MOS": 3.6046380111947656,
+        "dnsmos:OVRL": 3.363564880564809
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 918.596,
+      "first_audio_device_ms": 488.4,
+      "audio_s": 2.96,
+      "rtf": 0.31033634495090795,
+      "codes_sha256": "c6db4e693c28b3f97e889109c1d2111457ad9d7716d905fa247c6636d312a68e",
+      "audio_file": "logs/bolt-precision/bf16_all-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 0.9185955810546875,
+        "raw_audio_seconds": 2.96,
+        "aggregate_rtf": 0.31033634495090795,
+        "audio_seconds_per_second": 3.2223102974232356,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9185955810546875,
+            "audio_seconds": [
+              2.96
+            ],
+            "model_wall_seconds": 0.9186934232711792,
+            "first_audio_seconds": 0.4883998718261719,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.40023,
+      "quality": {
+        "audiobox:CE": 5.800218826159835,
+        "audiobox:PQ": 7.6546510241460055,
+        "audiobox:CU": 6.853911381214857,
+        "audiobox:PC": 1.4415907189249992,
+        "dnsmos:P808_MOS": 3.8257018986623734,
+        "dnsmos:OVRL": 3.377783345989883
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 1089.721,
+      "first_audio_device_ms": 496.214,
+      "audio_s": 3.28,
+      "rtf": 0.33223210776724466,
+      "codes_sha256": "1ed654bd67da311c7eaca74e5e28d8d76a103cfb41eacd9945f1dc9883cfc1d8",
+      "audio_file": "logs/bolt-precision/bf16_all-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.0897213134765624,
+        "raw_audio_seconds": 3.28,
+        "aggregate_rtf": 0.33223210776724466,
+        "audio_seconds_per_second": 3.009943881464282,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.0897213134765624,
+            "audio_seconds": [
+              3.28
+            ],
+            "model_wall_seconds": 1.0898241475224495,
+            "first_audio_seconds": 0.49621401977539065,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.54369,
+      "quality": {
+        "audiobox:CE": 6.022613612934947,
+        "audiobox:PQ": 7.6649549514986575,
+        "audiobox:CU": 6.838303811848164,
+        "audiobox:PC": 1.4857641942799091,
+        "dnsmos:P808_MOS": 3.8528500953689218,
+        "dnsmos:OVRL": 3.34460692666471
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 935.928,
+      "first_audio_device_ms": 491.258,
+      "audio_s": 3.04,
+      "rtf": 0.3078710254869963,
+      "codes_sha256": "cdb852e6be08523f8abca22baa33f00d8aa240c0414b0c400079df4b290fa5f7",
+      "audio_file": "logs/bolt-precision/bf16_all-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.9359279174804688,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.3078710254869963,
+        "audio_seconds_per_second": 3.248113389099155,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9359279174804688,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9360191598534584,
+            "first_audio_seconds": 0.49125784301757813,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte",
+      "wer": 0.0,
+      "speaker_cosine": 0.44867,
+      "quality": {
+        "audiobox:CE": 5.982900258153677,
+        "audiobox:PQ": 7.809209934435785,
+        "audiobox:CU": 6.908537873998284,
+        "audiobox:PC": 1.4668327048420906,
+        "dnsmos:P808_MOS": 3.850910938461311,
+        "dnsmos:OVRL": 3.4488756731152534
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 916.944,
+      "first_audio_device_ms": 490.318,
+      "audio_s": 2.96,
+      "rtf": 0.3097783269108953,
+      "codes_sha256": "b07aaf7621ef19af14b9492f5867c8f57b27f7b609158d2335803bd1fb21c1c3",
+      "audio_file": "logs/bolt-precision/bf16_all-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 0.91694384765625,
+        "raw_audio_seconds": 2.96,
+        "aggregate_rtf": 0.3097783269108953,
+        "audio_seconds_per_second": 3.2281147941238646,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.91694384765625,
+            "audio_seconds": [
+              2.96
+            ],
+            "model_wall_seconds": 0.9170425608754158,
+            "first_audio_seconds": 0.49031781005859376,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Hey, ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.3215,
+      "quality": {
+        "audiobox:CE": 5.895530877634883,
+        "audiobox:PQ": 7.688997448654845,
+        "audiobox:CU": 6.744658395648003,
+        "audiobox:PC": 1.4605222083628178,
+        "dnsmos:P808_MOS": 3.5396762547898106,
+        "dnsmos:OVRL": 3.0175822218880057
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 972.537,
+      "first_audio_device_ms": 492.367,
+      "audio_s": 3.2,
+      "rtf": 0.30391775131225585,
+      "codes_sha256": "452995287e358fb330aabdb0b45fc22aa1347478ec08c67e734d46483126ba98",
+      "audio_file": "logs/bolt-precision/bf16_all-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.9725368041992187,
+        "raw_audio_seconds": 3.2,
+        "aggregate_rtf": 0.30391775131225585,
+        "audio_seconds_per_second": 3.290363908268605,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9725368041992187,
+            "audio_seconds": [
+              3.2
+            ],
+            "model_wall_seconds": 0.972642682492733,
+            "first_audio_seconds": 0.49236685180664064,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich drehe mich und hab Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.43116,
+      "quality": {
+        "audiobox:CE": 5.903473548591137,
+        "audiobox:PQ": 7.850425643846393,
+        "audiobox:CU": 6.82269624248147,
+        "audiobox:PC": 1.574111144989729,
+        "dnsmos:P808_MOS": 3.270133444631938,
+        "dnsmos:OVRL": 2.7865321587305516
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 1139.901,
+      "first_audio_device_ms": 491.246,
+      "audio_s": 3.52,
+      "rtf": 0.3238356503573331,
+      "codes_sha256": "bcd24b4c6962b0e832038c38e10c2c8533816298197b9d2e9cc5bf4def523072",
+      "audio_file": "logs/bolt-precision/bf16_all-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.1399014892578125,
+        "raw_audio_seconds": 3.52,
+        "aggregate_rtf": 0.3238356503573331,
+        "audio_seconds_per_second": 3.08798614018117,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1399014892578125,
+            "audio_seconds": [
+              3.52
+            ],
+            "model_wall_seconds": 1.1399935856461525,
+            "first_audio_seconds": 0.4912455749511719,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "hey, ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.42662,
+      "quality": {
+        "audiobox:CE": 6.022613612934947,
+        "audiobox:PQ": 7.974072772078216,
+        "audiobox:CU": 6.994379505515099,
+        "audiobox:PC": 1.5804216414690018,
+        "dnsmos:P808_MOS": 3.2982512197922915,
+        "dnsmos:OVRL": 2.9630781044252217
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 934.779,
+      "first_audio_device_ms": 490.361,
+      "audio_s": 3.04,
+      "rtf": 0.30749304922003495,
+      "codes_sha256": "02fb4c2386695b11256f5ddeebe14a3ba1b724ed7fc42ff92feb37ffa88123cc",
+      "audio_file": "logs/bolt-precision/bf16_all-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 0.9347788696289062,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.30749304922003495,
+        "audio_seconds_per_second": 3.2521060314583665,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9347788696289062,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.9348722919821739,
+            "first_audio_seconds": 0.49036102294921874,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.27147,
+      "quality": {
+        "audiobox:CE": 6.324435109272599,
+        "audiobox:PQ": 7.864164213649929,
+        "audiobox:CU": 7.5250368639826775,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.65117777697742,
+        "dnsmos:OVRL": 3.4488756731152534
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 954.472,
+      "first_audio_device_ms": 492.304,
+      "audio_s": 3.12,
+      "rtf": 0.30592037103114983,
+      "codes_sha256": "a82c2080f16306c096c8cbcaa703e49fb322347c061553cdfce5632bf0e9d50d",
+      "audio_file": "logs/bolt-precision/bf16_all-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 0.9544715576171875,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.30592037103114983,
+        "audio_seconds_per_second": 3.268824487330975,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9544715576171875,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.9545668959617615,
+            "first_audio_seconds": 0.49230438232421875,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable",
+      "wer": 0.0,
+      "speaker_cosine": 0.19903,
+      "quality": {
+        "audiobox:CE": 6.356205793097615,
+        "audiobox:PQ": 7.836687074042857,
+        "audiobox:CU": 7.603074710816145,
+        "audiobox:PC": 1.5236271731555462,
+        "dnsmos:P808_MOS": 3.688021758222021,
+        "dnsmos:OVRL": 3.330388461239636
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": false,
+      "device_ms": 956.32,
+      "first_audio_device_ms": 493.163,
+      "audio_s": 3.12,
+      "rtf": 0.30651274461012623,
+      "codes_sha256": "e7b95d49fcd3e1c6f826dff7fd1b9f162f678f2e18d6c39c37335eed40bd3cbc",
+      "audio_file": "logs/bolt-precision/bf16_all-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 0.9563197631835938,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.30651274461012623,
+        "audio_seconds_per_second": 3.262507081954997,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9563197631835938,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.956412672996521,
+            "first_audio_seconds": 0.49316250610351564,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable",
+      "wer": 0.0,
+      "speaker_cosine": 0.2037,
+      "quality": {
+        "audiobox:CE": 6.268836412578821,
+        "audiobox:PQ": 7.953464917372912,
+        "audiobox:CU": 7.696720127016306,
+        "audiobox:PC": 1.4857641942799091,
+        "dnsmos:P808_MOS": 3.2749813369009644,
+        "dnsmos:OVRL": 2.781792670255527
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 873.391,
+      "first_audio_device_ms": 464.178,
+      "audio_s": 3.04,
+      "rtf": 0.28729970831620066,
+      "codes_sha256": "af8ef3527623078151b3a321bef9c93a8e8580d6c75b88fa74629b435792eaee",
+      "audio_file": "logs/bolt-precision/fp32_merged-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 0.87339111328125,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.28729970831620066,
+        "audio_seconds_per_second": 3.4806857475100705,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.87339111328125,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.8734817057847977,
+            "first_audio_seconds": 0.46417816162109377,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.56556,
+      "quality": {
+        "audiobox:CE": 5.887588206678629,
+        "audiobox:PQ": 7.561915677972138,
+        "audiobox:CU": 6.79928488843143,
+        "audiobox:PC": 1.4037277400493622,
+        "dnsmos:P808_MOS": 3.533858784066979,
+        "dnsmos:OVRL": 3.282993576489389
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 1019.904,
+      "first_audio_device_ms": 467.749,
+      "audio_s": 3.28,
+      "rtf": 0.31094632032440933,
+      "codes_sha256": "d63cb5e263b29599d176b35dc558cf68c5bbf27e4f1abdfcd21a0a47ac3104a2",
+      "audio_file": "logs/bolt-precision/fp32_merged-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 1.0199039306640625,
+        "raw_audio_seconds": 3.28,
+        "aggregate_rtf": 0.31094632032440933,
+        "audio_seconds_per_second": 3.2159891744552667,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.0199039306640625,
+            "audio_seconds": [
+              3.28
+            ],
+            "model_wall_seconds": 1.0199971571564674,
+            "first_audio_seconds": 0.46774893188476563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.55124,
+      "quality": {
+        "audiobox:CE": 6.117925664409995,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.963164366781712,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.850910938461311,
+        "dnsmos:OVRL": 3.486791580915451
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 875.989,
+      "first_audio_device_ms": 466.78,
+      "audio_s": 3.04,
+      "rtf": 0.2881542808131168,
+      "codes_sha256": "fd4a37e81709a84a9c1018799e4e6bf17d5b6bca7ec36549bf9e5f158abfd127",
+      "audio_file": "logs/bolt-precision/fp32_merged-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.875989013671875,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.2881542808131168,
+        "audio_seconds_per_second": 3.470363158160238,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.875989013671875,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.8760834261775017,
+            "first_audio_seconds": 0.4667801513671875,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.52445,
+      "quality": {
+        "audiobox:CE": 5.967014916241169,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.963164366781712,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.6114250603714027,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 875.341,
+      "first_audio_device_ms": 467.559,
+      "audio_s": 3.04,
+      "rtf": 0.28794105931332237,
+      "codes_sha256": "94ba27e819ac06907925b3d1208e4f3e1465bb57368278a914df4a5f88309827",
+      "audio_file": "logs/bolt-precision/fp32_merged-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 0.8753408203125,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.28794105931332237,
+        "audio_seconds_per_second": 3.4729329758832774,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8753408203125,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.875433586537838,
+            "first_audio_seconds": 0.46755941772460935,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.50713,
+      "quality": {
+        "audiobox:CE": 6.078212309628725,
+        "audiobox:PQ": 7.8847720683552325,
+        "audiobox:CU": 6.924145443364978,
+        "audiobox:PC": 1.5425586625933647,
+        "dnsmos:P808_MOS": 3.3738783391891047,
+        "dnsmos:OVRL": 3.1905735512264073
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 875.887,
+      "first_audio_device_ms": 468.014,
+      "audio_s": 3.04,
+      "rtf": 0.2881205910130551,
+      "codes_sha256": "d13db7916438dcca3ef432c3168cab4f780ee6369b48d579266e2d6d397317e1",
+      "audio_file": "logs/bolt-precision/fp32_merged-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.8758865966796875,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.2881205910130551,
+        "audio_seconds_per_second": 3.470768946030271,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8758865966796875,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.8759938850998878,
+            "first_audio_seconds": 0.46801406860351563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich drehe mich und habe Spaß",
+      "wer": 0.14285714285714285,
+      "speaker_cosine": 0.50115,
+      "quality": {
+        "audiobox:CE": 5.824046839028597,
+        "audiobox:PQ": 7.987811341881752,
+        "audiobox:CU": 7.009987074881792,
+        "audiobox:PC": 1.6245951168239117,
+        "dnsmos:P808_MOS": 3.309886161237955,
+        "dnsmos:OVRL": 2.8522925613215193
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 875.629,
+      "first_audio_device_ms": 467.51,
+      "audio_s": 3.04,
+      "rtf": 0.28803570396021794,
+      "codes_sha256": "75b8dd63d8be8498300c1a127a38afc65b1ee163091a0b3964c0c1fe943cb9a5",
+      "audio_file": "logs/bolt-precision/fp32_merged-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.8756285400390625,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.28803570396021794,
+        "audio_seconds_per_second": 3.4717918169551476,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8756285400390625,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.8757267445325851,
+            "first_audio_seconds": 0.4675103454589844,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Ich dreh mich und habe Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.3627,
+      "quality": {
+        "audiobox:CE": 6.133811006322503,
+        "audiobox:PQ": 7.8710334985516965,
+        "audiobox:CU": 6.986575720831752,
+        "audiobox:PC": 1.5236271731555462,
+        "dnsmos:P808_MOS": 3.4131462665682193,
+        "dnsmos:OVRL": 2.929901685100049
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 883.833,
+      "first_audio_device_ms": 459.43,
+      "audio_s": 3.12,
+      "rtf": 0.28327975150866386,
+      "codes_sha256": "37f6032edca9c48beef12978f8aaabe5cb62d6cb8348d69003a3c0877766b091",
+      "audio_file": "logs/bolt-precision/fp32_merged-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 0.8838328247070313,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.28327975150866386,
+        "audio_seconds_per_second": 3.530079346209169,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8838328247070313,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.8839291930198669,
+            "first_audio_seconds": 0.4594299011230469,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable",
+      "wer": 0.0,
+      "speaker_cosine": 0.22589,
+      "quality": {
+        "audiobox:CE": 6.213237715885043,
+        "audiobox:PQ": 7.740517085418105,
+        "audiobox:CU": 7.5562520027160645,
+        "audiobox:PC": 1.4983851872384548,
+        "dnsmos:P808_MOS": 3.580398549849633,
+        "dnsmos:OVRL": 3.2545566456392407
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 834.826,
+      "first_audio_device_ms": 460.391,
+      "audio_s": 2.88,
+      "rtf": 0.28987021976047095,
+      "codes_sha256": "a5746d16a0ce23869978d057f50ce6966b50d1155e4b540c77c3973695dc1e87",
+      "audio_file": "logs/bolt-precision/fp32_merged-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 0.8348262329101562,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.28987021976047095,
+        "audio_seconds_per_second": 3.449819718722165,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8348262329101562,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.8349345475435257,
+            "first_audio_seconds": 0.4603914794921875,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.37978,
+      "quality": {
+        "audiobox:CE": 6.245008399710059,
+        "audiobox:PQ": 7.774863509926945,
+        "audiobox:CU": 7.603074710816145,
+        "audiobox:PC": 1.5046956837177277,
+        "dnsmos:P808_MOS": 3.5910639128414914,
+        "dnsmos:OVRL": 3.3825228344649076
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "fp32",
+      "merged": true,
+      "device_ms": 903.08,
+      "first_audio_device_ms": 462.795,
+      "audio_s": 3.2,
+      "rtf": 0.28221248626708983,
+      "codes_sha256": "64b0f6cdeb8a2966b46bdcd40ed939d8633102e57f1235c42e62755ee44013d6",
+      "audio_file": "logs/bolt-precision/fp32_merged-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 0.9030799560546875,
+        "raw_audio_seconds": 3.2,
+        "aggregate_rtf": 0.28221248626708983,
+        "audio_seconds_per_second": 3.5434293259922813,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9030799560546875,
+            "audio_seconds": [
+              3.2
+            ],
+            "model_wall_seconds": 0.9031747356057167,
+            "first_audio_seconds": 0.46279473876953126,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.28489,
+      "quality": {
+        "audiobox:CE": 6.300607096403837,
+        "audiobox:PQ": 8.001549911685288,
+        "audiobox:CU": 7.696720127016306,
+        "audiobox:PC": 1.4794536978006363,
+        "dnsmos:P808_MOS": 3.8160061141243204,
+        "dnsmos:OVRL": 3.410959765315056
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 794.734,
+      "first_audio_device_ms": 417.328,
+      "audio_s": 3.04,
+      "rtf": 0.26142552024439764,
+      "codes_sha256": "8cb215021d6448cadd2d18bc057ad3e69f2eb75105dc05f117bd484c24264fec",
+      "audio_file": "logs/bolt-precision/bf16_merged-neutral_de-777.npy",
+      "performance": {
+        "device_seconds": 0.7947335815429688,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.26142552024439764,
+        "audio_seconds_per_second": 3.8251812564631593,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7947335815429688,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.7948257401585579,
+            "first_audio_seconds": 0.417328125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "wer": 0.0,
+      "speaker_cosine": 0.58205,
+      "quality": {
+        "audiobox:CE": 6.038498954847455,
+        "audiobox:PQ": 7.730213158065453,
+        "audiobox:CU": 6.947556797415018,
+        "audiobox:PC": 1.4668327048420906,
+        "dnsmos:P808_MOS": 3.703535013482906,
+        "dnsmos:OVRL": 3.3398674381896853
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 795.63,
+      "first_audio_device_ms": 417.501,
+      "audio_s": 3.04,
+      "rtf": 0.2617202558015522,
+      "codes_sha256": "236e016a3cec9294250e8d30fd13ab1fc7f4791d5719a5441a4144d7b2c67806",
+      "audio_file": "logs/bolt-precision/bf16_merged-neutral_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.7956295776367187,
+        "raw_audio_seconds": 3.04,
+        "aggregate_rtf": 0.2617202558015522,
+        "audio_seconds_per_second": 3.8208735389523842,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7956295776367187,
+            "audio_seconds": [
+              3.04
+            ],
+            "model_wall_seconds": 0.7957262322306633,
+            "first_audio_seconds": 0.4175011901855469,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte",
+      "wer": 0.0,
+      "speaker_cosine": 0.56457,
+      "quality": {
+        "audiobox:CE": 5.998785600066185,
+        "audiobox:PQ": 7.671824236400425,
+        "audiobox:CU": 6.814892457798123,
+        "audiobox:PC": 1.5425586625933647,
+        "dnsmos:P808_MOS": 3.7772229759721085,
+        "dnsmos:OVRL": 3.4014807883650064
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "neutral_de",
+      "text": "Natürlich, ich erzähle dir eine kleine Geschichte.",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 809.336,
+      "first_audio_device_ms": 417.572,
+      "audio_s": 3.12,
+      "rtf": 0.25940252450796275,
+      "codes_sha256": "d6421d4eacf56c55e1047cacf04aee1f2854bea62f507b5a1be01f5ac0ec9a13",
+      "audio_file": "logs/bolt-precision/bf16_merged-neutral_de-4242.npy",
+      "performance": {
+        "device_seconds": 0.8093358764648437,
+        "raw_audio_seconds": 3.12,
+        "aggregate_rtf": 0.25940252450796275,
+        "audio_seconds_per_second": 3.855012598265225,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8093358764648437,
+            "audio_seconds": [
+              3.12
+            ],
+            "model_wall_seconds": 0.8094317764043808,
+            "first_audio_seconds": 0.41757196044921874,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Natürlich, ich erzähle dir eine kleine Geschichte",
+      "wer": 0.0,
+      "speaker_cosine": 0.51669,
+      "quality": {
+        "audiobox:CE": 6.014670941978693,
+        "audiobox:PQ": 7.816079219337553,
+        "audiobox:CU": 7.056809782981873,
+        "audiobox:PC": 1.4289697259664536,
+        "dnsmos:P808_MOS": 3.722926582559012,
+        "dnsmos:OVRL": 3.439396696165204
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 782.016,
+      "first_audio_device_ms": 420.586,
+      "audio_s": 2.96,
+      "rtf": 0.26419442666543497,
+      "codes_sha256": "2241d91b5897fdf9b7186a4a4776ad2aad1a97c094bd7401fefe52d9ac9b78c5",
+      "audio_file": "logs/bolt-precision/bf16_merged-playful_de-777.npy",
+      "performance": {
+        "device_seconds": 0.7820155029296875,
+        "raw_audio_seconds": 2.96,
+        "aggregate_rtf": 0.26419442666543497,
+        "audio_seconds_per_second": 3.7850912020424987,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7820155029296875,
+            "audio_seconds": [
+              2.96
+            ],
+            "model_wall_seconds": 0.7821120545268059,
+            "first_audio_seconds": 0.42058648681640626,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Hey, ich drehe mich und hab Spaß",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.30998,
+      "quality": {
+        "audiobox:CE": 5.831989509984851,
+        "audiobox:PQ": 7.829817789141089,
+        "audiobox:CU": 6.869518950581551,
+        "audiobox:PC": 1.5488691590726376,
+        "dnsmos:P808_MOS": 3.5551895100506954,
+        "dnsmos:OVRL": 3.169245853088796
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 934.407,
+      "first_audio_device_ms": 419.623,
+      "audio_s": 3.28,
+      "rtf": 0.28488023339248286,
+      "codes_sha256": "2e592de0dc486ed09b559599b9a8173dae716711cb359a7feade8fc33faea7e3",
+      "audio_file": "logs/bolt-precision/bf16_merged-playful_de-2026.npy",
+      "performance": {
+        "device_seconds": 0.9344071655273437,
+        "raw_audio_seconds": 3.28,
+        "aggregate_rtf": 0.28488023339248286,
+        "audio_seconds_per_second": 3.510247053969126,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9344071655273437,
+            "audio_seconds": [
+              3.28
+            ],
+            "model_wall_seconds": 0.9345061779022217,
+            "first_audio_seconds": 0.4196229248046875,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Hi, ich dreh mich unterbe Spaß.",
+      "wer": 0.5714285714285714,
+      "speaker_cosine": 0.33582,
+      "quality": {
+        "audiobox:CE": 6.229123057797551,
+        "audiobox:PQ": 7.912249207962304,
+        "audiobox:CU": 7.049005998298526,
+        "audiobox:PC": 1.6372161097824574,
+        "dnsmos:P808_MOS": 3.5096193227218464,
+        "dnsmos:OVRL": 3.1313299452885985
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "playful_de",
+      "text": "Hui, ich drehe mich und habe Spaß!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 1136.418,
+      "first_audio_device_ms": 460.162,
+      "audio_s": 4.0,
+      "rtf": 0.28410446166992187,
+      "codes_sha256": "93f0cc773e270b6fc576efadaa533193eb416d936d9f2b28540e6fb328aeb022",
+      "audio_file": "logs/bolt-precision/bf16_merged-playful_de-4242.npy",
+      "performance": {
+        "device_seconds": 1.1364178466796875,
+        "raw_audio_seconds": 4.0,
+        "aggregate_rtf": 0.28410446166992187,
+        "audio_seconds_per_second": 3.5198320861353443,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.1364178466796875,
+            "audio_seconds": [
+              4.0
+            ],
+            "model_wall_seconds": 1.1365188360214233,
+            "first_audio_seconds": 0.46016204833984375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Oi, ich dreh mich und habe Spaß.",
+      "wer": 0.2857142857142857,
+      "speaker_cosine": 0.49642,
+      "quality": {
+        "audiobox:CE": 5.982900258153677,
+        "audiobox:PQ": 8.173282034229487,
+        "audiobox:CU": 7.15825898386538,
+        "audiobox:PC": 1.6372161097824574,
+        "dnsmos:P808_MOS": 3.5290108917979524,
+        "dnsmos:OVRL": 3.0152124776504934
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 777,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 784.865,
+      "first_audio_device_ms": 431.021,
+      "audio_s": 2.88,
+      "rtf": 0.27252267201741537,
+      "codes_sha256": "93d13aa87dd5cb0f963eb0dc6e435217cc7c3b1c4cc2f508b99673d403612b88",
+      "audio_file": "logs/bolt-precision/bf16_merged-firm_en-777.npy",
+      "performance": {
+        "device_seconds": 0.7848652954101563,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.27252267201741537,
+        "audio_seconds_per_second": 3.6694194747073947,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7848652954101563,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.7849644124507904,
+            "first_audio_seconds": 0.43102105712890626,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.20105,
+      "quality": {
+        "audiobox:CE": 6.268836412578821,
+        "audiobox:PQ": 7.836687074042857,
+        "audiobox:CU": 7.681112557649612,
+        "audiobox:PC": 1.5362481661140919,
+        "dnsmos:P808_MOS": 3.5028322735452093,
+        "dnsmos:OVRL": 3.2995817861519754
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 2026,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 780.534,
+      "first_audio_device_ms": 426.928,
+      "audio_s": 2.88,
+      "rtf": 0.2710186852349175,
+      "codes_sha256": "c7159f2b942e86c8c6c5b8e1ca0a7c956574411650fee2f749c4e8b1169ed1cc",
+      "audio_file": "logs/bolt-precision/bf16_merged-firm_en-2026.npy",
+      "performance": {
+        "device_seconds": 0.7805338134765625,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.2710186852349175,
+        "audio_seconds_per_second": 3.6897824927945666,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7805338134765625,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.7806480154395103,
+            "first_audio_seconds": 0.42692807006835937,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.31112,
+      "quality": {
+        "audiobox:CE": 6.237065728753805,
+        "audiobox:PQ": 7.898510638158768,
+        "audiobox:CU": 7.634289849549532,
+        "audiobox:PC": 1.492074690759182,
+        "dnsmos:P808_MOS": 3.6434211493469775,
+        "dnsmos:OVRL": 3.4299177192151546
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "case": "firm_en",
+      "text": "Stop right there, this is not acceptable!",
+      "seed": 4242,
+      "dtype": "bf16",
+      "merged": true,
+      "device_ms": 777.896,
+      "first_audio_device_ms": 425.787,
+      "audio_s": 2.88,
+      "rtf": 0.2701027552286784,
+      "codes_sha256": "91dc11c34d8c06b5a715d42fe793d926d55b34c3f34498af624b760679b1b267",
+      "audio_file": "logs/bolt-precision/bf16_merged-firm_en-4242.npy",
+      "performance": {
+        "device_seconds": 0.7778959350585938,
+        "raw_audio_seconds": 2.88,
+        "aggregate_rtf": 0.2701027552286784,
+        "audio_seconds_per_second": 3.7022947031894033,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.7778959350585938,
+            "audio_seconds": [
+              2.88
+            ],
+            "model_wall_seconds": 0.7779968455433846,
+            "first_audio_seconds": 0.4257873840332031,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.0
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0
+      },
+      "hypothesis": "Stop right there.  This is not acceptable.",
+      "wer": 0.0,
+      "speaker_cosine": 0.19458,
+      "quality": {
+        "audiobox:CE": 6.268836412578821,
+        "audiobox:PQ": 7.974072772078216,
+        "audiobox:CU": 7.696720127016306,
+        "audiobox:PC": 1.4983851872384548,
+        "dnsmos:P808_MOS": 3.6201512664556503,
+        "dnsmos:OVRL": 3.2403381802141666
+      }
+    }
+  ],
+  "scope": "Isolated RTX3090 GPU0 copy; live GPU1 TTS unchanged. Paired prompts/seeds, but precision/merge can change sampled tokens.",
+  "acceptance": "Small exploratory quality comparison, not proof of perceptual equivalence. Official reference FP32 remains available.",
+  "checkpoint": {
+    "id": "small_rl",
+    "label": "Small 1.1 Alpha RL · r128 v1 · Default",
+    "kind": "small",
+    "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+    "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+    "checkpoint": "checkpoints/step-00006109/model.safetensors",
+    "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+    "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+    "rl_bundle": true,
+    "policy_dtype": "fp32",
+    "step": 6109,
+    "rl_updates": 2434,
+    "cache_dir": "/dev/shm/humaneness-rl/hub",
+    "batch_size": 1,
+    "max_batch_size": 8,
+    "search_max_n": 8,
+    "stage": "Acting",
+    "steering": false,
+    "adapters": false,
+    "rl_adapter": {
+      "enabled": true,
+      "rank": 128,
+      "dtype": "fp32",
+      "merged": false,
+      "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "semantic": 112,
+      "local": 2
+    }
+  },
+  "warmup_ms": {
+    "fp32_strict": 52835.89,
+    "fp32_tf32": 96831.95,
+    "bf16_base_fp32_lora": 75584.94,
+    "bf16_all": 104229.11,
+    "fp32_merged": 90939.44,
+    "bf16_merged": 98568.94
+  },
+  "summary": [
+    {
+      "variant": "fp32_strict",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 973.014,
+      "median_first_audio_device_ms": 515.668,
+      "median_rtf": 0.31979249653063324,
+      "mean_wer": 0.07936507936507936,
+      "mean_speaker_cosine": 0.4336433333333333,
+      "quality_means": {
+        "audiobox:CE": 6.08527246158984,
+        "audiobox:PQ": 7.809209934435785,
+        "audiobox:CU": 7.1669298557357655,
+        "audiobox:PC": 1.4927758570346568,
+        "dnsmos:P808_MOS": 3.5645082363011573,
+        "dnsmos:OVRL": 3.244616885087453
+      }
+    },
+    {
+      "variant": "fp32_tf32",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 1092.867,
+      "median_first_audio_device_ms": 572.105,
+      "median_rtf": 0.35879107023540296,
+      "mean_wer": 0.09523809523809523,
+      "mean_speaker_cosine": 0.40143222222222225,
+      "quality_means": {
+        "audiobox:CE": 6.087037499580118,
+        "audiobox:PQ": 7.780206287072764,
+        "audiobox:CU": 7.12877801950607,
+        "audiobox:PC": 1.4948793558610811,
+        "dnsmos:P808_MOS": 3.572157132992288,
+        "dnsmos:OVRL": 3.2577163046225905
+      }
+    },
+    {
+      "variant": "bf16_base_fp32_lora",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 972.643,
+      "median_first_audio_device_ms": 498.793,
+      "median_rtf": 0.32724859064275563,
+      "mean_wer": 0.09523809523809523,
+      "mean_speaker_cosine": 0.4330877777777778,
+      "quality_means": {
+        "audiobox:CE": 6.064974524701635,
+        "audiobox:PQ": 7.831725923836024,
+        "audiobox:CU": 7.201613343217307,
+        "audiobox:PC": 1.5131096790234249,
+        "dnsmos:P808_MOS": 3.64611442282977,
+        "dnsmos:OVRL": 3.2471841080114245
+      }
+    },
+    {
+      "variant": "bf16_all",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 954.472,
+      "median_first_audio_device_ms": 491.258,
+      "median_rtf": 0.3078710254869963,
+      "mean_wer": 0.09523809523809523,
+      "mean_speaker_cosine": 0.36067444444444446,
+      "quality_means": {
+        "audiobox:CE": 6.064092005706495,
+        "audiobox:PQ": 7.810736442191733,
+        "audiobox:CU": 7.109702101391223,
+        "audiobox:PC": 1.4997875197894044,
+        "dnsmos:P808_MOS": 3.5835227470896722,
+        "dnsmos:OVRL": 3.1666128039360046
+      }
+    },
+    {
+      "variant": "fp32_merged",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 875.887,
+      "median_first_audio_device_ms": 466.78,
+      "median_rtf": 0.28803570396021794,
+      "mean_wer": 0.07936507936507936,
+      "mean_speaker_cosine": 0.4336433333333333,
+      "quality_means": {
+        "audiobox:CE": 6.08527246158984,
+        "audiobox:PQ": 7.809209934435785,
+        "audiobox:CU": 7.1669298557357655,
+        "audiobox:PC": 1.4927758570346568,
+        "dnsmos:P808_MOS": 3.5645082363011573,
+        "dnsmos:OVRL": 3.244616885087453
+      }
+    },
+    {
+      "variant": "bf16_merged",
+      "n": 9,
+      "scored": 9,
+      "median_device_ms": 794.734,
+      "median_first_audio_device_ms": 420.586,
+      "median_rtf": 0.2701027552286784,
+      "mean_wer": 0.12698412698412698,
+      "mean_speaker_cosine": 0.39025333333333334,
+      "quality_means": {
+        "audiobox:CE": 6.096745208526651,
+        "audiobox:PQ": 7.8714151254906835,
+        "audiobox:CU": 7.212018389461769,
+        "audiobox:PC": 1.5320411684612434,
+        "dnsmos:P808_MOS": 3.6182121095480397,
+        "dnsmos:OVRL": 3.274041209369898
+      }
+    }
+  ],
+  "finished": 1792946584.1203446
+}
