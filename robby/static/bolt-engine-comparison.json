@@ -1,0 +1,702 @@
+{
+  "rows": [
+    {
+      "engine": "baseline",
+      "repeat": 0,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir können etwas zusammen planen.",
+      "llm_ttft_ms": 112.67,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 535,
+        "total_tokens": 547,
+        "prompt_tokens_details": {
+          "cached_tokens": 241
+        }
+      },
+      "llama_timings": {
+        "cache_n": 241,
+        "prompt_n": 294,
+        "prompt_ms": 100.243,
+        "prompt_per_token_ms": 0.3409625850340136,
+        "prompt_per_second": 2932.8731183224763,
+        "predicted_n": 12,
+        "predicted_ms": 84.797,
+        "predicted_per_token_ms": 7.066416666666666,
+        "predicted_per_second": 141.51444036935268
+      },
+      "llm_first_sentence_ms": 197.88,
+      "llm_total_ms": 197.9
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 0,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir könnten etwas gemütliches tun.",
+      "llm_ttft_ms": 317.79,
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 535,
+        "total_tokens": 548,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "llama_timings": {
+        "cache_n": 0,
+        "prompt_n": 535,
+        "prompt_ms": 307.192,
+        "prompt_per_token_ms": 0.5741906542056074,
+        "prompt_per_second": 1741.5818120263548,
+        "predicted_n": 13,
+        "predicted_ms": 207.653,
+        "predicted_per_token_ms": 15.973307692307692,
+        "predicted_per_second": 62.60444106273447,
+        "draft_n": 63,
+        "draft_n_accepted": 3
+      },
+      "llm_first_sentence_ms": 526.05,
+      "llm_total_ms": 526.06
+    },
+    {
+      "engine": "baseline",
+      "repeat": 0,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein kleiner Roboter fand einen Keks.",
+      "llm_ttft_ms": 53.18,
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 536,
+        "total_tokens": 552,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 43.749,
+        "prompt_per_token_ms": 1.2152500000000002,
+        "prompt_per_second": 822.8759514503189,
+        "predicted_n": 16,
+        "predicted_ms": 109.935,
+        "predicted_per_token_ms": 6.8709375,
+        "predicted_per_second": 145.54054668667848
+      },
+      "llm_first_sentence_ms": 163.83,
+      "llm_total_ms": 163.84
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 0,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein Roboter aß einen Apfel.",
+      "llm_ttft_ms": 79.24,
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 536,
+        "total_tokens": 552,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 72.246,
+        "prompt_per_token_ms": 2.0068333333333332,
+        "prompt_per_second": 498.2974835977079,
+        "predicted_n": 16,
+        "predicted_ms": 126.114,
+        "predicted_per_token_ms": 7.882125,
+        "predicted_per_second": 126.8693404380164,
+        "draft_n": 42,
+        "draft_n_accepted": 10
+      },
+      "llm_first_sentence_ms": 205.96,
+      "llm_total_ms": 205.98
+    },
+    {
+      "engine": "baseline",
+      "repeat": 0,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist siebzigacht.",
+      "llm_ttft_ms": 54.12,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 45.871,
+        "prompt_per_token_ms": 1.1761794871794873,
+        "prompt_per_second": 850.2103725665453,
+        "predicted_n": 19,
+        "predicted_ms": 129.952,
+        "predicted_per_token_ms": 6.8395789473684205,
+        "predicted_per_second": 146.2078305836001
+      },
+      "llm_first_sentence_ms": 184.48,
+      "llm_total_ms": 184.49
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 0,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist siebzig acht.",
+      "llm_ttft_ms": 65.13,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 56.298,
+        "prompt_per_token_ms": 1.4435384615384617,
+        "prompt_per_second": 692.7421933283598,
+        "predicted_n": 19,
+        "predicted_ms": 166.826,
+        "predicted_per_token_ms": 8.780315789473685,
+        "predicted_per_second": 113.89112008919473,
+        "draft_n": 56,
+        "draft_n_accepted": 11
+      },
+      "llm_first_sentence_ms": 232.55,
+      "llm_total_ms": 232.56
+    },
+    {
+      "engine": "baseline",
+      "repeat": 0,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apples bananas oranges are fruits.",
+      "llm_ttft_ms": 94.47,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 533,
+        "total_tokens": 545,
+        "prompt_tokens_details": {
+          "cached_tokens": 241
+        }
+      },
+      "llama_timings": {
+        "cache_n": 241,
+        "prompt_n": 292,
+        "prompt_ms": 87.99,
+        "prompt_per_token_ms": 0.30133561643835616,
+        "prompt_per_second": 3318.558927150813,
+        "predicted_n": 12,
+        "predicted_ms": 81.114,
+        "predicted_per_token_ms": 6.7595,
+        "predicted_per_second": 147.93993638582734
+      },
+      "llm_first_sentence_ms": 175.95,
+      "llm_total_ms": 175.96
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 0,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apples, bananas, and grapes are fruits.",
+      "llm_ttft_ms": 97.07,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 533,
+        "total_tokens": 548,
+        "prompt_tokens_details": {
+          "cached_tokens": 274
+        }
+      },
+      "llama_timings": {
+        "cache_n": 274,
+        "prompt_n": 259,
+        "prompt_ms": 87.769,
+        "prompt_per_token_ms": 0.3388764478764479,
+        "prompt_per_second": 2950.928004192824,
+        "predicted_n": 15,
+        "predicted_ms": 126.431,
+        "predicted_per_token_ms": 8.428733333333334,
+        "predicted_per_second": 118.64178880179702,
+        "draft_n": 42,
+        "draft_n_accepted": 9
+      },
+      "llm_first_sentence_ms": 223.86,
+      "llm_total_ms": 223.87
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 1,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir könnten etwas zusammen tun.",
+      "llm_ttft_ms": 105.67,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 535,
+        "total_tokens": 547,
+        "prompt_tokens_details": {
+          "cached_tokens": 273
+        }
+      },
+      "llama_timings": {
+        "cache_n": 273,
+        "prompt_n": 262,
+        "prompt_ms": 97.759,
+        "prompt_per_token_ms": 0.3731259541984733,
+        "prompt_per_second": 2680.0601479147704,
+        "predicted_n": 12,
+        "predicted_ms": 164.22,
+        "predicted_per_token_ms": 13.685,
+        "predicted_per_second": 73.07270734380708,
+        "draft_n": 56,
+        "draft_n_accepted": 3
+      },
+      "llm_first_sentence_ms": 270.4,
+      "llm_total_ms": 270.41
+    },
+    {
+      "engine": "baseline",
+      "repeat": 1,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir könnten einen Spaziergang machen.",
+      "llm_ttft_ms": 101.59,
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 535,
+        "total_tokens": 549,
+        "prompt_tokens_details": {
+          "cached_tokens": 272
+        }
+      },
+      "llama_timings": {
+        "cache_n": 272,
+        "prompt_n": 263,
+        "prompt_ms": 93.784,
+        "prompt_per_token_ms": 0.35659315589353613,
+        "prompt_per_second": 2804.316301288066,
+        "predicted_n": 14,
+        "predicted_ms": 95.12,
+        "predicted_per_token_ms": 6.7942857142857145,
+        "predicted_per_second": 147.18250630782168
+      },
+      "llm_first_sentence_ms": 197.34,
+      "llm_total_ms": 197.35
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 1,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein Roboter aß nur Socken.",
+      "llm_ttft_ms": 71.12,
+      "usage": {
+        "completion_tokens": 16,
+        "prompt_tokens": 536,
+        "total_tokens": 552,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 62.79,
+        "prompt_per_token_ms": 1.7441666666666666,
+        "prompt_per_second": 573.3397037744865,
+        "predicted_n": 16,
+        "predicted_ms": 145.412,
+        "predicted_per_token_ms": 9.08825,
+        "predicted_per_second": 110.03218441394107,
+        "draft_n": 49,
+        "draft_n_accepted": 8
+      },
+      "llm_first_sentence_ms": 217.2,
+      "llm_total_ms": 217.21
+    },
+    {
+      "engine": "baseline",
+      "repeat": 1,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein Hund jagte einen Ball.",
+      "llm_ttft_ms": 50.26,
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 536,
+        "total_tokens": 550,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 44.595,
+        "prompt_per_token_ms": 1.23875,
+        "prompt_per_second": 807.2653884964683,
+        "predicted_n": 14,
+        "predicted_ms": 94.807,
+        "predicted_per_token_ms": 6.771928571428572,
+        "predicted_per_second": 147.66842110814602
+      },
+      "llm_first_sentence_ms": 145.97,
+      "llm_total_ms": 145.99
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 1,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist siebzigacht.",
+      "llm_ttft_ms": 73.91,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 65.284,
+        "prompt_per_token_ms": 1.673948717948718,
+        "prompt_per_second": 597.3898658170455,
+        "predicted_n": 19,
+        "predicted_ms": 166.207,
+        "predicted_per_token_ms": 8.747736842105263,
+        "predicted_per_second": 114.31528154650526,
+        "draft_n": 56,
+        "draft_n_accepted": 11
+      },
+      "llm_first_sentence_ms": 240.74,
+      "llm_total_ms": 240.75
+    },
+    {
+      "engine": "baseline",
+      "repeat": 1,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist siebzigacht.",
+      "llm_ttft_ms": 52.15,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 44.688,
+        "prompt_per_token_ms": 1.145846153846154,
+        "prompt_per_second": 872.7175080558538,
+        "predicted_n": 19,
+        "predicted_ms": 129.8,
+        "predicted_per_token_ms": 6.831578947368421,
+        "predicted_per_second": 146.3790446841294
+      },
+      "llm_first_sentence_ms": 182.45,
+      "llm_total_ms": 182.46
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 1,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apples bananas and grapes are fruits.",
+      "llm_ttft_ms": 104.64,
+      "usage": {
+        "completion_tokens": 13,
+        "prompt_tokens": 533,
+        "total_tokens": 546,
+        "prompt_tokens_details": {
+          "cached_tokens": 273
+        }
+      },
+      "llama_timings": {
+        "cache_n": 273,
+        "prompt_n": 260,
+        "prompt_ms": 95.741,
+        "prompt_per_token_ms": 0.3682346153846154,
+        "prompt_per_second": 2715.6599575939254,
+        "predicted_n": 13,
+        "predicted_ms": 106.064,
+        "predicted_per_token_ms": 8.15876923076923,
+        "predicted_per_second": 122.56750641122342,
+        "draft_n": 35,
+        "draft_n_accepted": 8
+      },
+      "llm_first_sentence_ms": 211.4,
+      "llm_total_ms": 211.41
+    },
+    {
+      "engine": "baseline",
+      "repeat": 1,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apple, banana, and grape are fruits.",
+      "llm_ttft_ms": 94.71,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 533,
+        "total_tokens": 548,
+        "prompt_tokens_details": {
+          "cached_tokens": 241
+        }
+      },
+      "llama_timings": {
+        "cache_n": 241,
+        "prompt_n": 292,
+        "prompt_ms": 86.379,
+        "prompt_per_token_ms": 0.2958184931506849,
+        "prompt_per_second": 3380.4512670903805,
+        "predicted_n": 15,
+        "predicted_ms": 102.181,
+        "predicted_per_token_ms": 6.8120666666666665,
+        "predicted_per_second": 146.79832845636665
+      },
+      "llm_first_sentence_ms": 197.48,
+      "llm_total_ms": 197.5
+    },
+    {
+      "engine": "baseline",
+      "repeat": 2,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir könnten einen Spaziergang machen.",
+      "llm_ttft_ms": 91.64,
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 535,
+        "total_tokens": 549,
+        "prompt_tokens_details": {
+          "cached_tokens": 272
+        }
+      },
+      "llama_timings": {
+        "cache_n": 272,
+        "prompt_n": 263,
+        "prompt_ms": 83.845,
+        "prompt_per_token_ms": 0.31880228136882127,
+        "prompt_per_second": 3136.7404138589063,
+        "predicted_n": 14,
+        "predicted_ms": 95.172,
+        "predicted_per_token_ms": 6.798,
+        "predicted_per_second": 147.10208884966167
+      },
+      "llm_first_sentence_ms": 187.48,
+      "llm_total_ms": 187.49
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 2,
+      "input": "Was können wir heute nachmittags gemeinsam machen?",
+      "reply": "Wir könnten etwas trinken.",
+      "llm_ttft_ms": 118.13,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 535,
+        "total_tokens": 547,
+        "prompt_tokens_details": {
+          "cached_tokens": 272
+        }
+      },
+      "llama_timings": {
+        "cache_n": 272,
+        "prompt_n": 263,
+        "prompt_ms": 109.769,
+        "prompt_per_token_ms": 0.4173726235741445,
+        "prompt_per_second": 2395.9405660978964,
+        "predicted_n": 12,
+        "predicted_ms": 168.909,
+        "predicted_per_token_ms": 14.07575,
+        "predicted_per_second": 71.04417171376303,
+        "draft_n": 56,
+        "draft_n_accepted": 3
+      },
+      "llm_first_sentence_ms": 287.47,
+      "llm_total_ms": 287.48
+    },
+    {
+      "engine": "baseline",
+      "repeat": 2,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein Roboter vergaß sein Ladegerät.",
+      "llm_ttft_ms": 52.31,
+      "usage": {
+        "completion_tokens": 18,
+        "prompt_tokens": 536,
+        "total_tokens": 554,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 44.961,
+        "prompt_per_token_ms": 1.2489166666666667,
+        "prompt_per_second": 800.6939347434443,
+        "predicted_n": 18,
+        "predicted_ms": 122.607,
+        "predicted_per_token_ms": 6.8115,
+        "predicted_per_second": 146.81054099684357
+      },
+      "llm_first_sentence_ms": 175.59,
+      "llm_total_ms": 175.59
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 2,
+      "input": "Bitte erzähle mir eine kurze lustige Geschichte.",
+      "reply": "Ein Roboter fand einen Keks.",
+      "llm_ttft_ms": 66.74,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 536,
+        "total_tokens": 551,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 36,
+        "prompt_ms": 58.71,
+        "prompt_per_token_ms": 1.6308333333333334,
+        "prompt_per_second": 613.1834440470107,
+        "predicted_n": 15,
+        "predicted_ms": 127.336,
+        "predicted_per_token_ms": 8.489066666666666,
+        "predicted_per_second": 117.79858013444745,
+        "draft_n": 42,
+        "draft_n_accepted": 9
+      },
+      "llm_first_sentence_ms": 194.76,
+      "llm_total_ms": 194.77
+    },
+    {
+      "engine": "baseline",
+      "repeat": 2,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist sechsundachtzig.",
+      "llm_ttft_ms": 52.1,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 44.497,
+        "prompt_per_token_ms": 1.1409487179487179,
+        "prompt_per_second": 876.4635818145043,
+        "predicted_n": 19,
+        "predicted_ms": 130.749,
+        "predicted_per_token_ms": 6.881526315789474,
+        "predicted_per_second": 145.31659897972452
+      },
+      "llm_first_sentence_ms": 183.45,
+      "llm_total_ms": 183.46
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 2,
+      "input": "Was ist siebzehn mal vier? Antworte kurz.",
+      "reply": "Siebzehn mal vier ist siebzigacht.",
+      "llm_ttft_ms": 60.96,
+      "usage": {
+        "completion_tokens": 19,
+        "prompt_tokens": 539,
+        "total_tokens": 558,
+        "prompt_tokens_details": {
+          "cached_tokens": 500
+        }
+      },
+      "llama_timings": {
+        "cache_n": 500,
+        "prompt_n": 39,
+        "prompt_ms": 53.637,
+        "prompt_per_token_ms": 1.3753076923076923,
+        "prompt_per_second": 727.1100173387773,
+        "predicted_n": 19,
+        "predicted_ms": 168.185,
+        "predicted_per_token_ms": 8.851842105263158,
+        "predicted_per_second": 112.97083568689241,
+        "draft_n": 56,
+        "draft_n_accepted": 11
+      },
+      "llm_first_sentence_ms": 229.71,
+      "llm_total_ms": 229.72
+    },
+    {
+      "engine": "baseline",
+      "repeat": 2,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apples, bananas, and grapes are fruits.",
+      "llm_ttft_ms": 94.61,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 533,
+        "total_tokens": 548,
+        "prompt_tokens_details": {
+          "cached_tokens": 241
+        }
+      },
+      "llama_timings": {
+        "cache_n": 241,
+        "prompt_n": 292,
+        "prompt_ms": 87.181,
+        "prompt_per_token_ms": 0.2985650684931507,
+        "prompt_per_second": 3349.3536435691262,
+        "predicted_n": 15,
+        "predicted_ms": 102.541,
+        "predicted_per_token_ms": 6.8360666666666665,
+        "predicted_per_second": 146.28295023454032
+      },
+      "llm_first_sentence_ms": 197.93,
+      "llm_total_ms": 197.94
+    },
+    {
+      "engine": "DFlash",
+      "repeat": 2,
+      "input": "Please name three fruits in one sentence.",
+      "reply": "Apples, bananas, and grapes are fruits.",
+      "llm_ttft_ms": 113.56,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 533,
+        "total_tokens": 548,
+        "prompt_tokens_details": {
+          "cached_tokens": 272
+        }
+      },
+      "llama_timings": {
+        "cache_n": 272,
+        "prompt_n": 261,
+        "prompt_ms": 104.534,
+        "prompt_per_token_ms": 0.40051340996168583,
+        "prompt_per_second": 2496.7953010503757,
+        "predicted_n": 15,
+        "predicted_ms": 111.098,
+        "predicted_per_token_ms": 7.406533333333333,
+        "predicted_per_second": 135.01593187996184,
+        "draft_n": 35,
+        "draft_n_accepted": 10
+      },
+      "llm_first_sentence_ms": 225.17,
+      "llm_total_ms": 225.18
+    }
+  ],
+  "finished": 1792942836.6281219,
+  "scope": "Real requests in rotated serial order, same model weights, 7-word response target; cache details are retained."
+}

@@ -25,7 +25,7 @@ class RLLinear(nn.Module):
     def forward(self, x):
         result = self.base(x)
         with torch.autocast(x.device.type, enabled=False):
-            residual = F.linear(F.linear(x.float(), self.a), self.b)
+            residual = F.linear(F.linear(x.to(self.a.dtype), self.a), self.b)
         return result + residual.to(result.dtype)
 
 

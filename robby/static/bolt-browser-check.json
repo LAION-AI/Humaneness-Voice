@@ -1,0 +1,1871 @@
+{
+  "passed": true,
+  "url": "https://arrive-locations-parade-research.trycloudflare.com",
+  "physical_microphone": false,
+  "synthetic_mic_file": true,
+  "cpu_browser": true,
+  "began": 1792947402.1714866,
+  "first_turn": {
+    "pcm_after_last_capture_ms": 2198.7000007629395,
+    "playback_after_last_capture_ms": 2580.400001525879,
+    "playback_reserve_ms": 381.70000076293945,
+    "configured_reserve_ms": 300
+  },
+  "events": [
+    {
+      "type": "ready",
+      "hop_ms": 320,
+      "sr": 16000,
+      "mouth": true,
+      "voices": [
+        "emolia_c1699"
+      ],
+      "voice": "emolia_c1699",
+      "labels": {
+        "emolia_c1699": "Mira · fixed reference"
+      },
+      "max_session_s": 1800,
+      "thresholds": {
+        "ep_thr": 0.915,
+        "ep_deb": 2,
+        "barge_thr": 0.5,
+        "barge_deb": 2,
+        "bc_thr": 0.4,
+        "bc_deb": 2
+      },
+      "sliders": [
+        {
+          "name": "ep_thr",
+          "type": "float",
+          "label": "endpoint p_end τ",
+          "lo": 0.3,
+          "hi": 0.99,
+          "step": 0.005,
+          "decimals": 3,
+          "scale": 1,
+          "unit": "",
+          "meter": "p_end",
+          "off": null
+        },
+        {
+          "name": "ep_deb",
+          "type": "int",
+          "label": "endpoint deb",
+          "lo": 1,
+          "hi": 5,
+          "step": 1,
+          "decimals": 0,
+          "scale": 1,
+          "unit": "",
+          "meter": null,
+          "off": null
+        },
+        {
+          "name": "barge_thr",
+          "type": "float",
+          "label": "barge (yield)",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "yield",
+          "off": null
+        },
+        {
+          "name": "bc_thr",
+          "type": "float",
+          "label": "backchannel",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "bc",
+          "off": null
+        }
+      ],
+      "identity_enabled": true,
+      "identity_mode": "v4-long3",
+      "interaction": {
+        "enabled": true,
+        "helpful_enabled": true,
+        "rules": [],
+        "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+        "decision_interval_ms": 320,
+        "checks": 0,
+        "last_decision": null,
+        "waiting_for": "No agreed rules yet",
+        "attempts": 0,
+        "semantic_error": null,
+        "scope": "session-only conversational rules; acoustic verification is separate"
+      },
+      "visual_identity": {
+        "type": "visual_identity",
+        "settings": {
+          "ignoreOffscreenSpeakers": false,
+          "lookAtActiveSpeaker": true,
+          "greetUnknownSpeakers": true,
+          "faceIdEnabled": false
+        },
+        "camera": "off",
+        "fallback": true,
+        "people": [],
+        "note": "Acoustic speaker recognition; face VAD disabled"
+      },
+      "sentence_stream": true,
+      "speaker_instruction": "Speak normally. All voices are answered and labelled; introductions are optional.",
+      "at": 1308.2999992370605
+    },
+    {
+      "type": "visual_identity",
+      "settings": {
+        "ignoreOffscreenSpeakers": false,
+        "lookAtActiveSpeaker": true,
+        "greetUnknownSpeakers": true,
+        "faceIdEnabled": false
+      },
+      "camera": "off",
+      "fallback": true,
+      "people": [],
+      "note": "Acoustic speaker recognition; face VAD disabled",
+      "at": 1358.5
+    },
+    {
+      "type": "stop_feedback_setting",
+      "enabled": false,
+      "at": 1358.599998474121
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "sentence_mode": true,
+      "open_enrollment": true,
+      "speakers": [],
+      "users": [],
+      "threshold": 0.38,
+      "storage": "Session RAM",
+      "at": 1358.599998474121
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "sentence_mode": true,
+      "open_enrollment": true,
+      "speakers": [],
+      "users": [],
+      "threshold": 0.38,
+      "storage": "Session RAM",
+      "at": 1358.7999992370605
+    },
+    {
+      "type": "interaction",
+      "enabled": true,
+      "helpful_enabled": true,
+      "rules": [],
+      "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+      "decision_interval_ms": 320,
+      "checks": 0,
+      "last_decision": null,
+      "waiting_for": "No agreed rules yet",
+      "attempts": 0,
+      "semantic_error": null,
+      "scope": "session-only conversational rules; acoustic verification is separate",
+      "at": 1358.900001525879
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Was können wir heute nachmittags gemeinsam machen?",
+      "audio_s": 7.36,
+      "queued": false,
+      "reason": "short speech pause",
+      "at": 10766.900001525879
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "users": [
+        "Speaker 1"
+      ],
+      "prediction": {
+        "name": "Speaker 1",
+        "similarity": -1
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 10767
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Was können wir heute nachmittags gemeinsam machen?",
+      "speaker_id": "speaker-1",
+      "speaker_name": "Speaker 1",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.084,
+        "speaker_embedding_wait_ms": 0.003,
+        "speaker_lookup_ms": 0.081,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 55.06,
+        "sentence_queue_ms": 0.53,
+        "sentence_audio_s": 7.36
+      },
+      "at": 10767.5
+    },
+    {
+      "type": "reply",
+      "text": "Wir können zusammen ein kleines Puzzle lösen.",
+      "reply_id": 1,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, warm",
+            "text": "Wir können zusammen ein kleines Puzzle lösen.",
+            "start_s": 0,
+            "end_s": 2.38
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Wir können zusammen ein kleines Puzzle lösen.",
+      "speaker_id": "speaker-1",
+      "speaker_name": "Speaker 1",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 37.76,
+        "usage": {
+          "completion_tokens": 14,
+          "prompt_tokens": 683,
+          "total_tokens": 697,
+          "prompt_tokens_details": {
+            "cached_tokens": 682
+          }
+        },
+        "llama_timings": {
+          "cache_n": 682,
+          "prompt_n": 1,
+          "prompt_ms": 27.116,
+          "prompt_per_token_ms": 27.116,
+          "prompt_per_second": 36.87859566307715,
+          "predicted_n": 14,
+          "predicted_ms": 107.247,
+          "predicted_per_token_ms": 7.6605,
+          "predicted_per_second": 130.53978199856408
+        },
+        "llm_first_sentence_ms": 145.77,
+        "llm_total_ms": 145.79,
+        "sentence_ready_ms": 146.84,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "interest.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 10922
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 37.76,
+        "usage": {
+          "completion_tokens": 14,
+          "prompt_tokens": 683,
+          "total_tokens": 697,
+          "prompt_tokens_details": {
+            "cached_tokens": 682
+          }
+        },
+        "llama_timings": {
+          "cache_n": 682,
+          "prompt_n": 1,
+          "prompt_ms": 27.116,
+          "prompt_per_token_ms": 27.116,
+          "prompt_per_second": 36.87859566307715,
+          "predicted_n": 14,
+          "predicted_ms": 107.247,
+          "predicted_per_token_ms": 7.6605,
+          "predicted_per_second": 130.53978199856408
+        },
+        "llm_first_sentence_ms": 145.77,
+        "llm_total_ms": 145.79,
+        "tts_first_audio_ms": 798.33,
+        "first_audio_ms": 945.28,
+        "tts_server_stages": [
+          {
+            "generation_ms": 1071,
+            "alignment_ms": 41,
+            "scoring_ms": 102,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1413,
+            "performance": {
+              "device_seconds": 0.863922700881958,
+              "raw_audio_seconds": 3.04,
+              "aggregate_rtf": 0.2841850989743283,
+              "audio_seconds_per_second": 3.518833336473896,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.863922700881958,
+                  "audio_seconds": [
+                    3.04
+                  ],
+                  "model_wall_seconds": 0.9602222517132759,
+                  "first_audio_seconds": 0.46083993530273437,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.09609019756317139
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1421.18,
+            "audio_s": 2.91
+          }
+        ],
+        "total_ms": 1568.14,
+        "audio_s": 2.91,
+        "sentences": 1,
+        "generation_rtf": 0.5389
+      },
+      "at": 12335.70000076294
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 15070.79999923706
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": 525.9375,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 15071
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Hey Robbie, ich bin Christoph.",
+      "audio_s": 23.36,
+      "queued": false,
+      "reason": "stable complete sentence",
+      "at": 26729.09999847412
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph"
+      ],
+      "prediction": {
+        "name": "Christoph",
+        "similarity": 0.2495
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 26729.20000076294
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Hey Robbie, ich bin Christoph.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.28,
+        "speaker_embedding_wait_ms": 0.001,
+        "speaker_lookup_ms": 0.279,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 61.92,
+        "sentence_queue_ms": 0.45,
+        "sentence_audio_s": 23.36
+      },
+      "at": 26730
+    },
+    {
+      "type": "reply",
+      "text": "Freut mich, Christoph.",
+      "reply_id": 2,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "affection, warm",
+            "text": "Freut mich, Christoph.",
+            "start_s": 0,
+            "end_s": 1.02
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Freut mich, Christoph.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-2",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "llm_ttft_ms": 85.23,
+        "llm_first_sentence_ms": 169.94,
+        "sentence_ready_ms": 171.01,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "affection.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 26901.79999923706
+    },
+    {
+      "type": "reply",
+      "text": "Freut mich, Christoph. Wir könnten ein kurzes Quiz spielen.",
+      "reply_id": 2,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "affection, warm",
+            "text": "Freut mich, Christoph.",
+            "start_s": 0,
+            "end_s": 1.95
+          },
+          {
+            "emotion": "affection",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "affection, warm",
+            "text": "Wir könnten ein kurzes Quiz spielen.",
+            "start_s": 1.95,
+            "end_s": 3.99
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 1,
+      "sentence_text": "Wir könnten ein kurzes Quiz spielen.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "speaker_update": {
+        "speaker_id": "speaker-2",
+        "display_name": "Christoph",
+        "is_self_introduction": true,
+        "source": "validated_acoustic_transcript"
+      },
+      "timing": {
+        "llm_ttft_ms": 85.23,
+        "llm_first_sentence_ms": 169.94,
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 737,
+          "total_tokens": 757,
+          "prompt_tokens_details": {
+            "cached_tokens": 553
+          }
+        },
+        "llama_timings": {
+          "cache_n": 553,
+          "prompt_n": 184,
+          "prompt_ms": 72.457,
+          "prompt_per_token_ms": 0.39378804347826085,
+          "prompt_per_second": 2539.437183432933,
+          "predicted_n": 20,
+          "predicted_ms": 143.14,
+          "predicted_per_token_ms": 7.156999999999999,
+          "predicted_per_second": 139.72334777141262
+        },
+        "llm_total_ms": 229.26,
+        "tts_first_audio_ms": 814.31,
+        "first_audio_ms": 985.42,
+        "tts_server_stages": [
+          {
+            "generation_ms": 1085,
+            "alignment_ms": 39,
+            "scoring_ms": 95,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1388,
+            "performance": {
+              "device_seconds": 0.8691539463996887,
+              "raw_audio_seconds": 3.04,
+              "aggregate_rtf": 0.28590590342095024,
+              "audio_seconds_per_second": 3.4976542562944624,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.8691539463996887,
+                  "audio_seconds": [
+                    3.04
+                  ],
+                  "model_wall_seconds": 0.9635971859097481,
+                  "first_audio_seconds": 0.4612577819824219,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.09419195353984833
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1396.53,
+            "audio_s": 1.95
+          }
+        ],
+        "sentence_ready_ms": 1568.62,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "affection.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 28305.79999923706
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Schön dich kennenzulernen.",
+      "audio_s": 24.96,
+      "queued": true,
+      "reason": "short speech pause",
+      "at": 28377.29999923706
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph"
+      ],
+      "prediction": {
+        "name": "Christoph",
+        "similarity": 0.4946
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 28377.29999923706
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 85.23,
+        "llm_first_sentence_ms": 169.94,
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 737,
+          "total_tokens": 757,
+          "prompt_tokens_details": {
+            "cached_tokens": 553
+          }
+        },
+        "llama_timings": {
+          "cache_n": 553,
+          "prompt_n": 184,
+          "prompt_ms": 72.457,
+          "prompt_per_token_ms": 0.39378804347826085,
+          "prompt_per_second": 2539.437183432933,
+          "predicted_n": 20,
+          "predicted_ms": 143.14,
+          "predicted_per_token_ms": 7.156999999999999,
+          "predicted_per_second": 139.72334777141262
+        },
+        "llm_total_ms": 229.26,
+        "tts_first_audio_ms": 814.31,
+        "first_audio_ms": 985.42,
+        "tts_server_stages": [
+          {
+            "generation_ms": 1085,
+            "alignment_ms": 39,
+            "scoring_ms": 95,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1388,
+            "performance": {
+              "device_seconds": 0.8691539463996887,
+              "raw_audio_seconds": 3.04,
+              "aggregate_rtf": 0.28590590342095024,
+              "audio_seconds_per_second": 3.4976542562944624,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.8691539463996887,
+                  "audio_seconds": [
+                    3.04
+                  ],
+                  "model_wall_seconds": 0.9635971859097481,
+                  "first_audio_seconds": 0.4612577819824219,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.09419195353984833
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          },
+          {
+            "generation_ms": 1287,
+            "alignment_ms": 38,
+            "scoring_ms": 99,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1604,
+            "performance": {
+              "device_seconds": 1.022630205154419,
+              "raw_audio_seconds": 3.28,
+              "aggregate_rtf": 0.3117775015714692,
+              "audio_seconds_per_second": 3.2074155285729256,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 1.022630205154419,
+                  "audio_seconds": [
+                    3.28
+                  ],
+                  "model_wall_seconds": 1.1762972548604012,
+                  "first_audio_seconds": 0.4571781005859375,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.153330959379673
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1396.53,
+            "audio_s": 1.95
+          },
+          {
+            "sentence": 1,
+            "total_ms": 1613.13,
+            "audio_s": 3.23
+          }
+        ],
+        "total_ms": 3181.9,
+        "audio_s": 5.18,
+        "sentences": 2,
+        "generation_rtf": 0.6143
+      },
+      "at": 29918.5
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 33339.20000076294
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": 511.25,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 33339.40000152588
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Schön dich kennenzulernen.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.121,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.119,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 52.89,
+        "sentence_queue_ms": 4958.01,
+        "sentence_audio_s": 24.96
+      },
+      "at": 33339.5
+    },
+    {
+      "type": "reply",
+      "text": "Das finde ich auch.",
+      "reply_id": 3,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "contentment",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "contentment, warm",
+            "text": "Das finde ich auch.",
+            "start_s": 0,
+            "end_s": 1.36
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Das finde ich auch.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 87.69,
+        "usage": {
+          "completion_tokens": 12,
+          "prompt_tokens": 793,
+          "total_tokens": 805,
+          "prompt_tokens_details": {
+            "cached_tokens": 588
+          }
+        },
+        "llama_timings": {
+          "cache_n": 588,
+          "prompt_n": 205,
+          "prompt_ms": 71.8,
+          "prompt_per_token_ms": 0.35024390243902437,
+          "prompt_per_second": 2855.153203342619,
+          "predicted_n": 12,
+          "predicted_ms": 97.299,
+          "predicted_per_token_ms": 8.10825,
+          "predicted_per_second": 123.33117503777017
+        },
+        "llm_first_sentence_ms": 185.64,
+        "llm_total_ms": 185.65,
+        "sentence_ready_ms": 186.52,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "contentment.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 33536
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 87.69,
+        "usage": {
+          "completion_tokens": 12,
+          "prompt_tokens": 793,
+          "total_tokens": 805,
+          "prompt_tokens_details": {
+            "cached_tokens": 588
+          }
+        },
+        "llama_timings": {
+          "cache_n": 588,
+          "prompt_n": 205,
+          "prompt_ms": 71.8,
+          "prompt_per_token_ms": 0.35024390243902437,
+          "prompt_per_second": 2855.153203342619,
+          "predicted_n": 12,
+          "predicted_ms": 97.299,
+          "predicted_per_token_ms": 8.10825,
+          "predicted_per_second": 123.33117503777017
+        },
+        "llm_first_sentence_ms": 185.64,
+        "llm_total_ms": 185.65,
+        "tts_first_audio_ms": 782.95,
+        "first_audio_ms": 969.56,
+        "tts_server_stages": [
+          {
+            "generation_ms": 965,
+            "alignment_ms": 36,
+            "scoring_ms": 91,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1261,
+            "performance": {
+              "device_seconds": 0.7617693214416503,
+              "raw_audio_seconds": 2.56,
+              "aggregate_rtf": 0.2975661411881447,
+              "audio_seconds_per_second": 3.3605973986392543,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.7617693214416503,
+                  "audio_seconds": [
+                    2.56
+                  ],
+                  "model_wall_seconds": 0.8451172709465027,
+                  "first_audio_seconds": 0.454329345703125,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.08309628069400787
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1268.77,
+            "audio_s": 2.11
+          }
+        ],
+        "total_ms": 1455.38,
+        "audio_s": 2.11,
+        "sentences": 1,
+        "generation_rtf": 0.6898
+      },
+      "at": 34806.40000152588
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 36840
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": 692.75,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 36840.40000152588
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Erzähl mir bitte einen kurzen Witz",
+      "audio_s": 39.68,
+      "queued": false,
+      "reason": "short speech pause",
+      "at": 43139.5
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-3",
+          "name": "Speaker 3",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph",
+        "Speaker 3"
+      ],
+      "prediction": {
+        "name": "Speaker 3",
+        "similarity": 0.3151
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 43139.59999847412
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Erzähl mir bitte einen kurzen Witz",
+      "speaker_id": "speaker-3",
+      "speaker_name": "Speaker 3",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.128,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.127,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 63.47,
+        "sentence_queue_ms": 0.26,
+        "sentence_audio_s": 39.68
+      },
+      "at": 43140.29999923706
+    },
+    {
+      "type": "reply",
+      "text": "Warum hat der Roboter eine Leiter mitgenommen?",
+      "reply_id": 4,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "amusement",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "amusement, playful",
+            "text": "Warum hat der Roboter eine Leiter mitgenommen?",
+            "start_s": 0,
+            "end_s": 2.38
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Warum hat der Roboter eine Leiter mitgenommen?",
+      "speaker_id": "speaker-3",
+      "speaker_name": "Speaker 3",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 110.13,
+        "usage": {
+          "completion_tokens": 17,
+          "prompt_tokens": 842,
+          "total_tokens": 859,
+          "prompt_tokens_details": {
+            "cached_tokens": 553
+          }
+        },
+        "llama_timings": {
+          "cache_n": 553,
+          "prompt_n": 289,
+          "prompt_ms": 93.148,
+          "prompt_per_token_ms": 0.3223114186851211,
+          "prompt_per_second": 3102.5894275776186,
+          "predicted_n": 17,
+          "predicted_ms": 137.764,
+          "predicted_per_token_ms": 8.103764705882353,
+          "predicted_per_second": 123.39943671786533
+        },
+        "llm_first_sentence_ms": 248.67,
+        "llm_total_ms": 248.69,
+        "sentence_ready_ms": 249.77,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "amusement.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 43391.79999923706
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 110.13,
+        "usage": {
+          "completion_tokens": 17,
+          "prompt_tokens": 842,
+          "total_tokens": 859,
+          "prompt_tokens_details": {
+            "cached_tokens": 553
+          }
+        },
+        "llama_timings": {
+          "cache_n": 553,
+          "prompt_n": 289,
+          "prompt_ms": 93.148,
+          "prompt_per_token_ms": 0.3223114186851211,
+          "prompt_per_second": 3102.5894275776186,
+          "predicted_n": 17,
+          "predicted_ms": 137.764,
+          "predicted_per_token_ms": 8.103764705882353,
+          "predicted_per_second": 123.39943671786533
+        },
+        "llm_first_sentence_ms": 248.67,
+        "llm_total_ms": 248.69,
+        "tts_first_audio_ms": 805.24,
+        "first_audio_ms": 1055.12,
+        "tts_server_stages": [
+          {
+            "generation_ms": 1450,
+            "alignment_ms": 38,
+            "scoring_ms": 106,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1767,
+            "performance": {
+              "device_seconds": 1.1786646833419798,
+              "raw_audio_seconds": 3.92,
+              "aggregate_rtf": 0.3006797661586683,
+              "audio_seconds_per_second": 3.325797451473011,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 1.1786646833419798,
+                  "audio_seconds": [
+                    3.92
+                  ],
+                  "model_wall_seconds": 1.3339613303542137,
+                  "first_audio_seconds": 0.47139328002929687,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.15494782477617264
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1775.33,
+            "audio_s": 3.79
+          }
+        ],
+        "total_ms": 2025.21,
+        "audio_s": 3.79,
+        "sentences": 1,
+        "generation_rtf": 0.5344
+      },
+      "at": 45168.29999923706
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 48411.29999923706
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": 658.5,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 48411.40000152588
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Nein, ich bin auch Christoph",
+      "audio_s": 56.64,
+      "queued": false,
+      "reason": "short speech pause",
+      "at": 60097.70000076294
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 3
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph"
+      ],
+      "prediction": {
+        "name": "Christoph",
+        "similarity": 0.4335
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 60097.79999923706
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Nein, ich bin auch Christoph",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.197,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.195,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 48.57,
+        "sentence_queue_ms": 0.32,
+        "sentence_audio_s": 56.64
+      },
+      "at": 60098.70000076294
+    },
+    {
+      "type": "reply",
+      "text": "Das ist in Ordnung, Christoph.",
+      "reply_id": 5,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "amusement",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "amusement, playful",
+            "text": "Das ist in Ordnung, Christoph.",
+            "start_s": 0,
+            "end_s": 1.7
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Das ist in Ordnung, Christoph.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 140.54,
+        "llm_first_sentence_ms": 256.53,
+        "sentence_ready_ms": 257.62,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "amusement.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 60358.5
+    },
+    {
+      "type": "reply",
+      "text": "Das ist in Ordnung, Christoph. Wir spielen lieber ein Quiz.",
+      "reply_id": 5,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "amusement",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "amusement, playful",
+            "text": "Das ist in Ordnung, Christoph.",
+            "start_s": 0,
+            "end_s": 1.95
+          },
+          {
+            "emotion": "amusement",
+            "secondary": null,
+            "blend": 0,
+            "intensity": 0.72,
+            "direction": "amusement, playful",
+            "text": "Wir spielen lieber ein Quiz.",
+            "start_s": 1.95,
+            "end_s": 3.65
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 1,
+      "sentence_text": "Wir spielen lieber ein Quiz.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 140.54,
+        "llm_first_sentence_ms": 256.53,
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 893,
+          "total_tokens": 913,
+          "prompt_tokens_details": {
+            "cached_tokens": 420
+          }
+        },
+        "llama_timings": {
+          "cache_n": 420,
+          "prompt_n": 473,
+          "prompt_ms": 123.163,
+          "prompt_per_token_ms": 0.26038689217758987,
+          "prompt_per_second": 3840.4390929093965,
+          "predicted_n": 20,
+          "predicted_ms": 158.125,
+          "predicted_per_token_ms": 7.90625,
+          "predicted_per_second": 126.48221343873517
+        },
+        "llm_total_ms": 299.4,
+        "tts_first_audio_ms": 817.64,
+        "first_audio_ms": 1075.36,
+        "tts_server_stages": [
+          {
+            "generation_ms": 974,
+            "alignment_ms": 35,
+            "scoring_ms": 100,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1289,
+            "performance": {
+              "device_seconds": 0.7685806345939636,
+              "raw_audio_seconds": 2.56,
+              "aggregate_rtf": 0.30022681038826704,
+              "audio_seconds_per_second": 3.3308151217632904,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.7685806345939636,
+                  "audio_seconds": [
+                    2.56
+                  ],
+                  "model_wall_seconds": 0.8582622781395912,
+                  "first_audio_seconds": 0.46295962524414064,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.08941043168306351
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1297.63,
+            "audio_s": 1.95
+          }
+        ],
+        "sentence_ready_ms": 1556.12,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "amusement.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 61672.40000152588
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Du hast meine Stimme verwechselt.",
+      "audio_s": 58.88,
+      "queued": true,
+      "reason": "short speech pause",
+      "at": 62304.70000076294
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 4
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph"
+      ],
+      "prediction": {
+        "name": "Christoph",
+        "similarity": 0.7366
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 62304.70000076294
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 140.54,
+        "llm_first_sentence_ms": 256.53,
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 893,
+          "total_tokens": 913,
+          "prompt_tokens_details": {
+            "cached_tokens": 420
+          }
+        },
+        "llama_timings": {
+          "cache_n": 420,
+          "prompt_n": 473,
+          "prompt_ms": 123.163,
+          "prompt_per_token_ms": 0.26038689217758987,
+          "prompt_per_second": 3840.4390929093965,
+          "predicted_n": 20,
+          "predicted_ms": 158.125,
+          "predicted_per_token_ms": 7.90625,
+          "predicted_per_second": 126.48221343873517
+        },
+        "llm_total_ms": 299.4,
+        "tts_first_audio_ms": 817.64,
+        "first_audio_ms": 1075.36,
+        "tts_server_stages": [
+          {
+            "generation_ms": 974,
+            "alignment_ms": 35,
+            "scoring_ms": 100,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1289,
+            "performance": {
+              "device_seconds": 0.7685806345939636,
+              "raw_audio_seconds": 2.56,
+              "aggregate_rtf": 0.30022681038826704,
+              "audio_seconds_per_second": 3.3308151217632904,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.7685806345939636,
+                  "audio_seconds": [
+                    2.56
+                  ],
+                  "model_wall_seconds": 0.8582622781395912,
+                  "first_audio_seconds": 0.46295962524414064,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.08941043168306351
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          },
+          {
+            "generation_ms": 1079,
+            "alignment_ms": 40,
+            "scoring_ms": 101,
+            "speaker_preparation_ms": 0,
+            "total_ms": 1389,
+            "performance": {
+              "device_seconds": 0.8814991550445557,
+              "raw_audio_seconds": 3.2,
+              "aggregate_rtf": 0.27546848595142365,
+              "audio_seconds_per_second": 3.6301793163241944,
+              "batches": [
+                {
+                  "batch_size": 1,
+                  "device_seconds": 0.8814991550445557,
+                  "audio_seconds": [
+                    3.2
+                  ],
+                  "model_wall_seconds": 0.9706999287009239,
+                  "first_audio_seconds": 0.4501597290039063,
+                  "graph_capture_seconds": 0,
+                  "live_callback_seconds": 0.08894675970077515
+                }
+              ],
+              "streaming": true,
+              "chunk_frames": 20,
+              "backend": "fused CFG + local CUDA graphs + compiled global",
+              "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+              "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+              "graph_capture_seconds": 0,
+              "oom_batch_retries": []
+            }
+          }
+        ],
+        "sentence_tts": [
+          {
+            "sentence": 0,
+            "total_ms": 1297.63,
+            "audio_s": 1.95
+          },
+          {
+            "sentence": 1,
+            "total_ms": 1395.29,
+            "audio_s": 2.35
+          }
+        ],
+        "total_ms": 2951.52,
+        "audio_s": 4.3,
+        "sentences": 2,
+        "generation_rtf": 0.6864
+      },
+      "at": 63072.90000152588
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 65937.29999923706
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": 677.1875,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 65937.5
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Du hast meine Stimme verwechselt.",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.14,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.138,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 48.13,
+        "sentence_queue_ms": 3624.75,
+        "sentence_audio_s": 58.88
+      },
+      "at": 65937.5
+    },
+    {
+      "type": "pipeline_metrics",
+      "metrics": {
+        "llm_ttft_ms": 166.9,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 948,
+          "total_tokens": 952,
+          "prompt_tokens_details": {
+            "cached_tokens": 420
+          }
+        },
+        "llama_timings": {
+          "cache_n": 420,
+          "prompt_n": 528,
+          "prompt_ms": 142.37,
+          "prompt_per_token_ms": 0.2696401515151515,
+          "prompt_per_second": 3708.646484512187,
+          "predicted_n": 4,
+          "predicted_ms": 27.72,
+          "predicted_per_token_ms": 6.93,
+          "predicted_per_second": 144.3001443001443
+        },
+        "llm_total_ms": 195.37,
+        "total_ms": 195.49,
+        "audio_s": 0,
+        "sentences": 0
+      },
+      "at": 66140.20000076294
+    },
+    {
+      "type": "turn_done",
+      "barged": false,
+      "at": 66140.40000152588
+    },
+    {
+      "type": "sync",
+      "arrival_order_error_ms": null,
+      "method": "capture timestamps + actual scheduled PCM sample positions",
+      "hardware_accuracy": "not independently measured; inspect device latency availability",
+      "at": 66140.5
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Erzähl mir bitte einen kurzen Witz",
+      "audio_s": 75.84,
+      "queued": false,
+      "reason": "short speech pause",
+      "at": 79253.90000152588
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        },
+        {
+          "id": "speaker-2",
+          "name": "Christoph",
+          "named": true,
+          "reference_ready": true,
+          "voice_variants": 5
+        }
+      ],
+      "users": [
+        "Speaker 1",
+        "Christoph"
+      ],
+      "prediction": {
+        "name": "Christoph",
+        "similarity": 0.9267
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 79254
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Erzähl mir bitte einen kurzen Witz",
+      "speaker_id": "speaker-2",
+      "speaker_name": "Christoph",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.139,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.136,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 69.79,
+        "sentence_queue_ms": 0.28,
+        "sentence_audio_s": 75.84
+      },
+      "at": 79254.90000152588
+    }
+  ],
+  "audio": [
+    {
+      "rid": 1,
+      "at": 11741.79999923706,
+      "samples": 14390,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 1,
+      "at": 12231.79999923706,
+      "samples": 34560,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 1,
+      "at": 12233,
+      "samples": 20880,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 1,
+      "at": 12335.599998474121,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 27723,
+      "samples": 14390,
+      "gap_ms": 12750.816326530612,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 28207.70000076294,
+      "samples": 32400,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 28305,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 29107.59999847412,
+      "samples": 14390,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 29598.70000076294,
+      "samples": 38400,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 29774,
+      "samples": 24720,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 2,
+      "at": 29912.59999847412,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 3,
+      "at": 34312.40000152588,
+      "samples": 14390,
+      "gap_ms": 1088.3446712018062,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 3,
+      "at": 34691.29999923706,
+      "samples": 36240,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 3,
+      "at": 34805.20000076294,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 4,
+      "at": 44202.40000152588,
+      "samples": 14390,
+      "gap_ms": 7467.1882086167825,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 4,
+      "at": 44706.70000076294,
+      "samples": 38400,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 4,
+      "at": 45043.40000152588,
+      "samples": 17280,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 4,
+      "at": 45075.5,
+      "samples": 20880,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 4,
+      "at": 45168,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 61179.20000076294,
+      "samples": 14390,
+      "gap_ms": 12869.27437641723,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 61530.70000076294,
+      "samples": 23040,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 61577.20000076294,
+      "samples": 9360,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 61672.09999847412,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 62436.40000152588,
+      "samples": 14390,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 62906,
+      "samples": 38400,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 62937.5,
+      "samples": 3600,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    },
+    {
+      "rid": 5,
+      "at": 63072.40000152588,
+      "samples": 10,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    }
+  ],
+  "playback": [
+    {
+      "id": 1,
+      "sample": 335,
+      "at": 12123.5
+    },
+    {
+      "id": 2,
+      "sample": 94,
+      "at": 28099
+    },
+    {
+      "id": 3,
+      "sample": 284,
+      "at": 34689.20000076294
+    },
+    {
+      "id": 4,
+      "sample": 18,
+      "at": 44569
+    },
+    {
+      "id": 5,
+      "sample": 858,
+      "at": 61576.40000152588
+    }
+  ],
+  "client_metrics": {
+    "mic_blocks": 3829,
+    "tagged_blocks": 939,
+    "chunks": 27,
+    "reply_chunks": 27,
+    "startup_buffer_ms": 300
+  },
+  "errors": [],
+  "finished": 1792947483.229112,
+  "first_only": false
+}

@@ -1,0 +1,297 @@
+{
+  "passed": true,
+  "url": "https://arrive-locations-parade-research.trycloudflare.com",
+  "physical_microphone": false,
+  "synthetic_mic_file": true,
+  "cpu_browser": true,
+  "began": 1792947701.6723976,
+  "first_turn": {
+    "pcm_after_last_capture_ms": 2200,
+    "playback_after_last_capture_ms": 2578.800003051758,
+    "playback_reserve_ms": 378.8000030517578,
+    "configured_reserve_ms": 300
+  },
+  "events": [
+    {
+      "type": "ready",
+      "hop_ms": 320,
+      "sr": 16000,
+      "mouth": true,
+      "voices": [
+        "emolia_c1699"
+      ],
+      "voice": "emolia_c1699",
+      "labels": {
+        "emolia_c1699": "Mira · fixed reference"
+      },
+      "max_session_s": 1800,
+      "thresholds": {
+        "ep_thr": 0.915,
+        "ep_deb": 2,
+        "barge_thr": 0.5,
+        "barge_deb": 2,
+        "bc_thr": 0.4,
+        "bc_deb": 2
+      },
+      "sliders": [
+        {
+          "name": "ep_thr",
+          "type": "float",
+          "label": "endpoint p_end τ",
+          "lo": 0.3,
+          "hi": 0.99,
+          "step": 0.005,
+          "decimals": 3,
+          "scale": 1,
+          "unit": "",
+          "meter": "p_end",
+          "off": null
+        },
+        {
+          "name": "ep_deb",
+          "type": "int",
+          "label": "endpoint deb",
+          "lo": 1,
+          "hi": 5,
+          "step": 1,
+          "decimals": 0,
+          "scale": 1,
+          "unit": "",
+          "meter": null,
+          "off": null
+        },
+        {
+          "name": "barge_thr",
+          "type": "float",
+          "label": "barge (yield)",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "yield",
+          "off": null
+        },
+        {
+          "name": "bc_thr",
+          "type": "float",
+          "label": "backchannel",
+          "lo": 0.2,
+          "hi": 1,
+          "step": 0.01,
+          "decimals": 2,
+          "scale": 1,
+          "unit": "",
+          "meter": "bc",
+          "off": null
+        }
+      ],
+      "identity_enabled": true,
+      "identity_mode": "v4-long3",
+      "interaction": {
+        "enabled": true,
+        "helpful_enabled": true,
+        "rules": [],
+        "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+        "decision_interval_ms": 320,
+        "checks": 0,
+        "last_decision": null,
+        "waiting_for": "No agreed rules yet",
+        "attempts": 0,
+        "semantic_error": null,
+        "scope": "session-only conversational rules; acoustic verification is separate"
+      },
+      "visual_identity": {
+        "type": "visual_identity",
+        "settings": {
+          "ignoreOffscreenSpeakers": false,
+          "lookAtActiveSpeaker": true,
+          "greetUnknownSpeakers": true,
+          "faceIdEnabled": false
+        },
+        "camera": "off",
+        "fallback": true,
+        "people": [],
+        "note": "Acoustic speaker recognition; face VAD disabled"
+      },
+      "sentence_stream": true,
+      "speaker_instruction": "Speak normally. All voices are answered and labelled; introductions are optional.",
+      "at": 1919.599998474121
+    },
+    {
+      "type": "visual_identity",
+      "settings": {
+        "ignoreOffscreenSpeakers": false,
+        "lookAtActiveSpeaker": true,
+        "greetUnknownSpeakers": true,
+        "faceIdEnabled": false
+      },
+      "camera": "off",
+      "fallback": true,
+      "people": [],
+      "note": "Acoustic speaker recognition; face VAD disabled",
+      "at": 1970.7000007629395
+    },
+    {
+      "type": "stop_feedback_setting",
+      "enabled": false,
+      "at": 1970.7999992370605
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "sentence_mode": true,
+      "open_enrollment": true,
+      "speakers": [],
+      "users": [],
+      "threshold": 0.38,
+      "storage": "Session RAM",
+      "at": 1970.7999992370605
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "sentence_mode": true,
+      "open_enrollment": true,
+      "speakers": [],
+      "users": [],
+      "threshold": 0.38,
+      "storage": "Session RAM",
+      "at": 1971
+    },
+    {
+      "type": "interaction",
+      "enabled": true,
+      "helpful_enabled": true,
+      "rules": [],
+      "decision_model": "convaiinnovations/laya-multilingual (Stop) · Luna (context)",
+      "decision_interval_ms": 320,
+      "checks": 0,
+      "last_decision": null,
+      "waiting_for": "No agreed rules yet",
+      "attempts": 0,
+      "semantic_error": null,
+      "scope": "session-only conversational rules; acoustic verification is separate",
+      "at": 1972.900001525879
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Was können wir heute nachmittags gemeinsam machen?",
+      "audio_s": 7.36,
+      "queued": false,
+      "reason": "short speech pause",
+      "at": 11340.5
+    },
+    {
+      "type": "identity",
+      "enabled": false,
+      "mode": "open-sentences",
+      "open_enrollment": true,
+      "speakers": [
+        {
+          "id": "speaker-1",
+          "name": "Speaker 1",
+          "named": false,
+          "reference_ready": true,
+          "voice_variants": 1
+        }
+      ],
+      "users": [
+        "Speaker 1"
+      ],
+      "prediction": {
+        "name": "Speaker 1",
+        "similarity": -1
+      },
+      "storage": "Session RAM",
+      "threshold": 0.38,
+      "sentence_mode": true,
+      "at": 11340.900001525879
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Was können wir heute nachmittags gemeinsam machen?",
+      "speaker_id": "speaker-1",
+      "speaker_name": "Speaker 1",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.412,
+        "speaker_embedding_wait_ms": 0.002,
+        "speaker_lookup_ms": 0.411,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 55.34,
+        "sentence_queue_ms": 0.89,
+        "sentence_audio_s": 7.36
+      },
+      "at": 11341.599998474121
+    },
+    {
+      "type": "reply",
+      "text": "Wie ist dein Name?",
+      "reply_id": 1,
+      "performance": {
+        "sentences": [
+          {
+            "emotion": "interest",
+            "secondary": "affection",
+            "blend": 0.25,
+            "intensity": 0.72,
+            "direction": "interest, warm",
+            "text": "Wie ist dein Name?",
+            "start_s": 0,
+            "end_s": 1.36
+          }
+        ],
+        "source": "Local Nemotron sentence cues + fixed GENERAL catalogue",
+        "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+      },
+      "avatar_actions": [],
+      "avatar_event": null,
+      "sentence_index": 0,
+      "sentence_text": "Wie ist dein Name?",
+      "speaker_id": "speaker-1",
+      "speaker_name": "Speaker 1",
+      "speaker_update": null,
+      "timing": {
+        "llm_ttft_ms": 35.47,
+        "llm_first_sentence_ms": 127.11,
+        "sentence_ready_ms": 132.21,
+        "director_mode": "bolt",
+        "director_model": "nemotron-bolt",
+        "template_id": "interest.soft"
+      },
+      "sources": [],
+      "lookups": [],
+      "at": 11477.900001525879
+    }
+  ],
+  "audio": [
+    {
+      "rid": 1,
+      "at": 12309.599998474121,
+      "samples": 14390,
+      "gap_ms": 0,
+      "start_buffer_ms": 300
+    }
+  ],
+  "playback": [
+    {
+      "id": 1,
+      "sample": 299,
+      "at": 12688.400001525879
+    }
+  ],
+  "client_metrics": {
+    "mic_blocks": 442,
+    "tagged_blocks": 0,
+    "chunks": 1,
+    "reply_chunks": 1,
+    "startup_buffer_ms": 300
+  },
+  "errors": [],
+  "finished": 1792947715.747225,
+  "first_only": true
+}

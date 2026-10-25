@@ -94,17 +94,19 @@ async def provider_post(client,url,**kwargs):
 
 
 class CompactDirector:
-    async def generate(self,client,text,identity,history,interaction_state=None,avatar_context=None):
+    async def generate(self,client,text,identity,history,interaction_state=None,avatar_context=None,provider=None):
         settings=shared_settings();key=settings.luna_key()
         model=os.environ.get('ROBO_DIRECTOR_MODEL',settings.LUNA_MODEL)
         base=os.environ.get('ROBO_DIRECTOR_BASE',settings.LUNA_BASE).rstrip('/')
+        if provider:
+            base,model=provider;key='local'
         if base!=settings.LUNA_BASE.rstrip('/'):
             from urllib.parse import urlparse
             parsed=urlparse(base)
             local=parsed.hostname in ('127.0.0.1','localhost','::1')
             if parsed.scheme not in ('http','https') or (not local and parsed.scheme!='https'):raise ValueError('Director endpoint must be localhost or HTTPS')
             # Never forward a third-party provider key to another endpoint.
-            key=os.environ.get('ROBO_DIRECTOR_API_KEY','local' if local else '')
+            key='local' if provider and local else os.environ.get('ROBO_DIRECTOR_API_KEY','local' if local else '')
         if not key:raise ValueError('Configured Luna key unavailable')
         from knowledge_tools import NOTE as KNOWLEDGE_NOTE,TOOLS as KNOWLEDGE_TOOLS,NAMES as KNOWLEDGE_NAMES,execute as lookup,relevant
         event=(avatar_context or {}).get('event')

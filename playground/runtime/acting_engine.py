@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import threading
 import time
+import os
 
 import torch
 from safetensors.torch import load_file
@@ -96,6 +97,11 @@ class ActingEngine(SmallEngine):
             torch.backends.cudnn.allow_tf32=False
             from rl_adapter import attach_rl
             self.rl_adapter=attach_rl(self.model,root,release)
+            from rl_precision import configure
+            precision=configure(self,os.environ.get('HVS_RL_PRECISION','fp32_strict'))
+            self.rl_adapter={**self.rl_adapter,'merged':precision['merged'],
+                'dtype':'bf16' if precision['mode']=='bf16_all' or precision['mode']=='bf16_merged' else 'fp32',
+                'reference_adapter_dtype':'fp32'}
         self.model._sample_next_token=zero_temperature_sampler(self.model._sample_next_token)
         self.proc=processor or Processor.from_pretrained(str(root/'assets/sft3'),
             codec_path='OpenMOSS-Team/MOSS-Audio-Tokenizer-v2',
@@ -113,7 +119,8 @@ class ActingEngine(SmallEngine):
             # caches. Warm-up runs before ready; no change to sampling/weights.
             self.model.transformer.forward=compile_decode_only(self.model.transformer.forward)
         self.checkpoint_info={**release,'stage':release.get('stage','Acting'),'steering':False,'adapters':False,
-            'rl_adapter':self.rl_adapter,'policy_dtype':'fp32' if self.policy_fp32 else 'bf16'}
+            'rl_adapter':self.rl_adapter,'policy_dtype':'fp32' if self.policy_fp32 else 'bf16',
+            'compute_precision':getattr(self,'precision_report',{'mode':'original_bf16'})}
         print(f'[acting] ready: {self.parameters:,} parameters, {time.monotonic()-started:.1f}s',flush=True)
 
     def pack(self,prompt,spec,reference,n):

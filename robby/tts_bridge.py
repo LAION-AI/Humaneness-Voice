@@ -67,7 +67,7 @@ class MouthBridge:
         self.active=0
         self.ack=None
         self.director_mode=os.environ.get('ROBO_DIRECTOR_MODE','compact')
-        if self.director_mode not in ('compact','shared'):raise ValueError('Invalid Robby director mode')
+        if self.director_mode not in ('compact','shared','bolt'):raise ValueError('Invalid Robby director mode')
 
     async def prepare_ack(self):
         """One short synthetic acknowledgment, cached in RAM, never during a turn."""
@@ -157,6 +157,18 @@ class MouthBridge:
                 stage='planning'
                 try:
                     identity=record.get('speaker') or {};speaker_update=validated_speaker_update(text,identity)
+                    if self.director_mode=='bolt' and not record.get('interaction_reply'):
+                        from bolt_pipeline import pipeline
+                        async for event,value in pipeline(client,text,identity,history,voice=turn_voice,
+                                avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state')):
+                            if event=='sentence':
+                                reply=value['text'];record['reply']=reply
+                                await send(b'X',{**value,'speaker_update':speaker_update})
+                            elif event=='audio':await send(b'A',value.astype(np.float32).tobytes());played=True
+                            elif event=='done':
+                                record['bolt_metrics']=value
+                                await send(b'X',{'pipeline_metrics':value})
+                        remember(record);await send(b'D',{});return
                     body={'model':'small_rl','message':conversation_message(text,identity),'input_mode':'chat','format':'structured',
                         'generation':'single','n':1,'streaming':True,'chunk_frames':TTS_CHUNK_FRAMES,
                         'cancel_on_disconnect':True,
@@ -164,7 +176,7 @@ class MouthBridge:
                         'voice_conversion':False,'history':history[-16:]}
                     async def waiting(text,stage):await send(b'X',{'text':text,'status_only':True,'stage':stage})
                     director_ms=None
-                    if self.director_mode=='compact':
+                    if self.director_mode in ('compact','bolt'):
                         await waiting('Preparing a useful spoken answer…','planning')
                         if record.get('interaction_reply'):
                             from conversation_director import validate
