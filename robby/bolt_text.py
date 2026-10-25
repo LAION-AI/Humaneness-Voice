@@ -60,50 +60,81 @@ def select_template(direction):
 class Sentence:
     text:str
     direction:str='contentment, soft'
+    separator_before:str=' '
+    language:str|None=None
     def spec(self):
         template=select_template(self.direction)
         script=f'({self.direction}) {self.text}'
         return {'text':self.text,'script':script,'general':template['general'],
                 'manual_prompt':'GENERAL: '+template['general']+'\nSCRIPT:\n'+script,
                 'template_id':template['id'],'template_score':template['score'],
-                'language':'de' if re.search(r'\b(ich|du|wir|ist|das|die|und|ein|eine|nicht|bitte)\b',self.text,re.I) else 'en'}
+                'separator_before':self.separator_before,
+                'language':self.language or ('de' if re.search(r'\b(ich|du|wir|ist|das|die|und|ein|eine|nicht|bitte)\b',self.text,re.I) else 'en')}
 
 class SentenceFramer:
-    """Frame complete streamed sentences, keeping cue brackets out of speech."""
-    def __init__(self):self.buffer='';self.direction='contentment, soft'
+    """Stream sentences, verse lines and bounded phrases without losing text.
+
+    A new cue can also close an unpunctuated verse line. Display separators
+    are metadata, never spoken TTS instructions. Arbitrary token boundaries
+    must produce the same words and line breaks as a single complete feed.
+    """
+    def __init__(self,lines_only=False):
+        self.buffer='';self.direction='contentment, soft';self.separator=' ';self.total=0
+        self.lines_only=lines_only
     def feed(self,text,final=False):
-        self.buffer+=text;out=[]
-        if len(self.buffer)>12000:raise ValueError('Streamed response too long')
+        self.buffer+=text;self.total+=len(text);out=[]
+        if self.total>60000:raise ValueError('Streamed response too long')
         while True:
-            self.buffer=self.buffer.lstrip()
+            if not self.buffer.strip():
+                if final:self.buffer=''
+                break
+            leading=re.match(r'\s*',self.buffer).group()
+            if '\n' in leading:self.separator='\n\n' if leading.count('\n')>1 else '\n'
+            self.buffer=self.buffer[len(leading):]
             if self.buffer.startswith('('):
                 end=self.buffer.find(')')
                 if end<0:
-                    if len(self.buffer)>120:raise ValueError('Unclosed acting cue')
+                    if final or len(self.buffer)>120:raise ValueError('Unclosed acting cue')
                     break
                 raw=self.buffer[1:end]
                 if not re.fullmatch(r'[A-Za-z_ ,\-]{1,100}',raw):raise ValueError('Invalid acting cue')
                 self.direction=raw.strip();self.buffer=self.buffer[end+1:].lstrip()
-            match=None
-            for candidate in re.finditer(r'[.!?]+["”’»]*',self.buffer):
+            boundaries=[]
+            newline=self.buffer.find('\n')
+            if newline>=0:boundaries.append((newline,newline,'\n'))
+            next_cue=re.search(r'\s+(?=\([A-Za-z_ ,\-]{1,100}\))',self.buffer)
+            if next_cue:boundaries.append((next_cue.start(),next_cue.start(),'\n' if self.lines_only else ' '))
+            for candidate in ([] if self.lines_only else re.finditer(r'[.!?]+["”’»]*',self.buffer)):
                 end=candidate.end()
                 if end==len(self.buffer) and not final:continue
                 if end<len(self.buffer) and not self.buffer[end].isspace():continue
                 prefix=self.buffer[:end]
                 if re.search(r'\b(?:Dr|Prof|Mr|Mrs|Ms|Nr|bzw|ca|z|B)\.$',prefix):continue
                 if candidate.start()>0 and self.buffer[candidate.start()-1].isdigit() and end<len(self.buffer) and self.buffer[end].isdigit():continue
-                match=candidate;break
-            if match is None:
+                boundaries.append((end,end,' '));break
+            words=list(re.finditer(r'\S+',self.buffer))
+            if len(words)>64:
+                # A model can produce long prose without punctuation. Stream
+                # bounded phrases rather than rejecting the whole response.
+                limit=words[63].start();prefix=self.buffer[:limit]
+                pause=max(prefix.rfind(', '),prefix.rfind('; '),prefix.rfind(': '))
+                cut=pause+1 if pause>len(prefix)//2 else limit
+                boundaries.append((cut,cut,' '))
+            if not boundaries:
                 if final and self.buffer.strip():
-                    text=self.buffer.strip();self.buffer=''
+                    spoken=self.buffer.strip();self.buffer='';separator=' '
                 else:break
             else:
-                text=self.buffer[:match.end()].strip();self.buffer=self.buffer[match.end():]
-            if text.casefold() in ('silent','[silent]'):continue
-            if '(' in text or ')' in text:raise ValueError('Acting cue must precede its sentence')
-            if text and len(text.split())<=90:out.append(Sentence(text,self.direction))
-            elif text:raise ValueError('Sentence too long')
+                end,consume,separator=min(boundaries,key=lambda b:b[0])
+                spoken=self.buffer[:end].strip();self.buffer=self.buffer[consume:]
+            if spoken.casefold() not in ('silent','[silent]') and spoken:
+                if '(' in spoken or ')' in spoken:raise ValueError('Acting cue must precede its sentence')
+                out.append(Sentence(spoken,self.direction,self.separator))
+            self.separator=separator
         return out
+
+def join_sentences(parts):
+    return ''.join(('' if i==0 else part.separator_before)+part.text for i,part in enumerate(parts))
 
 class ASRSentenceCommitter:
     """Commit stable punctuation once; tolerate cumulative ASR revisions.
