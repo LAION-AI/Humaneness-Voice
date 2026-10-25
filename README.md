@@ -138,6 +138,12 @@ streaming and session history; a bounded continuation guard can request missing
 lines instead of silently ending a counted task. [Reply-quality update and
 real local-model/browser checks](https://laion-ai.github.io/Humaneness-Voice/robby/long-replies-update.html).
 
+Clear requested grimaces, eye rolls and face/head poses now dispatch validated
+animation before the local language model starts. A missing tool call cannot
+silently suppress the requested face; Robby still generates its spoken reaction.
+Standalone silent stage notes no longer become empty TTS requests.
+[Command reliability fix and real-model/browser tests](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-command-update.html).
+
 The [English latency and precision report](robby/static/robby-local-speed-report.html)
 contains GPU stage profiling, 54 paired precision/adapter experiments, two CUDA
 experiments and synthetic socket/browser checks. Merged FP32 reduced median

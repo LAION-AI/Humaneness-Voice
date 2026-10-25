@@ -67,6 +67,11 @@ class BoltTextTests(unittest.TestCase):
         c=ASRSentenceCommitter();self.assertEqual(c.update('Bye bye',0),[])
         self.assertEqual(c.update('Bye bye',.32,final=True),['Bye bye'])
         self.assertEqual(SentenceFramer().feed('[silent]',final=True),[])
+    def test_standalone_visual_notes_never_become_empty_tts_requests(self):
+        f=SentenceFramer();out=f.feed('(amusement) Schau mal!\n*[grimace]*',final=True)
+        self.assertEqual([p.text for p in out],['Schau mal!'])
+        self.assertEqual(SentenceFramer().feed('**[smiles]**',final=True),[])
+        self.assertEqual(SentenceFramer().feed('(interest) Hier [0.25 seconds pause] bin ich.',final=True)[0].text,'Hier [0.25 seconds pause] bin ich.')
 
 class BoltSpeakersTests(unittest.TestCase):
     def setUp(self):self.v=np.eye(8,dtype=np.float32);self.m=OpenVoiceMemory()

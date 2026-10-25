@@ -15,6 +15,39 @@ it is approximate session memory, not reliable biometric authentication.
 
 ## Local sentence streaming and latency report (2026-10-25)
 
+### Reliable requested faces and spoken reactions
+
+Common direct German/English face/head commands use [a conservative command
+parser](avatar_commands.py) and the existing [bounded action validator](avatar_actions.py).
+They no longer depend on the small LLM deciding to emit a valid tool call.
+“Mach eine Grimasse”, “Schiele und rolle mit den Augen”, “Guck wütend, dann
+mach eine Grimasse”, nods, head shakes, winks and all 40 catalogue emotion
+slugs are supported. Generic grimaces cycle through the existing eight variants.
+Quotes, negation, conditions and explanatory questions cannot trigger a direct
+action. Quoted spoken words can accompany a separate real action request.
+
+For faces/gestures the pipeline sends an `avatar_action` event before starting
+the LLM. The browser starts it immediately, while the LLM generates the spoken
+reaction through ordinary sentence streaming. Action IDs prevent replay when
+later sentence/audio metadata repeats the plan. Pure requested rotations keep
+their prior audio-playback anchor; an explicitly silent trick needs no LLM/TTS.
+Old clients still receive the validated action in reply metadata as a fallback.
+
+The existing LLM avatar tool remains available for other choreography/tool
+requests; this direct path is additive. A direct action with a wholly empty or
+malformed spoken completion gets one bounded, fresh LLM retry. Spoken text is
+not canned. Standalone silent renderer notes such as `*[grimace]*` are discarded
+before TTS rather than being sent as an empty speech request.
+Speech failure does not erase an already dispatched valid face;
+explicit interruption still cancels the action. Disabled expressive actions
+remain disabled, with a prominent explanation above the robot.
+
+The [English action-command report](static/avatar-command-update.html) records
+the reproduced missing-tool/invalid-cue failures, real-model repeats, one
+real-time synthetic microphone/ASR check and actual HTTPS CPU-browser rendering
+and speech checks. `validate_avatar_commands.py` and
+`browser_avatar_commands_check.py` reproduce them; run audio tests serially.
+
 ### Complete replies, poems and Robby's personality
 
 The current [local system prompt and task structure](bolt_director.py) make

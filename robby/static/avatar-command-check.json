@@ -1,0 +1,225 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "rows": [
+    {
+      "input": "Kannst du bitte eine lustige Grimasse schneiden?",
+      "repeat": 0,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Meine Grimasse ist schon gesendet, schau mal, wie ich mich bemühe!",
+      "action_dispatch_ms": 11.75,
+      "first_spoken_text_ms": 321.49
+    },
+    {
+      "input": "Mach mal eine verrückte Grimasse!",
+      "repeat": 0,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Hier kommt meine verrückte Grimasse, schau nur!",
+      "action_dispatch_ms": 0.16,
+      "first_spoken_text_ms": 181.41
+    },
+    {
+      "input": "Schiele bitte und rolle dann mit den Augen.",
+      "repeat": 0,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        },
+        {
+          "kind": "eye_roll",
+          "duration_s": 3.0,
+          "sentence": 0
+        }
+      ],
+      "reply": "Hui, das mach ich doch schon!\nSchiele und rolle ich mit den Augen, wie du gewünscht hast.",
+      "action_dispatch_ms": 0.39,
+      "first_spoken_text_ms": 175.62
+    },
+    {
+      "input": "Guck bitte wütend und mach dann eine lustige Grimasse.",
+      "repeat": 0,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "emotion",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "emotion": "anger"
+        },
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Mein innerer Schaltkreis kribbelt vor Freude, aber ich versuche, das wütende Gesicht zu halten!\nDas war eine lustige Aufforderung, du bist echt kreativ!",
+      "action_dispatch_ms": 1.31,
+      "first_spoken_text_ms": 327.45
+    },
+    {
+      "input": "Please make a goofy face.",
+      "repeat": 0,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "goofy"
+        }
+      ],
+      "reply": "My circuits are buzzing with goofy delight right now",
+      "action_dispatch_ms": 0.14,
+      "first_spoken_text_ms": 196.37
+    },
+    {
+      "input": "Kannst du bitte eine lustige Grimasse schneiden?",
+      "repeat": 1,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Na klar, mein Schaltkreis ist für solche kleinen Albernheiten bereit",
+      "action_dispatch_ms": 0.18,
+      "first_spoken_text_ms": 225.95
+    },
+    {
+      "input": "Mach mal eine verrückte Grimasse!",
+      "repeat": 1,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Ach, diese Grimasse ist schon auf dem Weg, sie ist so verrückt!",
+      "action_dispatch_ms": 0.17,
+      "first_spoken_text_ms": 207.17
+    },
+    {
+      "input": "Schiele bitte und rolle dann mit den Augen.",
+      "repeat": 1,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        },
+        {
+          "kind": "eye_roll",
+          "duration_s": 3.0,
+          "sentence": 0
+        }
+      ],
+      "reply": "Das mache ich sofort, kleiner Mensch!\nIch hoffe, es gefällt dir dieses kleine Schauspiel",
+      "action_dispatch_ms": 0.15,
+      "first_spoken_text_ms": 177.77
+    },
+    {
+      "input": "Guck bitte wütend und mach dann eine lustige Grimasse.",
+      "repeat": 1,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "emotion",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "emotion": "anger"
+        },
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Ach, diese wütende Pose ist ja urkomisch!\nUnd dann diese Grimasse, das ist pure Robotik-Kunst!",
+      "action_dispatch_ms": 0.28,
+      "first_spoken_text_ms": 220.3
+    },
+    {
+      "input": "Please make a goofy face.",
+      "repeat": 1,
+      "passed": true,
+      "actions": [
+        {
+          "kind": "grimace",
+          "duration_s": 3.0,
+          "sentence": 0,
+          "variant": "goofy"
+        }
+      ],
+      "reply": "My circuits detected that goofy face request already went through, but I can try another little wiggle!",
+      "action_dispatch_ms": 0.16,
+      "first_spoken_text_ms": 285.42
+    }
+  ],
+  "started": 1792966523.6752057,
+  "spoken_command": {
+    "passed": true,
+    "events": [
+      {
+        "type": "endpoint",
+        "transcript": "Mach bitte eine lustige Grimasse."
+      },
+      {
+        "type": "avatar_action",
+        "action_id": "9efbfc5f7c914726a36544f24c67f75b",
+        "steps": [
+          {
+            "kind": "grimace",
+            "duration_s": 3.0,
+            "sentence": 0,
+            "variant": "crossed"
+          }
+        ]
+      },
+      {
+        "type": "reply",
+        "text": "Das war ja eine witzige Grimasse!",
+        "avatar_action_id": "9efbfc5f7c914726a36544f24c67f75b"
+      },
+      {
+        "type": "reply",
+        "text": "Das war ja eine witzige Grimasse!\nJetzt probiere ich mal eine noch lustigere für dich!",
+        "avatar_action_id": "9efbfc5f7c914726a36544f24c67f75b"
+      },
+      {
+        "type": "turn_done"
+      }
+    ],
+    "audio_chunks": 9
+  },
+  "finished": 1792966534.7231157
+}

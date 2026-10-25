@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "url": "https://arrive-locations-parade-research.trycloudflare.com",
+  "turns": [
+    {
+      "request": "Mach bitte eine lustige Grimasse und sag etwas Lustiges dazu.",
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "crossed"
+        }
+      ],
+      "reply": "Na, das ist ja eine lustige Anfrage!\nMein Schaltkreis kribbelt schon vor Vorfreude auf diesen Ausdruck!",
+      "action_before_audio_ms": 1056.7,
+      "pcm_chunks": 9,
+      "rendered_kinds": [
+        "grimace"
+      ]
+    },
+    {
+      "request": "Mach noch eine Grimasse!",
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "opposite"
+        }
+      ],
+      "reply": "Ich probiere es, mein Sensorik-System ist bereit für mehr albernes Gesichtsspiel!",
+      "action_before_audio_ms": 1115.3,
+      "pcm_chunks": 5,
+      "rendered_kinds": [
+        "grimace"
+      ]
+    },
+    {
+      "request": "Schiele bitte und rolle dann mit den Augen.",
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "crossed"
+        },
+        {
+          "kind": "eye_roll",
+          "duration_s": 3,
+          "sentence": 0
+        }
+      ],
+      "reply": "Schief schauen und dann ein kleines Augen-Tänzchen veranstalten!",
+      "action_before_audio_ms": 1097.2,
+      "pcm_chunks": 5,
+      "rendered_kinds": [
+        "grimace",
+        "eye_roll"
+      ]
+    },
+    {
+      "request": "Guck bitte wütend und mach dann eine lustige Grimasse.",
+      "steps": [
+        {
+          "kind": "emotion",
+          "duration_s": 3,
+          "sentence": 0,
+          "emotion": "anger"
+        },
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "cheeky"
+        }
+      ],
+      "reply": "Wütend gucken, dann direkt in Lach-Modus schalten, das ist mein Spezial-Trick!",
+      "action_before_audio_ms": 1186.7,
+      "pcm_chunks": 6,
+      "rendered_kinds": [
+        "emotion",
+        "grimace"
+      ]
+    },
+    {
+      "request": "Please make a goofy face.",
+      "steps": [
+        {
+          "kind": "grimace",
+          "duration_s": 3,
+          "sentence": 0,
+          "variant": "goofy"
+        }
+      ],
+      "reply": "Here is a goofy face for you!",
+      "action_before_audio_ms": 1067.9,
+      "pcm_chunks": 5,
+      "rendered_kinds": [
+        "grimace"
+      ]
+    }
+  ],
+  "started": 1792966538.5741155,
+  "disabled_control_explained": true,
+  "synthetic_fault_injection": {
+    "speech_error_keeps_action": true,
+    "interrupt_clears": true
+  },
+  "errors": [],
+  "finished": 1792966579.4339569
+}

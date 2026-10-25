@@ -85,9 +85,10 @@ const client=window.robo=new RoboClient({
   if(['barge','stop_command','error','reply_cancelled'].includes(m.type))pendingPlayFallback=null;
   if(['turn_done','stop_command','error'].includes(m.type)){optionalAvatarReply=avatarCancelPending=false;}
   if(['asr_preview','partial','endpoint','reply','backchannel'].includes(m.type))avatarActions.touch();
-  if(['barge','stop_command','reply_cancelled','error'].includes(m.type))avatarActions.clear();
+  if(['barge','stop_command','reply_cancelled'].includes(m.type)||m.type==='error'&&!avatarActions.queue.some(q=>q.source==='requested'))avatarActions.clear();
+  if(m.type==='avatar_action')avatarActions.request(m.action_id,m.steps);
   if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
-  if(m.type==='reply')avatarActions.set(m.reply_id,m.avatar_actions,m.performance,m.avatar_event?'optional':'reply');
+  if(m.type==='reply'&&!avatarActions.hasRequested(m.avatar_action_id))avatarActions.set(m.reply_id,m.avatar_actions,m.performance,m.avatar_event?'optional':'reply');
   multimodal?.message(m);
   if(m.type==='ready'){sendRecentIdle();multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
   if(m.type==='ready'&&m.sentence_stream)setSentenceMode(true);
