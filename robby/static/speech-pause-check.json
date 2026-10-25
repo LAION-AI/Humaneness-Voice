@@ -1,0 +1,321 @@
+{
+  "model_revision": "066409f3d9db45a30d21dfcbf9147826ffdd7052",
+  "sha256": "7ed98ddbad84ccac4cd0aeb3099049280713df825c610a8ed34543318f1b2c49",
+  "physical_microphone": false,
+  "rows": [
+    {
+      "case": "two_sentences",
+      "pause_ms": 400,
+      "gap_s": 0.12,
+      "noise": false,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 400,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 77.12
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.",
+          "audio_s": 5.76,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 400,
+          "observed_quiet_ms": 464,
+          "received_ms": 6160.74
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 69.381,
+            "speaker_embedding_wait_ms": 68.935,
+            "speaker_lookup_ms": 0.446,
+            "speaker_prefetch_used": false,
+            "speaker_prefetch_compute_ms": null,
+            "sentence_queue_ms": 69.55,
+            "sentence_audio_s": 5.76
+          },
+          "received_ms": 6230.22
+        }
+      ],
+      "submission_after_clip_end_ms": 440.7399999999998
+    },
+    {
+      "case": "two_sentences_with_noise",
+      "pause_ms": 400,
+      "gap_s": 0.12,
+      "noise": true,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 400,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 57.56
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.",
+          "audio_s": 5.76,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 400,
+          "observed_quiet_ms": 464,
+          "received_ms": 6146.68
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 61.585,
+            "speaker_embedding_wait_ms": 61.5,
+            "speaker_lookup_ms": 0.086,
+            "speaker_prefetch_used": false,
+            "speaker_prefetch_compute_ms": null,
+            "sentence_queue_ms": 61.71,
+            "sentence_audio_s": 5.76
+          },
+          "received_ms": 6208.45
+        }
+      ],
+      "submission_after_clip_end_ms": 426.6800000000003
+    },
+    {
+      "case": "longer_setting_holds",
+      "pause_ms": 1000,
+      "gap_s": 0.5,
+      "noise": true,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 1000,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 58.0
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.",
+          "audio_s": 7.04,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 1000,
+          "observed_quiet_ms": 1040,
+          "received_ms": 7115.26
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir ein lustiges Spiel vor.",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 0.086,
+            "speaker_embedding_wait_ms": 0.002,
+            "speaker_lookup_ms": 0.084,
+            "speaker_prefetch_used": true,
+            "speaker_prefetch_compute_ms": 55.84,
+            "sentence_queue_ms": 0.23,
+            "sentence_audio_s": 7.04
+          },
+          "received_ms": 7115.46
+        }
+      ],
+      "submission_after_clip_end_ms": 1015.2600000000002
+    },
+    {
+      "case": "two_separate_turns",
+      "pause_ms": 300,
+      "gap_s": 1.2,
+      "noise": false,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 300,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 59.02
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Was können wir heute nachmittags gemeinsam machen?",
+          "audio_s": 3.52,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 300,
+          "observed_quiet_ms": 360,
+          "received_ms": 3719.79
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute nachmittags gemeinsam machen?",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 0.074,
+            "speaker_embedding_wait_ms": 0.002,
+            "speaker_lookup_ms": 0.072,
+            "speaker_prefetch_used": true,
+            "speaker_prefetch_compute_ms": 52.39,
+            "sentence_queue_ms": 0.18,
+            "sentence_audio_s": 3.52
+          },
+          "received_ms": 3719.95
+        },
+        {
+          "type": "barge",
+          "yield": 0.905,
+          "received_ms": 4809.9
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Bitte schlage mir ein lustiges Spiel vor.",
+          "audio_s": 6.72,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 300,
+          "observed_quiet_ms": 348,
+          "received_ms": 7095.15
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Bitte schlage mir ein lustiges Spiel vor.",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 0.1,
+            "speaker_embedding_wait_ms": 0.002,
+            "speaker_lookup_ms": 0.098,
+            "speaker_prefetch_used": true,
+            "speaker_prefetch_compute_ms": 51.4,
+            "sentence_queue_ms": 0.21,
+            "sentence_audio_s": 6.72
+          },
+          "received_ms": 7095.42
+        }
+      ]
+    },
+    {
+      "case": "short_separate_turns",
+      "pause_ms": 300,
+      "gap_s": 0.6,
+      "noise": false,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 300,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 60.31
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Was können wir heute nachmittags gemeinsam machen?",
+          "audio_s": 3.52,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 300,
+          "observed_quiet_ms": 360,
+          "received_ms": 3719.19
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Was können wir heute nachmittags gemeinsam machen?",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 0.084,
+            "speaker_embedding_wait_ms": 0.002,
+            "speaker_lookup_ms": 0.082,
+            "speaker_prefetch_used": true,
+            "speaker_prefetch_compute_ms": 51.3,
+            "sentence_queue_ms": 0.2,
+            "sentence_audio_s": 3.52
+          },
+          "received_ms": 3719.38
+        },
+        {
+          "type": "barge",
+          "yield": 0.946,
+          "received_ms": 4808.86
+        },
+        {
+          "type": "asr_sentence",
+          "text": "Bitte schlage mir ein lustiges Spiel vor.",
+          "audio_s": 6.4,
+          "queued": false,
+          "reason": "neural speech pause",
+          "speech_pause_ms": 300,
+          "observed_quiet_ms": 344,
+          "received_ms": 6506.81
+        },
+        {
+          "type": "endpoint",
+          "transcript": "Bitte schlage mir ein lustiges Spiel vor.",
+          "speaker_id": "speaker-1",
+          "speaker_name": "Speaker 1",
+          "by": "asr_complete_sentence",
+          "timing": {
+            "speaker_assignment_ms": 0.064,
+            "speaker_embedding_wait_ms": 0.001,
+            "speaker_lookup_ms": 0.062,
+            "speaker_prefetch_used": true,
+            "speaker_prefetch_compute_ms": 55.17,
+            "sentence_queue_ms": 0.13,
+            "sentence_audio_s": 6.4
+          },
+          "received_ms": 6506.96
+        }
+      ]
+    },
+    {
+      "case": "noise_only",
+      "pause_ms": 400,
+      "gap_s": 0.12,
+      "noise": true,
+      "passed": true,
+      "events": [
+        {
+          "type": "asr_settings",
+          "speech_pause_ms": 400,
+          "min_ms": 200,
+          "max_ms": 2000,
+          "vad": "Silero ONNX CPU · neural speech activity",
+          "submission": "All pending sentences after a speech pause",
+          "received_ms": 55.49
+        }
+      ]
+    }
+  ],
+  "vad_ms_per_32ms_frame": 0.1264776844177803,
+  "vad_total_wall_ms": 17.66989380121231,
+  "passed": true,
+  "finished": 1792950209.731149
+}

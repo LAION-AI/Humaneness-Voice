@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "url": "https://arrive-locations-parade-research.trycloudflare.com",
+  "started": 1792950232.3863406,
+  "default_and_persistence": true,
+  "live_settings_ack": true,
+  "events": [
+    {
+      "type": "asr_settings",
+      "speech_pause_ms": 950,
+      "min_ms": 200,
+      "max_ms": 2000,
+      "vad": "Silero ONNX CPU · neural speech activity",
+      "submission": "All pending sentences after a speech pause",
+      "at": 644.7999992370605
+    },
+    {
+      "type": "asr_settings",
+      "speech_pause_ms": 1000,
+      "min_ms": 200,
+      "max_ms": 2000,
+      "vad": "Silero ONNX CPU · neural speech activity",
+      "submission": "All pending sentences after a speech pause",
+      "at": 707.9000015258789
+    },
+    {
+      "type": "asr_settings",
+      "speech_pause_ms": 1000,
+      "min_ms": 200,
+      "max_ms": 2000,
+      "vad": "Silero ONNX CPU · neural speech activity",
+      "submission": "All pending sentences after a speech pause",
+      "at": 711.2000007629395
+    },
+    {
+      "type": "asr_sentence",
+      "text": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.",
+      "audio_s": 9.6,
+      "queued": false,
+      "reason": "neural speech pause",
+      "speech_pause_ms": 1000,
+      "observed_quiet_ms": 1112,
+      "at": 12658.100002288818
+    },
+    {
+      "type": "endpoint",
+      "transcript": "Was können wir heute nachmittags gemeinsam machen? Bitte schlage mir einen lustiges Spiel vor.",
+      "speaker_id": "speaker-1",
+      "speaker_name": "Speaker 1",
+      "by": "asr_complete_sentence",
+      "timing": {
+        "speaker_assignment_ms": 0.056,
+        "speaker_embedding_wait_ms": 0.001,
+        "speaker_lookup_ms": 0.055,
+        "speaker_prefetch_used": true,
+        "speaker_prefetch_compute_ms": 59.24,
+        "sentence_queue_ms": 0.12,
+        "sentence_audio_s": 9.6
+      },
+      "at": 12658.79999923706
+    }
+  ],
+  "errors": [],
+  "audio_chunks": 1,
+  "live_change_to_300": true,
+  "finished": 1792950248.267443
+}

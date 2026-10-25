@@ -1,13 +1,12 @@
-"""Wake-free, speaker-labelled ASR sentence submission alongside TYGER.
+"""Wake-free, speaker-labelled turns after a configurable neural speech pause.
 
 All intelligible voices are admitted. Similarity assigns a label, never rejects
 words. Voice profiles and explicit aliases live only in the current session.
 """
-import asyncio,re,time,uuid
+import asyncio,math,os,re,time
 from difflib import SequenceMatcher
 from collections import deque
 import numpy as np
-from bolt_text import ASRSentenceCommitter
 from speaker_turns import self_name,NOT_NAMES
 from open_speakers import claimed_name
 
@@ -86,11 +85,21 @@ class OpenVoiceMemory:
 class SentenceSession:
     def __init__(self,conversation):
         self.c=conversation;self.memory=OpenVoiceMemory();self.records=deque(maxlen=125)
-        self.committer=ASRSentenceCommitter();self.preview='';self.preview_at=-100.
+        self.preview='';self.preview_at=-100.;self.segment_floor=0.
         self.now=0.;self.begin=None;self.last_speech=-100.;self.reset_at=-100.;self.fresh_asr_at=-100.;self.probe_text='';self.probe_at=-100.
         self.queue=asyncio.Queue(maxsize=12);self.tasks=set();self.worker=None;self.probe=None
         self.last_probe=-100.;self.closed=False;self.epoch=0;self.last_context=None
         self.embedding_task=None;self.prefetched=None;self.last_embedding=-100.;self.sentence_begin=None;self.pause_checked=False
+        self.pause_ms=400
+        self.set_pause(float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')))
+        self.vad=None;self.mic_driven=False;self.mic_now=0.;self.native_parts=[];self.native_preview=''
+        self.last_activity_notice=-100.;self.last_probe_error=-100.
+    def set_pause(self,value):
+        if not math.isfinite(value) or not 200<=value<=2000:raise ValueError('Speech pause must be 200–2000 ms')
+        self.pause_ms=round(value)
+    def settings(self):
+        return {'type':'asr_settings','speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
+                'vad':'Silero ONNX CPU · neural speech activity','submission':'All pending sentences after a speech pause'}
     def start(self):self.worker=asyncio.create_task(self.deliver())
     async def close(self):
         self.closed=True
@@ -103,42 +112,67 @@ class SentenceSession:
             lo=max(0,round((start-a)*16000));hi=min(len(w),round((end-a)*16000))
             if hi>lo:result.append(w[lo:hi])
         return np.concatenate(result) if result else np.zeros(0,np.float32)
-    async def preview_text(self,text,at,final=False,fresh=True):
+    async def microphone(self,audio,end,reference=None):
+        """Classify the existing mic packets without waiting for a GPU hop.
+
+        The network runs off the event loop on CPU; ASR still uses the original
+        audio. Only strongly correlated, timestamp-aligned bot echo is muted
+        for this pause clock. Stop recognition remains independent.
+        """
+        self.mic_driven=True
+        await self._speech_audio(audio,end,reference)
+        self._maybe_probe()
+    async def _speech_audio(self,audio,end,reference=None):
+        from pause_vad import SpeechClock
+        if self.vad is None:self.vad=SpeechClock()
+        wave=np.asarray(audio,np.float32)
+        if reference is not None and len(reference)==len(wave):
+            ref=np.asarray(reference,np.float32);norm=float(np.linalg.norm(wave)*np.linalg.norm(ref))
+            if norm>1e-6 and float(wave@ref)/norm>.7:wave=np.zeros_like(wave)
+        before=self.last_speech
+        self.last_speech=await asyncio.to_thread(self.vad.feed,wave,end)
+        self.mic_now=end
+        if self.last_speech>before+1e-6:
+            if self.begin is None:self.begin=max(self.segment_floor,self.last_speech-.64)
+            self.pause_checked=False
+        if end-self.last_activity_notice>=.25:
+            self.last_activity_notice=end
+            await self.c.ws.send_json({'type':'speech_activity','speech':self.vad.active,
+                'probability':round(self.vad.probability,3),'quiet_ms':round(max(0,end-self.last_speech)*1000),
+                'speech_pause_ms':self.pause_ms,'pending':bool(self.preview),'source':'neural_vad'})
+    def native_text(self):return ' '.join([*self.native_parts,self.native_preview]).strip()
+    def quiet_ready(self):
+        candidate=self.vad is not None and (self.vad.active or self.vad.probability>=.35)
+        return not candidate and (self.mic_now-self.last_speech)*1000+1e-5>=self.pause_ms
+    def agent_echo(self,text):
+        tokens=re.findall(r'\w+',text.casefold())
+        agent=set(re.findall(r'\w+',getattr(self.c,'open_agent_text','').casefold()))
+        return self.c.speaking and len(tokens)>=4 and agent and sum(w in agent for w in tokens)/len(tokens)>.8
+    def reset_segment(self):
+        self.segment_floor=max(self.segment_floor,self.now)
+        self.preview='';self.native_preview='';self.native_parts=[]
+        self.begin=None;self.sentence_begin=None;self.prefetched=None;self.pause_checked=False
+        self.probe_text='';self.epoch+=1
+    async def preview_text(self,text,at,final=False,fresh=True,source='native'):
         if not text.strip():return
         if fresh:self.fresh_asr_at=at
         # Playback can leak into the microphone after acoustic delays. Reject
         # a near-copy of the current assistant's words, but never veto a short
         # Stop merely because the assistant also happened to say that word.
-        tokens=re.findall(r'\w+',text.casefold())
-        agent=set(re.findall(r'\w+',getattr(self.c,'open_agent_text','').casefold()))
-        if self.c.speaking and len(tokens)>=4 and agent and sum(w in agent for w in tokens)/len(tokens)>.8:return
-        self.preview=text;self.preview_at=at
+        if self.agent_echo(text):return
+        # Punctuation is preview-only. Even a native TYGER endpoint must wait
+        # for the neural speech-pause clock; consecutive sentences form one turn.
+        if source=='native':self.native_preview=text;self.preview=self.native_text()
+        else:self.preview=text
+        self.preview_at=at
         from stop_commands import is_stop_command
         if self.c.speaking and is_stop_command(text):
             await self.c._on_barge({'yield_prob':1.,'onset_s':0.,'source':'open_sentence_stop'},round(at*self.c.ears.sr))
-            self.preview='';self.committer=ASRSentenceCommitter();self.begin=None;self.sentence_begin=None
-            self.prefetched=None;self.pause_checked=False;self.epoch+=1;return
-        following_sentence=bool(re.search(r'[.!?]["”’»]*\s+\(?[A-Za-zÄÖÜäöüß]',text))
-        native_words=re.findall(r'\w+',text.casefold());probe_words=re.findall(r'\w+',self.probe_text.casefold())
-        independently_confirmed=bool(native_words and at-self.probe_at<=.96 and probe_words[:len(native_words)]==native_words)
-        may_commit=following_sentence or independently_confirmed
-        for sentence in self.committer.update(text,at,final=final,allow_commit=may_commit):
-            source_start=self.sentence_begin if self.sentence_begin is not None else self.begin
-            audio=self.audio(source_start if source_start is not None else max(0,at-4),at)
-            cached=self.prefetched if self.prefetched and self.prefetched['epoch']==self.epoch and 0<=at-self.prefetched['at']<=1.0 else None
-            try:self.queue.put_nowait((sentence,audio,at,time.perf_counter(),cached))
-            except asyncio.QueueFull:
-                await self.c.ws.send_json({'type':'warning','text':'Several sentences are queued. Please let Robby catch up.'});return
-            await self.c.ws.send_json({'type':'asr_sentence','text':sentence,'audio_s':at,'queued':self.c.speaking,
-                'reason':'stable complete sentence' if not final else 'short speech pause'})
-            # A following sentence may belong to another voice. Do not reuse
-            # the preceding person's prefetched anchor across that boundary.
-            self.sentence_begin=max(self.begin or 0,at-.48);self.prefetched=None;self.last_embedding=-100.
+            self.reset_segment();self.c.session.reset();return
     async def native_endpoint(self,text,at):
-        await self.preview_text(text,at,final=True)
-        # A native endpoint starts a fresh cumulative decoder transcript.
-        # Don't require the next sentence to repeat the previous prefix.
-        self.committer=ASRSentenceCommitter();self.preview='';self.begin=None;self.sentence_begin=None;self.pause_checked=False;self.probe_text='';self.epoch+=1
+        await self.preview_text(text,at)
+        if self.native_preview:self.native_parts.append(self.native_preview)
+        self.native_preview='';self.preview=self.native_text()
     def prepare_embedding(self,at):
         """Compute a real ECAPA anchor off the microphone/event-loop thread.
 
@@ -165,24 +199,16 @@ class SentenceSession:
     async def observe(self,event,hop_end):
         at=hop_end/self.c.ears.sr;wave=np.asarray(event['audio16'],np.float32)
         begin=at-len(wave)/16000;self.records.append((begin,at,wave.copy()));self.now=at
-        rms=float(np.sqrt(np.mean(wave**2)))
-        reference=event.get('playback_audio16');echo=False
-        if reference is not None and len(reference)==len(wave):
-            ref=np.asarray(reference,np.float32);norm=float(np.linalg.norm(wave)*np.linalg.norm(ref))
-            echo=bool(norm>1e-6 and abs(float(wave@ref)/norm)>.45)
-        energy=np.asarray(event.get('energy_db',[]));active=rms>.003 and not echo and (not len(energy) or float(energy.max())>-48)
-        if active:
-            if self.begin is None:self.begin=max(0,begin-.16)
-            self.last_speech=at
-            self.pause_checked=False
+        if not self.mic_driven:await self._speech_audio(wave,at,event.get('playback_audio16'))
         self.prepare_embedding(at)
-        quiet=at-self.last_speech
-        # Native partials are reused. A short bounded ASR probe fills gaps when
-        # the native turn decoder is waiting or the assistant owns the floor.
-        if (self.begin is not None and at-self.begin>=.64 and at-self.last_probe>=(.16 if quiet>=.64 else .48)
-            and (quiet<.64 or not self.pause_checked)
-            and (self.probe is None or self.probe.done()) and (self.c.speaking or at-self.fresh_asr_at>.48 or quiet>=.64)):
-            self.last_probe=at;audio=self.audio(max(self.begin,at-15),at);epoch=self.epoch
+    def _maybe_probe(self):
+        at=self.now;due=self.quiet_ready()
+        if (self.begin is not None and at-self.begin>=.32 and self.mic_now-self.last_probe>=(.16 if due else .48)
+            and not self.pause_checked and (self.probe is None or self.probe.done())
+            and (due or self.c.speaking or at-self.fresh_asr_at>.48)):
+            self.last_probe=self.mic_now;audio=self.audio(max(self.begin,at-28),at)
+            epoch=self.epoch;speech_end=self.last_speech
+            if len(audio)<3200:return
             async def recognize():
                 try:
                     async with self.c.speaker_ext.asr_slot(5):
@@ -190,26 +216,45 @@ class SentenceSession:
                     if not self.closed and epoch==self.epoch and result:
                         self.probe_text=result[0];self.probe_at=at
                         await self.c.ws.send_json({'type':'asr_preview','text':result[0],'status':'sentence_stream','source':'local_sentence_asr'})
-                        # Offline probes punctuation-complete even an unfinished
-                        # prefix ("Was können wir heute ...?"). Only the native
-                        # streaming decoder may commit punctuation during
-                        # ongoing speech; probe text needs an observed pause.
                         from stop_commands import is_stop_command
                         if self.c.speaking and is_stop_command(result[0]):
-                            await self.preview_text(result[0],at)
-                        elif quiet>=.64:
-                            self.pause_checked=True;await self.preview_text(result[0],at,final=True)
+                            await self.preview_text(result[0],at,source='probe');return
+                        # No dispatch based on the captured quiet value: the
+                        # user may have resumed while the GPU probe was running.
+                        still_quiet=self.quiet_ready()
+                        unchanged=self.last_speech<=speech_end+1e-6
+                        if due and still_quiet and unchanged:
+                            text=self.native_text() if at-self.begin>28 and self.native_text() else result[0] or self.native_text()
+                            if not text.strip() or self.agent_echo(text):
+                                if self.mic_now-self.last_speech>=max(1.28,self.pause_ms/1000+.32):
+                                    self.c.session.reset();self.reset_segment()
+                                return
+                            await self.commit_pause(text,at,epoch,speech_end)
                 except asyncio.CancelledError:raise
-                except Exception:pass  # native ASR + final pause path remain
+                except Exception:
+                    # A transient probe failure must neither discard text nor
+                    # turn background energy into activity. Retry on later audio.
+                    if self.mic_now-self.last_probe_error>3:
+                        self.last_probe_error=self.mic_now
+                        await self.c.ws.send_json({'type':'warning','text':'Checking the last spoken words again before sending.'})
             self.probe=asyncio.create_task(recognize())
+    async def commit_pause(self,text,at,epoch,speech_end):
+        if (epoch!=self.epoch or self.last_speech>speech_end+1e-6
+            or not self.quiet_ready()):return False
+        text=' '.join(text.split())
+        if not text or self.begin is None:return False
+        start=self.begin;audio=self.audio(start,at)
+        cached=self.prefetched if self.prefetched and self.prefetched['epoch']==epoch and 0<=self.mic_now-self.prefetched['at']<=1.2 else None
+        try:self.queue.put_nowait((text,audio,at,time.perf_counter(),cached))
+        except asyncio.QueueFull:
+            await self.c.ws.send_json({'type':'warning','text':'Several turns are queued. Please let Robby catch up.'});return False
+        await self.c.ws.send_json({'type':'asr_sentence','text':text,'audio_s':at,'queued':self.c.speaking,
+            'reason':'neural speech pause','speech_pause_ms':self.pause_ms,
+            'observed_quiet_ms':round((self.mic_now-self.last_speech)*1000)})
+        self.c.session.reset();self.reset_segment();return True
     async def advance(self):
-        """Commit only after this hop's waveform AND newest words are ingested."""
-        at=self.now;quiet=at-self.last_speech
-        if self.preview:await self.preview_text(self.preview,at,final=False,fresh=False)
-        if self.begin is not None and quiet>=1.28 and self.pause_checked and (self.probe is None or self.probe.done()):
-            # Finish any remaining phrase before resetting a native transcript.
-            if self.preview:await self.preview_text(self.preview,at,final=True)
-            self.c.session.reset();self.committer=ASRSentenceCommitter();self.preview='';self.begin=None;self.sentence_begin=None;self.pause_checked=False;self.probe_text='';self.epoch+=1
+        """ASR previews never submit; only a neural speech pause can flush."""
+        self._maybe_probe()
     async def deliver(self):
         try:
             while True:
