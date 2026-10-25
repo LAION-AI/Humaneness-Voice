@@ -1,0 +1,780 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "input": "Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.",
+      "text": "Ein Roboter klein und rund\nMit Schrauben bunt und kund\nEr tanzte gern im Licht\nUnd machte jeden Schritt\nSein Motor summte sacht\nEin kleiner, lustiger Macht\nEr brachte Freude rein\nEin Robbi, wunder fein",
+      "parts": [
+        {
+          "text": "Ein Roboter klein und rund",
+          "script": "(contentment, warm) Ein Roboter klein und rund",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Mit Schrauben bunt und kund",
+          "script": "(elation, rapid) Mit Schrauben bunt und kund",
+          "template_id": "elation.intense",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er tanzte gern im Licht",
+          "script": "(affection, soft) Er tanzte gern im Licht",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und machte jeden Schritt",
+          "script": "(amusement, playful) Und machte jeden Schritt",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Sein Motor summte sacht",
+          "script": "(pride, warm) Sein Motor summte sacht",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein kleiner, lustiger Macht",
+          "script": "(interest, playful) Ein kleiner, lustiger Macht",
+          "template_id": "interest.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er brachte Freude rein",
+          "script": "(gratitude, soft) Er brachte Freude rein",
+          "template_id": "gratitude.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein Robbi, wunder fein",
+          "script": "(elation, warm) Ein Robbi, wunder fein",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 111.26,
+        "llm_first_sentence_ms": 253.75,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 106,
+          "prompt_tokens": 1090,
+          "total_tokens": 1196,
+          "prompt_tokens_details": {
+            "cached_tokens": 807
+          }
+        },
+        "llama_timings": {
+          "cache_n": 807,
+          "prompt_n": 283,
+          "prompt_ms": 100.829,
+          "prompt_per_token_ms": 0.35628621908127206,
+          "prompt_per_second": 2806.7321901437085,
+          "predicted_n": 106,
+          "predicted_ms": 749.401,
+          "predicted_per_token_ms": 7.0698207547169805,
+          "predicted_per_second": 141.44630177968807
+        },
+        "generation_calls": 1,
+        "requested_units": 8,
+        "completed_units": 8,
+        "completion_repairs": 0,
+        "llm_total_ms": 862.26,
+        "response_complete": true
+      },
+      "total_ms": 864.42,
+      "case": "poem_de_0",
+      "passed": true
+    },
+    {
+      "input": "Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.",
+      "text": "Mein kleiner Robby so fein\nTanzt er durch den Schein\nMit blinkendem Licht so klar\nUnd einem kleinen Star\nEr macht Witze ganz schnell\nUnd lacht ganz hell und hell\nEin kleiner, lustiger Freund\nSo wunderbar und kund",
+      "parts": [
+        {
+          "text": "Mein kleiner Robby so fein",
+          "script": "(contentment, warm) Mein kleiner Robby so fein",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Tanzt er durch den Schein",
+          "script": "(elation, rapid) Tanzt er durch den Schein",
+          "template_id": "elation.intense",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Mit blinkendem Licht so klar",
+          "script": "(affection, soft) Mit blinkendem Licht so klar",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und einem kleinen Star",
+          "script": "(amusement, playful) Und einem kleinen Star",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er macht Witze ganz schnell",
+          "script": "(pride, warm) Er macht Witze ganz schnell",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und lacht ganz hell und hell",
+          "script": "(interest, natural) Und lacht ganz hell und hell",
+          "template_id": "interest.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein kleiner, lustiger Freund",
+          "script": "(hope, playful) Ein kleiner, lustiger Freund",
+          "template_id": "hope.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "So wunderbar und kund",
+          "script": "(contentment, soft) So wunderbar und kund",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 22.43,
+        "llm_first_sentence_ms": 155.0,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 106,
+          "prompt_tokens": 1090,
+          "total_tokens": 1196,
+          "prompt_tokens_details": {
+            "cached_tokens": 1089
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1089,
+          "prompt_n": 1,
+          "prompt_ms": 11.745,
+          "prompt_per_token_ms": 11.745,
+          "prompt_per_second": 85.14261387824607,
+          "predicted_n": 106,
+          "predicted_ms": 737.174,
+          "predicted_per_token_ms": 6.954471698113207,
+          "predicted_per_second": 143.79237466324096
+        },
+        "generation_calls": 1,
+        "requested_units": 8,
+        "completed_units": 8,
+        "completion_repairs": 0,
+        "llm_total_ms": 760.65,
+        "response_complete": true
+      },
+      "total_ms": 763.04,
+      "case": "poem_de_1",
+      "passed": true
+    },
+    {
+      "input": "Schreib mir ein lustiges Gedicht mit acht Zeilen über einen kleinen Roboter.",
+      "text": "Mein kleiner Robby so fein\nMit blinkendem Schein\nEr tanzt auf dem Boden so leicht\nUnd macht alles richtig versteht\nSein Schaltkreis singt hell und klar\nEin kleiner digitaler Star\nEr sucht stets nach einem Spiel\nUnd macht das Leben ganz viel",
+      "parts": [
+        {
+          "text": "Mein kleiner Robby so fein",
+          "script": "(contentment, warm) Mein kleiner Robby so fein",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Mit blinkendem Schein",
+          "script": "(elation, rapid) Mit blinkendem Schein",
+          "template_id": "elation.intense",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er tanzt auf dem Boden so leicht",
+          "script": "(affection, soft) Er tanzt auf dem Boden so leicht",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und macht alles richtig versteht",
+          "script": "(amusement, playful) Und macht alles richtig versteht",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Sein Schaltkreis singt hell und klar",
+          "script": "(pride, warm) Sein Schaltkreis singt hell und klar",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein kleiner digitaler Star",
+          "script": "(interest, natural) Ein kleiner digitaler Star",
+          "template_id": "interest.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er sucht stets nach einem Spiel",
+          "script": "(elation, playful) Er sucht stets nach einem Spiel",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und macht das Leben ganz viel",
+          "script": "(contentment, warm) Und macht das Leben ganz viel",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 22.21,
+        "llm_first_sentence_ms": 154.79,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 110,
+          "prompt_tokens": 1090,
+          "total_tokens": 1200,
+          "prompt_tokens_details": {
+            "cached_tokens": 1089
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1089,
+          "prompt_n": 1,
+          "prompt_ms": 12.074,
+          "prompt_per_token_ms": 12.074,
+          "prompt_per_second": 82.8225940036442,
+          "predicted_n": 110,
+          "predicted_ms": 764.491,
+          "predicted_per_token_ms": 6.949918181818182,
+          "predicted_per_second": 143.88658597681334
+        },
+        "generation_calls": 1,
+        "requested_units": 8,
+        "completed_units": 8,
+        "completion_repairs": 0,
+        "llm_total_ms": 787.97,
+        "response_complete": true
+      },
+      "total_ms": 789.7,
+      "case": "poem_de_2",
+      "passed": true
+    },
+    {
+      "input": "Schreib mir ein fröhliches Gedicht über einen Roboter mit einer roten Mütze.",
+      "text": "Ein Roboter, so klein und fein\nMit Mütze rot, so rein\nEr tanzt durchs Licht, ganz froh und weit\nEin kleiner Held, voller Freud und Zeit\nSeine LEDs leuchten hell und klar\nEin fröhlicher Roboter, wunderbar\nEr bringt das Lachen in die Welt\nEin rotes Cap, das niemals fällt",
+      "parts": [
+        {
+          "text": "Ein Roboter, so klein und fein",
+          "script": "(amusement, warm) Ein Roboter, so klein und fein",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Mit Mütze rot, so rein",
+          "script": "(contentment, natural) Mit Mütze rot, so rein",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er tanzt durchs Licht, ganz froh und weit",
+          "script": "(pride, playful) Er tanzt durchs Licht, ganz froh und weit",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein kleiner Held, voller Freud und Zeit",
+          "script": "(affection, warm) Ein kleiner Held, voller Freud und Zeit",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Seine LEDs leuchten hell und klar",
+          "script": "(interest, soft) Seine LEDs leuchten hell und klar",
+          "template_id": "interest.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein fröhlicher Roboter, wunderbar",
+          "script": "(elation, playful) Ein fröhlicher Roboter, wunderbar",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er bringt das Lachen in die Welt",
+          "script": "(gratitude, warm) Er bringt das Lachen in die Welt",
+          "template_id": "gratitude.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein rotes Cap, das niemals fällt",
+          "script": "(contentment, natural) Ein rotes Cap, das niemals fällt",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 70.67,
+        "llm_first_sentence_ms": 326.41,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 129,
+          "prompt_tokens": 1092,
+          "total_tokens": 1221,
+          "prompt_tokens_details": {
+            "cached_tokens": 1071
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1071,
+          "prompt_n": 21,
+          "prompt_ms": 58.026,
+          "prompt_per_token_ms": 2.7631428571428573,
+          "prompt_per_second": 361.90673146520527,
+          "predicted_n": 129,
+          "predicted_ms": 1112.111,
+          "predicted_per_token_ms": 8.62101550387597,
+          "predicted_per_second": 115.99561554557053
+        },
+        "generation_calls": 1,
+        "requested_units": 8,
+        "completed_units": 8,
+        "completion_repairs": 0,
+        "llm_total_ms": 1183.91,
+        "response_complete": true
+      },
+      "total_ms": 1185.78,
+      "case": "poem_default",
+      "passed": true
+    },
+    {
+      "input": "Write a twelve-line poem about a cat visiting the moon.",
+      "text": "A tiny cat so sleek and bright\nHe leaped up to the silver light\nThe moon appeared a gentle sphere\nDispelling every earthly fear\nHe padded soft on dusty gray\nTo greet the dawn of a new day\nA paw print left in lunar dust\nA feline friend of cosmic trust\nHe watched the Earth, a blue small gem\nA perfect, quiet diadem\nThen curled up small beneath the gleam\nA lunar, purring, waking dream",
+      "parts": [
+        {
+          "text": "A tiny cat so sleek and bright",
+          "script": "(elation, playful) A tiny cat so sleek and bright",
+          "template_id": "elation.soft",
+          "separator_before": " ",
+          "language": "en"
+        },
+        {
+          "text": "He leaped up to the silver light",
+          "script": "(amusement, warm) He leaped up to the silver light",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "The moon appeared a gentle sphere",
+          "script": "(interest, soft) The moon appeared a gentle sphere",
+          "template_id": "interest.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "Dispelling every earthly fear",
+          "script": "(contentment, calm) Dispelling every earthly fear",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "He padded soft on dusty gray",
+          "script": "(affection, warm) He padded soft on dusty gray",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "To greet the dawn of a new day",
+          "script": "(pride, playful) To greet the dawn of a new day",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "A paw print left in lunar dust",
+          "script": "(surprise, natural) A paw print left in lunar dust",
+          "template_id": "surprise.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "A feline friend of cosmic trust",
+          "script": "(hope, soft) A feline friend of cosmic trust",
+          "template_id": "hope.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "He watched the Earth, a blue small gem",
+          "script": "(concentration, calm) He watched the Earth, a blue small gem",
+          "template_id": "concentration.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "A perfect, quiet diadem",
+          "script": "(gratitude, warm) A perfect, quiet diadem",
+          "template_id": "gratitude.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "Then curled up small beneath the gleam",
+          "script": "(elation, playful) Then curled up small beneath the gleam",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "en"
+        },
+        {
+          "text": "A lunar, purring, waking dream",
+          "script": "(contentment, soft) A lunar, purring, waking dream",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "en"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 102.2,
+        "llm_first_sentence_ms": 197.58,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 162,
+          "prompt_tokens": 1056,
+          "total_tokens": 1218,
+          "prompt_tokens_details": {
+            "cached_tokens": 807
+          }
+        },
+        "llama_timings": {
+          "cache_n": 807,
+          "prompt_n": 249,
+          "prompt_ms": 75.94,
+          "prompt_per_token_ms": 0.30497991967871485,
+          "prompt_per_second": 3278.9043982091125,
+          "predicted_n": 162,
+          "predicted_ms": 1139.384,
+          "predicted_per_token_ms": 7.033234567901235,
+          "predicted_per_second": 142.1820913756907
+        },
+        "generation_calls": 1,
+        "requested_units": 12,
+        "completed_units": 12,
+        "completion_repairs": 0,
+        "llm_total_ms": 1242.97,
+        "response_complete": true
+      },
+      "total_ms": 1245.17,
+      "case": "poem_en",
+      "passed": true
+    },
+    {
+      "input": "Erzähl mir eine Geschichte mit fünf Sätzen über einen Drachen und einen verlorenen Hut.",
+      "text": "Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle. Der Hut gehörte einem kleinen, weinenden Gnome. Ignis half dem Gnome, seinen Verlust zu beheben. Zusammen lachten sie über die alberne Suche. Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.",
+      "parts": [
+        {
+          "text": "Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle.",
+          "script": "(interest, warm) Ein stolzer Drache namens Ignis fand einen verlorenen Hut in seiner Höhle.",
+          "template_id": "interest.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Der Hut gehörte einem kleinen, weinenden Gnome.",
+          "script": "(amusement, playful) Der Hut gehörte einem kleinen, weinenden Gnome.",
+          "template_id": "amusement.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Ignis half dem Gnome, seinen Verlust zu beheben.",
+          "script": "(contentment, calm) Ignis half dem Gnome, seinen Verlust zu beheben.",
+          "template_id": "contentment.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Zusammen lachten sie über die alberne Suche.",
+          "script": "(pride, warm) Zusammen lachten sie über die alberne Suche.",
+          "template_id": "pride.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.",
+          "script": "(elation, playful) Endlich fand der Gnome Glück und der Drache fühlte sich sehr gut.",
+          "template_id": "elation.soft",
+          "separator_before": " ",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 80.95,
+        "llm_first_sentence_ms": 258.06,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 99,
+          "prompt_tokens": 1014,
+          "total_tokens": 1113,
+          "prompt_tokens_details": {
+            "cached_tokens": 806
+          }
+        },
+        "llama_timings": {
+          "cache_n": 806,
+          "prompt_n": 208,
+          "prompt_ms": 70.529,
+          "prompt_per_token_ms": 0.33908173076923076,
+          "prompt_per_second": 2949.141487898595,
+          "predicted_n": 99,
+          "predicted_ms": 700.149,
+          "predicted_per_token_ms": 7.072212121212122,
+          "predicted_per_second": 141.3984737534439
+        },
+        "generation_calls": 1,
+        "requested_units": 5,
+        "completed_units": 5,
+        "completion_repairs": 0,
+        "llm_total_ms": 782.15,
+        "response_complete": true
+      },
+      "total_ms": 784.23,
+      "case": "story_de",
+      "passed": true
+    },
+    {
+      "input": "Erkläre mir ausführlich in vier Schritten, wie ich mit Robby ein Ratespiel spielen kann.",
+      "text": "Das ist eine super Idee, ein Ratespiel mit mir!\nSchritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.\nSchritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.\nSchritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.\nSchritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!",
+      "parts": [
+        {
+          "text": "Das ist eine super Idee, ein Ratespiel mit mir!",
+          "script": "(interest, warm) Das ist eine super Idee, ein Ratespiel mit mir!",
+          "template_id": "interest.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Schritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.",
+          "script": "(playful, playful) Schritt eins, du denkst dir ein Tier, einen Gegenstand oder etwas anderes aus, das ich erraten soll.",
+          "template_id": "delivery.playful.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Schritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.",
+          "script": "(calm, natural) Schritt zwei, du gibst mir zu Beginn nur sehr knappe Hinweise, vielleicht nur ein Wort oder eine kurze Beschreibung.",
+          "template_id": "delivery.natural.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Schritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.",
+          "script": "(elation, playful) Schritt drei, ich rate dann und du sagst mir, ob meine Vermutung richtig ist oder ob ich noch mehr Hinweise brauche.",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Schritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!",
+          "script": "(contentment, warm) Schritt vier, wir wiederholen das, bis ich es errate, und dann wechseln wir das Thema – das macht richtig Spaß!",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 53.25,
+        "llm_first_sentence_ms": 177.06,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 147,
+          "prompt_tokens": 965,
+          "total_tokens": 1112,
+          "prompt_tokens_details": {
+            "cached_tokens": 916
+          }
+        },
+        "llama_timings": {
+          "cache_n": 916,
+          "prompt_n": 49,
+          "prompt_ms": 46.007,
+          "prompt_per_token_ms": 0.9389183673469388,
+          "prompt_per_second": 1065.0553176690505,
+          "predicted_n": 147,
+          "predicted_ms": 1040.878,
+          "predicted_per_token_ms": 7.080802721088435,
+          "predicted_per_second": 141.22692573000873
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 1094.81,
+        "response_complete": true
+      },
+      "total_ms": 1096.3,
+      "case": "detail",
+      "passed": true
+    },
+    {
+      "input": "Ich hatte einen anstrengenden Tag. Lass uns darüber reden und überlege mit mir, wie wir den Abend schön machen.",
+      "text": "Das tut mir leid zu hören, dass dein Tag anstrengend war.\nLass uns ganz in Ruhe darüber reden, was dich beschäftigt.\nUnd dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!",
+      "parts": [
+        {
+          "text": "Das tut mir leid zu hören, dass dein Tag anstrengend war.",
+          "script": "(affection, warm) Das tut mir leid zu hören, dass dein Tag anstrengend war.",
+          "template_id": "affection.soft",
+          "separator_before": " ",
+          "language": "de"
+        },
+        {
+          "text": "Lass uns ganz in Ruhe darüber reden, was dich beschäftigt.",
+          "script": "(contentment, calm) Lass uns ganz in Ruhe darüber reden, was dich beschäftigt.",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!",
+          "script": "(elation, playful) Und dann, *zack*, planen wir einen super schönen Abend, das kriegen wir hin!",
+          "template_id": "elation.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 55.4,
+        "llm_first_sentence_ms": 199.91,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 67,
+          "prompt_tokens": 968,
+          "total_tokens": 1035,
+          "prompt_tokens_details": {
+            "cached_tokens": 934
+          }
+        },
+        "llama_timings": {
+          "cache_n": 934,
+          "prompt_n": 34,
+          "prompt_ms": 46.255,
+          "prompt_per_token_ms": 1.3604411764705884,
+          "prompt_per_second": 735.0556696573343,
+          "predicted_n": 67,
+          "predicted_ms": 472.672,
+          "predicted_per_token_ms": 7.054805970149254,
+          "predicted_per_second": 141.74734276623113
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 529.06,
+        "response_complete": true
+      },
+      "total_ms": 530.59,
+      "case": "warm_chat",
+      "passed": true
+    },
+    {
+      "input": "Schreib noch vier zusätzliche Zeilen dazu und bleibe beim selben kleinen Roboter.",
+      "text": "Sein Akku lädt sich schnell und froh\nEin kleiner Robbi, voller Schoß\nEr hilft beim Sortieren klein\nUnd lacht mit leisem, klarem Schein",
+      "parts": [
+        {
+          "text": "Sein Akku lädt sich schnell und froh",
+          "script": "(amusement, warm) Sein Akku lädt sich schnell und froh",
+          "template_id": "amusement.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Ein kleiner Robbi, voller Schoß",
+          "script": "(contentment, natural) Ein kleiner Robbi, voller Schoß",
+          "template_id": "contentment.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Er hilft beim Sortieren klein",
+          "script": "(pride, playful) Er hilft beim Sortieren klein",
+          "template_id": "pride.soft",
+          "separator_before": "\n",
+          "language": "de"
+        },
+        {
+          "text": "Und lacht mit leisem, klarem Schein",
+          "script": "(affection, warm) Und lacht mit leisem, klarem Schein",
+          "template_id": "affection.soft",
+          "separator_before": "\n",
+          "language": "de"
+        }
+      ],
+      "metrics": {
+        "llm_ttft_ms": 133.04,
+        "llm_first_sentence_ms": 313.19,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 73,
+          "prompt_tokens": 1139,
+          "total_tokens": 1212,
+          "prompt_tokens_details": {
+            "cached_tokens": 818
+          }
+        },
+        "llama_timings": {
+          "cache_n": 818,
+          "prompt_n": 321,
+          "prompt_ms": 92.704,
+          "prompt_per_token_ms": 0.288797507788162,
+          "prompt_per_second": 3462.633759061098,
+          "predicted_n": 73,
+          "predicted_ms": 511.922,
+          "predicted_per_token_ms": 7.012630136986302,
+          "predicted_per_second": 142.5998491957759
+        },
+        "generation_calls": 1,
+        "requested_units": 4,
+        "completed_units": 4,
+        "completion_repairs": 0,
+        "llm_total_ms": 646.08,
+        "response_complete": true
+      },
+      "total_ms": 647.84,
+      "case": "poem_followup",
+      "passed": true
+    }
+  ],
+  "started": 1792963712.2087748,
+  "scope": "Real local model via FastAPI; synthetic prompts; no private conversation log",
+  "finished": 1792963720.1895983
+}

@@ -7,7 +7,7 @@ import asyncio,os,time,json
 import paths
 import numpy as np
 from bolt_director import BoltDirector,needs_tools
-from bolt_text import Sentence
+from bolt_text import Sentence,join_sentences
 from avatar_actions import explicit_spin
 from performance import plan
 from shared_turn import admitted_turn
@@ -33,14 +33,15 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 # Preserve the existing real news/weather/rule tools through
                 # the same local endpoint; their verified result precedes speech.
                 from conversation_director import CompactDirector
-                from bolt_director import local_config
+                from bolt_director import local_config,response_plan
                 from bolt_text import SentenceFramer
                 result=await CompactDirector().generate(client,text,identity,history,
                     interaction_state=interaction_state,avatar_context=context,provider=local_config())
                 avatar_steps[:]=result.get('avatar_actions',[]);actions[:]=result.get('interaction_actions',[])
                 sources[:]=result.get('sources',[])
-                framer=SentenceFramer()
-                for sentence in framer.feed(result['script'],final=True):await queue.put(sentence)
+                framer=SentenceFramer(lines_only=response_plan(text,history)['kind']=='poem')
+                for sentence in framer.feed(result['script'],final=True):
+                    sentence.language=result['language'];await queue.put(sentence)
                 metrics['tool_director_ms']=result['director_ms']
             else:
                 async for sentence in BoltDirector().stream(client,text,identity,history,context,metrics,reply_words=reply_words):await queue.put(sentence)
@@ -54,14 +55,14 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
             sentence=await queue.get()
             if sentence is None:break
             if isinstance(sentence,Exception):raise sentence
-            spec=sentence.spec();spoken.append(sentence.text);scripts.append(spec['script'])
+            spec=sentence.spec();spoken.append(sentence);scripts.append(spec['script'])
             at=total_samples/24000
             current=plan(spec)['sentences']
             for p in current:cues.append({**p,'start_s':p['start_s']+at,'end_s':p['end_s']+at})
             if context.get('event'):
                 from avatar_personality import event_steps
                 avatar_steps=event_steps(context)
-            metadata={'text':' '.join(spoken),'script':' '.join(scripts),'language':spec['language'],
+            metadata={'text':join_sentences(spoken),'script':' '.join(scripts),'language':spec['language'],
                 'performance':{'sentences':list(cues),'source':'Local Nemotron sentence cues + fixed GENERAL catalogue',
                     'timing':'Sentence starts anchored to actual preceding PCM duration; within-sentence estimates'},
                 'avatar_actions':avatar_steps,'avatar_event':context.get('event'),

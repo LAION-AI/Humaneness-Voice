@@ -16,7 +16,7 @@ def main():
     for name in ('bolt-speed.json','bolt-speaker-speed.json','bolt-engine-comparison.json',
                  'bolt-socket-check.json','bolt-browser-check.json','bolt-browser-first-turn.json',
                  'bolt-tts-profile.json','bolt-precision.json','bolt-semantic-graph.json','bolt-local-compile.json',
-                 'speech-pause-check.json','speech-pause-browser.json'):
+                 'speech-pause-check.json','speech-pause-browser.json','long-replies-check.json','long-replies-browser.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))

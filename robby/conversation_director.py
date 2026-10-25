@@ -14,10 +14,12 @@ RECIPE='''Return JSON only, exactly three string fields:
 {"general":"concise English acting direction", "script":"the actual spoken reply with acting cues", "language":"de or en"}.
 GENERAL is one concise English sentence. Direct emotion/delivery, not timbre,
 age, gender or a new identity. Reference identity is added by code.
-SCRIPT contains the complete actual answer in the user's language. Usually use
-at most 40 spoken words; a little/short story is two or three sentences, about
-35 words. Expand only when the user actually requests detail, with a maximum
-of 120 spoken words. Start each sentence with a short English round-bracket acting cue
+SCRIPT contains the COMPLETE requested answer in the user's language. Its length
+follows the task, not a fixed word/sentence count. Write the whole requested poem
+with all its lines and stanzas; tell the actual story or provide all requested
+details. Do not replace the work with an offer, a single line or unrelated chat.
+For poetry, preserve line breaks and put a cue before each verse line. For prose,
+start each sentence with a short English round-bracket acting cue
 whose first word names the main facial emotion. For example:
 (interest, gently engaged and conversational) Siebzehn mal vier ist achtundsechzig.
 (amusement, warm and playful) Ein Roboter fand einen winzigen Schlüssel.
@@ -53,7 +55,7 @@ def validate(data):
     if not all(isinstance(data[k],str) for k in data):raise ValueError('Director fields must be strings')
     general=data['general'].strip();script=data['script'].strip()
     text=' '.join(re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',script).split())
-    if not general or len(general)>600 or len(script)>6000 or not 1<=len(text.split())<=120 or len(text)>1600:
+    if not general or len(general)>600 or len(script)>18000 or not 1<=len(text.split())<=600 or len(text)>9000:
         raise ValueError('Invalid compact spoken reply')
     language=data['language'].lower().strip()
     if language not in ('de','en'):raise ValueError('Unsupported compact spoken language')
@@ -146,7 +148,8 @@ class CompactDirector:
             if event else {'utterance':text[:2000],'current_speaker':identity})
         messages.append({'role':'user','content':json.dumps(current,ensure_ascii=False)})
         body={'model':model,'messages':messages,'reasoning_effort':'instant' if model.startswith('mercury') else 'none',
-            'max_completion_tokens':900,'response_format':{'type':'json_object'}}
+            'max_completion_tokens':2048,'response_format':{'type':'json_object'}}
+        if provider:body['chat_template_kwargs']={'enable_thinking':False,'conversational_mode':False}
         selected_tools=list(KNOWLEDGE_TOOLS) if knowledge_enabled else []
         if not event:selected_tools.append(AVATAR_TOOL)
         if action_tools_enabled:
