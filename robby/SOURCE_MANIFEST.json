@@ -13,8 +13,8 @@
       "bytes": 2685
     },
     "README.md": {
-      "sha256": "e9493144153b4d7e81e722b7afe2c60c24ee0ac5929a184612e9303ce566a8e9",
-      "bytes": 149699
+      "sha256": "9ff0e3eb37e52ee514b23c9aeef14a7c48293a5201afa4d577ba8ae6cc10db74",
+      "bytes": 152089
     },
     "asr_priority.py": {
       "sha256": "a11ce0db0debc98e477cc1ca33e7eb767ff1dfecf912f28a3ae4c6aab7cedc08",
@@ -69,24 +69,24 @@
       "bytes": 11634
     },
     "bolt_api.py": {
-      "sha256": "e31ed414b29425dcbbbb9b1ced227acc72cd80bab810bbeead3b229a006d0e2d",
-      "bytes": 9470
+      "sha256": "c2c97fb697199bd964394e840aa92bc4120e0341956544512d4a0c76078c4a33",
+      "bytes": 9492
     },
     "bolt_director.py": {
-      "sha256": "cadd592c75249735df5375aadadbc52bbeaaf66d6452f6e2fd17c4b165e92519",
-      "bytes": 6879
+      "sha256": "fbe4a64cc2d5718780307110dcab349d0f5e2b72b758ea60112e0b28f933f445",
+      "bytes": 15163
     },
     "bolt_pipeline.py": {
-      "sha256": "f95280ab3fe5e5a178de35942d7e906bf873de314f6c9a1d33849d8798d88a32",
-      "bytes": 7794
+      "sha256": "add15be3cc4cb6033608a0e06f8c7f4653e179f6282ff44404e09cfd19205623",
+      "bytes": 7936
     },
     "bolt_socket_check.py": {
       "sha256": "05205c66c51fcb05804ec5394402f74e0806724d85d4f6d8654e49432b313c78",
       "bytes": 3794
     },
     "bolt_text.py": {
-      "sha256": "e21ddea08c5dcf3076437b54ee5d444527e60b6c8098539b93c8b9cce64f6791",
-      "bytes": 7211
+      "sha256": "0d1e7643c23bdd2c9335f7a212c431713a470320702a4e03acf6bfc68109f9e4",
+      "bytes": 8990
     },
     "bootstrap.py": {
       "sha256": "a9f1ad43f46c3f4a78705bf25191182634d02cd1e1f2834d522ed32476a238c2",
@@ -127,6 +127,10 @@
     "browser_lifecycle_checks.py": {
       "sha256": "470aba23576a65a059bbe855cb405fef2aadbfb2e15ef8c55a8fed0dd1926c28",
       "bytes": 8519
+    },
+    "browser_long_replies_check.py": {
+      "sha256": "8ce620bd028b85ba6e068587a1f6835d5b6324020ff68c2de817c56f95c14cc8",
+      "bytes": 4743
     },
     "browser_mic_checks.py": {
       "sha256": "5d33d1498b8ef12695aa9f9b005a8e85bd8bf9e96155e99f76a005367c089184",
@@ -221,12 +225,12 @@
       "bytes": 445
     },
     "conversation_director.py": {
-      "sha256": "38c46a986868d7d8a55b013d0623770a73c6eb5811dfbd317fcd693727af5a1d",
-      "bytes": 18799
+      "sha256": "3c9e2071a69c05568a5fc555d6a18cfef98a31a40f89be5bc9691a1653923b5c",
+      "bytes": 19053
     },
     "conversation_prompt.py": {
-      "sha256": "60235dd8502e8240f6902ef7020ed2572f1cb448fd69b0072e97c7f9e032f94a",
-      "bytes": 4015
+      "sha256": "5a29ccf97135be512391096a0b15943e9239bed7a4383dffc3357fe97132522b",
+      "bytes": 4556
     },
     "decision_checks.py": {
       "sha256": "5830a5c8c3c1f719be23dd16b838baced8b69370b15c5fef9b177df47c45f517",
@@ -257,8 +261,8 @@
       "bytes": 1740
     },
     "export_source.py": {
-      "sha256": "a4208421ba82e0137ec092bfa0b1d380b1f44d7a24dd9978b1dfe5cb6402fe36",
-      "bytes": 3206
+      "sha256": "bbc89ada20bba82ac111795c7ae6743a1c70a678c76b8e9544053061100e0421",
+      "bytes": 3260
     },
     "expression_checks.py": {
       "sha256": "3e5408a367212f56ce798c44b203bf8d9c2293644b10bd41eafcedd69be7dfb5",
@@ -399,6 +403,10 @@
     "render_bolt_report.py": {
       "sha256": "332dda3576a1a66bd95d17573d3c350d357cae9471ad6c53712dc7210f7f7b18",
       "bytes": 32936
+    },
+    "render_long_replies_report.py": {
+      "sha256": "09677bb7961752d524d91bd315c17e3ddbe64880372249a9bea8658de655e126",
+      "bytes": 6517
     },
     "render_speech_pause_report.py": {
       "sha256": "dbfc1b58e44667c111ef022255b2766c062d677b3036aa4d087c49b57874d5ff",
@@ -865,12 +873,24 @@
       "bytes": 5424
     },
     "static/index.html": {
-      "sha256": "505cbd0a856f0b535bdbac4005af922c074833faef831f7f2150c4eb426faca5",
-      "bytes": 8332
+      "sha256": "b54b8feecdee940cf568ebb59d2666ee1fd6bb2b06994b315b223956a6e5595f",
+      "bytes": 8474
     },
     "static/live-follow-update.html": {
       "sha256": "37d3b3ee0bbf9aabba041505a69a93c60d0d23134c61a94a3415946660e58ed8",
       "bytes": 10593
+    },
+    "static/long-replies-browser.json": {
+      "sha256": "eba45c8d9f43fa077cd70dddb58a8f1a77a1aceb0e9b75de2a978b3bb3ed440c",
+      "bytes": 8380
+    },
+    "static/long-replies-check.json": {
+      "sha256": "3690c32dc7d20c7b56c9725a06c8bd8e98213da6b7d4a094e363a78eec893158",
+      "bytes": 29344
+    },
+    "static/long-replies-update.html": {
+      "sha256": "bf0e4f3266174d0d30f990d6028db065eb91d360321483276c1b903a5a14de0e",
+      "bytes": 75839
     },
     "static/multimodal-report.html": {
       "sha256": "832bed5df89b3be00eaeb1bf0ce87b315f28c91f8084b19a61c2a9f3bd0810bc",
@@ -965,8 +985,8 @@
       "bytes": 657918
     },
     "static/ui.js": {
-      "sha256": "e3bc1b05fbe2cc9f47d7073c0db0941f1acda11357a549a78d3f30430641688d",
-      "bytes": 47419
+      "sha256": "61b5fe018228c8f50e65592ce1d29506aeacdcbd2578ffc0801286fef566f678",
+      "bytes": 47513
     },
     "static/visual-onboarding-update.html": {
       "sha256": "cca6d9c1b973df78b11c8e58da6842c5411878b1f95b9d0d2c019feb3c65b3dd",
@@ -1017,16 +1037,16 @@
       "bytes": 6033
     },
     "test_bolt.py": {
-      "sha256": "55df45aab1eb16e337aa044c7cd3ef4108d132bc511c00685f0c5f48e5d53f63",
-      "bytes": 7115
+      "sha256": "f4f48077921903e939c0922ae0eab8fe85fe479770a1d2dfbca94a3e62ee88de",
+      "bytes": 11393
     },
     "test_bridge.py": {
       "sha256": "9de34720f61d93908967d22b8a523d4d8f406381a804feafbd707e6323aa447f",
       "bytes": 7492
     },
     "test_conversation_director.py": {
-      "sha256": "ef953c5e1b09d04a2281d082c0ce95d9eed40a82201d1dec1c35daa145184fd4",
-      "bytes": 4075
+      "sha256": "806f7d20a43aaa73b810c2bea07bb6f4d8e4946dd265c91c5c2309d65996b0ab",
+      "bytes": 4367
     },
     "test_conversation_prompt.py": {
       "sha256": "8273ea61b34e8a0a2a7f7301c6d6fb0769986ab3b3ad596eb680d7c57f0dba82",
@@ -1115,6 +1135,10 @@
     "tts_bridge.py": {
       "sha256": "fde95be9800916119532f962f74e9c09349c7c9f5e873d78d14f34333f921ed5",
       "bytes": 20776
+    },
+    "validate_long_replies.py": {
+      "sha256": "9a4dec338cf89898ba369d99879710f04923e8da28878f44219e0471d591357f",
+      "bytes": 5069
     },
     "validate_speech_pause.py": {
       "sha256": "0fcaa79caddb0052f3fd082f912fede611827922034dfae20778ed70ee35956f",

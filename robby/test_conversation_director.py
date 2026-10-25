@@ -32,11 +32,14 @@ class DirectorTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result['text'],'Hallo zusammen.')
         self.assertIn(REFERENCE,result['manual_prompt'])
         self.assertIn('(interest)',result['manual_prompt'])
+    def test_complete_long_answer_is_allowed_instead_of_old_120_word_limit(self):
+        script='\n'.join('(interest) '+' '.join(['Wort']*35)+'.' for _ in range(6))
+        self.assertEqual(len(validate({'general':'Warm and natural.','script':script,'language':'de'})['text'].split()),210)
 
     def test_rejects_invalid_output(self):
         good={'general':'Natural.','script':'Hello.','language':'en'}
         for bad in ({**good,'extra':1},{**good,'script':'(interest)'},{**good,'language':'xx'},
-                    {**good,'script':'word '*121},{**good,'general':''}):
+                    {**good,'script':'word '*601},{**good,'general':''}):
             with self.assertRaises(ValueError):validate(bad)
 
     async def test_one_compact_call_with_history(self):
@@ -54,7 +57,7 @@ class DirectorTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(captured),1)
         body=captured[0][1]['json']
         self.assertEqual(body['model'],'configured-test')
-        self.assertEqual(body['max_completion_tokens'],900)
+        self.assertEqual(body['max_completion_tokens'],2048)
         self.assertEqual(body['messages'][1]['content'],'Previous.')
         self.assertEqual(result['completion_tokens'],30)
         self.assertEqual(result['text'],'Achtundsechzig.')
