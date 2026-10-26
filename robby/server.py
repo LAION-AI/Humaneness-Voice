@@ -28,7 +28,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','sentence_session.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+for _name in ('server.py','sentence_session.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -370,6 +370,8 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if self.sentence_stream and data.startswith('asr:model:'):
+            await self.sentence_stream.asr.select(data.split(':',2)[2]);return
         if self.sentence_stream and data.startswith('asr:pause_ms:'):
             try:self.sentence_stream.set_pause(float(data.split(':',2)[2]))
             except ValueError:
@@ -630,6 +632,7 @@ async def state(request):
         'audio_worker_error':failure,
         'llm':os.environ.get('ROBO_DIRECTOR_MODEL','configured Luna'),
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
+        'reply_language_default':'de','asr_model_selection':True,
         'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')),
         'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
@@ -640,6 +643,17 @@ async def state(request):
         'identity_teacher_available':teacher,'identity_default_enabled':bool(students),
         'interaction_available':True,'interaction_default_enabled':True,'decision_interval_ms':320,
         'tf32_matmul':bool(torch.backends.cuda.matmul.allow_tf32),'tf32_cudnn':bool(torch.backends.cudnn.allow_tf32)})
+
+
+async def asr_models(request):
+    from asr_catalog import MODELS,worker_url
+    try:
+        async with httpx.AsyncClient(timeout=2) as client:
+            response=await client.get(worker_url()+'/models');response.raise_for_status()
+            return web.json_response(response.json())
+    except Exception:
+        return web.json_response({'active_gpu_model':None,'models':[{'id':key,'label':s['label'],'repo':s['repo'],
+            'ready':key=='nemotron','phase':'resident' if key=='nemotron' else 'worker_unavailable'} for key,s in MODELS.items()]})
 
 
 async def socket(request):
@@ -792,6 +806,7 @@ def main():
     app.router.add_get('/speaker-study/{variant:results|results_centered|results_v2_raw|results_v2_centered|results_v2_gru}/report.html',speaker_report)
     app.router.add_get('/downloads/tyger-v2-public-pilot.zip',release_download)
     app.router.add_get('/downloads/robby-source.zip',source_download)
+    app.router.add_get('/api/asr/models',asr_models)
     app.router.add_static('/static/',ROOT/'static')
     app.on_startup.append(startup);app.on_cleanup.append(cleanup)
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(name)s %(message)s')

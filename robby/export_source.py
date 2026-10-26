@@ -10,14 +10,15 @@ ROOT=Path(__file__).resolve().parent
 
 def main():
     files=list(ROOT.glob('*.py'))
-    files += [ROOT/name for name in ['README.md','LICENSE','NOTICE','requirements.txt','config.example.json','.gitignore']]
+    files += [ROOT/name for name in ['README.md','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
     for pattern in ['*.js','*.css','*.html','*.svg','LICENSE-MIT.txt']:files+=list((ROOT/'static').glob(pattern))
     files.append(ROOT/'static/emotion-catalog.json')
     for name in ('bolt-speed.json','bolt-speaker-speed.json','bolt-engine-comparison.json',
                  'bolt-socket-check.json','bolt-browser-check.json','bolt-browser-first-turn.json',
                  'bolt-tts-profile.json','bolt-precision.json','bolt-semantic-graph.json','bolt-local-compile.json',
                  'speech-pause-check.json','speech-pause-browser.json','long-replies-check.json','long-replies-browser.json',
-                 'avatar-command-before.json','avatar-command-check.json','avatar-command-browser.json'):
+                 'avatar-command-before.json','avatar-command-check.json','avatar-command-browser.json',
+                 'asr-model-check.json','asr-model-browser.json','asr-controls-browser.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))
