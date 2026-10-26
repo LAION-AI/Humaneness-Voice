@@ -23,8 +23,8 @@ MODELS={
 def cache_root():return Path(os.environ.get('ROBO_ASR_CACHE',str(Path.home()/'.cache/robby-asr')))
 
 def default_model():
-    key=os.environ.get('ROBO_ASR_MODEL','nemotron')
-    return key if key in MODELS else 'nemotron'
+    key=os.environ.get('ROBO_ASR_MODEL','parakeet_v3')
+    return key if key in MODELS else 'parakeet_v3'
 
 def worker_url():
     from urllib.parse import urlparse

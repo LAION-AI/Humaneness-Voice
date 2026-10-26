@@ -1,5 +1,27 @@
 # Robby voice chat and TYGER speaker predictor
 
+## Current update: Parakeet default, camera off, parallel GPU delivery captions
+
+The final ASR default is **Parakeet v3**. Nemotron still supplies streaming previews,
+TYGER features and interruption candidates. The **camera starts off**; manual camera
+and eye contact remain available. A one-time settings migration changes old defaults;
+subsequent explicit choices are preserved.
+
+**Humaneness Ears Medium now runs on GPU 1 alongside final ASR on GPU 0.** Its short
+procedural delivery caption is uncertain context, not a fact about the speaker's
+feelings. Your words take precedence. Late hints are skipped without delaying the
+LLM; the independent UI checkbox can disable them. [Setup, model pins, timings and
+limitations](VOICE_CAPTIONS.md) · [HTTPS report](https://projects.laion.ai/Humaneness-Voice/robby/voice-caption-update.html).
+
+[English bridge-phrase PDF plan](https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-caption-bridges-v1/Robby_Decision_Model_Bridge_Phrases_Plan.pdf)
+([editable source](BRIDGE_PHRASES_PLAN.md)). This proposes cached reactions while the
+full answer generates; the bridge controller itself has not been implemented.
+
+Latest verification: **465 offline tests** and the actual HTTPS caption/defaults
+browser check pass. The separate noisy interruption test still has misses, documented
+below; its failures are published alongside successful tests.
+
+
 **Adversarial conversation tests:** the [repeatable protocol](VOICE_ASSISTANT_TEST_PROTOCOL.md#13-version-2-adversarial-stateful-conversation-protocol)
 now includes seven stateful scenarios / 34 steps with competing voices, continuous
 synthetic TV speech, music, noise, tool calls, topic recall and Stop/Wait phase
@@ -2616,7 +2638,7 @@ include these phrases, `Das reicht mir jetzt`, and the bounded ASR variant
 questions do not become direct Stops. Existing acoustic speaker, rival, quiet
 background and echo checks still apply; these text rules do not bypass them.
 
-Verification: 457 offline checks pass, including interrupted-history retention,
+Verification at the initial note/wording fix: 457 offline checks passed, including interrupted-history retention,
 legacy migration, arbitrary streamed token boundaries, TTS prompt filtering and
 negative Stop controls. Six actual Laya service requests distinguish the three
 new positive phrases from continuation/negation/quoted-meaning controls. Two
@@ -2628,7 +2650,7 @@ generates three fixed synthetic inputs once, tests the two positive commands
 at 0/160-ms phases with 12-dB interference, a negated control and a subsequent
 spin reply. Its first attempted run was **blocked before enrollment by an
 occupied ASR session**; no user's connection was evicted. Do not describe that
-blocked run as a passing acoustic test. The preceding 6/8 Stop phase result
+blocked run as a passing acoustic test. The later completed attempt missed all four positive noisy cancellation cases; the negated control passed, and the spin follow-up timed out. These failures are retained in `static/completion-stop-browser.json`. A clean Parakeet audit also found poor transcription of the synthetic blunt-Stop take, so input fidelity needs review. The preceding 6/8 Stop phase result
 remains a documented limit, not a result proven fixed by text-only checks.
 
 ```bash

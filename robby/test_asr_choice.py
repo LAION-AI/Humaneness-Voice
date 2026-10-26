@@ -7,6 +7,10 @@ from sentence_session import SentenceSession
 from speech_language import reply_language
 
 class LanguageTests(unittest.TestCase):
+    def test_default_final_model_and_explicit_override(self):
+        from asr_catalog import default_model
+        with patch.dict('os.environ',{},clear=True):self.assertEqual(default_model(),'parakeet_v3')
+        with patch.dict('os.environ',{'ROBO_ASR_MODEL':'nemotron'}):self.assertEqual(default_model(),'nemotron')
     def test_german_default_and_explicit_language(self):
         self.assertEqual(reply_language('Hello Robby, what can we do?'),'German')
         self.assertEqual(reply_language('Antworte auf Englisch.'),'English')

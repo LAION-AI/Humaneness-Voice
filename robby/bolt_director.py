@@ -148,7 +148,9 @@ class BoltDirector:
         from conversation_tasks import history_for_model
         model_history,playback_note=history_for_model(list(reversed(recent)))
         messages.extend(model_history);messages[0]['content']+=playback_note
-        if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps(identity,ensure_ascii=False)
+        from voice_captioning import prompt_hint
+        if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps({k:v for k,v in identity.items() if k!='voice_delivery'},ensure_ascii=False)
+        if not (avatar_context or {}).get('event'):messages[0]['content']+=prompt_hint(identity)
         if avatar_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(avatar_context,ensure_ascii=False)
         if (avatar_context or {}).get('requested_actions'):
             messages[0]['content']+='''\nThe requested visual actions have already been sent to the browser. React playfully while

@@ -122,13 +122,14 @@ class SentenceSession:
         self.asr=ASRChoice(self)
         from sentence_decisions import SentenceDecisionIdentity
         self.decision_identity=SentenceDecisionIdentity(self)
+        self.captions_enabled=True
         from speaker_management import SpeakerPermissions
         self.permissions=SpeakerPermissions(self)
     def set_pause(self,value):
         if not math.isfinite(value) or not 200<=value<=2000:raise ValueError('Speech pause must be 200–2000 ms')
         self.pause_ms=round(value)
     def settings(self):
-        return {'type':'asr_settings',**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
+        return {'type':'asr_settings','voice_captions_enabled':self.captions_enabled,**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
                 'conversation_focus':self.focus.state(self.memory.users,self.c.speaking),
                 'vad':'Silero ONNX CPU · neural speech activity','submission':'All pending sentences after a speech pause'}
     def start(self):self.worker=asyncio.create_task(self.deliver())
@@ -537,6 +538,11 @@ class SentenceSession:
             epoch=self.epoch;speech_end=self.last_speech;words_at=self.word_at
             if len(audio)<3200:return
             async def recognize():
+                caption_task=None
+                if due and self.captions_enabled:
+                    from voice_captioning import describe
+                    caption_task=asyncio.create_task(describe(self.audio(audio_start,audio_end)))
+                    self.tasks.add(caption_task);caption_task.add_done_callback(self.tasks.discard)
                 try:
                     model=self.asr.selected;receipt={'model':'nemotron'}
                     if due and model!='nemotron':
@@ -580,7 +586,7 @@ class SentenceSession:
                                 if self.mic_now-self.last_speech>=max(1.28,self.pause_ms/1000+.32):
                                     self.c.session.reset();self.reset_segment()
                                 return
-                            await self.commit_pause(text,at,epoch,speech_end,receipt)
+                            if await self.commit_pause(text,at,epoch,speech_end,receipt,caption=caption_task):caption_task=None
                 except asyncio.CancelledError:raise
                 except Exception:
                     # A transient probe failure must neither discard text nor
@@ -589,8 +595,10 @@ class SentenceSession:
                         self.last_probe_error=self.mic_now
                         await self.c.ws.send_json({'type':'warning','text':'Checking the last spoken words again before sending. If the selected ASR is unavailable, switch to Nemotron original.'})
                     self.last_probe=self.mic_now+.8
+                finally:
+                    if caption_task and not caption_task.done():caption_task.cancel()
             self.probe=asyncio.create_task(recognize())
-    async def commit_pause(self,text,at,epoch,speech_end,asr=None):
+    async def commit_pause(self,text,at,epoch,speech_end,asr=None,caption=None):
         word_quiet=self.word_at>=self.segment_floor and self.mic_now-self.word_at>=max(1.6,self.pause_ms/1000)
         foreground_quiet=self.foreground_last>=self.segment_floor and not self.foreground_now and self.mic_now-self.foreground_last>=self.pause_ms/1000
         if (epoch!=self.epoch or (self.last_speech>speech_end+1e-6 and not word_quiet and not foreground_quiet)
@@ -611,7 +619,7 @@ class SentenceSession:
         asr['speech_pause_ms']=self.pause_ms;asr['observed_quiet_ms']=round((self.mic_now-self.last_speech)*1000)
         cached=self.prefetched if self.prefetched and self.prefetched['epoch']==epoch and 0<=self.mic_now-self.prefetched['at']<=1.2 and self.prefetched['at']<=speech_end+.16 else None
         fast=self.fast_vector(start,speech_end)
-        try:self.queue.put_nowait((text,audio,at,time.perf_counter(),cached,asr or {'model':self.asr.selected},fast,self.admission_epoch))
+        try:self.queue.put_nowait((text,audio,at,time.perf_counter(),cached,asr or {'model':self.asr.selected},fast,self.admission_epoch,caption))
         except asyncio.QueueFull:
             await self.c.ws.send_json({'type':'warning','text':'Several turns are queued. Please let Robby catch up.'});return False
         await self.c.ws.send_json({'type':'asr_sentence','text':text,'audio_s':at,'queued':self.c.speaking,
@@ -692,8 +700,14 @@ class SentenceSession:
                 while (self.c.speaking or self.c.halting) and not self.closed:await asyncio.sleep(.02)
                 if self.closed:return
                 if admission!=self.admission_epoch:continue
+                from voice_captioning import completed_hint
+                delivery=completed_hint(item[8] if len(item)>8 else None,self.captions_enabled)
+                if self.closed or admission!=self.admission_epoch:continue
+                if delivery.get('status')=='available':context={**context,'voice_delivery':delivery}
+                await self.c.ws.send_json({'type':'voice_caption',**delivery})
                 self.c.current_speaker=context
                 self.c.pending_input_timing={'kind':'voice','asr':asr,
+                    'voice_caption_ms':delivery.get('request_ms'),'voice_caption_status':delivery['status'],
                     'speaker_assignment_ms':round(embedding_wait_ms+lookup_ms,3),
                     'speaker_prefetch_compute_ms':round(cached['compute_ms'],2) if prefetched else None,
                     'speaker_prefetch_used':prefetched,'sentence_queue_ms':round((time.perf_counter()-queued_at)*1000,2)}

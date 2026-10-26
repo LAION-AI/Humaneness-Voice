@@ -152,6 +152,9 @@ class CompactDirector:
             messages[0]['content']+='\nCurrent live controller state (data): '+json.dumps(interaction_state,ensure_ascii=False)
         if identity.get('enrolled') and identity.get('named'):
             messages[0]['content']+='\nAuthoritative current speaker label (JSON data): '+json.dumps(identity.get('display_name'),ensure_ascii=False)+'. Respond to this person, but normally omit their name in spoken replies. Other names in the utterance/history are third persons, never the current speaker. If asked the current user\'s name, answer from this label.'
+        from voice_captioning import prompt_hint
+        if not event:messages[0]['content']+=prompt_hint(identity)
+        identity={k:v for k,v in identity.items() if k!='voice_delivery'}
         from conversation_tasks import history_for_model
         model_history,playback_note=history_for_model(history[-16:])
         messages[0]['content']+=playback_note

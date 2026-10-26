@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Latest Robby update:** Parakeet v3 final ASR, camera off by default, and uncertain voice-delivery captions from Humaneness Ears Medium on GPU alongside ASR. [Setup and measured results](robby/VOICE_CAPTIONS.md) · [Live documentation](https://projects.laion.ai/Humaneness-Voice/robby/voice-caption-update.html) · [English bridge-phrase PDF proposal](https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-caption-bridges-v1/Robby_Decision_Model_Bridge_Phrases_Plan.pdf). All source tests/protocols and the failed acoustic interruption checks are retained.
+
 An expressive speech system: a **director LLM** turns a brief into words and
 acting directions, a **speech model** performs them in a reference voice, and
 optional **perceptual models** rank alternative takes. You can chat, perform

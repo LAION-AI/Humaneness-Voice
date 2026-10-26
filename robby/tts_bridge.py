@@ -175,7 +175,8 @@ class MouthBridge:
                         remember(record);await send(b'D',{});return
                     from conversation_tasks import history_for_model
                     shared_history,playback_note=history_for_model(history[-16:])
-                    body={'model':'small_rl','message':conversation_message(text,identity)+playback_note,'input_mode':'chat','format':'structured',
+                    from voice_captioning import prompt_hint
+                    body={'model':'small_rl','message':conversation_message(text,{k:v for k,v in identity.items() if k!='voice_delivery'})+playback_note+prompt_hint(identity),'input_mode':'chat','format':'structured',
                         'generation':'single','n':1,'streaming':True,'chunk_frames':TTS_CHUNK_FRAMES,
                         'cancel_on_disconnect':True,
                         'temperature':.7,'guidance':2.,'voice_mode':'profile','voice_profile':turn_voice,
