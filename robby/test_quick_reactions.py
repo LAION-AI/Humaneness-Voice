@@ -8,6 +8,36 @@ from quick_reaction import validate,eligible,duplicate_acknowledgment
 from bolt_text import Sentence
 
 class Words(unittest.TestCase):
+    def test_emergency_and_trivial_arithmetic_skip_only_the_preface(self):
+        for s in ['Hilfe, mein Kind bekommt keine Luft!','He is not breathing.','Wie viel ist sieben mal acht?']:
+            self.assertFalse(eligible(s,[]),s)
+        self.assertTrue(eligible('Erklär mir, wie Multiplikation funktioniert.',[]))
+    def test_recent_reaction_is_not_repeated_and_contractions_are_valid(self):
+        from quick_reaction import repeated_opening
+        h=[{'role':'assistant','content':'Das kitzelt meine Lachschraube! Warum sitzt die Katze am PC?'}]
+        self.assertTrue(repeated_opening('Das kitzelt meine Lachschraube.',h))
+        self.assertFalse(repeated_opening('Noch eine Runde Lachmuskeltraining.',h))
+        self.assertEqual(validate("That's really sweet of you."),"That's really sweet of you.")
+        for s in ['Das notiere ich mir.','Ich schaue nach.','Ein weiterer Witz kommt.']:
+            self.assertIsNone(validate(s),s)
+    def test_tone_preserves_seriousness_and_compound_joke_thread(self):
+        from quick_reaction import reaction_tone
+        from conversation_tasks import joke_task
+        for subject in ['Katzenwitz','Pinguinwitz','Roboterwitz']:
+            h=[{'role':'user','content':'Erzähl mir einen '+subject+'.'}]
+            self.assertIsNotNone(joke_task('Und noch einen!',h))
+            self.assertEqual(reaction_tone('Und noch einen!',h),'joke')
+            self.assertEqual(reaction_tone('Der war lahm. Noch einen, aber lustiger.',h),'joke')
+        self.assertIsNone(joke_task('Ich schwitze.',[]))
+        self.assertIsNone(joke_task('Erzähl mir etwas über Auschwitz.',[]))
+        self.assertEqual(reaction_tone('Mein Hund ist gestorben. Keine Witze bitte.',[]),'serious')
+        self.assertEqual(reaction_tone('Ich streichle dir den Kopf.',[]),'affection')
+        self.assertEqual(reaction_tone('Ich habe Angst vor morgen.',[]),'support')
+    def test_explicit_english_command_applies_to_the_reaction(self):
+        from speech_language import reply_language
+        self.assertEqual(reply_language('Please speak English. My cat died yesterday.'),'English')
+        self.assertEqual(reply_language('Can you speak English for this answer?'),'English')
+        self.assertEqual(reply_language('I speak English and German.'),'German')
     def test_malformed_optional_cue_does_not_drop_the_spoken_answer(self):
         from bolt_text import SentenceFramer
         for raw in ('fröhlich!', 'warm / soft', 'pause: 2 seconds'):
@@ -35,6 +65,9 @@ class Words(unittest.TestCase):
     def test_only_duplicate_short_acknowledgment_is_dropped(self):
         self.assertTrue(duplicate_acknowledgment('Das klingt nach viel.','Das klingt nach viel!'))
         self.assertFalse(duplicate_acknowledgment('Das klingt nach viel.','Das klingt nach viel, aber morgen gilt ein anderer Plan.'))
+        self.assertTrue(duplicate_acknowledgment('Das tut mir sehr leid.','Oh, das tut mir so, so sehr leid.'))
+        self.assertTrue(duplicate_acknowledgment("I'm so sorry.",'I am so deeply sorry to hear that.'))
+        self.assertFalse(duplicate_acknowledgment('Das tut mir leid.','Das tut mir leid, und ich kann dir beim Planen helfen.'))
 
 class Race(unittest.IsolatedAsyncioTestCase):
     async def collect(self,main_delay,lead_delay,enabled=True,tool=False,close_early=False,invalid=False,pcm=False):

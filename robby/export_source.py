@@ -37,8 +37,11 @@ def main():
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     # Authored synthetic quick-reaction and memory receipts, never private storage.
-    for prefix in ('quick-reaction-', 'knowledge-memory-'):
+    for prefix in ('quick-reaction-', 'quick-quality-', 'knowledge-memory-'):
         files+=list((ROOT/'static').glob(prefix+'*.json'))
+    # Reviewed synthetic experiment implementations and original prompt only.
+    files += [ROOT/'experiments/quick-reaction-v1.json']
+    files += list((ROOT/'experiments').glob('quick-reaction-candidate[1-7].py'))
     files+=list((ROOT/'ci').glob('*.yml'))
     for pattern in ['*.py','*.md']:files+=list((ROOT/'speaker_v2').glob(pattern))
     files+=list((ROOT/'speaker_v3').glob('*.py'))
@@ -54,7 +57,7 @@ def main():
     for path in sorted(set(files)):
         if path.is_symlink():raise ValueError('No symlinks in source export')
         raw=path.read_bytes();raw.decode('utf-8')
-        if path.name=='bolt-precision.json' or path.name.startswith('quick-reaction-audio') and path.suffix=='.json':
+        if path.name=='bolt-precision.json' or path.name.startswith(('quick-reaction-audio','quick-quality-audio')) and path.suffix=='.json':
             # Representative authored clips are embedded once in the report.
             # Keep the raw measurement record compact in the source release.
             record=json.loads(raw)

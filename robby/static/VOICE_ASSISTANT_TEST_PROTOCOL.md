@@ -664,3 +664,25 @@ uv run --no-project --with playwright --python /path/to/python \
   python browser_voice_caption_check.py --url https://YOUR-TUNNEL
 python run_voice_assistant_checks.py --help  # --asr-model pins the comparison
 ```
+
+
+## Local quick-reaction quality regression
+
+Use `quick_reaction_cases.py` for the fixed 40 authored cases, including serious
+news, jokes, elliptical follow-ups, language switches and deliberate omissions.
+`benchmark_quick_quality.py --label LABEL --split all` runs three fixed seeds
+per eligible case and records full prompt, raw output, validated output and
+local latency. `judge_quick_quality.py` performs randomized, blinded A/B ratings
+with Qwen; invalid judge replies remain explicit. Model preferences do not replace
+human listening or semantic review. Preserve failed prompt variants and original
+held-out failures; a rerun after a repair is a regression test, not an untouched
+holdout. Never publish real user conversations as benchmark fixtures.
+
+Run `benchmark_quick_dialogue.py` for a six-turn actual-model thread,
+`benchmark_quick_quality_audio.py` for four real TTS handoffs, and
+`browser_quick_reaction_check.py --url HTTPS_URL` for the complete browser
+contract. These scripts refuse to overwrite existing quality receipts; archive
+old results before an intentional rerun. Main answers are tested separately from
+optional first reactions: a good preface does not imply a good joke or a shorter
+time to substantive content. See `static/quick-quality-report.html` for all
+results and limitations.
