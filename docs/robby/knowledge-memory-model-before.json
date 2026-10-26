@@ -1,0 +1,509 @@
+{
+  "passed": false,
+  "scope": "Real Qwen extraction/retrieval across fresh sessions; authored test data only.",
+  "updates": [
+    {
+      "user": "Hallo, ich bin Bob. Meine Freundin ist Alice. Ich wohne in Hamburg und spiele gern Saxofon.",
+      "ms": 1286.45,
+      "state": {
+        "state": "ready",
+        "entries": 5,
+        "updated": 4,
+        "update_ms": 1829.58,
+        "error": null
+      },
+      "titles": [
+        "Bob",
+        "Alice",
+        "Hamburg"
+      ]
+    },
+    {
+      "user": "Alice liebt Jazz und kümmert sich gern um ihren Garten.",
+      "ms": 500.72,
+      "state": {
+        "state": "ready",
+        "entries": 5,
+        "updated": 4,
+        "update_ms": 1829.58,
+        "error": null
+      },
+      "titles": [
+        "Bob",
+        "Alice",
+        "Hamburg"
+      ]
+    },
+    {
+      "user": "Kleine Korrektur: Ich bin Bob und wohne jetzt in Bremen, nicht mehr in Hamburg.",
+      "ms": 635.1,
+      "state": {
+        "state": "ready",
+        "entries": 5,
+        "updated": 4,
+        "update_ms": 1829.58,
+        "error": null
+      },
+      "titles": [
+        "Bremen",
+        "Bob",
+        "Alice",
+        "Hamburg"
+      ]
+    },
+    {
+      "user": "Mein Fahrrad heißt Blitz. Ich fahre damit jeden Sonntag zum See.",
+      "ms": 1830.4,
+      "state": {
+        "state": "ready",
+        "entries": 5,
+        "updated": 4,
+        "update_ms": 1829.58,
+        "error": null
+      },
+      "titles": [
+        "Bremen",
+        "Bob",
+        "Alice",
+        "Blitz",
+        "Hamburg"
+      ]
+    }
+  ],
+  "answers": [
+    {
+      "question": "Wie heißt Bobs Freundin?",
+      "text": "Ich habe leider keine Informationen über eine Freundin von Bob.",
+      "passed": false,
+      "context": {
+        "knowledge_used_bound": 0,
+        "activated": [],
+        "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
+        "history_used_bound": 0,
+        "retrieval_ms": 51.23
+      },
+      "metrics": {
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 292.44,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1413,
+          "completion_tokens": 17,
+          "total_tokens": 1430,
+          "cost": 0.001409958,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0014242,
+            "upstream_inference_prompt_cost": 0.00139887,
+            "upstream_inference_completions_cost": 2.533e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "llm_first_sentence_ms": 316.12,
+        "generation_calls": 1,
+        "llm_total_ms": 316.14,
+        "response_complete": true
+      }
+    }
+  ],
+  "entries": [
+    {
+      "id": "6ebb5ac9686c6f7eb9bc4b10",
+      "title": "Bremen",
+      "kind": "place",
+      "summary": "resident: Bob",
+      "detail": "resident: Bob",
+      "facts": {
+        "resident": {
+          "value": "Bob",
+          "evidence": "Kleine Korrektur: Ich bin Bob und wohne jetzt in Bremen, nicht mehr in Hamburg.",
+          "related": "Bob",
+          "recorded_at": 1793051767.8
+        }
+      },
+      "triggers": [
+        "Bremen"
+      ],
+      "links": [
+        "81b637d8fcd2c6da6359e696"
+      ],
+      "updated_at": 1793051767.829,
+      "versions": [
+        {
+          "id": "6ebb5ac9686c6f7eb9bc4b10",
+          "title": "Bremen",
+          "kind": "place",
+          "summary": "resident: Bob",
+          "detail": "resident: Bob",
+          "facts": {
+            "resident": {
+              "value": "Bob",
+              "evidence": "Kleine Korrektur: Ich bin Bob und wohne jetzt in Bremen, nicht mehr in Hamburg.",
+              "related": "Bob",
+              "recorded_at": 1793051765.989
+            }
+          },
+          "triggers": [
+            "Bremen"
+          ],
+          "links": [
+            "81b637d8fcd2c6da6359e696"
+          ],
+          "updated_at": 1793051766.008
+        }
+      ]
+    },
+    {
+      "id": "81b637d8fcd2c6da6359e696",
+      "title": "Bob",
+      "kind": "person",
+      "summary": "partner: Alice; location: Bremen; interest: Saxofon spielen",
+      "detail": "partner: Alice\nlocation: Bremen\ninterest: Saxofon spielen\nowns: Blitz\nroutine: Fährt sonntags mit dem Fahrrad zum See",
+      "facts": {
+        "partner": {
+          "value": "Alice",
+          "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice.",
+          "related": "Alice",
+          "recorded_at": 1793051767.799
+        },
+        "location": {
+          "value": "Bremen",
+          "evidence": "Kleine Korrektur: Ich bin Bob und wohne jetzt in Bremen, nicht mehr in Hamburg.",
+          "related": "Bremen",
+          "recorded_at": 1793051767.799
+        },
+        "interest": {
+          "value": "Saxofon spielen",
+          "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice. Ich wohne in Hamburg und spiele gern Saxofon.",
+          "related": null,
+          "recorded_at": 1793051767.799
+        },
+        "owns": {
+          "value": "Blitz",
+          "evidence": "Mein Fahrrad heißt Blitz.",
+          "related": "Blitz",
+          "recorded_at": 1793051767.799
+        },
+        "routine": {
+          "value": "Fährt sonntags mit dem Fahrrad zum See",
+          "evidence": "Ich fahre damit jeden Sonntag zum See.",
+          "related": null,
+          "recorded_at": 1793051767.799
+        }
+      },
+      "triggers": [
+        "Bob"
+      ],
+      "links": [
+        "2bd806c97f0e00af1a1fc332",
+        "6ebb5ac9686c6f7eb9bc4b10",
+        "9cafe03be4fb99a640097a3b"
+      ],
+      "updated_at": 1793051767.8,
+      "versions": [
+        {
+          "id": "81b637d8fcd2c6da6359e696",
+          "title": "Bob",
+          "kind": "person",
+          "summary": "partner: Alice; location: Hamburg; interest: Saxofon spielen",
+          "detail": "partner: Alice\nlocation: Hamburg\ninterest: Saxofon spielen",
+          "facts": {
+            "partner": {
+              "value": "Alice",
+              "evidence": "Meine Freundin ist Alice.",
+              "related": "Alice",
+              "recorded_at": 1793051764.852
+            },
+            "location": {
+              "value": "Hamburg",
+              "evidence": "Ich wohne in Hamburg",
+              "related": "Hamburg",
+              "recorded_at": 1793051764.853
+            },
+            "interest": {
+              "value": "Saxofon spielen",
+              "evidence": "spiele gern Saxofon",
+              "related": null,
+              "recorded_at": 1793051764.853
+            }
+          },
+          "triggers": [
+            "Bob"
+          ],
+          "links": [
+            "2bd806c97f0e00af1a1fc332",
+            "d1d470d61a1e5e55f9958c8f"
+          ],
+          "updated_at": 1793051764.853
+        },
+        {
+          "id": "81b637d8fcd2c6da6359e696",
+          "title": "Bob",
+          "kind": "person",
+          "summary": "partner: Alice; location: Hamburg; interest: Saxofon spielen",
+          "detail": "partner: Alice\nlocation: Hamburg\ninterest: Saxofon spielen",
+          "facts": {
+            "partner": {
+              "value": "Alice",
+              "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice.",
+              "related": "Alice",
+              "recorded_at": 1793051765.353
+            },
+            "location": {
+              "value": "Hamburg",
+              "evidence": "Ich wohne in Hamburg",
+              "related": "Hamburg",
+              "recorded_at": 1793051765.353
+            },
+            "interest": {
+              "value": "Saxofon spielen",
+              "evidence": "spiele gern Saxofon",
+              "related": null,
+              "recorded_at": 1793051765.353
+            }
+          },
+          "triggers": [
+            "Bob"
+          ],
+          "links": [
+            "2bd806c97f0e00af1a1fc332",
+            "d1d470d61a1e5e55f9958c8f"
+          ],
+          "updated_at": 1793051765.353
+        },
+        {
+          "id": "81b637d8fcd2c6da6359e696",
+          "title": "Bob",
+          "kind": "person",
+          "summary": "partner: Alice; location: Bremen; interest: Saxofon spielen",
+          "detail": "partner: Alice\nlocation: Bremen\ninterest: Saxofon spielen",
+          "facts": {
+            "partner": {
+              "value": "Alice",
+              "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice.",
+              "related": "Alice",
+              "recorded_at": 1793051765.989
+            },
+            "location": {
+              "value": "Bremen",
+              "evidence": "Kleine Korrektur: Ich bin Bob und wohne jetzt in Bremen, nicht mehr in Hamburg.",
+              "related": "Bremen",
+              "recorded_at": 1793051765.989
+            },
+            "interest": {
+              "value": "Saxofon spielen",
+              "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice. Ich wohne in Hamburg und spiele gern Saxofon.",
+              "related": null,
+              "recorded_at": 1793051765.989
+            }
+          },
+          "triggers": [
+            "Bob"
+          ],
+          "links": [
+            "2bd806c97f0e00af1a1fc332",
+            "6ebb5ac9686c6f7eb9bc4b10"
+          ],
+          "updated_at": 1793051765.989
+        }
+      ]
+    },
+    {
+      "id": "2bd806c97f0e00af1a1fc332",
+      "title": "Alice",
+      "kind": "person",
+      "summary": "partner: Bob; interest: Garten pflegen",
+      "detail": "partner: Bob\ninterest: Garten pflegen",
+      "facts": {
+        "partner": {
+          "value": "Bob",
+          "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice.",
+          "related": "Bob",
+          "recorded_at": 1793051767.8
+        },
+        "interest": {
+          "value": "Garten pflegen",
+          "evidence": "Alice liebt Jazz und kümmert sich gern um ihren Garten.",
+          "related": null,
+          "recorded_at": 1793051767.8
+        }
+      },
+      "triggers": [
+        "Alice"
+      ],
+      "links": [
+        "81b637d8fcd2c6da6359e696"
+      ],
+      "updated_at": 1793051767.819,
+      "versions": [
+        {
+          "id": "2bd806c97f0e00af1a1fc332",
+          "title": "Alice",
+          "kind": "person",
+          "summary": "partner: Bob",
+          "detail": "partner: Bob",
+          "facts": {
+            "partner": {
+              "value": "Bob",
+              "evidence": "Meine Freundin ist Alice.",
+              "related": "Bob",
+              "recorded_at": 1793051764.853
+            }
+          },
+          "triggers": [
+            "Alice"
+          ],
+          "links": [
+            "81b637d8fcd2c6da6359e696"
+          ],
+          "updated_at": 1793051764.863
+        },
+        {
+          "id": "2bd806c97f0e00af1a1fc332",
+          "title": "Alice",
+          "kind": "person",
+          "summary": "partner: Bob; interest: Garten pflegen",
+          "detail": "partner: Bob\ninterest: Garten pflegen",
+          "facts": {
+            "partner": {
+              "value": "Bob",
+              "evidence": "Meine Freundin ist Alice.",
+              "related": "Bob",
+              "recorded_at": 1793051765.353
+            },
+            "interest": {
+              "value": "Garten pflegen",
+              "evidence": "kümmert sich gern um ihren Garten",
+              "related": null,
+              "recorded_at": 1793051765.353
+            }
+          },
+          "triggers": [
+            "Alice"
+          ],
+          "links": [
+            "81b637d8fcd2c6da6359e696"
+          ],
+          "updated_at": 1793051765.364
+        },
+        {
+          "id": "2bd806c97f0e00af1a1fc332",
+          "title": "Alice",
+          "kind": "person",
+          "summary": "partner: Bob; interest: Garten pflegen",
+          "detail": "partner: Bob\ninterest: Garten pflegen",
+          "facts": {
+            "partner": {
+              "value": "Bob",
+              "evidence": "Hallo, ich bin Bob. Meine Freundin ist Alice.",
+              "related": "Bob",
+              "recorded_at": 1793051765.989
+            },
+            "interest": {
+              "value": "Garten pflegen",
+              "evidence": "Alice liebt Jazz und kümmert sich gern um ihren Garten.",
+              "related": null,
+              "recorded_at": 1793051765.989
+            }
+          },
+          "triggers": [
+            "Alice"
+          ],
+          "links": [
+            "81b637d8fcd2c6da6359e696"
+          ],
+          "updated_at": 1793051765.999
+        }
+      ]
+    },
+    {
+      "id": "9cafe03be4fb99a640097a3b",
+      "title": "Blitz",
+      "kind": "object",
+      "summary": "type: Fahrrad; owner: Bob",
+      "detail": "type: Fahrrad\nowner: Bob",
+      "facts": {
+        "type": {
+          "value": "Fahrrad",
+          "evidence": "Mein Fahrrad heißt Blitz.",
+          "related": null,
+          "recorded_at": 1793051767.8
+        },
+        "owner": {
+          "value": "Bob",
+          "evidence": "Mein Fahrrad heißt Blitz.",
+          "related": "Bob",
+          "recorded_at": 1793051767.8
+        }
+      },
+      "triggers": [
+        "Blitz"
+      ],
+      "links": [
+        "81b637d8fcd2c6da6359e696"
+      ],
+      "updated_at": 1793051767.838,
+      "versions": []
+    },
+    {
+      "id": "d1d470d61a1e5e55f9958c8f",
+      "title": "Hamburg",
+      "kind": "place",
+      "summary": "resident: Bob",
+      "detail": "resident: Bob",
+      "facts": {
+        "resident": {
+          "value": "Bob",
+          "evidence": "Ich wohne in Hamburg",
+          "related": "Bob",
+          "recorded_at": 1793051765.353
+        }
+      },
+      "triggers": [
+        "Hamburg"
+      ],
+      "links": [
+        "81b637d8fcd2c6da6359e696"
+      ],
+      "updated_at": 1793051765.372,
+      "versions": [
+        {
+          "id": "d1d470d61a1e5e55f9958c8f",
+          "title": "Hamburg",
+          "kind": "place",
+          "summary": "resident: Bob",
+          "detail": "resident: Bob",
+          "facts": {
+            "resident": {
+              "value": "Bob",
+              "evidence": "Ich wohne in Hamburg",
+              "related": "Bob",
+              "recorded_at": 1793051764.853
+            }
+          },
+          "triggers": [
+            "Hamburg"
+          ],
+          "links": [
+            "81b637d8fcd2c6da6359e696"
+          ],
+          "updated_at": 1793051764.872
+        }
+      ]
+    }
+  ],
+  "error": "AssertionError: Ich habe leider keine Informationen über eine Freundin von Bob."
+}

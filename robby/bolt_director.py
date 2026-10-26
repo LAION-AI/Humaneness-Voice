@@ -138,12 +138,13 @@ class BoltDirector:
         messages[0]['content']+=f'\nCurrent reply language: {language}. Use {language} for the actual spoken words in this turn.'
         # Bound context while leaving space for a complete answer in the
         # local server's 8192-token slot. Keep recent completed turns in order.
+        memory=(avatar_context or {}).get('knowledge_memory')
         recent=[];remaining=8000
-        for h in reversed(history[-12:]):
+        for h in reversed(history if memory else history[-12:]):
             if h.get('role') in ('user','assistant') and isinstance(h.get('content'),str):
                 content=h['content']
-                if len(content)>4000:content=content[:1800]+'\n[Earlier reply shortened for context]\n'+content[-1800:]
-                if len(content)>remaining:break
+                if not memory and len(content)>4000:content=content[:1800]+'\n[Earlier reply shortened for context]\n'+content[-1800:]
+                if not memory and len(content)>remaining:break
                 recent.append({**h,'content':content});remaining-=len(content)
         from conversation_tasks import history_for_model
         model_history,playback_note=history_for_model(list(reversed(recent)))
@@ -151,7 +152,12 @@ class BoltDirector:
         from voice_captioning import prompt_hint
         if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps({k:v for k,v in identity.items() if k!='voice_delivery'},ensure_ascii=False)
         if not (avatar_context or {}).get('event'):messages[0]['content']+=prompt_hint(identity)
-        if avatar_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(avatar_context,ensure_ascii=False)
+        if (avatar_context or {}).get('parallel_quick_reaction'):
+            messages[0]['content']+='\nA separate local companion may speak a short acknowledgment while you generate this reply. Start the actual useful answer directly, without an acknowledgment or preamble. Do not mention the companion or refer to a phrase you have not seen. Complete the full task normally; your answer must also stand alone if no acknowledgment plays.'
+        if memory:
+            messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k!='knowledge_memory'}
+        if browser_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if (avatar_context or {}).get('requested_actions'):
             messages[0]['content']+='''\nThe requested visual actions have already been sent to the browser. React playfully while
 the screen robot performs them. Do not claim you cannot move your screen face, promise to do it

@@ -97,8 +97,11 @@ class SentenceFramer:
                     if final or len(self.buffer)>120:raise ValueError('Unclosed acting cue')
                     break
                 raw=self.buffer[1:end]
-                if not re.fullmatch(r'[A-Za-z_ ,\-]{1,100}',raw):raise ValueError('Invalid acting cue')
-                self.direction=raw.strip();self.buffer=self.buffer[end+1:].lstrip()
+                # A provider may emit a translated/decorated acting cue. It is
+                # optional metadata: discard malformed cues, retain the answer.
+                # Never forward arbitrary cue text to TTS or an action tool.
+                self.direction=raw.strip() if re.fullmatch(r'[A-Za-z_ ,\-]{1,100}',raw) else 'contentment, soft'
+                self.buffer=self.buffer[end+1:].lstrip()
             # Old playback metadata may be echoed by a model. Buffer its
             # partial prefix before sentence punctuation can leak fragments
             # into the UI or TTS; retain legitimate square-bracket pause cues.
