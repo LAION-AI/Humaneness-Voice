@@ -1,0 +1,854 @@
+[
+  {
+    "seconds": 1.0,
+    "trial": 0,
+    "http_ms": 66.11,
+    "status": "available",
+    "caption": "Possibly choppy, smooth, slightly slow, hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 1.0,
+    "inference_ms": 63.46,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.123,
+          "z": -1.16,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably choppy and fragmented",
+          "tag": "choppy",
+          "reliability": 1.0,
+          "rank_score": 1.165
+        },
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.164,
+          "z": -1.13,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably smooth and flawless",
+          "tag": "smooth",
+          "reliability": 1.0,
+          "rank_score": 1.135
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.633,
+          "z": -0.63,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": true,
+          "phrase": "somewhat slow and deliberate in tempo",
+          "tag": "slightly slow",
+          "reliability": 1.0,
+          "rank_score": 0.627
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 1.725,
+          "z": 1.29,
+          "direction": "above",
+          "intensity": "Notably",
+          "synonym": "hope",
+          "phrase": "notably carrying hope",
+          "tag": "hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 1.0,
+    "trial": 1,
+    "http_ms": 60.46,
+    "status": "available",
+    "caption": "Possibly choppy, smooth, slightly slow, hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 1.0,
+    "inference_ms": 58.76,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.123,
+          "z": -1.16,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably choppy and fragmented",
+          "tag": "choppy",
+          "reliability": 1.0,
+          "rank_score": 1.165
+        },
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.164,
+          "z": -1.13,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably smooth and flawless",
+          "tag": "smooth",
+          "reliability": 1.0,
+          "rank_score": 1.135
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.633,
+          "z": -0.63,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": true,
+          "phrase": "somewhat slow and deliberate in tempo",
+          "tag": "slightly slow",
+          "reliability": 1.0,
+          "rank_score": 0.627
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 1.725,
+          "z": 1.29,
+          "direction": "above",
+          "intensity": "Notably",
+          "synonym": "hope",
+          "phrase": "notably carrying hope",
+          "tag": "hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 1.0,
+    "trial": 2,
+    "http_ms": 60.41,
+    "status": "available",
+    "caption": "Possibly choppy, smooth, slightly slow, hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 1.0,
+    "inference_ms": 58.85,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.123,
+          "z": -1.16,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably choppy and fragmented",
+          "tag": "choppy",
+          "reliability": 1.0,
+          "rank_score": 1.165
+        },
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.164,
+          "z": -1.13,
+          "direction": "below",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably smooth and flawless",
+          "tag": "smooth",
+          "reliability": 1.0,
+          "rank_score": 1.135
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.633,
+          "z": -0.63,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": true,
+          "phrase": "somewhat slow and deliberate in tempo",
+          "tag": "slightly slow",
+          "reliability": 1.0,
+          "rank_score": 0.627
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 1.725,
+          "z": 1.29,
+          "direction": "above",
+          "intensity": "Notably",
+          "synonym": "hope",
+          "phrase": "notably carrying hope",
+          "tag": "hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 2.0,
+    "trial": 0,
+    "http_ms": 94.19,
+    "status": "available",
+    "caption": "Possibly slightly smooth, slightly steady, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 2.0,
+    "inference_ms": 92.62,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.433,
+          "z": -0.86,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat smooth and flawless",
+          "tag": "slightly smooth",
+          "reliability": 1.0,
+          "rank_score": 0.862
+        },
+        {
+          "dim": "VOLT",
+          "name": "Volatility",
+          "value": 1.277,
+          "z": -0.84,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat emotionally steady and static",
+          "tag": "slightly steady",
+          "reliability": 1.0,
+          "rank_score": 0.836
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.896,
+          "z": -0.12,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.123
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 2.072,
+          "z": 1.86,
+          "direction": "above",
+          "intensity": "Very",
+          "synonym": "hope",
+          "phrase": "very carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 2.0,
+    "trial": 1,
+    "http_ms": 94.11,
+    "status": "available",
+    "caption": "Possibly slightly smooth, slightly steady, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 2.0,
+    "inference_ms": 92.53,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.433,
+          "z": -0.86,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat smooth and flawless",
+          "tag": "slightly smooth",
+          "reliability": 1.0,
+          "rank_score": 0.862
+        },
+        {
+          "dim": "VOLT",
+          "name": "Volatility",
+          "value": 1.277,
+          "z": -0.84,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat emotionally steady and static",
+          "tag": "slightly steady",
+          "reliability": 1.0,
+          "rank_score": 0.836
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.896,
+          "z": -0.12,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.123
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 2.072,
+          "z": 1.86,
+          "direction": "above",
+          "intensity": "Very",
+          "synonym": "hope",
+          "phrase": "very carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 2.0,
+    "trial": 2,
+    "http_ms": 99.31,
+    "status": "available",
+    "caption": "Possibly slightly smooth, slightly steady, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 2.0,
+    "inference_ms": 97.67,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "DFLU",
+          "name": "Disfluency",
+          "value": 0.433,
+          "z": -0.86,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat smooth and flawless",
+          "tag": "slightly smooth",
+          "reliability": 1.0,
+          "rank_score": 0.862
+        },
+        {
+          "dim": "VOLT",
+          "name": "Volatility",
+          "value": 1.277,
+          "z": -0.84,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat emotionally steady and static",
+          "tag": "slightly steady",
+          "reliability": 1.0,
+          "rank_score": 0.836
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.896,
+          "z": -0.12,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.123
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 2.072,
+          "z": 1.86,
+          "direction": "above",
+          "intensity": "Very",
+          "synonym": "hope",
+          "phrase": "very carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 4.0,
+    "trial": 0,
+    "http_ms": 168.42,
+    "status": "available",
+    "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 4.0,
+    "inference_ms": 166.69,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "ATCK",
+          "name": "Attack",
+          "value": 2.467,
+          "z": -0.81,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat soft and gentle in onset",
+          "tag": "slightly soft-onset",
+          "reliability": 1.0,
+          "rank_score": 0.806
+        },
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.311,
+          "z": -0.78,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat choppy and fragmented",
+          "tag": "slightly choppy",
+          "reliability": 1.0,
+          "rank_score": 0.779
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 3.04,
+          "z": 0.15,
+          "direction": "above",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.153
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Relief",
+          "value": 2.059,
+          "z": 3.99,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "liberation",
+          "phrase": "extremely carrying liberation",
+          "tag": "very liberation"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 4.0,
+    "trial": 1,
+    "http_ms": 166.65,
+    "status": "available",
+    "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 4.0,
+    "inference_ms": 165.05,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "ATCK",
+          "name": "Attack",
+          "value": 2.467,
+          "z": -0.81,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat soft and gentle in onset",
+          "tag": "slightly soft-onset",
+          "reliability": 1.0,
+          "rank_score": 0.806
+        },
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.311,
+          "z": -0.78,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat choppy and fragmented",
+          "tag": "slightly choppy",
+          "reliability": 1.0,
+          "rank_score": 0.779
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 3.04,
+          "z": 0.15,
+          "direction": "above",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.153
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Relief",
+          "value": 2.059,
+          "z": 3.99,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "liberation",
+          "phrase": "extremely carrying liberation",
+          "tag": "very liberation"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 4.0,
+    "trial": 2,
+    "http_ms": 166.05,
+    "status": "available",
+    "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 4.0,
+    "inference_ms": 164.34,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "ATCK",
+          "name": "Attack",
+          "value": 2.467,
+          "z": -0.81,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat soft and gentle in onset",
+          "tag": "slightly soft-onset",
+          "reliability": 1.0,
+          "rank_score": 0.806
+        },
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 2.311,
+          "z": -0.78,
+          "direction": "below",
+          "intensity": "Somewhat",
+          "always_on": false,
+          "phrase": "somewhat choppy and fragmented",
+          "tag": "slightly choppy",
+          "reliability": 1.0,
+          "rank_score": 0.779
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 3.04,
+          "z": 0.15,
+          "direction": "above",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.153
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Relief",
+          "value": 2.059,
+          "z": 3.99,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "liberation",
+          "phrase": "extremely carrying liberation",
+          "tag": "very liberation"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 8.0,
+    "trial": 0,
+    "http_ms": 326.49,
+    "status": "available",
+    "caption": "Possibly very choppy, surging, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 8.0,
+    "inference_ms": 324.76,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 1.759,
+          "z": -1.91,
+          "direction": "below",
+          "intensity": "Very",
+          "always_on": false,
+          "phrase": "very choppy and fragmented",
+          "tag": "very choppy",
+          "reliability": 1.0,
+          "rank_score": 1.912
+        },
+        {
+          "dim": "ARSH",
+          "name": "Arousal Shift",
+          "value": 3.24,
+          "z": 1.16,
+          "direction": "above",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably surging upward in energy",
+          "tag": "surging",
+          "reliability": 1.0,
+          "rank_score": 1.163
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.838,
+          "z": -0.23,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.234
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 3.343,
+          "z": 3.92,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "hope",
+          "phrase": "extremely carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 8.0,
+    "trial": 1,
+    "http_ms": 326.15,
+    "status": "available",
+    "caption": "Possibly very choppy, surging, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 8.0,
+    "inference_ms": 324.23,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 1.759,
+          "z": -1.91,
+          "direction": "below",
+          "intensity": "Very",
+          "always_on": false,
+          "phrase": "very choppy and fragmented",
+          "tag": "very choppy",
+          "reliability": 1.0,
+          "rank_score": 1.912
+        },
+        {
+          "dim": "ARSH",
+          "name": "Arousal Shift",
+          "value": 3.24,
+          "z": 1.16,
+          "direction": "above",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably surging upward in energy",
+          "tag": "surging",
+          "reliability": 1.0,
+          "rank_score": 1.163
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.838,
+          "z": -0.23,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.234
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 3.343,
+          "z": 3.92,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "hope",
+          "phrase": "extremely carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  },
+  {
+    "seconds": 8.0,
+    "trial": 2,
+    "http_ms": 327.46,
+    "status": "available",
+    "caption": "Possibly very choppy, surging, very hope",
+    "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+    "window_s": 8.0,
+    "inference_ms": 325.56,
+    "model": "laion/humaneness-ears-base-medium",
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cpu",
+    "precision": "float32",
+    "selected": {
+      "voicenet": [
+        {
+          "dim": "CHNK",
+          "name": "Chunking",
+          "value": 1.759,
+          "z": -1.91,
+          "direction": "below",
+          "intensity": "Very",
+          "always_on": false,
+          "phrase": "very choppy and fragmented",
+          "tag": "very choppy",
+          "reliability": 1.0,
+          "rank_score": 1.912
+        },
+        {
+          "dim": "ARSH",
+          "name": "Arousal Shift",
+          "value": 3.24,
+          "z": 1.16,
+          "direction": "above",
+          "intensity": "Notably",
+          "always_on": false,
+          "phrase": "notably surging upward in energy",
+          "tag": "surging",
+          "reliability": 1.0,
+          "rank_score": 1.163
+        },
+        {
+          "dim": "TEMP",
+          "name": "Tempo",
+          "value": 2.838,
+          "z": -0.23,
+          "direction": "below",
+          "intensity": "About-average",
+          "always_on": true,
+          "phrase": "moderate in tempo",
+          "tag": null,
+          "reliability": 1.0,
+          "rank_score": 0.234
+        }
+      ],
+      "emotions": [
+        {
+          "emotion": "Hope/Optimism",
+          "value": 3.343,
+          "z": 3.92,
+          "direction": "above",
+          "intensity": "Extremely",
+          "synonym": "hope",
+          "phrase": "extremely carrying hope",
+          "tag": "very hope"
+        }
+      ]
+    },
+    "normalization": "speech reference z-scores; not probabilities"
+  }
+]

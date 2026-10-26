@@ -17,12 +17,13 @@
 <option value="nemotron">Nemotron 3.5 · original</option>
 <option value="moonshine_de">Moonshine Streaming Small · German</option>
 <option value="nemotron_de">Nemotron 3.5 · German telephony</option>
-<option value="parakeet_v3">Parakeet TDT v3 · multilingual</option>
+<option value="parakeet_v3" selected>Parakeet TDT v3 · multilingual</option>
 <option value="whisper_turbo">Whisper Large v3 Turbo · German</option>
 </select></label>
-<p id="asr-model-status" role="status">German replies by default. Choose a recognizer to compare the final transcript.</p>
-<details><summary>How recognition and model loading work</summary><p>Nemotron keeps providing live previews, speaker features and interruptions. After your speech pause, the selected model produces the final transcript. Whisper uses buffered speech segments. Other recognizers are held in CPU RAM and moved to the GPU in the background when selected. Your choice is remembered in this browser. Ask explicitly for another reply language if desired.</p><p id="asr-cache-status" role="status">Checking model readiness…</p><a href="/static/asr-model-update.html" target="_blank" rel="noopener">Model timings, offloading and test results ↗</a></details>
+<p id="asr-model-status" role="status">Default: Parakeet v3 final transcripts. Nemotron provides live previews and interruptions.</p>
+<details><summary>How recognition and model loading work</summary><p>Nemotron keeps providing live previews, speaker features and interruptions. After your speech pause, the selected model produces the final transcript. Whisper uses buffered speech segments. Other recognizers are held in CPU RAM and moved to the GPU in the background when selected. Your choice is remembered in this browser. Ask explicitly for another reply language if desired.</p><p id="asr-cache-status" role="status">Checking model readiness…</p><a href="/static/voice-caption-update.html" target="_blank" rel="noopener">GPU voice captions · tests &amp; bridge-phrase PDF ↗</a> · <a href="/static/asr-model-update.html" target="_blank" rel="noopener">Model timings, offloading and test results ↗</a></details>
 </section>
+<section id="voice-caption-controls" aria-label="Tone of voice"><label><input id="voice-captions" type="checkbox" checked> Use uncertain tone-of-voice hints</label><p id="voice-caption-status" role="status">Short GPU audio captions run alongside ASR and help Robby interpret delivery. They can be wrong; your words take priority.</p></section>
 <section id="speech-pause-controls" hidden aria-label="Wait for a speech pause">
 <label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">700 ms</output></label>
 <input id="speech-pause" type="range" min="200" max="2000" step="50" value="700">
@@ -30,7 +31,7 @@
 <p id="speech-pause-status" role="status">Neural speech detection · waiting for microphone.</p>
 <a href="/static/speech-pause-update.html" target="_blank" rel="noopener">How it works &amp; test results ↗</a>
 </section>
-<div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox" checked> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
+<div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox"> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
 <p id="follow-status" role="status">Camera permission is needed. Head movement follows your position, not your head rotation.</p>
 <p id="action-notice" role="status" hidden></p>
 </div>

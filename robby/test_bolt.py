@@ -122,6 +122,10 @@ class BoltSpeakersTests(unittest.TestCase):
         self.assertNotEqual(a['speaker_id'],b['speaker_id'])
 
 class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
+    async def asyncSetUp(self):
+        optional=patch('voice_captioning.describe',new_callable=AsyncMock,return_value={'status':'disabled'})
+        optional.start();self.addCleanup(optional.stop)
+
     async def test_acknowledgment_only_story_gets_one_bounded_real_continuation(self):
         from bolt_director import BoltDirector
         calls=[]

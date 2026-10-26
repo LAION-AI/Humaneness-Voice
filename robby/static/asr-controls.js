@@ -2,8 +2,15 @@
 export class ASRControls{
  constructor(client){
   this.client=client;this.select=document.getElementById('asr-model');this.status=document.getElementById('asr-model-status');this.cache=document.getElementById('asr-cache-status');
-  this.desired='nemotron';this.active='nemotron';this.connected=false;
-  try{const saved=localStorage.getItem('robby.asrModel');if([...this.select.options].some(o=>o.value===saved))this.desired=saved;}catch{}
+  this.desired='parakeet_v3';this.active='nemotron';this.connected=false;
+  try{
+   let saved=localStorage.getItem('robby.asrModel');
+   if(localStorage.getItem('robby.asrDefaultVersion')!=='2'){
+    if(!saved||saved==='nemotron'){saved='parakeet_v3';localStorage.setItem('robby.asrModel',saved);}
+    localStorage.setItem('robby.asrDefaultVersion','2');
+   }
+   if([...this.select.options].some(o=>o.value===saved))this.desired=saved;
+  }catch{}
   this.select.value=this.desired;
   this.select.onchange=async()=>{
    this.desired=this.select.value;try{localStorage.setItem('robby.asrModel',this.desired);}catch{}
@@ -24,7 +31,8 @@ export class ASRControls{
  }
  message(m){
   if(m.type==='ready'){
-   this.connected=true;this.client.send('asr:model:'+this.desired);
+   this.connected=true;
+   if(m.asr_settings?.selected_model!==this.desired&&m.asr_settings?.loading_model!==this.desired)this.client.send('asr:model:'+this.desired);
    if(m.asr_settings)this.message(m.asr_settings);
   }
   if(m.type==='asr_settings'){

@@ -6,10 +6,13 @@
   "ROBO_SPEECH_PAUSE_MS": "700",
   "ROBO_REPLY_LANGUAGE": "de",
   "ROBO_ASR_MODELS_BASE": "http://127.0.0.1:8801",
+  "ROBO_ASR_MODEL": "parakeet_v3",
   "ROBO_BOLT_BASE": "http://127.0.0.1:8799",
   "ROBO_DIRECTOR_BASE": "http://127.0.0.1:8799",
   "ROBO_DIRECTOR_MODEL": "nemotron-bolt",
   "ROBO_BOLT_CHUNK_FRAMES": "20",
   "ROBO_MAX_SESSION_S": "1800",
-  "ROBO_ECAPA_ROOT": "/path/to/existing/speechbrain-ecapa/snapshot"
+  "ROBO_ECAPA_ROOT": "/path/to/existing/speechbrain-ecapa/snapshot",
+  "ROBO_CAPTION_URL": "http://127.0.0.1:8802",
+  "ROBO_CAPTION_TIMEOUT_S": "0.35"
 }

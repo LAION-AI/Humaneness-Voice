@@ -8,6 +8,10 @@ from avatar_commands import explicit_actions
 
 
 class ReliabilityTests(unittest.IsolatedAsyncioTestCase):
+    async def asyncSetUp(self):
+        optional=patch('voice_captioning.describe',new_callable=AsyncMock,return_value={'status':'disabled'})
+        optional.start();self.addCleanup(optional.stop)
+
     def session(self):
         c=SimpleNamespace(ws=SimpleNamespace(closed=False,send_json=AsyncMock()),speaking=False,halting=False,
             identity_enabled=True,current_speaker=None,hop_pos=48000,

@@ -65,6 +65,8 @@ def main():
     p.add_argument('--fixtures',default=os.environ.get('ROBBY_TEST_FIXTURES','/mnt/nvme/robo-speaker-studies/speaker-live-fixtures'))
     p.add_argument('--keep-going',action='store_true',help='Archive failures and continue independent suites, without retries')
     p.add_argument('--adversarial-scenarios',default='all',help='Subset from adversarial_scenarios.py, or all')
+    from asr_catalog import MODELS
+    p.add_argument('--asr-model',choices=list(MODELS),default='nemotron',help='Pin a final recognizer for baseline comparisons; UI default is independent')
     a=p.parse_args();suites=a.suites.split(',')
     if set(suites)-{'unit','decision','stress','browser','stops','permissions','continuity','dialogue','adversarial','input_audit','tool_evidence'}:p.error('Unknown suite')
     threshold=.28 if a.threshold is None else a.threshold;pause=700 if a.pause_ms is None else a.pause_ms
@@ -80,7 +82,7 @@ def main():
     manifest={'schema_version':1,'run_id':stamp,'started_utc':stamp.split('-')[0],
         'scope':'Synthetic digital injection; no physical microphone/DAC or held-out accuracy claim',
         'configuration':{'threshold':threshold,'pause_ms':pause,'browser_default_migration':a.threshold is None and a.pause_ms is None,
-            'speakers':speakers,'seeds':seeds,'url':a.url},
+            'speakers':speakers,'seeds':seeds,'url':a.url,'asr_model':a.asr_model},
         'python':platform.python_version(),'platform':platform.platform(),'packages':{},
         'source_sha256':{str(x.relative_to(ROOT)):digest(x) for x in source_files()},
         'fixture_sha256':{},'cases':[],'passed':False}
@@ -100,6 +102,7 @@ def main():
     def save():manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False))
     save()
     env=os.environ.copy();env['ROBBY_TEST_FIXTURES']=str(fixture_root.resolve());env['ROBBY_TEST_URL']=a.url
+    env['ROBBY_TEST_ASR_MODEL']=a.asr_model
     env.pop('ROBBY_TEST_QUICK_STOP',None);env.pop('ROBBY_TEST_PERMISSIONS',None)
     if a.threshold is not None or a.pause_ms is not None:
         env.update(ROBBY_TEST_THRESHOLD=str(threshold),ROBBY_TEST_PAUSE_MS=str(pause))

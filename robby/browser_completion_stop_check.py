@@ -54,6 +54,7 @@ async def run(args):
     report={'passed':False,'started':datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'scope':'Synthetic microphone injection; real ASR/identity/LLM/TTS. No physical room or arbitrary-phase reliability claim.',
         'source_sha256':deployed_source_hash(),'server_before':public_state(args.url),'cases':[],
+        'final_asr_model':'parakeet_v3','live_preview_and_interruptions':'nemotron',
         'fixtures':{n:rows[n] for n,_ in CASES},'injections':[]}
     stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     out=ROOT/'logs'/('completion-stop-'+stamp+'.json')
@@ -61,7 +62,7 @@ async def run(args):
         raw=json.dumps(report,indent=2,ensure_ascii=False);out.write_text(raw);(ROOT/'static/completion-stop-browser.json').write_text(raw)
     async with async_playwright() as p:
         browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
-        page=await browser.new_page();session=BrowserSession(page,clips,rows,report,SimpleNamespace(url=args.url,threshold=.28,pause_ms=700,seed=45))
+        page=await browser.new_page();session=BrowserSession(page,clips,rows,report,SimpleNamespace(url=args.url,threshold=.28,pause_ms=700,seed=45,asr_model='parakeet_v3'))
         try:
             await session.open()
             setup=await session.speak({'id':'enroll','clip':'christoph-intro','max_submissions':2},{'speaker':'Christoph'},setup=True)
