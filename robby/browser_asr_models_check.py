@@ -25,9 +25,11 @@ async def main():
                 try:
                     await page.goto(URL+'/desk-robot/')
                     await page.wait_for_function('window.robotFace?.asrControls && !document.querySelector("#call").disabled',timeout=60000)
+                    await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
                     assert await page.locator('#asr-model-controls').is_visible()
                     assert await page.locator('#asr-model option').count()==5
                     await page.evaluate('''()=>{window.asrEvents=[];const old=robo.on.message;robo.on.message=m=>{if(['asr_settings','asr_sentence','endpoint','reply','turn_done','error','warning'].includes(m.type))asrEvents.push({...m,at:performance.now()});old(m)}}''')
+                    await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
                     await page.select_option('#asr-model',key)
                     await page.wait_for_function('(key)=>asrEvents.some(m=>m.type==="asr_settings"&&m.selected_model===key&&!m.loading_model)',arg=key,timeout=30000)
                     await page.click('#call')

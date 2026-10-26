@@ -114,3 +114,20 @@ one interactive stream below 1. Cold graph capture is reported separately.
 The demo is not a production multi-user authentication/rate-limit service.
 Protect GPU access, uploads and logs with your deployment's authorization,
 consent, retention and abuse controls. HTTPS alone is not authorization.
+
+
+### Internal low-latency single-stream transport (26 October 2026)
+
+`/api/turn` accepts optional `stream_transport: "pcm_f32"`, `live_only: true`,
+and `first_chunk_frames: 2`. The normal `chunk_frames` controls later blocks.
+`live_only` requires `generation: "single"`, streaming, and PCM. It preserves
+configured alignment but skips ranking and full-take MP3 export after all live
+chunks have been emitted; the final result has an empty candidates list and
+`scoring_ms: 0`. PCM chunk events carry base64 little-endian float32 mono
+`pcm_f32` and `sample_rate: 48000`. The default public transport and download
+format remain mono 96-kbps MP3. This is used by Robby's server-to-server bridge;
+its browser still receives the existing 24-kHz PCM WebSocket stream.
+
+The optional first-block scheduling currently applies to the compiled fast
+backend. It changes codec yield boundaries, not the sampling policy.
+See [Robby's measured latency and caveats](../robby/QUICK_REACTIONS.md).

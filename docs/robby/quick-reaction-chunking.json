@@ -1,0 +1,210 @@
+{
+  "scope": "Same-seed real TTS: uniform 160-ms vs 160-ms first / 400-ms subsequent blocks.",
+  "rows": [
+    {
+      "chunk_frames": 2,
+      "first_chunk_frames": null,
+      "chunks": [
+        {
+          "at_ms": 543.03,
+          "samples": 7680
+        },
+        {
+          "at_ms": 695.31,
+          "samples": 7680
+        },
+        {
+          "at_ms": 849.34,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1003.48,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1158.3,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1313.86,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1468.7,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1619.05,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1774.69,
+          "samples": 7680
+        },
+        {
+          "at_ms": 1924.69,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2071.56,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2225.31,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2379.45,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2537.26,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2691.68,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2846.91,
+          "samples": 3840
+        }
+      ],
+      "audio_s": 2.48,
+      "total_ms": 2862.42,
+      "result": {
+        "event": "result",
+        "candidates": [],
+        "winner": 0,
+        "live_only": true,
+        "generation_ms": 2732,
+        "alignment_ms": 0,
+        "scoring_ms": 0,
+        "speaker_preparation_ms": 0,
+        "performance": {
+          "device_seconds": 2.5472548203468324,
+          "raw_audio_seconds": 2.48,
+          "aggregate_rtf": 1.0271188791721098,
+          "audio_seconds_per_second": 0.9735971368825695,
+          "batches": [
+            {
+              "batch_size": 1,
+              "device_seconds": 2.5472548203468324,
+              "audio_seconds": [
+                2.48
+              ],
+              "model_wall_seconds": 2.5554831102490425,
+              "first_audio_seconds": 0.23995686340332031,
+              "graph_capture_seconds": 0.0,
+              "live_callback_seconds": 0.0030922219157218933
+            }
+          ],
+          "streaming": true,
+          "chunk_frames": 2,
+          "backend": "fused CFG + local CUDA graphs + compiled global",
+          "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+          "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+          "graph_capture_seconds": 0.0,
+          "oom_batch_retries": []
+        },
+        "live_stream": {
+          "enabled": false,
+          "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+          "lead_s": null,
+          "cut_s": null,
+          "stopped": false,
+          "lookahead_seconds": 1.0,
+          "emitted_seconds": 0.0,
+          "first_playable_seconds": 0.4136586859822273
+        },
+        "total_ms": 2854
+      }
+    },
+    {
+      "chunk_frames": 5,
+      "first_chunk_frames": 2,
+      "chunks": [
+        {
+          "at_ms": 546.85,
+          "samples": 7680
+        },
+        {
+          "at_ms": 793.59,
+          "samples": 19200
+        },
+        {
+          "at_ms": 1034.05,
+          "samples": 19200
+        },
+        {
+          "at_ms": 1268.63,
+          "samples": 19200
+        },
+        {
+          "at_ms": 1509.03,
+          "samples": 19200
+        },
+        {
+          "at_ms": 1750.74,
+          "samples": 19200
+        },
+        {
+          "at_ms": 1965.33,
+          "samples": 15360
+        }
+      ],
+      "audio_s": 2.48,
+      "total_ms": 1975.35,
+      "result": {
+        "event": "result",
+        "candidates": [],
+        "winner": 0,
+        "live_only": true,
+        "generation_ms": 1853,
+        "alignment_ms": 0,
+        "scoring_ms": 0,
+        "speaker_preparation_ms": 0,
+        "performance": {
+          "device_seconds": 1.6769377799034118,
+          "raw_audio_seconds": 2.48,
+          "aggregate_rtf": 0.6761845886707305,
+          "audio_seconds_per_second": 1.4788861159433375,
+          "batches": [
+            {
+              "batch_size": 1,
+              "device_seconds": 1.6769377799034118,
+              "audio_seconds": [
+                2.48
+              ],
+              "model_wall_seconds": 1.6811137348413467,
+              "first_audio_seconds": 0.2543206329345703,
+              "graph_capture_seconds": 0.0,
+              "live_callback_seconds": 0.0014903917908668518
+            }
+          ],
+          "streaming": true,
+          "chunk_frames": 5,
+          "backend": "fused CFG + local CUDA graphs + compiled global",
+          "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+          "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+          "graph_capture_seconds": 0.0,
+          "oom_batch_retries": []
+        },
+        "live_stream": {
+          "enabled": false,
+          "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+          "lead_s": null,
+          "cut_s": null,
+          "stopped": false,
+          "lookahead_seconds": 1.0,
+          "emitted_seconds": 0.0,
+          "first_playable_seconds": 0.42550885677337646
+        },
+        "total_ms": 1969
+      }
+    }
+  ],
+  "equal_lengths": true,
+  "max_absolute_sample_difference": 0.01953125,
+  "allclose_at_1e_4": false
+}

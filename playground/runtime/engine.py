@@ -199,7 +199,7 @@ class SmallEngine(TTSEngine):
     @torch.inference_mode()
     def generate_many(self, specs, guidance=1.5, seed=777, reference_path=None,
                       temperature=1.0, progress=None, streaming=False, batch_size=None, chunk_frames=10,
-                      max_frames=None, on_audio=None):
+                      max_frames=None, on_audio=None, first_chunk_frames=None):
         from performance_core import StreamingCodec
         if on_audio is not None and (not streaming or len(specs) != 1):
             raise ValueError('Live audio callback requires one streaming take')
@@ -222,6 +222,7 @@ class SmallEngine(TTSEngine):
                      "text_top_p": 1., "text_top_k": 50}
                 if max_frames is not None:
                     p["max_new_tokens"] = min(p["max_new_tokens"], max_frames)
+                if first_chunk_frames is not None:p['first_chunk_frames']=first_chunk_frames
                 torch.cuda.synchronize(self.device)
                 start, end = [torch.cuda.Event(enable_timing=True) for _ in range(2)]
                 capture_before = self.fast.capture_seconds
@@ -332,13 +333,13 @@ class SmallEngine(TTSEngine):
 
     @torch.inference_mode()
     def generate(self, spec, n=1, guidance=1.5, seed=777, reference_path=None, temperature=1.0, progress=None, streaming=False, chunk_frames=10,
-                 max_frames=None, on_audio=None):
+                 max_frames=None, on_audio=None, first_chunk_frames=None):
         batch_size, retries = min(n, getattr(self, 'batch_size', settings.BATCH_SIZE)), []
         while True:
             try:
                 waves = self.generate_many([spec] * n, guidance, seed, reference_path, temperature, progress,
                                            streaming=streaming, batch_size=batch_size, chunk_frames=chunk_frames,
-                                           max_frames=max_frames, on_audio=on_audio)
+                                           max_frames=max_frames, on_audio=on_audio,first_chunk_frames=first_chunk_frames)
                 self.last_performance["oom_batch_retries"] = retries
                 return waves
             except torch.cuda.OutOfMemoryError:

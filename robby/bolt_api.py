@@ -34,6 +34,7 @@ class Chat(BaseModel):
     voice:str=Field(default='emolia_c1699',max_length=80)
     chunk_frames:int=Field(default=20)
     reply_words:int|None=Field(default=None,ge=3,le=80)
+    quick_replies:bool=True
     llm_model:str|None=Field(default=None,max_length=40)
     llm_provider:str|None=Field(default=None,max_length=100)
 
@@ -93,7 +94,7 @@ async def chat(body:Chat,request:Request):
         # reuses keep-alive connections across all sentences in this reply.
         async with request.app.state.admission,httpx.AsyncClient(base_url=TTS_BASE,timeout=180) as client:
             try:
-                async for kind,value in pipeline(client,body.text,body.speaker,body.history,body.voice,chunk_frames=body.chunk_frames,reply_words=body.reply_words,llm_selection=chosen):
+                async for kind,value in pipeline(client,body.text,body.speaker,body.history,body.voice,chunk_frames=body.chunk_frames,reply_words=body.reply_words,llm_selection=chosen,quick_replies=body.quick_replies):
                     if kind=='audio':
                         pcm=(np.clip(value,-1,1)*32767).astype('<i2')
                         value={'encoding':'pcm_s16le','sample_rate':24000,'channels':1,

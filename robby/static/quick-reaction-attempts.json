@@ -1,0 +1,172 @@
+[
+  {
+    "log": "quick-reaction-models-final.log",
+    "sha256": "594383093d82e388fa5074bf07a96d1c21487609bcf519f08392d5e4fda190a1",
+    "completed_records": [
+      {
+        "case": "tired",
+        "repeat": 0,
+        "reaction": "Das klingt nach viel.",
+        "local_ms": 382.14,
+        "main_first_ms": 387.98,
+        "local_ready_first": true
+      },
+      {
+        "case": "tired",
+        "repeat": 1,
+        "reaction": "Das klingt nach viel.",
+        "local_ms": 145.19,
+        "main_first_ms": 288.98,
+        "local_ready_first": true
+      },
+      {
+        "case": "meaning",
+        "repeat": 0,
+        "reaction": "Darüber lässt sich nachdenken.",
+        "local_ms": 364.72,
+        "main_first_ms": 307.0,
+        "local_ready_first": false
+      },
+      {
+        "case": "meaning",
+        "repeat": 1,
+        "reaction": "Darüber lässt sich wunderbar nachdenken.",
+        "local_ms": 279.02,
+        "main_first_ms": 538.83,
+        "local_ready_first": true
+      },
+      {
+        "case": "sky",
+        "repeat": 0,
+        "reaction": "Darüber lässt sich nachdenken.",
+        "local_ms": 350.13,
+        "main_first_ms": 427.17,
+        "local_ready_first": true
+      },
+      {
+        "case": "sky",
+        "repeat": 1,
+        "reaction": "Darüber lässt sich nachdenken.",
+        "local_ms": 194.8,
+        "main_first_ms": 349.09,
+        "local_ready_first": true
+      },
+      {
+        "case": "joke",
+        "repeat": 0,
+        "reaction": "Ein bisschen Spaß passt immer.",
+        "local_ms": 287.63,
+        "main_first_ms": 439.14,
+        "local_ready_first": true
+      },
+      {
+        "case": "joke",
+        "repeat": 1,
+        "reaction": "Ein bisschen Spaß passt immer.",
+        "local_ms": 159.67,
+        "main_first_ms": 271.31,
+        "local_ready_first": true
+      },
+      {
+        "case": "followup",
+        "repeat": 0,
+        "reaction": "Ein bisschen Spaß passt.",
+        "local_ms": 434.35,
+        "main_first_ms": 227.41,
+        "local_ready_first": false
+      },
+      {
+        "case": "followup",
+        "repeat": 1,
+        "reaction": "Ein bisschen Spaß passt immer.",
+        "local_ms": 200.32,
+        "main_first_ms": 257.39,
+        "local_ready_first": true
+      },
+      {
+        "case": "correction",
+        "repeat": 0,
+        "reaction": "Das klingt nach viel.",
+        "local_ms": 199.6,
+        "main_first_ms": 278.96,
+        "local_ready_first": true
+      },
+      {
+        "case": "correction",
+        "repeat": 1,
+        "reaction": "Das klingt nach viel.",
+        "local_ms": 188.63,
+        "main_first_ms": 284.29,
+        "local_ready_first": true
+      },
+      {
+        "case": "greeting",
+        "repeat": 0,
+        "reaction": "Mir geht es gut.",
+        "local_ms": 289.46,
+        "main_first_ms": 281.81,
+        "local_ready_first": false
+      },
+      {
+        "case": "greeting",
+        "repeat": 1,
+        "reaction": "Mir geht es gut.",
+        "local_ms": 145.96,
+        "main_first_ms": 316.33,
+        "local_ready_first": true
+      }
+    ],
+    "final_error": "ValueError: Invalid acting cue",
+    "scope": "Authored synthetic diagnostic. Full local log retained; no private conversation content."
+  },
+  {
+    "log": "quick-reaction-audio-after.log",
+    "sha256": "43ba7e8d3ef3e5ee07e8abb9b6a359cfc0587aa73efb504b407e735388736a90",
+    "completed_records": [
+      {
+        "case": 0,
+        "quick_replies": false,
+        "first_pcm_ms": 1806.64,
+        "first_answer_pcm_ms": 1806.64,
+        "audio_s": 30.42
+      },
+      {
+        "case": 0,
+        "quick_replies": true,
+        "first_pcm_ms": 906.5,
+        "first_answer_pcm_ms": 6383.5,
+        "audio_s": 9.71
+      },
+      {
+        "case": 1,
+        "quick_replies": true,
+        "first_pcm_ms": 978.74,
+        "first_answer_pcm_ms": 6950.62,
+        "audio_s": 12.19
+      },
+      {
+        "case": 1,
+        "quick_replies": false,
+        "first_pcm_ms": 1910.2,
+        "first_answer_pcm_ms": 1910.2,
+        "audio_s": 5.92
+      },
+      {
+        "case": 2,
+        "quick_replies": false,
+        "first_pcm_ms": 1659.59,
+        "first_answer_pcm_ms": 1659.59,
+        "audio_s": 15.77
+      }
+    ],
+    "final_error": "RuntimeError: RuntimeError",
+    "scope": "Authored synthetic diagnostic. Full local log retained; no private conversation content."
+  },
+  {
+    "log": "quick-reaction-browser-run.log",
+    "sha256": "e859e31ecce41db1aa795c42f6bc035922a4f9bedce4da0a95df7395e9855e73",
+    "completed_records": [],
+    "final_error": "urllib.error.HTTPError: HTTP Error 502: Bad Gateway",
+    "scope": "Authored synthetic diagnostic. Full local log retained; no private conversation content."
+  }
+]

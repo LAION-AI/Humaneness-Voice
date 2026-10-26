@@ -98,6 +98,9 @@ class MouthBridge:
             lock=asyncio.Lock()
             async def send(kind,payload):
                 async with lock:await async_send_msg(writer,kind,payload)
+            from memory_session import MemorySession
+            async def memory_notice(event):await send(b'X',{'memory_event':event})
+            memory=MemorySession(memory_notice)
 
             def remember(record,interrupted=False):
                 if record is None:return
@@ -114,6 +117,7 @@ class MouthBridge:
                     record['index']=len(history)
                     history.append(entry)
                 else:history[record['index']].update(entry)
+                memory.enqueue(record,history)
 
             async def warm_literals(replies,language,pending):
                 try:
@@ -161,7 +165,7 @@ class MouthBridge:
                         from bolt_pipeline import pipeline
                         async for event,value in pipeline(client,text,identity,history,voice=turn_voice,
                                 avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state'),
-                                llm_selection=record.get('llm_selection'),credential=record.get('llm_credential')):
+                                llm_selection=record.get('llm_selection'),credential=record.get('llm_credential'),quick_replies=record.get('quick_replies',True),memory=memory):
                             if event=='sentence':
                                 stage='speech'
                                 reply=value['text'];record['reply']=reply
@@ -269,13 +273,21 @@ class MouthBridge:
             try:
                 while True:
                     kind,raw=await async_recv_msg(reader)
-                    payload=json.loads(raw) if kind in (b'T',b'B',b'V',b'C',b'H',b'W') and raw else {}
+                    payload=json.loads(raw) if kind in (b'T',b'B',b'V',b'C',b'H',b'W',b'M') and raw else {}
                     if kind==b'V':voice=payload.get('voice',voice)
+                    elif kind==b'M':
+                        try:
+                            if payload.get('action')=='reset':
+                                if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
+                                latest=None
+                            await memory.command(payload,history)
+                        except (ValueError,TypeError,OSError,json.JSONDecodeError) as exc:
+                            await memory.notice(state='error',error=type(exc).__name__)
                     elif kind==b'T':
                         if warm_task and not warm_task.done():warm_task.cancel();await asyncio.gather(warm_task,return_exceptions=True)
                         if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
                         latest={'text':payload['transcript'],'speaker':payload.get('speaker'),'reply':'','index':None,
-                            'llm_selection':payload.get('llm_selection'),'llm_credential':payload.get('llm_credential'),
+                            'llm_selection':payload.get('llm_selection'),'llm_credential':payload.get('llm_credential'),'quick_replies':payload.get('quick_replies',True),
                             'interaction_state':payload.get('interaction_state'),'interaction_reply':payload.get('interaction_reply'),
                             'interaction_language':payload.get('interaction_language','de'),'stop_feedback':payload.get('stop_feedback',False),
                             'avatar_context':payload.get('avatar_context') or {}}
@@ -301,4 +313,5 @@ class MouthBridge:
             finally:
                 if warm_task and not warm_task.done():warm_task.cancel();await asyncio.gather(warm_task,return_exceptions=True)
                 if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
+                await memory.close()
                 writer.close()
