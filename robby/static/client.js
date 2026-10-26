@@ -39,13 +39,13 @@ export class RoboClient {
   if(this.ws?.readyState===1)return;
   await new Promise((resolve,reject)=>{const u=new URL('/ws',location.href);u.protocol=location.protocol==='https:'?'wss:':'ws:';
    // These counters describe THIS connection, like input_status on the server.
-   this.sentMicSamples=0;this.captureClock=null;this.metrics={mic_blocks:0,tagged_blocks:0,chunks:0,reply_chunks:0};
+   this.sentMicSamples=0;this.captureClock=null;this.quickReplyId=null;this.metrics={mic_blocks:0,tagged_blocks:0,chunks:0,reply_chunks:0};
    const ws=this.ws=new WebSocket(u);ws.binaryType='arraybuffer';
    let opened=false;
    ws.onopen=()=>{if(connectionEpoch!==this.connectionEpoch){ws.close();reject(new Error('Conversation start cancelled.'));return;}opened=true;this.on.connection?.(true);resolve();};
    ws.onerror=()=>reject(new Error('Robo is busy or disconnected. End another session or try again shortly.'));
    ws.onclose=()=>{if(!opened)reject(new Error('Conversation start cancelled or server busy.'));if(this.ws===ws){this.ws=null;this.stop();}};
-   ws.onmessage=e=>{if(this.ws!==ws)return;if(e.data instanceof ArrayBuffer)this.play(e.data);else{const m=JSON.parse(e.data);if(m.type==='reply_cancelled'&&m.reply_id)this.cancelledReplies.add(m.reply_id);if(m.type==='barge')this.stopAudio();this.on.message?.(m);}};});
+   ws.onmessage=e=>{if(this.ws!==ws)return;if(e.data instanceof ArrayBuffer)this.play(e.data);else{const m=JSON.parse(e.data);if(m.type==='reply'&&m.sentence_role==='reaction')this.quickReplyId=m.reply_id;if(m.type==='reply_cancelled'&&m.reply_id)this.cancelledReplies.add(m.reply_id);if(m.type==='barge')this.stopAudio();this.on.message?.(m);}};});
   }catch(error){if(connectionEpoch===this.connectionEpoch)this.stop();throw error;}
  }
  async microphone(connectionEpoch){
@@ -98,7 +98,11 @@ export class RoboClient {
   this.startupReserve??=.18;
   if(id&&!firstReply&&this.next>0){const gap=Math.max(0,this.ctx.currentTime-this.next);
    if(gap>.02){this.startupReserve=Math.min(.65,Math.max(this.startupReserve,gap+.12));this.metrics.underflows=(this.metrics.underflows||0)+1;this.metrics.max_gap_ms=Math.max(this.metrics.max_gap_ms||0,gap*1000);}}
-  const reserve=Math.max(this.startupReserve,b.duration<.8?.3:.18);
+  // The short optional reaction has 160-ms TTS chunks. Keep adaptive recovery
+  // after an underrun, but avoid the normal 300-ms small-block startup floor.
+  const reserve=id===this.quickReplyId
+   ? (this.startupReserve<=.18 ? .14 : this.startupReserve)
+   : Math.max(this.startupReserve,b.duration<.8?.3:.18);
   if(firstReply)this.metrics.startup_buffer_ms=reserve*1000;
   const start=playbackStart(this.ctx,this.next,firstReply,reserve),end=start+b.duration;
   const first=this.queued[id]||0;this.queued[id]=first+pcm.length;

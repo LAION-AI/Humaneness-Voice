@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parent
 
 def main():
     files=list(ROOT.glob('*.py'))
-    files += [ROOT/name for name in ['README.md','VOICE_CAPTIONS.md','BRIDGE_PHRASES_PLAN.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
+    files += [ROOT/name for name in ['README.md','QUICK_REACTIONS.md','PERSISTENT_MEMORY.md','VOICE_CAPTIONS.md','BRIDGE_PHRASES_PLAN.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
     files.append(ROOT/'static/VOICE_ASSISTANT_TEST_PROTOCOL.md')
     for pattern in ['*.js','*.css','*.html','*.svg','LICENSE-MIT.txt']:files+=list((ROOT/'static').glob(pattern))
     files.append(ROOT/'static/emotion-catalog.json')
@@ -36,6 +36,9 @@ def main():
                  'voice-caption-timing.json','voice-caption-cpu-before.json','voice-caption-browser.json','voice-caption-model.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
+    # Authored synthetic quick-reaction and memory receipts, never private storage.
+    for prefix in ('quick-reaction-', 'knowledge-memory-'):
+        files+=list((ROOT/'static').glob(prefix+'*.json'))
     files+=list((ROOT/'ci').glob('*.yml'))
     for pattern in ['*.py','*.md']:files+=list((ROOT/'speaker_v2').glob(pattern))
     files+=list((ROOT/'speaker_v3').glob('*.py'))
@@ -51,7 +54,7 @@ def main():
     for path in sorted(set(files)):
         if path.is_symlink():raise ValueError('No symlinks in source export')
         raw=path.read_bytes();raw.decode('utf-8')
-        if path.name=='bolt-precision.json':
+        if path.name=='bolt-precision.json' or path.name.startswith('quick-reaction-audio') and path.suffix=='.json':
             # Representative authored clips are embedded once in the report.
             # Keep the raw measurement record compact in the source release.
             record=json.loads(raw)
@@ -67,7 +70,9 @@ def main():
     # Retain every synthetic stress attempt (including failures), compacting
     # JSON whitespace only. The new evidence adds about 8 MB of text.
     # The UTF-8, path allowlist and credential checks above still apply.
-    if sum(len(raw) for raw in payload.values())>16_000_000:raise ValueError('Unexpected source export size')
+    # Expanded cap covers retained failed browser attempts and one listening HTML.
+    # No binary/secret/path checks are relaxed.
+    if sum(len(raw) for raw in payload.values())>24_000_000:raise ValueError('Unexpected source export size')
     folder=ROOT/'releases';folder.mkdir(exist_ok=True)
     target=folder/'robby-source.zip';temporary=folder/'robby-source.tmp.zip'
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as archive:

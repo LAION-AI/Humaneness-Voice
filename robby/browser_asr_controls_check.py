@@ -14,9 +14,11 @@ async def main():
         try:
             await page.goto(URL+'/desk-robot/')
             await page.wait_for_function('window.robotFace?.asrControls && !document.querySelector("#call").disabled',timeout=60000)
+            await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
             box=await page.locator('#asr-model').bounding_box()
             assert box and box['x']>=0 and box['x']+box['width']<=391,box
             report['mobile_select_fits']=True
+            await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
             await page.select_option('#asr-model','whisper_turbo')
             await page.wait_for_function('robotFace.asrControls.active==="whisper_turbo"&&!document.querySelector("#asr-model-status").textContent.startsWith("Loading")',timeout=20000)
             assert await page.evaluate("localStorage.getItem('robby.asrModel')")=='whisper_turbo'
@@ -24,8 +26,10 @@ async def main():
             await page.wait_for_function('window.robotFace?.asrControls && !document.querySelector("#call").disabled',timeout=60000)
             assert await page.locator('#asr-model').input_value()=='whisper_turbo'
             report['reload_persists']=True
+            await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
             await page.select_option('#asr-model','parakeet_v3')
             await page.wait_for_function('robotFace.asrControls.active==="parakeet_v3"&&!document.querySelector("#asr-model-status").textContent.startsWith("Loading")',timeout=20000)
+            await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
             await page.select_option('#asr-model','nemotron')
             await page.wait_for_function('robotFace.asrControls.active==="nemotron"&&!document.querySelector("#asr-model-status").textContent.startsWith("Loading")',timeout=20000)
             report['repeat_switches']=True

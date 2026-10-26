@@ -518,8 +518,8 @@
     },
     {
       "path": "playground/runtime/engine.py",
-      "bytes": 25482,
-      "sha256": "eb57e15d0a44bd0d9514bf51354f256b1392e9dd4d6f72d239aa10147e30e5a9"
+      "bytes": 25663,
+      "sha256": "ef36b43bafa25c30d278ed82ddb377a83765d2335c65b5c1ae0d2bca5db34ccf"
     },
     {
       "path": "playground/runtime/env.example",
@@ -628,8 +628,8 @@
     },
     {
       "path": "playground/runtime/performance_core.py",
-      "bytes": 8522,
-      "sha256": "c3801eac6384b74d4b798f2d98552835cd9bd91e831505d1065bc5c5026602c6"
+      "bytes": 9285,
+      "sha256": "1ed603c17623a67065b4a6b14857575b8944a6eea5e91b73b4ded526eb0c5e07"
     },
     {
       "path": "playground/runtime/performance_validation.py",
@@ -808,8 +808,8 @@
     },
     {
       "path": "playground/runtime/small_app.py",
-      "bytes": 58398,
-      "sha256": "53976cc96f2139ce26022d62df54ebba78ee081ab6d0db14e2b3d7f132b1a20a"
+      "bytes": 60094,
+      "sha256": "2c59374a87aa1d0b89b2a09341aadfa13ee69f73b2495c202ffe3c83c9d5fa4f"
     },
     {
       "path": "playground/runtime/smoke_test.py",
@@ -1192,5 +1192,7 @@
       "sha256": "7ef0180a96de91178cbee17f933c329d7735189a865d2cbd9cfc03bd4259654c"
     }
   ],
-  "note": "Hashes describe the published snapshot, not untracked runtime state or missing audio. No model or upload directories are included."
+  "note": "Hashes describe the published snapshot, not untracked runtime state or missing audio. No model or upload directories are included.",
+  "runtime_update_date": "2026-10-26",
+  "runtime_update_note": "Opt-in PCM/live-only single-stream transport and shorter first codec block; other snapshot paths retain their recorded versions."
 }

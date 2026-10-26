@@ -136,7 +136,10 @@ class CompactDirector:
             messages[0]['content']+='\nA direct screen-rotation request has been recognized. The client will schedule this six-second spin on the FIRST spoken audio: '+json.dumps(requested_spin)+'. Speak DURING it: give about 12–22 playful spoken words, one or two short sentences, with natural cheerful delivery. Do not merely promise a future turn or claim it is already finished. This is visual only. You may still call perform_avatar for additional choreography.'
         from avatar_personality import NOTE as PERSONALITY_NOTE
         messages[0]['content']+='\n'+PERSONALITY_NOTE
-        if avatar_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(avatar_context,ensure_ascii=False)
+        memory=(avatar_context or {}).get('knowledge_memory')
+        if memory:messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k!='knowledge_memory'}
+        if browser_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if event:messages[0]['content']+='\nThis turn is an optional avatar event, not speech from the user. The three-field JSON speech format is still required unless choosing {"silent": true}.'
         if knowledge_enabled:
             messages[0]['content']+='\nException to the no-tools rule: the following real read-only tools are available.\n'+KNOWLEDGE_NOTE
@@ -152,11 +155,13 @@ class CompactDirector:
             messages[0]['content']+='\nCurrent live controller state (data): '+json.dumps(interaction_state,ensure_ascii=False)
         if identity.get('enrolled') and identity.get('named'):
             messages[0]['content']+='\nAuthoritative current speaker label (JSON data): '+json.dumps(identity.get('display_name'),ensure_ascii=False)+'. Respond to this person, but normally omit their name in spoken replies. Other names in the utterance/history are third persons, never the current speaker. If asked the current user\'s name, answer from this label.'
+        if (avatar_context or {}).get('parallel_quick_reaction'):
+            messages[0]['content']+='\nAn optional brief acknowledgment may be played concurrently by the local companion. Begin with the substantive answer/tool result, with no repeated acknowledgment or preamble. Complete the full requested task. The answer must also stand alone if no acknowledgment plays.'
         from voice_captioning import prompt_hint
         if not event:messages[0]['content']+=prompt_hint(identity)
         identity={k:v for k,v in identity.items() if k!='voice_delivery'}
         from conversation_tasks import history_for_model
-        model_history,playback_note=history_for_model(history[-16:])
+        model_history,playback_note=history_for_model(history if memory else history[-16:])
         messages[0]['content']+=playback_note
         for item in model_history:
             if item.get('role') in ('user','assistant') and isinstance(item.get('content'),str):

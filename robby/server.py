@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -37,6 +37,8 @@ STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':Non
 class RoboConversation(Conversation):
     async def _on_text(self,payload):
         data=json.loads(payload)
+        if data.get('memory_event'):
+            await self.ws.send_json(data['memory_event']);return
         if data.get('avatar_action'):
             await self.ws.send_json({'type':'avatar_action',**data['avatar_action']});return
         if data.get('pipeline_metrics'):
@@ -64,7 +66,7 @@ class RoboConversation(Conversation):
             'avatar_actions':data.get('avatar_actions',[]),
             'avatar_action_id':data.get('avatar_action_id'),
             'avatar_event':data.get('avatar_event'),
-            'sentence_index':data.get('sentence_index'),'sentence_text':data.get('sentence_text'),
+            'sentence_index':data.get('sentence_index'),'sentence_text':data.get('sentence_text'),'sentence_role':data.get('sentence_role'),
             'speaker_id':(data.get('speaker') or {}).get('speaker_id'),'speaker_name':(data.get('speaker') or {}).get('display_name'),
             'speaker_update':data.get('speaker_update'),'timing':data.get('timing'),
             'sources':data.get('sources',[]),'lookups':data.get('lookups',[])})
@@ -73,6 +75,7 @@ class RoboConversation(Conversation):
         super().__init__(*args,**kwargs)
         from llm_session import LLMSession
         self.llm=LLMSession(self)
+        self.quick_replies=os.environ.get('ROBO_QUICK_REPLIES','1')=='1'
         from avatar_personality import AvatarPersonality
         self.avatar_personality=AvatarPersonality();self.avatar_optional=False
         self.identity_enabled=False;self.predictor=None;self.last_identity_notice=0
@@ -128,7 +131,7 @@ class RoboConversation(Conversation):
 
     def _ready_message(self):
         return {**super()._ready_message(),'identity_enabled':self.identity_enabled,'identity_mode':self.identity_mode,
-            'llm_settings':self.llm.settings(),
+            'llm_settings':self.llm.settings(),'quick_replies_enabled':self.quick_replies,
             'interaction':self.decisions.state(),
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
@@ -160,7 +163,7 @@ class RoboConversation(Conversation):
             'input':getattr(self,'pending_input_timing',None) or {'kind':'unknown'}})
         self.pending_input_timing=None
         await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':{**self.decisions.state(),'current_rule_applied':preapplied},
-            'avatar_context':self.avatar_personality.snapshot(),**self.llm.snapshot()})
+            'avatar_context':self.avatar_personality.snapshot(),'quick_replies':getattr(self,'quick_replies',True),**self.llm.snapshot()})
         if preapplied and compiled['name']=='set_interruption_rule':
             await self.to_mouth(b'W',{'replies':[compiled['arguments']['reply']],'language':self.decisions.language})
 
@@ -409,6 +412,18 @@ class RoboConversation(Conversation):
 
     async def _on_command(self,data):
         if data.startswith('text:'):self.pending_input_timing={'kind':'typed'}
+        if data.startswith('memory:'):
+            try:
+                if len(data)>5000:raise ValueError('Memory command too long')
+                command=json.loads(data[7:])
+                if not isinstance(command,dict):raise ValueError('Memory command must be an object')
+                await self.to_mouth(b'M',command)
+            except (ValueError,TypeError,json.JSONDecodeError):
+                await self.ws.send_json({'type':'memory_status','state':'error','error':'Invalid memory command'})
+            return
+        if data in ('reply:quick:on','reply:quick:off'):
+            self.quick_replies=data.endswith(':on')
+            await self.ws.send_json({'type':'quick_reply_settings','enabled':self.quick_replies});return
         if data.startswith('llm:'):
             await self.llm.command(data);return
         if self.sentence_stream and data in ('captions:on','captions:off'):

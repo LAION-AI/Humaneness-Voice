@@ -1,0 +1,321 @@
+{
+  "scope": "First-PCM diagnostic only; deliberately cancel each request after its first chunk.\n\nThis isolates onset, not handoff/audio quality. Run the full HTTPS check too.\n",
+  "rows": [
+    {
+      "trial": 0,
+      "role": "reaction",
+      "reaction": "Das klingt nach viel.",
+      "first_pcm_ms": 1311.09,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 211.51,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 4,
+        "tts_first_audio_ms": 1042.52,
+        "first_audio_ms": 1286.48
+      }
+    },
+    {
+      "trial": 1,
+      "role": "reaction",
+      "reaction": "Das klingt schön.",
+      "first_pcm_ms": 707.36,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 158.95,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 3,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 277.97,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1368,
+          "completion_tokens": 22,
+          "total_tokens": 1390,
+          "cost": 0.001373229,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0013871,
+            "upstream_inference_prompt_cost": 0.00135432,
+            "upstream_inference_completions_cost": 3.278e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "llm_first_sentence_ms": 313.48,
+        "generation_calls": 1,
+        "llm_total_ms": 313.51,
+        "response_complete": true,
+        "tts_first_audio_ms": 534.52,
+        "first_audio_ms": 695.55
+      }
+    },
+    {
+      "trial": 2,
+      "role": "reaction",
+      "reaction": "Das klingt nach viel.",
+      "first_pcm_ms": 746.22,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 188.71,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 4,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 283.03,
+        "llm_first_sentence_ms": 311.06,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1376,
+          "completion_tokens": 162,
+          "total_tokens": 1538,
+          "cost": 0.0015875838,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00160362,
+            "upstream_inference_prompt_cost": 0.00136224,
+            "upstream_inference_completions_cost": 0.00024138
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 489.49,
+        "response_complete": true,
+        "tts_first_audio_ms": 542.08,
+        "first_audio_ms": 733.29
+      }
+    },
+    {
+      "trial": 3,
+      "role": "reaction",
+      "reaction": "Das klingt wunderbar.",
+      "first_pcm_ms": 712.28,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 168.33,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 3,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 507.75,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1368,
+          "completion_tokens": 21,
+          "total_tokens": 1389,
+          "cost": 0.0013717539,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00138561,
+            "upstream_inference_prompt_cost": 0.00135432,
+            "upstream_inference_completions_cost": 3.129e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "llm_first_sentence_ms": 568.89,
+        "generation_calls": 1,
+        "llm_total_ms": 568.91,
+        "response_complete": true,
+        "tts_first_audio_ms": 529.69,
+        "first_audio_ms": 700.47
+      }
+    },
+    {
+      "trial": 4,
+      "role": "reaction",
+      "reaction": "Das klingt nach viel.",
+      "first_pcm_ms": 775.32,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 208.45,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 4,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 530.52,
+        "llm_first_sentence_ms": 596.58,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1376,
+          "completion_tokens": 177,
+          "total_tokens": 1553,
+          "cost": 0.0016097103,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00162597,
+            "upstream_inference_prompt_cost": 0.00136224,
+            "upstream_inference_completions_cost": 0.00026373
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 747.5,
+        "response_complete": true,
+        "tts_first_audio_ms": 552.6,
+        "first_audio_ms": 763.5
+      }
+    },
+    {
+      "trial": 5,
+      "role": "reaction",
+      "reaction": "Das klingt schön.",
+      "first_pcm_ms": 721.19,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 186.28,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 3,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 298.13,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1368,
+          "completion_tokens": 19,
+          "total_tokens": 1387,
+          "cost": 0.0013688037,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00138263,
+            "upstream_inference_prompt_cost": 0.00135432,
+            "upstream_inference_completions_cost": 2.831e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "llm_first_sentence_ms": 336.86,
+        "generation_calls": 1,
+        "llm_total_ms": 336.88,
+        "response_complete": true,
+        "tts_first_audio_ms": 520.66,
+        "first_audio_ms": 709.55
+      }
+    },
+    {
+      "trial": 6,
+      "role": "reaction",
+      "reaction": "Das klingt nach viel.",
+      "first_pcm_ms": 743.31,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 185.38,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 4,
+        "tts_first_audio_ms": 540.3,
+        "first_audio_ms": 731.32
+      }
+    },
+    {
+      "trial": 7,
+      "role": "reaction",
+      "reaction": "Das klingt schön.",
+      "first_pcm_ms": 827.38,
+      "metrics": {
+        "quick_reply_status": "played",
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "quick_reply_generation_ms": 277.55,
+        "quick_reply_model": "nemotron-bolt",
+        "quick_reply_words": 3,
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 297.77,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1368,
+          "completion_tokens": 19,
+          "total_tokens": 1387,
+          "cost": 0.0013688037,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00138263,
+            "upstream_inference_prompt_cost": 0.00135432,
+            "upstream_inference_completions_cost": 2.831e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "llm_first_sentence_ms": 338.0,
+        "generation_calls": 1,
+        "llm_total_ms": 338.03,
+        "response_complete": true,
+        "tts_first_audio_ms": 536.84,
+        "first_audio_ms": 816.44
+      }
+    }
+  ]
+}
