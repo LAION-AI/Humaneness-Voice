@@ -638,12 +638,15 @@ class Turn(BaseModel):
     align: bool = True
     temperature: float = Field(default=settings.DEFAULT_TEMPERATURE, ge=0, le=1.5)
     streaming: bool = settings.DEFAULT_STREAMING
+    stream_transport: Literal['mp3', 'pcm_f32'] = 'mp3'
+    live_only: bool = False
     cancel_on_disconnect: bool = False
     voice_conversion: bool = settings.DEFAULT_VOICE_CONVERSION
     vc_precision: Literal['bf16','fp32'] = 'bf16'
     speaker_steering: bool = settings.DEFAULT_SPEAKER_STEERING
     identity_cfg: bool = True  # Versioned opt-out for historical study reproduction.
     chunk_frames: Literal[2, 5, 10, 20] = settings.DEFAULT_CHUNK_FRAMES
+    first_chunk_frames: Literal[2, 5, 10, 20] | None = None
     seed: int = Field(default=777, ge=0, le=2147483647)
     seconds: float | None = Field(default=None, ge=1, le=60)
     reference_id: str | None = Field(default=None, max_length=40)
@@ -664,6 +667,8 @@ class Turn(BaseModel):
 
     @model_validator(mode='after')
     def validate_reward(self):
+        if self.live_only and (self.generation!='single' or not self.streaming or self.stream_transport!='pcm_f32'):
+            raise ValueError('live_only requires a single streaming PCM take')
         from acting_models import MODELS
         release=MODELS[self.model]
         if self.batch_size>release['max_batch_size']:
@@ -965,7 +970,7 @@ async def turn(body: Turn, request: Request):
                     live_kwargs['on_audio']=single_chunk
                 waves = await asyncio.to_thread(STATE["engine"].generate, spec, n, body.guidance,
                     body.seed, reference.path if reference else None, body.temperature, progress,
-                    **({"streaming": True, "chunk_frames": body.chunk_frames} if body.streaming else {}),**live_kwargs)
+                    **({"streaming": True, "chunk_frames": body.chunk_frames,"first_chunk_frames":body.first_chunk_frames} if body.streaming else {}),**live_kwargs)
                 if conversion:
                     if body.generation=='single' and body.streaming:
                         tail=await asyncio.to_thread(conversion.chunk,np.zeros(0,np.float32),vc_stream,True)
@@ -1009,6 +1014,16 @@ async def turn(body: Turn, request: Request):
                     search_performance['first_raw_commit_seconds']=search_performance.get('first_commit_seconds')
                     search_performance['first_commit_seconds']=live_cutoff.report.get('first_playable_seconds')
             alignment_ms = round((time.monotonic() - alignment_started) * 1000)
+            if body.live_only:
+                # Robby already received the whole single take. There is no
+                # candidate ranking to perform and no download artifact needed.
+                await queue.put({'event':'result','candidates':[],'winner':0,'live_only':True,
+                    'generation_ms':generation_ms,'alignment_ms':alignment_ms,'scoring_ms':0,
+                    'speaker_preparation_ms':speaker_preparation_ms,
+                    'performance':getattr(STATE['engine'],'last_performance',None),
+                    'live_stream':dict(live_cutoff.report) if live_cutoff else None,
+                    'total_ms':round((time.monotonic()-started)*1000)})
+                return
             STATE["job_phase"] = "Scoring takes"
             await queue.put({"event": "status", "phase": "Scoring takes"})
             scoring_started = time.monotonic()
@@ -1096,6 +1111,15 @@ async def turn(body: Turn, request: Request):
                 break
             if item.get("event") in {"search_chunk", "audio_chunk"}:
                 wave = item.pop("_wave")
+                if body.stream_transport == 'pcm_f32':
+                    # Opt-in server-to-server transport. Avoid per-chunk MP3
+                    # processes, temporary files and an additional HTTP GET.
+                    # The public Playground and completed takes remain MP3.
+                    import base64
+                    item.update(pcm_f32=base64.b64encode(np.asarray(wave,dtype='<f4').tobytes()).decode('ascii'),
+                                sample_rate=48000,channels=1)
+                    yield 'data: '+json.dumps(item,ensure_ascii=False)+'\n\n'
+                    continue
                 chunk = store.new(owner, f"Live chunk {item['step']}", "take")
                 try:
                     await asyncio.to_thread(encode_mp3, wave, chunk.playback)

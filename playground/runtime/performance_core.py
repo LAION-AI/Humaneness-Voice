@@ -152,7 +152,10 @@ class FastGenerator:
             row[:, 0, 0] = torch.where(continues, row[:, 0, 0], cfg.pad_token_id)
             model_input = row.repeat(nb, 1, 1)
             mask_buffer[:, length + step] = continues.repeat(nb)
-            if len(frames) - last >= chunk_frames:
+            # Optional short initial block, then the normal codec batch size.
+            # This changes only yield boundaries, not token sampling or caches.
+            block=p.get('first_chunk_frames',chunk_frames) if last==0 else chunk_frames
+            if len(frames) - last >= block:
                 last = len(frames)
                 yield frames
         if len(frames) != last:

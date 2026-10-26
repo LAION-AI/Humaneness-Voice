@@ -33,6 +33,7 @@ async def main():
                 assert await page.locator('#llm-personal-key').input_value()==''
                 await page.evaluate('''()=>{window.cloudEvents=[];const old=robo.on.message;robo.on.message=m=>{if(['latency_start','latency_update','pipeline_metrics','reply','asr_sentence','endpoint','turn_done','llm_settings','interaction','error'].includes(m.type))cloudEvents.push(m);old(m)}}''')
                 async def selection(model,provider):
+                    await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
                     await page.select_option('#llm-model',model)
                     if model!='local':await page.select_option('#llm-provider',provider)
                     await page.wait_for_function('(v)=>robotFace.llmControls.current?.model===v[0]&&robotFace.llmControls.current?.provider===v[1]',arg=[model,provider],timeout=15000)
@@ -44,6 +45,7 @@ async def main():
                     for key in ('llm','tts','reply','buffer'):assert isinstance(data['values'].get(key),(int,float)) and data['values'][key]>=0,(key,data['values'])
                     report['turns'].append({'case':name,'reply':data['robot'],'user':data['user'],'timings':data['values'],'asr_card':data['asr'],'speaker_card':data['speaker'],'pcm_total':data['pcm']})
                     return data
+                await page.evaluate("document.querySelector('#model-settings')?.setAttribute('open','')")
                 await page.select_option('#asr-model','whisper_turbo')
                 await page.wait_for_function('robotFace.asrControls.active==="whisper_turbo"',timeout=15000)
                 await page.click('#call')

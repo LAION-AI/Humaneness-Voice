@@ -1,6 +1,30 @@
 # Robby voice chat and TYGER speaker predictor
 
-## Current update: Parakeet default, camera off, parallel GPU delivery captions
+## Current update: contextual quick replies and optional wiki memory
+
+The existing local **Bolt E4B** now races Qwen to generate at most six contextual
+words. A faster complete Qwen sentence wins; the full answer is preserved.
+The short reaction starts with a 160-ms audio block, then uses 400-ms blocks.
+Direct PCM between the shared TTS and Robby servers avoids MP3 round trips;
+single live takes skip unnecessary ranking/export. Normal Playground downloads
+remain mono 96-kbps MP3. [Design and reproduction](QUICK_REACTIONS.md) ·
+[Latency/listening report](https://projects.laion.ai/Humaneness-Voice/robby/quick-reaction-report.html).
+
+**Optional persistent memory is OFF by default.** Enable it in the settings below
+the conversation. It maintains private wiki entries with evidence quotes, five
+versions, BM25/trigger retrieval and zero-to-two-hop links. Independent context
+ceilings default to 10,000 knowledge / 5,000 recent-chat tokens, conservatively
+accounted; the local model uses smaller limits. Browse, search, disable or reset
+the wiki. No biometric profile is stored by this feature.
+[Architecture, privacy and test commands](PERSISTENT_MEMORY.md) ·
+[Verified recall and browser report](https://projects.laion.ai/Humaneness-Voice/robby/knowledge-memory-report.html).
+
+The avatar and latest conversation occupy the top row; component timings sit
+below, followed by collapsible settings. Existing ASR, tools, camera, expression,
+interruption and privacy controls remain available. The historical bridge-phrase
+PDF below is superseded by this contextual-generation experiment.
+
+## Previous update: Parakeet default, camera off, parallel GPU delivery captions
 
 The final ASR default is **Parakeet v3**. Nemotron still supplies streaming previews,
 TYGER features and interruption candidates. The **camera starts off**; manual camera
@@ -14,10 +38,10 @@ LLM; the independent UI checkbox can disable them. [Setup, model pins, timings a
 limitations](VOICE_CAPTIONS.md) · [HTTPS report](https://projects.laion.ai/Humaneness-Voice/robby/voice-caption-update.html).
 
 [English bridge-phrase PDF plan](https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-caption-bridges-v1/Robby_Decision_Model_Bridge_Phrases_Plan.pdf)
-([editable source](BRIDGE_PHRASES_PLAN.md)). This proposes cached reactions while the
-full answer generates; the bridge controller itself has not been implemented.
+([editable source](BRIDGE_PHRASES_PLAN.md)). This historical proposal described cached reactions; its canned-bank controller
+was superseded by the contextual local-generation experiment above.
 
-Latest verification: **465 offline tests** and the actual HTTPS caption/defaults
+Earlier caption-release verification: **465 offline tests** and the actual HTTPS caption/defaults
 browser check pass. The separate noisy interruption test still has misses, documented
 below; its failures are published alongside successful tests.
 

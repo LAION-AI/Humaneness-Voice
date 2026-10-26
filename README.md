@@ -1,6 +1,6 @@
 # Humaneness Voice
 
-**Latest Robby update:** Parakeet v3 final ASR, camera off by default, and uncertain voice-delivery captions from Humaneness Ears Medium on GPU alongside ASR. [Setup and measured results](robby/VOICE_CAPTIONS.md) · [Live documentation](https://projects.laion.ai/Humaneness-Voice/robby/voice-caption-update.html) · [English bridge-phrase PDF proposal](https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-caption-bridges-v1/Robby_Decision_Model_Bridge_Phrases_Plan.pdf). All source tests/protocols and the failed acoustic interruption checks are retained.
+**Latest Robby update:** optional parallel local E4B reactions (at most six words), faster direct PCM speech transport, a conversation-first UI, and **default-off persistent wiki memory** with evidence, version history, bounded retrieval and reset. [Quick-reply measurements and listening examples](https://projects.laion.ai/Humaneness-Voice/robby/quick-reaction-report.html) · [Memory design and privacy](robby/PERSISTENT_MEMORY.md) · [Actual recall/browser tests](https://projects.laion.ai/Humaneness-Voice/robby/knowledge-memory-report.html). The earlier canned-bridge PDF is superseded. Reproducible tests and failed attempts remain published; server onset under 900 ms does not imply microphone-to-ear latency under 900 ms.
 
 An expressive speech system: a **director LLM** turns a brief into words and
 acting directions, a **speech model** performs them in a reference voice, and

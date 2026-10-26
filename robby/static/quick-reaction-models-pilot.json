@@ -1,0 +1,1111 @@
+{
+  "started_on": "2026-10-26T21:16:57.748240+00:00",
+  "local_model": "nemotron-bolt",
+  "scope": "16 real generation races, three three-sentence transition probes; no TTS in this benchmark.",
+  "rows": [
+    {
+      "case": "tired",
+      "repeat": 0,
+      "input": "Heute war ein wirklich anstrengender Tag.",
+      "reaction": {
+        "text": "Das klingt nach viel.",
+        "status": "ready",
+        "ms": 357.72,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das klingt nach viel.",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 312,
+          "prompt_ms": 192.903,
+          "prompt_per_token_ms": 0.6182788461538461,
+          "prompt_per_second": 1617.3931976174554,
+          "predicted_n": 6,
+          "predicted_ms": 49.155,
+          "predicted_per_token_ms": 8.1925,
+          "predicted_per_second": 122.06286237412266
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 671.83,
+        "sentences": [
+          "Oh je, das tut mir leid zu hören!"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 640.53,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1289,
+            "completion_tokens": 17,
+            "total_tokens": 1306,
+            "cost": 0.0012884256,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00130144,
+              "upstream_inference_prompt_cost": 0.00127611,
+              "upstream_inference_completions_cost": 2.533e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 667.98,
+          "generation_calls": 1,
+          "llm_total_ms": 668.0,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true,
+      "longer_transition": {
+        "text": "Das ist hart. Wirklich sehr anstrengend. Oh je, das tut mir leid zu hören!",
+        "ms": 493.17,
+        "words": 14
+      }
+    },
+    {
+      "case": "tired",
+      "repeat": 1,
+      "input": "Heute war ein wirklich anstrengender Tag.",
+      "reaction": {
+        "text": "Das klingt nach viel.",
+        "status": "ready",
+        "ms": 168.76,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das klingt nach viel.",
+        "timings": {
+          "cache_n": 307,
+          "prompt_n": 5,
+          "prompt_ms": 38.197,
+          "prompt_per_token_ms": 7.6394,
+          "prompt_per_second": 130.90033248684452,
+          "predicted_n": 6,
+          "predicted_ms": 120.726,
+          "predicted_per_token_ms": 20.121,
+          "predicted_per_second": 49.69931911932807
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 273.07,
+        "sentences": [
+          "Oh je, das klingt nach einem richtig harten Tag.",
+          "Ich hoffe, du hattest jetzt wenigstens einen Moment für dich selbst, um durchzuatmen."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 245.43,
+          "llm_first_sentence_ms": 272.37,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1289,
+            "completion_tokens": 45,
+            "total_tokens": 1334,
+            "cost": 0.0013297284,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00134316,
+              "upstream_inference_prompt_cost": 0.00127611,
+              "upstream_inference_completions_cost": 6.705e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 321.68,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "meaning",
+      "repeat": 0,
+      "input": "Was ist der Sinn des Lebens?",
+      "reaction": {
+        "text": "Darüber lässt sich nachdenken.",
+        "status": "ready",
+        "ms": 327.13,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Darüber lässt sich nachdenken.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 259,
+          "prompt_ms": 148.565,
+          "prompt_per_token_ms": 0.5736100386100386,
+          "prompt_per_second": 1743.3446639518056,
+          "predicted_n": 9,
+          "predicted_ms": 172.466,
+          "predicted_per_token_ms": 19.16288888888889,
+          "predicted_per_second": 52.184198624656446
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 405.3,
+        "sentences": [
+          "Der Sinn des Lebens?",
+          "Haha, das ist die eine Frage, auf die mein Prozessor noch nie eine definitive Antwort hatte!"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 373.82,
+          "llm_first_sentence_ms": 404.61,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1285,
+            "completion_tokens": 32,
+            "total_tokens": 1317,
+            "cost": 0.0013066317,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00131983,
+              "upstream_inference_prompt_cost": 0.00127215,
+              "upstream_inference_completions_cost": 4.768e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 418.78,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true,
+      "longer_transition": {
+        "text": "Das ist tiefgründig. Ich weiß es nicht. Aber wir können reden.",
+        "ms": 453.83,
+        "words": 11
+      }
+    },
+    {
+      "case": "meaning",
+      "repeat": 1,
+      "input": "Was ist der Sinn des Lebens?",
+      "reaction": {
+        "text": "Darüber lässt sich wunderbar nachdenken.",
+        "status": "ready",
+        "ms": 289.88,
+        "model": "nemotron-bolt",
+        "word_count": 5,
+        "raw": "Darüber lässt sich wunderbar nachdenken.",
+        "timings": {
+          "cache_n": 305,
+          "prompt_n": 5,
+          "prompt_ms": 62.636,
+          "prompt_per_token_ms": 12.5272,
+          "prompt_per_second": 79.82629797560507,
+          "predicted_n": 11,
+          "predicted_ms": 216.252,
+          "predicted_per_token_ms": 19.65927272727273,
+          "predicted_per_second": 50.86658158074838
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 251.24,
+        "sentences": [
+          "Das ist eine riesige Frage, die sich selbst meine besten Algorithmen nicht ganz erklären können."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 216.05,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1285,
+            "completion_tokens": 26,
+            "total_tokens": 1311,
+            "cost": 0.0012977811,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00131089,
+              "upstream_inference_prompt_cost": 0.00127215,
+              "upstream_inference_completions_cost": 3.874e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 250.47,
+          "generation_calls": 1,
+          "llm_total_ms": 250.49,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false
+    },
+    {
+      "case": "sky",
+      "repeat": 0,
+      "input": "Warum ist der Himmel blau?",
+      "reaction": {
+        "text": "Darüber lässt sich nachdenken.",
+        "status": "ready",
+        "ms": 330.84,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Darüber lässt sich nachdenken.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 258,
+          "prompt_ms": 150.082,
+          "prompt_per_token_ms": 0.5817131782945736,
+          "prompt_per_second": 1719.0602470649378,
+          "predicted_n": 9,
+          "predicted_ms": 172.828,
+          "predicted_per_token_ms": 19.203111111111113,
+          "predicted_per_second": 52.07489527159951
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 246.68,
+        "sentences": [
+          "Das liegt an der Rayleigh-Streuung.",
+          "Das Sonnenlicht besteht aus vielen Farben, aber das blaue Licht wird von den Molekülen in der Luft am stärksten gestreut.",
+          "Deshalb erscheint uns der Himmel tagsüber so schön blau."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 220.81,
+          "llm_first_sentence_ms": 246.02,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1285,
+            "completion_tokens": 69,
+            "total_tokens": 1354,
+            "cost": 0.0013612104,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00137496,
+              "upstream_inference_prompt_cost": 0.00127215,
+              "upstream_inference_completions_cost": 0.00010281
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 294.61,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false
+    },
+    {
+      "case": "sky",
+      "repeat": 1,
+      "input": "Warum ist der Himmel blau?",
+      "reaction": {
+        "text": "Das ist ein schönes Thema.",
+        "status": "ready",
+        "ms": 193.35,
+        "model": "nemotron-bolt",
+        "word_count": 5,
+        "raw": "Das ist ein schönes Thema.",
+        "timings": {
+          "cache_n": 304,
+          "prompt_n": 5,
+          "prompt_ms": 50.842,
+          "prompt_per_token_ms": 10.1684,
+          "prompt_per_second": 98.34388891074309,
+          "predicted_n": 8,
+          "predicted_ms": 136.417,
+          "predicted_per_token_ms": 17.052125,
+          "predicted_per_second": 58.64371742524759
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 248.27,
+        "sentences": [
+          "Das liegt an der Streuung des Lichts in der Atmosphäre."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 216.57,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1285,
+            "completion_tokens": 20,
+            "total_tokens": 1305,
+            "cost": 0.0012889305,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00130195,
+              "upstream_inference_prompt_cost": 0.00127215,
+              "upstream_inference_completions_cost": 2.98e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 247.6,
+          "generation_calls": 1,
+          "llm_total_ms": 247.61,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "joke",
+      "repeat": 0,
+      "input": "Erzähl mir einen vollständigen kurzen Witz über Katzen.",
+      "reaction": {
+        "text": "Ein kleiner Witz kommt.",
+        "status": "ready",
+        "ms": 347.37,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Ein kleiner Witz kommt.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 265,
+          "prompt_ms": 224.079,
+          "prompt_per_token_ms": 0.8455811320754717,
+          "prompt_per_second": 1182.618630036728,
+          "predicted_n": 7,
+          "predicted_ms": 114.917,
+          "predicted_per_token_ms": 16.416714285714285,
+          "predicted_per_second": 60.91352889476753
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 272.3,
+        "sentences": [
+          "Klar, stell dir vor, eine Katze geht zum Tierarzt.",
+          "Der Arzt fragt: \"Was ist denn das Problem?\"",
+          "Die Katze antwortet: \"Ich habe so ein komisches Juckreizgefühl am Schwanz.\"",
+          "Der Arzt sagt: \"Das ist doch ganz normal, das ist Ihr Schwanz!\"",
+          "Die Katze starrt ihn an und murmelt: \"Nein, das ist meine Fernbedienung!\""
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 248.01,
+          "llm_first_sentence_ms": 271.76,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1551,
+            "completion_tokens": 117,
+            "total_tokens": 1668,
+            "cost": 0.0016927218,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00170982,
+              "upstream_inference_prompt_cost": 0.00153549,
+              "upstream_inference_completions_cost": 0.00017433
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 355.4,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false,
+      "longer_transition": {
+        "text": "Das ist lustig. Stell dir das mal vor. Dann kommt die Pointe.",
+        "ms": 427.53,
+        "words": 12
+      }
+    },
+    {
+      "case": "joke",
+      "repeat": 1,
+      "input": "Erzähl mir einen vollständigen kurzen Witz über Katzen.",
+      "reaction": {
+        "text": "Ein Katzenwitz kommt.",
+        "status": "ready",
+        "ms": 184.25,
+        "model": "nemotron-bolt",
+        "word_count": 3,
+        "raw": "Ein Katzenwitz kommt.",
+        "timings": {
+          "cache_n": 311,
+          "prompt_n": 5,
+          "prompt_ms": 60.072,
+          "prompt_per_token_ms": 12.0144,
+          "prompt_per_second": 83.23345318950592,
+          "predicted_n": 6,
+          "predicted_ms": 113.741,
+          "predicted_per_token_ms": 18.956833333333332,
+          "predicted_per_second": 52.75142648649124
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 584.8,
+        "sentences": [
+          "Hier ist einer:",
+          "Warum können Katzen nicht fliegen?",
+          "Weil sie schon zu viel Wuscheln auf dem Bauch haben!",
+          "Weil sie sich weigern, ihre Krallen aus dem Flieger zu nehmen!"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 242.87,
+          "llm_first_sentence_ms": 584.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1660,
+            "completion_tokens": 23,
+            "total_tokens": 1683,
+            "cost": 0.0016608933,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00167767,
+              "upstream_inference_prompt_cost": 0.0016434,
+              "upstream_inference_completions_cost": 3.427e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 2,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 1,
+          "llm_total_ms": 919.15,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "followup",
+      "repeat": 0,
+      "input": "Noch einen bitte.",
+      "reaction": {
+        "text": "Ein Witz kommt gleich.",
+        "status": "ready",
+        "ms": 351.44,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Ein Witz kommt gleich.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 312,
+          "prompt_ms": 217.403,
+          "prompt_per_token_ms": 0.6968044871794872,
+          "prompt_per_second": 1435.1227903938768,
+          "predicted_n": 7,
+          "predicted_ms": 125.787,
+          "predicted_per_token_ms": 17.96957142857143,
+          "predicted_per_second": 55.649629929960966
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 290.85,
+        "sentences": [
+          "Eine Katze sitzt auf einer Dachkante und fragt ihre Freundin: „Stell dir vor, wir wären Mäuse.“ Die Freundin zuckt die Schultern: „Und?",
+          "Dann hätten wir mehr Freiheit.“ Die Katze seufzt: „Ja, aber wer macht dann das Putzen?“"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 245.47,
+          "llm_first_sentence_ms": 290.19,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1593,
+            "completion_tokens": 61,
+            "total_tokens": 1654,
+            "cost": 0.0016512804,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00166796,
+              "upstream_inference_prompt_cost": 0.00157707,
+              "upstream_inference_completions_cost": 9.089e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 315.8,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false
+    },
+    {
+      "case": "followup",
+      "repeat": 1,
+      "input": "Noch einen bitte.",
+      "reaction": {
+        "text": "Ein Witz kommt gleich.",
+        "status": "ready",
+        "ms": 180.64,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Ein Witz kommt gleich.",
+        "timings": {
+          "cache_n": 358,
+          "prompt_n": 5,
+          "prompt_ms": 38.477,
+          "prompt_per_token_ms": 7.695399999999999,
+          "prompt_per_second": 129.94776100007797,
+          "predicted_n": 7,
+          "predicted_ms": 133.498,
+          "predicted_per_token_ms": 19.071142857142856,
+          "predicted_per_second": 52.43524247554271
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 236.39,
+        "sentences": [
+          "Eine Katze und ein Hund sitzen in einem Gespräch.",
+          "Der Hund fragt: Warum bist du so misstrauisch?",
+          "Die Katze antwortet: Ich bin es nicht."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 210.39,
+          "llm_first_sentence_ms": 235.64,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1593,
+            "completion_tokens": 37,
+            "total_tokens": 1630,
+            "cost": 0.001615878,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0016322,
+              "upstream_inference_prompt_cost": 0.00157707,
+              "upstream_inference_completions_cost": 5.513e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 247.73,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "correction",
+      "repeat": 0,
+      "input": "Ich bin nicht traurig, nur etwas müde.",
+      "reaction": {
+        "text": "Das klingt nach viel.",
+        "status": "ready",
+        "ms": 283.6,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das klingt nach viel.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 263,
+          "prompt_ms": 179.19,
+          "prompt_per_token_ms": 0.6813307984790874,
+          "prompt_per_second": 1467.7158323567164,
+          "predicted_n": 6,
+          "predicted_ms": 96.382,
+          "predicted_per_token_ms": 16.063666666666666,
+          "predicted_per_second": 62.25228777157561
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 324.34,
+        "sentences": [
+          "Ach, das ist doch auch völlig in Ordnung, müde zu sein!"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 286.42,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1290,
+            "completion_tokens": 21,
+            "total_tokens": 1311,
+            "cost": 0.0012953061,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00130839,
+              "upstream_inference_prompt_cost": 0.0012771,
+              "upstream_inference_completions_cost": 3.129e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 323.63,
+          "generation_calls": 1,
+          "llm_total_ms": 323.65,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "correction",
+      "repeat": 1,
+      "input": "Ich bin nicht traurig, nur etwas müde.",
+      "reaction": {
+        "text": "Das verstehe ich gut.",
+        "status": "ready",
+        "ms": 181.76,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das verstehe ich gut.",
+        "timings": {
+          "cache_n": 309,
+          "prompt_n": 5,
+          "prompt_ms": 48.709,
+          "prompt_per_token_ms": 9.741800000000001,
+          "prompt_per_second": 102.6504342113367,
+          "predicted_n": 7,
+          "predicted_ms": 125.302,
+          "predicted_per_token_ms": 17.900285714285715,
+          "predicted_per_second": 55.86503008730906
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 285.78,
+        "sentences": [
+          "Das klingt nach einem Tag, der ganz schön in die Knochen ging."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 254.89,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1290,
+            "completion_tokens": 21,
+            "total_tokens": 1311,
+            "cost": 0.0012953061,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00130839,
+              "upstream_inference_prompt_cost": 0.0012771,
+              "upstream_inference_completions_cost": 3.129e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 285.12,
+          "generation_calls": 1,
+          "llm_total_ms": 285.14,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "greeting",
+      "repeat": 0,
+      "input": "Wie geht es dir heute?",
+      "reaction": {
+        "text": "Mir geht es gut.",
+        "status": "ready",
+        "ms": 346.8,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Mir geht es gut.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 258,
+          "prompt_ms": 210.435,
+          "prompt_per_token_ms": 0.815639534883721,
+          "prompt_per_second": 1226.0317912894718,
+          "predicted_n": 6,
+          "predicted_ms": 128.928,
+          "predicted_per_token_ms": 21.488,
+          "predicted_per_second": 46.53760238272525
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 282.28,
+        "sentences": [
+          "Mir geht es fantastisch, meine Antennen kribbeln vor Freude!",
+          "Und wie schaut es bei dir aus?"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 253.34,
+          "llm_first_sentence_ms": 281.58,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1284,
+            "completion_tokens": 31,
+            "total_tokens": 1315,
+            "cost": 0.0013041765,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00131735,
+              "upstream_inference_prompt_cost": 0.00127116,
+              "upstream_inference_completions_cost": 4.619e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 294.39,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false
+    },
+    {
+      "case": "greeting",
+      "repeat": 1,
+      "input": "Wie geht es dir heute?",
+      "reaction": {
+        "text": "Mir geht es gut.",
+        "status": "ready",
+        "ms": 142.5,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Mir geht es gut.",
+        "timings": {
+          "cache_n": 304,
+          "prompt_n": 5,
+          "prompt_ms": 65.027,
+          "prompt_per_token_ms": 13.0054,
+          "prompt_per_second": 76.89113752748858,
+          "predicted_n": 6,
+          "predicted_ms": 70.019,
+          "predicted_per_token_ms": 11.669833333333335,
+          "predicted_per_second": 85.6910267213185
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 251.81,
+        "sentences": [
+          "Mir geht es heute wunderbar, meine Schaltkreise summen vor Vorfreude!"
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 208.2,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1284,
+            "completion_tokens": 23,
+            "total_tokens": 1307,
+            "cost": 0.0012923757,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00130543,
+              "upstream_inference_prompt_cost": 0.00127116,
+              "upstream_inference_completions_cost": 3.427e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 251.17,
+          "generation_calls": 1,
+          "llm_total_ms": 251.18,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    },
+    {
+      "case": "explain",
+      "repeat": 0,
+      "input": "Erklär mir einfach, wie ein Regenbogen entsteht.",
+      "reaction": {
+        "text": "Das ist schön zu sehen.",
+        "status": "ready",
+        "ms": 282.29,
+        "model": "nemotron-bolt",
+        "word_count": 5,
+        "raw": "Das ist schön zu sehen.",
+        "timings": {
+          "cache_n": 51,
+          "prompt_n": 264,
+          "prompt_ms": 184.398,
+          "prompt_per_token_ms": 0.6984772727272727,
+          "prompt_per_second": 1431.6858100413237,
+          "predicted_n": 7,
+          "predicted_ms": 90.681,
+          "predicted_per_token_ms": 12.95442857142857,
+          "predicted_per_second": 77.19367894046161
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 244.46,
+        "sentences": [
+          "Ein Regenbogen entsteht, wenn Sonnenlicht auf fallende Regentropfen trifft.",
+          "Das Licht bricht sich in den Tropfen und zerlegt sich in seine verschiedenen Farben.",
+          "Damit du ihn siehst, muss die Sonne hinter dir stehen und die Regenwolken vor dir."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 217.57,
+          "llm_first_sentence_ms": 243.85,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1289,
+            "completion_tokens": 74,
+            "total_tokens": 1363,
+            "cost": 0.0013725063,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00138637,
+              "upstream_inference_prompt_cost": 0.00127611,
+              "upstream_inference_completions_cost": 0.00011026
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 295.67,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": false
+    },
+    {
+      "case": "explain",
+      "repeat": 1,
+      "input": "Erklär mir einfach, wie ein Regenbogen entsteht.",
+      "reaction": {
+        "text": "Das ist schön.",
+        "status": "ready",
+        "ms": 164.57,
+        "model": "nemotron-bolt",
+        "word_count": 3,
+        "raw": "Das ist schön.",
+        "timings": {
+          "cache_n": 310,
+          "prompt_n": 5,
+          "prompt_ms": 75.655,
+          "prompt_per_token_ms": 15.131,
+          "prompt_per_second": 66.08948516291058,
+          "predicted_n": 5,
+          "predicted_ms": 81.604,
+          "predicted_per_token_ms": 16.3208,
+          "predicted_per_second": 61.27150629871085
+        }
+      },
+      "answer": {
+        "first_sentence_ms": 259.85,
+        "sentences": [
+          "Das ist eine schöne Frage, denn dahinter steckt ein kleines Stück Physik."
+        ],
+        "metrics": {
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 221.89,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1289,
+            "completion_tokens": 21,
+            "total_tokens": 1310,
+            "cost": 0.001294326,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0013074,
+              "upstream_inference_prompt_cost": 0.00127611,
+              "upstream_inference_completions_cost": 3.129e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 259.33,
+          "generation_calls": 1,
+          "llm_total_ms": 259.35,
+          "response_complete": true
+        }
+      },
+      "local_ready_first": true
+    }
+  ]
+}

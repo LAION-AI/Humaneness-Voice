@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Robby · a little more human</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/controls.css"><link rel="stylesheet" href="/static/expressions.css"><link rel="stylesheet" href="/static/live-overview.css"></head>
+<title>Robby · a little more human</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/controls.css"><link rel="stylesheet" href="/static/expressions.css"><link rel="stylesheet" href="/static/live-overview.css"><link rel="stylesheet" href="/static/conversation-first.css"></head>
 <body>
 <header><a class="back" href="https://fuji-formal-while-plugin.trycloudflare.com/">← Voice Playground</a><div class="brand">◉ robby<span class="brand-note">a little more human</span></div><a class="model-pill" href="/desk-robot/">3D desk robot ↗</a></header>
 <main><section class="stage">
@@ -23,6 +23,7 @@
 <p id="asr-model-status" role="status">Default: Parakeet v3 final transcripts. Nemotron provides live previews and interruptions.</p>
 <details><summary>How recognition and model loading work</summary><p>Nemotron keeps providing live previews, speaker features and interruptions. After your speech pause, the selected model produces the final transcript. Whisper uses buffered speech segments. Other recognizers are held in CPU RAM and moved to the GPU in the background when selected. Your choice is remembered in this browser. Ask explicitly for another reply language if desired.</p><p id="asr-cache-status" role="status">Checking model readiness…</p><a href="/static/voice-caption-update.html" target="_blank" rel="noopener">GPU voice captions · tests &amp; bridge-phrase PDF ↗</a> · <a href="/static/asr-model-update.html" target="_blank" rel="noopener">Model timings, offloading and test results ↗</a></details>
 </section>
+<section id="quick-reply-controls" aria-label="Short local reactions"><label><input id="quick-replies" type="checkbox" checked> Local quick reply · up to six words</label><p>Generate a brief contextual reaction on this server while Qwen prepares the full answer. If Qwen is ready first, it speaks directly. Exact-output requests skip the reaction.</p><p><a href="/static/quick-reaction-report.html" target="_blank" rel="noopener">Latency measurements and listening tests ↗</a></p><p id="quick-reply-status" role="status">Ready to race the local model against the main answer.</p></section>
 <section id="voice-caption-controls" aria-label="Tone of voice"><label><input id="voice-captions" type="checkbox" checked> Use uncertain tone-of-voice hints</label><p id="voice-caption-status" role="status">Short GPU audio captions run alongside ASR and help Robby interpret delivery. They can be wrong; your words take priority.</p></section>
 <section id="speech-pause-controls" hidden aria-label="Wait for a speech pause">
 <label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">700 ms</output></label>
@@ -71,6 +72,7 @@
 <a href="/static/avatar-command-update.html" target="_blank" rel="noopener">Requested faces &amp; spoken reactions · fixes and tests ↗</a>
 <a href="/static/asr-model-update.html" target="_blank" rel="noopener">German ASR choices · timing, offloading &amp; tests ↗</a>
 <a href="/static/openrouter-update.html" target="_blank" rel="noopener">OpenRouter, private keys &amp; visible component timings ↗</a>
+<a href="/static/knowledge-memory-report.html" target="_blank" rel="noopener">Optional persistent wiki · privacy, recall and reset tests ↗</a>
 <a href="/speaker-training/" target="_blank" rel="noopener">Larger speaker training · live progress ↗</a>
 </details></aside></main>
 <footer>HUMANENESS VOICE · LAION <span>Authored cartoon expressions, not an emotion detector or medical service.</span></footer>

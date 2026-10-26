@@ -15,6 +15,7 @@ def main():
     MODULES.append('test_conversation_continuity')
     MODULES.append('test_adversarial_protocol')
     MODULES.append('test_voice_captions')
+    MODULES.extend(['test_quick_reactions','test_knowledge_memory'])
     suite=unittest.defaultTestLoader.loadTestsFromNames(MODULES)
     result=unittest.TextTestRunner(verbosity=1).run(suite)
     report={'finished':time.time(),'modules':MODULES,'tests':result.testsRun,'failures':len(result.failures),
