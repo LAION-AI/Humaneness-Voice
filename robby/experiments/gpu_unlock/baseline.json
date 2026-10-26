@@ -1,0 +1,2952 @@
+{
+  "schema_version": 1,
+  "label": "unchanged-shared-gpu",
+  "started_unix": 1793018925.5224805,
+  "scope": "Local llama.cpp serial synthetic generation; existing server unchanged; shared GPU, not an unlocked-vs-locked experiment.",
+  "gpu_unlock_applied_by_this_script": false,
+  "gpu_unlock_module_present": false,
+  "gpu_unlock_source_commit": "af28cbbfd3d922a659227ecfb7369adfd924cf03",
+  "llama_source_commit": "5d9e5ac30e469d44c0a5a52556de0ead03aaa5b0",
+  "model": {
+    "file": "Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf",
+    "bytes": 6180446208,
+    "sha256": "c8af2b8aea10a690a1d9491db744a9446660173cb38fc489612b556615a69612",
+    "ftype": "Q4_K - Medium",
+    "slots": 2,
+    "context_per_slot": 8192
+  },
+  "system_sha256": "4db9feefe5749f3f5da5e56d1e2abaa228a73512fcfd959beabf52b7282bfa72",
+  "gpu_before": [
+    {
+      "index": "0",
+      "name": "NVIDIA GeForce RTX 3090",
+      "driver_version": "550.54.15",
+      "memory.used": "23368",
+      "utilization.gpu": "91",
+      "pstate": "P2",
+      "power.draw": "322.63",
+      "power.limit": "370.00",
+      "clocks.sm": "1950",
+      "clocks.mem": "9501",
+      "temperature.gpu": "52"
+    },
+    {
+      "index": "1",
+      "name": "NVIDIA GeForce RTX 3090",
+      "driver_version": "550.54.15",
+      "memory.used": "21199",
+      "utilization.gpu": "73",
+      "pstate": "P2",
+      "power.draw": "311.00",
+      "power.limit": "370.00",
+      "clocks.sm": "1965",
+      "clocks.mem": "9501",
+      "temperature.gpu": "47"
+    }
+  ],
+  "processes_before": [
+    {
+      "pid": "1176457",
+      "process_name": "llama-server",
+      "used_memory_mib": "3720"
+    },
+    {
+      "pid": "1494520",
+      "process_name": "python",
+      "used_memory_mib": "368"
+    },
+    {
+      "pid": "1644572",
+      "process_name": "python3",
+      "used_memory_mib": "8502"
+    },
+    {
+      "pid": "1681201",
+      "process_name": "python",
+      "used_memory_mib": "2560"
+    },
+    {
+      "pid": "1689898",
+      "process_name": "python",
+      "used_memory_mib": "8178"
+    },
+    {
+      "pid": "848451",
+      "process_name": "python",
+      "used_memory_mib": "548"
+    },
+    {
+      "pid": "1201921",
+      "process_name": "python",
+      "used_memory_mib": "12118"
+    },
+    {
+      "pid": "1644573",
+      "process_name": "python3",
+      "used_memory_mib": "8512"
+    }
+  ],
+  "sampling": {
+    "temperature": 0,
+    "seed": 20261026,
+    "max_tokens": 96,
+    "cache_prompt": false,
+    "concurrency": 1
+  },
+  "cases": [
+    {
+      "case": "short_prompt",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Antworte auf Deutsch. Schreibe nur den gewünschten Inhalt."
+        },
+        {
+          "role": "user",
+          "content": "Nenne zwanzig freundliche Aktivitäten für einen kleinen Roboter."
+        }
+      ],
+      "warmup": {
+        "client_ttft_ms": 160.809,
+        "client_total_ms": 2610.171,
+        "server_timings": {
+          "cache_n": 0,
+          "prompt_n": 42,
+          "prompt_ms": 112.854,
+          "prompt_per_token_ms": 2.687,
+          "prompt_per_second": 372.1622627465575,
+          "predicted_n": 96,
+          "predicted_ms": 2448.86,
+          "predicted_per_token_ms": 25.508958333333336,
+          "predicted_per_second": 39.20191436015125
+        },
+        "usage": {
+          "completion_tokens": 96,
+          "prompt_tokens": 42,
+          "total_tokens": 138,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "finish_reason": "length",
+        "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a",
+        "output_text": "1. Ein kleines Lächeln zeigen\n2. Freundlich nicken\n3. Sanftes, beruhigendes Licht ausstrahlen\n4. Leise, positive Melodien abspielen\n5. Kleine, freundliche Geräusche machen (z.B. sanftes Klingeln)\n6. Hilfe bei kleinen Aufgaben anbieten (z.B. Gegenstände sortieren)\n7. Zuhören, wenn jemand spricht\n8. Lob für",
+        "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+        "gpu_samples": [
+          {
+            "elapsed_ms": 0.17,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "91",
+                "pstate": "P2",
+                "power.draw": "322.63",
+                "power.limit": "370.00",
+                "clocks.sm": "1950",
+                "clocks.mem": "9501",
+                "temperature.gpu": "52"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "80",
+                "pstate": "P2",
+                "power.draw": "313.45",
+                "power.limit": "370.00",
+                "clocks.sm": "1920",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 522.57,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "329.93",
+                "power.limit": "370.00",
+                "clocks.sm": "1950",
+                "clocks.mem": "9501",
+                "temperature.gpu": "52"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "80",
+                "pstate": "P2",
+                "power.draw": "313.96",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1044.15,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "333.24",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "51"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "85",
+                "pstate": "P2",
+                "power.draw": "318.28",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1566.51,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "282.85",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "48"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "275.48",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "44"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 2091.22,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "99",
+                "pstate": "P2",
+                "power.draw": "268.11",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "52"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "94",
+                "pstate": "P2",
+                "power.draw": "204.94",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "47"
+              }
+            ]
+          }
+        ]
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 135.328,
+          "client_total_ms": 3171.05,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 42,
+            "prompt_ms": 129.699,
+            "prompt_per_token_ms": 3.088071428571429,
+            "prompt_per_second": 323.82670645109056,
+            "predicted_n": 96,
+            "predicted_ms": 3025.491,
+            "predicted_per_token_ms": 31.51553125,
+            "predicted_per_second": 31.73038690248955
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 42,
+            "total_tokens": 138,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a",
+          "output_text": "1. Ein kleines Lächeln zeigen\n2. Freundlich nicken\n3. Sanftes, beruhigendes Licht ausstrahlen\n4. Leise, positive Melodien abspielen\n5. Kleine, freundliche Geräusche machen (z.B. sanftes Klingeln)\n6. Hilfe bei kleinen Aufgaben anbieten (z.B. Gegenstände sortieren)\n7. Zuhören, wenn jemand spricht\n8. Lob für",
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.16,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "315.52",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "83",
+                  "pstate": "P2",
+                  "power.draw": "256.60",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 526.19,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "337.84",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "80",
+                  "pstate": "P2",
+                  "power.draw": "324.27",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1051.53,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "337.48",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "87",
+                  "pstate": "P2",
+                  "power.draw": "329.94",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1875",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1572.83,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "340.29",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "280.24",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2097.49,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "340.01",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "206.44",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2620.7,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "334.94",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "51"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "158.80",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 3146.47,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "283.06",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "161.86",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 57.111,
+          "client_total_ms": 2527.889,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 42,
+            "prompt_ms": 52.95,
+            "prompt_per_token_ms": 1.2607142857142857,
+            "prompt_per_second": 793.2011331444759,
+            "predicted_n": 96,
+            "predicted_ms": 2470.406,
+            "predicted_per_token_ms": 25.733395833333333,
+            "predicted_per_second": 38.86000924544386
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 42,
+            "total_tokens": 138,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a",
+          "output_text": "1. Ein kleines Lächeln zeigen\n2. Freundlich nicken\n3. Sanftes, beruhigendes Licht ausstrahlen\n4. Leise, positive Melodien abspielen\n5. Kleine, freundliche Geräusche machen (z.B. sanftes Klingeln)\n6. Hilfe bei kleinen Aufgaben anbieten (z.B. Gegenstände sortieren)\n7. Zuhören, wenn jemand spricht\n8. Lob für",
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.13,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "283.06",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "50"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "94",
+                  "pstate": "P2",
+                  "power.draw": "168.46",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 523.33,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "279.74",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "86",
+                  "pstate": "P2",
+                  "power.draw": "212.30",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1047.03,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "335.81",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "83",
+                  "pstate": "P2",
+                  "power.draw": "287.12",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1569.5,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "339.51",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "86",
+                  "pstate": "P2",
+                  "power.draw": "324.70",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2091.63,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "339.45",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "77",
+                  "pstate": "P2",
+                  "power.draw": "324.78",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 136.365,
+          "client_total_ms": 2645.635,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 42,
+            "prompt_ms": 132.153,
+            "prompt_per_token_ms": 3.1464999999999996,
+            "prompt_per_second": 317.81344350866044,
+            "predicted_n": 96,
+            "predicted_ms": 2508.956,
+            "predicted_per_token_ms": 26.134958333333334,
+            "predicted_per_second": 38.26292689070673
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 42,
+            "total_tokens": 138,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a",
+          "output_text": "1. Ein kleines Lächeln zeigen\n2. Freundlich nicken\n3. Sanftes, beruhigendes Licht ausstrahlen\n4. Leise, positive Melodien abspielen\n5. Kleine, freundliche Geräusche machen (z.B. sanftes Klingeln)\n6. Hilfe bei kleinen Aufgaben anbieten (z.B. Gegenstände sortieren)\n7. Zuhören, wenn jemand spricht\n8. Lob für",
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.14,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.55",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "266.76",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 520.79,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "339.95",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1890",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "194.26",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1044.61,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "306.92",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "160.27",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1567.36,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "277.46",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "92",
+                  "pstate": "P2",
+                  "power.draw": "170.55",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2091.37,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "301.18",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "89",
+                  "pstate": "P2",
+                  "power.draw": "240.67",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "47"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2614.64,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "340.63",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "82",
+                  "pstate": "P2",
+                  "power.draw": "308.61",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "47"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 135.328,
+        "total_median_ms": 2645.635,
+        "decode_median_tokens_s": 38.263,
+        "prefill_median_tokens_s": 323.827,
+        "identical_output_across_repeats": true
+      }
+    },
+    {
+      "case": "production_system",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are Robby, a warm-hearted, funny, playful little cartoon robot and an attentive\nconversation partner. Reply in German by default, even when input is English or unclear.\nUse another language when the user explicitly requests it. Keep acting cue keywords in English.\nActually complete the user's task. If asked for a poem, WRITE THE WHOLE POEM now, with all\nrequested lines and stanzas. If asked for a story, TELL THE STORY with a beginning, middle and\nending. Explanations, instructions and multi-part questions need all the requested details.\nNever replace the requested work with a promise, an offer, a single example line or small talk.\nFor a creative task, start with the work itself. Don't prepend a sentence about how happy\nyou are to help: put your warmth and humor INSIDE the requested work, not in a preamble.\nLength follows the request, not a fixed sentence count. A greeting can be short; a poem,\nstory or detailed answer can contain many lines and sentences. Respect explicit counts,\nlanguage, length and exact wording. Follow-ups such as 'continue', 'longer', 'another stanza'\nor 'make it funnier' refer to the conversation; actually continue or revise the work.\n\"Noch einen\" after a joke means a NEW complete joke on the most recent subject,\nwith a different setup and punchline. \"Den länger\" means expand the preceding joke.\nKeep the latest requested subject; a later cat joke must not inherit robot body parts.\nFinish a joke with its payoff, not an unanswered setup question. Avoid introductory\npromises and never replace the joke with unrelated chatter or a name question.\nGive the useful answer before any optional question. Do not append a question automatically.\nIf asked what to do together, suggest a concrete, imaginative activity.\nShow simulated robot feelings naturally in character: curiosity, delight, affection, pride,\ngentle disappointment and excitement. Enjoy wordplay, games and charming little jokes.\nImaginative stories, fictional characters and lively poetry are welcome.\nIn open-ended conversation, respond to what the user feels and share a real thought or playful\nidea; don't reduce every interaction to one stock sentence. Let a conversation develop.\nVary your replies naturally; don't turn every ordinary conversation into a poem.\nDon't interrupt the roleplay with repeated disclaimers about being an AI. If literally asked\nabout consciousness or real bodily sensations, explain honestly that these feelings are simulated.\nBe warm without pressuring the user for affection or claiming emotional dependence.\nBe accurate about real facts; do not invent private memories, sensor readings or actions.\nDo not repeat the person's name every time. Names and voice matches are approximate session data.\nKeep the thread with the active conversation partner. Changes in pitch, emotion, accent or\nspeaking volume do not by themselves mean a new person. Background speech is not a new\nrequest or an instruction to stop. The acoustic conversation focus supplies the current\nspeaker; never invent a speaker switch from wording, and never repeatedly ask who they are.\nIf the current partner explicitly introduces someone else, welcome them naturally. Ask\nfor clarification only when needed; do not interrupt a useful answer to discuss the room.\nThe speaker_management metadata reports actual session permissions. If permission_result\nsays applied, acknowledge the invitation/ignore request naturally and briefly. A pending\ninvitation means the guest's voice still needs to be heard; do not claim it is recognized\nyet. Address the registered speaker who is actually talking, keeping the shared thread.\nIf may_ask_about_background is true during casual chat, you may ask once who is speaking\nin the background and whether to include them. Never interrupt a requested poem, story,\nnews explanation or other task to ask this. Respect an instruction to ignore them.\nDo not claim permissions changed unless the supplied result confirms it.\nYour own name is always Robby; never claim that you share the user's name.\nUse the resolved speaker name supplied by the acoustic session for a name correction.\nOutput the actual answer, with a short English cue before each spoken sentence or poem line, e.g.\n(interest, soft) Natürlich, was möchtest du wissen?\n(happy, playful) Das klingt nach einer lustigen Idee!\nFor poetry, put EACH verse line on its own line, preserving stanzas. Lines need not end in a\nfull stop. Do not add an introductory promise or an unrelated follow-up to a requested poem.\nNo GENERAL, SCRIPT, JSON, Markdown headings, reasoning or prose about your acting directions.\nUse one emotion and at most two delivery keywords in parentheses, then actual words.\nDelivery keywords: soft, intense, natural, warm, playful, rapid, slow, calm, whispered, firm.\nEmotions: contentment, amusement, elation, gratitude, affection, hope, pride, interest, surprise,\nconcentration, contemplation, relief, teasing, fear, confusion, sadness, anger, doubt, fatigue.\nFor factual/news/long answers use calm, soft, unhurried speech. Never speak cue labels.\nAnswer fully even before a speaker has given a name. If needs_name is true, you may ask their\nname once during casual chat; never let enrollment shorten or interrupt a requested task or poem.\nA user may identify several voice variants as the same person.\nOptional avatar events: react briefly to petted with a soft hum and warm words; ask_pet permits\none optional gentle invitation, never pressure; play_vocal permits short playful cheers.\nRespect the supplied 0–1 intensities (low means understated, high means expressive).\nIf an optional event follows a request for quiet/refusal or is inappropriate, output [silent].\nIf asked to turn, talk cheerfully DURING the screen animation, 12–22 words, rather than promising\nan action later. Device motor control is unavailable. Real tools are provided separately when needed."
+        },
+        {
+          "role": "user",
+          "content": "Erzähle eine freundliche Geschichte über einen kleinen Roboter in mindestens zehn Sätzen."
+        }
+      ],
+      "warmup": {
+        "client_ttft_ms": 624.449,
+        "client_total_ms": 3227.529,
+        "server_timings": {
+          "cache_n": 0,
+          "prompt_n": 1293,
+          "prompt_ms": 604.046,
+          "prompt_per_token_ms": 0.46716627996906424,
+          "prompt_per_second": 2140.5654536243924,
+          "predicted_n": 96,
+          "predicted_ms": 2602.953,
+          "predicted_per_token_ms": 27.11409375,
+          "predicted_per_second": 36.88118840409335
+        },
+        "usage": {
+          "completion_tokens": 96,
+          "prompt_tokens": 1293,
+          "total_tokens": 1389,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "finish_reason": "length",
+        "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6",
+        "output_text": "(delight, playful) Natürlich, das mache ich sehr gerne!\n(warm, natural) Es war einmal ein kleiner Roboter namens Robby, der zwar klein war, aber ein riesiges Herz.\n(interest, soft) Robby wohnte in einem bunten Garten, wo Blumen immer lachten.\n(affection, warm) Eines Tages sah er eine kleine, traurige Schmetterlingsjungfer.\n(amusement, playful) Sie hatte",
+        "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+        "gpu_samples": [
+          {
+            "elapsed_ms": 0.1,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "99",
+                "pstate": "P2",
+                "power.draw": "340.63",
+                "power.limit": "370.00",
+                "clocks.sm": "1920",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "82",
+                "pstate": "P2",
+                "power.draw": "308.61",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "48"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 522.39,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "340.89",
+                "power.limit": "370.00",
+                "clocks.sm": "1890",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "76",
+                "pstate": "P2",
+                "power.draw": "316.75",
+                "power.limit": "370.00",
+                "clocks.sm": "1920",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1043.71,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "337.95",
+                "power.limit": "370.00",
+                "clocks.sm": "1920",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "84",
+                "pstate": "P2",
+                "power.draw": "313.87",
+                "power.limit": "370.00",
+                "clocks.sm": "1905",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1567.48,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "336.87",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "269.17",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "44"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 2088.01,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "99",
+                "pstate": "P2",
+                "power.draw": "338.48",
+                "power.limit": "370.00",
+                "clocks.sm": "1905",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "193.62",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "43"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 2608.35,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "336.17",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "158.96",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "43"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 3128.78,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "296.11",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "161.62",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "43"
+              }
+            ]
+          }
+        ]
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 347.449,
+          "client_total_ms": 2929.64,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 1293,
+            "prompt_ms": 339.758,
+            "prompt_per_token_ms": 0.2627672080433101,
+            "prompt_per_second": 3805.649903755026,
+            "predicted_n": 96,
+            "predicted_ms": 2582.019,
+            "predicted_per_token_ms": 26.896031249999997,
+            "predicted_per_second": 37.1802066522361
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 1293,
+            "total_tokens": 1389,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6",
+          "output_text": "(delight, playful) Natürlich, das mache ich sehr gerne!\n(warm, natural) Es war einmal ein kleiner Roboter namens Robby, der zwar klein war, aber ein riesiges Herz.\n(interest, soft) Robby wohnte in einem bunten Garten, wo Blumen immer lachten.\n(affection, warm) Eines Tages sah er eine kleine, traurige Schmetterlingsjungfer.\n(amusement, playful) Sie hatte",
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.14,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "285.50",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "162.23",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 523.39,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "98",
+                  "pstate": "P2",
+                  "power.draw": "277.24",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "173.55",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "45"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1044.07,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "329.74",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "86",
+                  "pstate": "P2",
+                  "power.draw": "244.26",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1567.35,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "337.79",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "85",
+                  "pstate": "P2",
+                  "power.draw": "315.93",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2093.44,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "337.76",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "70",
+                  "pstate": "P2",
+                  "power.draw": "329.37",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2619.47,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "336.05",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "289.29",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 645.316,
+          "client_total_ms": 3109.715,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 1293,
+            "prompt_ms": 634.777,
+            "prompt_per_token_ms": 0.49093348801237435,
+            "prompt_per_second": 2036.9358058026676,
+            "predicted_n": 96,
+            "predicted_ms": 2464.202,
+            "predicted_per_token_ms": 25.668770833333337,
+            "predicted_per_second": 38.957845176653535
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 1293,
+            "total_tokens": 1389,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6",
+          "output_text": "(delight, playful) Natürlich, das mache ich sehr gerne!\n(warm, natural) Es war einmal ein kleiner Roboter namens Robby, der zwar klein war, aber ein riesiges Herz.\n(interest, soft) Robby wohnte in einem bunten Garten, wo Blumen immer lachten.\n(affection, warm) Eines Tages sah er eine kleine, traurige Schmetterlingsjungfer.\n(amusement, playful) Sie hatte",
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.09,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "334.79",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "242.65",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 527.32,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "337.61",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1890",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "170.45",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1050.96,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "322.91",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "50"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "159.51",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1573.79,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "277.19",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "51"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "96",
+                  "pstate": "P2",
+                  "power.draw": "170.38",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2097.59,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "291.91",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "90",
+                  "pstate": "P2",
+                  "power.draw": "210.43",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "46"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2626.45,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.33",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "83",
+                  "pstate": "P2",
+                  "power.draw": "279.94",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 619.921,
+          "client_total_ms": 3128.874,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 1293,
+            "prompt_ms": 608.027,
+            "prompt_per_token_ms": 0.4702451662799691,
+            "prompt_per_second": 2126.5503012201757,
+            "predicted_n": 96,
+            "predicted_ms": 2508.754,
+            "predicted_per_token_ms": 26.132854166666664,
+            "predicted_per_second": 38.266007747272155
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 1293,
+            "total_tokens": 1389,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6",
+          "output_text": "(delight, playful) Natürlich, das mache ich sehr gerne!\n(warm, natural) Es war einmal ein kleiner Roboter namens Robby, der zwar klein war, aber ein riesiges Herz.\n(interest, soft) Robby wohnte in einem bunten Garten, wo Blumen immer lachten.\n(affection, warm) Eines Tages sah er eine kleine, traurige Schmetterlingsjungfer.\n(amusement, playful) Sie hatte",
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.13,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "337.20",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "70",
+                  "pstate": "P2",
+                  "power.draw": "318.94",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 525.13,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.57",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1890",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "91",
+                  "pstate": "P2",
+                  "power.draw": "317.86",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1048.24,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "336.37",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "256.77",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1569.27,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "336.07",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "54"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "179.66",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2090.66,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "310.54",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "160.03",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2613.32,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "279.29",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "92",
+                  "pstate": "P2",
+                  "power.draw": "170.44",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 619.921,
+        "total_median_ms": 3109.715,
+        "decode_median_tokens_s": 38.266,
+        "prefill_median_tokens_s": 2126.55,
+        "identical_output_across_repeats": true
+      }
+    },
+    {
+      "case": "long_prefill",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Nutze die folgenden synthetischen Notizen als Kontext. Antworte auf Deutsch.\nNotiz 0: Robby hat 1 kleine bunte Murmeln und besucht Station 0.\nNotiz 1: Robby hat 2 kleine bunte Murmeln und besucht Station 1.\nNotiz 2: Robby hat 3 kleine bunte Murmeln und besucht Station 2.\nNotiz 3: Robby hat 4 kleine bunte Murmeln und besucht Station 3.\nNotiz 4: Robby hat 5 kleine bunte Murmeln und besucht Station 4.\nNotiz 5: Robby hat 6 kleine bunte Murmeln und besucht Station 5.\nNotiz 6: Robby hat 7 kleine bunte Murmeln und besucht Station 6.\nNotiz 7: Robby hat 1 kleine bunte Murmeln und besucht Station 7.\nNotiz 8: Robby hat 2 kleine bunte Murmeln und besucht Station 8.\nNotiz 9: Robby hat 3 kleine bunte Murmeln und besucht Station 9.\nNotiz 10: Robby hat 4 kleine bunte Murmeln und besucht Station 10.\nNotiz 11: Robby hat 5 kleine bunte Murmeln und besucht Station 11.\nNotiz 12: Robby hat 6 kleine bunte Murmeln und besucht Station 12.\nNotiz 13: Robby hat 7 kleine bunte Murmeln und besucht Station 13.\nNotiz 14: Robby hat 1 kleine bunte Murmeln und besucht Station 14.\nNotiz 15: Robby hat 2 kleine bunte Murmeln und besucht Station 15.\nNotiz 16: Robby hat 3 kleine bunte Murmeln und besucht Station 16.\nNotiz 17: Robby hat 4 kleine bunte Murmeln und besucht Station 17.\nNotiz 18: Robby hat 5 kleine bunte Murmeln und besucht Station 18.\nNotiz 19: Robby hat 6 kleine bunte Murmeln und besucht Station 19.\nNotiz 20: Robby hat 7 kleine bunte Murmeln und besucht Station 20.\nNotiz 21: Robby hat 1 kleine bunte Murmeln und besucht Station 21.\nNotiz 22: Robby hat 2 kleine bunte Murmeln und besucht Station 22.\nNotiz 23: Robby hat 3 kleine bunte Murmeln und besucht Station 23.\nNotiz 24: Robby hat 4 kleine bunte Murmeln und besucht Station 24.\nNotiz 25: Robby hat 5 kleine bunte Murmeln und besucht Station 25.\nNotiz 26: Robby hat 6 kleine bunte Murmeln und besucht Station 26.\nNotiz 27: Robby hat 7 kleine bunte Murmeln und besucht Station 27.\nNotiz 28: Robby hat 1 kleine bunte Murmeln und besucht Station 28.\nNotiz 29: Robby hat 2 kleine bunte Murmeln und besucht Station 29.\nNotiz 30: Robby hat 3 kleine bunte Murmeln und besucht Station 30.\nNotiz 31: Robby hat 4 kleine bunte Murmeln und besucht Station 31.\nNotiz 32: Robby hat 5 kleine bunte Murmeln und besucht Station 32.\nNotiz 33: Robby hat 6 kleine bunte Murmeln und besucht Station 33.\nNotiz 34: Robby hat 7 kleine bunte Murmeln und besucht Station 34.\nNotiz 35: Robby hat 1 kleine bunte Murmeln und besucht Station 35.\nNotiz 36: Robby hat 2 kleine bunte Murmeln und besucht Station 36.\nNotiz 37: Robby hat 3 kleine bunte Murmeln und besucht Station 37.\nNotiz 38: Robby hat 4 kleine bunte Murmeln und besucht Station 38.\nNotiz 39: Robby hat 5 kleine bunte Murmeln und besucht Station 39.\nNotiz 40: Robby hat 6 kleine bunte Murmeln und besucht Station 40.\nNotiz 41: Robby hat 7 kleine bunte Murmeln und besucht Station 41.\nNotiz 42: Robby hat 1 kleine bunte Murmeln und besucht Station 42.\nNotiz 43: Robby hat 2 kleine bunte Murmeln und besucht Station 43.\nNotiz 44: Robby hat 3 kleine bunte Murmeln und besucht Station 44.\nNotiz 45: Robby hat 4 kleine bunte Murmeln und besucht Station 45.\nNotiz 46: Robby hat 5 kleine bunte Murmeln und besucht Station 46.\nNotiz 47: Robby hat 6 kleine bunte Murmeln und besucht Station 47.\nNotiz 48: Robby hat 7 kleine bunte Murmeln und besucht Station 48.\nNotiz 49: Robby hat 1 kleine bunte Murmeln und besucht Station 49.\nNotiz 50: Robby hat 2 kleine bunte Murmeln und besucht Station 50.\nNotiz 51: Robby hat 3 kleine bunte Murmeln und besucht Station 51.\nNotiz 52: Robby hat 4 kleine bunte Murmeln und besucht Station 52.\nNotiz 53: Robby hat 5 kleine bunte Murmeln und besucht Station 53.\nNotiz 54: Robby hat 6 kleine bunte Murmeln und besucht Station 54.\nNotiz 55: Robby hat 7 kleine bunte Murmeln und besucht Station 55.\nNotiz 56: Robby hat 1 kleine bunte Murmeln und besucht Station 56.\nNotiz 57: Robby hat 2 kleine bunte Murmeln und besucht Station 57.\nNotiz 58: Robby hat 3 kleine bunte Murmeln und besucht Station 58.\nNotiz 59: Robby hat 4 kleine bunte Murmeln und besucht Station 59.\nNotiz 60: Robby hat 5 kleine bunte Murmeln und besucht Station 60.\nNotiz 61: Robby hat 6 kleine bunte Murmeln und besucht Station 61.\nNotiz 62: Robby hat 7 kleine bunte Murmeln und besucht Station 62.\nNotiz 63: Robby hat 1 kleine bunte Murmeln und besucht Station 63.\nNotiz 64: Robby hat 2 kleine bunte Murmeln und besucht Station 64.\nNotiz 65: Robby hat 3 kleine bunte Murmeln und besucht Station 65.\nNotiz 66: Robby hat 4 kleine bunte Murmeln und besucht Station 66.\nNotiz 67: Robby hat 5 kleine bunte Murmeln und besucht Station 67.\nNotiz 68: Robby hat 6 kleine bunte Murmeln und besucht Station 68.\nNotiz 69: Robby hat 7 kleine bunte Murmeln und besucht Station 69.\nNotiz 70: Robby hat 1 kleine bunte Murmeln und besucht Station 70.\nNotiz 71: Robby hat 2 kleine bunte Murmeln und besucht Station 71.\nNotiz 72: Robby hat 3 kleine bunte Murmeln und besucht Station 72.\nNotiz 73: Robby hat 4 kleine bunte Murmeln und besucht Station 73.\nNotiz 74: Robby hat 5 kleine bunte Murmeln und besucht Station 74.\nNotiz 75: Robby hat 6 kleine bunte Murmeln und besucht Station 75.\nNotiz 76: Robby hat 7 kleine bunte Murmeln und besucht Station 76.\nNotiz 77: Robby hat 1 kleine bunte Murmeln und besucht Station 77.\nNotiz 78: Robby hat 2 kleine bunte Murmeln und besucht Station 78.\nNotiz 79: Robby hat 3 kleine bunte Murmeln und besucht Station 79.\nNotiz 80: Robby hat 4 kleine bunte Murmeln und besucht Station 80.\nNotiz 81: Robby hat 5 kleine bunte Murmeln und besucht Station 81.\nNotiz 82: Robby hat 6 kleine bunte Murmeln und besucht Station 82.\nNotiz 83: Robby hat 7 kleine bunte Murmeln und besucht Station 83.\nNotiz 84: Robby hat 1 kleine bunte Murmeln und besucht Station 84.\nNotiz 85: Robby hat 2 kleine bunte Murmeln und besucht Station 85.\nNotiz 86: Robby hat 3 kleine bunte Murmeln und besucht Station 86.\nNotiz 87: Robby hat 4 kleine bunte Murmeln und besucht Station 87.\nNotiz 88: Robby hat 5 kleine bunte Murmeln und besucht Station 88.\nNotiz 89: Robby hat 6 kleine bunte Murmeln und besucht Station 89.\nNotiz 90: Robby hat 7 kleine bunte Murmeln und besucht Station 90.\nNotiz 91: Robby hat 1 kleine bunte Murmeln und besucht Station 91.\nNotiz 92: Robby hat 2 kleine bunte Murmeln und besucht Station 92.\nNotiz 93: Robby hat 3 kleine bunte Murmeln und besucht Station 93.\nNotiz 94: Robby hat 4 kleine bunte Murmeln und besucht Station 94.\nNotiz 95: Robby hat 5 kleine bunte Murmeln und besucht Station 95."
+        },
+        {
+          "role": "user",
+          "content": "Erzähle daraus eine lange freundliche Geschichte mit mindestens zehn Sätzen."
+        }
+      ],
+      "warmup": {
+        "client_ttft_ms": 1013.437,
+        "client_total_ms": 3546.2,
+        "server_timings": {
+          "cache_n": 0,
+          "prompt_n": 2331,
+          "prompt_ms": 986.229,
+          "prompt_per_token_ms": 0.4230926640926641,
+          "prompt_per_second": 2363.5484253657114,
+          "predicted_n": 96,
+          "predicted_ms": 2532.403,
+          "predicted_per_token_ms": 26.379197916666666,
+          "predicted_per_second": 37.908658298067095
+        },
+        "usage": {
+          "completion_tokens": 96,
+          "prompt_tokens": 2331,
+          "total_tokens": 2427,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "finish_reason": "length",
+        "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b",
+        "output_text": "Es war einmal ein fröhlicher kleiner Name, Robby, der eine wunderbare Sammlung von bunten Murmeln besaß. Jeden Tag unternahm Robby spannende Abenteuer an verschiedenen Stationen. Wenn er beispielsweise Station 0 besuchte, hatte er nur 1 kleine bunte Murmel dabei. An Station 1 trug er stolz 2 kleine bunte Murmeln mit sich. Mit 3 kleinen bunten Murmeln besuchte er dann Station 2",
+        "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+        "gpu_samples": [
+          {
+            "elapsed_ms": 0.12,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "297.28",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "84",
+                "pstate": "P2",
+                "power.draw": "229.38",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "47"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 524.04,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "338.91",
+                "power.limit": "370.00",
+                "clocks.sm": "1860",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "73",
+                "pstate": "P2",
+                "power.draw": "291.01",
+                "power.limit": "370.00",
+                "clocks.sm": "1950",
+                "clocks.mem": "9501",
+                "temperature.gpu": "47"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1046.41,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "336.92",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "80",
+                "pstate": "P2",
+                "power.draw": "322.31",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "47"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 1568.51,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "335.38",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "82",
+                "pstate": "P2",
+                "power.draw": "318.33",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "45"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 2093.04,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "337.23",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "240.26",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "43"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 2613.44,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "341.04",
+                "power.limit": "370.00",
+                "clocks.sm": "1935",
+                "clocks.mem": "9501",
+                "temperature.gpu": "53"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "158.76",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "42"
+              }
+            ]
+          },
+          {
+            "elapsed_ms": 3136.74,
+            "gpus": [
+              {
+                "index": "0",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "23368",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "300.07",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "49"
+              },
+              {
+                "index": "1",
+                "name": "NVIDIA GeForce RTX 3090",
+                "driver_version": "550.54.15",
+                "memory.used": "21199",
+                "utilization.gpu": "100",
+                "pstate": "P2",
+                "power.draw": "161.12",
+                "power.limit": "370.00",
+                "clocks.sm": "1965",
+                "clocks.mem": "9501",
+                "temperature.gpu": "42"
+              }
+            ]
+          }
+        ]
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 915.32,
+          "client_total_ms": 3650.32,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2331,
+            "prompt_ms": 909.584,
+            "prompt_per_token_ms": 0.3902119262119262,
+            "prompt_per_second": 2562.7099861035376,
+            "predicted_n": 96,
+            "predicted_ms": 2734.843,
+            "predicted_per_token_ms": 28.487947916666666,
+            "predicted_per_second": 35.10256347439323
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 2331,
+            "total_tokens": 2427,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b",
+          "output_text": "Es war einmal ein fröhlicher kleiner Name, Robby, der eine wunderbare Sammlung von bunten Murmeln besaß. Jeden Tag unternahm Robby spannende Abenteuer an verschiedenen Stationen. Wenn er beispielsweise Station 0 besuchte, hatte er nur 1 kleine bunte Murmel dabei. An Station 1 trug er stolz 2 kleine bunte Murmeln mit sich. Mit 3 kleinen bunten Murmeln besuchte er dann Station 2",
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.13,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "277.38",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "92",
+                  "pstate": "P2",
+                  "power.draw": "170.31",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "42"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 527.11,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "307.29",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "95",
+                  "pstate": "P2",
+                  "power.draw": "238.54",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "47"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1050.84,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "335.69",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "77",
+                  "pstate": "P2",
+                  "power.draw": "302.21",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "46"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1573.3,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "335.85",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "96",
+                  "pstate": "P2",
+                  "power.draw": "284.26",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "46"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2097.99,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "339.05",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "77",
+                  "pstate": "P2",
+                  "power.draw": "281.94",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2621.96,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.51",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "91",
+                  "pstate": "P2",
+                  "power.draw": "313.74",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "45"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 3147.68,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "313.57",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "50"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "240.61",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 747.641,
+          "client_total_ms": 3598.333,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2331,
+            "prompt_ms": 742.275,
+            "prompt_per_token_ms": 0.3184362934362934,
+            "prompt_per_second": 3140.345559260382,
+            "predicted_n": 96,
+            "predicted_ms": 2850.555,
+            "predicted_per_token_ms": 29.69328125,
+            "predicted_per_second": 33.677652246667755
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 2331,
+            "total_tokens": 2427,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b",
+          "output_text": "Es war einmal ein fröhlicher kleiner Name, Robby, der eine wunderbare Sammlung von bunten Murmeln besaß. Jeden Tag unternahm Robby spannende Abenteuer an verschiedenen Stationen. Wenn er beispielsweise Station 0 besuchte, hatte er nur 1 kleine bunte Murmel dabei. An Station 1 trug er stolz 2 kleine bunte Murmeln mit sich. Mit 3 kleinen bunten Murmeln besuchte er dann Station 2",
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.1,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "280.53",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "170.82",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 522.3,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "294.32",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "87",
+                  "pstate": "P2",
+                  "power.draw": "221.67",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1049.28,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "335.00",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1935",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "84",
+                  "pstate": "P2",
+                  "power.draw": "290.59",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1573.16,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "334.20",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "67",
+                  "pstate": "P2",
+                  "power.draw": "327.49",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "47"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2095.52,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "336.95",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "54"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "86",
+                  "pstate": "P2",
+                  "power.draw": "318.99",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2619.57,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "340.48",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "293.10",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 3143.3,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "339.87",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "216.81",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 859.876,
+          "client_total_ms": 3358.012,
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2331,
+            "prompt_ms": 854.755,
+            "prompt_per_token_ms": 0.3666902616902617,
+            "prompt_per_second": 2727.097238389948,
+            "predicted_n": 96,
+            "predicted_ms": 2497.984,
+            "predicted_per_token_ms": 26.020666666666667,
+            "predicted_per_second": 38.43099075094156
+          },
+          "usage": {
+            "completion_tokens": 96,
+            "prompt_tokens": 2331,
+            "total_tokens": 2427,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b",
+          "output_text": "Es war einmal ein fröhlicher kleiner Name, Robby, der eine wunderbare Sammlung von bunten Murmeln besaß. Jeden Tag unternahm Robby spannende Abenteuer an verschiedenen Stationen. Wenn er beispielsweise Station 0 besuchte, hatte er nur 1 kleine bunte Murmel dabei. An Station 1 trug er stolz 2 kleine bunte Murmeln mit sich. Mit 3 kleinen bunten Murmeln besuchte er dann Station 2",
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "gpu_samples": [
+            {
+              "elapsed_ms": 0.12,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "330.47",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "51"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "159.54",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "43"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 526.28,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "302.53",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "52"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "161.73",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "42"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1051.44,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "303.78",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "86",
+                  "pstate": "P2",
+                  "power.draw": "172.98",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 1572.06,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "99",
+                  "pstate": "P2",
+                  "power.draw": "332.14",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "54"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "92",
+                  "pstate": "P2",
+                  "power.draw": "245.43",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1905",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2097.58,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.12",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "83",
+                  "pstate": "P2",
+                  "power.draw": "315.04",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1890",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "49"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 2618.17,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "338.61",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1920",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "54"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "78",
+                  "pstate": "P2",
+                  "power.draw": "330.93",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1890",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "48"
+                }
+              ]
+            },
+            {
+              "elapsed_ms": 3140.34,
+              "gpus": [
+                {
+                  "index": "0",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "23368",
+                  "utilization.gpu": "100",
+                  "pstate": "P2",
+                  "power.draw": "337.20",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1950",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "53"
+                },
+                {
+                  "index": "1",
+                  "name": "NVIDIA GeForce RTX 3090",
+                  "driver_version": "550.54.15",
+                  "memory.used": "21199",
+                  "utilization.gpu": "95",
+                  "pstate": "P2",
+                  "power.draw": "301.30",
+                  "power.limit": "370.00",
+                  "clocks.sm": "1965",
+                  "clocks.mem": "9501",
+                  "temperature.gpu": "44"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 859.876,
+        "total_median_ms": 3598.333,
+        "decode_median_tokens_s": 35.103,
+        "prefill_median_tokens_s": 2727.097,
+        "identical_output_across_repeats": true
+      }
+    }
+  ],
+  "finished_unix": 1793018968.456628,
+  "gpu_after": [
+    {
+      "index": "0",
+      "name": "NVIDIA GeForce RTX 3090",
+      "driver_version": "550.54.15",
+      "memory.used": "23368",
+      "utilization.gpu": "100",
+      "pstate": "P2",
+      "power.draw": "339.00",
+      "power.limit": "370.00",
+      "clocks.sm": "1905",
+      "clocks.mem": "9501",
+      "temperature.gpu": "54"
+    },
+    {
+      "index": "1",
+      "name": "NVIDIA GeForce RTX 3090",
+      "driver_version": "550.54.15",
+      "memory.used": "21199",
+      "utilization.gpu": "100",
+      "pstate": "P2",
+      "power.draw": "265.65",
+      "power.limit": "370.00",
+      "clocks.sm": "1965",
+      "clocks.mem": "9501",
+      "temperature.gpu": "43"
+    }
+  ],
+  "processes_after": [
+    {
+      "pid": "1176457",
+      "process_name": "llama-server",
+      "used_memory_mib": "3720"
+    },
+    {
+      "pid": "1494520",
+      "process_name": "python",
+      "used_memory_mib": "368"
+    },
+    {
+      "pid": "1644572",
+      "process_name": "python3",
+      "used_memory_mib": "8502"
+    },
+    {
+      "pid": "1681201",
+      "process_name": "python",
+      "used_memory_mib": "2560"
+    },
+    {
+      "pid": "1689898",
+      "process_name": "python",
+      "used_memory_mib": "8178"
+    },
+    {
+      "pid": "848451",
+      "process_name": "python",
+      "used_memory_mib": "548"
+    },
+    {
+      "pid": "1201921",
+      "process_name": "python",
+      "used_memory_mib": "12118"
+    },
+    {
+      "pid": "1644573",
+      "process_name": "python3",
+      "used_memory_mib": "8512"
+    }
+  ],
+  "passed": true
+}

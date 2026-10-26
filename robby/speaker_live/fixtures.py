@@ -1,10 +1,10 @@
 """Generate only explicit public-synthetic regression fixtures via shared TTS."""
-import hashlib,json,time
+import hashlib,json,time,os
 from pathlib import Path
 import httpx
 from speaker_v4.common import atomic
 
-ROOT=Path('/mnt/nvme/robo-speaker-studies/speaker-live-fixtures')
+ROOT=Path(os.environ.get('ROBBY_TEST_FIXTURES','/mnt/nvme/robo-speaker-studies/speaker-live-fixtures'))
 CASES=[('christoph-intro','anime_088','Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.'),
        ('christoph-followup','anime_088','Kannst du mir eine kleine Geschichte erzählen?'),
        ('robert-intro','k395_age3_bg1','Hey Robby, ich bin Robert. Wie geht es dir heute?'),

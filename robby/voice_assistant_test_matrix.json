@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "status": "Development regression and search plan; no held-out room certification",
+  "implemented_search_axes": {
+    "focus_threshold": [
+      0.24,
+      0.28,
+      0.32,
+      0.36
+    ],
+    "speech_pause_ms": [
+      500,
+      700,
+      1000
+    ]
+  },
+  "baseline": {
+    "focus_threshold": 0.28,
+    "speech_pause_ms": 700
+  },
+  "development_speakers": [
+    "christoph",
+    "selma"
+  ],
+  "development_augmentation_seeds": [
+    42,
+    43,
+    44
+  ],
+  "held_out": {
+    "status": "Not yet run or supplied as a held-out corpus",
+    "requirements": [
+      "Different voices and scripts",
+      "Different rooms and recordings",
+      "Freeze configuration before opening this split"
+    ]
+  },
+  "suites": [
+    {
+      "id": "unit",
+      "layer": "Offline contracts",
+      "implemented": true
+    },
+    {
+      "id": "decision",
+      "layer": "Real Laya service routing and text intent",
+      "implemented": true
+    },
+    {
+      "id": "stress",
+      "layer": "Component mixtures with real ECAPA, V4 and Nemotron",
+      "implemented": true
+    },
+    {
+      "id": "stops",
+      "layer": "CPU Chromium, real HTTPS ASR/LLM/TTS, four commands and resumption",
+      "implemented": true
+    },
+    {
+      "id": "permissions",
+      "layer": "Spoken invitation, admitted roster, unauthorized invitation and revocation",
+      "implemented": true
+    },
+    {
+      "id": "browser",
+      "layer": "Combined conversation, handover, actions, banana rule, Stop and permissions",
+      "implemented": true
+    },
+    {
+      "id": "phase_fuzz",
+      "implemented": false,
+      "plan": "Shift cue onset by 0, 80, 160 and 240 ms against the 320-ms encoder hop"
+    },
+    {
+      "id": "room_echo",
+      "implemented": false,
+      "plan": "Measured loudspeaker/microphone loop, multiple acoustic delays and reverberation"
+    },
+    {
+      "id": "long_soak",
+      "implemented": false,
+      "plan": "30-minute TV-heavy conversations, owner return and repeated guest admission"
+    },
+    {
+      "id": "continuity",
+      "layer": "Three real six-turn joke conversations with actual prior replies, expansions and topic changes",
+      "implemented": true
+    }
+  ],
+  "proposed_release_gates_not_claimed_as_measured": {
+    "main_turn_recall_min": 0.95,
+    "background_false_replies_per_hour_max": 0.1,
+    "unintended_tts_aborts_per_hour_max": 0.1,
+    "explicit_stop_recall_min": 0.95,
+    "stop_last_word_to_cancel_p95_ms_max": 1000,
+    "source_end_to_submit_p95_ms_max": 2000,
+    "unexpected_identity_learning_or_permission_grants": 0
+  }
+}

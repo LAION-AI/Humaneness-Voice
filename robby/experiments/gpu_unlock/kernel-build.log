@@ -1,0 +1,17 @@
+make -C "/lib/modules/5.4.0-208-generic/build" M="/mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock" modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-208-generic'
+  CC [M]  /mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock/main.o
+/mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock/main.c: In function ‘unlock_one’:
+/mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock/main.c:73:2: error: implicit declaration of function ‘pci_dev_lock’; did you mean ‘pci_dev_put’? [-Werror=implicit-function-declaration]
+   73 |  pci_dev_lock(pdev);
+      |  ^~~~~~~~~~~~
+      |  pci_dev_put
+/mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock/main.c:75:2: error: implicit declaration of function ‘pci_dev_unlock’; did you mean ‘inode_unlock’? [-Werror=implicit-function-declaration]
+   75 |  pci_dev_unlock(pdev);
+      |  ^~~~~~~~~~~~~~
+      |  inode_unlock
+cc1: some warnings being treated as errors
+make[2]: *** [scripts/Makefile.build:270: /mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock/main.o] Error 1
+make[1]: *** [Makefile:1778: /mnt/nvme/moss-15-v2/gpu-unlock-study/upstream/kernel/gpu_unlock] Error 2
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-208-generic'
+make: *** [Makefile:6: all] Error 2

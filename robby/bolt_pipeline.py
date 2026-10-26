@@ -21,10 +21,14 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
     if chunk_frames not in (2,5,10,20):raise ValueError('Unsupported TTS chunk size')
     from avatar_commands import explicit_actions,silent_requested
     context=dict(avatar_context or {})
+    if (interaction_state or {}).get('current_rule_applied'):
+        context['applied_interruption_rules']=(interaction_state or {}).get('rules',[])
     requested=explicit_actions(text,sum(h.get('role')=='user' for h in history)) if preset is None and not context.get('event') else []
     avatar_steps=list(requested);actions=[];sources=[]
     silent=bool(requested and silent_requested(text))
-    immediate=bool(requested and (silent or any(s['kind'] not in ('spin','carousel','afterglow') for s in requested)))
+    # A direct screen command must work even if LLM/TTS playback is delayed.
+    # Dispatch once immediately; the matching ID prevents metadata replay.
+    immediate=bool(requested)
     action_id=uuid.uuid4().hex if immediate else None
     if requested:context['requested_actions']=requested
     if context.get('event'):

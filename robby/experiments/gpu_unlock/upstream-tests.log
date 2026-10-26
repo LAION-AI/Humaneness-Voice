@@ -1,0 +1,11 @@
+GPU_UNLOCK_ASSETS=/mnt/nvme/moss-15-v2/gpu-unlock-study/no-firmware python3 -m unittest discover -s tests -v
+test_install_uses_standard_paths (test_packaging.PackageTests) ... ok
+test_native_versions_match (test_packaging.PackageTests) ... ok
+test_pkgbuild_pins_match_manifest (test_packaging.PackageTests) ... ok
+test_v67_payload_matches_pin (test_packaging.PackageTests) ... ok
+test_components (test_release.ComponentTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.999s
+
+OK
