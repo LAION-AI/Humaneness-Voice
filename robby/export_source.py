@@ -30,7 +30,9 @@ def main():
                  'adversarial-fixtures.json','adversarial-plan.json','adversarial-input-audit.json',
                  'adversarial-tool-control.json','adversarial-tool-before-fix.json',
                  'adversarial-full-run.json','adversarial-targeted-run.json',
-                 'adversarial-legacy-failure.json','adversarial-legacy-before-format-fix.json'):
+                 'adversarial-legacy-failure.json','adversarial-legacy-before-format-fix.json',
+                 'completion-stop-before.json','completion-stop-decision.json','completion-stop-browser.json',
+                 'internal-note-ui.json','internal-note-model.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))

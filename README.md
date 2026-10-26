@@ -115,6 +115,12 @@ uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
 
 ## Robby: conversational robot integration
 
+[Interruption wording and private playback notes](https://projects.laion.ai/Humaneness-Voice/robby/interruption-update.html):
+internal history annotations no longer enter spoken replies; “Danke, das reicht”
+and “Halt die Klappe” now enter the direct Stop path as well as Laya. The
+text/model/UI checks pass; the new acoustic attempt was blocked by an occupied
+ASR slot and is not claimed as a pass.
+
 The current **[Voice Assistant Test Protocol](robby/VOICE_ASSISTANT_TEST_PROTOCOL.md)**
 defines exact fixtures/hashes, real-service and CPU-browser commands, group
 conversation/TV stress cases, Stop and task-continuity checks, metrics and a

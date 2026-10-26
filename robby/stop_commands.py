@@ -8,7 +8,7 @@ def has_stop_cue(text):
     Do not ask a stochastic classifier on every ordinary fragment: repeated
     guesses eventually turn fluent continuing speech into a false Stop.
     """
-    return bool(re.search(r'\b(?:stopp?\w*|halt|pause|warte\w*|aufhör\w*|auf|leise|still|ruhe|unterbr\w*|ausreden|'
+    return bool(re.search(r'\b(?:stopp?\w*|halte?|pause|warte\w*|aufhör\w*|auf|leise|still|ruhe|reicht|genügt|klappe|schnauze|unterbr\w*|ausreden|'
         r'wait|quiet|silence|enough|interrupt\w*|hold|speak|question)\b',' '.join(words(text))))
 
 def is_stop_command(text):
@@ -22,6 +22,10 @@ def is_stop_command(text):
     # Bounded ASR homophone, not fuzzy substring matching. A literal person
     # mention ("Herr Müller ...") or ordinary sentence must never qualify.
     value=re.sub(r'^(?:herr|her) ((?:bitte |doch |mal |jetzt ){0,3})auf$',r'hör \1auf',value)
+    # Closing the floor is a stop request too. Keep complete, anchored
+    # utterances: "Danke" alone and "das reicht nicht" must keep listening.
+    if re.fullmatch(r'(?:(?:danke(?: schön)?|dankeschön|vielen dank) )?(?:das|es|cas) (?:reicht|genügt)(?: (?:mir|jetzt|erstmal|erst mal|schon|völlig|danke)){0,2}',value):return True
+    if re.fullmatch(r'halte? (?:(?:bitte|doch|mal|jetzt|endlich) ){0,3}(?:die|deine|deinen) (?:klappe|schnauze|mund)',value):return True
     if re.fullmatch(r'(?:stopp?\s*){1,5}',value):return True
     if re.fullmatch(r'(?:(?:stopp?\s+){1,5})?(?:bitte\s+)?höre?\s+(?:(?:bitte|doch|mal|jetzt|endlich)\s+){0,3}auf(?:\s+zu\s+(?:reden|sprechen))?',value):return True
     return bool(re.fullmatch(r'(?:stopp?|halt|pause|ruhe|warte(?:\s+(?:bitte|kurz|mal|einen moment|einen augenblick)){0,3}|wait(?: a moment| a second)?|hold on|hör auf|höre auf|hör bitte auf|'
@@ -35,6 +39,8 @@ def has_stop_intent(text):
     value=' '.join(words(text))
     value=re.sub(r'^(?:(?:hey|hallo|hi)\s+)?r[oa]b{1,2}(?:y|ie|i|o)\s+','',value)
     value=re.sub(r'^(?:(?:bitte|please)\s+){1,3}','',value)
+    if re.match(r'^(?:stopp?|halte?|pause)\s+(?:bitte\s+)?nicht\b',value):return False
+    if re.match(r'^halte?\s+.*\b(?:klappe|schnauze|mund)\s+nicht\b',value):return False
     if re.match(r'^(?:stopp?|halt|pause)\b',value):
         return not re.match(r'^(?:stopp?|halt|pause)\s+(?:motion|ist|is|heißt|bedeutet|means|word|wort|zeichen|schild)\b',value)
     return bool(re.match(r'^(?:(?:nein\s+)?lass\s+mich\s+(?:(?:bitte|kurz|doch|jetzt)\s+){0,3}(?:ausreden|sprechen|zu\s+wort\s+kommen)\b|warte\s+(?:(?:bitte|kurz|mal)\s+)*(?:ich|lass|einen moment|einen augenblick)\b|höre?\s+(?:(?:bitte|doch|mal|jetzt|endlich)\s+){0,3}auf\b|'

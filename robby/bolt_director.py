@@ -144,8 +144,10 @@ class BoltDirector:
                 content=h['content']
                 if len(content)>4000:content=content[:1800]+'\n[Earlier reply shortened for context]\n'+content[-1800:]
                 if len(content)>remaining:break
-                recent.append({'role':h['role'],'content':content});remaining-=len(content)
-        messages.extend(reversed(recent))
+                recent.append({**h,'content':content});remaining-=len(content)
+        from conversation_tasks import history_for_model
+        model_history,playback_note=history_for_model(list(reversed(recent)))
+        messages.extend(model_history);messages[0]['content']+=playback_note
         if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps(identity,ensure_ascii=False)
         if avatar_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(avatar_context,ensure_ascii=False)
         if (avatar_context or {}).get('requested_actions'):

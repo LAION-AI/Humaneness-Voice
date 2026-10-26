@@ -2592,3 +2592,52 @@ Further candidates are fused semantic/local replay, GPU-side stop checks,
 fused sampling and shorter private PCM transport. None is a claimed speedup
 until measured. CUDA graph requirements are documented by
 [PyTorch](https://docs.pytorch.org/docs/2.14/notes/cuda.html#cuda-graphs).
+
+
+## Interrupted replies: private playback metadata and broader Stop phrases (2026-10-26)
+
+The legacy `[My preceding reply was interrupted…]` note was stored inside an
+assistant history message. It could be imitated by the LLM and split into
+visible/spoken fragments by sentence streaming. History now stores generated
+words separately from `playback_interrupted`. Both directors put playback
+uncertainty in an internal system instruction, never in assistant speech
+examples. Legacy history is migrated on read. The sentence framer buffers and
+drops the known legacy note even across single-character token boundaries;
+compact validation removes it from the TTS script, and the UI has a compatibility
+guard for old-server reply payloads. Legitimate pause cues remain intact.
+
+While Robby speaks, the live controller uses configured local multilingual Laya
+for semantic Stop decisions at 320-ms opportunities, plus a fast path for clear
+commands. Before the fix, `Danke, das reicht` never entered the semantic check
+and was not a direct command. `Halt die Klappe` was classified as Stop by Laya
+but missed the fast literal-command path. Anchored closing/blunt requests now
+include these phrases, `Das reicht mir jetzt`, and the bounded ASR variant
+`Danke, cas reicht`. `Danke` alone, `Das reicht nicht`, ordinary mentions and
+questions do not become direct Stops. Existing acoustic speaker, rival, quiet
+background and echo checks still apply; these text rules do not bypass them.
+
+Verification: 457 offline checks pass, including interrupted-history retention,
+legacy migration, arbitrary streamed token boundaries, TTS prompt filtering and
+negative Stop controls. Six actual Laya service requests distinguish the three
+new positive phrases from continuation/negation/quoted-meaning controls. Two
+real Qwen/Cerebras follow-ups retain clean spoken text. An injected legacy
+reply in real HTTPS Chromium is absent from both the latest-reply card and chat.
+
+The new actual-ASR/identity/TTS test is `browser_completion_stop_check.py`: it
+generates three fixed synthetic inputs once, tests the two positive commands
+at 0/160-ms phases with 12-dB interference, a negated control and a subsequent
+spin reply. Its first attempted run was **blocked before enrollment by an
+occupied ASR session**; no user's connection was evicted. Do not describe that
+blocked run as a passing acoustic test. The preceding 6/8 Stop phase result
+remains a documented limit, not a result proven fixed by text-only checks.
+
+```bash
+python check_completion_decisions.py
+# Requires the pinned v2 inputs, Playwright/Chrome and a free native ASR slot.
+python browser_completion_stop_check.py --prepare --url http://127.0.0.1:8793
+```
+
+Use `ROBBY_COMPLETION_FIXTURES` for the three additional MP3s and metadata; their
+one-take generation records and hashes are retained. Every browser attempt has
+a timestamped `logs/completion-stop-*.json` receipt; blocked and failed attempts
+are never silently retried into a pass. [Current explanation and evidence](static/interruption-update.html).
