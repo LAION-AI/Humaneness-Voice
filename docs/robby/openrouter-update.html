@@ -1,0 +1,300 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby — OpenRouter, private keys and visible stage timings</title>
+<style>body{font:17px/1.65 system-ui;max-width:1180px;margin:30px auto;padding:20px;background:#f6f8fa;color:#20333a}h1,h2{line-height:1.25}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #bfcbd0;text-align:left;padding:10px}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eaf0f4;padding:18px;font-size:14px}a{color:#166a78}.note{padding:18px;background:#e3f0ed}</style>
+<p><a href="https://arrive-locations-parade-research.trycloudflare.com/desk-robot/">Open Robby</a> · <a href="https://github.com/LAION-AI/Humaneness-Voice/tree/main/robby">Source and setup</a></p>
+<h1>Choose the language model; keep the conversation and timing in view</h1>
+<p class="note">Robby can use Qwen 3.8 27B through the selected OpenRouter endpoint, with Cerebras as the configured default, or the already resident local Nemotron. The administrator's key stays encrypted outside the repository. The last recognized/user/robot turns sit beside the avatar, and measured component timings appear underneath it.</p>
+<h2>Actual language-model checks</h2><p>These are individual engineering observations, not a statistical provider speed ranking. Provider load, geography, prompt size and API transit affect them. LLM first sentence is when enough generated words exist for the first TTS request; the model still emits only compact acting cues and speech.</p><div class="scroll"><table><tr><th>Requested route</th><th>Actual provider</th><th>First token</th><th>First sentence</th><th>Task</th><th>Passed</th></tr><tr><td>qwen / cerebras/fp16</td><td>Cerebras</td><td>450.37 ms</td><td>468.79 ms</td><td>Sag mir freundlich guten Morgen.</td><td>True</td></tr><tr><td>qwen / cerebras/fp16</td><td>Cerebras</td><td>277.14 ms</td><td>304.07 ms</td><td>Schreibe ein lustiges Gedicht mit vier Zeilen.</td><td>True</td></tr><tr><td>local / local</td><td>local</td><td>49.01 ms</td><td>298.49 ms</td><td>Schlage ein Spiel vor.</td><td>True</td></tr><tr><td>qwen / deepinfra/bf16</td><td>DeepInfra</td><td>495.05 ms</td><td>642.28 ms</td><td>Sag nur: Guten Morgen.</td><td>True</td></tr></table></div><h2>Real browser turns and stage timing</h2><p>CPU Chromium, actual public HTTPS/WSS, authored synthetic microphone audio, real local ASR and real speech synthesis. No private microphone recording was used. A dash means unmeasured/not applicable; typed input has no ASR operation.</p><div class="scroll"><table><tr><th>Turn</th><th>ASR</th><th>Speaker wait</th><th>LLM first sentence</th><th>TTS first PCM</th><th>Reply → first PCM</th><th>Playback lead</th></tr><tr><td>fake microphone · Whisper → Qwen/Cerebras → TTS</td><td>134 ms</td><td>57 ms</td><td>514.5 ms</td><td>802.1 ms</td><td>1332.2 ms</td><td>314.5 ms</td></tr><tr><td>four-line poem · Qwen/Cerebras</td><td>Typed</td><td>—</td><td>335.3 ms</td><td>825.6 ms</td><td>1162.6 ms</td><td>314.5 ms</td></tr><tr><td>local Nemotron switch</td><td>Typed</td><td>—</td><td>577.2 ms</td><td>834.9 ms</td><td>1413.3 ms</td><td>314.5 ms</td></tr><tr><td>Qwen alternative endpoint · DeepInfra</td><td>Typed</td><td>—</td><td>1177.9 ms</td><td>780.7 ms</td><td>1959.9 ms</td><td>314.5 ms</td></tr><tr><td>real interruption-rule tool · Cerebras</td><td>Typed</td><td>—</td><td>1688.2 ms</td><td>813.8 ms</td><td>2506.1 ms</td><td>314.5 ms</td></tr></table></div>
+<h2>Read the timings correctly</h2><ul>
+<li><b>ASR:</b> the final speech-pause recognition pass. Live preview and the selected pause itself are separate. Alternative recognition includes its loopback request; the native path measures the existing decoder call.</li>
+<li><b>Speaker ID:</b> remaining ECAPA/lookup wait on the path to submission. An already prefetched embedding can make this below one millisecond; the background compute time remains visible in details.</li>
+<li><b>LLM:</b> time to the first complete sentence or validated tool plan. TTFT and full stream wall time are additional details. Cloud measurements include network transit. Full stream wall time may include downstream queue backpressure.</li>
+<li><b>TTS:</b> first decoded/resampled PCM, including server admission and transport. Completed-sentence GPU generation times and RTF are shown separately when supplied by the TTS backend.</li>
+<li><b>Reply → first PCM:</b> server response pipeline start to first audio, excluding prior ASR/speaker processing. This is not microphone-to-ear latency.</li>
+<li><b>Playback lead:</b> real scheduled audio start minus the browser AudioContext clock. It is a scheduling buffer, not a physical-device latency measurement.</li></ul>
+<p>Stages overlap, especially LLM generation and TTS. Do not sum the cards. Each accepted reply has an ID so queued input and late measurements can be distinguished. Existing playback timestamps, interruptions and turn-taking remain in place.</p>
+<h2>Exact provider routing and tools</h2><p>The requested web endpoint corresponds to OpenRouter provider tag <code>cerebras/fp16</code>. Requests use <code>provider.only</code> with <code>allow_fallbacks=false</code>; an unavailable provider is reported instead of silently switching. Additional current endpoint tags come from the public model-endpoint API. The model list is allowlisted to Qwen and the local model; arbitrary provider URLs cannot receive the server key.</p>
+<p>Reasoning is disabled/excluded for fast spoken replies. Provider-specific unsupported JSON-format parameters are omitted. The same acting catalogue, sentence framer, complete-task guard, avatar commands and tools are shared. Explicit interruption-rule requests require actual tools, preserving the banana-game setup rather than accepting a verbal promise. The independent decision model remains separate. One brief retry handles a rate-limit response before any speech; already emitted words are never replayed. Rate limits and provider outages can still interrupt a request.</p>
+<h2>Credential handling</h2><p>The administrator enrolls the key once with <code>python credential_store.py</code>, using a hidden terminal prompt. Authenticated Fernet ciphertext and a separately generated master secret live in a private directory outside the checkout. Directory mode is 0700, file modes 0600. No read-key API exists. The browser sees only credential availability and never receives the administrator's plaintext or ciphertext. Source export and staged release checks exclude credential files.</p>
+<p>Optional personal keys use a password field, are cleared on submission and kept encrypted only in that connection's server memory. They neither overwrite the shared administrator key nor enter browser storage. Disconnecting discards the override. Encryption at rest depends on a protected master secret and OS account: this is not an HSM or protection against server-account compromise. Cloud mode sends conversation text to OpenRouter and the chosen provider; audio processing stays on this server and camera inference stays in the browser.</p>
+<h2>Interface changes</h2><p>The sticky desktop sidebar shows live ASR, the latest user turn and Robby's current reply. Full history remains available. The six timing cards sit directly under the avatar. Model selectors, microphone/camera controls and the main interruption checkbox stay visible; speech-pause and detailed interruption settings are grouped compactly. Mobile stacks the panels without removing controls. Preferences save model/provider IDs only.</p><p>Automatic checks: 398; passed=True. Real route/API checks: True. HTTPS browser checks: True.</p><h2>Reproduce</h2><pre>pip install -r requirements.txt
+python credential_store.py  # hidden prompt; secret lives outside the checkout
+# Start/restart the documented Robby server and FastAPI facade.
+python run_unit_checks.py
+python validate_openrouter.py
+uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_openrouter_check.py</pre>
+<p>The validation calls actual paid OpenRouter routes using the configured server credential, with authored requests. Historical local-model browser checks explicitly select local mode. No key is included in this report, its JSON receipts, source archive or repository. The source contains the exact shared system prompt, transport adapter, key-store code, per-session settings and measurement definitions.</p>
+<p>Primary references: <a href="https://openrouter.ai/docs/guides/routing/provider-selection">OpenRouter exact-provider routing</a>, <a href="https://openrouter.ai/docs/guides/best-practices/reasoning-tokens">reasoning controls</a>, <a href="https://openrouter.ai/qwen/qwen3.8-27b">Qwen model/endpoints</a>, and <a href="https://cryptography.io/en/latest/fernet/">Fernet authenticated encryption</a>.</p>
+<details><summary>Machine-readable receipts</summary><pre>{
+  &quot;api&quot;: {
+    &quot;passed&quot;: true,
+    &quot;started&quot;: 1793009385.3248456,
+    &quot;rows&quot;: [
+      {
+        &quot;model&quot;: &quot;qwen&quot;,
+        &quot;provider&quot;: &quot;cerebras/fp16&quot;,
+        &quot;actual_provider&quot;: &quot;Cerebras&quot;,
+        &quot;input&quot;: &quot;Sag mir freundlich guten Morgen.&quot;,
+        &quot;reply&quot;: &quot;Guten Morgen!\nIch hoffe, dein Kaffee ist schon bereit und die Sonne schickt dir ein kleines Lächeln.&quot;,
+        &quot;first_token_ms&quot;: 450.37,
+        &quot;first_sentence_ms&quot;: 468.79,
+        &quot;total_http_ms&quot;: 489.37,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;qwen&quot;,
+        &quot;provider&quot;: &quot;cerebras/fp16&quot;,
+        &quot;actual_provider&quot;: &quot;Cerebras&quot;,
+        &quot;input&quot;: &quot;Schreibe ein lustiges Gedicht mit vier Zeilen.&quot;,
+        &quot;reply&quot;: &quot;Ein Roboter stolpert in den Türrahmen rein,\nsein Blinklicht flackert, doch er bleibt nicht allein,\ndenn der Staubsauger lacht und saugt den Keks am Boden auf,\nso wird aus einem Patzer ein ganz lustiger Strauß.&quot;,
+        &quot;first_token_ms&quot;: 277.14,
+        &quot;first_sentence_ms&quot;: 304.07,
+        &quot;total_http_ms&quot;: 372.4,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;local&quot;,
+        &quot;provider&quot;: &quot;local&quot;,
+        &quot;actual_provider&quot;: &quot;local&quot;,
+        &quot;input&quot;: &quot;Schlage ein Spiel vor.&quot;,
+        &quot;reply&quot;: &quot;Wir könnten ein Wortassoziationsspiel spielen, wo wir uns gegenseitig Wörter nennen, die mit dem vorherigen verbunden sind!&quot;,
+        &quot;first_token_ms&quot;: 49.01,
+        &quot;first_sentence_ms&quot;: 298.49,
+        &quot;total_http_ms&quot;: 300.98,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;qwen&quot;,
+        &quot;provider&quot;: &quot;deepinfra/bf16&quot;,
+        &quot;actual_provider&quot;: &quot;DeepInfra&quot;,
+        &quot;input&quot;: &quot;Sag nur: Guten Morgen.&quot;,
+        &quot;reply&quot;: &quot;Guten Morgen.&quot;,
+        &quot;first_token_ms&quot;: 495.05,
+        &quot;first_sentence_ms&quot;: 642.28,
+        &quot;total_http_ms&quot;: 644.78,
+        &quot;passed&quot;: true
+      }
+    ],
+    &quot;physical_microphone&quot;: false,
+    &quot;owner_encrypted_outside_source&quot;: true,
+    &quot;real_rule_tool&quot;: {
+      &quot;passed&quot;: true,
+      &quot;reply&quot;: &quot;Klar, das habe ich jetzt eingestellt! Sobald du von Bananen sprichst, rufe ich dir sofort zu: Stopp, stopp!&quot;,
+      &quot;actions&quot;: [
+        {
+          &quot;name&quot;: &quot;set_interruption_rule&quot;,
+          &quot;arguments&quot;: {
+            &quot;condition&quot;: &quot;User talks about bananas&quot;,
+            &quot;trigger_terms&quot;: [
+              &quot;Banane&quot;,
+              &quot;Bananen&quot;,
+              &quot;banana&quot;,
+              &quot;bananas&quot;
+            ],
+            &quot;match_mode&quot;: &quot;any_term&quot;,
+            &quot;reply&quot;: &quot;Stopp, stopp!&quot;
+          }
+        }
+      ],
+      &quot;provider&quot;: &quot;Cerebras&quot;
+    },
+    &quot;finished&quot;: 1793009388.2036214,
+    &quot;key_never_in_responses&quot;: true
+  },
+  &quot;https_browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;started&quot;: 1793010979.7064188,
+    &quot;physical_microphone&quot;: false,
+    &quot;turns&quot;: [
+      {
+        &quot;case&quot;: &quot;fake microphone · Whisper → Qwen/Cerebras → TTS&quot;,
+        &quot;reply&quot;: &quot;Huhu! Ja, gerne!\nAch, das ist ja eine richtig schöne Grimasse!\nIch hoffe, dir hat das Gesicht gefallen!&quot;,
+        &quot;user&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;timings&quot;: {
+          &quot;asr&quot;: 134,
+          &quot;pause&quot;: 620,
+          &quot;asr_model&quot;: &quot;whisper_turbo&quot;,
+          &quot;speaker&quot;: 56.979,
+          &quot;speaker_background&quot;: null,
+          &quot;speaker_cached&quot;: false,
+          &quot;queue&quot;: 57.18,
+          &quot;llm&quot;: 514.52,
+          &quot;ttft&quot;: 483.91,
+          &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;,
+          &quot;provider&quot;: &quot;Cerebras&quot;,
+          &quot;tts&quot;: 802.08,
+          &quot;reply&quot;: 1332.2,
+          &quot;llm_wall&quot;: 563.35,
+          &quot;buffer&quot;: 314.5124716553287,
+          &quot;tts_gpu&quot;: 4300,
+          &quot;rtf&quot;: 0.6127
+        },
+        &quot;asr_card&quot;: &quot;134 ms&quot;,
+        &quot;speaker_card&quot;: &quot;57 ms&quot;,
+        &quot;pcm_total&quot;: 14
+      },
+      {
+        &quot;case&quot;: &quot;four-line poem · Qwen/Cerebras&quot;,
+        &quot;reply&quot;: &quot;Die Sonne lacht vom blauen Himmel,\ndie Vögel zwitschern fröhlich schnell,\nmein Herz ist leicht, mein Lachen hell,\ndenn heute ist ein Tag für mich und dich!&quot;,
+        &quot;user&quot;: &quot;Schreibe ein fröhliches Gedicht mit vier Zeilen.&quot;,
+        &quot;timings&quot;: {
+          &quot;asr&quot;: null,
+          &quot;pause&quot;: null,
+          &quot;asr_model&quot;: null,
+          &quot;speaker&quot;: null,
+          &quot;speaker_background&quot;: null,
+          &quot;speaker_cached&quot;: null,
+          &quot;queue&quot;: null,
+          &quot;llm&quot;: 335.28,
+          &quot;ttft&quot;: 304.13,
+          &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;,
+          &quot;provider&quot;: &quot;Cerebras&quot;,
+          &quot;tts&quot;: 825.65,
+          &quot;reply&quot;: 1162.64,
+          &quot;llm_wall&quot;: 385.3,
+          &quot;buffer&quot;: 314.5124716553305,
+          &quot;tts_gpu&quot;: 5044,
+          &quot;rtf&quot;: 0.6008
+        },
+        &quot;asr_card&quot;: &quot;Typed&quot;,
+        &quot;speaker_card&quot;: &quot;—&quot;,
+        &quot;pcm_total&quot;: 31
+      },
+      {
+        &quot;case&quot;: &quot;local Nemotron switch&quot;,
+        &quot;reply&quot;: &quot;Stell dir vor, wir bauen eine riesige, alberne Roboter-Stadt aus Kissen und Socken!\nWir können dann die Verkehrsschilder aus Bananenschalen machen und die Bewohner sind nur wackelnde Socken-Monster!&quot;,
+        &quot;user&quot;: &quot;Schlage ein lustiges Spiel vor.&quot;,
+        &quot;timings&quot;: {
+          &quot;asr&quot;: null,
+          &quot;pause&quot;: null,
+          &quot;asr_model&quot;: null,
+          &quot;speaker&quot;: null,
+          &quot;speaker_background&quot;: null,
+          &quot;speaker_cached&quot;: null,
+          &quot;queue&quot;: null,
+          &quot;llm&quot;: 577.25,
+          &quot;ttft&quot;: 362.01,
+          &quot;model&quot;: &quot;nemotron-bolt&quot;,
+          &quot;provider&quot;: &quot;local&quot;,
+          &quot;tts&quot;: 834.87,
+          &quot;reply&quot;: 1413.33,
+          &quot;llm_wall&quot;: 825.01,
+          &quot;buffer&quot;: 314.5124716553269,
+          &quot;tts_gpu&quot;: 4058,
+          &quot;rtf&quot;: 0.4543
+        },
+        &quot;asr_card&quot;: &quot;Typed&quot;,
+        &quot;speaker_card&quot;: &quot;—&quot;,
+        &quot;pcm_total&quot;: 43
+      },
+      {
+        &quot;case&quot;: &quot;Qwen alternative endpoint · DeepInfra&quot;,
+        &quot;reply&quot;: &quot;Guten Morgen.&quot;,
+        &quot;user&quot;: &quot;Sag nur: Guten Morgen.&quot;,
+        &quot;timings&quot;: {
+          &quot;asr&quot;: null,
+          &quot;pause&quot;: null,
+          &quot;asr_model&quot;: null,
+          &quot;speaker&quot;: null,
+          &quot;speaker_background&quot;: null,
+          &quot;speaker_cached&quot;: null,
+          &quot;queue&quot;: null,
+          &quot;llm&quot;: 1177.9,
+          &quot;ttft&quot;: 583.28,
+          &quot;llm_wall&quot;: 1177.92,
+          &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;,
+          &quot;provider&quot;: &quot;DeepInfra&quot;,
+          &quot;tts&quot;: 780.74,
+          &quot;reply&quot;: 1959.88,
+          &quot;buffer&quot;: 314.5124716553269,
+          &quot;rtf&quot;: 1.1618,
+          &quot;tts_gpu&quot;: 1051
+        },
+        &quot;asr_card&quot;: &quot;Typed&quot;,
+        &quot;speaker_card&quot;: &quot;—&quot;,
+        &quot;pcm_total&quot;: 47
+      },
+      {
+        &quot;case&quot;: &quot;real interruption-rule tool · Cerebras&quot;,
+        &quot;reply&quot;: &quot;Alles klar, ich habe die Regel eingestellt!&quot;,
+        &quot;user&quot;: &quot;Wenn ich über Bananen spreche, unterbrich mich und sage Stopp, stopp!&quot;,
+        &quot;timings&quot;: {
+          &quot;asr&quot;: null,
+          &quot;pause&quot;: null,
+          &quot;asr_model&quot;: null,
+          &quot;speaker&quot;: null,
+          &quot;speaker_background&quot;: null,
+          &quot;speaker_cached&quot;: null,
+          &quot;queue&quot;: null,
+          &quot;llm&quot;: 1688.22,
+          &quot;model&quot;: &quot;qwen/qwen3.8-27b&quot;,
+          &quot;provider&quot;: &quot;Cerebras&quot;,
+          &quot;tts&quot;: 813.83,
+          &quot;reply&quot;: 2506.1,
+          &quot;buffer&quot;: 314.5124716553269,
+          &quot;rtf&quot;: 1.0979,
+          &quot;tts_gpu&quot;: 1076
+        },
+        &quot;asr_card&quot;: &quot;Typed&quot;,
+        &quot;speaker_card&quot;: &quot;—&quot;,
+        &quot;pcm_total&quot;: 51
+      }
+    ],
+    &quot;desktop_context_beside_avatar&quot;: true,
+    &quot;timings_below_avatar&quot;: true,
+    &quot;real_rule_installed&quot;: true,
+    &quot;personal_key_not_persisted&quot;: true,
+    &quot;selection_persists_after_reload&quot;: true,
+    &quot;mobile_no_overflow&quot;: true,
+    &quot;owner_key_not_in_browser_responses&quot;: true,
+    &quot;errors&quot;: [],
+    &quot;finished&quot;: 1793011042.5712416
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1793011755.8150213,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_commands&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_asr_choice&quot;,
+      &quot;test_llm_backends&quot;,
+      &quot;test_visual_identity&quot;,
+      &quot;test_conversation_focus&quot;
+    ],
+    &quot;tests&quot;: 398,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  }
+}</pre></details><p>Generated 2026-10-26 10:50 UTC.</p></html>

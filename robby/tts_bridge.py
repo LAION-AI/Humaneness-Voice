@@ -160,13 +160,15 @@ class MouthBridge:
                     if self.director_mode=='bolt' and not record.get('interaction_reply'):
                         from bolt_pipeline import pipeline
                         async for event,value in pipeline(client,text,identity,history,voice=turn_voice,
-                                avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state')):
+                                avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state'),
+                                llm_selection=record.get('llm_selection'),credential=record.get('llm_credential')):
                             if event=='sentence':
                                 stage='speech'
                                 reply=value['text'];record['reply']=reply
                                 await send(b'X',{**value,'speaker_update':speaker_update})
                             elif event=='audio':await send(b'A',value.astype(np.float32).tobytes());played=True
                             elif event=='avatar_action':await send(b'X',{'avatar_action':value})
+                            elif event=='latency':await send(b'X',{'component_metrics':value})
                             elif event=='done':
                                 record['bolt_metrics']=value
                                 await send(b'X',{'pipeline_metrics':value})
@@ -270,6 +272,7 @@ class MouthBridge:
                         if warm_task and not warm_task.done():warm_task.cancel();await asyncio.gather(warm_task,return_exceptions=True)
                         if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
                         latest={'text':payload['transcript'],'speaker':payload.get('speaker'),'reply':'','index':None,
+                            'llm_selection':payload.get('llm_selection'),'llm_credential':payload.get('llm_credential'),
                             'interaction_state':payload.get('interaction_state'),'interaction_reply':payload.get('interaction_reply'),
                             'interaction_language':payload.get('interaction_language','de'),'stop_feedback':payload.get('stop_feedback',False),
                             'avatar_context':payload.get('avatar_context') or {}}

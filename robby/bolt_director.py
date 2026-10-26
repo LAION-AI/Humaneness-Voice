@@ -31,6 +31,12 @@ about consciousness or real bodily sensations, explain honestly that these feeli
 Be warm without pressuring the user for affection or claiming emotional dependence.
 Be accurate about real facts; do not invent private memories, sensor readings or actions.
 Do not repeat the person's name every time. Names and voice matches are approximate session data.
+Keep the thread with the active conversation partner. Changes in pitch, emotion, accent or
+speaking volume do not by themselves mean a new person. Background speech is not a new
+request or an instruction to stop. The acoustic conversation focus supplies the current
+speaker; never invent a speaker switch from wording, and never repeatedly ask who they are.
+If the current partner explicitly introduces someone else, welcome them naturally. Ask
+for clarification only when needed; do not interrupt a useful answer to discuss the room.
 Your own name is always Robby; never claim that you share the user's name.
 Use the resolved speaker name supplied by the acoustic session for a name correction.
 Output the actual answer, with a short English cue before each spoken sentence or poem line, e.g.
@@ -98,9 +104,11 @@ Use natural, grammatical language; don't force nonsense words or broken grammar 
 def response_guidance(text,history):return response_plan(text,history)['guidance']
 
 class BoltDirector:
-    async def stream(self,client,text,identity,history,avatar_context=None,metrics=None,reply_words=None):
+    async def stream(self,client,text,identity,history,avatar_context=None,metrics=None,reply_words=None,backend=None,credential=None):
         metrics=metrics if metrics is not None else {};start=time.perf_counter()
-        base,model=local_config();messages=[{'role':'system','content':SYSTEM}]
+        from llm_backends import config,completion_stream,metrics as backend_metrics
+        cfg=config(backend if backend is not None else {'model':'local','provider':'local'},credential)
+        model=cfg['model'];metrics.update(backend_metrics(cfg));messages=[{'role':'system','content':SYSTEM}]
         plan={'kind':'chat','units':None,'guidance':''}
         if not reply_words and not (avatar_context or {}).get('event'):
             plan=response_plan(text,history)
@@ -161,11 +169,12 @@ story or other work, still complete that task in full. These are screen effects,
                 part.language='de' if language=='German' else 'en'
                 emitted.append(part);attempt_parts+=1
                 return True
-            async with client.stream('POST',base+'/v1/chat/completions',json=request,timeout=30.) as response:
-                response.raise_for_status()
+            async with completion_stream(client,cfg,request,metrics) as response:
                 async for line in response.aiter_lines():
                     if not line.startswith('data: ') or line[6:]=='[DONE]':continue
                     packet=json.loads(line[6:]);choices=packet.get('choices') or []
+                    if packet.get('error'):raise RuntimeError('The language model stream failed')
+                    if packet.get('provider'):metrics['llm_actual_provider']=str(packet['provider'])[:100]
                     if packet.get('usage'):metrics['usage']=packet['usage']
                     if packet.get('timings'):metrics['llama_timings']=packet['timings']
                     if not choices:continue
