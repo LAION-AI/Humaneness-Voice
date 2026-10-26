@@ -99,6 +99,18 @@ class SentenceFramer:
                 raw=self.buffer[1:end]
                 if not re.fullmatch(r'[A-Za-z_ ,\-]{1,100}',raw):raise ValueError('Invalid acting cue')
                 self.direction=raw.strip();self.buffer=self.buffer[end+1:].lstrip()
+            # Old playback metadata may be echoed by a model. Buffer its
+            # partial prefix before sentence punctuation can leak fragments
+            # into the UI or TTS; retain legitimate square-bracket pause cues.
+            from conversation_tasks import INTERRUPTION_PREFIX
+            folded=self.buffer.casefold();prefix=INTERRUPTION_PREFIX.casefold()
+            if folded.startswith(prefix):
+                end=self.buffer.find(']')
+                if end<0:
+                    if final:self.buffer=''
+                    break
+                self.buffer=self.buffer[end+1:];continue
+            if folded and prefix.startswith(folded) and not final:break
             boundaries=[]
             newline=self.buffer.find('\n')
             if newline>=0:boundaries.append((newline,newline,'\n'))

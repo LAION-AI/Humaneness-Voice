@@ -6,6 +6,11 @@ from conversation_director import CompactDirector,validate,REFERENCE,ensure_addr
 
 
 class DirectorTests(unittest.IsolatedAsyncioTestCase):
+    def test_internal_playback_annotation_is_removed_from_spoken_script(self):
+        script='[My preceding reply was interrupted. Only a prefix may have been heard.]\n(amusement) Robby-Tornado, los geht\'s!'
+        result=validate({'general':'Playful.','script':script,'language':'de'})
+        self.assertEqual(result['text'],"Robby-Tornado, los geht's!")
+        self.assertNotIn('interrupted',result['manual_prompt'])
     async def test_only_transient_provider_400_has_one_retry(self):
         from unittest.mock import AsyncMock
         transient=SimpleNamespace(status_code=400,json=lambda:{'error':{'type':'client_side_error','code':'client_side_error'}})
@@ -53,11 +58,13 @@ class DirectorTests(unittest.IsolatedAsyncioTestCase):
                 return Response()
         settings=SimpleNamespace(LUNA_MODEL='configured-test',LUNA_BASE='https://example.invalid',luna_key=lambda:'test')
         with patch('conversation_director.shared_settings',return_value=settings):
-            result=await CompactDirector().generate(Client(),'17 mal 4?',{'display_name':'Christoph'},[{'role':'assistant','content':'Previous.'}])
+            result=await CompactDirector().generate(Client(),'17 mal 4?',{'display_name':'Christoph'},[{'role':'assistant','content':'Previous.','playback_interrupted':True}])
         self.assertEqual(len(captured),1)
         body=captured[0][1]['json']
         self.assertEqual(body['model'],'configured-test')
         self.assertEqual(body['max_completion_tokens'],2048)
         self.assertEqual(body['messages'][1]['content'],'Previous.')
+        self.assertEqual(set(body['messages'][1]),{'role','content'})
+        self.assertIn('INTERNAL PLAYBACK STATE',body['messages'][0]['content'])
         self.assertEqual(result['completion_tokens'],30)
         self.assertEqual(result['text'],'Achtundsechzig.')

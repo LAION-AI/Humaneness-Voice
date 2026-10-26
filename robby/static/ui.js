@@ -87,6 +87,9 @@ const client=window.robo=new RoboClient({
  audio(m){overview.audio(m);},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
+  // Compatibility guard for an older server/history echo. The actual server
+  // also removes this obsolete note before sentence framing and synthesis.
+  if(m.type==='reply'&&typeof m.text==='string')m={...m,text:m.text.replace(/\[My preceding reply was interrupted\.[^\]]*(?:\]|$)/gi,'').trim()};
   asrControls?.message(m);
   llmControls?.message(m);overview.message(m);
   if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;
