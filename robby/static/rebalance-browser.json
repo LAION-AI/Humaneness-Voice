@@ -1,7 +1,7 @@
 {
   "passed": true,
   "physical_microphone": false,
-  "started": 1793018415.9088006,
+  "started": 1793025725.1537158,
   "cases": [
     {
       "case": "whole introduction with quiet competing speech",
@@ -10,7 +10,7 @@
     },
     {
       "case": "same voice with changed delivery, two overlapping background voices, procedural music and foley",
-      "transcript": "Kannst du mir eine kleine Geschichte erzählen?",
+      "transcript": "Im Hintergrund läuft ein Bericht kannst du mir eine kleine Geschichte erzählen?",
       "passed": true
     },
     {
@@ -21,7 +21,7 @@
     },
     {
       "case": "real 3D full rotation with concurrent speech",
-      "max_yaw_degrees": 359.9999651592258,
+      "max_yaw_degrees": 359.9999823582827,
       "pcm_chunks": 9,
       "passed": true
     },
@@ -31,15 +31,15 @@
     },
     {
       "case": "banana rule interrupts an ongoing monologue before its end",
-      "decision_from_input_start_ms": 3805.0,
-      "first_interjection_pcm_ms": 3816.6,
+      "decision_from_input_start_ms": 4387.7,
+      "first_interjection_pcm_ms": 4393.0,
       "input_duration_ms": 16430.0,
       "interjections": 3,
       "passed": true
     },
     {
       "case": "spoken Stop cancels and the next spoken request still gets audio",
-      "cancel_from_capture_start_ms": 1313.4,
+      "cancel_from_capture_start_ms": 1275.7,
       "passed": true
     },
     {
@@ -72,9 +72,9 @@
   "configuration": {
     "focus_threshold": 0.28,
     "speech_pause_ms": 700,
-    "url": "https://arrive-locations-parade-research.trycloudflare.com"
+    "url": "http://127.0.0.1:8793"
   },
   "old_default_migrated": true,
   "errors": [],
-  "finished": 1793018625.9435701
+  "finished": 1793025918.3686218
 }
