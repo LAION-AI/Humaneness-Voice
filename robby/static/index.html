@@ -7,6 +7,17 @@
 <div class="eyebrow">A FACE. A VOICE. A CONVERSATION.</div><h1>Talk to Robby.</h1>
 <div id="quick-controls" class="quick-controls">
 <div class="call-controls"><button id="call" class="primary" disabled>◉ Start talking</button><button id="camera" class="secondary">Starting camera…</button><button id="interrupt" class="secondary" aria-label="Stop Robby speaking">Stop reply</button></div>
+<section id="asr-model-controls" aria-label="Speech recognition model">
+<label for="asr-model">Speech recognition <select id="asr-model">
+<option value="nemotron">Nemotron 3.5 · original</option>
+<option value="moonshine_de">Moonshine Streaming Small · German</option>
+<option value="nemotron_de">Nemotron 3.5 · German telephony</option>
+<option value="parakeet_v3">Parakeet TDT v3 · multilingual</option>
+<option value="whisper_turbo">Whisper Large v3 Turbo · German</option>
+</select></label>
+<p id="asr-model-status" role="status">German replies by default. Choose a recognizer to compare the final transcript.</p>
+<details><summary>How recognition and model loading work</summary><p>Nemotron keeps providing live previews, speaker features and interruptions. After your speech pause, the selected model produces the final transcript. Whisper uses buffered speech segments. Other recognizers are held in CPU RAM and moved to the GPU in the background when selected. Your choice is remembered in this browser. Ask explicitly for another reply language if desired.</p><p id="asr-cache-status" role="status">Checking model readiness…</p><a href="/static/asr-model-update.html" target="_blank" rel="noopener">Model timings, offloading and test results ↗</a></details>
+</section>
 <section id="speech-pause-controls" hidden aria-label="Wait for a speech pause">
 <label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">400 ms</output></label>
 <input id="speech-pause" type="range" min="200" max="2000" step="50" value="400">
@@ -52,6 +63,7 @@
 <a href="/static/turn-latency.html" target="_blank" rel="noopener">One-second pause · latency and speaker-context tests ↗</a>
 <a href="/static/long-replies-update.html" target="_blank" rel="noopener">Complete replies, poems &amp; playful conversation · tests ↗</a>
 <a href="/static/avatar-command-update.html" target="_blank" rel="noopener">Requested faces &amp; spoken reactions · fixes and tests ↗</a>
+<a href="/static/asr-model-update.html" target="_blank" rel="noopener">German ASR choices · timing, offloading &amp; tests ↗</a>
 <a href="/speaker-training/" target="_blank" rel="noopener">Larger speaker training · live progress ↗</a>
 </details></aside></main>
 <footer>HUMANENESS VOICE · LAION <span>Authored cartoon expressions, not an emotion detector or medical service.</span></footer>

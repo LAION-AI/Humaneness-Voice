@@ -1,0 +1,655 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robby — selectable German ASR models</title>
+<style>body{font:17px/1.6 system-ui;max-width:1120px;margin:30px auto;padding:20px;background:#f6f8fa;color:#20333a}h1,h2{line-height:1.25}table{border-collapse:collapse;background:white;width:100%}td,th{border:1px solid #bfcbd0;text-align:left;padding:10px}.scroll{overflow:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#eaf0f4;padding:18px;font-size:14px}a{color:#166a78}.note{padding:18px;background:#e3f0ed}</style>
+<p><a href="https://arrive-locations-parade-research.trycloudflare.com/desk-robot/">Open Robby</a> · <a href="https://github.com/LAION-AI/Humaneness-Voice/tree/main/robby">Source and setup</a></p>
+<h1>Five recognizers, German replies, shared turn-taking</h1>
+<p class="note">The Speech recognition menu above the robot selects the final recognizer. German is the default reply language; an explicit request for English overrides it. The original ASR remains the default recognizer so users can make their own comparisons. Selection is remembered in this browser.</p>
+<h2>Measured short-clip checks</h2><p>One RTX 3090, three authored synthetic German clips (3.39–4.51 s), twice each. These figures are engineering smoke tests, not a representative German ASR evaluation or a recommendation for every microphone. WER compares intended synthesis text with ASR output and can include TTS pronunciation errors. Timing excludes speech collection, the configured pause, LLM, TTS and browser playback.</p>
+<div class="scroll"><table><tr><th>Recognizer</th><th>Checks</th><th>Median ASR HTTP time</th><th>Mean toy WER</th><th>One measured model switch</th><th>HTTPS microphone → spoken reply</th></tr><tr><td>Nemotron 3.5 · original</td><td>6 passed</td><td>57.6 ms</td><td>11.6%</td><td>739.76 ms</td><td>True</td></tr><tr><td>Moonshine Streaming Small · German</td><td>6 passed</td><td>132.5 ms</td><td>4.2%</td><td>62.84 ms</td><td>True</td></tr><tr><td>Nemotron 3.5 · German telephony</td><td>6 passed</td><td>82.0 ms</td><td>11.6%</td><td>331.76 ms</td><td>True</td></tr><tr><td>Parakeet TDT v3 · multilingual</td><td>6 passed</td><td>57.5 ms</td><td>4.2%</td><td>854.36 ms</td><td>True</td></tr><tr><td>Whisper Large v3 Turbo · German</td><td>6 passed</td><td>128.2 ms</td><td>4.2%</td><td>691.31 ms</td><td>True</td></tr></table></div><p>Model switching includes eviction of the previous extra recognizer and host-to-device loading. These are single switch observations; CUDA/allocator warm-up, weight size and the previously selected model affect them. Resident transcription calls do not reload the weights each time. Original Nemotron uses the existing optimized CUDA-graph decoder; the German telephony model is a separately loaded FP32 recognizer.</p>
+<h2>Pipeline and buffering</h2><pre>microphone ─┬─ original Nemotron → live preview / TYGER / speaker features / Stop
+            └─ small CPU Silero VAD → speech pause → selected final recognizer
+                                                   ↓
+                                       corrected final text + voice label
+                                                   ↓
+                                       local LLM → sentence-streamed TTS</pre>
+<p>The previous Nemotron encoder and TYGER GRU stay resident and unchanged. Their features also power existing speaker matching. The final recognizer is interchangeable: the selected model's transcript, not the preview, is submitted to the LLM. Pauses still use the existing neural CPU VAD slider (400 ms default, 200–2,000 ms). Energy-only background noise does not reset this clock; actual background speech can.</p>
+<p>Whisper is used as a buffered recognizer after speech pauses. Nemotron continues live recognition and interruptions alongside it. The same pause-final adapter is used for the other alternatives; this integration does not claim native incremental Moonshine/Parakeet decoding. A final alternative pass avoids an unnecessary second native-ASR pass. If speech resumes or the model changes during finalization, stale results are discarded and retained input is checked again.</p>
+<p>Continuous input is held only in bounded session RAM (up to 1,000 existing 320-ms records, about 20 MB of float32 audio). Alternative-model calls use at most 28 seconds, with a short overlap and conservative duplicate-word removal for unusually long uninterrupted input. Typical sentence-sized input is one call. Audio is never saved by the live adapter. Long continuous monologues beyond that RAM window retain the earlier implementation's bounded-input limitation.</p>
+<h2>CPU RAM and GPU offloading</h2><p>The optional loopback worker on port 8801 preloads all four additional models into CPU RAM, roughly 6.6 GiB of weight payload plus runtime overhead. Exactly one extra recognizer is active on GPU; switching evicts it to CPU before moving the new model to GPU. CTranslate2 uses unload_model(to_cpu=True) and load_model(keep_cache=True), retaining its CPU cache. PyTorch models use CPU/GPU transfers. The original Nemotron/TYGER, local LLM and shared TTS remain available.</p>
+<p>Cold startup downloads only pinned inference files (about 6.7 GiB total); subsequent swaps use in-memory models. Progress/readiness is visible in the menu's details panel. Loading runs on worker threads in a separate process. Failure keeps the previous selection, and original Nemotron remains a recovery option even when the optional worker is offline. A selection change invalidates an in-flight stale result without deleting the pending utterance.</p>
+<h2>Models and exact source revisions</h2><table><tr><th>Model</th><th>Revision / source</th></tr><tr><td><a href="https://huggingface.co/nvidia/nemotron-3.5-asr-streaming-0.6b">Nemotron 3.5 · original</a></td><td>bundled-with-tyger</td></tr><tr><td><a href="https://huggingface.co/moonshine-ai/moonshine-streaming-small-de">Moonshine Streaming Small · German</a></td><td>56473ba32b22b484fdfc7eb03d34c393ff494197</td></tr><tr><td><a href="https://huggingface.co/BotgenossenGmbH/nemotron-3.5-asr-de-telephony">Nemotron 3.5 · German telephony</a></td><td>afa1e25c8697ba55bc234087c46d954065cd7678</td></tr><tr><td><a href="https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3">Parakeet TDT v3 · multilingual</a></td><td>541d1f99c6b0c3cd0b11a95167540bb8edefd82b</td></tr><tr><td><a href="https://huggingface.co/deepdml/faster-whisper-large-v3-turbo-ct2">Whisper Large v3 Turbo · German</a></td><td>4df90f75321148c3a29a9e2351b7ddf8f5b115a8</td></tr></table><p>Original Nemotron is the frozen copy in the existing pinned TYGER bundle, not a fresh download of an evolving main branch. The telephony artifact is converted strictly in memory using the released NeMo-to-Transformers key layout; all weights, every tokenizer ID and the German language prompt are checked. Nonpersistent positional buffers are initialized on CPU. Moonshine retains the required attention mask and a duration-based output cap. Whisper uses German recognition with no custom name/keyword prompt.</p><p>An initial decoder smoke test caught three integration errors before release: a base Moonshine class without a generation head, uninitialized nonpersistent meta buffers in the converted model, and a too-small RNN-T output budget that cut final words. The worker now uses the conditional Moonshine class, CPU-initialized buffers, the pinned generation configuration, and bounded budgets that include acoustic blank/time-advance steps. Measurements below use the corrected budget. The telephony model's published improvements concern telephone-style audio; three clean synthetic clips do not determine its usefulness in that domain.</p>
+<h2>Actual browser and language checks</h2><p>Unit checks: 372; passed=True. HTTPS CPU Chrome test: passed=True. Each model is selected through the actual visible dropdown; a synthetic microphone utterance enters the real ASR/identity/LLM/TTS pipeline. The receipt verifies the final recognizer ID, one submitted turn, actual PCM, saved selection and no browser/service errors.</p><p>Additional real mobile-browser controls: passed=True. The selector fits a 390-pixel viewport, the choice survives an actual reload, and repeated Whisper → Parakeet → original switches complete.</p><details><summary>Tell me what we could play together. → de</summary><pre>Wir könnten ein Abenteuer im leuchtenden Galaxien-Wald spielen, wo wir kleine, neugierige Roboter sind!</pre></details><details><summary>Bitte schlage mir ein Spiel vor. → de</summary><pre>Wir könnten ein Detektivspiel spielen, wo ich dir kryptische Hinweise gebe und du die Wahrheit herausfindest!</pre></details><details><summary>Please answer in English: suggest a game. → en</summary><pre>We could play a &#x27;Robot Riddle Relay&#x27; where I give a tricky riddle and you give me a clever answer, then we swap!</pre></details><h2>Reproduction</h2><pre># Existing Robby Python 3.12 environment and pinned TYGER assets are required.
+python prepare_asr_models.py
+pip install -r requirements-asr.txt
+python asr_model_worker.py  # loopback 8801; CPU preload runs in the background
+# Existing server.py + bolt_api.py + LLM + TTS must also be running.
+python run_unit_checks.py
+python validate_asr_models.py
+uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_asr_models_check.py</pre>
+<p>The live installation keeps the four additional dependencies in an isolated ROBO_ASR_DEPS directory; the shared TTS environment was not upgraded. ROBO_ASR_CACHE selects the model cache drive and ROBO_ASR_DEVICE selects the optional worker GPU. The launcher also accepts --with-asr-models. API clients can POST mono 16-kHz float32 PCM to /api/bolt/asr?model=whisper_turbo (or another catalogue ID); /api/asr/models reports cache readiness. Private development ASR endpoints remain blocked by the public facade.</p>
+<h2>Limits and provenance</h2><p>Physical-room microphone quality, dialects, overlap and natural conversations still need user comparison. This check uses synthetic speech and a CPU Chromium fake microphone, not private recordings. It verifies integration and timing, not human ASR accuracy. Native preview quality and rapid Stop recognition still depend on the original Nemotron/TYGER path. ASR/voice labels are approximate, and the new recognizers do not authenticate a person.</p>
+<p>Primary implementation references: <a href="https://huggingface.co/moonshine-ai/moonshine-streaming-small-de">Moonshine German usage and mask requirements</a>; <a href="https://huggingface.co/BotgenossenGmbH/nemotron-3.5-asr-de-telephony">German telephony adaptation</a>; <a href="https://huggingface.co/deepdml/faster-whisper-large-v3-turbo-ct2">Whisper CT2 weights</a>; <a href="https://opennmt.net/CTranslate2/python/ctranslate2.models.Whisper.html">CTranslate2 CPU cache/offload API</a>; <a href="https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3">Parakeet v3</a>. Their source licenses remain separate; no model weights or private biometric data are bundled in the source release.</p>
+<details><summary>Machine-readable test receipts</summary><pre>{
+  &quot;recognition&quot;: {
+    &quot;passed&quot;: true,
+    &quot;synthetic_speech&quot;: true,
+    &quot;physical_microphone&quot;: false,
+    &quot;rows&quot;: [
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robbie, kannst du bitte einen lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 55.8,
+        &quot;asr_ms&quot;: 52.82,
+        &quot;wer&quot;: 0.2222,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen.  Bitte antworte mir ganz ruhig&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 66.9,
+        &quot;asr_ms&quot;: 65.13,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 59.2,
+        &quot;asr_ms&quot;: 57.34,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robbie, kannst du bitte einen lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 59.58,
+        &quot;asr_ms&quot;: 57.81,
+        &quot;wer&quot;: 0.2222,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen.  Bitte antworte mir ganz ruhig&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 61.74,
+        &quot;asr_ms&quot;: 59.99,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 59.01,
+        &quot;asr_ms&quot;: 57.25,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 173.36,
+        &quot;asr_ms&quot;: 171.3,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 143.94,
+        &quot;asr_ms&quot;: 142.05,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 102.72,
+        &quot;asr_ms&quot;: 100.93,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 133.3,
+        &quot;asr_ms&quot;: 131.53,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 135.49,
+        &quot;asr_ms&quot;: 133.5,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 98.96,
+        &quot;asr_ms&quot;: 97.04,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;hallo robbie kannst du bitte einen lustige grimasse machen&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 85.29,
+        &quot;asr_ms&quot;: 83.21,
+        &quot;wer&quot;: 0.2222,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;heute möchte ich über äpfel sprechen bitte antworte mir ganz ruhig&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 99.68,
+        &quot;asr_ms&quot;: 97.62,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;mein zug fährt am halb sieben nach münchen&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 82.39,
+        &quot;asr_ms&quot;: 80.72,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;hallo robbie kannst du bitte einen lustige grimasse machen&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 81.04,
+        &quot;asr_ms&quot;: 79.02,
+        &quot;wer&quot;: 0.2222,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;heute möchte ich über äpfel sprechen bitte antworte mir ganz ruhig&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 96.01,
+        &quot;asr_ms&quot;: 93.83,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;mein zug fährt am halb sieben nach münchen&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 77.95,
+        &quot;asr_ms&quot;: 76.1,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 68.74,
+        &quot;asr_ms&quot;: 66.7,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 65.69,
+        &quot;asr_ms&quot;: 63.65,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 59.83,
+        &quot;asr_ms&quot;: 58.01,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 58.92,
+        &quot;asr_ms&quot;: 57.01,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 57.7,
+        &quot;asr_ms&quot;: 55.43,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 53.43,
+        &quot;asr_ms&quot;: 51.62,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 239.62,
+        &quot;asr_ms&quot;: 237.6,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 131.97,
+        &quot;asr_ms&quot;: 130.02,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 0,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 126.0,
+        &quot;asr_ms&quot;: 124.32,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 0,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;audio_s&quot;: 3.6,
+        &quot;http_ms&quot;: 128.04,
+        &quot;asr_ms&quot;: 126.31,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 1,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;transcript&quot;: &quot;Heute möchte ich über Äpfel sprechen. Bitte antworte mir ganz ruhig.&quot;,
+        &quot;audio_s&quot;: 4.51,
+        &quot;http_ms&quot;: 132.1,
+        &quot;asr_ms&quot;: 130.52,
+        &quot;wer&quot;: 0.0,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;case&quot;: 2,
+        &quot;repeat&quot;: 1,
+        &quot;reference&quot;: &quot;Mein Zug fährt um halb sieben nach München.&quot;,
+        &quot;transcript&quot;: &quot;Mein Zug fährt am halb sieben nach München.&quot;,
+        &quot;audio_s&quot;: 3.39,
+        &quot;http_ms&quot;: 125.23,
+        &quot;asr_ms&quot;: 123.48,
+        &quot;wer&quot;: 0.125,
+        &quot;passed&quot;: true
+      }
+    ],
+    &quot;switches&quot;: [
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;ready&quot;: true,
+        &quot;switch_ms&quot;: 739.76
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;ready&quot;: true,
+        &quot;switch_ms&quot;: 62.84
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;ready&quot;: true,
+        &quot;switch_ms&quot;: 331.76
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;ready&quot;: true,
+        &quot;switch_ms&quot;: 854.36
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;ready&quot;: true,
+        &quot;switch_ms&quot;: 691.31
+      }
+    ],
+    &quot;languages&quot;: [
+      {
+        &quot;input&quot;: &quot;Tell me what we could play together.&quot;,
+        &quot;expected&quot;: &quot;de&quot;,
+        &quot;reply&quot;: &quot;Wir könnten ein Abenteuer im leuchtenden Galaxien-Wald spielen, wo wir kleine, neugierige Roboter sind!&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Bitte schlage mir ein Spiel vor.&quot;,
+        &quot;expected&quot;: &quot;de&quot;,
+        &quot;reply&quot;: &quot;Wir könnten ein Detektivspiel spielen, wo ich dir kryptische Hinweise gebe und du die Wahrheit herausfindest!&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;input&quot;: &quot;Please answer in English: suggest a game.&quot;,
+        &quot;expected&quot;: &quot;en&quot;,
+        &quot;reply&quot;: &quot;We could play a &#x27;Robot Riddle Relay&#x27; where I give a tricky riddle and you give me a clever answer, then we swap!&quot;,
+        &quot;passed&quot;: true
+      }
+    ],
+    &quot;started&quot;: 1793005109.329222,
+    &quot;all_cpu_cached_after_offload&quot;: {
+      &quot;active_gpu_model&quot;: null,
+      &quot;device&quot;: &quot;cuda:0&quot;,
+      &quot;models&quot;: [
+        {
+          &quot;id&quot;: &quot;nemotron&quot;,
+          &quot;label&quot;: &quot;Nemotron 3.5 · original&quot;,
+          &quot;repo&quot;: &quot;nvidia/nemotron-3.5-asr-streaming-0.6b&quot;,
+          &quot;revision&quot;: &quot;bundled-with-tyger&quot;,
+          &quot;kind&quot;: &quot;native&quot;,
+          &quot;mode&quot;: &quot;Live Nemotron preview + neural speech-pause final check&quot;,
+          &quot;phase&quot;: &quot;resident&quot;,
+          &quot;ready&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;moonshine_de&quot;,
+          &quot;label&quot;: &quot;Moonshine Streaming Small · German&quot;,
+          &quot;repo&quot;: &quot;moonshine-ai/moonshine-streaming-small-de&quot;,
+          &quot;revision&quot;: &quot;56473ba32b22b484fdfc7eb03d34c393ff494197&quot;,
+          &quot;kind&quot;: &quot;moonshine&quot;,
+          &quot;mode&quot;: &quot;Nemotron preview + German Moonshine final after a speech pause&quot;,
+          &quot;phase&quot;: &quot;cpu_ready&quot;,
+          &quot;error&quot;: null,
+          &quot;cpu_bytes&quot;: 451488996,
+          &quot;ready&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;nemotron_de&quot;,
+          &quot;label&quot;: &quot;Nemotron 3.5 · German telephony&quot;,
+          &quot;repo&quot;: &quot;BotgenossenGmbH/nemotron-3.5-asr-de-telephony&quot;,
+          &quot;revision&quot;: &quot;afa1e25c8697ba55bc234087c46d954065cd7678&quot;,
+          &quot;kind&quot;: &quot;telephony&quot;,
+          &quot;mode&quot;: &quot;Nemotron preview + German telephony-adapted final after a speech pause&quot;,
+          &quot;phase&quot;: &quot;cpu_ready&quot;,
+          &quot;error&quot;: null,
+          &quot;cpu_bytes&quot;: 2551988352,
+          &quot;ready&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;parakeet_v3&quot;,
+          &quot;label&quot;: &quot;Parakeet TDT v3 · multilingual&quot;,
+          &quot;repo&quot;: &quot;nvidia/parakeet-tdt-0.6b-v3&quot;,
+          &quot;revision&quot;: &quot;541d1f99c6b0c3cd0b11a95167540bb8edefd82b&quot;,
+          &quot;kind&quot;: &quot;parakeet&quot;,
+          &quot;mode&quot;: &quot;Nemotron preview + Parakeet v3 final after a speech pause&quot;,
+          &quot;phase&quot;: &quot;cpu_ready&quot;,
+          &quot;error&quot;: null,
+          &quot;cpu_bytes&quot;: 2508032536,
+          &quot;ready&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;whisper_turbo&quot;,
+          &quot;label&quot;: &quot;Whisper Large v3 Turbo · German&quot;,
+          &quot;repo&quot;: &quot;deepdml/faster-whisper-large-v3-turbo-ct2&quot;,
+          &quot;revision&quot;: &quot;4df90f75321148c3a29a9e2351b7ddf8f5b115a8&quot;,
+          &quot;kind&quot;: &quot;whisper&quot;,
+          &quot;mode&quot;: &quot;Hybrid: Nemotron preview / TYGER + CPU VAD + Whisper final&quot;,
+          &quot;phase&quot;: &quot;cpu_ready&quot;,
+          &quot;error&quot;: null,
+          &quot;cpu_bytes&quot;: 1617884929,
+          &quot;ready&quot;: true
+        }
+      ],
+      &quot;strategy&quot;: &quot;Original Nemotron/TYGER stays resident; one selected extra recognizer on GPU; others cached in CPU RAM.&quot;
+    },
+    &quot;finished&quot;: 1793005115.9199758
+  },
+  &quot;https_browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone&quot;: false,
+    &quot;url&quot;: &quot;https://arrive-locations-parade-research.trycloudflare.com&quot;,
+    &quot;rows&quot;: [
+      {
+        &quot;model&quot;: &quot;nemotron&quot;,
+        &quot;passed&quot;: true,
+        &quot;transcript&quot;: &quot;Hallo Robbie, kannst du bitte einen lustige Grimasse machen?&quot;,
+        &quot;selected_final_asr&quot;: {
+          &quot;model&quot;: &quot;nemotron&quot;
+        },
+        &quot;speech_pause_ms&quot;: 400,
+        &quot;pcm_chunks&quot;: 13,
+        &quot;saved_choice&quot;: &quot;nemotron&quot;,
+        &quot;reply&quot;: &quot;Ach, du willst eine Grimasse? Meine Schaltkreise vibrieren vor Freude!\nHier, eine ganz lustige für dich!&quot;,
+        &quot;browser_errors&quot;: []
+      },
+      {
+        &quot;model&quot;: &quot;moonshine_de&quot;,
+        &quot;passed&quot;: true,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;selected_final_asr&quot;: {
+          &quot;text&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+          &quot;model&quot;: &quot;moonshine_de&quot;,
+          &quot;chunks&quot;: 1,
+          &quot;transcribe_ms&quot;: 147.86
+        },
+        &quot;speech_pause_ms&quot;: 400,
+        &quot;pcm_chunks&quot;: 8,
+        &quot;saved_choice&quot;: &quot;moonshine_de&quot;,
+        &quot;reply&quot;: &quot;Na klar, das mache ich sofort!\nIst das lustig genug für dich?&quot;,
+        &quot;browser_errors&quot;: []
+      },
+      {
+        &quot;model&quot;: &quot;nemotron_de&quot;,
+        &quot;passed&quot;: true,
+        &quot;transcript&quot;: &quot;hallo robbie kannst du bitte eine lustige grimasse machen&quot;,
+        &quot;selected_final_asr&quot;: {
+          &quot;text&quot;: &quot;hallo robbie kannst du bitte eine lustige grimasse machen&quot;,
+          &quot;model&quot;: &quot;nemotron_de&quot;,
+          &quot;chunks&quot;: 1,
+          &quot;transcribe_ms&quot;: 101.98
+        },
+        &quot;speech_pause_ms&quot;: 400,
+        &quot;pcm_chunks&quot;: 12,
+        &quot;saved_choice&quot;: &quot;nemotron_de&quot;,
+        &quot;reply&quot;: &quot;Na klar, das mache ich sofort!\n*Grimace performed*\nIst das lustig genug für dich?&quot;,
+        &quot;browser_errors&quot;: []
+      },
+      {
+        &quot;model&quot;: &quot;parakeet_v3&quot;,
+        &quot;passed&quot;: true,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;selected_final_asr&quot;: {
+          &quot;text&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+          &quot;model&quot;: &quot;parakeet_v3&quot;,
+          &quot;chunks&quot;: 1,
+          &quot;transcribe_ms&quot;: 66.14
+        },
+        &quot;speech_pause_ms&quot;: 400,
+        &quot;pcm_chunks&quot;: 9,
+        &quot;saved_choice&quot;: &quot;parakeet_v3&quot;,
+        &quot;reply&quot;: &quot;Na klar, das mache ich sofort!\nMeine Schaltkreise sind für lustige Grimassen optimiert!&quot;,
+        &quot;browser_errors&quot;: []
+      },
+      {
+        &quot;model&quot;: &quot;whisper_turbo&quot;,
+        &quot;passed&quot;: true,
+        &quot;transcript&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+        &quot;selected_final_asr&quot;: {
+          &quot;text&quot;: &quot;Hallo Robby, kannst du bitte eine lustige Grimasse machen?&quot;,
+          &quot;model&quot;: &quot;whisper_turbo&quot;,
+          &quot;chunks&quot;: 1,
+          &quot;transcribe_ms&quot;: 154.51
+        },
+        &quot;speech_pause_ms&quot;: 400,
+        &quot;pcm_chunks&quot;: 8,
+        &quot;saved_choice&quot;: &quot;whisper_turbo&quot;,
+        &quot;reply&quot;: &quot;Na klar, das mach ich sofort!\nHoffentlich war die Grimasse lustig für dich!&quot;,
+        &quot;browser_errors&quot;: []
+      }
+    ],
+    &quot;started&quot;: 1793005148.1041818,
+    &quot;finished&quot;: 1793005238.042415
+  },
+  &quot;controls_browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;started&quot;: 1793004849.418737,
+    &quot;physical_microphone&quot;: false,
+    &quot;mobile_select_fits&quot;: true,
+    &quot;reload_persists&quot;: true,
+    &quot;repeat_switches&quot;: true,
+    &quot;errors&quot;: [],
+    &quot;finished&quot;: 1793004852.7621338
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1793004907.0566285,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_commands&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_asr_choice&quot;,
+      &quot;test_visual_identity&quot;
+    ],
+    &quot;tests&quot;: 372,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  }
+}</pre></details><p>Generated 2026-10-26 09:01 UTC.</p></html>
