@@ -58,14 +58,15 @@ def model_inventory():
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--suites',default='unit',help='Comma list: unit,decision,stress,browser,stops,permissions,continuity,dialogue')
+    p.add_argument('--suites',default='unit',help='Comma list: unit,decision,stress,browser,stops,permissions,continuity,dialogue,adversarial,input_audit,tool_evidence')
     p.add_argument('--url',default='http://127.0.0.1:8793')
     p.add_argument('--threshold',type=float,default=None);p.add_argument('--pause-ms',type=int,default=None)
     p.add_argument('--speakers',default='christoph,selma');p.add_argument('--seeds',default='42')
     p.add_argument('--fixtures',default=os.environ.get('ROBBY_TEST_FIXTURES','/mnt/nvme/robo-speaker-studies/speaker-live-fixtures'))
     p.add_argument('--keep-going',action='store_true',help='Archive failures and continue independent suites, without retries')
+    p.add_argument('--adversarial-scenarios',default='all',help='Subset from adversarial_scenarios.py, or all')
     a=p.parse_args();suites=a.suites.split(',')
-    if set(suites)-{'unit','decision','stress','browser','stops','permissions','continuity','dialogue'}:p.error('Unknown suite')
+    if set(suites)-{'unit','decision','stress','browser','stops','permissions','continuity','dialogue','adversarial','input_audit','tool_evidence'}:p.error('Unknown suite')
     threshold=.28 if a.threshold is None else a.threshold;pause=700 if a.pause_ms is None else a.pause_ms
     if not .20<=threshold<=.65 or not 200<=pause<=2000:p.error('Settings outside supported UI ranges')
     speakers=a.speakers.split(',');seeds=list(map(int,a.seeds.split(',')))
@@ -110,6 +111,12 @@ def main():
         elif suite=='decision':jobs.append((suite,['validate_live_decision_route.py'],'static/rebalance-decision-check.json',{},120))
         elif suite=='continuity':jobs.append((suite,['validate_conversation_continuity.py'],'static/conversation-continuity-check.json',{},600))
         elif suite=='dialogue':jobs.append((suite,['browser_conversation_continuity.py'],'static/conversation-continuity-browser.json',{},900))
+        elif suite=='input_audit':jobs.append((suite,['audit_adversarial_inputs.py'],'static/adversarial-input-audit.json',{'ROBBY_PROTOCOL_LOCK_HELD':'1'},300))
+        elif suite=='tool_evidence':jobs.append((suite,['browser_tool_evidence_check.py'],'static/adversarial-tool-control.json',{},600))
+        elif suite=='adversarial':
+            for seed in seeds:
+                jobs.append((f'adversarial-{seed}',['browser_adversarial_check.py','--scenarios',a.adversarial_scenarios,'--seed',str(seed)],
+                    'static/adversarial-check.json',{'ROBBY_PROTOCOL_LOCK_HELD':'1'},3600))
         elif suite=='stress':
             for speaker in speakers:
                 for seed in seeds:

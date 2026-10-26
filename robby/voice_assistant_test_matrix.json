@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "status": "Development regression and search plan; no held-out room certification",
   "implemented_search_axes": {
     "focus_threshold": [
@@ -68,8 +68,9 @@
     },
     {
       "id": "phase_fuzz",
-      "implemented": false,
-      "plan": "Shift cue onset by 0, 80, 160 and 240 ms against the 320-ms encoder hop"
+      "implemented": true,
+      "plan": "Shift cue onset by 0, 80, 160 and 240 ms against the 320-ms encoder hop",
+      "layer": "Adversarial CPU browser: Stop and Wait at 0/80/160/240-ms fixture-onset phases; real microphone/phoneme phases remain separate"
     },
     {
       "id": "room_echo",
@@ -85,6 +86,28 @@
       "id": "continuity",
       "layer": "Three real six-turn joke conversations with actual prior replies, expansions and topic changes",
       "implemented": true
+    },
+    {
+      "id": "adversarial",
+      "implemented": true,
+      "layer": "Seven stateful scenarios, 34 steps, actual ASR/identity/LLM/tools/TTS; explicit failures and diagnostic boundaries",
+      "plan": "adversarial_scenarios.py",
+      "fixtures": "static/adversarial-fixtures.json"
+    },
+    {
+      "id": "dialogue",
+      "implemented": true,
+      "layer": "Six browser-owned-history turns with actual playback; no caller-provided history"
+    },
+    {
+      "id": "input_audit",
+      "implemented": true,
+      "layer": "All 26 clean pinned takes through ASR/ECAPA; audit completion separate from input flags"
+    },
+    {
+      "id": "tool_evidence",
+      "implemented": true,
+      "layer": "Typed browser, real tool receipts, relevant Wikipedia title, numeric weather evidence and actual TTS"
     }
   ],
   "proposed_release_gates_not_claimed_as_measured": {

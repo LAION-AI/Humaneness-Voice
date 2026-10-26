@@ -111,6 +111,29 @@ class BoltSpeakersTests(unittest.TestCase):
         self.assertNotEqual(a['speaker_id'],b['speaker_id'])
 
 class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
+    async def test_acknowledgment_only_story_gets_one_bounded_real_continuation(self):
+        from bolt_director import BoltDirector
+        calls=[]
+        class Response:
+            def __init__(self,text):self.text=text
+            async def __aenter__(self):return self
+            async def __aexit__(self,*args):pass
+            def raise_for_status(self):pass
+            async def aiter_lines(self):
+                yield 'data: '+json.dumps({'choices':[{'delta':{'content':self.text}}]})
+                yield 'data: '+json.dumps({'choices':[{'delta':{},'finish_reason':'stop'}]})
+        class Client:
+            def stream(self,*args,**kwargs):
+                calls.append(kwargs['json'])
+                return Response('(interest) Das ist eine wunderbare Bitte, die ich sehr gerne erfülle.' if len(calls)==1 else
+                    '(amusement) Ein Roboter fand einen Stern. (interest) Er brachte ihn nach Hause. (affection) Dort leuchtete er für alle Freunde.')
+        metrics={};parts=[]
+        async for part in BoltDirector().stream(Client(),'Erzähl mir eine kleine Geschichte.',{},[],metrics=metrics):parts.append(part)
+        self.assertEqual(len(calls),2)
+        self.assertIn('COMPLETE actual story',calls[1]['messages'][-1]['content'])
+        self.assertIn('leuchtete',join_sentences(parts));self.assertTrue(metrics['response_complete'])
+        self.assertEqual(metrics['completion_repairs'],1)
+
     async def test_premature_poem_end_continues_missing_lines_without_restarting(self):
         from bolt_director import BoltDirector
         calls=[]
@@ -133,6 +156,29 @@ class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
         self.assertGreaterEqual(calls[0]['max_tokens'],2048)
         self.assertIn('exactly 2 additional verse lines',calls[1]['messages'][-1]['content'])
         self.assertTrue(metrics['response_complete']);self.assertEqual(metrics['completion_repairs'],1)
+
+    async def test_joke_setup_is_continued_but_explicit_one_liner_stays_short(self):
+        from bolt_director import BoltDirector
+        class Response:
+            def __init__(self,text):self.text=text
+            async def __aenter__(self):return self
+            async def __aexit__(self,*args):pass
+            def raise_for_status(self):pass
+            async def aiter_lines(self):
+                yield 'data: '+json.dumps({'choices':[{'delta':{'content':self.text}}]})
+                yield 'data: '+json.dumps({'choices':[{'delta':{},'finish_reason':'stop'}]})
+        class Client:
+            def __init__(self):self.calls=0
+            def stream(self,*args,**kwargs):
+                self.calls+=1
+                return Response('(interest) Fips stand am Bahnhof und betrachtete die Anzeige.' if self.calls==1 else
+                    '(amusement) Er suchte einen Anschluss und fand nur eine Steckdose.')
+        client=Client();metrics={}
+        parts=[p async for p in BoltDirector().stream(client,'Erzähl einen vollständigen Witz über Fips.',{},[],metrics=metrics)]
+        self.assertEqual(client.calls,2);self.assertIn('Steckdose',join_sentences(parts));self.assertTrue(metrics['response_complete'])
+        client=Client();metrics={}
+        parts=[p async for p in BoltDirector().stream(client,'Erzähl einen Witz als Einzeiler.',{},[],metrics=metrics)]
+        self.assertEqual(client.calls,1);self.assertEqual(metrics['task_minimum_units'],0)
     async def test_current_native_words_arrive_before_quiet_flush(self):
         import paths
         from server import RoboConversation

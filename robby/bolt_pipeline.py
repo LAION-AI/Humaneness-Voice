@@ -24,7 +24,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
     if (interaction_state or {}).get('current_rule_applied'):
         context['applied_interruption_rules']=(interaction_state or {}).get('rules',[])
     requested=explicit_actions(text,sum(h.get('role')=='user' for h in history)) if preset is None and not context.get('event') else []
-    avatar_steps=list(requested);actions=[];sources=[]
+    avatar_steps=list(requested);actions=[];sources=[];lookups=[]
     silent=bool(requested and silent_requested(text))
     # A direct screen command must work even if LLM/TTS playback is delayed.
     # Dispatch once immediately; the matching ID prevents metadata replay.
@@ -56,6 +56,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                     provider=config(llm_selection,credential) if llm_selection is not None else local_config())
                 avatar_steps[:]=requested or result.get('avatar_actions',[]);actions[:]=result.get('interaction_actions',[])
                 sources[:]=result.get('sources',[])
+                lookups[:]=result.get('lookups',[])
                 framer=SentenceFramer(lines_only=response_plan(text,history)['kind']=='poem')
                 for sentence in framer.feed(result['script'],final=True):
                     sentence.language=result['language'];await queue.put(sentence)
@@ -96,7 +97,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 'performance':{'sentences':list(cues),'source':metrics.get('llm_model','Nemotron')+' sentence cues + fixed GENERAL catalogue',
                     'timing':'Sentence starts anchored to actual preceding PCM duration; within-sentence estimates'},
                 'avatar_actions':avatar_steps,'avatar_action_id':action_id,'avatar_event':context.get('event'),
-                'interaction_actions':actions if index==0 else [],'sources':sources,'speaker':identity,
+                'interaction_actions':actions if index==0 else [],'sources':sources,'lookups':lookups,'speaker':identity,
                 'template_id':spec['template_id'],'sentence_index':index,'sentence_text':sentence.text,
                 'timing':{**metrics,'sentence_ready_ms':round((time.perf_counter()-start)*1000,2),'director_mode':'bolt',
                     'director_model':metrics.get('llm_model','nemotron-bolt'),'template_id':spec['template_id']}}

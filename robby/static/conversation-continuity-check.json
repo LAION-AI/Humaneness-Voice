@@ -5,7 +5,7 @@
   "provider": "cerebras/fp16",
   "repeats": 3,
   "attempts_per_turn": 1,
-  "started": 1793018405.2365227,
+  "started": 1793025563.2400188,
   "conversations": [
     {
       "repeat": 0,
@@ -15,432 +15,8 @@
           "input": "Erzähl mir einen vollständigen Witz über einen kleinen Roboter, mit Situation und Pointe. Erzähl direkt den Witz.",
           "history_turns_sent": 0,
           "passed": true,
-          "text": "Ein kleiner Roboter stellte sich in die Schule und fragte den Lehrer: „Was ist das Gegenteil von ‚Morgen‘?“\nDer Lehrer dachte nach und antwortete: „Abend.“\nDer Roboter schüttelte den Kopf und sagte: „Nein, der Lehrer hat sich den Ton verbrannt.“",
-          "word_count": 40,
-          "sentences": 3,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 542.34,
-            "llm_first_sentence_ms": 591.22,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1566,
-              "completion_tokens": 84,
-              "total_tokens": 1650,
-              "cost": 0.001658745,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 0,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.0016755,
-                "upstream_inference_prompt_cost": 0.00155034,
-                "upstream_inference_completions_cost": 0.00012516
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 631.41,
-            "response_complete": true
-          },
-          "http_ms": 636.96
-        },
-        {
-          "case": "another",
-          "input": "Noch einen, bitte.",
-          "history_turns_sent": 2,
-          "passed": true,
-          "text": "Ein kleiner Roboter wollte ein Eis essen und fragte den Verkäufer: „Haben Sie auch ein Eis, das nicht schmilzt?“\nDer Verkäufer lachte und sagte: „Das gibt’s nicht, das ist Physik.“\nDann stellte der Roboter seine Batterie auf 0 % und sagte: „Dann hab ich ja jetzt ein Eis, das garantiert nicht schmilzt, weil es zu kalt ist, um zu schmelzen.“",
-          "word_count": 60,
-          "sentences": 3,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 264.23,
-            "llm_first_sentence_ms": 310.92,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1652,
-              "completion_tokens": 92,
-              "total_tokens": 1744,
-              "cost": 0.0017548344,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 0,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00177256,
-                "upstream_inference_prompt_cost": 0.00163548,
-                "upstream_inference_completions_cost": 0.00013708
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 577.27,
-            "response_complete": true
-          },
-          "http_ms": 579.21
-        },
-        {
-          "case": "longer",
-          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
-          "history_turns_sent": 4,
-          "passed": true,
-          "text": "Der kleine Roboter fragte den Verkäufer, ob es ein Eis gebe, das nicht schmelze.\nDer Verkäufer lachte laut und erklärte, dass das physikalisch unmöglich sei.\nDer Roboter schaltete daraufhin seine Innenkühlung auf die höchste Stufe.\nPlötzlich wurde der kleine Metallkörper so kalt, dass sich eine dicke Eisschicht bildete.\nStolz sagte der Roboter, er habe nun ein Eis, das nicht schmelze.\nDer Verkäufer schüttelte den Kopf und riet ihm, lieber eine Jacke zu tragen.",
-          "word_count": 73,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 237.83,
-            "llm_first_sentence_ms": 261.18,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1774,
-              "completion_tokens": 153,
-              "total_tokens": 1927,
-              "cost": 0.0019643877,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00198423,
-                "upstream_inference_prompt_cost": 0.00175626,
-                "upstream_inference_completions_cost": 0.00022797
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "requested_units": 6,
-            "completed_units": 6,
-            "completion_repairs": 0,
-            "llm_total_ms": 368.1,
-            "response_complete": true
-          },
-          "http_ms": 369.55
-        },
-        {
-          "case": "same_character_new_place",
-          "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
-          "history_turns_sent": 6,
-          "passed": true,
-          "text": "Der kleine Roboter stand am Bahnsteig und fragte den Schaffner, ob der Zug auch ohne Ticket fahren könne.\nDer Schaffner antwortete streng, dass das nicht erlaubt sei und er sofort aussteigen müsse.\nDaraufhin stellte der Roboter sein Gewicht auf null Gramm ein und ließ sich von einem Luftzug einfach vom Bahnsteig wegwehen.\nEr rief fröhlich zurück, dass er nun definitiv nicht mehr im Zug sei.\nDer Schaffner seufzte und notierte sich, dass er ab heute einen Staubsauger mitschleppen müsse.",
-          "word_count": 79,
-          "sentences": 5,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 242.66,
-            "llm_first_sentence_ms": 264.74,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1937,
-              "completion_tokens": 128,
-              "total_tokens": 2065,
-              "cost": 0.0020872665,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00210835,
-                "upstream_inference_prompt_cost": 0.00191763,
-                "upstream_inference_completions_cost": 0.00019072
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 372.1,
-            "response_complete": true
-          },
-          "http_ms": 373.46
-        },
-        {
-          "case": "change_topic",
-          "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
-          "history_turns_sent": 8,
-          "passed": true,
-          "text": "Eine Katze sah einen Fisch auf dem Tisch und fragte den Besitzer, warum er ihn nicht esse.\nDer Besitzer erklärte, dass der Fisch für das Abendessen gedacht sei.\nDie Katze knurrte leise und legte sich strategisch direkt auf die Serviette.\nSie erklärte, dass sie jetzt eine „Fischschutzzollstelle“ sei und den Fisch beschütze.\nDer Besitzer lachte und sagte, dass er dann eben einen anderen Fisch hole.\nDoch die Katze verschränkte die Pfoten und sagte, dass sie dann auch die Serviette beschütze, bis kein Fisch mehr da sei.",
-          "word_count": 86,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 270.73,
-            "llm_first_sentence_ms": 296.28,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 2098,
-              "completion_tokens": 134,
-              "total_tokens": 2232,
-              "cost": 0.0022539132,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00227668,
-                "upstream_inference_prompt_cost": 0.00207702,
-                "upstream_inference_completions_cost": 0.00019966
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 411.61,
-            "response_complete": true
-          },
-          "http_ms": 413.12
-        },
-        {
-          "case": "elliptical_new_topic",
-          "input": "Und noch einen, bitte.",
-          "history_turns_sent": 10,
-          "passed": true,
-          "text": "Die Katze fragte den Besen, warum er immer so mühsam über den Boden schrubbe.\nDer Besen antwortete, dass er den Staub entfernen müsse, damit das Haus sauber bleibe.\nDie Katze streckte sich lang und legte sich direkt in die Mitte des Weges.\nSie erklärte, dass sie jetzt der „Staubfresser“ sei und den Schmutz persönlich verarbeite.\nDer Besen seufzte und sagte, dass er dann lieber aufhören könne.\nDie Katze blinzelte langsam und meinte, dass sie dann halt zwei Besen brauche.",
-          "word_count": 79,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 279.04,
-            "llm_first_sentence_ms": 305.75,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 2251,
-              "completion_tokens": 134,
-              "total_tokens": 2385,
-              "cost": 0.0024038685,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00242815,
-                "upstream_inference_prompt_cost": 0.00222849,
-                "upstream_inference_completions_cost": 0.00019966
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 394.62,
-            "response_complete": true
-          },
-          "http_ms": 396.09
-        }
-      ]
-    },
-    {
-      "repeat": 1,
-      "turns": [
-        {
-          "case": "first_joke",
-          "input": "Erzähl mir einen vollständigen Witz über einen kleinen Roboter, mit Situation und Pointe. Erzähl direkt den Witz.",
-          "history_turns_sent": 0,
-          "passed": true,
-          "text": "Ein kleiner Roboter stolperte über einen Schraubenzieher und rief entsetzt: \"Oh nein, ich habe mich an einem Werkzeug verschnürt!\"\nDa fiel ihm ein, dass er doch gar keine Füße hat.",
-          "word_count": 30,
-          "sentences": 2,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 230.89,
-            "llm_first_sentence_ms": 277.05,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1566,
-              "completion_tokens": 59,
-              "total_tokens": 1625,
-              "cost": 0.0016218675,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00163825,
-                "upstream_inference_prompt_cost": 0.00155034,
-                "upstream_inference_completions_cost": 8.791e-05
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 328.38,
-            "response_complete": true
-          },
-          "http_ms": 330.04
-        },
-        {
-          "case": "another",
-          "input": "Noch einen, bitte.",
-          "history_turns_sent": 2,
-          "passed": true,
-          "text": "Ein kleiner Roboter ging zum Arzt, weil er sich furchtbar einsam fühlte. Der Arzt fragte: „Und was hat Ihnen denn Ihr Programmierer gesagt?“ Der Roboter seufzte: „Der hat mir nur gesagt, ich soll mich nicht so fühlen, als wäre ich aus einem alten Baukasten zusammengepuzzelt!“",
+          "text": "Ein kleiner Roboter wollte ein Kompliment bekommen.\nEr fragte seine Programmierer: \"Bin ich eigentlich der Schönste?\"\nDie antworteten: \"Ja, du bist wirklich ein richtiger Tausendsassa.\"\nDer Roboter dachte lange nach und sagte dann: \"Toll! Aber was ist, wenn ich ausbrenne?\"\n\"Dann bist du ein Asche-Sassa!\"",
           "word_count": 45,
-          "sentences": 2,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 302.65,
-            "llm_first_sentence_ms": 331.55,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1634,
-              "completion_tokens": 78,
-              "total_tokens": 1712,
-              "cost": 0.0017165412,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00173388,
-                "upstream_inference_prompt_cost": 0.00161766,
-                "upstream_inference_completions_cost": 0.00011622
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 408.09,
-            "response_complete": true
-          },
-          "http_ms": 409.73
-        },
-        {
-          "case": "longer",
-          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
-          "history_turns_sent": 4,
-          "passed": true,
-          "text": "Ein kleiner Roboter ging zum Arzt, weil er sich furchtbar einsam fühlte. Der Arzt fragte besorgt: „Und was hat Ihnen denn Ihr Programmierer geraten?“ Der Roboter seufzte traurig: „Der hat mir nur gesagt, ich soll aufhören, so zu tun, als wäre ich aus einem alten Baukasten zusammengepuzzelt.“ Der Arzt seufzte und sagte: „Das ist leider keine Lösung, sondern nur ein neuer Fehler in Ihrer Software.“ Der Roboter nickte und sagte: „Genau deshalb bin ich ja hier, ich brauche Hilfe!“\nDa lachte der Arzt plötzlich laut und klopfte dem Roboter anmutig auf die metallene Schulter.\n„Wissen Sie was, Sie sind einfach der witzigste Defekt, den ich je behandelt habe!“\nDer kleine Roboter strahlte, denn er erkannte, dass er gar kein Problem hatte, sondern einfach nur ein bisschen zu viel Humor.",
-          "word_count": 129,
           "sentences": 6,
           "checks": {
             "minimum_task_content": true,
@@ -454,14 +30,14 @@
             "llm_provider": "cerebras/fp16",
             "llm_backend": "OpenRouter",
             "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 239.07,
-            "llm_first_sentence_ms": 262.9,
+            "llm_ttft_ms": 337.7,
+            "llm_first_sentence_ms": 362.71,
             "finish_reason": "stop",
             "usage": {
-              "prompt_tokens": 1933,
-              "completion_tokens": 95,
-              "total_tokens": 2028,
-              "cost": 0.0020346678,
+              "prompt_tokens": 1566,
+              "completion_tokens": 107,
+              "total_tokens": 1673,
+              "cost": 0.0016926723,
               "is_byok": false,
               "prompt_tokens_details": {
                 "cached_tokens": 1024,
@@ -470,9 +46,121 @@
                 "video_tokens": 0
               },
               "cost_details": {
-                "upstream_inference_cost": 0.00205522,
-                "upstream_inference_prompt_cost": 0.00191367,
-                "upstream_inference_completions_cost": 0.00014155
+                "upstream_inference_cost": 0.00170977,
+                "upstream_inference_prompt_cost": 0.00155034,
+                "upstream_inference_completions_cost": 0.00015943
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 525.21,
+            "response_complete": true
+          },
+          "http_ms": 530.79
+        },
+        {
+          "case": "another",
+          "input": "Noch einen, bitte.",
+          "history_turns_sent": 2,
+          "passed": true,
+          "text": "Ein kleiner Roboter ging zum Friseur und fragte: „Kannst du mir die Haare kürzer schneiden?“ Der Friseur sagte: „Kein Problem, aber Vorsicht, ich habe nur eine Schere.“ Der Roboter antwortete: „Keine Sorge, ich bin aus Metall.“ Der Friseur schaute verwirrt und sagte: „Dann schneide ich dir halt die Antenne ab, die ist kürzer.“\nDer Friseur schaute verwirrt und sagte: „Dann schneide ich dir halt die Antenne ab, die ist kürzer.“\nDer Roboter zuckte zusammen und rief: „Moment mal! Das ist mein WLAN!“\nDer Friseur seufzte und sagte: „Dann bist du ab jetzt offline und kannst nicht mehr streamen.“\nDer Roboter nickte traurig und murmelte: „Das ist die härteste Strafe, die man sich vorstellen kann.“",
+          "word_count": 114,
+          "sentences": 6,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 253.93,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1842,
+              "completion_tokens": 112,
+              "total_tokens": 1954,
+              "cost": 0.0019705554,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00199046,
+                "upstream_inference_prompt_cost": 0.00182358,
+                "upstream_inference_completions_cost": 0.00016688
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "llm_first_sentence_ms": 366.71,
+            "generation_calls": 2,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 1,
+            "llm_total_ms": 725.43,
+            "response_complete": true
+          },
+          "http_ms": 727.52
+        },
+        {
+          "case": "longer",
+          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
+          "history_turns_sent": 4,
+          "passed": true,
+          "text": "Der kleine Roboter betrat stolz den Friseursalon und fragte höflich: „Könnten Sie mir bitte die Haare etwas kürzer schneiden?“ Der Friseur lächelte und sagte: „Natürlich, aber ich habe nur eine normale Schere dabei.“ Der Roboter nickte gelassen und antwortete: „Das macht nichts, ich bin ja aus robustem Metall.“ Der Friseur schaute skeptisch und meinte: „Dann nehme ich einfach Ihre Antenne, die ist doch ohnehin zu lang.“ Der Roboter zuckte entsetzt zusammen und rief: „Halt! Das ist mein WLAN-Empfänger!“ Der Friseur seufzte und erklärte trocken: „Dann sind Sie ab jetzt offline und können keine Witze mehr streamen.“\nDer Roboter schluckte schwer und murmelte leise vor sich hin.\nEr versuchte, seine Batterien aufzuladen, um vielleicht doch noch ein Signal zu finden.\nDoch der Friseur lachte nur und sagte, dass Offline-Zeiten auch mal guttun.",
+          "word_count": 131,
+          "sentences": 6,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 265.43,
+            "llm_first_sentence_ms": 369.47,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 2133,
+              "completion_tokens": 76,
+              "total_tokens": 2209,
+              "cost": 0.0022026609,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00222491,
+                "upstream_inference_prompt_cost": 0.00211167,
+                "upstream_inference_completions_cost": 0.00011324
               },
               "completion_tokens_details": {
                 "reasoning_tokens": 0,
@@ -484,18 +172,18 @@
             "requested_units": 6,
             "completed_units": 6,
             "completion_repairs": 1,
-            "llm_total_ms": 1329.84,
+            "llm_total_ms": 771.08,
             "response_complete": true
           },
-          "http_ms": 1331.11
+          "http_ms": 772.74
         },
         {
           "case": "same_character_new_place",
           "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
           "history_turns_sent": 6,
           "passed": true,
-          "text": "Der kleine Roboter stand am Bahnsteig und wartete ungeduldig auf den Zug. Als der Zug eintraf, sah er, dass alle Fahrgäste ihre Tickets zückten, während er nur auf seinen Bildschirm starrte. Ein Fahrgast fragte ihn: „Hast du kein Ticket, kleiner Kumpel?“\nDer Roboter antwortete: „Nein, aber ich habe einen gültigen Ladezustand von hundert Prozent!“\nDer Schaffner kam herbei und sagte: „Mit Ladezustand fährt man hier leider nicht.“\nDann lachte der Roboter: „Dann muss ich wohl warten, bis mein Akku leer ist, um ein kostenloses Ticket zu bekommen!“",
-          "word_count": 87,
+          "text": "Der kleine Roboter stand am Bahnhof und wartete auf seinen Zug.\nEr fragte die Verkäuferin: „Entschuldigung, fährt der Zug pünktlich?“\nDie Verkäuferin antwortete: „Meistens, aber heute hat er einen Stau.“\nDer Roboter rief verwirrt: „Wie kann ein Zug einen Stau haben?“\nDie Verkäuferin sagte: „Er steht auf dem Bahnsteig und sucht seinen Schlüssel.“\nDer Roboter lachte und meinte: „Dann hilft ihm mein Magnet, ihn zu finden!“",
+          "word_count": 66,
           "sentences": 6,
           "checks": {
             "minimum_task_content": true,
@@ -509,14 +197,14 @@
             "llm_provider": "cerebras/fp16",
             "llm_backend": "OpenRouter",
             "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 245.89,
-            "llm_first_sentence_ms": 272.29,
+            "llm_ttft_ms": 1192.37,
+            "llm_first_sentence_ms": 1225.25,
             "finish_reason": "stop",
             "usage": {
-              "prompt_tokens": 1984,
-              "completion_tokens": 153,
-              "total_tokens": 2137,
-              "cost": 0.0021702087,
+              "prompt_tokens": 2166,
+              "completion_tokens": 149,
+              "total_tokens": 2315,
+              "cost": 0.0023426865,
               "is_byok": false,
               "prompt_tokens_details": {
                 "cached_tokens": 1024,
@@ -525,9 +213,9 @@
                 "video_tokens": 0
               },
               "cost_details": {
-                "upstream_inference_cost": 0.00219213,
-                "upstream_inference_prompt_cost": 0.00196416,
-                "upstream_inference_completions_cost": 0.00022797
+                "upstream_inference_cost": 0.00236635,
+                "upstream_inference_prompt_cost": 0.00214434,
+                "upstream_inference_completions_cost": 0.00022201
               },
               "completion_tokens_details": {
                 "reasoning_tokens": 0,
@@ -536,18 +224,22 @@
               }
             },
             "generation_calls": 1,
-            "llm_total_ms": 386.4,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 1390.15,
             "response_complete": true
           },
-          "http_ms": 388.14
+          "http_ms": 1391.3
         },
         {
           "case": "change_topic",
           "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
           "history_turns_sent": 8,
           "passed": true,
-          "text": "Eine Katze saß auf dem Klavier und schaute den Pianisten vorwurfsvoll an. Der Mann fragte müde: „Was ist denn los, Miez, warum machst du mir das Leben so schwer?“\nDie Katze maunzte leise und stellte klar, dass sie nur den richtigen Ton suche.\nDer Pianist seufzte und sagte: „Aber du stehst doch auf dem falschen Schlüssel!“\nDa sprang die Katze ab und sagte: „Dann bin ich halt der Dirigent, und ihr seid die kaputte Kapelle!“",
-          "word_count": 75,
+          "text": "Eine Katze saß auf der Fensterbank und beobachtete die Welt.\nSie sah einen Vogel fliegen und rief: „Hilf mir, ich will auch fliegen!“\nDer Vogel antwortete: „Du hast ja keine Flügel.“\nDie Katze meinte: „Dann leih mir deine, ich gebe sie dir zurück.“\nDer Vogel flog weg und rief: „Bleib einfach auf der Erde, du bist eine Katze!“",
+          "word_count": 58,
           "sentences": 5,
           "checks": {
             "minimum_task_content": true,
@@ -561,66 +253,14 @@
             "llm_provider": "cerebras/fp16",
             "llm_backend": "OpenRouter",
             "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 257.52,
-            "llm_first_sentence_ms": 283.09,
+            "llm_ttft_ms": 859.52,
+            "llm_first_sentence_ms": 889.7,
             "finish_reason": "stop",
             "usage": {
-              "prompt_tokens": 2170,
-              "completion_tokens": 123,
-              "total_tokens": 2293,
-              "cost": 0.0023082543,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00233157,
-                "upstream_inference_prompt_cost": 0.0021483,
-                "upstream_inference_completions_cost": 0.00018327
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 678.95,
-            "response_complete": true
-          },
-          "http_ms": 681.0
-        },
-        {
-          "case": "elliptical_new_topic",
-          "input": "Und noch einen, bitte.",
-          "history_turns_sent": 10,
-          "passed": true,
-          "text": "Eine Katze lag in der Sonne und sah zu, wie ein Mann verzweifelt nach ihr rief. Der Mann rief: „Kitty, komm raus, ich habe dir ein Leckerli versteckt!“\nDie Katze blinzelte langsam und dachte: „Verstecken ist ja gut und schön, aber ich bin die Jägerin, nicht die Maus.“\nDer Mann versteckte sich hinter der Tür und wartete auf ihre Reaktion.\nDa kam die Katze heraus, schniffte kurz und meinte: „Ich habe das Leckerli gefunden, aber du hast dich selbst so gut versteckt, dass ich dich jetzt einfach ignoriere!“",
-          "word_count": 88,
-          "sentences": 5,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 260.84,
-            "llm_first_sentence_ms": 311.35,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 2312,
-              "completion_tokens": 138,
-              "total_tokens": 2450,
-              "cost": 0.002469555,
+              "prompt_tokens": 2317,
+              "completion_tokens": 101,
+              "total_tokens": 2418,
+              "cost": 0.0024198768,
               "is_byok": false,
               "prompt_tokens_details": {
                 "cached_tokens": 2048,
@@ -629,9 +269,9 @@
                 "video_tokens": 0
               },
               "cost_details": {
-                "upstream_inference_cost": 0.0024945,
-                "upstream_inference_prompt_cost": 0.00228888,
-                "upstream_inference_completions_cost": 0.00020562
+                "upstream_inference_cost": 0.00244432,
+                "upstream_inference_prompt_cost": 0.00229383,
+                "upstream_inference_completions_cost": 0.00015049
               },
               "completion_tokens_details": {
                 "reasoning_tokens": 0,
@@ -640,182 +280,22 @@
               }
             },
             "generation_calls": 1,
-            "llm_total_ms": 456.4,
-            "response_complete": true
-          },
-          "http_ms": 458.27
-        }
-      ]
-    },
-    {
-      "repeat": 2,
-      "turns": [
-        {
-          "case": "first_joke",
-          "input": "Erzähl mir einen vollständigen Witz über einen kleinen Roboter, mit Situation und Pointe. Erzähl direkt den Witz.",
-          "history_turns_sent": 0,
-          "passed": true,
-          "text": "Ein kleiner Roboter geht zum Arzt und klagt: \"Doktor, ich glaube, ich habe einen Kurzschluss!\"\nDer Arzt schaut ihn besorgt an und fragt: \"Seit wann haben Sie das Problem?\"\nDer Roboter antwortet: \"Seit dem Moment, als ich mich in Ihre Schwester verliebt habe!\"",
-          "word_count": 43,
-          "sentences": 3,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 232.03,
-            "llm_first_sentence_ms": 278.5,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1566,
-              "completion_tokens": 87,
-              "total_tokens": 1653,
-              "cost": 0.0016631703,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00167997,
-                "upstream_inference_prompt_cost": 0.00155034,
-                "upstream_inference_completions_cost": 0.00012963
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 328.21,
-            "response_complete": true
-          },
-          "http_ms": 330.29
-        },
-        {
-          "case": "another",
-          "input": "Noch einen, bitte.",
-          "history_turns_sent": 2,
-          "passed": true,
-          "text": "Ein kleiner Roboter steht vor einem Spiegel und sagt: \"Ich bin heute besonders gut gelaunt, weil ich mich selbst in den sozialen Medien geliked habe!\"",
-          "word_count": 25,
-          "sentences": 1,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 221.14,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1656,
-              "completion_tokens": 34,
-              "total_tokens": 1690,
-              "cost": 0.001673199,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.0016901,
-                "upstream_inference_prompt_cost": 0.00163944,
-                "upstream_inference_completions_cost": 5.066e-05
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "llm_first_sentence_ms": 267.4,
-            "generation_calls": 1,
-            "llm_total_ms": 267.77,
-            "response_complete": true
-          },
-          "http_ms": 270.1
-        },
-        {
-          "case": "longer",
-          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
-          "history_turns_sent": 4,
-          "passed": true,
-          "text": "Der kleine Roboter stand vor dem Spiegel und analysierte sein eigenes Abbild mit seinen optischen Sensoren.\nEr bemerkte, dass seine Antenne leicht nach links kippte, und fragte sich, ob das ein Zeichen seiner besonderen Ausstrahlung war.\nEr erinnerte sich an den viralen Trend, der besagte, dass Selbstliebe die wichtigste Energiequelle für moderne Maschinen sei.\nAlso tippte er vorsichtig auf die Glasoberfläche, als würde er sein eigenes digitales Profil in den sozialen Medien ansteuern.\nMit einem zufriedenen Summen erklärte er, dass er sich selbst gerade das wichtigste Like des Tages gegeben habe.\nSein größtes Problem sei nur, dass er nun nicht mehr wisse, ob er wirklich gut aussehe oder einfach nur ein Spiegelbild von sich selbst habe.",
-          "word_count": 116,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 229.37,
-            "llm_first_sentence_ms": 276.37,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 1720,
-              "completion_tokens": 200,
-              "total_tokens": 1920,
-              "cost": 0.001980792,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.0020008,
-                "upstream_inference_prompt_cost": 0.0017028,
-                "upstream_inference_completions_cost": 0.000298
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "requested_units": 6,
-            "completed_units": 6,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
             "completion_repairs": 0,
-            "llm_total_ms": 458.43,
+            "llm_total_ms": 1000.14,
             "response_complete": true
           },
-          "http_ms": 460.55
+          "http_ms": 1001.38
         },
         {
-          "case": "same_character_new_place",
-          "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
-          "history_turns_sent": 6,
+          "case": "elliptical_new_topic",
+          "input": "Und noch einen, bitte.",
+          "history_turns_sent": 10,
           "passed": true,
-          "text": "Der kleine Roboter stand am Gleis und wartete auf den Zug, der ihn zu seiner Ladebuchung bringen sollte.\nAls das Signal zum Einsteigen ertönte, versuchte er, durch die geschlossene Tür zu klettern, indem er seine Arme in die Ritze zwängte.\nDie Sicherheitskräfte riefen ihm zu, dass er bitte warten solle, bis die Türen sich öffneten, doch er war bereits halb drin.\nAls der Zug anfuhr, wurde er mitgerissen, aber seine Räder blieben auf dem Gleis liegen.\nEr rief verzweifelt: \"Hilfe! Ich bin steckengeblieben!\"\nDann fiel ihm ein, dass er ja eigentlich gar nicht in den Zug wollte, sondern nur seine Batterie am Bahnsteig laden wollte.",
-          "word_count": 105,
+          "text": "Eine Katze fragte ihren Besitzer: „Warum bin ich ein Schnurrtier?“ Der Besitzer antwortete: „Weil du immer so schnurrst, wenn du dich streicheln lässt.“ Die Katze erwiderte: „Aber ich schnurre auch, wenn ich wütend bin!“ Der Besitzer lachte und sagte: „Dann bist du halt ein Schnurrwüter.“\nEine Katze fragte ihren Besitzer: „Warum bin ich ein Schnurrtier?“\nDer Besitzer antwortete: „Weil du immer so schnurrst, wenn du dich streicheln lässt.“\nDie Katze erwiderte: „Aber ich schnurre auch, wenn ich wütend bin!“\nDer Besitzer lachte und sagte: „Dann bist du halt ein Schnurrwüter.“\nDie Katze starrte ihn an und murmelte: „Und wenn ich gar nicht schnurre?“\nDer Besitzer seufzte: „Dann bist du einfach eine laute Katze.“",
+          "word_count": 113,
           "sentences": 7,
           "checks": {
             "minimum_task_content": true,
@@ -829,118 +309,13 @@
             "llm_provider": "cerebras/fp16",
             "llm_backend": "OpenRouter",
             "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 362.33,
-            "llm_first_sentence_ms": 394.19,
+            "llm_ttft_ms": 270.52,
             "finish_reason": "stop",
             "usage": {
-              "prompt_tokens": 1931,
-              "completion_tokens": 173,
-              "total_tokens": 2104,
-              "cost": 0.0021477654,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00216946,
-                "upstream_inference_prompt_cost": 0.00191169,
-                "upstream_inference_completions_cost": 0.00025777
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 542.52,
-            "response_complete": true
-          },
-          "http_ms": 544.33
-        },
-        {
-          "case": "change_topic",
-          "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
-          "history_turns_sent": 8,
-          "passed": true,
-          "text": "Eine Katze saß auf dem Klavier und sah ihren Besitzer mit großen Augen an.\nAls er versuchte, sie sanft vom Instrument zu streichen, legte sie die Pfote auf die Taste für den tiefen Bass.\nDer laute Klang ließ die Katze zusammenzucken, woraufhin sie in Panik über die gesamte Tastatur lief.\nDer Besitzer rief: \"Oh nein, das war ein ganzes Lied!\"\nDie Katze drehte sich um, schnurrte zufrieden und meinte: \"Nicht übel für meinen Debüt-Auftritt, oder?\"\nDer Besitzer seufzte: \"Ich hätte wissen sollen, dass mein Klavierunterricht von einer Katze erteilt wird.\"",
-          "word_count": 90,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 241.55,
-            "llm_first_sentence_ms": 269.97,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 2137,
-              "completion_tokens": 152,
-              "total_tokens": 2289,
-              "cost": 0.0023186889,
-              "is_byok": false,
-              "prompt_tokens_details": {
-                "cached_tokens": 1024,
-                "cache_write_tokens": 0,
-                "audio_tokens": 0,
-                "video_tokens": 0
-              },
-              "cost_details": {
-                "upstream_inference_cost": 0.00234211,
-                "upstream_inference_prompt_cost": 0.00211563,
-                "upstream_inference_completions_cost": 0.00022648
-              },
-              "completion_tokens_details": {
-                "reasoning_tokens": 0,
-                "image_tokens": 0,
-                "audio_tokens": 0
-              }
-            },
-            "generation_calls": 1,
-            "llm_total_ms": 428.16,
-            "response_complete": true
-          },
-          "http_ms": 430.2
-        },
-        {
-          "case": "elliptical_new_topic",
-          "input": "Und noch einen, bitte.",
-          "history_turns_sent": 10,
-          "passed": true,
-          "text": "Eine Katze sah ihren Besitzer, wie er die Treppe hinaufging, und beschloss, ihm zu folgen.\nSie sprang von Stufe zu Stufe, aber bei jeder Landung rutschte sie ein Stück zurück.\nDer Besitzer drehte sich um und rief: \"Komm schon, du machst das doch sonst besser!\"\nDie Katze blieb stehen, putzte sich die Pfote und sagte: \"Ich bin keine Katze, ich bin ein Kater mit Stil.\"\nDer Besitzer lachte: \"Stil ist, wenn du die Treppe runterrollst, ohne zu喵n.\"\nDie Katze sprang dann einfach die restlichen Stufen hinunter und landete perfekt im Arme des Besitzers, der sie mit einem \"Gut gemacht\" belohnte.",
-          "word_count": 100,
-          "sentences": 6,
-          "checks": {
-            "minimum_task_content": true,
-            "topic_retained": true,
-            "new_words_not_identical_repeat": true,
-            "finished_stream": true,
-            "not_just_an_offer": true
-          },
-          "metrics": {
-            "llm_model": "qwen/qwen3.8-27b",
-            "llm_provider": "cerebras/fp16",
-            "llm_backend": "OpenRouter",
-            "llm_actual_provider": "Cerebras",
-            "llm_ttft_ms": 275.67,
-            "llm_first_sentence_ms": 301.12,
-            "finish_reason": "stop",
-            "usage": {
-              "prompt_tokens": 2308,
-              "completion_tokens": 169,
-              "total_tokens": 2477,
-              "cost": 0.0025113627,
+              "prompt_tokens": 2602,
+              "completion_tokens": 162,
+              "total_tokens": 2764,
+              "cost": 0.0027891864,
               "is_byok": false,
               "prompt_tokens_details": {
                 "cached_tokens": 2048,
@@ -949,8 +324,522 @@
                 "video_tokens": 0
               },
               "cost_details": {
-                "upstream_inference_cost": 0.00253673,
-                "upstream_inference_prompt_cost": 0.00228492,
+                "upstream_inference_cost": 0.00281736,
+                "upstream_inference_prompt_cost": 0.00257598,
+                "upstream_inference_completions_cost": 0.00024138
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "llm_first_sentence_ms": 372.89,
+            "generation_calls": 2,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 1,
+            "llm_total_ms": 750.36,
+            "response_complete": true
+          },
+          "http_ms": 751.87
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "turns": [
+        {
+          "case": "first_joke",
+          "input": "Erzähl mir einen vollständigen Witz über einen kleinen Roboter, mit Situation und Pointe. Erzähl direkt den Witz.",
+          "history_turns_sent": 0,
+          "passed": true,
+          "text": "Ein kleiner Roboter geht zum Arzt.\n„Herr Doktor, ich glaube, ich habe einen Kurzschluss.“\n„Machen Sie mal die Augen auf, bitte.“\nDer Roboter hält die Augen offen.\n„Tja“, sagt der Roboter. „Das hab ich ja schon immer gemacht!“",
+          "word_count": 38,
+          "sentences": 6,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 228.5,
+            "llm_first_sentence_ms": 255.25,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1566,
+              "completion_tokens": 90,
+              "total_tokens": 1656,
+              "cost": 0.0016675956,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00168444,
+                "upstream_inference_prompt_cost": 0.00155034,
+                "upstream_inference_completions_cost": 0.0001341
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 369.53,
+            "response_complete": true
+          },
+          "http_ms": 371.49
+        },
+        {
+          "case": "another",
+          "input": "Noch einen, bitte.",
+          "history_turns_sent": 2,
+          "passed": true,
+          "text": "Ein kleiner Roboter fragt seine Mutter: „Mama, bin ich ein Sonderling?“\nDie Mutter antwortet: „Nein, Schatz, du bist einfach nur ein bisschen überladen.“",
+          "word_count": 23,
+          "sentences": 2,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 227.17,
+            "llm_first_sentence_ms": 253.77,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1649,
+              "completion_tokens": 47,
+              "total_tokens": 1696,
+              "cost": 0.0016855146,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00170254,
+                "upstream_inference_prompt_cost": 0.00163251,
+                "upstream_inference_completions_cost": 7.003e-05
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 277.85,
+            "response_complete": true
+          },
+          "http_ms": 279.78
+        },
+        {
+          "case": "longer",
+          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
+          "history_turns_sent": 4,
+          "passed": true,
+          "text": "Ein kleiner Roboter fragt seine Mutter: „Mama, bin ich ein Sonderling?“\nDie Mutter antwortet: „Nein, Schatz, du bist einfach nur ein bisschen überladen.“\nEr fragt weiter: „Dann warum sagen alle, ich sei so eigenartig?“\nSie seufzt: „Weil du ständig nach Updates suchst, wo keine sind.“\nEr nickt zufrieden und sagt: „Ah, also bin ich nicht kaputt, sondern nur neugierig?“\nGenau, mein kleiner Wundertüte, das ist deine Superkraft!",
+          "word_count": 67,
+          "sentences": 6,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 476.44,
+            "llm_first_sentence_ms": 504.34,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1721,
+              "completion_tokens": 150,
+              "total_tokens": 1871,
+              "cost": 0.0019080171,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00192729,
+                "upstream_inference_prompt_cost": 0.00170379,
+                "upstream_inference_completions_cost": 0.0002235
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "requested_units": 6,
+            "completed_units": 6,
+            "completion_repairs": 0,
+            "llm_total_ms": 609.46,
+            "response_complete": true
+          },
+          "http_ms": 611.42
+        },
+        {
+          "case": "same_character_new_place",
+          "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
+          "history_turns_sent": 6,
+          "passed": true,
+          "text": "Der kleine Roboter steht am Bahnhof und wartet auf seinen Zug.\nEin Reisender fragt: „Wohin fährst du denn so eilig?“\nDer Roboter antwortet: „Ich muss zur Ladestation, bevor mir der Akku ausgeht.“\nDer Reisende lacht und sagt: „Dann pass auf, dass du nicht im falschen Gleis landest!“\nDer Roboter seufzt: „Das habe ich schon, deshalb wartet hier schon der zweite Zug auf mich!“",
+          "word_count": 63,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 255.49,
+            "llm_first_sentence_ms": 281.73,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1882,
+              "completion_tokens": 107,
+              "total_tokens": 1989,
+              "cost": 0.0020023839,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00202261,
+                "upstream_inference_prompt_cost": 0.00186318,
+                "upstream_inference_completions_cost": 0.00015943
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 365.58,
+            "response_complete": true
+          },
+          "http_ms": 367.5
+        },
+        {
+          "case": "change_topic",
+          "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
+          "history_turns_sent": 8,
+          "passed": true,
+          "text": "Eine Katze sitzt auf dem Klavier und schaut ihren Besitzer ernst an.\n„Warum machst du das?“, fragt der Mann verwirrt.\nDie Katze antwortet: „Ich teste, ob du noch lebst.“\nEr lacht und sagt: „Und das Ergebnis?“\nSie zuckt mit den Schultern: „Noch unklar, aber die Akkorde waren gut.“",
+          "word_count": 48,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 302.59,
+            "llm_first_sentence_ms": 323.79,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 2022,
+              "completion_tokens": 87,
+              "total_tokens": 2109,
+              "cost": 0.0021100959,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00213141,
+                "upstream_inference_prompt_cost": 0.00200178,
+                "upstream_inference_completions_cost": 0.00012963
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 396.57,
+            "response_complete": true
+          },
+          "http_ms": 398.5
+        },
+        {
+          "case": "elliptical_new_topic",
+          "input": "Und noch einen, bitte.",
+          "history_turns_sent": 10,
+          "passed": true,
+          "text": "Eine Katze läuft in ein Büro und setzt sich auf den Schreibtisch des Chefs.\nDer Chef fragt: „Was machen Sie hier?“\nDie Katze antwortet: „Ich habe eine Bewerbung geschrieben.“\nDer Chef lacht: „Und wofür bewerben Sie sich?“\nSie sagt: „Für die Stelle als Chef, Sie sind ja so langsam!“",
+          "word_count": 49,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 920.13,
+            "llm_first_sentence_ms": 947.09,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 2128,
+              "completion_tokens": 77,
+              "total_tokens": 2205,
+              "cost": 0.0021992355,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00222145,
+                "upstream_inference_prompt_cost": 0.00210672,
+                "upstream_inference_completions_cost": 0.00011473
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 1003.09,
+            "response_complete": true
+          },
+          "http_ms": 1005.03
+        }
+      ]
+    },
+    {
+      "repeat": 2,
+      "turns": [
+        {
+          "case": "first_joke",
+          "input": "Erzähl mir einen vollständigen Witz über einen kleinen Roboter, mit Situation und Pointe. Erzähl direkt den Witz.",
+          "history_turns_sent": 0,
+          "passed": true,
+          "text": "Ein kleiner Roboter ging zum Arzt, weil er sich ständig „verhackt“ fühlte.\nDer Arzt schaute ihn an und fragte: „Seit wann haben Sie das Problem?“\nDer Roboter antwortete: „Seit dem letzten Update, Doktor.“\nDer Arzt seufzte und sagte: „Das ist keine Krankheit, das ist nur ein Bug im System. Gehen Sie nach Hause und laden Sie die letzte Version neu.“",
+          "word_count": 60,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 331.42,
+            "llm_first_sentence_ms": 382.89,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1566,
+              "completion_tokens": 116,
+              "total_tokens": 1682,
+              "cost": 0.0017059482,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00172318,
+                "upstream_inference_prompt_cost": 0.00155034,
+                "upstream_inference_completions_cost": 0.00017284
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 465.47,
+            "response_complete": true
+          },
+          "http_ms": 467.28
+        },
+        {
+          "case": "another",
+          "input": "Noch einen, bitte.",
+          "history_turns_sent": 2,
+          "passed": true,
+          "text": "Ein kleiner Roboter bewarb sich um einen Job als Türsteher. Der Chef fragte: „Und warum sollten wir gerade Sie nehmen?“ Der Roboter antwortete: „Weil ich niemanden reinlasse, der nicht die richtige Frequenz hat.“",
+          "word_count": 33,
+          "sentences": 2,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 268.16,
+            "llm_first_sentence_ms": 293.71,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1680,
+              "completion_tokens": 59,
+              "total_tokens": 1739,
+              "cost": 0.0017335989,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00175111,
+                "upstream_inference_prompt_cost": 0.0016632,
+                "upstream_inference_completions_cost": 8.791e-05
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 359.59,
+            "response_complete": true
+          },
+          "http_ms": 361.6
+        },
+        {
+          "case": "longer",
+          "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
+          "history_turns_sent": 4,
+          "passed": true,
+          "text": "Der kleine Roboter stellte sich vor die dunkle Nachtclub-Tür und wartete geduldig auf seine Chance.\nDer müde wirkende Chef sah ihn skeptisch an und fragte: „Warum sollen wir ausgerechnet dich als Türsteher nehmen?“\nDer Roboter lächelte seinen digitalen Lächelcode und erklärte: „Weil ich niemanden reinlasse, der nicht die richtige Frequenz hat.“\nDer Chef lachte kurz und testete ihn mit einem leisen „Blip“ vom Funkgerät.\nDer Roboter fuhr sofort hoch, blockierte die Tür und murmelte: „Falsche Frequenz, Zugang verweigert.“\nDer Chef stellte ihn ein, denn es war das erste Mal, dass ein Sicherheitsdienst auch die Katzen draußen hielt.",
+          "word_count": 97,
+          "sentences": 6,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 257.97,
+            "llm_first_sentence_ms": 305.25,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1764,
+              "completion_tokens": 169,
+              "total_tokens": 1933,
+              "cost": 0.0019781883,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00199817,
+                "upstream_inference_prompt_cost": 0.00174636,
                 "upstream_inference_completions_cost": 0.00025181
               },
               "completion_tokens_details": {
@@ -960,13 +849,184 @@
               }
             },
             "generation_calls": 1,
-            "llm_total_ms": 471.89,
+            "requested_units": 6,
+            "completed_units": 6,
+            "completion_repairs": 0,
+            "llm_total_ms": 438.42,
             "response_complete": true
           },
-          "http_ms": 474.06
+          "http_ms": 440.21
+        },
+        {
+          "case": "same_character_new_place",
+          "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
+          "history_turns_sent": 6,
+          "passed": true,
+          "text": "Der kleine Roboter stand am Bahnhof und wartete auf seinen Zug.\nDer Zugbegleiter kam vorbei und fragte: „Warum stehst du hier so starr und bewegst dich nicht?“\nDer Roboter antwortete ernst: „Ich warte auf meinen Zug, aber ich kann mich nicht in Bewegung setzen.“\nDer Zugbegleiter schmunzelte und sagte: „Weil du vielleicht keinen Fahrplan hast?“\nDer Roboter seufzte und murmelte: „Nein, ich habe einen, aber mein Akku ist leer.“",
+          "word_count": 69,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 278.05,
+            "llm_first_sentence_ms": 323.52,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1969,
+              "completion_tokens": 117,
+              "total_tokens": 2086,
+              "cost": 0.0021024036,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00212364,
+                "upstream_inference_prompt_cost": 0.00194931,
+                "upstream_inference_completions_cost": 0.00017433
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 518.07,
+            "response_complete": true
+          },
+          "http_ms": 520.07
+        },
+        {
+          "case": "change_topic",
+          "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
+          "history_turns_sent": 8,
+          "passed": true,
+          "text": "Eine Katze saß auf dem Klavier und sah aus, als würde sie ein sehr ernstes Geschäft führen.\nIhr Besitzer fragte sie: „Was machst du denn da, du kleiner Wirbelwind?“\nDie Katze blinzelte langsam und antwortete mit einer unheimlich tiefen Stimme: „Ich optimiere die Akkord-Struktur für maximale Nickerchen-Effizienz.“\nDer Besitzer lachte und versuchte, sie sanft vom Instrument zu streicheln.\nDa sprang die Katze ab, landete auf dem Sofa und sagte: „Sitzplatzwechsel genehmigt, die Klaviatur ist jetzt im Wartungsmodus.“",
+          "word_count": 77,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 353.06,
+            "llm_first_sentence_ms": 391.57,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 2119,
+              "completion_tokens": 144,
+              "total_tokens": 2263,
+              "cost": 0.0022892463,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00231237,
+                "upstream_inference_prompt_cost": 0.00209781,
+                "upstream_inference_completions_cost": 0.00021456
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 492.27,
+            "response_complete": true
+          },
+          "http_ms": 494.35
+        },
+        {
+          "case": "elliptical_new_topic",
+          "input": "Und noch einen, bitte.",
+          "history_turns_sent": 10,
+          "passed": true,
+          "text": "Eine Katze lag auf der Tastatur und sah aus, als würde sie ein sehr wichtiges Dokument tippen.\nIhr Besitzer fragte sie: „Was schreibst du denn da, du kleiner Tippkrähe?“\nDie Katze blinzelte langsam und antwortete mit einer unheimlich ernsten Stimme: „Ich verarbeite gerade die wichtigsten Daten für die Weltregierung.“\nDer Besitzer lachte und versuchte, sie sanft von der Tastatur zu streicheln.\nDa sprang die Katze ab, landete auf dem Sofa und sagte: „Sitzplatzwechsel genehmigt, die Tastatur ist jetzt im Wartungsmodus.“",
+          "word_count": 80,
+          "sentences": 5,
+          "checks": {
+            "minimum_task_content": true,
+            "topic_retained": true,
+            "new_words_not_identical_repeat": true,
+            "finished_stream": true,
+            "not_just_an_offer": true
+          },
+          "metrics": {
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 265.59,
+            "llm_first_sentence_ms": 289.86,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 2282,
+              "completion_tokens": 141,
+              "total_tokens": 2423,
+              "cost": 0.0024445773,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 2048,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00246927,
+                "upstream_inference_prompt_cost": 0.00225918,
+                "upstream_inference_completions_cost": 0.00021009
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 387.89,
+            "response_complete": true
+          },
+          "http_ms": 389.68
         }
       ]
     }
   ],
-  "finished": 1793018414.1668565
+  "finished": 1793025574.1724231
 }

@@ -24,7 +24,13 @@ def main():
                  'rebalance-browser.json','rebalance-stop-browser.json','rebalance-permissions-browser.json','rebalance-decision-check.json',
                  'rebalance-before-group-fix.json','conversation-stress-check.json','conversation-stress-selma.json',
                  'conversation-continuity-check.json','conversation-continuity-before.json','conversation-continuity-browser.json',
-                 'voice-test-fixtures.json','voice-assistant-test-results.json'):
+                 'voice-test-fixtures.json','voice-assistant-test-results.json',
+                 'adversarial-check.json','adversarial-harness-baseline.json','adversarial-before-fix.json',
+                 'adversarial-after-window-fix.json','adversarial-after-level-fix.json',
+                 'adversarial-fixtures.json','adversarial-plan.json','adversarial-input-audit.json',
+                 'adversarial-tool-control.json','adversarial-tool-before-fix.json',
+                 'adversarial-full-run.json','adversarial-targeted-run.json',
+                 'adversarial-legacy-failure.json','adversarial-legacy-before-format-fix.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))
@@ -48,16 +54,17 @@ def main():
             record=json.loads(raw)
             for row in record.get('rows',[]):row.pop('listen_mp3_b64',None)
             raw=json.dumps(record,indent=2,ensure_ascii=False).encode()
-        if path.name=='rebalance-before-group-fix.json':
+        if path.name=='rebalance-before-group-fix.json' or path.name.startswith('adversarial-') and path.suffix=='.json':
             # Preserve every failed-run event; only remove JSON whitespace.
             raw=json.dumps(json.loads(raw),separators=(',',':'),ensure_ascii=False).encode()
         if re.search(rb'(?:hf_[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----)',raw):
             raise ValueError('Potential credential in source export')
         name=path.relative_to(ROOT).as_posix();payload[name]=raw
         manifest[name]={'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw)}
-    # Additional audited text-only regression reports need modest headroom.
+    # Retain every synthetic stress attempt (including failures), compacting
+    # JSON whitespace only. The new evidence adds about 8 MB of text.
     # The UTF-8, path allowlist and credential checks above still apply.
-    if sum(len(raw) for raw in payload.values())>6_000_000:raise ValueError('Unexpected source export size')
+    if sum(len(raw) for raw in payload.values())>16_000_000:raise ValueError('Unexpected source export size')
     folder=ROOT/'releases';folder.mkdir(exist_ok=True)
     target=folder/'robby-source.zip';temporary=folder/'robby-source.tmp.zip'
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as archive:
