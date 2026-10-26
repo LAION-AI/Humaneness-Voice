@@ -77,7 +77,9 @@ class PauseSubmissionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(s.begin,1.4)
     async def test_stop_remains_immediate_while_reply_is_playing(self):
         s=self.session();s.c.speaking=True
+        s.verify_barge=AsyncMock(return_value={'accepted':True})
         await s.preview_text('Stopp!',1.2)
+        await s.barge_task
         s.c._on_barge.assert_awaited_once();self.assertTrue(s.queue.empty())
 
 if __name__=='__main__':unittest.main()

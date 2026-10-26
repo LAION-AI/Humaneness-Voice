@@ -13,7 +13,7 @@ from performance import plan
 from shared_turn import admitted_turn
 
 async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_context=None,
-                   interaction_state=None,chunk_frames=None,tts=True,preset=None,reply_words=None):
+                   interaction_state=None,chunk_frames=None,tts=True,preset=None,reply_words=None,llm_selection=None,credential=None):
     from app.runtime.audio import StreamingAudioResampler
     from tts_bridge import decode_mp3
     start=time.perf_counter();metrics={};queue=asyncio.Queue(maxsize=4)
@@ -46,19 +46,22 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 from conversation_director import CompactDirector
                 from bolt_director import local_config,response_plan
                 from bolt_text import SentenceFramer
+                from llm_backends import config
                 result=await CompactDirector().generate(client,text,identity,history,
-                    interaction_state=interaction_state,avatar_context=context,provider=local_config())
+                    interaction_state=interaction_state,avatar_context=context,
+                    provider=config(llm_selection,credential) if llm_selection is not None else local_config())
                 avatar_steps[:]=requested or result.get('avatar_actions',[]);actions[:]=result.get('interaction_actions',[])
                 sources[:]=result.get('sources',[])
                 framer=SentenceFramer(lines_only=response_plan(text,history)['kind']=='poem')
                 for sentence in framer.feed(result['script'],final=True):
                     sentence.language=result['language'];await queue.put(sentence)
                 metrics['tool_director_ms']=result['director_ms']
+                metrics.update({k:v for k,v in result.items() if k.startswith('llm_') or k=='director_model'})
             else:
                 count=0
                 for attempt in range(2 if requested else 1):
                     try:
-                        async for sentence in BoltDirector().stream(client,text,identity,history,context,metrics,reply_words=reply_words):
+                        async for sentence in BoltDirector().stream(client,text,identity,history,context,metrics,reply_words=reply_words,backend=llm_selection,credential=credential):
                             await queue.put(sentence);count+=1
                     except ValueError:
                         # Retry only an unspoken malformed completion. The
@@ -86,13 +89,13 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 from avatar_personality import event_steps
                 avatar_steps=event_steps(context)
             metadata={'text':join_sentences(spoken),'script':' '.join(scripts),'language':spec['language'],
-                'performance':{'sentences':list(cues),'source':'Local Nemotron sentence cues + fixed GENERAL catalogue',
+                'performance':{'sentences':list(cues),'source':metrics.get('llm_model','Nemotron')+' sentence cues + fixed GENERAL catalogue',
                     'timing':'Sentence starts anchored to actual preceding PCM duration; within-sentence estimates'},
                 'avatar_actions':avatar_steps,'avatar_action_id':action_id,'avatar_event':context.get('event'),
                 'interaction_actions':actions if index==0 else [],'sources':sources,'speaker':identity,
                 'template_id':spec['template_id'],'sentence_index':index,'sentence_text':sentence.text,
                 'timing':{**metrics,'sentence_ready_ms':round((time.perf_counter()-start)*1000,2),'director_mode':'bolt',
-                    'director_model':'nemotron-bolt','template_id':spec['template_id']}}
+                    'director_model':metrics.get('llm_model','nemotron-bolt'),'template_id':spec['template_id']}}
             yield 'sentence',metadata
             if not tts:index+=1;continue
             # Each completed sentence is admitted immediately; LLM generation
@@ -126,6 +129,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                     if not played:
                         metrics.setdefault('tts_first_audio_ms',round((time.perf_counter()-tts_start)*1000,2))
                         metrics.setdefault('first_audio_ms',round((time.perf_counter()-start)*1000,2))
+                        yield 'latency',dict(metrics)
                     played=True;total_samples+=len(pcm);yield 'audio',pcm
             tail=resampler.process(np.zeros(0,np.float32),final=True)
             if len(tail):total_samples+=len(tail);yield 'audio',tail

@@ -18,7 +18,8 @@ def main():
                  'bolt-tts-profile.json','bolt-precision.json','bolt-semantic-graph.json','bolt-local-compile.json',
                  'speech-pause-check.json','speech-pause-browser.json','long-replies-check.json','long-replies-browser.json',
                  'avatar-command-before.json','avatar-command-check.json','avatar-command-browser.json',
-                 'asr-model-check.json','asr-model-browser.json','asr-controls-browser.json'):
+                 'asr-model-check.json','asr-model-browser.json','asr-controls-browser.json',
+                 'openrouter-check.json','openrouter-browser.json','conversation-focus-check.json','conversation-focus-browser.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "physical_microphone_used": false,
+  "started": 1793011765.7405212,
+  "cases": [
+    {
+      "case": "wake-free-compatible introduction",
+      "speaker_id": "speaker-1",
+      "passed": true
+    },
+    {
+      "case": "different voice while listening does not take over",
+      "passed": true
+    },
+    {
+      "case": "original speaker returns with a different sentence",
+      "passed": true
+    },
+    {
+      "case": "background voice during a real long TTS reply",
+      "passed": true
+    },
+    {
+      "case": "current speaker spoken Stop cancels real streamed TTS",
+      "passed": true
+    },
+    {
+      "case": "manual Stop still cancels immediately",
+      "passed": true
+    }
+  ],
+  "controls_work": true,
+  "desktop_layout_preserved": true,
+  "clear_resets_context_and_metrics": true,
+  "focus_preferences_persist": true,
+  "mobile_no_overflow": true,
+  "errors": [],
+  "finished": 1793011813.5003715
+}

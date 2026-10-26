@@ -1,0 +1,498 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Robby: keeping the conversation partner</title>
+<style>body{font:16px/1.65 system-ui;max-width:1100px;margin:30px auto;padding:20px;background:#f6f8f4;color:#263c35}h1,h2{line-height:1.25}table{border-collapse:collapse;width:100%;background:white}td,th{padding:10px;border:1px solid #cbd6cc;text-align:left}pre{white-space:pre-wrap;font-size:12px}section{background:white;padding:18px;margin:18px 0;border-radius:14px}.scroll{overflow:auto}a{color:#226356}</style>
+<nav><a href="/desk-robot/">Open Robby</a> · <a href="/static/openrouter-update.html">Language models, security and live timings</a> · <a href="/downloads/robby-source.zip">Source</a></nav>
+<h1>Keep the conversation partner, ignore the background</h1>
+<p>The sentence-streaming mode used to admit every intelligible voice. More seriously, native TYGER BARGE events and literal Stop previews could bypass speaker confirmation entirely. Lowering one global similarity threshold would have increased background interruptions. This update introduces session-local conversation ownership and acoustic admission before both conversation turns and playback cancellation.</p>
+<div class="scroll"><table><tr><th>Behavior</th><th>Previous sentence-stream mode</th><th>Current default</th></tr>
+<tr><td>Native interruption</td><td>Direct cancellation on a TYGER proposal</td><td>Current reply ID, fresh speech, active-person ECAPA match, bot-echo/rival margins and available native-hop student features. Nonlexical interruption requires stronger agreement.</td></tr>
+<tr><td>A different background voice</td><td>Could cancel playback or be assigned the next turn</td><td>Ignored while the conversation is focused; no new profile is created from a rejected turn.</td></tr>
+<tr><td>Changing intonation</td><td>New identity below 0.38 cosine; adaptation needed 0.70</td><td>Owner continuity at 0.32, with rival margin. Confirmed moderate variants can be retained from 0.48; the original anchor stays fixed.</td></tr>
+<tr><td>Another person wants to join</td><td>Every voice could join at any time</td><td>Say Hey Robbie while he is listening, release the focus, disable the focus, or wait for 3 minutes of inactivity.</td></tr>
+<tr><td>Background speech continues after the user stops</td><td>Global speech activity could keep the pause open</td><td>Rolling 1.28-s ECAPA checks can hold the owner's pause clock when a clearly different voice continues. Final ASR excludes the rejected tail where possible.</td></tr>
+</table></div>
+<h2>Controls and identity memory</h2><p><b>Stay with the current conversation partner</b> is on by default near the main controls. Its adjustable partner cosine starts at <b>0.32</b>, independently of the 0.38 new-voice label threshold. Lower values tolerate more variation but can merge similar voices. The separate 0.55 floor for a nonlexical TYGER interruption avoids treating moderate acoustic similarity as permission to cancel. The label threshold and fast-cue legacy settings are separate controls.</p>
+<p>The first clear voice can begin without an introduction. An explicit self-correction such as “Ich bin auch Christoph” links another acoustic mode to the named person. Up to eight variants per person are retained; weak matches never train the reference. Names, embeddings and audio buffers are RAM-only and cleared when the session ends. Embeddings are approximate identity cues, not authentication. A manual Stop button always works independently of voice matching.</p>
+<h2>Fast and longer evidence</h2><p>The frozen Nemotron encoder and existing V4 student already supply 320-ms speaker features. The update reuses those features and compares them to prototypes from accepted turns. Longer 3.04-s ECAPA anchors improve the voice reference. A separate 1.28-s recent window, sampled every 640 ms on CPU, checks whether current activity belongs to the partner. This reuses already heard audio and does not wait for a future three-second recording.</p>
+<p>Literal Stop requests use the same guard. Weak short-word ECAPA evidence can be supported by temporally consistent native-hop features, with rival/echo separation retained. Very strong recent student evidence can trigger a second, longer ECAPA view. Merely keeping one's mouth open, making noise or matching the previous speaker's long context is not sufficient. Checks are single-flight and revalidate the reply ID before cancelling, so a late result cannot stop a newer answer.</p><h2>Measured checks</h2><p>Offline implementation contracts: 398; passed=True. Public HTTPS CPU-browser test: True. Public synthetic voice diagnostics: {&#x27;background_rejected&#x27;: 10, &#x27;background_total&#x27;: 10, &#x27;emotion_accepted&#x27;: 6, &#x27;emotion_total&#x27;: 12, &#x27;legacy_038_emotion_accepted&#x27;: 5, &#x27;short_command_correct&#x27;: 5, &#x27;short_command_total&#x27;: 6}.</p><p>Warm CPU ECAPA extraction: median 56.22 ms across 12 short reference probes. This is inference compute, not the time to hear the utterance or perform ASR.</p><div class="scroll"><table><tr><th>Real short-command guard</th><th>Expected owner</th><th>Playback cancelled</th><th>Teacher cosine</th><th>Fast cosine</th><th>Guard wall time</th></tr><tr><td>christoph-stop</td><td>True</td><td>True</td><td>0.345</td><td>0.3943</td><td>40.52 ms</td></tr><tr><td>christoph-wait</td><td>True</td><td>True</td><td>0.2823</td><td>0.3239</td><td>47.49 ms</td></tr><tr><td>christoph-halt</td><td>True</td><td>True</td><td>0.4768</td><td>0.8851</td><td>44.92 ms</td></tr><tr><td>christoph-pause-clear</td><td>True</td><td>True</td><td>0.4041</td><td>0.6153</td><td>43.57 ms</td></tr><tr><td>robert-stop</td><td>False</td><td>True</td><td>0.4052</td><td>0.6949</td><td>43.96 ms</td></tr><tr><td>background-stop</td><td>False</td><td>False</td><td>0.35</td><td>0.4659</td><td>40.69 ms</td></tr></table></div><h2>Important limits revealed by the tests</h2><p>These are deliberately small, correlated synthetic probes, not a false-acceptance-rate estimate for people. In the difficult unknown-voice test, the synthetic Robert Stop can resemble the Christoph anchor in both ECAPA and the feature student. This remains an observed false acceptance; it is not hidden by the functional test result. Registering Robert as a distinct known speaker supplies the rival margin and rejects that probe. Similar or overlapping voices cannot be reliably separated by a threshold alone.</p>
+<p>The emotion-profile test is also mixed: the Mira anchor retained all six selected variants, whereas the fixed Idris source did not match six synthesized profile variants at 0.32. A nominal dataset identity does not guarantee that synthesis preserved its acoustic voice. Use actual session speech as the anchor, speak a clear sentence when joining, and explicitly correct a changed voice when necessary. No general speaker accuracy or physical-room guarantee is claimed.</p>
+<p>Rolling ownership can stop another voice from extending a pause after a clearly recognized speaker switch. It cannot cleanly unmix two people speaking simultaneously. Strong overlap, a very short unfamiliar Stop, microphone/device artifacts or a failed embedding can remain uncertain. The system then keeps the conversation rather than inventing a new identity; use the manual Stop when needed. No extra GPU model or heavy library was added.</p>
+<h2>Browser scenarios</h2><ul><li>wake-free-compatible introduction: True</li><li>different voice while listening does not take over: True</li><li>original speaker returns with a different sentence: True</li><li>background voice during a real long TTS reply: True</li><li>current speaker spoken Stop cancels real streamed TTS: True</li><li>manual Stop still cancels immediately: True</li></ul><p>Controls, reload persistence, chat/metrics clearing, desktop adjacency and mobile overflow are checked in the same script. Only public authored synthetic audio is submitted; no private microphone recording or enrolled voiceprint is published.</p><h2>Files and reproduction</h2><p><code>conversation_focus.py</code> is the pure ownership policy. <code>sentence_session.py</code> owns async evidence, pause filtering, bounded variants and guarded cancellation. <code>server.py</code> routes native proposals and settings through it. Both director prompts preserve the current speaker/thread without repetitive name questions. The existing camera, avatar, TTS and TYGER network remain available.</p>
+<pre>python run_unit_checks.py
+python prepare_focus_fixtures.py
+python validate_conversation_focus.py
+uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_conversation_focus.py</pre>
+<p>The audio diagnostics expect the documented existing public-profile asset cache. Source export contains code and result receipts, not the fixture audio or session embeddings. The browser test needs the configured running ASR/TTS/local-LLM services and one free ASR session.</p>
+<details><summary>Exact receipts and limitations</summary><pre>{
+  &quot;diagnostics&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone_used&quot;: false,
+    &quot;source&quot;: &quot;Existing public synthetic reference profiles; no private voiceprints&quot;,
+    &quot;cases&quot;: [
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AGEV | extremely_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: true,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.3921,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AGEV | moderately_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: true,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.5016,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AGEV | moderately_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: true,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.4334,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AGEV | very_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: true,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.5912,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AROU | extremely_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: true,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.572,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;AROU | moderately_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: true,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.3379,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;background Idris&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.095,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;background Selma&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2173,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;background Anton&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.0234,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;background Robin&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2567,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Mira&quot;,
+        &quot;condition&quot;: &quot;background Osku&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.1607,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AGEV | extremely_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.0162,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AGEV | moderately_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2734,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AGEV | moderately_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2308,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AGEV | very_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.291,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AROU | extremely_low | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2149,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;AROU | moderately_high | de&quot;,
+        &quot;audio_seconds&quot;: 3.04,
+        &quot;legacy_038_accepts&quot;: false,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.315,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;background Selma&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: -0.0245,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;background Mira&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.095,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;background Anton&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2611,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;background Robin&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.0307,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;voice&quot;: &quot;Idris&quot;,
+        &quot;condition&quot;: &quot;background Osku&quot;,
+        &quot;expected_background&quot;: true,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.2452,
+        &quot;rival_similarity&quot;: -1.0,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      }
+    ],
+    &quot;guard_cases&quot;: [
+      {
+        &quot;case&quot;: &quot;owner&quot;,
+        &quot;cancelled&quot;: true,
+        &quot;expected&quot;: true,
+        &quot;wall_ms&quot;: 46.32
+      },
+      {
+        &quot;case&quot;: &quot;background&quot;,
+        &quot;cancelled&quot;: false,
+        &quot;expected&quot;: false,
+        &quot;wall_ms&quot;: 40.9
+      },
+      {
+        &quot;case&quot;: &quot;silence&quot;,
+        &quot;cancelled&quot;: false,
+        &quot;expected&quot;: false,
+        &quot;wall_ms&quot;: 0.65
+      }
+    ],
+    &quot;limitations&quot;: &quot;Small proxy test, not a room/overlap or human evaluation. Emotion synthesis may itself change identity.&quot;,
+    &quot;teacher_cpu_ms&quot;: {
+      &quot;median&quot;: 56.22,
+      &quot;n&quot;: 12
+    },
+    &quot;short_command_probes&quot;: [
+      {
+        &quot;case&quot;: &quot;christoph-stop&quot;,
+        &quot;expected_owner&quot;: true,
+        &quot;cancelled&quot;: true,
+        &quot;wall_ms&quot;: 40.52,
+        &quot;teacher_similarity&quot;: 0.345,
+        &quot;fast_similarity&quot;: 0.3943,
+        &quot;fast_consistency&quot;: 1.0,
+        &quot;fast_frames&quot;: 2,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;case&quot;: &quot;christoph-wait&quot;,
+        &quot;expected_owner&quot;: true,
+        &quot;cancelled&quot;: true,
+        &quot;wall_ms&quot;: 47.49,
+        &quot;teacher_similarity&quot;: 0.2823,
+        &quot;fast_similarity&quot;: 0.3239,
+        &quot;fast_consistency&quot;: 0.6666666666666666,
+        &quot;fast_frames&quot;: 3,
+        &quot;reason&quot;: &quot;Explicit Stop with temporally consistent voice features&quot;
+      },
+      {
+        &quot;case&quot;: &quot;christoph-halt&quot;,
+        &quot;expected_owner&quot;: true,
+        &quot;cancelled&quot;: true,
+        &quot;wall_ms&quot;: 44.92,
+        &quot;teacher_similarity&quot;: 0.4768,
+        &quot;fast_similarity&quot;: 0.8851,
+        &quot;fast_consistency&quot;: 1.0,
+        &quot;fast_frames&quot;: 6,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;case&quot;: &quot;christoph-pause-clear&quot;,
+        &quot;expected_owner&quot;: true,
+        &quot;cancelled&quot;: true,
+        &quot;wall_ms&quot;: 43.57,
+        &quot;teacher_similarity&quot;: 0.4041,
+        &quot;fast_similarity&quot;: 0.6153,
+        &quot;fast_consistency&quot;: 1.0,
+        &quot;fast_frames&quot;: 2,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;case&quot;: &quot;robert-stop&quot;,
+        &quot;expected_owner&quot;: false,
+        &quot;cancelled&quot;: true,
+        &quot;wall_ms&quot;: 43.96,
+        &quot;teacher_similarity&quot;: 0.4052,
+        &quot;fast_similarity&quot;: 0.6949,
+        &quot;fast_consistency&quot;: 1.0,
+        &quot;fast_frames&quot;: 4,
+        &quot;reason&quot;: &quot;Active conversation partner&quot;
+      },
+      {
+        &quot;case&quot;: &quot;background-stop&quot;,
+        &quot;expected_owner&quot;: false,
+        &quot;cancelled&quot;: false,
+        &quot;wall_ms&quot;: 40.69,
+        &quot;teacher_similarity&quot;: 0.35,
+        &quot;fast_similarity&quot;: 0.4659,
+        &quot;fast_consistency&quot;: 0.5,
+        &quot;fast_frames&quot;: 4,
+        &quot;reason&quot;: &quot;Unstable recent speaker identity; background cannot cancel the reply&quot;
+      }
+    ],
+    &quot;summary&quot;: {
+      &quot;background_rejected&quot;: 10,
+      &quot;background_total&quot;: 10,
+      &quot;emotion_accepted&quot;: 6,
+      &quot;emotion_total&quot;: 12,
+      &quot;legacy_038_emotion_accepted&quot;: 5,
+      &quot;short_command_correct&quot;: 5,
+      &quot;short_command_total&quot;: 6
+    },
+    &quot;short_commands_all_correct&quot;: false,
+    &quot;known_rival_check&quot;: [
+      {
+        &quot;case&quot;: &quot;robert-stop&quot;,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.4052,
+        &quot;rival_similarity&quot;: 0.8945,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      },
+      {
+        &quot;case&quot;: &quot;background-stop&quot;,
+        &quot;accepted&quot;: false,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;similarity&quot;: 0.35,
+        &quot;rival_similarity&quot;: 0.8762,
+        &quot;bot_similarity&quot;: -1.0,
+        &quot;reason&quot;: &quot;Background, echo or uncertain voice; keeping the current conversation&quot;
+      }
+    ],
+    &quot;finished&quot;: 1793011602.768617
+  },
+  &quot;browser&quot;: {
+    &quot;passed&quot;: true,
+    &quot;physical_microphone_used&quot;: false,
+    &quot;started&quot;: 1793011765.7405212,
+    &quot;cases&quot;: [
+      {
+        &quot;case&quot;: &quot;wake-free-compatible introduction&quot;,
+        &quot;speaker_id&quot;: &quot;speaker-1&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;case&quot;: &quot;different voice while listening does not take over&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;case&quot;: &quot;original speaker returns with a different sentence&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;case&quot;: &quot;background voice during a real long TTS reply&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;case&quot;: &quot;current speaker spoken Stop cancels real streamed TTS&quot;,
+        &quot;passed&quot;: true
+      },
+      {
+        &quot;case&quot;: &quot;manual Stop still cancels immediately&quot;,
+        &quot;passed&quot;: true
+      }
+    ],
+    &quot;controls_work&quot;: true,
+    &quot;desktop_layout_preserved&quot;: true,
+    &quot;clear_resets_context_and_metrics&quot;: true,
+    &quot;focus_preferences_persist&quot;: true,
+    &quot;mobile_no_overflow&quot;: true,
+    &quot;errors&quot;: [],
+    &quot;finished&quot;: 1793011813.5003715
+  },
+  &quot;unit&quot;: {
+    &quot;finished&quot;: 1793011755.8150213,
+    &quot;modules&quot;: [
+      &quot;test_audio_input&quot;,
+      &quot;test_asr_priority&quot;,
+      &quot;test_gpu_guard&quot;,
+      &quot;test_enrollment_cues&quot;,
+      &quot;test_recovery_rules&quot;,
+      &quot;test_stop_commands&quot;,
+      &quot;test_live_decisions&quot;,
+      &quot;test_laya_policy&quot;,
+      &quot;test_conversation_prompt&quot;,
+      &quot;test_conversation_director&quot;,
+      &quot;test_shared_turn&quot;,
+      &quot;test_speaker_names&quot;,
+      &quot;test_speaker_session&quot;,
+      &quot;test_speaker_turns&quot;,
+      &quot;test_identity&quot;,
+      &quot;test_speaker_teacher&quot;,
+      &quot;test_bridge&quot;,
+      &quot;test_performance&quot;,
+      &quot;speaker_v2.test_predictor&quot;,
+      &quot;speaker_v4.test_v4&quot;,
+      &quot;speaker_v5.test_v5&quot;,
+      &quot;speaker_live.test_playback&quot;,
+      &quot;test_open_speakers&quot;,
+      &quot;test_knowledge_tools&quot;,
+      &quot;test_audio_transport&quot;,
+      &quot;test_stop_feedback&quot;,
+      &quot;test_stop_voice&quot;,
+      &quot;test_release_scan&quot;,
+      &quot;test_avatar_actions&quot;,
+      &quot;test_avatar_commands&quot;,
+      &quot;test_avatar_personality&quot;,
+      &quot;test_bolt&quot;,
+      &quot;test_pause_endpoint&quot;,
+      &quot;test_asr_choice&quot;,
+      &quot;test_llm_backends&quot;,
+      &quot;test_visual_identity&quot;,
+      &quot;test_conversation_focus&quot;
+    ],
+    &quot;tests&quot;: 398,
+    &quot;failures&quot;: 0,
+    &quot;errors&quot;: 0,
+    &quot;skipped&quot;: 0,
+    &quot;passed&quot;: true,
+    &quot;network_or_physical_microphone_used&quot;: false
+  }
+}</pre></details><p>Generated 2026-10-26 10:52 UTC.</p></html>

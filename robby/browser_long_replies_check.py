@@ -20,7 +20,7 @@ async def main():
             '--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
         page=await browser.new_page(viewport={'width':1280,'height':1000});errors=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
-        await page.add_init_script("localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false')")
+        await page.add_init_script("localStorage.setItem('robby.llmSelection',JSON.stringify({model:'local',provider:'local'}));localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false')")
         try:
             await page.goto(URL+'/desk-robot/')
             await page.wait_for_function('window.robo && !document.querySelector("#call").disabled',timeout=60000)

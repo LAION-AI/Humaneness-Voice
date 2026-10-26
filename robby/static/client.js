@@ -104,6 +104,7 @@ export class RoboClient {
   const first=this.queued[id]||0;this.queued[id]=first+pcm.length;
   if(id)this.clock.add(id,start,pcm.length,first);
   const epoch=this.epoch;this.next=end;source.start(start);this.sources.push(source);this.metrics.chunks++;if(id)this.metrics.reply_chunks++;
+  this.on.audio?.({reply_id:id,first:firstReply,playback_lead_ms:Math.max(0,start-this.ctx.currentTime)*1000});
   this.on.playing?.(true);
   source.onended=()=>{this.sources=this.sources.filter(s=>s!==source);
    if(epoch!==this.epoch)return;
