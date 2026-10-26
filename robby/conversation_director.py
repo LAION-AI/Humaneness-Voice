@@ -242,13 +242,25 @@ class CompactDirector:
         value=assistant.get('content') or ''
         if value.strip().startswith('```'):
             value=re.sub(r'^```(?:json)?\s*|\s*```$','',value.strip())
-        if event and json.loads(value)=={'silent':True}:return {'silent':True}
+        try:parsed_value=json.loads(value)
+        except json.JSONDecodeError:
+            # A successful tool must survive a malformed spoken acknowledgment.
+            # Repair only the final response; tools remain disabled so actions
+            # cannot be executed twice. Nothing has been spoken at this point.
+            messages.append({'role':'assistant','content':value[:6000]})
+            messages.append({'role':'user','content':'Return the final spoken response as exactly one JSON object with general, script and language. Script contains actual spoken words with short acting cues. Language is de or en. No Markdown or prose outside JSON. Preserve the successful tool results above; do not call any tool again.'})
+            if selected_tools:body['tool_choice']='none'
+            response,extra=await post();retries+=extra
+            packet=response.json();assistant=packet['choices'][0]['message'];value=assistant.get('content') or ''
+            value=re.sub(r'^```(?:json)?\s*|\s*```$','',value.strip())
+            parsed_value=json.loads(value)
+        if event and parsed_value=={'silent':True}:return {'silent':True}
         if requested_spin:
             # A verbal promise is not an executed action. Preserve other valid
             # choreography, but guarantee one immediate requested full turn.
             rest=[s for s in avatar_steps if s['kind'] not in ('spin','carousel','afterglow')]
             avatar_steps=validate_avatar({'steps':requested_spin+rest[:5]}) if sum(s['duration_s'] for s in rest[:5])<=18 else requested_spin
-        raw=complete_visual_acknowledgment(json.loads(value),avatar_steps)
+        raw=complete_visual_acknowledgment(parsed_value,avatar_steps)
         if identity.get('needs_name') and isinstance(raw,dict) and isinstance(raw.get('script'),str):
             spoken=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script'])
             if not re.search(r'(?:wie\s+hei(?:ß|ss)t|dein(?:en)?\s+name|dich\s+nennen|your\s+name|call\s+you)',spoken,re.I):

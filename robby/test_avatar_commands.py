@@ -55,14 +55,16 @@ class PipelineTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(events[0][0],'avatar_action')
         speech=next(v for k,v in events if k=='sentence')
         self.assertTrue(speech['text']);self.assertEqual(speech['avatar_action_id'],events[0][1]['action_id'])
-    async def test_pure_spin_keeps_its_playback_anchor(self):
+    async def test_pure_spin_starts_immediately_and_is_not_replayed_by_metadata(self):
         from bolt_pipeline import pipeline
         from bolt_text import Sentence
         async def words(*args,**kwargs):yield Sentence('Hui, ich drehe mich!','elation',language='de')
         with patch('bolt_pipeline.BoltDirector.stream',words):
             events=[(k,v) async for k,v in pipeline(None,'Dreh dich bitte.',{},[],tts=False)]
-        self.assertNotIn('avatar_action',[k for k,v in events])
-        self.assertEqual(next(v for k,v in events if k=='sentence')['avatar_actions'][0]['kind'],'spin')
+        self.assertEqual(events[0][0],'avatar_action')
+        speech=next(v for k,v in events if k=='sentence')
+        self.assertEqual(speech['avatar_actions'][0]['kind'],'spin')
+        self.assertEqual(speech['avatar_action_id'],events[0][1]['action_id'])
     async def test_empty_or_malformed_visual_speech_has_one_llm_retry(self):
         from bolt_pipeline import pipeline
         from bolt_text import Sentence

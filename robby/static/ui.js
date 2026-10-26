@@ -13,6 +13,7 @@ import {LiveOverview} from './live-overview.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let sentenceMode=false;
+let foregroundInputUntil=0;
 let asrControls=null;
 let llmControls=null;
 const overview=new LiveOverview();
@@ -35,8 +36,10 @@ const DEFAULT_VOICE_THRESHOLD=.32,CAMERA_FPS=10,FACE_INTERVAL_MS=1000/CAMERA_FPS
 let desiredUtteranceThreshold=savedThreshold('robby.voiceThreshold',DEFAULT_VOICE_THRESHOLD,.3,.9),desiredFastThreshold=savedThreshold('robby.fastThreshold',null,.1,.95);
 let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.38,.3,.9);
 let desiredFocus=true;try{desiredFocus=localStorage.getItem('robby.conversationFocus')!=='false';}catch{}
-let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.32,.25,.65);
-let desiredSpeechPause=savedThreshold('robby.speechPauseMs',400,200,2000);
+let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.28,.20,.65);
+try{if(localStorage.getItem('robby.focusBalanceVersion')!=='2'){if(Math.abs(desiredFocusThreshold-.32)<.001)desiredFocusThreshold=.28;saveThreshold('robby.focusThreshold',desiredFocusThreshold);localStorage.setItem('robby.focusBalanceVersion','2');}}catch{}
+let desiredSpeechPause=savedThreshold('robby.speechPauseMs',700,200,2000);
+try{if(localStorage.getItem('robby.pauseBalanceVersion')!=='2'){if(desiredSpeechPause===400)desiredSpeechPause=700;saveThreshold('robby.speechPauseMs',desiredSpeechPause);localStorage.setItem('robby.pauseBalanceVersion','2');}}catch{}
 $('speech-pause').value=desiredSpeechPause;$('speech-pause-value').value=desiredSpeechPause+' ms';
 $('speech-pause').oninput=()=>{$('speech-pause-value').value=$('speech-pause').value+' ms';};
 $('speech-pause').onchange=()=>{desiredSpeechPause=Number($('speech-pause').value);saveThreshold('robby.speechPauseMs',desiredSpeechPause);client.send('asr:pause_ms:'+desiredSpeechPause);};
@@ -79,14 +82,16 @@ function showInteraction(m){
 const client=window.robo=new RoboClient({
  connection(on){connected=on;if(!on){llmControls?.disconnected();if($('conversation-focus-status'))$('conversation-focus-status').textContent='Waiting for the first conversation partner.';avatarActions.clear();petting?.reset();optionalAvatarReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
  microphone(on){mic=on;micStarted=on?performance.now():0;lastCapture=lastServerAudio=0;serverAudioSeconds=0;$('mic-level').value=0;$('mic-status').textContent=on?'Microphone started. Waiting for audio frames…':'Microphone off. Click Start talking and allow microphone access.';$('call').textContent=on?'■ End conversation':'◉ Start talking';$('call').classList.toggle('active',on);phase(on?'Listening to you':'Ready when you are',on?'ready':'');},
- input(s){lastCapture=performance.now();if(s.rms>.003){avatarActions.touch();cancelOptionalAvatar();} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
+ input(s){lastCapture=performance.now();if(s.rms>.003&&(!sentenceMode||performance.now()<foregroundInputUntil)){avatarActions.touch();cancelOptionalAvatar();} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  audio(m){overview.audio(m);},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
   asrControls?.message(m);
   llmControls?.message(m);overview.message(m);
-  if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
+  if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;
+  const foregroundMessage=m.type==='endpoint'||!sentenceMode||performance.now()<foregroundInputUntil;
+  if(foregroundMessage&&['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
   if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
    if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
    else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;silentPlayFallback();}
@@ -95,7 +100,7 @@ const client=window.robo=new RoboClient({
   if(m.type==='turn_done')silentPlayFallback();
   if(['barge','stop_command','error','reply_cancelled'].includes(m.type))pendingPlayFallback=null;
   if(['turn_done','stop_command','error'].includes(m.type)){optionalAvatarReply=avatarCancelPending=false;}
-  if(['asr_preview','partial','endpoint','reply','backchannel'].includes(m.type))avatarActions.touch();
+  if(['endpoint','reply','backchannel'].includes(m.type)||(foregroundMessage&&['asr_preview','partial'].includes(m.type)))avatarActions.touch();
   if(['barge','stop_command','reply_cancelled'].includes(m.type)||m.type==='error'&&!avatarActions.queue.some(q=>q.source==='requested'))avatarActions.clear();
   if(m.type==='avatar_action')avatarActions.request(m.action_id,m.steps);
   if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
@@ -122,7 +127,7 @@ const client=window.robo=new RoboClient({
   if(m.type==='state'){$('end-meter').value=m.p_end||0;$('barge-meter').value=m.yield||0;}
   if(m.type==='barge'){replyPending=false;timeline.clear();answer=null;phase('I’m listening','ready');$('subtitle').textContent='Go ahead. You can interrupt me naturally.';}
   if(m.type==='turn_done'){replyPending=false;answer=null;phase(mic?'Listening to you':'Ready when you are','ready');}
-  if(m.type==='stop_command'){replyPending=false;answer=null;timeline.clear();client.stopAudio();phase('Paused · I’m listening','ready');$('subtitle').textContent='Stopped. Say what you would like next.';$('asr-status').textContent='Stop request accepted from '+(m.speaker_name||'the current speaker')+'. No new spoken reply.';}
+  if(m.type==='stop_command'){replyPending=false;answer=null;timeline.clear();client.stopAudio();phase('Paused · I’m listening','ready');$('subtitle').textContent='Stopped. Say what you would like next.';$('asr-status').textContent=m.identity_uncertain?'Foreground Stop accepted. The short voice cue was uncertain; Robby is listening.':'Stop request accepted from '+(m.speaker_name||'the current speaker')+'. No new spoken reply.';}
   if(m.type==='error'){replyPending=false;const text=m.error==='audio_too_fast'?'The voice server fell behind the microphone. End the conversation and reconnect; if it happens again, the shared GPU service needs checking.':m.error;phase('Something needs attention');$('subtitle').textContent=text;$('asr-status').textContent='Audio processing error: '+text;}
   if(m.type==='ignored'&&!replyPending&&!speaking){phase(m.source==='visual_filter'?'Camera could not confirm speech':'Waiting for an enrolled speaker');$('subtitle').textContent=m.reason;$('asr-status').textContent=m.reason;partial=null;}
   if(m.type==='identity'){
@@ -133,12 +138,13 @@ const client=window.robo=new RoboClient({
    if(typeof m.threshold==='number'){strictness.value=m.threshold;strictValue.value=m.threshold.toFixed(2);}
    if(typeof m.utterance_threshold==='number'){utteranceStrictness.value=m.utterance_threshold;$('utterance-threshold-value').value=m.utterance_threshold.toFixed(2);}
    if(m.verification){const v=m.verification,scores=[...(v.reference_scores||[])].sort((a,b)=>b.cosine-a.cosine),best=scores[0];if(best){const gap=scores.length>1?' · gap '+(best.cosine-scores[1].cosine).toFixed(2):'';matchFeedback.textContent=`Last sentence: ${best.name} · voice match ${best.cosine.toFixed(2)} / required ${Number(v.threshold).toFixed(2)}${gap}${v.view_cosine==null?'':' · view agreement '+v.view_cosine.toFixed(2)}. Cosine is not a probability.`;}}
-   $('speaker-chips').replaceChildren(...(m.speakers||[]).map(s=>{const e=document.createElement('span');e.className='speaker-chip';e.textContent=s.name+(s.reference_ready?'':' · joining…')+(s.voice_variants>1?' · '+s.voice_variants+' voice variants':'');return e;}));
+   $('speaker-chips').replaceChildren(...(m.speakers||[]).map(s=>{const e=document.createElement('span');e.className='speaker-chip';e.textContent=s.name+(s.admitted===false?' · outside conversation':'')+(s.reference_ready?'':' · joining…')+(s.voice_variants>1?' · '+s.voice_variants+' voice variants':'');return e;}));
    $('identity-status').textContent=`Speaker cue: ${p.name||p.kind||'waiting'}${p.similarity==null?'':' · cosine '+p.similarity.toFixed(2)}. Enrolled: ${(m.users||[]).join(', ')||'none — say Hey Robbie, I’m …'}. ${m.enabled?'Filter ON · '+(m.diarization_active?'Nemotron diarization + V4 · ':'embedding-only · ')+'submit after ~1 s without this speaker.':'Filter off: original TYGER endpointing.'} RAM only; not authentication.`;
   }
   if(m.type==='warning'){$('identity-status').textContent=m.text;$('asr-status').textContent=m.text;}
-  if(m.type==='identity'&&m.sentence_mode){setSentenceMode(true);const f=m.conversation_focus;focusStatus.textContent=f?.enabled?`Conversation partner: ${f.name||'waiting for the first voice'} · match threshold ${Number(f.threshold).toFixed(2)} · focus expires after 3 minutes of inactivity.`:'Focus disabled: all intelligible voices can join and interrupt.';$('identity-status').textContent=`Session speakers: ${(m.speakers||[]).map(s=>s.name+' · '+s.voice_variants+' voice reference(s)').join(', ')||'none yet'}. Names are optional; say “I am also Christoph” to link a voice variant.`;}
+  if(m.type==='identity'&&m.sentence_mode){setSentenceMode(true);const f=m.conversation_focus;focusStatus.textContent=m.handover_pending?'Ready for the next person. Speak a complete sentence now; no introduction is required.':f?.enabled?`Conversation partner: ${f.name||'waiting for the first voice'} · match threshold ${Number(f.threshold).toFixed(2)} · focus expires after 3 minutes of inactivity.`:'Focus disabled: all intelligible voices can join and interrupt.';$('identity-status').textContent=`Session speakers: ${(m.speakers||[]).map(s=>s.name+' · '+s.voice_variants+' voice reference(s)').join(', ')||'none yet'}. Names are optional; say “I am also Christoph” to link a voice variant.`;}
   if(m.type==='speaker_focus'){focusStatus.textContent=(m.accepted?'Current partner confirmed':'Background or uncertain voice ignored')+(m.similarity==null?'':` · voice cosine ${m.similarity.toFixed(2)}`)+'.';}
+  if(m.type==='speaker_permission'){focusStatus.textContent=m.action==='invite'?(m.waiting_for_next_voice?`${m.name||'Your guest'} can speak next. The current person remains in the conversation.`:`${m.name||'Your guest'} is included in this conversation.`):'Background voices stay outside this conversation. Robby will not keep asking about them.';}
   if(m.type==='busy'){$('subtitle').textContent=m.text;}
   if(m.type==='service_status'){if(m.stage==='interjection_ready'){$('live-interruption-health').textContent=m.text;return;}phase(m.stage==='planning'?'Thinking of a useful reply':m.stage==='preparing'?'Preparing a spoken reply':'Waiting for the shared voice model');$('subtitle').textContent=m.text;$('asr-status').textContent=m.text;}
   if(m.type==='calibration'){
@@ -207,18 +213,18 @@ const modelLabel=document.createElement('label');modelLabel.textContent='Speaker
 const localPipeline=document.createElement('p');localPipeline.id='local-pipeline-status';localPipeline.hidden=true;$('asr-status').after(localPipeline);
 const focusBox=document.createElement('section');focusBox.id='conversation-focus-controls';focusBox.hidden=true;
 const focusLabel=document.createElement('label'),focusToggle=document.createElement('input');focusToggle.type='checkbox';focusToggle.id='conversation-focus';focusToggle.checked=desiredFocus;focusLabel.append(focusToggle,' Stay with the current conversation partner');
-const focusHelp=document.createElement('p');focusHelp.textContent='Background voices cannot take over or stop Robby without a voice match. A new person can say “Hey Robbie” while Robby is listening, or you can release the focus below. Voice changes and explicit name corrections can share one profile.';
+const focusHelp=document.createElement('p');focusHelp.textContent='Say “This is my friend Alice, talk to her too” or “Das ist mein Kumpel Bob, rede auch mit ihm” to include a guest. Both people can then keep talking. Say “Ignore the background voices” to stop questions about them, or “Talk only to me” to narrow the conversation. Voice changes and explicit name corrections can share one session profile.';
 const focusThresholdLabel=document.createElement('label');focusThresholdLabel.textContent='Partner match · lower tolerates more voice variation ';
-const focusRange=document.createElement('input'),focusValue=document.createElement('output');focusRange.id='conversation-focus-threshold';focusRange.type='range';focusRange.min=.25;focusRange.max=.65;focusRange.step=.01;focusRange.value=desiredFocusThreshold;focusValue.value=desiredFocusThreshold.toFixed(2);focusThresholdLabel.append(focusValue,focusRange);
+const focusRange=document.createElement('input'),focusValue=document.createElement('output');focusRange.id='conversation-focus-threshold';focusRange.type='range';focusRange.min=.20;focusRange.max=.65;focusRange.step=.01;focusRange.value=desiredFocusThreshold;focusValue.value=desiredFocusThreshold.toFixed(2);focusThresholdLabel.append(focusValue,focusRange);
 const releaseFocus=document.createElement('button');releaseFocus.type='button';releaseFocus.id='release-conversation-focus';releaseFocus.className='secondary';releaseFocus.textContent='Let another person join';
 const focusStatus=document.createElement('p');focusStatus.id='conversation-focus-status';focusStatus.setAttribute('role','status');focusStatus.textContent='Waiting for the first conversation partner.';
 const focusSettings=document.createElement('details'),focusSummary=document.createElement('summary');focusSummary.textContent='Voice tolerance & switching people';focusSettings.append(focusSummary,focusHelp,focusThresholdLabel,releaseFocus);
-const focusReport=document.createElement('a');focusReport.href='/static/conversation-focus-update.html';focusReport.target='_blank';focusReport.rel='noopener';focusReport.textContent='Tests, thresholds and known limits ↗';focusSettings.append(focusReport);
+const focusReport=document.createElement('a');focusReport.href='/static/rebalance-update.html';focusReport.target='_blank';focusReport.rel='noopener';focusReport.textContent='Tests, thresholds and known limits ↗';focusSettings.append(focusReport);
 focusBox.append(focusLabel,focusStatus,focusSettings);$('quick-controls').append(focusBox);
 focusToggle.onchange=()=>{desiredFocus=focusToggle.checked;saveThreshold('robby.conversationFocus',desiredFocus);client.send('identity:focus:enabled:'+(desiredFocus?'on':'off'));};
 focusRange.oninput=()=>focusValue.value=Number(focusRange.value).toFixed(2);
 focusRange.onchange=()=>{desiredFocusThreshold=Number(focusRange.value);saveThreshold('robby.focusThreshold',desiredFocusThreshold);client.send('identity:focus:threshold:'+desiredFocusThreshold);};
-releaseFocus.onclick=()=>client.send('identity:focus:release');
+releaseFocus.onclick=async()=>{try{await client.start(false);client.stopAudio();client.send('identity:focus:release');focusStatus.textContent='Ready for the next person. Speak a complete sentence now; no wake phrase is required.';}catch(e){focusStatus.textContent=e.message;}};
 function setSentenceMode(on){sentenceMode=on;if(!on)return;
  focusBox.hidden=false;
  $('speech-pause-controls').hidden=false;
@@ -230,7 +236,7 @@ function setSentenceMode(on){sentenceMode=on;if(!on)return;
  gateLabel.title='The independent conversation-focus switch guards background speech in this mode.';
  localPipeline.hidden=false;
  const pill=document.querySelector('.brand-note');if(pill)pill.textContent='sentence-streamed voice chat';
- matchHelp.textContent='Voice-label threshold: 0.38 by default. During an active conversation the separate partner threshold (default 0.32) preserves identity across prosody changes. Say “I am also Christoph” to link a confirmed voice variant.';
+ matchHelp.textContent='Voice-label threshold: 0.38 by default. During an active conversation the separate partner threshold (default 0.28) preserves identity across prosody changes. Say “I am also Christoph” to link a confirmed voice variant.';
  utteranceStrictness.value=desiredOpenVoiceThreshold;utteranceValue.value=desiredOpenVoiceThreshold.toFixed(2);
 }
 gate.onchange=async()=>{const enabled=gate.checked;desiredGate=enabled;try{await client.start(true);client.send('identity:'+(enabled?'on':'off'));$('asr-status').textContent=enabled?'Speaker filter ON. Say “Hey Robbie, ich bin …” to join.':'Speaker filter OFF. Speak normally; background voices may also be transcribed.';}catch(e){gate.checked=false;desiredGate=false;$('identity-status').textContent=e.message;}};

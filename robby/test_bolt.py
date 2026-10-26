@@ -142,7 +142,7 @@ class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
         async def preview(text,at):order.append(('words',text))
         async def observe(event,end):order.append(('waveform',end))
         async def advance():order.append(('flush',None))
-        c.sentence_stream=SimpleNamespace(preview_text=preview,observe=observe,advance=advance);c.ws=SimpleNamespace(send_json=AsyncMock())
+        c.sentence_stream=SimpleNamespace(preview_text=preview,observe=observe,advance=advance,foreground_last=.32,raw_loud_at=.32);c.ws=SimpleNamespace(send_json=AsyncMock())
         with patch.object(Conversation,'_on_events',new_callable=AsyncMock):
             await c._on_events([{'kind':'SPEAKER_FEATURES'},{'kind':'PARTIAL','text':'Complete sentence with final words.'}],5120)
         self.assertEqual(order,[('waveform',5120),('words','Complete sentence with final words.'),('flush',None)])

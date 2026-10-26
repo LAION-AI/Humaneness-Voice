@@ -28,8 +28,7 @@ uses API routing tag `cerebras/fp16`, with `provider.only` and
 The query-string UUID in the OpenRouter web page is not used as an invented API
 parameter. Real responses record the actual provider as well as the requested
 tag. Unsupported JSON-format parameters are omitted for Cerebras; actual tool
-calls, strict validation and German reply defaults remain. Explicit rule changes
-require real tools, rather than trusting a verbal promise.
+calls, strict validation and German reply defaults remain. Explicit literal rule instructions compile into validated controller actions; generic semantic rules use real tools. A verbal promise alone never installs a rule.
 
 With a configured server credential, Qwen/Cerebras is the default. Without one,
 the source package falls back to local Nemotron. Only model/provider preferences
@@ -102,44 +101,64 @@ regressions explicitly select local Nemotron, to keep those comparisons local.
 The [English deployment and timing report](static/openrouter-update.html) retains
 measurements and limits. Test inputs are authored synthetic requests/audio.
 
-### Keep the current conversation partner (2026-10-26)
+### Conversation focus, groups and reproducible tests (2026-10-26)
 
-The main **Stay with the current conversation partner** checkbox is on by
-default. The first clear voice starts normally; while focused, a different
-voice cannot simply take the floor or cancel speech. The adjustable partner
-threshold starts at **0.32**, independently of the 0.38 new-voice label threshold.
-Changes in pitch, delivery or emotion retain the owner when the acoustic match
-is plausible. Up to eight confirmed variants preserve the original anchor;
-explicit “Ich bin auch Christoph” corrections can link a changed voice.
+The default current-partner cosine is now **0.28**, with a **700-ms speech
+pause**, foreground-relative activity, 400-ms pre-roll and 320-ms post-roll.
+Full words and full audio remain separate from short identity windows. A weak
+320-ms student alone cannot reject a plausible whole-sentence return. Original
+voice anchors survive; only confirmed evidence updates trusted variants.
+Quiet background speech is checked without silently enrolling it.
 
-TYGER BARGE events and literal Stop previews now go through the same acoustic
-guard: fresh post-reply speech, ECAPA identity, bot/rival margins and available
-320-ms native-feature evidence. Nonlexical interruptions need stronger matching
-(at least 0.55 ECAPA). Short explicit commands can use temporally consistent
-student evidence; a late confirmation cannot cancel a different reply ID.
-Manual Stop remains independent. Recent 1.28-s ownership checks at 640-ms cadence
-can keep clear background speech from extending the owner's pause; full-utterance
-anchors use up to 3.04 s already heard.
+**Let another person join** clears stale queued work and accepts the next voice.
+An admitted person can also say “Das ist meine Freundin Alice. Rede bitte auch
+mit ihr.” The guest joins a shared session roster while the original person
+remains authorized. “Ignoriere die Stimmen im Hintergrund” suppresses background
+questions; “Rede bitte nur mit mir” revokes the other participants. Background
+voices cannot grant permissions. Memory remains session-only.
 
-Another person can say “Hey Robbie” **while Robby is listening**, use **Let
-another person join**, disable focus, or join after three minutes of inactivity.
-Settings persist in this browser; profiles remain session RAM. The independent
-camera/face switches, audio turn-taking and avatar controls are retained.
-Both LLM prompts maintain the conversation thread instead of inventing a new
-person from changing intonation.
+The sentence-stream route now drives the existing 320-ms live decision controller.
+Literal agreed rules compile into validated session rules; semantic rules retain
+the dialogue-model route. Laya handles configured live Stop decisions. A short
+fresh foreground Stop can cancel even when its one-word identity is uncertain;
+strong known-rival and bot-echo guards remain. No identity is learned from it.
+This prioritizes user control and is not speaker authentication. A loud unknown
+voice can still cancel: include that risk in false-abort tests. Ordinary
+nonlexical interruptions remain more conservative.
 
-See the [English report and exact acoustic limits](static/conversation-focus-update.html).
-In particular, two similar **unknown** synthetic male voices still produce one
-false acceptance in the difficult Stop probes; known rival enrollment resolves
-that example. A lower threshold cannot reliably separate overlapping or similar
-voices. The profile-emotion diagnostics also expose synthesis identity drift.
-These limits are retained in the receipts, not relabelled as passing accuracy.
+Requested spins, grimaces and emotion chains dispatch immediately with unique
+IDs while speech streams. Manual Stop stays independent. The UI retains all
+camera, gaze, expression, person-memory and model controls.
 
-Reproduce with `python run_unit_checks.py`,
-`python prepare_focus_fixtures.py`, `python validate_conversation_focus.py` and
-`uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_conversation_focus.py`.
-The latter exercises real HTTPS ASR/TTS, background turns/playback, owner return,
-spoken/manual Stop and persisted controls using public synthetic fixtures.
+Real multi-turn joke regressions check another/longer/topic changes, with 18 model turns and six actual session-owned browser/TTS turns. Interrupted generated words remain in context under an explicit partial-hearing warning. Humor quality still needs review.
+
+The canonical **[Voice Assistant Test Protocol](VOICE_ASSISTANT_TEST_PROTOCOL.md)**
+provides exact inputs, commands, clock definitions, regression cases, TV/overlap
+stress conditions, group permissions and a staged configuration-search strategy.
+[The current English report](static/rebalance-update.html) links actual receipts.
+Use `run_voice_assistant_checks.py` for serial runs with per-attempt source/input
+hashes and retained failures; `plan_voice_assistant_search.py` creates twelve
+threshold/pause candidates without starting them. The public synthetic fixture
+pack is a [separate GitHub release asset](https://github.com/LAION-AI/Humaneness-Voice/releases/tag/robby-test-fixtures-v1), keeping the source tree text-only. These are development
+checks, not held-out human or physical-room accuracy. Earlier focus/Stop reports
+remain available as historical results, not current operating guarantees.
+
+### Local E4B hardware investigation: gpu-unlock (2026-10-26)
+
+A separate agent inspected gpu-unlock at pinned upstream revision and ran its
+CPU/mock checks, a real kernel-module build and the unchanged local E4B baseline.
+The current Linux 5.4 headers cannot build the module (`pci_dev_lock`/unlock,
+with a missing aperture header also identified). No module, driver, boot option
+or GPU reset was applied. Unlock speedup is **unmeasured**.
+
+Three measured repetitions after warm-up gave about **38.3 decode tokens/s** and
+**620-ms first content with the actual Robby system prompt**, on a shared RTX
+3090 with unrelated training still active. This is not an isolated hardware
+capacity or task-quality benchmark. [English results and exact reproduction](https://projects.laion.ai/Humaneness-Voice/robby/gpu-unlock-4b.html)
+include the actual GGUF/hash, llama.cpp revision, all repetitions and a controlled
+future maintenance-window A/B procedure. The hardware-study scripts are in the
+GitHub snapshot's `robby/experiments/gpu_unlock/` directory; the main source ZIP
+contains the application and report, without firmware/model weights.
 
 ### German replies and selectable recognition (2026-10-26)
 
@@ -279,7 +298,7 @@ conversation transcripts and microphone recordings are not logged or published.
 ### Input waits for a speech pause
 
 The **Speech pause before replying** slider above the camera controls selects
-200–2,000 ms (default 400 ms), persists as `robby.speechPauseMs` in this browser
+200–2,000 ms (default 700 ms), persists as `robby.speechPauseMs` in this browser
 and is sent on every connection using `asr:pause_ms:<milliseconds>`. A live change
 is acknowledged with `asr_settings`. `ROBO_SPEECH_PAUSE_MS` sets the server
 fallback. This control applies to the local open-voice mode, preserving the
@@ -333,7 +352,7 @@ The local LLM streams short cues and words. One hundred fixed GENERAL templates
 generated GENERAL prose for ordinary replies. Completed output sentences enter
 TTS immediately while the LLM continues. Input punctuation stays preview-only:
 all pending input sentences form one turn after a configurable neural speech
-pause (400 ms default). Later turns queue in order; a running LLM decode cannot
+pause (700 ms default). Later turns queue in order; a running LLM decode cannot
 be retroactively edited.
 Read-only information tools and avatar tools retain the verified tool loop
 through the selected model. Direct rotations retain their six-second,

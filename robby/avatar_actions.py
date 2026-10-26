@@ -19,6 +19,12 @@ def explicit_spin(text):
     t=text.casefold().strip()
     if re.search(r'["“”„«»]|\b(?:nicht|kein\w*|never|not|don.t|wenn|falls|if|example|beispiel|zitiere|quote|sag|say|erklär\w*|explain)\b',t):return []
     direct=re.search(r'\b(?:dreh(?:e|en)?\s+(?:bitte\s+)?(?:dich|deinen?\s+kopf)|(?:kannst|könntest|würdest|willst)\s+du\b.{0,80}\b(?:dich|deinen?\s+kopf)\b.{0,60}\bdrehen|(?:please\s+)?spin(?:\s+(?:around|yourself))?(?:[.!?]|$)|(?:can|could|would)\s+you\b.{0,40}\b(?:spin|rotate)|(?:turn|rotate)\s+(?:your\s+head|around|yourself))',t)
+    if not direct:
+        # Colloquial/elliptical requests often survive ASR without 'du/dich'.
+        # The caller's command-intent gate still excludes statements/quotes.
+        direct=re.search(r'^(?:(?:ja|okay|also|bitte|nochmal|noch mal|jetzt|mal|robb[yi]|hey)\s*[,!:]?\s*)*(?:(?:kannst|könntest|würdest|willst)\s+du\s+)?(?:dreh(?:e|en)?|rotier(?:e|en)?|spin|rotate)\b',t)
+        if not direct:
+            direct=re.fullmatch(r'(?:(?:bitte|please|nochmal|noch mal|sich|dich)\s+)*(?:im\s+kreis|rundherum|einmal\s+herum|360\s*(?:grad|degrees|°))\s+(?:drehen|rotieren)(?:\s+bitte)?[.!?]*',t)
     if not direct:return []
     direction='counterclockwise' if re.search(r'gegen\s+den\s+uhrzeigersinn|counter[- ]?clockwise|anti[- ]?clockwise',t) else 'clockwise'
     return [{'kind':'spin','duration_s':6.,'sentence':0,'direction':direction}]

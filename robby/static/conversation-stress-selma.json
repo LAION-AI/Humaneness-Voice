@@ -1,0 +1,273 @@
+{
+  "passed": true,
+  "target_voice": "selma",
+  "augmentation_seed": 42,
+  "scope": "Component ASR/foreground-clock/ECAPA/V4 diagnostics; browser proves full conversational integration separately",
+  "private_audio": false,
+  "procedural_music_and_foley": true,
+  "retained_waveforms": 0,
+  "configuration": {
+    "focus_threshold": 0.28,
+    "speech_pause_ms": 700
+  },
+  "cases": [
+    {
+      "case": "clean",
+      "background_gains": [
+        0.0,
+        0.0
+      ],
+      "music_gain": 0.0,
+      "foley_gain": 0.0,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 1.98,
+      "foreground_crop_seconds": 4.62,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5584,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.5373,
+      "background_accepted": false,
+      "background_reason": null,
+      "cpu_component_ms": 713.33,
+      "wave_sha256": "0d0cff89c288b538e991569827690118311577eb2c77f8137b3000f3c3df2e2a",
+      "working_audio_bytes": 1338240,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 54.21
+    },
+    {
+      "case": "quiet TV",
+      "background_gains": [
+        0.06,
+        0.0
+      ],
+      "music_gain": 0.0,
+      "foley_gain": 0.0,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 1.96,
+      "foreground_crop_seconds": 4.62,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5295,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.4544,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 757.8,
+      "wave_sha256": "4c37e3a14df4ffb1043b16b039b8d9b346f837f210d7c9aa717149ebc695471a",
+      "working_audio_bytes": 1339520,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 64.9
+    },
+    {
+      "case": "TV at 12 percent",
+      "background_gains": [
+        0.12,
+        0.0
+      ],
+      "music_gain": 0.0,
+      "foley_gain": 0.0,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 1.96,
+      "foreground_crop_seconds": 4.62,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5817,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.3542,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 829.2,
+      "wave_sha256": "e56ac2ed55bc3142d780e12a9eb21fb181bd1ef6e8f4333740bbbad5f975088c",
+      "working_audio_bytes": 1339520,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 68.32
+    },
+    {
+      "case": "two quiet people",
+      "background_gains": [
+        0.08,
+        0.08
+      ],
+      "music_gain": 0.0,
+      "foley_gain": 0.0,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 1.96,
+      "foreground_crop_seconds": 4.62,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5897,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.3793,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 828.19,
+      "wave_sha256": "d10ed92003add7153bb5e7046677d1dee9a26e67787280cbc5d3184299cf85ee",
+      "working_audio_bytes": 1339520,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 61.13
+    },
+    {
+      "case": "two people + soft music + foley",
+      "background_gains": [
+        0.1,
+        0.1
+      ],
+      "music_gain": 0.04,
+      "foley_gain": 0.03,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 1.96,
+      "foreground_crop_seconds": 6.09,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5254,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.3591,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 929.36,
+      "wave_sha256": "f517315ffedd3e904034d86c5b73a9c3b710db22e92dd6677c9f2c7fb270d102",
+      "working_audio_bytes": 1433600,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 72.18
+    },
+    {
+      "case": "changed delivery + two people",
+      "background_gains": [
+        0.1,
+        0.08
+      ],
+      "music_gain": 0.04,
+      "foley_gain": 0.03,
+      "delivery_speed": 1.04,
+      "target_seconds": 3.798125,
+      "mixture_seconds": 5.938125,
+      "foreground_start_seconds": 1.88,
+      "foreground_crop_seconds": 4.48,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.645,
+        3.542
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.326,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.3212,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 802.48,
+      "wave_sha256": "5fa31a121467803fd049173ac601dca9170a75a5c4af991b0238db89cbc75aa5",
+      "working_audio_bytes": 1306520,
+      "transcript": "Was können wir heute zusammen machen?",
+      "wer": 0.0,
+      "asr_ms": 74.51
+    },
+    {
+      "case": "louder overlapping people",
+      "background_gains": [
+        0.2,
+        0.16
+      ],
+      "music_gain": 0.05,
+      "foley_gain": 0.04,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 0.0,
+      "foreground_crop_seconds": 6.09,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5311,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.4945,
+      "background_accepted": false,
+      "background_reason": "Much quieter competing voice; keeping the foreground conversation",
+      "cpu_component_ms": 1596.62,
+      "wave_sha256": "5b654f479c49ee49294f3b529726be05cb68875d0d7a980ffff89b9e0eafdd13",
+      "working_audio_bytes": 1559040,
+      "transcript": "Im Hintergrund läuft.  Was können wir heute zusammen machen und die Nachrichten",
+      "wer": 1.0,
+      "asr_ms": 93.88
+    },
+    {
+      "case": "hard overlap + music",
+      "background_gains": [
+        0.35,
+        0.25
+      ],
+      "music_gain": 0.1,
+      "foley_gain": 0.06,
+      "delivery_speed": 1.0,
+      "target_seconds": 3.95,
+      "mixture_seconds": 6.09,
+      "foreground_start_seconds": 0.0,
+      "foreground_crop_seconds": 6.09,
+      "target_audio_retained": true,
+      "source_activity_support_seconds": [
+        1.711,
+        3.683
+      ],
+      "retention_definition": "Known source energy support, excluding source padding; not an oracle word aligner. ASR WER is reported separately.",
+      "target_similarity": 0.5064,
+      "current_accepts_main": true,
+      "previous_032_cosine_accepts_main": true,
+      "fast_similarity": 0.5537,
+      "background_accepted": false,
+      "background_reason": "Background, echo or uncertain voice; keeping the current conversation",
+      "cpu_component_ms": 1472.61,
+      "wave_sha256": "93df42e88fabd78e44e27fdd4ae3436e6a3ed1eec4bcffe740529ba0c0d80d56",
+      "working_audio_bytes": 1559040,
+      "transcript": "eine kleine Geschichte im Hintergrund läuft ein Was können wir heute zusammen machen.",
+      "wer": 1.167,
+      "asr_ms": 94.46
+    }
+  ],
+  "all_stress_cases_pass": true,
+  "finished": 1793018404.716005
+}
