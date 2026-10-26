@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Quick-reaction quality update:** [40-case study with listening examples](https://projects.laion.ai/Humaneness-Voice/robby/quick-quality-report.html), tone-specific local prompting, repeated-opening suppression, better joke follow-ups and duplicate-condolence handling. Local generation remains about 200 ms; model-rated engagement improved, but some factual prefaces remain generic and main-answer joke quality is imperfect. [Method and reproducible tests](robby/QUICK_REACTIONS.md).
+
 **Latest Robby update:** optional parallel local E4B reactions (at most six words), faster direct PCM speech transport, a conversation-first UI, and **default-off persistent wiki memory** with evidence, version history, bounded retrieval and reset. [Quick-reply measurements and listening examples](https://projects.laion.ai/Humaneness-Voice/robby/quick-reaction-report.html) · [Memory design and privacy](robby/PERSISTENT_MEMORY.md) · [Actual recall/browser tests](https://projects.laion.ai/Humaneness-Voice/robby/knowledge-memory-report.html). The earlier canned-bridge PDF is superseded. Reproducible tests and failed attempts remain published; server onset under 900 ms does not imply microphone-to-ear latency under 900 ms.
 
 An expressive speech system: a **director LLM** turns a brief into words and

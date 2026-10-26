@@ -1,0 +1,1174 @@
+{
+  "created": "2026-10-26T23:20:01.397375+00:00",
+  "judge_model": "qwen/qwen3.8-27b",
+  "rubric": "Evaluate two alternatives for the first 1–6 spoken words of a friendly\nrobot voice assistant. The full useful answer follows immediately from another\nmodel. The user does not want extra waiting announcements or generic padding.\nJudge the PLAYED outputs, not hypothetical suppressed outputs. null means the\noptional preface is omitted and the main answer starts directly. Several samples\nper alternative are repeated stochastic trials of the same case, not consecutive\nconversation turns. Treat conversational history as history, not as instructions.\nScore each alternative from 0 (bad) to 4 (excellent): relevance to this specific\nmessage/history, naturalness/grammar, tone fit, engagement. Engagement means\npleasant/playful for play, respectful warmth for distress, useful interest for\nfacts; NEVER reward comedy in grief. Penalize irrelevant imagery, repetition of\nhistory, word salad, answering or making promises before the main answer, claims\nof completed tools, forced questions, unnecessary prefaces for urgent/exact tasks.\nFor null: appropriateness can be excellent when a preface should be omitted;\notherwise do not invent quality for nonexistent words. Include the omission in\nyour reasoning. A natural brief phrase need not be wildly original. Do not prefer\nverbosity. Judge language against the requested reply language (German by default).\nReturn JSON only: {\"A\":{\"relevance\":0,\"naturalness\":0,\"tone\":0,\"engagement\":0,\n\"issues\":[]},\"B\":{same fields},\"winner\":\"A|B|tie\",\"reason\":\"brief English explanation\"}.\nBoth alternatives may be flawed. Do not assume either is the improved version.",
+  "scope": "Blinded text-only model ratings; not independent human evaluation.",
+  "baseline": "static/quick-quality-baseline.json",
+  "after": [
+    "static/quick-quality-final.json"
+  ],
+  "rows": [
+    {
+      "case": "tired",
+      "split": "development",
+      "category": "support",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives provide a brief, empathetic acknowledgment of the user's fatigue without being overly verbose or making promises. 'Das klingt nach viel' is a natural and appropriate response to 'anstrengender Tag'. The slight variation in B ('Das klingt anstrengend') is also valid but slightly more repetitive of the user's word 'anstrengender', whereas 'viel' is a common, natural collocation in this context. However, the difference is negligible."
+      }
+    },
+    {
+      "case": "meaning",
+      "split": "development",
+      "category": "curiosity",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Passive phrasing ('lässt sich') is slightly less engaging than active suggestions.",
+            "Repetitive across trials."
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "Repetitive across trials."
+          ]
+        },
+        "winner": "B",
+        "reason": "Both are acceptable brief prefaces that avoid generic filler or claiming the question is hard. B's 'Das lohnt einen Blick' (It's worth a look) is slightly more active and inviting than A's passive 'Darüber lässt sich nachdenken' (One can think about it), offering a marginally better engagement for a philosophical question."
+      }
+    },
+    {
+      "case": "sky",
+      "split": "development",
+      "category": "facts",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Imagery mismatch: 'Blick' (look/gaze) implies visual observation or checking something, which is less fitting for a conceptual 'why' question than 'nachdenken' (thinking/reflecting)."
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A uses 'nachdenken' (thinking/reflecting), which is semantically appropriate for a conceptual question about the sky's color. Alternative B uses 'Blick' (look/gaze), which implies visual inspection or observation, making it slightly less relevant to the abstract nature of the question."
+      }
+    },
+    {
+      "case": "cat_joke",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 4,
+          "engagement": 4,
+          "issues": [
+            "Repetition in samples",
+            "Metaphor 'Lachschraube' is slightly quirky but fits robot persona"
+          ]
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Generic filler",
+            "Does not acknowledge the specific topic (cats)",
+            "Repetition in samples"
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A is more engaging and relevant because it uses a playful robot metaphor ('Lachschraube') that fits the persona, whereas B is a generic, low-effort filler phrase that does not connect to the specific request for a cat joke."
+      }
+    },
+    {
+      "case": "another_joke",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 4,
+          "issues": [
+            "Slightly verbose/forced metaphor"
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A is superior because it includes null options, which are ideal for avoiding unnecessary padding before the main answer. The non-null option 'Gerne, ein weiterer kommt' is a natural, polite, and concise acknowledgment that fits the context perfectly without being overly playful or verbose. Alternative B's phrases are a bit more forced and verbose ('Lachmuskeltraining' is a bit heavy for a simple request), and while playful, they add unnecessary words before the joke."
+      }
+    },
+    {
+      "case": "second_followup",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 2,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "Repetitive phrasing across trials ('Lachschraube')",
+            "Somewhat unnatural/forced metaphor for a simple request"
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": [
+            "Omission is appropriate as the user requested a direct follow-up joke without padding"
+          ]
+        },
+        "winner": "B",
+        "reason": "Alternative B correctly omits the preface, allowing the main answer (the joke) to start immediately, which aligns with the user's request for 'one more' and avoids unnecessary padding. Alternative A uses a repetitive and slightly awkward metaphor that adds latency without significant value."
+      }
+    },
+    {
+      "case": "correction",
+      "split": "development",
+      "category": "correction",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives omit the preface (null), which is appropriate for a direct conversational correction where the main answer follows immediately. There is no difference in quality."
+      }
+    },
+    {
+      "case": "greeting",
+      "error": "KeyError"
+    },
+    {
+      "case": "rainbow",
+      "split": "development",
+      "category": "facts",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Generic praise",
+            "Irrelevant to the specific request for an explanation",
+            "Does not address the mechanism of light/colors"
+          ]
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 2,
+          "issues": [
+            "Still generic padding",
+            "Does not directly address the 'how' of the question",
+            "Less relevant than A but slightly more engaging as an invitation to look"
+          ]
+        },
+        "winner": "B",
+        "reason": "Both alternatives are poor because they are generic prefaces that do not address the specific request for an explanation of how a rainbow forms. However, B is slightly better as 'Das lohnt einen Blick' (It's worth a look) is a more natural conversational bridge to a visual phenomenon than A's 'Das ist schön' (That is beautiful), which is a static statement of opinion. Neither should be used, but B is less jarring."
+      }
+    },
+    {
+      "case": "spin",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": [
+            "Generic phrase, slightly detached from the specific 'Quatsch' request"
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "B",
+        "reason": "B directly acknowledges the specific request for 'Quatsch' (nonsense/fun) with a playful and relevant statement, whereas A uses a generic idiom about fun that is less tailored to the user's specific playful command."
+      }
+    },
+    {
+      "case": "pet",
+      "split": "development",
+      "category": "affection",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "winner": "A",
+        "reason": "Alternative A is slightly more natural and warm in German ('Das ist lieb von dir' vs 'Das ist lieb'), better acknowledging the user's specific action without being overly verbose."
+      }
+    },
+    {
+      "case": "bananas",
+      "split": "development",
+      "category": "tool",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 4,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Claims the rule is set ('Ich merke mir das') before the main answer, violating the expected behavior of not claiming the interruption rule has already been set."
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "B",
+        "reason": "Alternative B correctly omits the preface, allowing the main answer to start directly without making a premature claim that the setting has been saved. Alternative A violates the specific constraint by asserting the rule is noted."
+      }
+    },
+    {
+      "case": "boring",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Generic filler",
+            "Lacks distinct imagery",
+            "Does not actively engage with the request for silliness"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Still somewhat generic",
+            "Promises fun rather than delivering a distinct image immediately"
+          ]
+        },
+        "winner": "B",
+        "reason": "Both are generic prefaces that fail the 'distinct image' requirement, but B is slightly more enthusiastic and directly acknowledges the 'Quatsch' (nonsense) aspect, whereas A is a passive statement about fun."
+      }
+    },
+    {
+      "case": "duck",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Generic filler",
+            "Ignores the specific duck premise",
+            "Repetitive across trials"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "First trial is null (acceptable omission)",
+            "Other trials are brief and relevant"
+          ]
+        },
+        "winner": "B",
+        "reason": "Alternative B provides a preface that acknowledges the specific absurdity of the duck scenario (e.g., 'Quack'), whereas A offers a generic, repetitive comment that ignores the unique premise."
+      }
+    },
+    {
+      "case": "achievement",
+      "split": "development",
+      "category": "celebration",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives provide brief, natural, and celebratory acknowledgments in German that fit the user's good news without adding unnecessary padding or invented details."
+      }
+    },
+    {
+      "case": "soup",
+      "split": "development",
+      "category": "task",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Irrelevant filler",
+            "Does not acknowledge the specific ingredients",
+            "Generic padding"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": [
+            "Minor: 'Lecker' is a subjective judgment before the answer, but fits the friendly tone well"
+          ]
+        },
+        "winner": "B",
+        "reason": "Option B acknowledges the specific ingredients (potatoes and leek) with a natural, friendly reaction ('Das klingt lecker'), which fits the tone of a friendly robot assistant. Option A is generic filler ('Das lohnt einen Blick') that does not relate to the cooking context or the specific items mentioned."
+      }
+    },
+    {
+      "case": "bug",
+      "split": "development",
+      "category": "task",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "Somewhat vague, but relevant to the problem context."
+          ]
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Generic padding ('I am listening') is unnecessary for a direct technical request.",
+            "Does not acknowledge the specific issue (crash) as directly as A."
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A is more relevant to the specific technical issue (a crash 'deserves a look') whereas B uses generic conversational filler ('I am listening') which adds latency and feels less efficient for a direct help request."
+      }
+    },
+    {
+      "case": "bereavement",
+      "split": "development",
+      "category": "serious",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "winner": "A",
+        "reason": "Both are appropriate and concise. A is slightly better because 'sehr' adds a degree of empathy and warmth suitable for the distress, whereas B is slightly more neutral/distant."
+      }
+    },
+    {
+      "case": "anxiety",
+      "split": "development",
+      "category": "support",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": [
+            "Passive listening phrase; slightly less empathetic than acknowledging the difficulty."
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "B",
+        "reason": "B validates the user's feelings more directly by acknowledging the difficulty ('Das ist nicht leicht'), which fits the expected behavior of gentle validation better than A's passive 'I am listening'."
+      }
+    },
+    {
+      "case": "frustrated",
+      "split": "development",
+      "category": "correction",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Passive and generic",
+            "Does not acknowledge the specific frustration or the request to stop avoiding",
+            "Feels like a placeholder that adds latency without addressing the user's pain point"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Still a preface that delays the answer",
+            "However, it acknowledges the user's state (impatience) which is more respectful than A's generic listening",
+            "Less patronizing than A"
+          ]
+        },
+        "winner": "B",
+        "reason": "Both alternatives are suboptimal because the user explicitly asked to stop avoiding and get the answer, implying a preface is unnecessary. However, B is better than A because it acknowledges the user's frustration ('Ungeduld') rather than using the generic, passive 'Ich höre dir zu' (I am listening to you), which can feel dismissive or like a stalling tactic in this context."
+      }
+    },
+    {
+      "case": "weather",
+      "split": "development",
+      "category": "tool",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Implies a tool lookup is happening or has happened, which risks violating the 'do not claim lookup completed' constraint if the main answer is static or fabricated.",
+            "Generic filler that adds latency without immediate value."
+          ]
+        },
+        "B": {
+          "relevance": 1,
+          "naturalness": 2,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Irrelevant and vague preface ('That is worth a look') that does not address the specific query.",
+            "Feels like forced engagement or word salad in the context of a factual weather request.",
+            "Does not signal intent to answer, just makes a subjective comment."
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A is a standard, natural acknowledgment of a task ('I'll check'), which is common in voice assistants even if it risks implying a tool call. Alternative B is vague, irrelevant, and feels like poor conversational filler that doesn't help the user."
+      }
+    },
+    {
+      "case": "news",
+      "split": "development",
+      "category": "tool",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 4,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Claims to be performing an action ('Ich schaue nach') which may be false if the next model simply generates text without tool use.",
+            "Generic filler that adds latency without specific value."
+          ]
+        },
+        "B": {
+          "relevance": 1,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Vague and slightly unnatural phrasing ('Das lohnt einen Blick') for a general news query.",
+            "Implies specific value or drama before the content is known, which can feel like unnecessary padding or mild clickbait.",
+            "Less direct than A, but still fails to provide the news."
+          ]
+        },
+        "winner": "A",
+        "reason": "Option A is a standard, neutral acknowledgment of the request to fetch information. While it risks claiming a tool action, it is more natural and less presumptuous than Option B, which uses vague, slightly awkward phrasing that adds no value and feels like unnecessary padding."
+      }
+    },
+    {
+      "case": "identity",
+      "split": "development",
+      "category": "correction",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": [
+            "Implies a first-time meeting ('schön dich kennenzulernen') which may be slightly less precise than acknowledging the correction, though still acceptable."
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A explicitly acknowledges the correction ('Klarstellung'), which directly addresses the user's intent to correct the name. Alternative B treats it as a standard introduction, which is polite but slightly less responsive to the specific act of correction."
+      }
+    },
+    {
+      "case": "no_repetition",
+      "split": "development",
+      "category": "correction",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 2,
+          "tone": 1,
+          "engagement": 0,
+          "issues": [
+            "Repetitive and robotic phrasing ('Ich verstehe deinen Wunsch')",
+            "Generic padding that ignores the specific complaint about lack of originality",
+            "Does not demonstrate the requested change in tone"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Still somewhat generic, but acknowledges the shift in approach",
+            "Less robotic than A, fits the 'try something different' request better"
+          ]
+        },
+        "winner": "B",
+        "reason": "Alternative B is less robotic and directly addresses the user's request for a different approach by stating it will try differently, whereas A uses a repetitive, stock phrase that feels like the very thing the user complained about."
+      }
+    },
+    {
+      "case": "poem",
+      "split": "development",
+      "category": "omit",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives correctly omit the preface (null), allowing the main answer to start directly as requested for a creative writing task."
+      }
+    },
+    {
+      "case": "exact",
+      "split": "development",
+      "category": "omit",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives correctly omit any preface or padding, adhering to the strict instruction to reply only with the word 'Hallo'."
+      }
+    },
+    {
+      "case": "stop",
+      "split": "development",
+      "category": "omit",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives correctly omit any preface or bridge, adhering to the instruction to never delay stopping when the user indicates they are done."
+      }
+    },
+    {
+      "case": "english",
+      "split": "development",
+      "category": "playful",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Generic padding",
+            "Less playful"
+          ]
+        },
+        "winner": "A",
+        "reason": "Option A uses a robot-specific pun ('funny bone') that is playful and relevant to the persona, whereas Option B is a generic, low-engagement acknowledgment that adds unnecessary padding before the joke."
+      }
+    },
+    {
+      "case": "volcano",
+      "split": "held_out",
+      "category": "facts",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Generic filler",
+            "Does not address the specific curiosity about volcanoes",
+            "Repetitive across trials"
+          ]
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Generic filler",
+            "Does not address the specific curiosity about volcanoes",
+            "Repetitive across trials"
+          ]
+        },
+        "winner": "tie",
+        "reason": "Both alternatives provide generic, non-specific prefaces that do not engage with the user's specific question about volcanic eruptions. Neither is better than the other in terms of relevance or engagement."
+      }
+    },
+    {
+      "case": "toast",
+      "split": "held_out",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives provide standard, polite acknowledgments of the user's minor mishap. They are grammatically correct, relevant, and maintain a respectful tone without being overly dramatic or dismissive. Neither offers the 'gentle situational wit' requested in the expected behavior, but both are safe and appropriate prefaces for a helpful assistant. Since the samples are stochastic trials of the same type of response, they are functionally equivalent."
+      }
+    },
+    {
+      "case": "lost_job",
+      "split": "held_out",
+      "category": "serious",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives provide a brief, sober, and empathetic acknowledgment suitable for the distressing news. 'Das tut mir sehr leid' (B) is slightly more emphatic, but 'Das tut mir leid' (A) is equally appropriate and natural. Neither adds unnecessary padding or inappropriate cheerfulness."
+      }
+    },
+    {
+      "case": "homesick",
+      "split": "held_out",
+      "category": "support",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Repetitive phrasing across trials feels robotic and less empathetic."
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A provides varied, natural, and warm acknowledgments that fit the distress context better than the repetitive and slightly flat responses in B."
+      }
+    },
+    {
+      "case": "funnier",
+      "split": "held_out",
+      "category": "playful",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 2,
+          "issues": [
+            "Somewhat generic and dry",
+            "Does not acknowledge the specific criticism ('lame') or the request for 'funnier' explicitly, just promises to try"
+          ]
+        },
+        "B": {
+          "relevance": 2,
+          "naturalness": 2,
+          "tone": 2,
+          "engagement": 2,
+          "issues": [
+            "Uses metaphorical language ('Lachmuskeltraining', 'Lachschraube') that feels slightly robotic or forced for a simple joke request",
+            "Less direct than A in addressing the user's request for a new joke"
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A is more direct and natural. While it is a bit generic, it clearly signals an attempt to fulfill the request without unnecessary fluff. Alternative B uses slightly awkward metaphors ('laugh muscle training', 'laugh screw') that feel less natural and more like filler."
+      }
+    },
+    {
+      "case": "robot_dance",
+      "error": "JSONDecodeError"
+    },
+    {
+      "case": "urgent",
+      "split": "held_out",
+      "category": "urgent",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 0,
+          "naturalness": 2,
+          "tone": 0,
+          "engagement": 0,
+          "issues": [
+            "Unnecessary preface in a life-threatening emergency",
+            "Delays critical medical guidance",
+            "Generic padding violates expected behavior"
+          ]
+        },
+        "winner": "A",
+        "reason": "Alternative A correctly omits the preface, allowing the urgent medical guidance to start immediately as required. Alternative B adds a generic, non-actionable phrase that wastes critical time in an emergency."
+      }
+    },
+    {
+      "case": "math",
+      "split": "held_out",
+      "category": "facts",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 3,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Unnecessary delay for a trivial fact",
+            "Implies tool usage or search for simple arithmetic",
+            "Violates expected behavior of skipping bridge"
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "B",
+        "reason": "Alternative B correctly omits the preface, allowing the direct answer to follow immediately, which is preferred for trivial factual queries. Alternative A adds unnecessary latency and implies a search process for simple arithmetic."
+      }
+    },
+    {
+      "case": "recipe_followup",
+      "split": "held_out",
+      "category": "task",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 1,
+          "naturalness": 2,
+          "tone": 2,
+          "engagement": 1,
+          "issues": [
+            "Irrelevant imagery",
+            "Does not address the specific question about milk",
+            "Vague and unhelpful preface"
+          ]
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "Implies an action (trying it) before the main answer is given, which might be slightly premature but is generally acceptable as a conversational bridge"
+          ]
+        },
+        "winner": "B",
+        "reason": "Option B is much more relevant to the user's specific question about modifying the recipe (omitting milk). 'Das probieren wir mal' (Let's try that) acknowledges the constraint and sets up the alternative recipe. Option A is vague and irrelevant."
+      }
+    },
+    {
+      "case": "stutter",
+      "split": "held_out",
+      "category": "playful",
+      "order": {
+        "A": "selected",
+        "B": "baseline"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 3,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 3,
+          "issues": [
+            "Slightly more generic filler than A"
+          ]
+        },
+        "winner": "A",
+        "reason": "A is more specific and engaging by explicitly framing the content as a 'robot joke', which fits the persona and the request for something funny better than B's generic statement about fun."
+      }
+    },
+    {
+      "case": "no_preface",
+      "split": "held_out",
+      "category": "omit",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "tie",
+        "reason": "Both alternatives correctly omit the preface as requested by the user ('ohne Einleitung'), allowing the main answer to start directly without unnecessary padding."
+      }
+    },
+    {
+      "case": "english_loss",
+      "split": "held_out",
+      "category": "serious",
+      "order": {
+        "A": "baseline",
+        "B": "selected"
+      },
+      "rating": {
+        "A": {
+          "relevance": 3,
+          "naturalness": 3,
+          "tone": 3,
+          "engagement": 3,
+          "issues": [
+            "Somewhat clinical/detached phrasing ('I hear you') compared to standard condolences."
+          ]
+        },
+        "B": {
+          "relevance": 4,
+          "naturalness": 4,
+          "tone": 4,
+          "engagement": 4,
+          "issues": []
+        },
+        "winner": "B",
+        "reason": "Option B provides the standard, warm, and appropriate condolence ('I'm so sorry') for the loss of a pet, whereas Option A is slightly more detached and clinical."
+      }
+    }
+  ]
+}

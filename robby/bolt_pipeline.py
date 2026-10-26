@@ -109,7 +109,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 metrics.update(quick_reply_generation_ms=reaction['ms'],quick_reply_model=reaction['model'],quick_reply_status=reaction['status'])
                 if first_main.done():metrics['quick_reply_status']='main_answer_won'
                 elif reaction.get('text'):
-                    intro=Sentence(reaction['text'],'interest, warm, natural',language='de' if reply_language(text,history)=='German' else 'en')
+                    intro=Sentence(reaction['text'],reaction.get('direction','interest, warm, natural'),language='de' if reply_language(text,history)=='German' else 'en')
                     metrics.update(quick_reply_status='selected',quick_reply_words=reaction['word_count'])
         pending_intro=intro
         while True:
