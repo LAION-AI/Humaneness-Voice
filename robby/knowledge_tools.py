@@ -53,6 +53,23 @@ TOOLS=[
 ]
 NAMES={t['function']['name'] for t in TOOLS}
 
+def required_lookup(text):
+    """Require evidence for explicit current-source requests, not mere mentions.
+
+    This is conservative capability routing. It never supplies query arguments
+    or facts, and excludes negation/fiction so ordinary conversation stays local.
+    """
+    t=text.casefold()
+    if re.search(r'\b(?:nicht|keine?\w*|ohne|don.t|do not|without|no)\b|\b(?:erfind\w*|fiktiv\w*|ausgedacht\w*|invent\w*|fiction\w*)\b',t):return None
+    directive=bool(re.search(r'\b(?:schau\w*|such\w*|recherch\w*|prüf\w*|check|search|look|fetch|find)\b',t))
+    if 'wikipedia' in t and directive:return 'search_wikipedia'
+    if re.search(r'\b(?:wetter\w*|weather|forecast)\b',t) and re.search(r'\b(?:wie|how|heute|morgen|aktuell\w*|today|tomorrow|current|forecast)\b',t):return 'get_weather'
+    publishers=any(p in t for p in ('tagesschau','bbc','deutsche welle','deutschlandfunk','guardian'))
+    headlines=bool(re.search(r'\b(?:nachricht\w*|news|headlines?)\b',t))
+    current=bool(re.search(r'\b(?:aktuell\w*|neueste\w*|heute|latest|current|today)\b',t))
+    if headlines and (directive or current) or publishers and directive:return 'search_news'
+    return None
+
 def relevant(text,history=()):
     """Cheap capability routing, not answer generation or factual confidence.
 

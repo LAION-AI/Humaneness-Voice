@@ -1,7 +1,14 @@
 import unittest
-from conversation_tasks import joke_task,memory_content
+from conversation_tasks import joke_task,memory_content,acknowledgement_only
 
 class ConversationTaskTests(unittest.TestCase):
+    def test_promise_is_not_a_story_and_a_short_story_is_not_a_promise(self):
+        for text in ('Das ist eine wunderbare Bitte, die ich sehr gerne erfülle.','Natürlich, Christoph.','Ich kann dir gerne eine Geschichte erzählen.'):
+            self.assertTrue(acknowledgement_only(text),text)
+        for text in ('Ein Roboter fand einen Stern und brachte ihn nach Hause.',
+                     'Ja, sagte der Roboter, und lachte über seinen eigenen Witz.',
+                     'Warum ging der Roboter zur Schule? Er brauchte mehr Bits.'):
+            self.assertFalse(acknowledgement_only(text),text)
     def test_elliptical_jokes_keep_latest_task_without_turning_every_question_into_joke(self):
         history=[{'role':'user','content':'Erzähl einen Witz über Roboter.'},
                  {'role':'assistant','content':'Generated joke.'},

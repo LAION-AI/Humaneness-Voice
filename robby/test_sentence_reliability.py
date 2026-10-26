@@ -38,6 +38,41 @@ class ReliabilityTests(unittest.IsolatedAsyncioTestCase):
         await s._speech_audio(np.ones(320,np.float32),3.1)
         self.assertEqual(s.last_speech,3.1)
 
+    async def test_embedding_prefetch_keeps_foreground_before_long_tv_tail(self):
+        s,c,v=self.session()
+        wave=np.r_[np.full(4*16000,.08,np.float32),np.full(3*16000,.005,np.float32)]
+        s.records.clear();s.records.append((0.,7.,wave));s.now=s.mic_now=s.last_speech=7.
+        captured=[]
+        def embed(x):captured.append(x.copy());return v[0]
+        with patch('speaker_teacher.get_cached_teacher',return_value=SimpleNamespace(embed=embed)):
+            s.prepare_embedding(7.);await s.embedding_task
+        self.assertEqual(len(captured),1)
+        self.assertEqual(len(captured[0]),round(3.04*16000))
+        self.assertGreater(float(captured[0].mean()),.075,'The final TV tail must not replace the owner request')
+
+    async def test_single_word_stop_excludes_surrounding_background_from_voice_window(self):
+        s,c,v=self.session();c.speaking=True;s.reply_started=0.;s.raw_loud_at=2.9
+        s.stop_candidate={'at':2.6,'rid':1,'epoch':s.epoch}
+        s.verify_barge=AsyncMock(return_value={'accepted':False})
+        await s.assess_interrupt({'stop_text':'Stopp!'},3.,1)
+        args=s.verify_barge.call_args
+        self.assertEqual(args.kwargs,{'lexical':True,'brief':True})
+        self.assertEqual(args.args[0],3.,'Fresh phonemes may extend the first partial cue')
+        self.assertEqual(s.stop_candidate['at'],2.6,'Candidate expiry must not be refreshed by old ASR')
+
+    async def test_long_background_preroll_cannot_dilute_foreground_level(self):
+        s,c,v=self.session();s.memory.users['speaker-1']['level']=.08
+        ready=asyncio.create_task(asyncio.sleep(0));await ready
+        cached={'task':ready,'embedding':unit(.4*v[0]+np.sqrt(.84)*v[1]),'compute_ms':20.}
+        wave=np.r_[np.full(15*16000,.003,np.float32),np.full(2*16000,.07,np.float32)]
+        await s.queue.put(('Erzähl mir eine Geschichte.',wave,17.,0.,cached))
+        worker=asyncio.create_task(s.deliver())
+        for _ in range(100):
+            await asyncio.sleep(.002)
+            if c._send_turn.await_count:break
+        worker.cancel();await worker
+        c._send_turn.assert_awaited_once_with('Erzähl mir eine Geschichte.')
+
     async def test_quiet_impostor_never_teaches_fast_or_teacher_identity(self):
         s,c,v=self.session();s.memory.users['speaker-1']['level']=.1
         q=unit(.4*v[0]+np.sqrt(.84)*v[1])

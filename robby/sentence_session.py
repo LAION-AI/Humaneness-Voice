@@ -347,9 +347,15 @@ class SentenceSession:
         lexical=bool(event.get('stop_text') and candidate and candidate['rid']==rid and candidate['epoch']==self.epoch
             and 0<=self.mic_now-candidate['at']<=2.0 and self.raw_loud_at>=self.reply_started)
         if lexical:
-            query_at=candidate['at']
+            # Keep the original candidate expiry, but include newly received
+            # foreground phonemes. Freezing the query at the first partial
+            # "Warte" used to keep rejecting the later complete "Warte bitte".
+            query_at=max(candidate['at'],min(at,self.raw_loud_at+.12))
         else:query_at=min(at,self.last_speech+.16) if event.get('stop_text') and 0<=at-self.last_speech<=1.2 else at
-        decision=await self.verify_barge(query_at,rid,lexical=lexical)
+        # A single imperative has much less voiced audio than a sentence.
+        # A 1.28-s window can contain mostly competing speech around "Stopp".
+        brief=lexical and len(re.findall(r'\w+',event.get('stop_text','')))==1
+        decision=await self.verify_barge(query_at,rid,lexical=lexical,**({'brief':True} if brief else {}))
         decision['lexical_audio_evidence']=lexical
         if self.focus.enabled and not decision.get('quiet_background'):
             target=decision.get('speaker_id') or self.focus.owner
@@ -417,7 +423,7 @@ class SentenceSession:
         scores=[max(float(unit(v-center)@unit(r-center)) for r in refs) for v in rows]
         return {'frames':len(rows),'consistency':sum(v>=.25 for v in scores)/len(scores)}
 
-    async def verify_barge(self,at,rid,lexical=False):
+    async def verify_barge(self,at,rid,lexical=False,brief=False):
         if not self.focus.enabled:return {'accepted':True,'reason':'Conversation focus disabled'}
         if self.last_speech<at-.48 and not lexical:return {'accepted':False,'reason':'No fresh speech'}
         # Only the current reply's recent microphone audio; no old enrollment
@@ -425,7 +431,7 @@ class SentenceSession:
         audio=self.audio(max(self.reply_started,at-1.60),at)
         if lexical:
             from speaker_teacher import enrollment_reference
-            audio=enrollment_reference(self.audio(max(self.reply_started,at-3.04),at),seconds=1.28)
+            audio=enrollment_reference(self.audio(max(self.reply_started,at-3.04),at),seconds=.64 if brief else 1.28)
         if len(audio)<10240:return {'accepted':False,'reason':'Collecting a short voice confirmation'}
         try:
             from speaker_teacher import get_cached_teacher,enrollment_reference
@@ -482,14 +488,18 @@ class SentenceSession:
     def prepare_embedding(self,at):
         """Compute a real ECAPA anchor off the microphone/event-loop thread.
 
-        Reuses 1.28–3.04 seconds already heard, never waits to collect future
-        audio. Only same-utterance, <=1-second-old results can be consumed.
+        Selects the most audible 3.04 seconds of the current utterance, never
+        waits for future audio. A trailing TV-only window must not replace
+        the actual request's voice. Only recent same-epoch results are reused.
         """
         source_start=self.sentence_begin if self.sentence_begin is not None else self.begin
         if source_start is None or at-source_start<1.28 or at-self.last_embedding<.64:return
         if self.embedding_task and not self.embedding_task.done():return
         if at-self.last_speech>.64:return
-        audio=self.audio(max(source_start,at-3.2),at)
+        # Match the final-utterance selector instead of always taking its tail.
+        # Quiet background speech can continue for seconds after the owner;
+        # using that tail produced a fresh but wrong-speaker cached embedding.
+        audio=self.audio(max(source_start,self.segment_floor,at-28.),at)
         if len(audio)<20480:return
         entry={'epoch':self.epoch,'at':at,'embedding':None,'compute_ms':None}
         self.last_embedding=at;self.prefetched=entry
@@ -636,7 +646,11 @@ class SentenceSession:
                 correction=claim and owner and self.memory.users[owner]['name'].casefold()==claim.casefold()
                 handover=not self.c.speaking and bool(wake_intent(text))
                 fast=item[6] if len(item)>6 else None
-                level=voice_level(audio)
+                from speaker_teacher import enrollment_reference
+                # Identity and its level gate must describe the same audible
+                # context. Long TV pre-roll otherwise dilutes the 80th-percentile
+                # level and rejects an otherwise correctly matched short request.
+                level=voice_level(enrollment_reference(audio))
                 decision=self.turn_decision(embedding,fast,level)
                 guest=None
                 if self.permissions.candidate(embedding,fast,level,text):

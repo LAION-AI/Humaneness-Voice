@@ -1,5 +1,14 @@
 # Robby voice chat and TYGER speaker predictor
 
+**Adversarial conversation tests:** the [repeatable protocol](VOICE_ASSISTANT_TEST_PROTOCOL.md#13-version-2-adversarial-stateful-conversation-protocol)
+now includes seven stateful scenarios / 34 steps with competing voices, continuous
+synthetic TV speech, music, noise, tool calls, topic recall and Stop/Wait phase
+tests. [English result report](static/adversarial-report.html) ·
+[declarative scenarios](adversarial_scenarios.py) ·
+[versioned runner](run_voice_assistant_checks.py). Failures, blocked setup and
+unexecuted physical-room/soak tests are explicitly separated; this is a
+development regression, not a real-world reliability certificate.
+
 Robby connects a browser-local animated robot to the existing Humaneness Voice
 Playground. The configured demo defaults to [Qwen 3.8 27B through OpenRouter,
 using Cerebras](https://openrouter.ai/qwen/qwen3.8-27b), with an explicit provider

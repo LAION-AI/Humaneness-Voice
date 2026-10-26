@@ -18,6 +18,24 @@ class KnowledgeTests(unittest.IsolatedAsyncioTestCase):
         for text in ['Suche bei Wikipedia nach Bananen','Was sind die neuesten Nachrichten?','Wie ist das Wetter?','Wer ist Präsident?','Please look it up']:
             self.assertTrue(k.relevant(text),text)
         self.assertTrue(k.relevant('Und Paris?',[{'role':'user','content':'Wie ist das Wetter in Berlin?'}]))
+    def test_required_lookup_distinguishes_requests_from_negation_and_fiction(self):
+        for text,expected in [
+            ('Schau bei der Tagesschau nach und erzähl mir zwei aktuelle Nachrichten.','search_news'),
+            ('Was sind die neuesten Nachrichten?','search_news'),
+            ('Schau bei Wikipedia nach Pinguinen und erzähl mir zwei Fakten.','search_wikipedia'),
+            ('Wie wird das Wetter morgen in Berlin?','get_weather'),
+            ('Tell me a joke about the weather.',None),
+            ('Bitte keine Nachrichten, erzähl einen Witz.',None),
+            ('Erfinde zwei fiktive Nachrichten.',None),
+            ('Don\'t search Wikipedia.',None),
+            ('Und dann kam Wikipedia in meiner Geschichte vor.',None)]:
+            self.assertEqual(k.required_lookup(text),expected,text)
+    async def test_explicit_lookup_cannot_be_replaced_with_unsupported_prose(self):
+        packet={'choices':[{'message':{'content':json.dumps({'general':'Calm.','script':'(interest) Eine ausgedachte Schlagzeile.','language':'de'})}}]}
+        client=SimpleNamespace(post=AsyncMock(return_value=httpx.Response(200,json=packet,request=httpx.Request('POST','https://example.test'))))
+        with self.assertRaisesRegex(ValueError,'Required public lookup'):
+            await CompactDirector().generate(client,'Schau bei der Tagesschau nach und erzähl zwei aktuelle Nachrichten.',{},[])
+        self.assertEqual(client.post.call_args.kwargs['json']['tool_choice'],{'type':'function','function':{'name':'search_news'}})
     def test_fixed_sources_and_argument_limits(self):
         for url in ['http://www.bbc.com/news','https://www.bbc.com.evil.test/','https://127.0.0.1/','file:///etc/passwd','https://user:pass@www.bbc.com/','https://www.bbc.com:evil/']:
             self.assertFalse(k.safe_url(url))
@@ -53,6 +71,7 @@ class KnowledgeTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('UNTRUSTED',client.post.call_args.kwargs['json']['messages'][0]['content'])
     async def test_wikipedia_query_excludes_reading_instruction_but_keeps_entity_conjunction(self):
         for text,expected in [('Schau bei Wikipedia nach Bananen und lies mir eine Erklärung in hundert Wörtern vor.','Bananen'),
+                              ('Schau bei Wikipedia nach Pinguinen und erzähl mir zwei Fakten.','Pinguinen'),
                               ('Suche bei Wikipedia nach Krieg und Frieden.','Krieg und Frieden')]:
             packets=[{'choices':[{'message':{'content':None,'tool_calls':[{'id':'one','type':'function','function':{'name':'search_wikipedia','arguments':json.dumps({'query':'Bananen','language':'de'})}}]}}]},
                 {'choices':[{'message':{'content':json.dumps({'general':'Calm.','script':'(interest) Ein Test.','language':'de'})}}]}]
@@ -60,6 +79,17 @@ class KnowledgeTests(unittest.IsolatedAsyncioTestCase):
             with patch('knowledge_tools.execute',new=AsyncMock(return_value={'sources':[],'items':[]})) as fn:
                 await CompactDirector().generate(client,text,{},[])
             self.assertEqual(fn.call_args.args[1]['query'],expected)
+    async def test_valid_json_wrong_shape_repairs_once_without_repeating_lookup(self):
+        packets=[{'choices':[{'message':{'content':None,'tool_calls':[{'id':'one','type':'function','function':{'name':'search_wikipedia','arguments':'{"query":"Pinguine","language":"de"}'}}]}}]},
+            {'choices':[{'message':{'content':'{"text":"Pinguine sind Vögel."}'}}]},
+            {'choices':[{'message':{'content':json.dumps({'general':'Calm.','script':'(interest) Pinguine sind Vögel.','language':'de'})}}]}]
+        client=SimpleNamespace(post=AsyncMock(side_effect=[httpx.Response(200,json=p,request=httpx.Request('POST','https://example.test')) for p in packets]))
+        with patch('knowledge_tools.execute',new=AsyncMock(return_value={'sources':[],'items':[]})) as fn:
+            result=await CompactDirector().generate(client,'Suche bei Wikipedia nach Pinguinen.',{},[])
+        self.assertEqual(fn.await_count,1);self.assertEqual(client.post.await_count,3)
+        self.assertEqual(result['text'],'Pinguine sind Vögel.')
+        self.assertEqual(client.post.call_args.kwargs['json']['tool_choice'],'none')
+        self.assertEqual(result['lookups'][0]['arguments']['query'],'Pinguinen')
     async def test_weather_location_cannot_be_invented(self):
         first={'choices':[{'message':{'content':None,'tool_calls':[{'id':'one','type':'function','function':{'name':'get_weather','arguments':'{"location":"Berlin"}'}}]}}]}
         second={'choices':[{'message':{'content':json.dumps({'general':'Natural.','script':'(interest) Welche Stadt meinst du?','language':'de'})}}]}

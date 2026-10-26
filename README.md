@@ -120,7 +120,15 @@ defines exact fixtures/hashes, real-service and CPU-browser commands, group
 conversation/TV stress cases, Stop and task-continuity checks, metrics and a
 staged configuration search. Tests retain each attempt; proposed room/held-out
 targets are explicitly separate from measured development results.
-[Current reliability and test report](https://projects.laion.ai/Humaneness-Voice/robby/rebalance-update.html).
+[Adversarial conversation report](https://projects.laion.ai/Humaneness-Voice/robby/adversarial-report.html):
+seven stateful scenarios and 34 steps with two competing voices, synthetic TV,
+music, noise, guest permissions, task recall, real public tools and Stop/Wait at
+four input phases. Complete development runs passed 12/34, 16/34 and 18/34;
+the last strict Stop/Wait sweep passed 6/8. These are retained failures and
+development diagnostics, not a claim of reliable room conversation. Separate
+clean-input and typed-tool controls distinguish fixture, acoustic and answer
+errors. [Pinned synthetic fixture pack](https://github.com/LAION-AI/Humaneness-Voice/releases/tag/robby-test-fixtures-v2).
+[Earlier reliability report](https://projects.laion.ai/Humaneness-Voice/robby/rebalance-update.html).
 [Local E4B gpu-unlock investigation](https://projects.laion.ai/Humaneness-Voice/robby/gpu-unlock-4b.html): unchanged shared-GPU baseline, compile blocker and reproducible procedure; no unlock speedup claimed.
 Current partner retention defaults to **0.28**, with a **700-ms** pause;
 explicit invitations add guests without losing the original participant.
