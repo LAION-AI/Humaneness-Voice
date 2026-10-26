@@ -1,5 +1,7 @@
 # Robby voice chat and TYGER speaker predictor
 
+The [quick-reaction quality study](static/quick-quality-report.html) tests 40 synthetic situations, tone-aware local prompting, repeated joke requests, serious topics and real TTS handoffs. See [QUICK_REACTIONS.md](QUICK_REACTIONS.md) for measured gains and remaining generic phrasing/main-answer joke limitations.
+
 ## Current update: contextual quick replies and optional wiki memory
 
 The existing local **Bolt E4B** now races Qwen to generate at most six contextual

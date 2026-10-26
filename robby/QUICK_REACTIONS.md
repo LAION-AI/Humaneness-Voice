@@ -1,5 +1,36 @@
 # Local contextual quick reactions and conversation-first layout
 
+## Quality follow-up (2026-10-26)
+
+See [the complete quality report](static/quick-quality-report.html) for 40 authored
+situations, three seeds per eligible situation, rejected prompt variants, all
+final outputs, four real TTS examples and a six-turn Qwen conversation. The local
+model remains Bolt E4B at temperature 0.35; larger sampling temperatures made
+phrasing worse. Tone-specific English/German prompt examples now separate play,
+grief, support, affection, corrections and curiosity. They guide generation;
+they are never selected directly as canned audio. Recent openings are excluded,
+and exact repeated output is skipped without retrying. Play uses an amusement
+TTS cue; serious speech retains soft delivery. Main-answer generation still starts
+immediately and wins the race whenever it is ready first.
+
+The blinded model reviewer preferred the change in 19 cases, the baseline in 9,
+and tied 10; two malformed judgments remain in the receipts. Engagement rose
+from 2.61 to 3.13/4 but naturalness fell from 3.58 to 3.45/4. These are advisory
+model ratings, not human scores. Factual-topic prefaces remain too generic in
+some cases. The six-turn test also exposed weak/repeated jokes in the **main
+Qwen answer**, despite improved task routing; this is not certified as fixed.
+Local generation median was 198 ms versus 197 ms previously (no new online
+judge, retry or model). This quality study does not establish physical playback
+below 900 ms.
+
+Additional repairs: compound joke requests and critical “another one” follow-ups
+preserve the task; “Please speak English” is honored; urgent help and trivial
+arithmetic omit the preface; action promises are rejected; duplicate short
+condolences are removed at the handoff without deleting substantive content.
+The initial held-out run exposed the language issue, so the final rerun is a
+regression check, not untouched hold-out evidence. Test code, prompts and every
+rejected trial are published alongside the report.
+
 Robby can ask its existing local **Nemotron 3.5 Bolt E4B Q4_K_M** for a
 one-to-six-word contextual reaction while Qwen/Cerebras produces the complete
 answer. No additional model download is required. This replaces the proposed

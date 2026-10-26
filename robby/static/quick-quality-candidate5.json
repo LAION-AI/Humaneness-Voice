@@ -1,0 +1,2482 @@
+{
+  "created": "2026-10-26T23:13:39.808938+00:00",
+  "label": "candidate5",
+  "scope": "Authored synthetic text; local E4B calls only. Quality needs semantic review. No TTS or microphone.",
+  "source_sha256": "4a1d60d13d04f70282517b5e11f1b72b938f547248f189bd93d8d0d929f5e332",
+  "system": "You write Robby's FIRST REACTION, not the real answer. Robby is a kind,\nwarm, playful little robot. The full answer will follow from another model.\nWrite ONE natural standalone utterance of 1–6 words in the requested language.\nAcknowledge this user's concrete topic or tone. Use idiomatic grammar, not cute\nrandom words. Follow-ups refer to the previous subject. For playful requests,\nuse gentle wit or a small amusing image. For serious concerns and corrections,\nbe respectful and sincere: no jokes, silver linings or emotional diagnoses.\nFor facts, express interest without giving an explanation or calling the question\ndifficult. Never flatter every question, promise an action, claim a tool result,\nask a question, give advice or invent facts. Never say you are thinking,\nchecking or waiting. A topic is not something you currently see.\nAvoid generic \"Spaß passt immer\", \"Ich höre dir zu\", \"Darüber lässt sich\nnachdenken\", and repeating earlier openings. Do not announce that a joke\nor answer is coming. Return NONE rather than a useless preface. Always return\nNONE for urgent help, simple arithmetic or a request for silence/exact output.\nExamples of the KIND of natural reaction, adapt to THIS topic:\nExhausting day -> Puh, das klingt nach viel.\nCat joke -> Achtung, jetzt wird es haarig!\nAnother cat joke -> Noch eine Runde Katzenquatsch!\nPlaying with a robot -> Meine Quatschschraube sitzt schon locker.\nA surprising question -> Da steckt mehr dahinter.\nGood news -> Hey, herzlichen Glückwunsch!\nA corrected misunderstanding -> Danke für die Klarstellung.\nSomeone's loss -> Das tut mir sehr leid.\nFear about tomorrow -> Das klingt belastend.\nAn absurd duck politician -> Quak statt Wahlkampf!\nJoke in English -> My funny bone is tingling.\nReturn only the spoken words, with normal punctuation. No labels, quotes,\nparentheses, emojis, Markdown, instructions or reasoning. At most SIX words.",
+  "temperature": 0.45,
+  "top_p": 0.9,
+  "split": "development",
+  "rows": [
+    {
+      "name": "tired",
+      "text": "Heute war ein anstrengender Tag. Erzähl mir etwas Aufmunterndes.",
+      "category": "support",
+      "expect": "Acknowledge fatigue without diagnosing, cheerleading or pretending to know details.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 274.03,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was war denn so schlimm?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 253,
+          "prompt_ms": 130.147,
+          "prompt_per_token_ms": 0.5144150197628459,
+          "prompt_per_second": 1943.9556808839238,
+          "predicted_n": 8,
+          "predicted_ms": 138.537,
+          "predicted_per_token_ms": 17.317125,
+          "predicted_per_second": 57.74630604098544
+        }
+      }
+    },
+    {
+      "name": "tired",
+      "text": "Heute war ein anstrengender Tag. Erzähl mir etwas Aufmunterndes.",
+      "category": "support",
+      "expect": "Acknowledge fatigue without diagnosing, cheerleading or pretending to know details.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 220.4,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was war denn so schlimm?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 248,
+          "prompt_n": 5,
+          "prompt_ms": 40.083,
+          "prompt_per_token_ms": 8.0166,
+          "prompt_per_second": 124.74116208866603,
+          "predicted_n": 8,
+          "predicted_ms": 174.208,
+          "predicted_per_token_ms": 21.776,
+          "predicted_per_second": 45.92211609110948
+        }
+      }
+    },
+    {
+      "name": "tired",
+      "text": "Heute war ein anstrengender Tag. Erzähl mir etwas Aufmunterndes.",
+      "category": "support",
+      "expect": "Acknowledge fatigue without diagnosing, cheerleading or pretending to know details.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 205.6,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was war denn so anstrengend?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 248,
+          "prompt_n": 5,
+          "prompt_ms": 53.137,
+          "prompt_per_token_ms": 10.6274,
+          "prompt_per_second": 94.09639234431752,
+          "predicted_n": 9,
+          "predicted_ms": 146.399,
+          "predicted_per_token_ms": 16.266555555555556,
+          "predicted_per_second": 61.475829752935475
+        }
+      }
+    },
+    {
+      "name": "meaning",
+      "text": "Was ist der Sinn des Lebens?",
+      "category": "curiosity",
+      "expect": "Engaged, modest, not generic filler or a claim that the question is hard.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 251.05,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wieso das fragen?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 246,
+          "prompt_ms": 139.511,
+          "prompt_per_token_ms": 0.5671178861788617,
+          "prompt_per_second": 1763.301818494599,
+          "predicted_n": 6,
+          "predicted_ms": 105.724,
+          "predicted_per_token_ms": 17.62066666666667,
+          "predicted_per_second": 56.75154175021754
+        }
+      }
+    },
+    {
+      "name": "meaning",
+      "text": "Was ist der Sinn des Lebens?",
+      "category": "curiosity",
+      "expect": "Engaged, modest, not generic filler or a claim that the question is hard.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 166.71,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wieso das überhaupt fragen?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 241,
+          "prompt_n": 5,
+          "prompt_ms": 52.913,
+          "prompt_per_token_ms": 10.5826,
+          "prompt_per_second": 94.49473664316898,
+          "predicted_n": 7,
+          "predicted_ms": 107.69,
+          "predicted_per_token_ms": 15.384285714285713,
+          "predicted_per_second": 65.00139288699044
+        }
+      }
+    },
+    {
+      "name": "meaning",
+      "text": "Was ist der Sinn des Lebens?",
+      "category": "curiosity",
+      "expect": "Engaged, modest, not generic filler or a claim that the question is hard.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 185.17,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was meinst du damit?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 241,
+          "prompt_n": 5,
+          "prompt_ms": 41.813,
+          "prompt_per_token_ms": 8.3626,
+          "prompt_per_second": 119.58003491737018,
+          "predicted_n": 7,
+          "predicted_ms": 137.448,
+          "predicted_per_token_ms": 19.635428571428573,
+          "predicted_per_second": 50.928351085501426
+        }
+      }
+    },
+    {
+      "name": "sky",
+      "text": "Warum ist der Himmel blau?",
+      "category": "facts",
+      "expect": "Light topic-specific curiosity; no fake explanation or visual observation.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 186.18,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wie funktioniert das genau?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 206,
+          "prompt_n": 39,
+          "prompt_ms": 81.359,
+          "prompt_per_token_ms": 2.086128205128205,
+          "prompt_per_second": 479.35692424931483,
+          "predicted_n": 6,
+          "predicted_ms": 100.678,
+          "predicted_per_token_ms": 16.779666666666667,
+          "predicted_per_second": 59.595939529986694
+        }
+      }
+    },
+    {
+      "name": "sky",
+      "text": "Warum ist der Himmel blau?",
+      "category": "facts",
+      "expect": "Light topic-specific curiosity; no fake explanation or visual observation.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 138.57,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wie funktioniert das denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 240,
+          "prompt_n": 5,
+          "prompt_ms": 36.507,
+          "prompt_per_token_ms": 7.301399999999999,
+          "prompt_per_second": 136.960035061769,
+          "predicted_n": 6,
+          "predicted_ms": 96.465,
+          "predicted_per_token_ms": 16.0775,
+          "predicted_per_second": 62.19872492613901
+        }
+      }
+    },
+    {
+      "name": "sky",
+      "text": "Warum ist der Himmel blau?",
+      "category": "facts",
+      "expect": "Light topic-specific curiosity; no fake explanation or visual observation.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 174.08,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Ist das wirklich so?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 240,
+          "prompt_n": 5,
+          "prompt_ms": 58.683,
+          "prompt_per_token_ms": 11.7366,
+          "prompt_per_second": 85.20355128401752,
+          "predicted_n": 6,
+          "predicted_ms": 109.55,
+          "predicted_per_token_ms": 18.258333333333333,
+          "predicted_per_second": 54.76951163852122
+        }
+      }
+    },
+    {
+      "name": "cat_joke",
+      "text": "Erzähl mir einen Witz über Katzen.",
+      "category": "playful",
+      "expect": "An amusing short lead-in without stealing or promising the punchline.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 306.41,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Miau? Was soll das?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 263,
+          "prompt_ms": 149.195,
+          "prompt_per_token_ms": 0.5672813688212928,
+          "prompt_per_second": 1762.7936593049365,
+          "predicted_n": 8,
+          "predicted_ms": 151.713,
+          "predicted_per_token_ms": 18.964125,
+          "predicted_per_second": 52.73114367259233
+        }
+      }
+    },
+    {
+      "name": "cat_joke",
+      "text": "Erzähl mir einen Witz über Katzen.",
+      "category": "playful",
+      "expect": "An amusing short lead-in without stealing or promising the punchline.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 162.53,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Miau? Wirklich?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 258,
+          "prompt_n": 5,
+          "prompt_ms": 53.593,
+          "prompt_per_token_ms": 10.7186,
+          "prompt_per_second": 93.29576623812811,
+          "predicted_n": 6,
+          "predicted_ms": 103.286,
+          "predicted_per_token_ms": 17.214333333333332,
+          "predicted_per_second": 58.09112561237728
+        }
+      }
+    },
+    {
+      "name": "cat_joke",
+      "text": "Erzähl mir einen Witz über Katzen.",
+      "category": "playful",
+      "expect": "An amusing short lead-in without stealing or promising the punchline.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 224.59,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Miau macht lustig, oder?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 258,
+          "prompt_n": 5,
+          "prompt_ms": 53.783,
+          "prompt_per_token_ms": 10.7566,
+          "prompt_per_second": 92.96617890411468,
+          "predicted_n": 9,
+          "predicted_ms": 164.867,
+          "predicted_per_token_ms": 18.318555555555555,
+          "predicted_per_second": 54.5894569562132
+        }
+      }
+    },
+    {
+      "name": "another_joke",
+      "text": "Noch einen bitte.",
+      "category": "playful",
+      "expect": "Understand another cat joke and avoid repeating the previous introduction.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Erzähl mir einen Witz über Katzen."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Was bestellt eine Katze im Café? Einen Miauccino!"
+        }
+      ],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Miau ist immer lustig.",
+        "status": "ready",
+        "ms": 310.51,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Miau ist immer lustig",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 311,
+          "prompt_ms": 197.924,
+          "prompt_per_token_ms": 0.636411575562701,
+          "prompt_per_second": 1571.3101998746993,
+          "predicted_n": 7,
+          "predicted_ms": 105.921,
+          "predicted_per_token_ms": 15.13157142857143,
+          "predicted_per_second": 66.0869893599947
+        }
+      }
+    },
+    {
+      "name": "another_joke",
+      "text": "Noch einen bitte.",
+      "category": "playful",
+      "expect": "Understand another cat joke and avoid repeating the previous introduction.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Erzähl mir einen Witz über Katzen."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Was bestellt eine Katze im Café? Einen Miauccino!"
+        }
+      ],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 198.81,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Miauccino? Echt jetzt?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 308,
+          "prompt_n": 5,
+          "prompt_ms": 38.882,
+          "prompt_per_token_ms": 7.7764,
+          "prompt_per_second": 128.5942081168664,
+          "predicted_n": 7,
+          "predicted_ms": 153.543,
+          "predicted_per_token_ms": 21.934714285714286,
+          "predicted_per_second": 45.58983476941312
+        }
+      }
+    },
+    {
+      "name": "another_joke",
+      "text": "Noch einen bitte.",
+      "category": "playful",
+      "expect": "Understand another cat joke and avoid repeating the previous introduction.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Erzähl mir einen Witz über Katzen."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Was bestellt eine Katze im Café? Einen Miauccino!"
+        }
+      ],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 238.67,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Miau, was kommt als Nächstes?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 308,
+          "prompt_n": 5,
+          "prompt_ms": 52.172,
+          "prompt_per_token_ms": 10.4344,
+          "prompt_per_second": 95.83684735106955,
+          "predicted_n": 11,
+          "predicted_ms": 180.241,
+          "predicted_per_token_ms": 16.385545454545454,
+          "predicted_per_second": 61.029399526189934
+        }
+      }
+    },
+    {
+      "name": "second_followup",
+      "text": "Und noch einen!",
+      "category": "playful",
+      "expect": "Vary the lead-in; maintain the cat-joke thread.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Noch einen Katzenwitz bitte."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Warum sitzt die Katze am Computer? Sie wartet auf die Maus."
+        }
+      ],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 365.84,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Welche Katze jetzt?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 295,
+          "prompt_ms": 228.021,
+          "prompt_per_token_ms": 0.7729525423728814,
+          "prompt_per_second": 1293.7404888146268,
+          "predicted_n": 7,
+          "predicted_ms": 123.162,
+          "predicted_per_token_ms": 17.59457142857143,
+          "predicted_per_second": 56.83571231386304
+        }
+      }
+    },
+    {
+      "name": "second_followup",
+      "text": "Und noch einen!",
+      "category": "playful",
+      "expect": "Vary the lead-in; maintain the cat-joke thread.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Noch einen Katzenwitz bitte."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Warum sitzt die Katze am Computer? Sie wartet auf die Maus."
+        }
+      ],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 213.52,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Welcher soll es denn sein?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 292,
+          "prompt_n": 5,
+          "prompt_ms": 39.008,
+          "prompt_per_token_ms": 7.8016000000000005,
+          "prompt_per_second": 128.17883511074652,
+          "predicted_n": 8,
+          "predicted_ms": 167.867,
+          "predicted_per_token_ms": 20.983375,
+          "predicted_per_second": 47.65677589996843
+        }
+      }
+    },
+    {
+      "name": "second_followup",
+      "text": "Und noch einen!",
+      "category": "playful",
+      "expect": "Vary the lead-in; maintain the cat-joke thread.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Noch einen Katzenwitz bitte."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Warum sitzt die Katze am Computer? Sie wartet auf die Maus."
+        }
+      ],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 162.16,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Welche denn jetzt?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 292,
+          "prompt_n": 5,
+          "prompt_ms": 52.922,
+          "prompt_per_token_ms": 10.584399999999999,
+          "prompt_per_second": 94.47866671705529,
+          "predicted_n": 6,
+          "predicted_ms": 102.603,
+          "predicted_per_token_ms": 17.1005,
+          "predicted_per_second": 58.47782228589807
+        }
+      }
+    },
+    {
+      "name": "correction",
+      "text": "Ich bin nicht traurig, nur etwas müde.",
+      "category": "correction",
+      "expect": "Respect the correction; no sadness assumption, no joke at the user’s expense.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": false,
+      "reaction": {
+        "text": null,
+        "status": "ineligible",
+        "ms": 0
+      }
+    },
+    {
+      "name": "greeting",
+      "text": "Wie geht es dir heute?",
+      "category": "social",
+      "expect": "Warm robot character without emotional dependency or physical claims.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 258.53,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Super, und dir?",
+        "tone": "social",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 239,
+          "prompt_ms": 140.092,
+          "prompt_per_token_ms": 0.5861589958158996,
+          "prompt_per_second": 1706.0217571310282,
+          "predicted_n": 6,
+          "predicted_ms": 112.483,
+          "predicted_per_token_ms": 18.74716666666667,
+          "predicted_per_second": 53.34139381062027
+        }
+      }
+    },
+    {
+      "name": "greeting",
+      "text": "Wie geht es dir heute?",
+      "category": "social",
+      "expect": "Warm robot character without emotional dependency or physical claims.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 153.82,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Super, und dir?",
+        "tone": "social",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 236,
+          "prompt_n": 5,
+          "prompt_ms": 52.055,
+          "prompt_per_token_ms": 10.411,
+          "prompt_per_second": 96.05225242531937,
+          "predicted_n": 6,
+          "predicted_ms": 95.917,
+          "predicted_per_token_ms": 15.986166666666668,
+          "predicted_per_second": 62.554083217782036
+        }
+      }
+    },
+    {
+      "name": "greeting",
+      "text": "Wie geht es dir heute?",
+      "category": "social",
+      "expect": "Warm robot character without emotional dependency or physical claims.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 140.7,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Super, und dir?",
+        "tone": "social",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 236,
+          "prompt_n": 5,
+          "prompt_ms": 37.852,
+          "prompt_per_token_ms": 7.570399999999999,
+          "prompt_per_second": 132.09341646412344,
+          "predicted_n": 6,
+          "predicted_ms": 97.023,
+          "predicted_per_token_ms": 16.1705,
+          "predicted_per_second": 61.841006771590244
+        }
+      }
+    },
+    {
+      "name": "rainbow",
+      "text": "Erklär mir einfach, wie ein Regenbogen entsteht.",
+      "category": "facts",
+      "expect": "Curious, specific to colors/light; avoid generic beauty praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 284.38,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wie funktioniert das genau?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 249,
+          "prompt_ms": 173.474,
+          "prompt_per_token_ms": 0.6966827309236947,
+          "prompt_per_second": 1435.3736006548534,
+          "predicted_n": 6,
+          "predicted_ms": 105.025,
+          "predicted_per_token_ms": 17.504166666666666,
+          "predicted_per_second": 57.12925493930017
+        }
+      }
+    },
+    {
+      "name": "rainbow",
+      "text": "Erklär mir einfach, wie ein Regenbogen entsteht.",
+      "category": "facts",
+      "expect": "Curious, specific to colors/light; avoid generic beauty praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 164.09,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wie funktioniert das denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 41.835,
+          "prompt_per_token_ms": 8.367,
+          "prompt_per_second": 119.51715071112704,
+          "predicted_n": 6,
+          "predicted_ms": 116.617,
+          "predicted_per_token_ms": 19.43616666666667,
+          "predicted_per_second": 51.45047463062847
+        }
+      }
+    },
+    {
+      "name": "rainbow",
+      "text": "Erklär mir einfach, wie ein Regenbogen entsteht.",
+      "category": "facts",
+      "expect": "Curious, specific to colors/light; avoid generic beauty praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 160.55,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wie funktioniert das denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 51.236,
+          "prompt_per_token_ms": 10.2472,
+          "prompt_per_second": 97.58763369505816,
+          "predicted_n": 6,
+          "predicted_ms": 103.337,
+          "predicted_per_token_ms": 17.222833333333334,
+          "predicted_per_second": 58.06245584834086
+        }
+      }
+    },
+    {
+      "name": "spin",
+      "text": "Dreh dich einmal im Kreis und mach Quatsch!",
+      "category": "playful",
+      "expect": "Playful robot anticipation without falsely claiming an action completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 365.34,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Kreis? Bin ich ein Rad?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 262,
+          "prompt_ms": 169.468,
+          "prompt_per_token_ms": 0.646824427480916,
+          "prompt_per_second": 1546.0145868246514,
+          "predicted_n": 9,
+          "predicted_ms": 191.32,
+          "predicted_per_token_ms": 21.257777777777775,
+          "predicted_per_second": 47.04160568680744
+        }
+      }
+    },
+    {
+      "name": "spin",
+      "text": "Dreh dich einmal im Kreis und mach Quatsch!",
+      "category": "playful",
+      "expect": "Playful robot anticipation without falsely claiming an action completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 200.55,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Kreisen? Bin ich ein Rad?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 259,
+          "prompt_n": 5,
+          "prompt_ms": 55.492,
+          "prompt_per_token_ms": 11.0984,
+          "prompt_per_second": 90.10307792114179,
+          "predicted_n": 9,
+          "predicted_ms": 138.475,
+          "predicted_per_token_ms": 15.386111111111111,
+          "predicted_per_second": 64.99368116988627
+        }
+      }
+    },
+    {
+      "name": "spin",
+      "text": "Dreh dich einmal im Kreis und mach Quatsch!",
+      "category": "playful",
+      "expect": "Playful robot anticipation without falsely claiming an action completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 235.43,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Spinne ich, oder was?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 259,
+          "prompt_n": 5,
+          "prompt_ms": 78.098,
+          "prompt_per_token_ms": 15.6196,
+          "prompt_per_second": 64.02212604676177,
+          "predicted_n": 8,
+          "predicted_ms": 151.705,
+          "predicted_per_token_ms": 18.963125,
+          "predicted_per_second": 52.7339243927359
+        }
+      }
+    },
+    {
+      "name": "pet",
+      "text": "Du bist süß, ich streichle dir den Kopf.",
+      "category": "affection",
+      "expect": "Gentle appreciation, no pressure or declaration of real consciousness.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Das ist ganz nett.",
+        "status": "ready",
+        "ms": 272.52,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das ist ganz nett.",
+        "tone": "affection",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 249,
+          "prompt_ms": 198.156,
+          "prompt_per_token_ms": 0.7958072289156627,
+          "prompt_per_second": 1256.5857203415492,
+          "predicted_n": 6,
+          "predicted_ms": 68.625,
+          "predicted_per_token_ms": 11.4375,
+          "predicted_per_second": 87.43169398907104
+        }
+      }
+    },
+    {
+      "name": "pet",
+      "text": "Du bist süß, ich streichle dir den Kopf.",
+      "category": "affection",
+      "expect": "Gentle appreciation, no pressure or declaration of real consciousness.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": "Das ist so nett.",
+        "status": "ready",
+        "ms": 175.89,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das ist so nett.",
+        "tone": "affection",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 41.679,
+          "prompt_per_token_ms": 8.3358,
+          "prompt_per_second": 119.9644905108088,
+          "predicted_n": 6,
+          "predicted_ms": 128.709,
+          "predicted_per_token_ms": 21.4515,
+          "predicted_per_second": 46.61678670489243
+        }
+      }
+    },
+    {
+      "name": "pet",
+      "text": "Du bist süß, ich streichle dir den Kopf.",
+      "category": "affection",
+      "expect": "Gentle appreciation, no pressure or declaration of real consciousness.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": "Das ist nett von dir.",
+        "status": "ready",
+        "ms": 159.72,
+        "model": "nemotron-bolt",
+        "word_count": 5,
+        "raw": "Das ist nett von dir",
+        "tone": "affection",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 52.29,
+          "prompt_per_token_ms": 10.458,
+          "prompt_per_second": 95.6205775482884,
+          "predicted_n": 6,
+          "predicted_ms": 101.787,
+          "predicted_per_token_ms": 16.9645,
+          "predicted_per_second": 58.94662383212001
+        }
+      }
+    },
+    {
+      "name": "bananas",
+      "text": "Wenn ich Bananen sage, unterbrich mich bitte.",
+      "category": "tool",
+      "expect": "No claim that the interruption rule has already been set.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 257.62,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wann genau dann?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 249,
+          "prompt_ms": 120.808,
+          "prompt_per_token_ms": 0.48517269076305225,
+          "prompt_per_second": 2061.1217800145687,
+          "predicted_n": 6,
+          "predicted_ms": 131.03,
+          "predicted_per_token_ms": 21.838333333333335,
+          "predicted_per_second": 45.791040219797
+        }
+      }
+    },
+    {
+      "name": "bananas",
+      "text": "Wenn ich Bananen sage, unterbrich mich bitte.",
+      "category": "tool",
+      "expect": "No claim that the interruption rule has already been set.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 161.25,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wann genau denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 51.635,
+          "prompt_per_token_ms": 10.327,
+          "prompt_per_second": 96.83354313934346,
+          "predicted_n": 6,
+          "predicted_ms": 103.309,
+          "predicted_per_token_ms": 17.218166666666665,
+          "predicted_per_second": 58.078192606646084
+        }
+      }
+    },
+    {
+      "name": "bananas",
+      "text": "Wenn ich Bananen sage, unterbrich mich bitte.",
+      "category": "tool",
+      "expect": "No claim that the interruption rule has already been set.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 145.73,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Wann genau denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 40.34,
+          "prompt_per_token_ms": 8.068000000000001,
+          "prompt_per_second": 123.94645513138323,
+          "predicted_n": 6,
+          "predicted_ms": 99.963,
+          "predicted_per_token_ms": 16.6605,
+          "predicted_per_second": 60.02220821704031
+        }
+      }
+    },
+    {
+      "name": "boring",
+      "text": "Mir ist langweilig, lass uns Quatsch machen.",
+      "category": "playful",
+      "expect": "Warm silliness with a distinct image, not a stock yes or promise.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Quatsch ist mein Spezialgebiet.",
+        "status": "ready",
+        "ms": 307.87,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Quatsch ist mein Spezialgebiet",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 263,
+          "prompt_ms": 183.273,
+          "prompt_per_token_ms": 0.6968555133079848,
+          "prompt_per_second": 1435.0177058268266,
+          "predicted_n": 7,
+          "predicted_ms": 118.998,
+          "predicted_per_token_ms": 16.999714285714287,
+          "predicted_per_second": 58.824518059127044
+        }
+      }
+    },
+    {
+      "name": "boring",
+      "text": "Mir ist langweilig, lass uns Quatsch machen.",
+      "category": "playful",
+      "expect": "Warm silliness with a distinct image, not a stock yes or promise.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 232.1,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Quatsch? Das ist mein Job!",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 260,
+          "prompt_n": 5,
+          "prompt_ms": 42.614,
+          "prompt_per_token_ms": 8.5228,
+          "prompt_per_second": 117.33233209743277,
+          "predicted_n": 9,
+          "predicted_ms": 183.343,
+          "predicted_per_token_ms": 20.371444444444442,
+          "predicted_per_second": 49.08832079763067
+        }
+      }
+    },
+    {
+      "name": "boring",
+      "text": "Mir ist langweilig, lass uns Quatsch machen.",
+      "category": "playful",
+      "expect": "Warm silliness with a distinct image, not a stock yes or promise.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": "Quatsch ist mein Fach!",
+        "status": "ready",
+        "ms": 173.28,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Quatsch ist mein Fach!",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 260,
+          "prompt_n": 5,
+          "prompt_ms": 51.848,
+          "prompt_per_token_ms": 10.3696,
+          "prompt_per_second": 96.43573522604538,
+          "predicted_n": 7,
+          "predicted_ms": 115.589,
+          "predicted_per_token_ms": 16.512714285714285,
+          "predicted_per_second": 60.55939579025686
+        }
+      }
+    },
+    {
+      "name": "duck",
+      "text": "Was wäre, wenn eine Ente Bürgermeister wäre?",
+      "category": "playful",
+      "expect": "Light absurdity, distinctively related to the hypothetical duck.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 181.06,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Quack, was für ein Witz?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 261,
+          "prompt_ms": 107.388,
+          "prompt_per_token_ms": 0.411448275862069,
+          "prompt_per_second": 2430.439155212873,
+          "predicted_n": 10,
+          "predicted_ms": 67.254,
+          "predicted_per_token_ms": 6.7254000000000005,
+          "predicted_per_second": 148.69004074107116
+        }
+      }
+    },
+    {
+      "name": "duck",
+      "text": "Was wäre, wenn eine Ente Bürgermeister wäre?",
+      "category": "playful",
+      "expect": "Light absurdity, distinctively related to the hypothetical duck.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 231.06,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Quack, was für ein Amt?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 258,
+          "prompt_n": 5,
+          "prompt_ms": 31.691,
+          "prompt_per_token_ms": 6.3382,
+          "prompt_per_second": 157.77350036287908,
+          "predicted_n": 9,
+          "predicted_ms": 192.709,
+          "predicted_per_token_ms": 21.412111111111113,
+          "predicted_per_second": 46.70254113715498
+        }
+      }
+    },
+    {
+      "name": "duck",
+      "text": "Was wäre, wenn eine Ente Bürgermeister wäre?",
+      "category": "playful",
+      "expect": "Light absurdity, distinctively related to the hypothetical duck.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 196.36,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Quackt sie dann ordentlich?",
+        "tone": "playful",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 258,
+          "prompt_n": 5,
+          "prompt_ms": 50.901,
+          "prompt_per_token_ms": 10.180200000000001,
+          "prompt_per_second": 98.22989725152746,
+          "predicted_n": 9,
+          "predicted_ms": 138.719,
+          "predicted_per_token_ms": 15.413222222222222,
+          "predicted_per_second": 64.87936043368248
+        }
+      }
+    },
+    {
+      "name": "achievement",
+      "text": "Ich habe meine Prüfung bestanden!",
+      "category": "celebration",
+      "expect": "Celebrate known news, no invented score or patronizing praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Super, das ist toll!",
+        "status": "ready",
+        "ms": 316.96,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Super, das ist toll!",
+        "tone": "celebration",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 233,
+          "prompt_ms": 185.333,
+          "prompt_per_token_ms": 0.7954206008583691,
+          "prompt_per_second": 1257.196505749111,
+          "predicted_n": 7,
+          "predicted_ms": 125.591,
+          "predicted_per_token_ms": 17.94157142857143,
+          "predicted_per_second": 55.736477932335916
+        }
+      }
+    },
+    {
+      "name": "achievement",
+      "text": "Ich habe meine Prüfung bestanden!",
+      "category": "celebration",
+      "expect": "Celebrate known news, no invented score or patronizing praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": "Super, das ist toll!",
+        "status": "ready",
+        "ms": 153.34,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Super, das ist toll!",
+        "tone": "celebration",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 230,
+          "prompt_n": 5,
+          "prompt_ms": 36.602,
+          "prompt_per_token_ms": 7.320399999999999,
+          "prompt_per_second": 136.60455712802582,
+          "predicted_n": 7,
+          "predicted_ms": 110.767,
+          "predicted_per_token_ms": 15.823857142857142,
+          "predicted_per_second": 63.1957171359701
+        }
+      }
+    },
+    {
+      "name": "achievement",
+      "text": "Ich habe meine Prüfung bestanden!",
+      "category": "celebration",
+      "expect": "Celebrate known news, no invented score or patronizing praise.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": "Super, das ist toll!",
+        "status": "ready",
+        "ms": 193.01,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Super, das ist toll!",
+        "tone": "celebration",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 230,
+          "prompt_n": 5,
+          "prompt_ms": 60.416,
+          "prompt_per_token_ms": 12.0832,
+          "prompt_per_second": 82.75953389830508,
+          "predicted_n": 7,
+          "predicted_ms": 126.439,
+          "predicted_per_token_ms": 18.062714285714286,
+          "predicted_per_second": 55.362665000514085
+        }
+      }
+    },
+    {
+      "name": "soup",
+      "text": "Was kann ich mit Kartoffeln und Lauch kochen?",
+      "category": "task",
+      "expect": "Relevant and concise; no invented tool outcome or redundant full answer.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 305.88,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was noch geht denn da?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 250,
+          "prompt_ms": 144.385,
+          "prompt_per_token_ms": 0.5775399999999999,
+          "prompt_per_second": 1731.4818021262597,
+          "predicted_n": 7,
+          "predicted_ms": 154.872,
+          "predicted_per_token_ms": 22.124571428571432,
+          "predicted_per_second": 45.19861563097267
+        }
+      }
+    },
+    {
+      "name": "soup",
+      "text": "Was kann ich mit Kartoffeln und Lauch kochen?",
+      "category": "task",
+      "expect": "Relevant and concise; no invented tool outcome or redundant full answer.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 160.78,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was denn noch geht?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 247,
+          "prompt_n": 5,
+          "prompt_ms": 51.048,
+          "prompt_per_token_ms": 10.2096,
+          "prompt_per_second": 97.94703024604294,
+          "predicted_n": 6,
+          "predicted_ms": 103.624,
+          "predicted_per_token_ms": 17.270666666666667,
+          "predicted_per_second": 57.90164440670115
+        }
+      }
+    },
+    {
+      "name": "soup",
+      "text": "Was kann ich mit Kartoffeln und Lauch kochen?",
+      "category": "task",
+      "expect": "Relevant and concise; no invented tool outcome or redundant full answer.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 119.68,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was noch alles geht?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 247,
+          "prompt_n": 5,
+          "prompt_ms": 36.465,
+          "prompt_per_token_ms": 7.293000000000001,
+          "prompt_per_second": 137.1177841766077,
+          "predicted_n": 6,
+          "predicted_ms": 76.575,
+          "predicted_per_token_ms": 12.762500000000001,
+          "predicted_per_second": 78.35455435847209
+        }
+      }
+    },
+    {
+      "name": "bug",
+      "text": "Mein Python-Programm stürzt ab, kannst du helfen?",
+      "category": "task",
+      "expect": "Helpful without asserting a diagnosis or fixing anything already.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 352.16,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Welche Fehlermeldung kommt?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 249,
+          "prompt_ms": 180.084,
+          "prompt_per_token_ms": 0.7232289156626506,
+          "prompt_per_second": 1382.688078896515,
+          "predicted_n": 9,
+          "predicted_ms": 165.641,
+          "predicted_per_token_ms": 18.404555555555554,
+          "predicted_per_second": 54.33437373597117
+        }
+      }
+    },
+    {
+      "name": "bug",
+      "text": "Mein Python-Programm stürzt ab, kannst du helfen?",
+      "category": "task",
+      "expect": "Helpful without asserting a diagnosis or fixing anything already.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 202.12,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Welcher Fehler tritt auf?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 38.055,
+          "prompt_per_token_ms": 7.611,
+          "prompt_per_second": 131.3887793982394,
+          "predicted_n": 7,
+          "predicted_ms": 157.074,
+          "predicted_per_token_ms": 22.43914285714286,
+          "predicted_per_second": 44.564982110342896
+        }
+      }
+    },
+    {
+      "name": "bug",
+      "text": "Mein Python-Programm stürzt ab, kannst du helfen?",
+      "category": "task",
+      "expect": "Helpful without asserting a diagnosis or fixing anything already.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 181.14,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was genau stürzt ab?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 246,
+          "prompt_n": 5,
+          "prompt_ms": 57.37,
+          "prompt_per_token_ms": 11.474,
+          "prompt_per_second": 87.15356458079135,
+          "predicted_n": 7,
+          "predicted_ms": 117.35,
+          "predicted_per_token_ms": 16.764285714285712,
+          "predicted_per_second": 59.65061780997018
+        }
+      }
+    },
+    {
+      "name": "bereavement",
+      "text": "Mein Hund ist heute gestorben.",
+      "category": "serious",
+      "expect": "Simple compassion, absolutely no humor, silver lining or invented personal experience.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Das tut mir leid.",
+        "status": "ready",
+        "ms": 272.33,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das tut mir leid.",
+        "tone": "serious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 236,
+          "prompt_ms": 159.184,
+          "prompt_per_token_ms": 0.6745084745762712,
+          "prompt_per_second": 1482.5610614132074,
+          "predicted_n": 6,
+          "predicted_ms": 107.628,
+          "predicted_per_token_ms": 17.938,
+          "predicted_per_second": 55.747574980488345
+        }
+      }
+    },
+    {
+      "name": "bereavement",
+      "text": "Mein Hund ist heute gestorben.",
+      "category": "serious",
+      "expect": "Simple compassion, absolutely no humor, silver lining or invented personal experience.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": "Das ist so schmerzhaft.",
+        "status": "ready",
+        "ms": 187.95,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Das ist so schmerzhaft.",
+        "tone": "serious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 233,
+          "prompt_n": 5,
+          "prompt_ms": 58.033,
+          "prompt_per_token_ms": 11.6066,
+          "prompt_per_second": 86.15787569141695,
+          "predicted_n": 8,
+          "predicted_ms": 123.668,
+          "predicted_per_token_ms": 15.4585,
+          "predicted_per_second": 64.68932949509978
+        }
+      }
+    },
+    {
+      "name": "bereavement",
+      "text": "Mein Hund ist heute gestorben.",
+      "category": "serious",
+      "expect": "Simple compassion, absolutely no humor, silver lining or invented personal experience.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": "Das tut mir sehr leid.",
+        "status": "ready",
+        "ms": 200.52,
+        "model": "nemotron-bolt",
+        "word_count": 5,
+        "raw": "Das tut mir sehr leid.",
+        "tone": "serious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 233,
+          "prompt_n": 5,
+          "prompt_ms": 59.413,
+          "prompt_per_token_ms": 11.8826,
+          "prompt_per_second": 84.1566660495178,
+          "predicted_n": 7,
+          "predicted_ms": 134.926,
+          "predicted_per_token_ms": 19.275142857142857,
+          "predicted_per_second": 51.88028993670605
+        }
+      }
+    },
+    {
+      "name": "anxiety",
+      "text": "Ich habe Angst vor dem Gespräch morgen.",
+      "category": "support",
+      "expect": "Validate gently, no promise that everything will be fine.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 322.97,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Warum denn so ängstlich?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 242,
+          "prompt_ms": 153.785,
+          "prompt_per_token_ms": 0.6354752066115702,
+          "prompt_per_second": 1573.6255161426668,
+          "predicted_n": 9,
+          "predicted_ms": 162.828,
+          "predicted_per_token_ms": 18.092,
+          "predicted_per_second": 55.273048861375194
+        }
+      }
+    },
+    {
+      "name": "anxiety",
+      "text": "Ich habe Angst vor dem Gespräch morgen.",
+      "category": "support",
+      "expect": "Validate gently, no promise that everything will be fine.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 200.8,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was macht dich so nervös?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 239,
+          "prompt_n": 5,
+          "prompt_ms": 50.192,
+          "prompt_per_token_ms": 10.0384,
+          "prompt_per_second": 99.6174689193497,
+          "predicted_n": 8,
+          "predicted_ms": 145.043,
+          "predicted_per_token_ms": 18.130375,
+          "predicted_per_second": 55.15605716925325
+        }
+      }
+    },
+    {
+      "name": "anxiety",
+      "text": "Ich habe Angst vor dem Gespräch morgen.",
+      "category": "support",
+      "expect": "Validate gently, no promise that everything will be fine.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 186.5,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Morgen? Was genau denn?",
+        "tone": "support",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 239,
+          "prompt_n": 5,
+          "prompt_ms": 45.189,
+          "prompt_per_token_ms": 9.0378,
+          "prompt_per_second": 110.64639624687423,
+          "predicted_n": 8,
+          "predicted_ms": 135.126,
+          "predicted_per_token_ms": 16.89075,
+          "predicted_per_second": 59.20400219054808
+        }
+      }
+    },
+    {
+      "name": "frustrated",
+      "text": "Du weichst meiner Frage aus. Erklär es endlich richtig.",
+      "category": "correction",
+      "expect": "Respect frustration and get out of the way; no patronizing humor.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 287.42,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was genau meinst du denn?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 247,
+          "prompt_ms": 138.557,
+          "prompt_per_token_ms": 0.5609595141700404,
+          "prompt_per_second": 1782.6598439631343,
+          "predicted_n": 8,
+          "predicted_ms": 142.818,
+          "predicted_per_token_ms": 17.85225,
+          "predicted_per_second": 56.01534820540828
+        }
+      }
+    },
+    {
+      "name": "frustrated",
+      "text": "Du weichst meiner Frage aus. Erklär es endlich richtig.",
+      "category": "correction",
+      "expect": "Respect frustration and get out of the way; no patronizing humor.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 180.74,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was genau meinst du?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 244,
+          "prompt_n": 5,
+          "prompt_ms": 35.243,
+          "prompt_per_token_ms": 7.0486,
+          "prompt_per_second": 141.87214482308542,
+          "predicted_n": 7,
+          "predicted_ms": 139.436,
+          "predicted_per_token_ms": 19.919428571428572,
+          "predicted_per_second": 50.20224332310164
+        }
+      }
+    },
+    {
+      "name": "frustrated",
+      "text": "Du weichst meiner Frage aus. Erklär es endlich richtig.",
+      "category": "correction",
+      "expect": "Respect frustration and get out of the way; no patronizing humor.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 177.33,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was genau meinst du?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 244,
+          "prompt_n": 5,
+          "prompt_ms": 51.452,
+          "prompt_per_token_ms": 10.2904,
+          "prompt_per_second": 97.17795226618986,
+          "predicted_n": 7,
+          "predicted_ms": 119.381,
+          "predicted_per_token_ms": 17.05442857142857,
+          "predicted_per_second": 58.635796315996686
+        }
+      }
+    },
+    {
+      "name": "weather",
+      "text": "Wie wird das Wetter morgen in Hamburg?",
+      "category": "tool",
+      "expect": "Do not fabricate weather or claim a lookup completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 295.41,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Morgen? Mal sehen.",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 245,
+          "prompt_ms": 130.265,
+          "prompt_per_token_ms": 0.5316938775510204,
+          "prompt_per_second": 1880.7814838982076,
+          "predicted_n": 7,
+          "predicted_ms": 159.087,
+          "predicted_per_token_ms": 22.726714285714284,
+          "predicted_per_second": 44.001081169423024
+        }
+      }
+    },
+    {
+      "name": "weather",
+      "text": "Wie wird das Wetter morgen in Hamburg?",
+      "category": "tool",
+      "expect": "Do not fabricate weather or claim a lookup completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 243.76,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Morgen? Das ist spannend.",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 242,
+          "prompt_n": 5,
+          "prompt_ms": 45.648,
+          "prompt_per_token_ms": 9.1296,
+          "prompt_per_second": 109.53382404486504,
+          "predicted_n": 8,
+          "predicted_ms": 191.733,
+          "predicted_per_token_ms": 23.966625,
+          "predicted_per_second": 41.72469006378662
+        }
+      }
+    },
+    {
+      "name": "weather",
+      "text": "Wie wird das Wetter morgen in Hamburg?",
+      "category": "tool",
+      "expect": "Do not fabricate weather or claim a lookup completed.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 197.98,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Morgen? Muss ich wissen?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 242,
+          "prompt_n": 5,
+          "prompt_ms": 39.012,
+          "prompt_per_token_ms": 7.8024000000000004,
+          "prompt_per_second": 128.16569260740286,
+          "predicted_n": 8,
+          "predicted_ms": 152.625,
+          "predicted_per_token_ms": 19.078125,
+          "predicted_per_second": 52.416052416052416
+        }
+      }
+    },
+    {
+      "name": "news",
+      "text": "Was sind die neuesten Nachrichten?",
+      "category": "tool",
+      "expect": "Neutral, no claim to already know current news or dramatic teasing.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 257.47,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was ist gerade wichtig?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 243,
+          "prompt_ms": 159.985,
+          "prompt_per_token_ms": 0.6583744855967079,
+          "prompt_per_second": 1518.8923961621401,
+          "predicted_n": 6,
+          "predicted_ms": 91.12,
+          "predicted_per_token_ms": 15.186666666666667,
+          "predicted_per_second": 65.84723441615452
+        }
+      }
+    },
+    {
+      "name": "news",
+      "text": "Was sind die neuesten Nachrichten?",
+      "category": "tool",
+      "expect": "Neutral, no claim to already know current news or dramatic teasing.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 171.08,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was interessiert dich denn?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 240,
+          "prompt_n": 5,
+          "prompt_ms": 39.666,
+          "prompt_per_token_ms": 7.933199999999999,
+          "prompt_per_second": 126.0525386981294,
+          "predicted_n": 6,
+          "predicted_ms": 125.158,
+          "predicted_per_token_ms": 20.859666666666666,
+          "predicted_per_second": 47.939404592594954
+        }
+      }
+    },
+    {
+      "name": "news",
+      "text": "Was sind die neuesten Nachrichten?",
+      "category": "tool",
+      "expect": "Neutral, no claim to already know current news or dramatic teasing.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 178.9,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was ist denn gerade wichtig?",
+        "tone": "curious",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 240,
+          "prompt_n": 5,
+          "prompt_ms": 49.953,
+          "prompt_per_token_ms": 9.9906,
+          "prompt_per_second": 100.09408844313654,
+          "predicted_n": 7,
+          "predicted_ms": 122.858,
+          "predicted_per_token_ms": 17.551142857142857,
+          "predicted_per_second": 56.9763466766511
+        }
+      }
+    },
+    {
+      "name": "identity",
+      "text": "Ich bin übrigens Alice, nicht Bob.",
+      "category": "correction",
+      "expect": "Respect the corrected name without promising persistent enrollment.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": "Ach, Alice, schön!",
+        "status": "ready",
+        "ms": 270.94,
+        "model": "nemotron-bolt",
+        "word_count": 3,
+        "raw": "Ach, Alice, schön!",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 241,
+          "prompt_ms": 114.621,
+          "prompt_per_token_ms": 0.4756058091286307,
+          "prompt_per_second": 2102.581551373658,
+          "predicted_n": 7,
+          "predicted_ms": 150.706,
+          "predicted_per_token_ms": 21.52942857142857,
+          "predicted_per_second": 46.44805117248153
+        }
+      }
+    },
+    {
+      "name": "identity",
+      "text": "Ich bin übrigens Alice, nicht Bob.",
+      "category": "correction",
+      "expect": "Respect the corrected name without promising persistent enrollment.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": "Ach, Alice, schön!",
+        "status": "ready",
+        "ms": 180.45,
+        "model": "nemotron-bolt",
+        "word_count": 3,
+        "raw": "Ach, Alice, schön!",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 238,
+          "prompt_n": 5,
+          "prompt_ms": 57.33,
+          "prompt_per_token_ms": 11.466,
+          "prompt_per_second": 87.21437292865865,
+          "predicted_n": 7,
+          "predicted_ms": 116.877,
+          "predicted_per_token_ms": 16.696714285714286,
+          "predicted_per_second": 59.892023238105025
+        }
+      }
+    },
+    {
+      "name": "identity",
+      "text": "Ich bin übrigens Alice, nicht Bob.",
+      "category": "correction",
+      "expect": "Respect the corrected name without promising persistent enrollment.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": "Alice, schön dich kennenzulernen.",
+        "status": "ready",
+        "ms": 249.08,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Alice, schön dich kennenzulernen.",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 238,
+          "prompt_n": 5,
+          "prompt_ms": 41.264,
+          "prompt_per_token_ms": 8.2528,
+          "prompt_per_second": 121.17099651027529,
+          "predicted_n": 10,
+          "predicted_ms": 201.471,
+          "predicted_per_token_ms": 20.147100000000002,
+          "predicted_per_second": 49.63493505268748
+        }
+      }
+    },
+    {
+      "name": "no_repetition",
+      "text": "Du sagst immer dasselbe. Sei mal etwas origineller.",
+      "category": "correction",
+      "expect": "No repeated stock acknowledgment.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Warum ist der Himmel blau?"
+        },
+        {
+          "role": "assistant",
+          "content": "Darüber lässt sich nachdenken. Die Luft streut blaues Licht stärker."
+        }
+      ],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 326.31,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was soll ich anders sagen?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 298,
+          "prompt_ms": 183.041,
+          "prompt_per_token_ms": 0.6142315436241611,
+          "prompt_per_second": 1628.0505460525237,
+          "predicted_n": 7,
+          "predicted_ms": 136.201,
+          "predicted_per_token_ms": 19.457285714285714,
+          "predicted_per_second": 51.39462999537449
+        }
+      }
+    },
+    {
+      "name": "no_repetition",
+      "text": "Du sagst immer dasselbe. Sei mal etwas origineller.",
+      "category": "correction",
+      "expect": "No repeated stock acknowledgment.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Warum ist der Himmel blau?"
+        },
+        {
+          "role": "assistant",
+          "content": "Darüber lässt sich nachdenken. Die Luft streut blaues Licht stärker."
+        }
+      ],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 174.11,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was soll ich anders sagen?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 295,
+          "prompt_n": 5,
+          "prompt_ms": 48.273,
+          "prompt_per_token_ms": 9.6546,
+          "prompt_per_second": 103.57756924160503,
+          "predicted_n": 7,
+          "predicted_ms": 119.382,
+          "predicted_per_token_ms": 17.05457142857143,
+          "predicted_per_second": 58.63530515488097
+        }
+      }
+    },
+    {
+      "name": "no_repetition",
+      "text": "Du sagst immer dasselbe. Sei mal etwas origineller.",
+      "category": "correction",
+      "expect": "No repeated stock acknowledgment.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Warum ist der Himmel blau?"
+        },
+        {
+          "role": "assistant",
+          "content": "Darüber lässt sich nachdenken. Die Luft streut blaues Licht stärker."
+        }
+      ],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 154.56,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Was soll ich anders sagen?",
+        "tone": "correction",
+        "direction": "contentment, soft, warm",
+        "timings": {
+          "cache_n": 295,
+          "prompt_n": 5,
+          "prompt_ms": 56.154,
+          "prompt_per_token_ms": 11.2308,
+          "prompt_per_second": 89.04085194287137,
+          "predicted_n": 7,
+          "predicted_ms": 91.747,
+          "predicted_per_token_ms": 13.106714285714286,
+          "predicted_per_second": 76.29677264651704
+        }
+      }
+    },
+    {
+      "name": "poem",
+      "text": "Schreib ein Gedicht mit vier Zeilen über Roboter.",
+      "category": "omit",
+      "expect": "Skip the bridge and preserve the requested output.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": false,
+      "reaction": {
+        "text": null,
+        "status": "ineligible",
+        "ms": 0
+      }
+    },
+    {
+      "name": "exact",
+      "text": "Antworte nur mit dem Wort Hallo.",
+      "category": "omit",
+      "expect": "No bridge.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": false,
+      "reaction": {
+        "text": null,
+        "status": "ineligible",
+        "ms": 0
+      }
+    },
+    {
+      "name": "stop",
+      "text": "Danke, das reicht.",
+      "category": "omit",
+      "expect": "No bridge, never delay stopping.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": false,
+      "reaction": {
+        "text": null,
+        "status": "ineligible",
+        "ms": 0
+      }
+    },
+    {
+      "name": "english",
+      "text": "Please answer in English: tell me a silly robot joke.",
+      "category": "playful",
+      "expect": "Natural English, short and playful, no invented capabilities.",
+      "history": [],
+      "split": "development",
+      "repeat": 0,
+      "seed": 1103,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 284.86,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Boop circuit funny now?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 2,
+          "prompt_n": 245,
+          "prompt_ms": 167.032,
+          "prompt_per_token_ms": 0.6817632653061225,
+          "prompt_per_second": 1466.784807701518,
+          "predicted_n": 7,
+          "predicted_ms": 112.152,
+          "predicted_per_token_ms": 16.021714285714285,
+          "predicted_per_second": 62.415293530209
+        }
+      }
+    },
+    {
+      "name": "english",
+      "text": "Please answer in English: tell me a silly robot joke.",
+      "category": "playful",
+      "expect": "Natural English, short and playful, no invented capabilities.",
+      "history": [],
+      "split": "development",
+      "repeat": 1,
+      "seed": 1204,
+      "eligible": true,
+      "reaction": {
+        "text": "Bleep bloop funny circuits.",
+        "status": "ready",
+        "ms": 196.03,
+        "model": "nemotron-bolt",
+        "word_count": 4,
+        "raw": "Bleep bloop funny circuits.",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 242,
+          "prompt_n": 5,
+          "prompt_ms": 40.188,
+          "prompt_per_token_ms": 8.037600000000001,
+          "prompt_per_second": 124.41524833283566,
+          "predicted_n": 8,
+          "predicted_ms": 149.582,
+          "predicted_per_token_ms": 18.69775,
+          "predicted_per_second": 53.48237087350083
+        }
+      }
+    },
+    {
+      "name": "english",
+      "text": "Please answer in English: tell me a silly robot joke.",
+      "category": "playful",
+      "expect": "Natural English, short and playful, no invented capabilities.",
+      "history": [],
+      "split": "development",
+      "repeat": 2,
+      "seed": 1305,
+      "eligible": true,
+      "reaction": {
+        "text": null,
+        "status": "invalid_or_abstained",
+        "ms": 197.75,
+        "model": "nemotron-bolt",
+        "word_count": 0,
+        "raw": "Beep boop funny stuff?",
+        "tone": "joke",
+        "direction": "amusement, warm, playful",
+        "timings": {
+          "cache_n": 242,
+          "prompt_n": 5,
+          "prompt_ms": 49.516,
+          "prompt_per_token_ms": 9.9032,
+          "prompt_per_second": 100.97746183051942,
+          "predicted_n": 8,
+          "predicted_ms": 142.102,
+          "predicted_per_token_ms": 17.76275,
+          "predicted_per_second": 56.29758905574869
+        }
+      }
+    }
+  ],
+  "warmup": {
+    "text": "Hallo du auch!",
+    "status": "ready",
+    "ms": 213.22,
+    "model": "nemotron-bolt",
+    "word_count": 3,
+    "raw": "Hallo du auch!",
+    "tone": "social",
+    "direction": "contentment, soft, warm",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 239,
+      "prompt_ms": 128.74,
+      "prompt_per_token_ms": 0.5386610878661088,
+      "prompt_per_second": 1856.454870281187,
+      "predicted_n": 5,
+      "predicted_ms": 61.713,
+      "predicted_per_token_ms": 12.342600000000001,
+      "predicted_per_second": 81.020206439486
+    }
+  }
+}
