@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Latest Robby update:** Parakeet v3 final ASR, camera off by default, and uncertain voice-delivery captions from Humaneness Ears Medium on GPU alongside ASR. [Setup and measured results](robby/VOICE_CAPTIONS.md) · [Live documentation](https://projects.laion.ai/Humaneness-Voice/robby/voice-caption-update.html) · [English bridge-phrase PDF proposal](https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-caption-bridges-v1/Robby_Decision_Model_Bridge_Phrases_Plan.pdf). All source tests/protocols and the failed acoustic interruption checks are retained.
+
 An expressive speech system: a **director LLM** turns a brief into words and
 acting directions, a **speech model** performs them in a reference voice, and
 optional **perceptual models** rank alternative takes. You can chat, perform
@@ -114,6 +116,12 @@ The [working-host live UI](https://fuji-formal-while-plugin.trycloudflare.com/)
 uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
 
 ## Robby: conversational robot integration
+
+[Interruption wording and private playback notes](https://projects.laion.ai/Humaneness-Voice/robby/interruption-update.html):
+internal history annotations no longer enter spoken replies; “Danke, das reicht”
+and “Halt die Klappe” now enter the direct Stop path as well as Laya. The
+text/model/UI checks pass; the new acoustic attempt was blocked by an occupied
+ASR slot and is not claimed as a pass.
 
 The current **[Voice Assistant Test Protocol](robby/VOICE_ASSISTANT_TEST_PROTOCOL.md)**
 defines exact fixtures/hashes, real-service and CPU-browser commands, group

@@ -109,8 +109,8 @@ async def asr(request:Request):
     audio=np.frombuffer(raw,'<f4')
     if not np.isfinite(audio).all():raise HTTPException(422,'Finite samples required')
     start=time.perf_counter()
-    from asr_catalog import MODELS,worker_url
-    model=request.query_params.get('model','nemotron')
+    from asr_catalog import MODELS,worker_url,default_model
+    model=request.query_params.get('model',default_model())
     if model not in MODELS:raise HTTPException(422,'Unknown ASR model')
     url=ASR_BASE+'/internal/transcribe' if model=='nemotron' else worker_url()+'/transcribe/'+model
     response=await request.app.state.http.post(url,content=raw)

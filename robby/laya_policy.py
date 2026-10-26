@@ -46,7 +46,7 @@ def interpret(context,answers,ids):
     if context.get('agent_speaking'):
         scores['stop']=probability('stop')
         candidates=[str(context.get('user_partial',''))]+[str(t) for t in context.get('asr_candidates',[])[:3]]
-        negated=lambda t:bool(re.search(r'\b(?:höre?\s+(?:bitte\s+)?nicht\s+auf|nicht\s+aufhören|(?:do\s+not|don.t|never)\s+stop|keep\s+(?:talking|speaking)|weiterreden)\b',t,re.I))
+        negated=lambda t:bool(re.search(r'\b(?:höre?\s+(?:bitte\s+)?nicht\s+auf|nicht\s+aufhören|(?:das|es|cas)\s+reicht\s+(?:mir\s+)?(?:noch\s+)?nicht|halte?\s+(?:bitte\s+)?nicht\s+(?:die|deine)\s+klappe|(?:do\s+not|don.t|never)\s+stop|keep\s+(?:talking|speaking)|weiterreden)\b',t,re.I))
         if not all(negated(t) for t in candidates if t.strip()) and (any(has_stop_intent(t) for t in candidates) or scores['stop']>=THRESHOLD):action='stop_reply'
     else:
         for key,ident in ids:scores[ident]=probability(key)

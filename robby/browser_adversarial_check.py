@@ -31,6 +31,8 @@ class BrowserSession:
             localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');
             localStorage.setItem('robby.focusBalanceVersion','2');localStorage.setItem('robby.pauseBalanceVersion','2');'''
             +f'localStorage.setItem("robby.focusThreshold","{self.args.threshold}");localStorage.setItem("robby.speechPauseMs","{self.args.pause_ms}");')
+        model=getattr(self.args,'asr_model','nemotron')
+        await self.page.add_init_script('localStorage.setItem("robby.asrDefaultVersion","2");localStorage.setItem("robby.asrModel",'+json.dumps(model)+');')
         self.page.on('pageerror',lambda e:self.errors.append(str(e)))
         await self.page.goto(self.args.url.rstrip('/')+'/desk-robot/')
         await self.page.wait_for_function('window.robo&&robotFace.llmControls?.catalog&&!document.querySelector("#call").disabled',timeout=60000)
@@ -44,6 +46,7 @@ class BrowserSession:
         }''')
         await self.page.evaluate('robo.start(false)')
         await self.wait('stressEvents.some(e=>e.type==="ready")',15)
+        await self.wait('robotFace.asrControls.active==='+json.dumps(model)+'&&!document.querySelector("#asr-model-status").textContent.startsWith("Loading")',30)
         await self.page.evaluate('robo.send("interaction:helpful:off")')
 
     async def mark(self):
@@ -227,7 +230,7 @@ async def run(args):
         if sha_audio(clips[name])!=row['decoded_normalized_sha256']:raise RuntimeError('Decoded fixture drift '+name)
     report={'schema_version':2,'run_id':stamp,'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'scope':'Public synthetic digital microphone injection in CPU Chrome; real ASR/ECAPA/LLM/tools/TTS. No physical capture, real-room echo or human accuracy certification.',
-        'configuration':{'seed':args.seed,'threshold':args.threshold,'pause_ms':args.pause_ms,'url':args.url,'scenarios':selected},
+        'configuration':{'seed':args.seed,'threshold':args.threshold,'pause_ms':args.pause_ms,'asr_model':args.asr_model,'url':args.url,'scenarios':selected},
         'plan_sha256':digest(out/'plan.json'),'fixture_manifest_sha256':digest(args.fixtures/'manifest.json'),
         'source_sha256':{str(p.relative_to(ROOT)):digest(p) for p in source_files()},
         'server_before':public_state(args.url),'model_inventory_before':model_inventory(),
@@ -304,6 +307,8 @@ if __name__=='__main__':
     parser.add_argument('--scenarios',default='all');parser.add_argument('--seed',type=int,default=42)
     parser.add_argument('--threshold',type=float,default=float(os.environ.get('ROBBY_TEST_THRESHOLD','.28')))
     parser.add_argument('--pause-ms',type=int,default=int(os.environ.get('ROBBY_TEST_PAUSE_MS','700')))
+    from asr_catalog import MODELS
+    parser.add_argument('--asr-model',choices=list(MODELS),default=os.environ.get('ROBBY_TEST_ASR_MODEL','nemotron'))
     args=parser.parse_args()
     if not .2<=args.threshold<=.65 or not 200<=args.pause_ms<=2000:parser.error('Settings outside UI range')
     lock=None

@@ -102,8 +102,8 @@ class MouthBridge:
             def remember(record,interrupted=False):
                 if record is None:return
                 if record.get('avatar_context',{}).get('event') and not record.get('reply'):return
-                from conversation_tasks import memory_content
-                content=memory_content(record,interrupted)
+                from conversation_tasks import memory_entry
+                entry=memory_entry(record,interrupted)
                 if record.get('index') is None:
                     speaker=record.get('speaker') or {}
                     prefix=('Current session speaker: '+json.dumps({'speaker_id':speaker.get('speaker_id'),'display_name':speaker.get('display_name')})+'\n'
@@ -112,8 +112,8 @@ class MouthBridge:
                     if not record.get('avatar_context',{}).get('event'):
                         history.append({'role':'user','content':prefix+record['text']})
                     record['index']=len(history)
-                    history.append({'role':'assistant','content':content})
-                else:history[record['index']]['content']=content
+                    history.append(entry)
+                else:history[record['index']].update(entry)
 
             async def warm_literals(replies,language,pending):
                 try:
@@ -173,11 +173,14 @@ class MouthBridge:
                                 record['bolt_metrics']=value
                                 await send(b'X',{'pipeline_metrics':value})
                         remember(record);await send(b'D',{});return
-                    body={'model':'small_rl','message':conversation_message(text,identity),'input_mode':'chat','format':'structured',
+                    from conversation_tasks import history_for_model
+                    shared_history,playback_note=history_for_model(history[-16:])
+                    from voice_captioning import prompt_hint
+                    body={'model':'small_rl','message':conversation_message(text,{k:v for k,v in identity.items() if k!='voice_delivery'})+playback_note+prompt_hint(identity),'input_mode':'chat','format':'structured',
                         'generation':'single','n':1,'streaming':True,'chunk_frames':TTS_CHUNK_FRAMES,
                         'cancel_on_disconnect':True,
                         'temperature':.7,'guidance':2.,'voice_mode':'profile','voice_profile':turn_voice,
-                        'voice_conversion':False,'history':history[-16:]}
+                        'voice_conversion':False,'history':shared_history}
                     async def waiting(text,stage):await send(b'X',{'text':text,'status_only':True,'stage':stage})
                     director_ms=None
                     if self.director_mode in ('compact','bolt'):

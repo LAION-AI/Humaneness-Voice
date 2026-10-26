@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -137,6 +137,8 @@ class RoboConversation(Conversation):
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
+        if (getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed' and self.current_speaker:
+            self.current_speaker={k:v for k,v in self.current_speaker.items() if k!='voice_delivery'}
         if self.sentence_stream:
             typed=(getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed'
             result=self.sentence_stream.permissions.command(transcript,self.current_speaker,typed=typed)
@@ -198,7 +200,12 @@ class RoboConversation(Conversation):
         super()._start_speaking()
 
     async def run(self):
-        if self.sentence_stream:self.sentence_stream.start()
+        if self.sentence_stream:
+            self.sentence_stream.start()
+            from asr_catalog import default_model
+            # Keep original Nemotron as the truthful active fallback while
+            # the selected final recognizer activates in the background.
+            if default_model()!='nemotron':await self.sentence_stream.asr.select(default_model())
         elif self.speaker_ext is not None:self.speaker_ext.start()
         try:await super().run()
         finally:
@@ -404,6 +411,9 @@ class RoboConversation(Conversation):
         if data.startswith('text:'):self.pending_input_timing={'kind':'typed'}
         if data.startswith('llm:'):
             await self.llm.command(data);return
+        if self.sentence_stream and data in ('captions:on','captions:off'):
+            self.sentence_stream.captions_enabled=data.endswith(':on')
+            await self.ws.send_json(self.sentence_stream.settings());return
         if self.sentence_stream and data.startswith('asr:model:'):
             await self.sentence_stream.asr.select(data.split(':',2)[2]);return
         if self.sentence_stream and data.startswith('asr:pause_ms:'):
@@ -686,6 +696,8 @@ async def state(request):
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
+        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,
+        'voice_caption_model':'Humaneness Ears Medium + procedural-voice-captions (GPU, parallel to ASR)',
         'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','700')),
         'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,

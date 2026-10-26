@@ -61,7 +61,8 @@ def ensure_addressee(data,utterance,identity):
 def validate(data):
     if not isinstance(data,dict) or set(data)!={'general','script','language'}:raise ValueError('Invalid compact director fields')
     if not all(isinstance(data[k],str) for k in data):raise ValueError('Director fields must be strings')
-    general=data['general'].strip();script=data['script'].strip()
+    from conversation_tasks import clean_reply
+    general=clean_reply(data['general']);script=clean_reply(data['script'])
     text=' '.join(re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',script).split())
     if not general or len(general)>600 or len(script)>18000 or not 1<=len(text.split())<=600 or len(text)>9000:
         raise ValueError('Invalid compact spoken reply')
@@ -151,7 +152,13 @@ class CompactDirector:
             messages[0]['content']+='\nCurrent live controller state (data): '+json.dumps(interaction_state,ensure_ascii=False)
         if identity.get('enrolled') and identity.get('named'):
             messages[0]['content']+='\nAuthoritative current speaker label (JSON data): '+json.dumps(identity.get('display_name'),ensure_ascii=False)+'. Respond to this person, but normally omit their name in spoken replies. Other names in the utterance/history are third persons, never the current speaker. If asked the current user\'s name, answer from this label.'
-        for item in history[-16:]:
+        from voice_captioning import prompt_hint
+        if not event:messages[0]['content']+=prompt_hint(identity)
+        identity={k:v for k,v in identity.items() if k!='voice_delivery'}
+        from conversation_tasks import history_for_model
+        model_history,playback_note=history_for_model(history[-16:])
+        messages[0]['content']+=playback_note
+        for item in model_history:
             if item.get('role') in ('user','assistant') and isinstance(item.get('content'),str):
                 messages.append({'role':item['role'],'content':item['content'][:3000]})
         current=({'avatar_event':event,'language':'de' if spoken_language=='German' else 'en',

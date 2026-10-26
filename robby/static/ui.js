@@ -38,12 +38,15 @@ let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.38,.3,.
 let desiredFocus=true;try{desiredFocus=localStorage.getItem('robby.conversationFocus')!=='false';}catch{}
 let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.28,.20,.65);
 try{if(localStorage.getItem('robby.focusBalanceVersion')!=='2'){if(Math.abs(desiredFocusThreshold-.32)<.001)desiredFocusThreshold=.28;saveThreshold('robby.focusThreshold',desiredFocusThreshold);localStorage.setItem('robby.focusBalanceVersion','2');}}catch{}
+let desiredCaptions=true;try{desiredCaptions=localStorage.getItem('robby.voiceCaptions')!=='false';}catch{}
+$('voice-captions').checked=desiredCaptions;
+$('voice-captions').onchange=()=>{desiredCaptions=$('voice-captions').checked;try{localStorage.setItem('robby.voiceCaptions',String(desiredCaptions));}catch{}client.send('captions:'+(desiredCaptions?'on':'off'));if(!desiredCaptions)$('voice-caption-status').textContent='Tone-of-voice hints disabled.';};
 let desiredSpeechPause=savedThreshold('robby.speechPauseMs',700,200,2000);
 try{if(localStorage.getItem('robby.pauseBalanceVersion')!=='2'){if(desiredSpeechPause===400)desiredSpeechPause=700;saveThreshold('robby.speechPauseMs',desiredSpeechPause);localStorage.setItem('robby.pauseBalanceVersion','2');}}catch{}
 $('speech-pause').value=desiredSpeechPause;$('speech-pause-value').value=desiredSpeechPause+' ms';
 $('speech-pause').oninput=()=>{$('speech-pause-value').value=$('speech-pause').value+' ms';};
 $('speech-pause').onchange=()=>{desiredSpeechPause=Number($('speech-pause').value);saveThreshold('robby.speechPauseMs',desiredSpeechPause);client.send('asr:pause_ms:'+desiredSpeechPause);};
-function applySpeakerSettings(){client.send('identity:open:'+(desiredOpenSpeakers?'on':'off'));client.send('identity:utterance_threshold:'+(sentenceMode?desiredOpenVoiceThreshold:desiredUtteranceThreshold));if(sentenceMode){client.send('asr:pause_ms:'+desiredSpeechPause);client.send('identity:focus:enabled:'+(desiredFocus?'on':'off'));client.send('identity:focus:threshold:'+desiredFocusThreshold);}if(desiredFastThreshold!==null)client.send('identity:threshold:'+desiredFastThreshold);}
+function applySpeakerSettings(){client.send('captions:'+(desiredCaptions?'on':'off'));client.send('identity:open:'+(desiredOpenSpeakers?'on':'off'));client.send('identity:utterance_threshold:'+(sentenceMode?desiredOpenVoiceThreshold:desiredUtteranceThreshold));if(sentenceMode){client.send('asr:pause_ms:'+desiredSpeechPause);client.send('identity:focus:enabled:'+(desiredFocus?'on':'off'));client.send('identity:focus:threshold:'+desiredFocusThreshold);}if(desiredFastThreshold!==null)client.send('identity:threshold:'+desiredFastThreshold);}
 let cameraStream=null,landmarker=null,lastVideo=-1,face={},cameraBusy=false,cameraGeneration=0,multimodal,videoFrameAt=null,cameraStarting=null;
 const gaze=new GazeTracker();let eyeContact=null;
 const deskView=document.body.dataset.robotView==='desk3d';
@@ -60,7 +63,15 @@ window.robotFace.cameraStats={targetFps:CAMERA_FPS,inferences:0};
 if(deskView){const {attachEyeContactControls}=await import('./eye-contact-controls.js');eyeContact=attachEyeContactControls(rig,gaze,async()=>{if(!cameraStream)await $('camera').onclick();return !!cameraStream;});window.robotFace.eyeContact=eyeContact;}
 const worklog=document.createElement('a');worklog.href='/static/worklog.html';worklog.target='_blank';worklog.rel='noopener';worklog.textContent='Open tasks, fixes and test log ↗';worklog.className='desk-caption';$('speaker-controls').after(worklog);
 $('mirror').parentElement.lastChild.textContent=' Follow my position';
-try{$('mirror').checked=localStorage.getItem('robby.followPosition')!=='false';$('camera-auto').checked=localStorage.getItem('robby.cameraAuto')!=='false';}catch{}
+try{
+ $('mirror').checked=localStorage.getItem('robby.followPosition')!=='false';
+ // Apply the requested opt-in camera default once to existing browsers too.
+ // Subsequent explicit user choices continue to persist normally.
+ if(localStorage.getItem('robby.cameraAutoVersion')!=='2'){
+  localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.cameraAutoVersion','2');
+ }
+ $('camera-auto').checked=localStorage.getItem('robby.cameraAuto')==='true';
+}catch{$('camera-auto').checked=false;}
 $('acting').onchange=()=>timeline.enabled=$('acting').checked;
 $('robot-keypoints').onchange=()=>rig.showKeypoints($('robot-keypoints').checked);
 function phase(text,kind=''){ $('phase-text').textContent=text;$('phase').className='phase '+kind; }
@@ -87,7 +98,11 @@ const client=window.robo=new RoboClient({
  audio(m){overview.audio(m);},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
+  // Compatibility guard for an older server/history echo. The actual server
+  // also removes this obsolete note before sentence framing and synthesis.
+  if(m.type==='reply'&&typeof m.text==='string')m={...m,text:m.text.replace(/\[My preceding reply was interrupted\.[^\]]*(?:\]|$)/gi,'').trim()};
   asrControls?.message(m);
+  if(m.type==='voice_caption')$('voice-caption-status').textContent=m.status==='available'?`${m.caption} · uncertain estimate · ${Math.round(m.request_ms)} ms · ${m.window_s} s audio`:`Tone hint: ${m.status.replaceAll('_',' ')} · transcript-only response.`;
   llmControls?.message(m);overview.message(m);
   if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;
   const foregroundMessage=m.type==='endpoint'||!sentenceMode||performance.now()<foregroundInputUntil;

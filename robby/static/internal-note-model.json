@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "Actual configured LLM with interrupted synthetic history; no microphone/TTS test",
+  "cases": [
+    {
+      "input": "Ja, dreh dich doch mal!",
+      "reply": "Ich drehe mich schon im Kreis, versprochen",
+      "passed": true,
+      "model": "qwen/qwen3.8-27b",
+      "provider": "Cerebras"
+    },
+    {
+      "input": "Was wolltest du gerade sagen?",
+      "reply": "Dass ich mich jetzt im Kreis drehe?",
+      "passed": true,
+      "model": "qwen/qwen3.8-27b",
+      "provider": "Cerebras"
+    }
+  ]
+}

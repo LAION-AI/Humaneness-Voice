@@ -1,0 +1,2367 @@
+{
+  "passed": true,
+  "worker": {
+    "ready": true,
+    "busy": false,
+    "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+    "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+    "device": "cuda:1",
+    "recordings_saved": false
+  },
+  "fixture_sha256": "66d6377fe4dc948a28bedba42920d382f9f20af4ec9427fd62ad7df27ac0cfd8",
+  "scope": "Warm HTTP timing probes; repeated synthetic waveform, not accuracy or physical-room evaluation.",
+  "rows": [
+    {
+      "seconds": 1,
+      "repeat": 0,
+      "mode": "asr_only",
+      "wall_ms": 48.96,
+      "requests": [
+        {
+          "start_s": 33889291.099911734,
+          "finish_s": 33889291.14880397,
+          "http_ms": 48.89,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 46.85,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 0,
+      "mode": "caption_only",
+      "wall_ms": 37.03,
+      "requests": [
+        {
+          "start_s": 33889291.14888733,
+          "finish_s": 33889291.18582571,
+          "http_ms": 36.94,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 34.96,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 0,
+      "mode": "parallel",
+      "wall_ms": 44.21,
+      "requests": [
+        {
+          "start_s": 33889291.18592601,
+          "finish_s": 33889291.23006174,
+          "http_ms": 44.14,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 41.78,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.186329335,
+          "finish_s": 33889291.2028461,
+          "http_ms": 16.52,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 14.89,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 1,
+      "mode": "asr_only",
+      "wall_ms": 36.46,
+      "requests": [
+        {
+          "start_s": 33889291.230136015,
+          "finish_s": 33889291.266526565,
+          "http_ms": 36.39,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 34.75,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 1,
+      "mode": "caption_only",
+      "wall_ms": 20.15,
+      "requests": [
+        {
+          "start_s": 33889291.26659264,
+          "finish_s": 33889291.286655016,
+          "http_ms": 20.06,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 18.57,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 1,
+      "mode": "parallel",
+      "wall_ms": 38.6,
+      "requests": [
+        {
+          "start_s": 33889291.286745846,
+          "finish_s": 33889291.32527649,
+          "http_ms": 38.53,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 36.29,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.287121296,
+          "finish_s": 33889291.303785086,
+          "http_ms": 16.66,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 14.78,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 2,
+      "mode": "asr_only",
+      "wall_ms": 42.57,
+      "requests": [
+        {
+          "start_s": 33889291.325343475,
+          "finish_s": 33889291.36785326,
+          "http_ms": 42.51,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 40.92,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 2,
+      "mode": "caption_only",
+      "wall_ms": 20.12,
+      "requests": [
+        {
+          "start_s": 33889291.367918216,
+          "finish_s": 33889291.387953855,
+          "http_ms": 20.04,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 18.6,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 1,
+      "repeat": 2,
+      "mode": "parallel",
+      "wall_ms": 44.2,
+      "requests": [
+        {
+          "start_s": 33889291.38805196,
+          "finish_s": 33889291.43217847,
+          "http_ms": 44.13,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie.",
+            "seconds": 1.0,
+            "transcribe_ms": 41.95,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.38843605,
+          "finish_s": 33889291.40494497,
+          "http_ms": 16.51,
+          "result": {
+            "status": "available",
+            "caption": "Possibly choppy, smooth, slightly slow, hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 1.0,
+            "inference_ms": 14.82,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.123,
+                  "z": -1.16,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably choppy and fragmented",
+                  "tag": "choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.165
+                },
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.167,
+                  "z": -1.13,
+                  "direction": "below",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably smooth and flawless",
+                  "tag": "smooth",
+                  "reliability": 1.0,
+                  "rank_score": 1.132
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.631,
+                  "z": -0.63,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": true,
+                  "phrase": "somewhat slow and deliberate in tempo",
+                  "tag": "slightly slow",
+                  "reliability": 1.0,
+                  "rank_score": 0.631
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 1.724,
+                  "z": 1.29,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "synonym": "hope",
+                  "phrase": "notably carrying hope",
+                  "tag": "hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 0,
+      "mode": "asr_only",
+      "wall_ms": 48.63,
+      "requests": [
+        {
+          "start_s": 33889291.4324207,
+          "finish_s": 33889291.48097529,
+          "http_ms": 48.55,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 46.92,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 0,
+      "mode": "caption_only",
+      "wall_ms": 37.02,
+      "requests": [
+        {
+          "start_s": 33889291.48104054,
+          "finish_s": 33889291.51797823,
+          "http_ms": 36.94,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 35.19,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 0,
+      "mode": "parallel",
+      "wall_ms": 49.1,
+      "requests": [
+        {
+          "start_s": 33889291.51807173,
+          "finish_s": 33889291.567105986,
+          "http_ms": 49.03,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 46.93,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.51844137,
+          "finish_s": 33889291.53567093,
+          "http_ms": 17.23,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 15.45,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 1,
+      "mode": "asr_only",
+      "wall_ms": 43.85,
+      "requests": [
+        {
+          "start_s": 33889291.56717385,
+          "finish_s": 33889291.610954516,
+          "http_ms": 43.78,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 42.17,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 1,
+      "mode": "caption_only",
+      "wall_ms": 20.5,
+      "requests": [
+        {
+          "start_s": 33889291.61102074,
+          "finish_s": 33889291.63143584,
+          "http_ms": 20.42,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 18.84,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 1,
+      "mode": "parallel",
+      "wall_ms": 49.63,
+      "requests": [
+        {
+          "start_s": 33889291.631532826,
+          "finish_s": 33889291.681090504,
+          "http_ms": 49.56,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 47.46,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.63189883,
+          "finish_s": 33889291.64866301,
+          "http_ms": 16.76,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 15.14,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 2,
+      "mode": "asr_only",
+      "wall_ms": 43.8,
+      "requests": [
+        {
+          "start_s": 33889291.68115954,
+          "finish_s": 33889291.724890664,
+          "http_ms": 43.73,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 42.04,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 2,
+      "mode": "caption_only",
+      "wall_ms": 16.9,
+      "requests": [
+        {
+          "start_s": 33889291.724963576,
+          "finish_s": 33889291.74177922,
+          "http_ms": 16.82,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 15.23,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 2,
+      "repeat": 2,
+      "mode": "parallel",
+      "wall_ms": 53.6,
+      "requests": [
+        {
+          "start_s": 33889291.741867885,
+          "finish_s": 33889291.79540496,
+          "http_ms": 53.54,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph.",
+            "seconds": 2.0,
+            "transcribe_ms": 51.24,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.74223607,
+          "finish_s": 33889291.7592064,
+          "http_ms": 16.97,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly smooth, slightly steady, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 2.0,
+            "inference_ms": 15.03,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "DFLU",
+                  "name": "Disfluency",
+                  "value": 0.443,
+                  "z": -0.85,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat smooth and flawless",
+                  "tag": "slightly smooth",
+                  "reliability": 1.0,
+                  "rank_score": 0.851
+                },
+                {
+                  "dim": "VOLT",
+                  "name": "Volatility",
+                  "value": 1.28,
+                  "z": -0.83,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat emotionally steady and static",
+                  "tag": "slightly steady",
+                  "reliability": 1.0,
+                  "rank_score": 0.83
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.894,
+                  "z": -0.13,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.128
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 2.074,
+                  "z": 1.86,
+                  "direction": "above",
+                  "intensity": "Very",
+                  "synonym": "hope",
+                  "phrase": "very carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 0,
+      "mode": "asr_only",
+      "wall_ms": 64.26,
+      "requests": [
+        {
+          "start_s": 33889291.795637265,
+          "finish_s": 33889291.85982446,
+          "http_ms": 64.19,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 62.49,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 0,
+      "mode": "caption_only",
+      "wall_ms": 26.91,
+      "requests": [
+        {
+          "start_s": 33889291.85988991,
+          "finish_s": 33889291.88671598,
+          "http_ms": 26.83,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 25.07,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 0,
+      "mode": "parallel",
+      "wall_ms": 69.28,
+      "requests": [
+        {
+          "start_s": 33889291.886807315,
+          "finish_s": 33889291.955993906,
+          "http_ms": 69.19,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 66.71,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889291.887173094,
+          "finish_s": 33889291.90526263,
+          "http_ms": 18.09,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 16.18,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 1,
+      "mode": "asr_only",
+      "wall_ms": 61.34,
+      "requests": [
+        {
+          "start_s": 33889291.956091404,
+          "finish_s": 33889292.0173622,
+          "http_ms": 61.27,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 59.56,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 1,
+      "mode": "caption_only",
+      "wall_ms": 20.72,
+      "requests": [
+        {
+          "start_s": 33889292.01742799,
+          "finish_s": 33889292.038071595,
+          "http_ms": 20.64,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 18.95,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 1,
+      "mode": "parallel",
+      "wall_ms": 62.39,
+      "requests": [
+        {
+          "start_s": 33889292.03815879,
+          "finish_s": 33889292.10048803,
+          "http_ms": 62.33,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 60.15,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889292.038518526,
+          "finish_s": 33889292.0557365,
+          "http_ms": 17.22,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 15.34,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 2,
+      "mode": "asr_only",
+      "wall_ms": 62.89,
+      "requests": [
+        {
+          "start_s": 33889292.10055341,
+          "finish_s": 33889292.16338191,
+          "http_ms": 62.83,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 61.22,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 2,
+      "mode": "caption_only",
+      "wall_ms": 21.59,
+      "requests": [
+        {
+          "start_s": 33889292.16345265,
+          "finish_s": 33889292.184933074,
+          "http_ms": 21.48,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 19.39,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 4,
+      "repeat": 2,
+      "mode": "parallel",
+      "wall_ms": 59.04,
+      "requests": [
+        {
+          "start_s": 33889292.1850676,
+          "finish_s": 33889292.244009115,
+          "http_ms": 58.94,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Robbie, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 4.0,
+            "transcribe_ms": 56.93,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889292.18542717,
+          "finish_s": 33889292.20236642,
+          "http_ms": 16.94,
+          "result": {
+            "status": "available",
+            "caption": "Possibly slightly soft-onset, slightly choppy, very liberation",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 4.0,
+            "inference_ms": 15.44,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "ATCK",
+                  "name": "Attack",
+                  "value": 2.468,
+                  "z": -0.8,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat soft and gentle in onset",
+                  "tag": "slightly soft-onset",
+                  "reliability": 1.0,
+                  "rank_score": 0.804
+                },
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 2.31,
+                  "z": -0.78,
+                  "direction": "below",
+                  "intensity": "Somewhat",
+                  "always_on": false,
+                  "phrase": "somewhat choppy and fragmented",
+                  "tag": "slightly choppy",
+                  "reliability": 1.0,
+                  "rank_score": 0.779
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 3.039,
+                  "z": 0.15,
+                  "direction": "above",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.15
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Relief",
+                  "value": 2.06,
+                  "z": 3.99,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "liberation",
+                  "phrase": "extremely carrying liberation",
+                  "tag": "very liberation"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 0,
+      "mode": "asr_only",
+      "wall_ms": 85.42,
+      "requests": [
+        {
+          "start_s": 33889292.24444503,
+          "finish_s": 33889292.32979438,
+          "http_ms": 85.35,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 83.47,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 0,
+      "mode": "caption_only",
+      "wall_ms": 30.07,
+      "requests": [
+        {
+          "start_s": 33889292.32986197,
+          "finish_s": 33889292.359842695,
+          "http_ms": 29.98,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 27.89,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 0,
+      "mode": "parallel",
+      "wall_ms": 97.38,
+      "requests": [
+        {
+          "start_s": 33889292.35993858,
+          "finish_s": 33889292.457248665,
+          "http_ms": 97.31,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 94.91,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889292.360327266,
+          "finish_s": 33889292.37939926,
+          "http_ms": 19.07,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 16.92,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 1,
+      "mode": "asr_only",
+      "wall_ms": 81.89,
+      "requests": [
+        {
+          "start_s": 33889292.45732527,
+          "finish_s": 33889292.53914259,
+          "http_ms": 81.82,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 80.09,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 1,
+      "mode": "caption_only",
+      "wall_ms": 26.14,
+      "requests": [
+        {
+          "start_s": 33889292.53921249,
+          "finish_s": 33889292.56526675,
+          "http_ms": 26.05,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 24.07,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 1,
+      "mode": "parallel",
+      "wall_ms": 88.83,
+      "requests": [
+        {
+          "start_s": 33889292.565357305,
+          "finish_s": 33889292.65411383,
+          "http_ms": 88.76,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 86.14,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889292.56597337,
+          "finish_s": 33889292.584846154,
+          "http_ms": 18.87,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 16.88,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 2,
+      "mode": "asr_only",
+      "wall_ms": 89.25,
+      "requests": [
+        {
+          "start_s": 33889292.654182635,
+          "finish_s": 33889292.743368335,
+          "http_ms": 89.19,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 87.31,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 2,
+      "mode": "caption_only",
+      "wall_ms": 23.62,
+      "requests": [
+        {
+          "start_s": 33889292.74343639,
+          "finish_s": 33889292.76697524,
+          "http_ms": 23.54,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 21.54,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 8,
+      "repeat": 2,
+      "mode": "parallel",
+      "wall_ms": 89.39,
+      "requests": [
+        {
+          "start_s": 33889292.76706486,
+          "finish_s": 33889292.8563826,
+          "http_ms": 89.32,
+          "result": {
+            "model": "parakeet_v3",
+            "text": "Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen. Hey Rabbi, ich bin Christoph. Schön, dich kennenzulernen.",
+            "seconds": 8.0,
+            "transcribe_ms": 86.96,
+            "switch_ms": 0.0,
+            "ready": true
+          }
+        },
+        {
+          "start_s": 33889292.767429635,
+          "finish_s": 33889292.78588578,
+          "http_ms": 18.46,
+          "result": {
+            "status": "available",
+            "caption": "Possibly very choppy, surging, very hope",
+            "uncertainty": "Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.",
+            "window_s": 8.0,
+            "inference_ms": 16.46,
+            "model": "laion/humaneness-ears-base-medium",
+            "model_revision": "818506970d93c809a3295a0a02c40dee8ff2bfc3",
+            "rules_revision": "7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed",
+            "device": "cuda:1",
+            "precision": "bfloat16",
+            "selected": {
+              "voicenet": [
+                {
+                  "dim": "CHNK",
+                  "name": "Chunking",
+                  "value": 1.76,
+                  "z": -1.91,
+                  "direction": "below",
+                  "intensity": "Very",
+                  "always_on": false,
+                  "phrase": "very choppy and fragmented",
+                  "tag": "very choppy",
+                  "reliability": 1.0,
+                  "rank_score": 1.911
+                },
+                {
+                  "dim": "ARSH",
+                  "name": "Arousal Shift",
+                  "value": 3.235,
+                  "z": 1.14,
+                  "direction": "above",
+                  "intensity": "Notably",
+                  "always_on": false,
+                  "phrase": "notably surging upward in energy",
+                  "tag": "surging",
+                  "reliability": 1.0,
+                  "rank_score": 1.144
+                },
+                {
+                  "dim": "TEMP",
+                  "name": "Tempo",
+                  "value": 2.837,
+                  "z": -0.24,
+                  "direction": "below",
+                  "intensity": "About-average",
+                  "always_on": true,
+                  "phrase": "moderate in tempo",
+                  "tag": null,
+                  "reliability": 1.0,
+                  "rank_score": 0.236
+                }
+              ],
+              "emotions": [
+                {
+                  "emotion": "Hope/Optimism",
+                  "value": 3.348,
+                  "z": 3.93,
+                  "direction": "above",
+                  "intensity": "Extremely",
+                  "synonym": "hope",
+                  "phrase": "extremely carrying hope",
+                  "tag": "very hope"
+                }
+              ]
+            },
+            "normalization": "speech reference z-scores; not probabilities"
+          }
+        }
+      ]
+    }
+  ]
+}

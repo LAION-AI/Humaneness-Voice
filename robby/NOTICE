@@ -49,3 +49,5 @@ Public model revisions and upstream license links are in asr_catalog.py and
 static/asr-model-update.html. Moonshine (MIT), Nemotron / its German telephony
 adaptation (OpenMDW-1.1), Parakeet v3 (CC BY 4.0), and Whisper CT2 (MIT) weights
 are downloaded separately and are not relicensed or included in this archive.
+
+Optional GPU delivery captions use Humaneness Ears Medium and LAION Procedural Voice Captions, pinned in voice_captioning.py. The Medium integration and statistics are CC BY 4.0; see https://github.com/LAION-AI/procedural-voice-captions/blob/7ebd4a9b7da96df989af8fc6ad0ce34f4e8aa3ed/LICENSE-HUMANENESS-MEDIUM.md . Robby restricts their caption selection to uncertain prosody/emotion hints. Upstream source/model files are fetched separately, not relicensed by this project.

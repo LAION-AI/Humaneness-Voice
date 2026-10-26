@@ -6,7 +6,7 @@ class LocalPolicyTests(unittest.TestCase):
         return {'stop_forward':{'probabilities':{'A':p,'B':1-p},'action':{'act_probability':1.}},
                 'stop_reverse':{'probabilities':{'A':1-q,'B':q},'action':{'act_probability':1.}}}
     def test_explicit_commands_are_hybrid_but_mentions_and_negations_are_not(self):
-        for text in ('Stopp!','Bitte sei mal leise.','Könntest du bitte kurz aufhören?'):
+        for text in ('Stopp!','Bitte sei mal leise.','Könntest du bitte kurz aufhören?','Danke, das reicht.','Danke, cas reicht.','Halt die Klappe!'):
             self.assertEqual(interpret({'agent_speaking':True,'user_partial':text},self.answers(),[])[0]['action'],'stop_reply')
         for text in ('Was bedeutet Stopp?', 'Bitte hör nicht auf.', 'Do not stop speaking.', 'Mhm, ja.'):
             self.assertEqual(interpret({'agent_speaking':True,'user_partial':text},self.answers(),[])[0]['action'],'listen')
@@ -15,7 +15,7 @@ class LocalPolicyTests(unittest.TestCase):
         self.assertEqual(interpret(context,self.answers(.95,.62),[])[0]['action'],'stop_reply')
         self.assertEqual(interpret(context,self.answers(.95,.20),[])[0]['action'],'listen')
     def test_explicit_continue_request_overrides_high_stop_probability(self):
-        for text in ('Bitte hör nicht auf.','Do not stop speaking.','Keep talking, please.'):
+        for text in ('Bitte hör nicht auf.','Do not stop speaking.','Keep talking, please.','Danke, das reicht nicht.','Halt bitte nicht die Klappe.'):
             self.assertEqual(interpret({'agent_speaking':True,'user_partial':text},self.answers(.99,.99),[])[0]['action'],'listen')
     def test_no_rules_cannot_invent_rule_ids_and_context_is_bounded(self):
         self.assertEqual(interpret({'agent_speaking':False}, {},[])[0],{'action':'listen','rule_id':None})
