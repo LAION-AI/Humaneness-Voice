@@ -1,0 +1,89 @@
+{
+  "input": {
+    "text": "Ich bin nicht wütend, ich spreche nur laut. Bitte erzähle mir einen vollständigen kurzen Witz mit Pointe.",
+    "speaker": {
+      "display_name": "Christoph",
+      "voice_delivery": {
+        "status": "available",
+        "caption": "Possibly anger, loud and emphatic",
+        "window_s": 3,
+        "scope": "this turn",
+        "uncertainty": "Uncalibrated acoustic estimate"
+      }
+    },
+    "llm_model": "qwen",
+    "llm_provider": "cerebras/fp16"
+  },
+  "events": [
+    {
+      "text": "Alles klar, ich nehme das Vertrauen in dein Wort.",
+      "script": "(understanding, calm) Alles klar, ich nehme das Vertrauen in dein Wort.",
+      "general": "Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use calm, subtle delivery, clear articulation and natural spontaneous phrasing. Keep the tempo calm and unhurried.",
+      "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use calm, subtle delivery, clear articulation and natural spontaneous phrasing. Keep the tempo calm and unhurried.\nSCRIPT:\n(understanding, calm) Alles klar, ich nehme das Vertrauen in dein Wort.",
+      "template_id": "delivery.calm.soft",
+      "template_score": 0.8165,
+      "separator_before": " ",
+      "language": "de"
+    },
+    {
+      "text": "Ein Roboter geht zum Arzt und sagt: „Doktor, ich denke, ich habe einen Klemmenfehler.“",
+      "script": "(playful, natural) Ein Roboter geht zum Arzt und sagt: „Doktor, ich denke, ich habe einen Klemmenfehler.“",
+      "general": "Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use natural, subtle delivery, clear articulation and natural spontaneous phrasing. Use light, playful phrasing.",
+      "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use natural, subtle delivery, clear articulation and natural spontaneous phrasing. Use light, playful phrasing.\nSCRIPT:\n(playful, natural) Ein Roboter geht zum Arzt und sagt: „Doktor, ich denke, ich habe einen Klemmenfehler.“",
+      "template_id": "delivery.natural.soft",
+      "template_score": 0.8165,
+      "separator_before": "\n",
+      "language": "de"
+    },
+    {
+      "text": "Der Arzt schaut ihn an und sagt: „Das klingt nach einer Blockade.“",
+      "script": "(smiling, firm) Der Arzt schaut ihn an und sagt: „Das klingt nach einer Blockade.“",
+      "general": "Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use firm, subtle delivery, clear articulation and natural spontaneous phrasing.",
+      "manual_prompt": "GENERAL: Use the same speaker as the reference audio. Preserve that speaker's voice identity. Use firm, subtle delivery, clear articulation and natural spontaneous phrasing.\nSCRIPT:\n(smiling, firm) Der Arzt schaut ihn an und sagt: „Das klingt nach einer Blockade.“",
+      "template_id": "delivery.firm.soft",
+      "template_score": 0.8165,
+      "separator_before": "\n",
+      "language": "de"
+    },
+    {
+      "llm_model": "qwen/qwen3.8-27b",
+      "llm_provider": "cerebras/fp16",
+      "llm_backend": "OpenRouter",
+      "llm_actual_provider": "Cerebras",
+      "llm_ttft_ms": 339.93,
+      "llm_first_sentence_ms": 366.38,
+      "finish_reason": "stop",
+      "usage": {
+        "prompt_tokens": 1773,
+        "completion_tokens": 73,
+        "total_tokens": 1846,
+        "cost": 0.0018453996,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 1024,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00186404,
+          "upstream_inference_prompt_cost": 0.00175527,
+          "upstream_inference_completions_cost": 0.00010877
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      "generation_calls": 1,
+      "task_acknowledgement_only": false,
+      "task_minimum_units": 2,
+      "task_missing_units": false,
+      "completion_repairs": 0,
+      "llm_total_ms": 431.61,
+      "response_complete": true
+    }
+  ],
+  "scope": "Real model response to a deliberately conflicting acoustic hint; text-only, not an audio-caption accuracy test."
+}

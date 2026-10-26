@@ -13,7 +13,7 @@ async def main():
         page=await browser.new_page(viewport={'width':1280,'height':1000});errors=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
         await page.add_init_script('''
-          localStorage.setItem('robby.cameraAuto','true');localStorage.setItem('robby.followPosition','true');
+          localStorage.setItem('robby.cameraAutoVersion','2');localStorage.setItem('robby.cameraAuto','true');localStorage.setItem('robby.followPosition','true');
           const original=HTMLVideoElement.prototype.requestVideoFrameCallback;
           if(original)HTMLVideoElement.prototype.requestVideoFrameCallback=function(cb){return original.call(this,(now,m)=>cb(now,window.testBrokenClock?{...m,captureTime:1}:m));};
           navigator.mediaDevices.getUserMedia=async()=>{

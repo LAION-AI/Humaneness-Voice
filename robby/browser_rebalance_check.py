@@ -26,6 +26,7 @@ async def main():
         browser=await p.chromium.launch(executable_path=os.environ.get('ROBBY_TEST_CHROME','/usr/bin/google-chrome'),headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
         page=await browser.new_page(viewport={'width':1440,'height':1080});page.on('pageerror',lambda e:errors.append(str(e)))
         await page.add_init_script("localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');localStorage.setItem('robby.avatar-actions-enabled','true');localStorage.setItem('robby.focusThreshold','0.32')")
+        await page.add_init_script('localStorage.setItem("robby.asrDefaultVersion","2");localStorage.setItem("robby.asrModel",'+json.dumps(os.environ.get('ROBBY_TEST_ASR_MODEL','nemotron'))+');')
         if explicit_settings:
             await page.add_init_script('localStorage.setItem("robby.focusBalanceVersion","2");localStorage.setItem("robby.pauseBalanceVersion","2");localStorage.setItem("robby.focusThreshold",'+json.dumps(str(threshold))+');localStorage.setItem("robby.speechPauseMs",'+json.dumps(str(pause_ms))+');')
         async def ev():return await page.evaluate('events')

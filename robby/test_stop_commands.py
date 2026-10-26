@@ -1,7 +1,12 @@
 import unittest
-from stop_commands import is_stop_command,is_brief_stop_command,has_stop_intent
+from stop_commands import is_stop_command,is_brief_stop_command,has_stop_intent,has_stop_cue
 
 class StopCommandTests(unittest.TestCase):
+    def test_polite_completion_and_blunt_silence_requests(self):
+        for text in ('Danke, das reicht.','Danke, cas reicht.','Das reicht mir jetzt.','Vielen Dank, das genügt.','Halt die Klappe!','Halte bitte die Klappe.','Halt deine Schnauze, bitte.'):
+            self.assertTrue(has_stop_cue(text),text);self.assertTrue(is_stop_command(text),text);self.assertTrue(has_stop_intent(text),text)
+        for text in ('Danke!','Danke, das reicht nicht.','Das Geld reicht für den Urlaub.','Was bedeutet halt die Klappe?','Sag halt die Klappe.','Halt bitte nicht die Klappe.'):
+            self.assertFalse(is_stop_command(text),text);self.assertFalse(has_stop_intent(text),text)
     def test_wait_commands_are_consumed_but_waiting_statements_are_not(self):
         for text in ('Warte bitte.','Bitte warte kurz.','Warte einen Moment.','Wait, please.','Hold on.'):
             self.assertTrue(is_stop_command(text),text);self.assertTrue(has_stop_intent(text),text)

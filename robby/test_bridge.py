@@ -49,7 +49,8 @@ class BridgeTests(unittest.IsolatedAsyncioTestCase):
                         if kind==b'D':break
                 self.assertEqual([r['role'] for r in snapshots[1]],['user','assistant'])
                 self.assertIn('Bahnhof',snapshots[1][1]['content'])
-                self.assertIn('only a prefix may have been heard',snapshots[1][1]['content'])
+                self.assertTrue(snapshots[1][1]['playback_interrupted'])
+                self.assertNotIn('only a prefix may have been heard',snapshots[1][1]['content'])
                 self.assertEqual(snapshots[1][0]['content'],'Erzähl mir einen Witz.')
             finally:writer.close();await writer.wait_closed();server.close();await server.wait_closed();await asyncio.sleep(.01)
     async def test_agreed_literal_is_prepared_once_and_replayed_without_new_generation(self):

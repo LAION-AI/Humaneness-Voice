@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parent
 
 def main():
     files=list(ROOT.glob('*.py'))
-    files += [ROOT/name for name in ['README.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
+    files += [ROOT/name for name in ['README.md','VOICE_CAPTIONS.md','BRIDGE_PHRASES_PLAN.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
     files.append(ROOT/'static/VOICE_ASSISTANT_TEST_PROTOCOL.md')
     for pattern in ['*.js','*.css','*.html','*.svg','LICENSE-MIT.txt']:files+=list((ROOT/'static').glob(pattern))
     files.append(ROOT/'static/emotion-catalog.json')
@@ -30,7 +30,10 @@ def main():
                  'adversarial-fixtures.json','adversarial-plan.json','adversarial-input-audit.json',
                  'adversarial-tool-control.json','adversarial-tool-before-fix.json',
                  'adversarial-full-run.json','adversarial-targeted-run.json',
-                 'adversarial-legacy-failure.json','adversarial-legacy-before-format-fix.json'):
+                 'adversarial-legacy-failure.json','adversarial-legacy-before-format-fix.json',
+                 'completion-stop-before.json','completion-stop-decision.json','completion-stop-browser.json',
+                 'internal-note-ui.json','internal-note-model.json','completion-stop-blocked.json','completion-stop-fixtures.json',
+                 'voice-caption-timing.json','voice-caption-cpu-before.json','voice-caption-browser.json','voice-caption-model.json'):
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     files+=list((ROOT/'ci').glob('*.yml'))

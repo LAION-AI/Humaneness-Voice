@@ -37,12 +37,35 @@ add meaningful dialogue/detail, and include its payoff. Finish the full requeste
 paraphrase an earlier joke from this conversation. "Another" means another complete joke,
 not another line of the previous joke. Do not carry an earlier exact sentence count into a new task.''')}
 
+INTERRUPTION_PREFIX='[My preceding reply was interrupted.'
+INTERNAL_NOTE=re.compile(r'\[My preceding reply was interrupted\.[^\]]*(?:\]|$)',re.I)
+
+def clean_reply(text):
+    """Remove only the obsolete internal playback annotation, not user cues."""
+    return INTERNAL_NOTE.sub('',text).strip()
+
 def memory_content(record,interrupted=False):
-    """Retain generated task context without claiming it was all heard."""
-    reply=str(record.get('reply') or '')
-    if not interrupted:return reply
-    warning='[My preceding reply was interrupted. The following text was generated; only a prefix may have been heard. Do not assume it was all heard or repeat it automatically.]'
-    return warning+('\n'+reply if reply else '')
+    """Spoken/generated words only; playback status is separate metadata."""
+    return clean_reply(str(record.get('reply') or ''))
+
+def memory_entry(record,interrupted=False):
+    return {'role':'assistant','content':memory_content(record),'playback_interrupted':bool(interrupted)}
+
+def history_for_model(history):
+    """Keep playback uncertainty out of assistant speech examples/API fields."""
+    messages=[];interrupted=[]
+    for item in history:
+        if item.get('role') not in ('user','assistant') or not isinstance(item.get('content'),str):continue
+        text=item['content']
+        if item['role']=='assistant':
+            if item.get('playback_interrupted') or INTERNAL_NOTE.search(text):interrupted.append(len(messages)+1)
+            text=clean_reply(text)
+        messages.append({'role':item['role'],'content':text})
+    note=('\nINTERNAL PLAYBACK STATE, never spoken or quoted: assistant messages at positions '
+          +', '.join(map(str,interrupted))+' in the following recent history were interrupted. '
+          'Their generated content remains useful context, but only a prefix may have been heard. '
+          'Do not assume the whole answer was heard or automatically repeat it.') if interrupted else ''
+    return messages,note
 
 
 def acknowledgement_only(text):

@@ -566,3 +566,101 @@ unrequested joke about penguins. Its automated pass is therefore evidence for
 lookup routing and the stated numeric/structural checks, not certification of
 all factual prose or excellent conversational taste. Genuine human listening
 and source-fact review remain outstanding.
+
+
+## 14. Interrupted replies: private playback metadata and broader Stop phrases (2026-10-26)
+
+The legacy `[My preceding reply was interrupted…]` note was stored inside an
+assistant history message. It could be imitated by the LLM and split into
+visible/spoken fragments by sentence streaming. History now stores generated
+words separately from `playback_interrupted`. Both directors put playback
+uncertainty in an internal system instruction, never in assistant speech
+examples. Legacy history is migrated on read. The sentence framer buffers and
+drops the known legacy note even across single-character token boundaries;
+compact validation removes it from the TTS script, and the UI has a compatibility
+guard for old-server reply payloads. Legitimate pause cues remain intact.
+
+While Robby speaks, the live controller uses configured local multilingual Laya
+for semantic Stop decisions at 320-ms opportunities, plus a fast path for clear
+commands. Before the fix, `Danke, das reicht` never entered the semantic check
+and was not a direct command. `Halt die Klappe` was classified as Stop by Laya
+but missed the fast literal-command path. Anchored closing/blunt requests now
+include these phrases, `Das reicht mir jetzt`, and the bounded ASR variant
+`Danke, cas reicht`. `Danke` alone, `Das reicht nicht`, ordinary mentions and
+questions do not become direct Stops. Existing acoustic speaker, rival, quiet
+background and echo checks still apply; these text rules do not bypass them.
+
+Verification at the initial note/wording fix: 457 offline checks passed, including interrupted-history retention,
+legacy migration, arbitrary streamed token boundaries, TTS prompt filtering and
+negative Stop controls. Six actual Laya service requests distinguish the three
+new positive phrases from continuation/negation/quoted-meaning controls. Two
+real Qwen/Cerebras follow-ups retain clean spoken text. An injected legacy
+reply in real HTTPS Chromium is absent from both the latest-reply card and chat.
+
+The new actual-ASR/identity/TTS test is `browser_completion_stop_check.py`: it
+generates three fixed synthetic inputs once, tests the two positive commands
+at 0/160-ms phases with 12-dB interference, a negated control and a subsequent
+spin reply. Its first attempted run was **blocked before enrollment by an
+occupied ASR session**; no user's connection was evicted. Do not describe that
+blocked run as a passing acoustic test. The later completed attempt missed all four positive noisy cancellation cases; the negated control passed, and the spin follow-up timed out. These failures are retained in `static/completion-stop-browser.json`. A clean Parakeet audit also found poor transcription of the synthetic blunt-Stop take, so input fidelity needs review. The preceding 6/8 Stop phase result
+remains a documented limit, not a result proven fixed by text-only checks.
+
+```bash
+python check_completion_decisions.py
+# Requires the pinned v2 inputs, Playwright/Chrome and a free native ASR slot.
+python browser_completion_stop_check.py --prepare --url http://127.0.0.1:8793
+```
+
+Use `ROBBY_COMPLETION_FIXTURES` for the three additional MP3s and metadata; their
+one-take generation records and hashes are retained. Every browser attempt has
+a timestamped `logs/completion-stop-*.json` receipt; blocked and failed attempts
+are never silently retried into a pass. [Current explanation and evidence](interruption-update.html).
+
+
+## 15. Default ASR, camera privacy and GPU delivery captions
+
+Application defaults now select `parakeet_v3` for final recognition and do not
+request camera access automatically. Live previews/interruptions remain Nemotron.
+Historical stress runs are pinned to Nemotron: `run_voice_assistant_checks.py`
+and `browser_adversarial_check.py` accept `--asr-model parakeet_v3` for explicit
+comparisons; their default remains `nemotron` so an app default change does not
+silently change the benchmark. Each new runner manifest records this selection.
+
+The new `browser_voice_caption_check.py` explicitly selects Parakeet and checks
+GPU captions on/off with real synthetic microphone transport, final transcripts,
+identity assignment, LLM responses and actual TTS playback. It separately checks
+fresh settings, migration of old defaults and persistence of a later explicit
+Nemotron choice. The real camera is never opened in this test. It passed over
+HTTPS; available captions added zero awaited delay after final ASR/identity.
+
+`check_voice_captions.py` runs 36 measured HTTP probes: four audio lengths, three
+modes (ASR alone, captions alone, concurrent), three repeats. These repeated
+waveforms are timing probes, not emotion-quality evaluation. A proposed future
+quality test must use independent recordings, diverse emotions/languages, noise
+and overlapping speakers, plus blinded human judgments and caption abstention.
+`check_voice_caption_prompt.py` records an actual response to a conflicting
+acoustic cue; it requires manual semantic review, not just a substring pass.
+
+See [VOICE_CAPTIONS.md](https://github.com/LAION-AI/Humaneness-Voice/blob/main/robby/VOICE_CAPTIONS.md)
+for model revisions, normalization, device selection, exact commands and known
+limitations. All 465 current offline tests pass. Caption tests cover disabled,
+short, silent, invalid, timed-out and stale inputs; a late future must not block
+an answer. The text-only model test does not establish real emotion accuracy.
+
+The first completion-Stop browser attempt was blocked and is retained separately
+as `completion-stop-blocked.json`. The subsequent noisy attempt is a failure:
+0/4 positive cancellation cases, one recognized negative control preserved, and
+a timeout before the final spin assertion. Do not replace it with a unit-test
+pass or silently regenerate a better-sounding input. The original three
+one-take MP3/metadata pairs are the `robby-completion-stop-fixtures-v1.zip`
+release asset, alongside the pinned v2 base corpus. Their manifest and SHA-256
+values are in `completion-stop-fixtures.json`. Restore them under
+`ROBBY_COMPLETION_FIXTURES` to rerun the same evidence.
+
+```bash
+python check_voice_captions.py
+python check_voice_caption_prompt.py
+uv run --no-project --with playwright --python /path/to/python \
+  python browser_voice_caption_check.py --url https://YOUR-TUNNEL
+python run_voice_assistant_checks.py --help  # --asr-model pins the comparison
+```

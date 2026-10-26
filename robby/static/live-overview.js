@@ -9,7 +9,7 @@ export class LiveOverview{
   const optionsTitle=document.createElement('summary');optionsTitle.textContent='Speech pause & interruption options';options.append(optionsTitle,document.getElementById('speech-pause-controls'));
   const interaction=document.querySelector('.interaction-controls'),primary=document.getElementById('allow-proactive').closest('label');
   const primaryRow=document.createElement('div');primaryRow.className='quick-interrupt-switch';primaryRow.append(primary);quick.append(primaryRow);
-  options.append(interaction);quick.append(options);
+  options.append(document.getElementById('voice-caption-controls'));options.append(interaction);quick.append(options);
   const aside=document.querySelector('aside');
   const recent=document.createElement('section');recent.id='live-conversation';recent.setAttribute('aria-label','Latest conversation beside Robby');
   recent.innerHTML='<h2>With Robby, right now</h2><article class="recent-card asr"><h3>ASR · live preview</h3><p id="recent-asr" class="recent-copy">Waiting for speech…</p></article><article class="recent-card user"><h3 id="recent-user-label">You · last turn</h3><p id="recent-user" class="recent-copy">Say something or type a message.</p></article><article class="recent-card robot"><h3>Robby · latest reply</h3><p id="recent-robby" class="recent-copy">I’m ready to chat with you.</p></article>';
@@ -38,7 +38,7 @@ export class LiveOverview{
   if(m.type==='latency_start'){
    this.begin(m.input?.kind||'unknown');this.turn=m.reply_id;const p=m.input||{};
    this.values.asr=p.asr?.transcribe_ms;this.values.pause=p.asr?.observed_quiet_ms;this.values.asr_model=p.asr?.model;
-   this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
+   this.values.caption=p.voice_caption_ms;this.values.caption_status=p.voice_caption_status;this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
    this.values.speaker_cached=p.speaker_prefetch_used;this.values.queue=p.sentence_queue_ms;this.paint();
   }
   if(m.type==='asr_finalizing')document.getElementById('latency-status').textContent='Recognizing your next words…';
@@ -79,6 +79,7 @@ export class LiveOverview{
    `Model: ${v.model||'waiting'}${v.provider?' · '+v.provider:''}`,
    `LLM first token: ${ms(v.ttft)}; LLM stream wall time: ${ms(v.llm_wall)}`,
    `TTS GPU generation (completed sentences): ${ms(v.tts_gpu)}; generation RTF: ${finite(v.rtf)?v.rtf.toFixed(2):'—'}`,
+   `Optional tone caption: ${ms(v.caption)} · ${v.caption_status||'not measured'}`,
    `Speech pause observed: ${ms(v.pause)}; input turn queue: ${ms(v.queue)}`,
    `Speaker background embedding: ${ms(v.speaker_background)}${v.speaker_cached?' (prefetched; main card shows only the remaining wait)':''}`,
    'ASR is the pause-final pass; TTS first PCM includes server transport/decoding. Reply → first PCM excludes ASR/speaker work. Playback lead is browser scheduling, not measured loudspeaker latency. Stages overlap: do not add these values.'

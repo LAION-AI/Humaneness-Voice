@@ -1,5 +1,5 @@
 import unittest
-from conversation_tasks import joke_task,memory_content,acknowledgement_only
+from conversation_tasks import joke_task,memory_content,memory_entry,history_for_model,acknowledgement_only
 
 class ConversationTaskTests(unittest.TestCase):
     def test_promise_is_not_a_story_and_a_short_story_is_not_a_promise(self):
@@ -28,7 +28,16 @@ class ConversationTaskTests(unittest.TestCase):
     def test_interrupt_preserves_actual_generated_context_with_hearing_warning(self):
         record={'reply':'Ein Roboter stand am Bahnhof. Er fragte nach seinem Zug.'}
         text=memory_content(record,True)
-        self.assertIn(record['reply'],text);self.assertIn('only a prefix may have been heard',text)
+        self.assertEqual(record['reply'],text)
+        messages,note=history_for_model([memory_entry(record,True)])
+        self.assertEqual(messages,[{'role':'assistant','content':record['reply']}])
+        self.assertIn('only a prefix may have been heard',note)
+        self.assertIn('never spoken or quoted',note)
         self.assertEqual(memory_content(record),record['reply'])
+    def test_legacy_note_migrates_but_user_brackets_are_preserved(self):
+        legacy='[My preceding reply was interrupted. The following text was generated; only a prefix may have been heard. Do not assume it was all heard or repeat it automatically.]'
+        user='Erkläre [x] und [y].'
+        messages,note=history_for_model([{'role':'user','content':user},{'role':'assistant','content':legacy+'\nHallo!'}])
+        self.assertEqual(messages,[{'role':'user','content':user},{'role':'assistant','content':'Hallo!'}]);self.assertIn('positions 2',note)
 
 if __name__=='__main__':unittest.main()
