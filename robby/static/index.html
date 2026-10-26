@@ -24,8 +24,8 @@
 <details><summary>How recognition and model loading work</summary><p>Nemotron keeps providing live previews, speaker features and interruptions. After your speech pause, the selected model produces the final transcript. Whisper uses buffered speech segments. Other recognizers are held in CPU RAM and moved to the GPU in the background when selected. Your choice is remembered in this browser. Ask explicitly for another reply language if desired.</p><p id="asr-cache-status" role="status">Checking model readiness…</p><a href="/static/asr-model-update.html" target="_blank" rel="noopener">Model timings, offloading and test results ↗</a></details>
 </section>
 <section id="speech-pause-controls" hidden aria-label="Wait for a speech pause">
-<label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">400 ms</output></label>
-<input id="speech-pause" type="range" min="200" max="2000" step="50" value="400">
+<label for="speech-pause">Speech pause before replying · <output id="speech-pause-value" for="speech-pause">700 ms</output></label>
+<input id="speech-pause" type="range" min="200" max="2000" step="50" value="700">
 <p>Collect all your sentences until you pause. Lower is faster; higher gives you more thinking time. Background sounds do not count as speech. Changes are remembered in this browser.</p>
 <p id="speech-pause-status" role="status">Neural speech detection · waiting for microphone.</p>
 <a href="/static/speech-pause-update.html" target="_blank" rel="noopener">How it works &amp; test results ↗</a>

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "started": 1793018628.0183582,
+  "cases": [
+    {
+      "case": "whole introduction with quiet competing speech",
+      "transcript": "Hey Robbie, ich bin Christoph.",
+      "passed": true
+    },
+    {
+      "case": "christoph-stop stops real long TTS",
+      "capture_to_cancel_ms": 1293.3,
+      "passed": true
+    },
+    {
+      "case": "christoph-wait stops real long TTS",
+      "capture_to_cancel_ms": 1621.9,
+      "passed": true
+    },
+    {
+      "case": "christoph-halt stops real long TTS",
+      "capture_to_cancel_ms": 3150.0,
+      "passed": true
+    },
+    {
+      "case": "christoph-pause-clear stops real long TTS",
+      "capture_to_cancel_ms": 3268.5,
+      "passed": true
+    },
+    {
+      "case": "voice conversation resumes after four consecutive Stops",
+      "passed": true
+    }
+  ],
+  "configuration": {
+    "focus_threshold": 0.28,
+    "speech_pause_ms": 700,
+    "url": "https://arrive-locations-parade-research.trycloudflare.com"
+  },
+  "old_default_migrated": true,
+  "errors": [],
+  "finished": 1793018676.105063
+}

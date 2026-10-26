@@ -66,10 +66,10 @@ def cancellation_authorized(text):
 
 def rule_control_request(text):
     """Do not interject over a request to cancel/reconfigure the game itself."""
-    return bool(re.search(r'\b(?:beende\s+(?:bitte\s+)?(?:das\s+)?(?:spiel|regel)|'
+    return bool(re.search(r'\b(?:beende\s+(?:bitte\s+)?(?:das\s+)?(?:[\wäöüß]+[- ]?)?(?:spiel|regel)|'
         r'(?:cancel|stop|end|disable|clear)\s+(?:the\s+)?(?:game|rules?)|'
         r'unterbr\w*\s+mich\s+(?:bitte\s+)?nicht|(?:do\s+not|don.t)\s+interrupt|'
-        r'(?:lösche|vergiss)\s+(?:bitte\s+)?(?:die\s+)?(?:regel|spiel))\b',text,re.I))
+        r'(?:lösche|vergiss)\s+(?:bitte\s+)?(?:die\s+)?(?:unterbrechungs)?(?:regeln?|spiel))\b',text,re.I))
 
 class VoiceEvidence:
     """Bounded sequential evidence, not best-of-many lucky speaker windows."""
@@ -170,3 +170,18 @@ class RuleBook:
         return installed
     def public(self):return [dict(id=r.id,owner=r.owner,condition=r.condition,reply=r.reply,match_mode=r.match_mode,trigger_terms=r.trigger_terms) for r in self.rules.values()]
     def for_owner(self,owner):return [r for r in self.rules.values() if r.owner in (owner,'session')]
+
+def explicit_literal_action(text):
+    """Compile the explicitly requested banana game; never infer preferences.
+
+    General/semantic conditions keep the validated LLM tool route. This common
+    exact rule must not depend on a successful provider JSON acknowledgment.
+    """
+    if rule_control_request(text) and cancellation_authorized(text):
+        return {'name':'clear_interruption_rules','arguments':{}}
+    if re.match(r'^\s*(?:sag\w*|say|repeat|wiederhol\w*)\b.{0,30}["“„]',text,re.I):return None
+    if not rule_authorized(text) or re.search(r'\b(?:nicht|kein\w*|not|never|don.t|example|beispiel|quote|zitiere)\b',text,re.I):return None
+    if not re.search(r'\b(?:banane[n]?|bananas?)\b',text,re.I):return None
+    if not re.search(r'\b(?:sag\w*|say)\b.{0,25}\bstopp?\s*[,;! ]+\s*stopp?\b',text,re.I):return None
+    return {'name':'set_interruption_rule','arguments':{'condition':'The current speaker talks about bananas',
+        'trigger_terms':['Banane','Bananen','banana','bananas'],'match_mode':'any_term','reply':'Stopp, stopp!'}}

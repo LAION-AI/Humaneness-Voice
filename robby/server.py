@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -44,6 +44,7 @@ class RoboConversation(Conversation):
         if data.get('component_metrics'):
             await self.ws.send_json({'type':'latency_update','reply_id':self.playback.rid,'metrics':data['component_metrics']});return
         if data.get('text') and not data.get('status_only'):self.open_agent_text=data['text']
+        if data.get('text') and not data.get('status_only') and getattr(self,'sentence_stream',None):self.sentence_stream.permissions.note_reply(data['text'])
         if data.get('error_type'):
             await self.ws.send_json({'type':'error','error':data['text'],'stage':data.get('error_stage'),
                 'error_type':data['error_type'],'http_status':data.get('http_status')})
@@ -136,13 +137,30 @@ class RoboConversation(Conversation):
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
+        if self.sentence_stream:
+            typed=(getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed'
+            result=self.sentence_stream.permissions.command(transcript,self.current_speaker,typed=typed)
+            if result:
+                await self.ws.send_json({'type':'speaker_permission',**result})
+                await self.ws.send_json(self.sentence_stream.identity_state())
+            self.current_speaker={**(self.current_speaker or {}),'speaker_management':{
+                **self.sentence_stream.permissions.context(),'permission_result':result}}
         self.decisions.note_user(transcript,self.current_speaker)
+        from interaction_policy import explicit_literal_action
+        compiled=explicit_literal_action(transcript)
+        preapplied=False
+        if compiled and (self.decisions.enabled or compiled['name']=='clear_interruption_rules'):
+            installed=self.decisions.book.apply([compiled],self.decisions.source_owner,transcript)
+            self.decisions.blocker='Listening for an agreed trigger' if self.decisions.book.rules else 'No agreed rules yet'
+            preapplied=True;await self.decisions.notice(installed=installed)
         self._start_speaking()
         await self.ws.send_json({'type':'latency_start','reply_id':self.playback.rid,
             'input':getattr(self,'pending_input_timing',None) or {'kind':'unknown'}})
         self.pending_input_timing=None
-        await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':self.decisions.state(),
+        await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':{**self.decisions.state(),'current_rule_applied':preapplied},
             'avatar_context':self.avatar_personality.snapshot(),**self.llm.snapshot()})
+        if preapplied and compiled['name']=='set_interruption_rule':
+            await self.to_mouth(b'W',{'replies':[compiled['arguments']['reply']],'language':self.decisions.language})
 
     async def _finish_turn(self,barged):
         self.avatar_optional=False
@@ -207,7 +225,9 @@ class RoboConversation(Conversation):
         if self.teacher_stream is not None:self.teacher_stream.reset()
 
     async def _on_events(self,events,hop_end):
-        if getattr(self,'avatar_personality',None) and any(e.get('kind')=='PARTIAL' and e.get('text','').strip() for e in events):
+        stream=getattr(self,'sentence_stream',None)
+        foreground=not stream or hop_end/self.ears.sr-max(getattr(stream,'foreground_last',-100.),getattr(stream,'raw_loud_at',-100.))<.8
+        if foreground and getattr(self,'avatar_personality',None) and any(e.get('kind')=='PARTIAL' and e.get('text','').strip() for e in events):
             self.avatar_personality.last_asr=time.monotonic()
         if getattr(self,'sentence_stream',None):
             # Ingest waveform/activity first, then newest decoder words, then
@@ -220,9 +240,10 @@ class RoboConversation(Conversation):
                     await self.sentence_stream.preview_text(event['text'],hop_end/self.ears.sr)
                 elif event['kind']=='ENDPOINT':
                     await self.sentence_stream.native_endpoint(event.get('transcript',''),hop_end/self.ears.sr)
-                elif event['kind']=='BARGE' and self.speaking and not self.await_onset:
+                elif event['kind']=='BARGE' and self.speaking and not self.await_onset and not getattr(getattr(self,'decisions',None),'proactive_active',False):
                     self.sentence_stream.propose_barge(event,hop_end)
             await self.sentence_stream.advance()
+            if getattr(self,'decisions',None):self.decisions.tick(hop_end)
             await super()._on_events([e for e in events if e['kind']=='FRAME'],hop_end)
             return
         if self.identity_enabled and self.speaker_ext is not None and self.identity_mode.startswith('v4'):
@@ -392,14 +413,18 @@ class RoboConversation(Conversation):
             await self.ws.send_json(self.sentence_stream.settings());return
         if self.sentence_stream and data.startswith('identity:'):
             command=data[9:]
-            if command=='clear':self.sentence_stream.memory.clear();self.sentence_stream.focus.release();self.current_speaker=None
-            if command=='focus:release':self.sentence_stream.focus.release();self.sentence_stream.focus_activity=None
+            if command=='clear':
+                self.sentence_stream.clear_identity();self.current_speaker=None
+                await self.decisions.clear();await self.decisions.notice()
+            if command=='focus:release':
+                if self.speaking:await self._on_barge({'yield_prob':1.,'onset_s':0.,'source':'manual_handover'},self.hop_pos)
+                self.sentence_stream.invite_speaker()
             if command.startswith('focus:enabled:'):
                 self.sentence_stream.focus.enabled=command.endswith(':on');self.sentence_stream.focus_activity=None
             if command.startswith('focus:threshold:'):
                 try:
                     value=float(command.split(':')[-1])
-                    if not math.isfinite(value) or not .25<=value<=.65:raise ValueError()
+                    if not math.isfinite(value) or not .20<=value<=.65:raise ValueError()
                     self.sentence_stream.focus.threshold=value
                 except ValueError:pass
             if command.startswith('timeout:'):
@@ -661,7 +686,7 @@ async def state(request):
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
-        'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')),
+        'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','700')),
         'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
         'privacy':'Camera inference stays in your browser. Audio and voice matching run on this server. OpenRouter mode sends conversation text to OpenRouter and the selected provider; local mode keeps it on this server. No microphone recordings are saved.',

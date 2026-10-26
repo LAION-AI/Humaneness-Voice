@@ -1,0 +1,16 @@
+Warmup short_prompt
+Measured short_prompt 0
+Measured short_prompt 1
+Measured short_prompt 2
+{"case": "short_prompt", "repetitions": 3, "ttft_median_ms": 135.328, "total_median_ms": 2645.635, "decode_median_tokens_s": 38.263, "prefill_median_tokens_s": 323.827, "identical_output_across_repeats": true}
+Warmup production_system
+Measured production_system 0
+Measured production_system 1
+Measured production_system 2
+{"case": "production_system", "repetitions": 3, "ttft_median_ms": 619.921, "total_median_ms": 3109.715, "decode_median_tokens_s": 38.266, "prefill_median_tokens_s": 2126.55, "identical_output_across_repeats": true}
+Warmup long_prefill
+Measured long_prefill 0
+Measured long_prefill 1
+Measured long_prefill 2
+{"case": "long_prefill", "repetitions": 3, "ttft_median_ms": 859.876, "total_median_ms": 3598.333, "decode_median_tokens_s": 35.103, "prefill_median_tokens_s": 2727.097, "identical_output_across_repeats": true}
+Saved baseline.json

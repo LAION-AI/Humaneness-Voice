@@ -1,4 +1,5 @@
 """Pure bounded context/typed-question adapter for local multilingual Laya."""
+import re
 from stop_commands import has_stop_intent
 MODEL='convaiinnovations/laya-multilingual'
 REVISION='e4e9ddf21a7b1903b7acffd8814ad4307bf63a67'
@@ -45,7 +46,8 @@ def interpret(context,answers,ids):
     if context.get('agent_speaking'):
         scores['stop']=probability('stop')
         candidates=[str(context.get('user_partial',''))]+[str(t) for t in context.get('asr_candidates',[])[:3]]
-        if any(has_stop_intent(t) for t in candidates) or scores['stop']>=THRESHOLD:action='stop_reply'
+        negated=lambda t:bool(re.search(r'\b(?:höre?\s+(?:bitte\s+)?nicht\s+auf|nicht\s+aufhören|(?:do\s+not|don.t|never)\s+stop|keep\s+(?:talking|speaking)|weiterreden)\b',t,re.I))
+        if not all(negated(t) for t in candidates if t.strip()) and (any(has_stop_intent(t) for t in candidates) or scores['stop']>=THRESHOLD):action='stop_reply'
     else:
         for key,ident in ids:scores[ident]=probability(key)
         if scores and context.get('proactive_enabled'):

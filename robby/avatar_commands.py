@@ -30,7 +30,8 @@ def command_intent(text):
         # "Please say make a face" alone is only a request for words.
         later=re.split(r'\b(?:und|and|dann|then)\b',text,flags=re.I)[1:]
         return any(_REQUEST.search(clause.strip()) for clause in later)
-    return bool(_REQUEST.search(text) or _FACE.fullmatch(text.strip(' .!?')))
+    ellipse=bool(re.fullmatch(r'(?:(?:bitte|nochmal|noch mal|sich|dich)\s+)*(?:im\s+kreis|rundherum|einmal\s+herum|360\s*(?:grad|degrees|°))\s+(?:drehen|rotieren)(?:\s+bitte)?[.!?]*',text.strip(),re.I))
+    return bool(_REQUEST.search(text) or _FACE.fullmatch(text.strip(' .!?')) or ellipse)
 
 def explicit_actions(text,variant_index=0):
     if not command_intent(text):return []
@@ -44,6 +45,9 @@ def explicit_actions(text,variant_index=0):
         if not t or _SPEECH_ONLY.search(t) or re.search(r'\b(?:nicht|kein\w*|never|not|don.t|no)\b',t):continue
         spin=explicit_spin(t)
         if spin:steps.extend(spin)
+        elif re.search(r'\b(?:karussell|carousel|quatsch|kunststück\w*|silly\s+trick)\b',t):
+            steps.extend([{'kind':'carousel','duration_s':6.,'direction':'clockwise'},
+                          {'kind':'afterglow','duration_s':6.}])
         elif re.search(r'\b(?:schiel\w*|cross\w*\s+(?:your\s+)?eyes)\b',t):
             steps.append({'kind':'grimace','variant':'crossed','duration_s':3.})
         elif _FACE.search(t):

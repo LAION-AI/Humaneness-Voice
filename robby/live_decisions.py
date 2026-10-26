@@ -17,13 +17,17 @@ HELPFUL_CONDITION=('The current speaker explicitly invites a response right now,
     'Do NOT interrupt an ordinary question, explanation, quotation, short hesitation, or unfinished thought. '
     'Listen unless a timely interjection is clearly useful in the recent conversation.')
 
+def acoustic_session(conversation):
+    stream=getattr(conversation,'sentence_stream',None)
+    return getattr(stream,'decision_identity',None) or getattr(conversation,'speaker_ext',None)
+
 class DecisionClient:
     def __init__(self):
         try:config=json.loads((Path(__file__).parent/'config.local.json').read_text())
         except (OSError,ValueError):config={}
         self.base=os.environ.get('ROBO_DECISION_BASE',config.get('ROBO_DECISION_BASE','')).rstrip('/')
         self.model=os.environ.get('ROBO_DECISION_MODEL',config.get('ROBO_DECISION_MODEL',''))
-    def label(self):return (self.model+' (Stop) · Luna (context)') if self.base and self.model else 'Agreed-rule controller · Luna semantic decisions'
+    def label(self):return (self.model+' (Stop) · dialogue model (context)') if self.base and self.model else 'Agreed-rule controller · dialogue model decisions'
     async def choose(self,context):
         from speaker_names import shared_settings
         settings=shared_settings()
@@ -31,12 +35,12 @@ class DecisionClient:
         # Use the existing dialogue LLM for contextual interjections, not a
         # lower uncalibrated classifier threshold. Literal rules stay local.
         candidates=[context.get('user_partial',''),*context.get('asr_candidates',[])]
-        contextual=not context.get('agent_speaking') or not any(has_stop_intent(t) for t in candidates)
+        contextual=not context.get('agent_speaking')
         local=bool(self.base and not contextual)
         base=self.base if local else settings.LUNA_BASE.rstrip('/')
         model=self.model if local else settings.LUNA_MODEL
         key=os.environ.get('ROBO_DECISION_KEY','') if local else settings.luna_key()
-        if os.environ.get('ROBO_DIRECTOR_MODE')=='bolt':
+        if os.environ.get('ROBO_DIRECTOR_MODE')=='bolt' and not local:
             from bolt_director import local_config
             base,model=local_config();key='local';local=True
         system='''You are a live conversational decision model, not the speaking assistant.
@@ -146,12 +150,14 @@ class LiveDecisions:
         self.agent_at=hop_end/self.c.ears.sr
     def check_agent(self,hop_end):
         """Semantic stop decisions see both live ASR candidates and playback."""
-        ext=self.c.speaker_ext;end=hop_end/self.c.ears.sr
+        ext=acoustic_session(self.c);end=hop_end/self.c.ears.sr
+        if ext is None:return
         signature=tuple(self.agent_candidates)
         if (not self.agent_candidates or end-self.last_agent_check<.32-1e-6 or end-self.agent_at>1.28
             or (self.task and not self.task.done())):return
         if not any(has_stop_cue(t) for t in signature):return
-        target=(self.c.current_speaker or {}).get('speaker_id')
+        stream=getattr(self.c,'sentence_stream',None)
+        target=getattr(getattr(stream,'focus',None),'owner',None) or (self.c.current_speaker or {}).get('speaker_id')
         if target not in ext.memory.users:return
         vote=ext.stop_fast_vote(max(0.,end-3.04),end)
         # This admits a decision, not a BARGE. Match the stop-ASR admission
@@ -179,6 +185,7 @@ class LiveDecisions:
                 ext.interrupt_checked_at=-100.
                 if await ext.confirm_interrupt(proposal,hop_end)!=target:return
                 await self.c._on_barge(proposal,hop_end)
+                if hasattr(ext,'reset_after_stop'):ext.reset_after_stop()
                 self.last_agent_candidates=signature
                 self.last_decision={'action':'stop_reply','decision_ms':round((time.perf_counter()-started)*1000,1)}
                 await self.notice(decision=self.last_decision)
@@ -225,7 +232,7 @@ class LiveDecisions:
             if not any(r.matches(text) or r.match_mode=='semantic' for r in self.book.for_owner(track.sid)):return False
         return True
     def tick(self,hop_end):
-        end=hop_end/self.c.ears.sr;ext=getattr(self.c,'speaker_ext',None)
+        end=hop_end/self.c.ears.sr;ext=acoustic_session(self.c)
         # A literal keyword must not wait for an older contextual API request.
         if self.task and not self.task.done() and self.task_phase=='semantic':
             literal=any(r.id not in self.latched and r.matches(self.trigger_partial,partial=True) for r in self.book.rules.values())
@@ -326,7 +333,7 @@ class LiveDecisions:
         self.task=asyncio.create_task(decide())
     async def emit_gesture(self,kind,hop_end,epoch):
         """Reuse the existing decision call; never generate speech or skip identity."""
-        end=hop_end/self.c.ears.sr;ext=self.c.speaker_ext
+        end=hop_end/self.c.ears.sr;ext=acoustic_session(self.c)
         if not self.listening_gestures or kind not in ('nod','shake') or end-self.last_gesture<10. or self.c.speaking or not ext:return False
         speaker=await ext.confirm_live_speaker(hop_end)
         if (not speaker or epoch!=self.epoch or not self.enabled or not self.listening_gestures or self.c.speaking or self.c.halting

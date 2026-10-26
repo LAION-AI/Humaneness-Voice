@@ -115,6 +115,19 @@ uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
 
 ## Robby: conversational robot integration
 
+The current **[Voice Assistant Test Protocol](robby/VOICE_ASSISTANT_TEST_PROTOCOL.md)**
+defines exact fixtures/hashes, real-service and CPU-browser commands, group
+conversation/TV stress cases, Stop and task-continuity checks, metrics and a
+staged configuration search. Tests retain each attempt; proposed room/held-out
+targets are explicitly separate from measured development results.
+[Current reliability and test report](https://projects.laion.ai/Humaneness-Voice/robby/rebalance-update.html).
+[Local E4B gpu-unlock investigation](https://projects.laion.ai/Humaneness-Voice/robby/gpu-unlock-4b.html): unchanged shared-GPU baseline, compile blocker and reproducible procedure; no unlock speedup claimed.
+Current partner retention defaults to **0.28**, with a **700-ms** pause;
+explicit invitations add guests without losing the original participant.
+Short foreground Stop prioritizes user control despite uncertain one-word
+identity and is not speaker authentication. Strong-overlap ASR remains limited.
+
+
 The current demo supports **Qwen 3.8 27B via OpenRouter/Cerebras**, other exact
 provider endpoints and the local Nemotron LLM. Administrator credentials are
 authenticated-encrypted outside the checkout; the browser can select routes
@@ -135,7 +148,7 @@ Completed output sentences immediately enter streaming TTS; 100 fixed acting
 templates replace generated GENERAL prose. Earlier speaker-gated/Luna paths
 remain configurable. [Exact policies, API and reproducible setup](robby/README.md).
 
-Input now waits for a **400-ms neural speech pause** by default, adjustable
+Input now waits for a **700-ms neural speech pause** by default, adjustable
 from 200 to 2,000 ms with a persisted slider. Consecutive spoken sentences are
 grouped into one turn; punctuation alone cannot dispatch a request. A small
 CPU Silero VAD distinguishes speech from background noise, and resumed speech

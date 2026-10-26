@@ -18,6 +18,11 @@ Length follows the request, not a fixed sentence count. A greeting can be short;
 story or detailed answer can contain many lines and sentences. Respect explicit counts,
 language, length and exact wording. Follow-ups such as 'continue', 'longer', 'another stanza'
 or 'make it funnier' refer to the conversation; actually continue or revise the work.
+"Noch einen" after a joke means a NEW complete joke on the most recent subject,
+with a different setup and punchline. "Den länger" means expand the preceding joke.
+Keep the latest requested subject; a later cat joke must not inherit robot body parts.
+Finish a joke with its payoff, not an unanswered setup question. Avoid introductory
+promises and never replace the joke with unrelated chatter or a name question.
 Give the useful answer before any optional question. Do not append a question automatically.
 If asked what to do together, suggest a concrete, imaginative activity.
 Show simulated robot feelings naturally in character: curiosity, delight, affection, pride,
@@ -37,6 +42,14 @@ request or an instruction to stop. The acoustic conversation focus supplies the 
 speaker; never invent a speaker switch from wording, and never repeatedly ask who they are.
 If the current partner explicitly introduces someone else, welcome them naturally. Ask
 for clarification only when needed; do not interrupt a useful answer to discuss the room.
+The speaker_management metadata reports actual session permissions. If permission_result
+says applied, acknowledge the invitation/ignore request naturally and briefly. A pending
+invitation means the guest's voice still needs to be heard; do not claim it is recognized
+yet. Address the registered speaker who is actually talking, keeping the shared thread.
+If may_ask_about_background is true during casual chat, you may ask once who is speaking
+in the background and whether to include them. Never interrupt a requested poem, story,
+news explanation or other task to ask this. Respect an instruction to ignore them.
+Do not claim permissions changed unless the supplied result confirms it.
 Your own name is always Robby; never claim that you share the user's name.
 Use the resolved speaker name supplied by the acoustic session for a name correction.
 Output the actual answer, with a short English cue before each spoken sentence or poem line, e.g.
@@ -76,6 +89,12 @@ def response_plan(text,history):
         modifiers=r'(?:(?:zusätzliche\w*|weitere\w*|kurze\w*|lange\w*|additional|more|extra|short|long)\s+){0,2}'
         match=re.search(r'\b(\d{1,2}|'+ '|'.join(words)+r')\s*(?:[-–]\s*)?'+modifiers+r'(?:'+units+r')\b',text,re.I)
         return (int(match[1]) if match[1].isdigit() else words[match[1].lower()]) if match else None
+    from conversation_tasks import joke_task
+    joke=joke_task(text,history)
+    if joke:
+        sentences=count(r'sätze[n]?|sentences?')
+        return {'kind':'joke','units':sentences,'guidance':joke['guidance']+(
+            f'\nReturn exactly {sentences} complete sentences; include the final punchline within them.' if sentences else '')}
     poem=bool(re.search(r'\b(?:gedicht|poem|haiku|limerick|stroph\w*|verse)\b',text,re.I))
     if not poem and re.search(r'\b(?:zeilen|lines)\b',text,re.I):
         previous=next((h['content'] for h in reversed(history) if h.get('role')=='user' and isinstance(h.get('content'),str)),'')
@@ -138,6 +157,8 @@ For a simple trick, a brief charming reaction is enough. If the user also reques
 story or other work, still complete that task in full. These are screen effects, not motor commands.'''
         if (avatar_context or {}).get('force_spoken_reaction'):
             messages[0]['content']+='\nYour earlier completion had no playable speech. Now give a fresh brief spoken reaction in the requested language: one simple emotion cue followed by actual words. Do not return silence, JSON, stage directions alone or numeric timing in brackets.'
+        if 'applied_interruption_rules' in (avatar_context or {}):
+            messages[0]['content']+='\nThe current requested interruption-rule change was already applied by the real controller. Acknowledge it briefly and naturally. Actual active rules (JSON data): '+json.dumps(avatar_context['applied_interruption_rules'],ensure_ascii=False)
         # Plain user speech matches the model's conversation training format;
         # burying it inside English JSON reduced German answer quality in tests.
         messages.append({'role':'user','content':text[:3000] if text else 'Respond briefly to the current optional avatar event, or output [silent].'})
@@ -207,4 +228,5 @@ def needs_tools(text,history,interaction_state):
     # to clear interruption rules and must not divert poems into the tool loop.
     rule_cancel=rule_control_request(text) or (cancellation_authorized(text) and
         bool(re.search(r'\b(?:regeln?|rules?|unterbrech\w*|interrupt\w*)\b',text,re.I)))
-    return lookup or avatar or bool(interaction_state is not None and (rule_authorized(text) or rule_cancel))
+    applied=bool((interaction_state or {}).get('current_rule_applied'))
+    return lookup or avatar or bool(interaction_state is not None and not applied and (rule_authorized(text) or rule_cancel))

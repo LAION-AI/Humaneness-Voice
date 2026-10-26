@@ -31,7 +31,7 @@ class PauseSubmissionTests(unittest.IsolatedAsyncioTestCase):
     def session(self):
         c=SimpleNamespace(ws=SimpleNamespace(send_json=AsyncMock()),speaking=False,halting=False,
             session=SimpleNamespace(reset=Mock()),ears=SimpleNamespace(sr=16000),_on_barge=AsyncMock())
-        s=SentenceSession(c);s.begin=0.;s.last_speech=1.;s.mic_now=1.2;s.now=1.2
+        s=SentenceSession(c);s.set_pause(400);s.begin=0.;s.last_speech=1.;s.mic_now=1.2;s.now=1.2
         s.records.append((0.,2.,np.zeros(32000,np.float32)))
         return s
     async def test_punctuation_and_native_endpoint_do_not_submit_while_speaking(self):
@@ -51,7 +51,7 @@ class PauseSubmissionTests(unittest.IsolatedAsyncioTestCase):
     async def test_settings_are_bounded_and_apply_to_current_pause(self):
         s=self.session();s.mic_now=1.6;s.set_pause(900)
         self.assertFalse(await s.commit_pause('Bye bye.',1.6,s.epoch,1.))
-        s.set_pause(300);self.assertTrue(await s.commit_pause('Bye bye.',1.6,s.epoch,1.))
+        s.set_pause(300);self.assertTrue(await s.commit_pause('Bitte sage mir jetzt auf Wiedersehen.',1.6,s.epoch,1.))
         for value in [float('nan'),float('inf'),199,2001]:
             with self.assertRaises(ValueError):s.set_pause(value)
     async def test_speech_resuming_during_asr_probe_invalidates_flush(self):

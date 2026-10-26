@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "started": 1793018415.9088006,
+  "cases": [
+    {
+      "case": "whole introduction with quiet competing speech",
+      "transcript": "Hey Robbie, ich bin Christoph.",
+      "passed": true
+    },
+    {
+      "case": "same voice with changed delivery, two overlapping background voices, procedural music and foley",
+      "transcript": "Kannst du mir eine kleine Geschichte erzählen?",
+      "passed": true
+    },
+    {
+      "case": "handover accepts next different voice without introduction",
+      "transcript": "Was können wir heute zusammen machen?",
+      "speaker_id": "speaker-2",
+      "passed": true
+    },
+    {
+      "case": "real 3D full rotation with concurrent speech",
+      "max_yaw_degrees": 359.9999651592258,
+      "pcm_chunks": 9,
+      "passed": true
+    },
+    {
+      "case": "emotion, grimace and nod actually rendered",
+      "passed": true
+    },
+    {
+      "case": "banana rule interrupts an ongoing monologue before its end",
+      "decision_from_input_start_ms": 3805.0,
+      "first_interjection_pcm_ms": 3816.6,
+      "input_duration_ms": 16430.0,
+      "interjections": 3,
+      "passed": true
+    },
+    {
+      "case": "spoken Stop cancels and the next spoken request still gets audio",
+      "cancel_from_capture_start_ms": 1313.4,
+      "passed": true
+    },
+    {
+      "case": "spoken invitation enrolls Alice while retaining Christoph",
+      "participants": [
+        {
+          "id": "speaker-1",
+          "name": "Christoph"
+        },
+        {
+          "id": "speaker-2",
+          "name": "Alice"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "original participant can speak again after the guest",
+      "passed": true
+    },
+    {
+      "case": "unadmitted background voice cannot invite another person",
+      "passed": true
+    },
+    {
+      "case": "spoken only-me request revokes the guest and suppresses later replies",
+      "passed": true
+    }
+  ],
+  "configuration": {
+    "focus_threshold": 0.28,
+    "speech_pause_ms": 700,
+    "url": "https://arrive-locations-parade-research.trycloudflare.com"
+  },
+  "old_default_migrated": true,
+  "errors": [],
+  "finished": 1793018625.9435701
+}
