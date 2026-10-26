@@ -15,6 +15,72 @@ it is approximate session memory, not reliable biometric authentication.
 
 ## Local sentence streaming and latency report (2026-10-25)
 
+### German replies and selectable recognition (2026-10-26)
+
+Robby replies in **German by default**, including ambiguous or English input.
+An explicit request such as “Please answer in English” overrides that default
+and carries through recent conversation. Both local and compact tool directors
+use [the same language policy](speech_language.py); acting keywords remain English.
+
+The visible **Speech recognition** menu offers original Nemotron 3.5, German
+Moonshine Streaming Small, German telephony-adapted Nemotron 3.5, Parakeet TDT
+v3 and faster-whisper Large v3 Turbo. Original Nemotron remains the recognizer
+default. The choice persists as `robby.asrModel` and uses `asr:model:<id>` on the
+existing WebSocket. `/api/asr/models` shows CPU/GPU readiness, errors and sources.
+The exact public repositories and revisions are in [asr_catalog.py](asr_catalog.py).
+
+The original encoder/TYGER/speaker-feature path stays resident for previews,
+interruptions and identity features. After the existing configurable speech
+pause, the **selected final recognizer's text** goes to the LLM. In particular,
+Whisper uses buffered speech segments, not a claimed native streaming mode.
+The alternatives currently all use this pause-final adapter, including models
+whose architecture supports streaming. Resumed speech or a model switch
+invalidates a stale final result without discarding pending input.
+
+[asr_model_worker.py](asr_model_worker.py) holds four extra models in CPU RAM and
+at most one extra model on GPU. PyTorch uses CPU/GPU transfers; CTranslate2
+retains CPU weights via `unload_model(to_cpu=True)` / `load_model(keep_cache=True)`.
+Work runs off the UI/event-loop thread. Failure retains the previous selection;
+original Nemotron is usable even with the optional worker offline. Source-only
+publication excludes model downloads and any microphone recordings.
+
+Use the existing Python 3.12 / Transformers 5.15 / CUDA environment:
+
+```bash
+python prepare_asr_models.py
+pip install -r requirements-asr.txt
+python asr_model_worker.py
+```
+
+The worker binds only to `127.0.0.1:8801`. Alternatively pass `--with-asr-models`
+to `launch_bolt_stack.py`. `ROBO_ASR_CACHE` selects the cache drive;
+`ROBO_ASR_DEVICE=cuda:0` selects its GPU. `ROBO_ASR_MODELS_BASE` changes the
+loopback worker URL, and `ROBO_ASR_MODELS_PORT` changes the worker bind port.
+The live deployment uses `ROBO_ASR_CACHE=/mnt/nvme/robby-asr` and isolated
+dependencies in `ROBO_ASR_DEPS=/mnt/nvme/robo-asr-deps`, leaving shared TTS
+packages unchanged. To reproduce isolation, install this file with `uv pip
+install --python /path/to/venv/bin/python --target /path/to/asr-deps --no-deps
+-r requirements-asr.txt` after installing the existing Robby requirements.
+
+Telephony weights are read directly from the pinned `.nemo` archive with
+`weights_only=True`, strictly mapped into the original HF architecture, and
+checked against every tokenizer ID and the German prompt. No second 2.5-GB
+extracted checkpoint or full NeMo installation is needed. Moonshine uses its
+conditional-generation class, attention mask and duration-bounded output.
+Whisper has German conditioning and no custom name/keyword transcription bias.
+
+`POST /api/bolt/asr?model=whisper_turbo` accepts the existing finite <=15-s mono
+16-kHz float32 body. Other catalogue IDs work similarly. Live session audio
+uses bounded RAM (up to 1,000 320-ms records); unusually long final input is
+transcribed in <=28-s calls with short overlap/deduplication. This is not an
+unbounded recording service. Speaker matching and privacy settings are retained.
+
+Run `validate_asr_models.py`, then `browser_asr_models_check.py` serially.
+The [English ASR report](static/asr-model-update.html) contains all transcripts,
+warm inference and CPU/GPU swap timings, actual HTTPS fake-microphone checks,
+language controls and limits. Three synthetic clips are an integration smoke
+test, **not** a reliable ranking of German real-world accuracy.
+
 ### Reliable requested faces and spoken reactions
 
 Common direct German/English face/head commands use [a conservative command

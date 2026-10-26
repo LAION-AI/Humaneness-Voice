@@ -95,9 +95,13 @@ async def asr(request:Request):
     audio=np.frombuffer(raw,'<f4')
     if not np.isfinite(audio).all():raise HTTPException(422,'Finite samples required')
     start=time.perf_counter()
-    response=await request.app.state.http.post(ASR_BASE+'/internal/transcribe',content=raw)
+    from asr_catalog import MODELS,worker_url
+    model=request.query_params.get('model','nemotron')
+    if model not in MODELS:raise HTTPException(422,'Unknown ASR model')
+    url=ASR_BASE+'/internal/transcribe' if model=='nemotron' else worker_url()+'/transcribe/'+model
+    response=await request.app.state.http.post(url,content=raw)
     if response.status_code!=200:raise HTTPException(response.status_code,'ASR is busy or unavailable')
-    return {**response.json(),'asr_ms':round((time.perf_counter()-start)*1000,2)}
+    return {**response.json(),'model':model,'asr_ms':round((time.perf_counter()-start)*1000,2)}
 
 @app.post('/api/bolt/tts')
 async def tts(body:Speech,request:Request):

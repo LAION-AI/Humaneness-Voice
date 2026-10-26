@@ -7,9 +7,11 @@ import {organisePlayground} from './playground-layout.js';
 import {AvatarActions} from './avatar-actions.js';
 import {attachActionControls} from './avatar-action-controls.js';
 import {attachPetting} from './avatar-petting.js';
+import {ASRControls} from './asr-controls.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let sentenceMode=false;
+let asrControls=null;
 let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
 let lastPersonalityUser=personalityStarted;
@@ -75,6 +77,7 @@ const client=window.robo=new RoboClient({
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
+  asrControls?.message(m);
   if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
   if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
    if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
@@ -135,6 +138,7 @@ const client=window.robo=new RoboClient({
   }
  }
 });
+asrControls=new ASRControls(client);window.robotFace.asrControls=asrControls;
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
 const canPersonalitySpeak=()=>connected&&ready&&!speaking&&!replyPending&&!$('message').value.trim()&&!document.hidden&&!eyeContact?.state.active;
 const avatarEvent=event=>{if(['petted','ask_pet','play_vocal'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify({...event,play_intensity:avatarActions.playIntensity,cuddle_intensity:avatarActions.cuddleIntensity}));};

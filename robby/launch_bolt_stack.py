@@ -21,6 +21,7 @@ def main():
     p.add_argument('--download',action='store_true');p.add_argument('--gpu',default='0')
     p.add_argument('--with-robo',action='store_true',help='Start the ASR/avatar server too; port 8793 must be free')
     p.add_argument('--reuse-llm',action='store_true',help='Use an already running compatible local server at port 8799')
+    p.add_argument('--with-asr-models',action='store_true',help='Start the optional CPU-preloaded ASR bank on port 8801')
     args=p.parse_args();model=args.models/FILE
     if not args.llama_server.is_file():p.error('llama-server binary does not exist')
     if not model.exists() and args.download:
@@ -28,6 +29,7 @@ def main():
     if not model.is_file():p.error('Model not found; pass --download or supply --models')
     if port_used(8798):p.error('FastAPI port 8798 is in use; leave the existing service running or stop its owned process first')
     if args.with_robo and port_used(8793):p.error('ASR port 8793 is in use; this launcher will not replace its owner')
+    if args.with_asr_models and port_used(8801):p.error('ASR model bank port 8801 is already in use')
     if not args.reuse_llm and port_used(8799):p.error('LLM port 8799 is in use; use --reuse-llm to retain that server')
     env=dict(os.environ,ROBO_DIRECTOR_MODE='bolt',ROBO_SENTENCE_STREAM='1',ROBO_BOLT_CHUNK_FRAMES='20',
         ROBO_BOLT_BASE='http://127.0.0.1:8799',ROBO_DIRECTOR_BASE='http://127.0.0.1:8799',
@@ -43,6 +45,7 @@ def main():
                 '--host','127.0.0.1','--port','8799','-ngl','999','-c','16384','-np','2',
                 '-fa','on','-b','512','-ub','256','-t','6','--jinja','--no-webui'],{'CUDA_VISIBLE_DEVICES':args.gpu})
         if args.with_robo:spawn('bolt-robo',[sys.executable,'-u','server.py'],{'CUDA_VISIBLE_DEVICES':args.gpu})
+        if args.with_asr_models:spawn('asr-model-worker',[sys.executable,'-u','asr_model_worker.py'],{'CUDA_VISIBLE_DEVICES':args.gpu,'ROBO_ASR_DEVICE':'cuda:0'})
         spawn('bolt-api',[sys.executable,'-m','uvicorn','bolt_api:app','--host','127.0.0.1','--port','8798'])
         print('UI: http://127.0.0.1:8798/desk-robot/ · API: http://127.0.0.1:8798/docs',flush=True)
         while True:
