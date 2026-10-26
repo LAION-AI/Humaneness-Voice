@@ -1,0 +1,54 @@
+{
+  "time_unix": 1793018723.5268707,
+  "upstream_url": "https://github.com/Zagitta/gpu-unlock",
+  "upstream_commit": "af28cbbfd3d922a659227ecfb7369adfd924cf03",
+  "upstream_version": "1.0.0",
+  "running_kernel": "5.4.0-208-generic",
+  "driver_version": "550.54.15",
+  "gpu_unlock_module_present": false,
+  "gpu_unlock_boot_options": [],
+  "selector_state": "Not inspected; module absence alone is not proof that no earlier firmware unlock happened.",
+  "hardware": [
+    {
+      "pci_address": "0000:01:00.0",
+      "pci_device": "0x2204",
+      "driver": "nvidia",
+      "matched_upstream_supported_id": true
+    },
+    {
+      "pci_address": "0000:4f:00.0",
+      "pci_device": "0x2204",
+      "driver": "nvidia",
+      "matched_upstream_supported_id": true
+    }
+  ],
+  "upstream_cpu_mock_tests": {
+    "command": "make test ASSETS=/mnt/nvme/moss-15-v2/gpu-unlock-study/no-firmware",
+    "exit_code": 0,
+    "tests": 5,
+    "passed": true,
+    "physical_gpu_exercised": false,
+    "firmware_assets_downloaded": false
+  },
+  "kernel_module_compile": {
+    "command": "make -C upstream/kernel/gpu_unlock",
+    "exit_code": 2,
+    "passed": false,
+    "first_errors": [
+      "implicit declaration of pci_dev_lock",
+      "implicit declaration of pci_dev_unlock"
+    ],
+    "secondary_header_missing": "include/linux/aperture.h",
+    "log": "kernel-build.log",
+    "installed": false,
+    "loaded": false
+  },
+  "system_changes": {
+    "gpu_reset": false,
+    "driver_changes": false,
+    "kernel_or_boot_changes": false,
+    "power_or_clock_changes": false,
+    "service_restarts": false
+  },
+  "executed_benchmark_sha256": "a43a2110adc6fc6cd105984d322d44c127678a28d79afabefcf3e0bbb23ad02c"
+}

@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "tested_unlock_speedup": null,
+  "unlock_applied": false,
+  "status": "Source/mock checks and unchanged shared-GPU baseline completed; actual unlock trial blocked by current kernel and requires maintenance.",
+  "model": {
+    "file": "Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf",
+    "bytes": 6180446208,
+    "sha256": "c8af2b8aea10a690a1d9491db744a9446660173cb38fc489612b556615a69612",
+    "ftype": "Q4_K - Medium",
+    "slots": 2,
+    "context_per_slot": 8192
+  },
+  "llama_source_commit": "5d9e5ac30e469d44c0a5a52556de0ead03aaa5b0",
+  "gpu_unlock_source_commit": "af28cbbfd3d922a659227ecfb7369adfd924cf03",
+  "system_sha256": "4db9feefe5749f3f5da5e56d1e2abaa228a73512fcfd959beabf52b7282bfa72",
+  "executed_benchmark_sha256": "a43a2110adc6fc6cd105984d322d44c127678a28d79afabefcf3e0bbb23ad02c",
+  "sampling": {
+    "temperature": 0,
+    "seed": 20261026,
+    "max_tokens": 96,
+    "cache_prompt": false,
+    "concurrency": 1
+  },
+  "started_unix": 1793018925.5224805,
+  "finished_unix": 1793018968.456628,
+  "gpu0_utilization_percent": {
+    "min": 98.0,
+    "median": 100.0,
+    "max": 100.0
+  },
+  "inspection": {
+    "time_unix": 1793018723.5268707,
+    "upstream_url": "https://github.com/Zagitta/gpu-unlock",
+    "upstream_commit": "af28cbbfd3d922a659227ecfb7369adfd924cf03",
+    "upstream_version": "1.0.0",
+    "running_kernel": "5.4.0-208-generic",
+    "driver_version": "550.54.15",
+    "gpu_unlock_module_present": false,
+    "gpu_unlock_boot_options": [],
+    "selector_state": "Not inspected; module absence alone is not proof that no earlier firmware unlock happened.",
+    "hardware": [
+      {
+        "pci_address": "0000:01:00.0",
+        "pci_device": "0x2204",
+        "driver": "nvidia",
+        "matched_upstream_supported_id": true
+      },
+      {
+        "pci_address": "0000:4f:00.0",
+        "pci_device": "0x2204",
+        "driver": "nvidia",
+        "matched_upstream_supported_id": true
+      }
+    ],
+    "upstream_cpu_mock_tests": {
+      "command": "make test ASSETS=/mnt/nvme/moss-15-v2/gpu-unlock-study/no-firmware",
+      "exit_code": 0,
+      "tests": 5,
+      "passed": true,
+      "physical_gpu_exercised": false,
+      "firmware_assets_downloaded": false
+    },
+    "kernel_module_compile": {
+      "command": "make -C upstream/kernel/gpu_unlock",
+      "exit_code": 2,
+      "passed": false,
+      "first_errors": [
+        "implicit declaration of pci_dev_lock",
+        "implicit declaration of pci_dev_unlock"
+      ],
+      "secondary_header_missing": "include/linux/aperture.h",
+      "log": "kernel-build.log",
+      "installed": false,
+      "loaded": false
+    },
+    "system_changes": {
+      "gpu_reset": false,
+      "driver_changes": false,
+      "kernel_or_boot_changes": false,
+      "power_or_clock_changes": false,
+      "service_restarts": false
+    },
+    "executed_benchmark_sha256": "a43a2110adc6fc6cd105984d322d44c127678a28d79afabefcf3e0bbb23ad02c"
+  },
+  "cases": [
+    {
+      "case": "short_prompt",
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 135.328,
+        "total_median_ms": 2645.635,
+        "decode_median_tokens_s": 38.263,
+        "prefill_median_tokens_s": 323.827,
+        "identical_output_across_repeats": true
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 135.328,
+          "client_total_ms": 3171.05,
+          "cache_n": 0,
+          "prompt_n": 42,
+          "prompt_ms": 129.699,
+          "prompt_per_token_ms": 3.088071428571429,
+          "prompt_per_second": 323.82670645109056,
+          "predicted_n": 96,
+          "predicted_ms": 3025.491,
+          "predicted_per_token_ms": 31.51553125,
+          "predicted_per_second": 31.73038690248955,
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a"
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 57.111,
+          "client_total_ms": 2527.889,
+          "cache_n": 0,
+          "prompt_n": 42,
+          "prompt_ms": 52.95,
+          "prompt_per_token_ms": 1.2607142857142857,
+          "prompt_per_second": 793.2011331444759,
+          "predicted_n": 96,
+          "predicted_ms": 2470.406,
+          "predicted_per_token_ms": 25.733395833333333,
+          "predicted_per_second": 38.86000924544386,
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a"
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 136.365,
+          "client_total_ms": 2645.635,
+          "cache_n": 0,
+          "prompt_n": 42,
+          "prompt_ms": 132.153,
+          "prompt_per_token_ms": 3.1464999999999996,
+          "prompt_per_second": 317.81344350866044,
+          "predicted_n": 96,
+          "predicted_ms": 2508.956,
+          "predicted_per_token_ms": 26.134958333333334,
+          "predicted_per_second": 38.26292689070673,
+          "request_sha256": "21f07d1ef7fa3cd917b3d8ea1ab585c6f2cf13c7d703f2915c4f24923a2abdc3",
+          "output_sha256": "682f0776ab0c32c3a5e03195e71f3d39fadf01dc7c32c3d8897e5aa95758a41a"
+        }
+      ]
+    },
+    {
+      "case": "production_system",
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 619.921,
+        "total_median_ms": 3109.715,
+        "decode_median_tokens_s": 38.266,
+        "prefill_median_tokens_s": 2126.55,
+        "identical_output_across_repeats": true
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 347.449,
+          "client_total_ms": 2929.64,
+          "cache_n": 0,
+          "prompt_n": 1293,
+          "prompt_ms": 339.758,
+          "prompt_per_token_ms": 0.2627672080433101,
+          "prompt_per_second": 3805.649903755026,
+          "predicted_n": 96,
+          "predicted_ms": 2582.019,
+          "predicted_per_token_ms": 26.896031249999997,
+          "predicted_per_second": 37.1802066522361,
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6"
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 645.316,
+          "client_total_ms": 3109.715,
+          "cache_n": 0,
+          "prompt_n": 1293,
+          "prompt_ms": 634.777,
+          "prompt_per_token_ms": 0.49093348801237435,
+          "prompt_per_second": 2036.9358058026676,
+          "predicted_n": 96,
+          "predicted_ms": 2464.202,
+          "predicted_per_token_ms": 25.668770833333337,
+          "predicted_per_second": 38.957845176653535,
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6"
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 619.921,
+          "client_total_ms": 3128.874,
+          "cache_n": 0,
+          "prompt_n": 1293,
+          "prompt_ms": 608.027,
+          "prompt_per_token_ms": 0.4702451662799691,
+          "prompt_per_second": 2126.5503012201757,
+          "predicted_n": 96,
+          "predicted_ms": 2508.754,
+          "predicted_per_token_ms": 26.132854166666664,
+          "predicted_per_second": 38.266007747272155,
+          "request_sha256": "6f06d32995026ca80b77a4a5a3e4bc6457dd76ab527bdcd42d5f88eb43476391",
+          "output_sha256": "fc69213b775d08d92776b5743cf02b33edc616c67a8919f79119ff0f46bd0ff6"
+        }
+      ]
+    },
+    {
+      "case": "long_prefill",
+      "summary": {
+        "repetitions": 3,
+        "ttft_median_ms": 859.876,
+        "total_median_ms": 3598.333,
+        "decode_median_tokens_s": 35.103,
+        "prefill_median_tokens_s": 2727.097,
+        "identical_output_across_repeats": true
+      },
+      "runs": [
+        {
+          "repeat": 0,
+          "client_ttft_ms": 915.32,
+          "client_total_ms": 3650.32,
+          "cache_n": 0,
+          "prompt_n": 2331,
+          "prompt_ms": 909.584,
+          "prompt_per_token_ms": 0.3902119262119262,
+          "prompt_per_second": 2562.7099861035376,
+          "predicted_n": 96,
+          "predicted_ms": 2734.843,
+          "predicted_per_token_ms": 28.487947916666666,
+          "predicted_per_second": 35.10256347439323,
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b"
+        },
+        {
+          "repeat": 1,
+          "client_ttft_ms": 747.641,
+          "client_total_ms": 3598.333,
+          "cache_n": 0,
+          "prompt_n": 2331,
+          "prompt_ms": 742.275,
+          "prompt_per_token_ms": 0.3184362934362934,
+          "prompt_per_second": 3140.345559260382,
+          "predicted_n": 96,
+          "predicted_ms": 2850.555,
+          "predicted_per_token_ms": 29.69328125,
+          "predicted_per_second": 33.677652246667755,
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b"
+        },
+        {
+          "repeat": 2,
+          "client_ttft_ms": 859.876,
+          "client_total_ms": 3358.012,
+          "cache_n": 0,
+          "prompt_n": 2331,
+          "prompt_ms": 854.755,
+          "prompt_per_token_ms": 0.3666902616902617,
+          "prompt_per_second": 2727.097238389948,
+          "predicted_n": 96,
+          "predicted_ms": 2497.984,
+          "predicted_per_token_ms": 26.020666666666667,
+          "predicted_per_second": 38.43099075094156,
+          "request_sha256": "eddb76d21960032755833419c12e971321049d645805f102ff4f19143d5a4140",
+          "output_sha256": "7a3be8d28cbf6361af07d55c128e0b25c42c56611283996816b6980990c70e5b"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Shared GPU with independent training jobs; not uncontended capacity.",
+    "Only nine measured requests plus three excluded warm-ups.",
+    "No GPU-unlock installation, load, reset or reboot; no measured speedup.",
+    "Output capped to 96 tokens; not a conversation/task-quality benchmark."
+  ]
+}

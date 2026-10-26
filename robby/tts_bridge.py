@@ -102,8 +102,8 @@ class MouthBridge:
             def remember(record,interrupted=False):
                 if record is None:return
                 if record.get('avatar_context',{}).get('event') and not record.get('reply'):return
-                content=('[My preceding spoken reply was interrupted. Do not assume its remaining words were heard.]'
-                    if interrupted else record['reply'])
+                from conversation_tasks import memory_content
+                content=memory_content(record,interrupted)
                 if record.get('index') is None:
                     speaker=record.get('speaker') or {}
                     prefix=('Current session speaker: '+json.dumps({'speaker_id':speaker.get('speaker_id'),'display_name':speaker.get('display_name')})+'\n'

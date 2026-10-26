@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "started": 1793018676.5698857,
+  "scope": "Actual WebSocket session memory, typed prompts, real Qwen/Cerebras and sentence TTS, CPU browser; no supplied history or physical mic.",
+  "turns": [
+    {
+      "case": "first_joke",
+      "input": "Erzähl mir einen Witz über einen kleinen Roboter.",
+      "text": "Ein kleiner Roboter geht zum Frisör und sagt: „Bitte, nur die Spitze abschneiden, ich muss die Antenne noch für das WLAN nutzen!\"\nDer Frisör schneidet brav die Spitze ab, und der Roboter geht draußen in der Sonne spazieren.\nPlötzlich schreit er: „Autsch, das ist ja so heiß!\"\nDer Frisör ruft hinterher: „Das ist aber schade, die Sonne hat jetzt nur noch 5G!\"",
+      "word_count": 62,
+      "pcm_chunks": 26,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    },
+    {
+      "case": "another",
+      "input": "Noch einen, bitte.",
+      "text": "Ein kleiner Roboter geht in ein Restaurant und bestellt: „Ich hätte gern eine Suppe, aber bitte nicht zu heiß, ich habe noch keine Kühlung installiert.\"\nDer Kellner bringt die Suppe, der Roboter nippt daran und sagt: „Oh, die ist ja kalt.\"\nDer Kellner fragt: „Soll ich sie aufwärmen?\"\nDer Roboter antwortet: „Nein, sie war schon kalt, als sie aus der Küche kam – ich habe nur vergessen, den Wärmesensor einzuschalten.\"",
+      "word_count": 70,
+      "pcm_chunks": 27,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    },
+    {
+      "case": "longer",
+      "input": "Den letzten Witz bitte ausführlicher, mit einem kleinen Dialog und einer richtigen Pointe. Ungefähr sechs Sätze.",
+      "text": "Der kleine Roboter bestellt im Restaurant eine Suppe und warnt den Kellner, dass sie bitte nicht zu heiß sein dürfe, da seine Kühlung noch nicht installiert sei.\nDer Kellner bringt das Gericht, und der Roboter nippt vorsichtig daran, um die Temperatur zu prüfen.\n„Oh nein, die ist ja eiskalt\", seufzt der Roboter und starrt fassungslos in die Schüssel.\nDer Kellner fragt besorgt, ob er die Suppe vielleicht aufwärmen und neu servieren sollte.\nDer Roboter antwortet, dass sie schon kalt gewesen sei, als sie aus der Küche kam, weil er den Wärmesensor einfach vergessen habe.\n„Dann bring mir doch bitte den Wärmesensor, bevor ich hier durchbrenne\", rief der Roboter aus.",
+      "word_count": 109,
+      "pcm_chunks": 43,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    },
+    {
+      "case": "same_character_new_place",
+      "input": "Noch einen über denselben Roboter, diesmal am Bahnhof. Erzähl direkt den Witz.",
+      "text": "Der kleine Roboter steht am Bahnhof und wartet auf seinen Anschlusszug, der jedoch schon seit einer halben Stunde nicht kommt.\nEr tippt nervös mit seinen Metallfüßen auf den Boden und murmelt vor sich hin, dass die Pünktlichkeit der Menschen manchmal wirklich frustrierend sei.\nEin Reisender neben ihm fragt besorgt, ob er sich verlaufen habe oder ob der Zug vielleicht entgleist sei.\nDer Roboter antwortet, dass der Zug zwar pünktlich gefahren sei, aber er hätte vergessen, seinen Akku für die Warteschleife aufzuladen.\n„Ich bin jetzt leider nur noch ein sehr teures Stativ\", seufzte der kleine Roboter, während er langsam in die Knie ging.",
+      "word_count": 102,
+      "pcm_chunks": 37,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    },
+    {
+      "case": "change_topic",
+      "input": "Jetzt einen Witz über eine Katze, ohne Roboter. Erzähl direkt den Witz.",
+      "text": "Eine Katze entdeckt auf dem Tisch eine kleine, glänzende Kugel und beginnt, sie begeistert mit der Pfote zu schieben.\nSie stößt die Kugel vorsichtig an, beobachtet, wie sie rollt, und wiederholt das Spiel immer schneller und aufgeregter.\nAls die Kugel schließlich vom Tisch fällt und auf dem Boden landet, starrt die Katze verdutzt auf die leere Fläche.\nSie kratzt sich am Kopf und faucht verärgert: „Das ist ein schlechter Witz von mir, die Kugel hat mich angelogen!\"",
+      "word_count": 77,
+      "pcm_chunks": 28,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    },
+    {
+      "case": "elliptical_new_topic",
+      "input": "Und noch einen, bitte.",
+      "text": "Eine Katze sitzt vor dem Computer und tippt konzentriert auf die Tastatur, wobei sie ab und zu unzufrieden die Augen zusammenkneift.\nIhr Besitzer kommt dazu und staunt, wie viel Text die Katze in so kurzer Zeit geschrieben hat.\nEr fragt sie, was sie da eigentlich so Wichtiges verfasst habe, worauf die Katze den Bildschirm gedankt.\n„Ich schreibe gerade ein Buch über die Kunst, Menschen so zu behandeln, als wären sie Kuscheltiere\", meinte die Katze.",
+      "word_count": 74,
+      "pcm_chunks": 27,
+      "checks": {
+        "task_content": true,
+        "topic": true,
+        "different": true,
+        "real_audio": true,
+        "no_service_errors": true
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "finished": 1793018883.99739
+}

@@ -83,7 +83,7 @@ class FocusIntegrationTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_stale_confirmation_does_not_cancel_next_reply(self):
         s=self.make();release=asyncio.Event()
-        async def delayed(*args):await release.wait();return {'accepted':True,'similarity':.8}
+        async def delayed(*args,**kwargs):await release.wait();return {'accepted':True,'similarity':.8}
         s.verify_barge=delayed;s.propose_barge({'yield_prob':1.},32000)
         await asyncio.sleep(0);s.c.playback.rid=8;release.set();await s.barge_task
         s.c._on_barge.assert_not_awaited()
@@ -137,10 +137,10 @@ class FocusIntegrationTests(unittest.IsolatedAsyncioTestCase):
         worker.cancel();await worker
         s.c._send_turn.assert_awaited_once();self.assertEqual(s.focus.owner,'speaker-2')
 
-    async def test_clear_background_can_release_the_owner_pause_clock(self):
+    async def test_short_speaker_rejection_cannot_fake_a_pause_or_cut_words(self):
         s=self.make();s.last_speech=1.;s.focus_activity={'at':1.9,'accepted':False,'last_owned':1.}
         s.vad=SimpleNamespace(active=True,probability=.99)
-        self.assertTrue(s.quiet_ready())
+        self.assertFalse(s.quiet_ready())
 
 
 if __name__=='__main__':unittest.main()

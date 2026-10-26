@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "physical_microphone": false,
+  "started": 1793017482.1391935,
+  "cases": [
+    {
+      "case": "whole introduction with quiet competing speech",
+      "transcript": "Hey Robbie, ich bin Christoph.",
+      "passed": true
+    },
+    {
+      "case": "spoken invitation enrolls Alice while retaining Christoph",
+      "participants": [
+        {
+          "id": "speaker-1",
+          "name": "Christoph"
+        },
+        {
+          "id": "speaker-2",
+          "name": "Alice"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "original participant can speak again after the guest",
+      "passed": true
+    },
+    {
+      "case": "unadmitted background voice cannot invite another person",
+      "passed": true
+    },
+    {
+      "case": "spoken only-me request revokes the guest and suppresses later replies",
+      "passed": true
+    }
+  ],
+  "old_default_migrated": true,
+  "errors": [],
+  "finished": 1793017564.286791
+}

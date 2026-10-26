@@ -14,6 +14,9 @@ class LocalPolicyTests(unittest.TestCase):
         context={'agent_speaking':True,'user_partial':'Abends stop'}
         self.assertEqual(interpret(context,self.answers(.95,.62),[])[0]['action'],'stop_reply')
         self.assertEqual(interpret(context,self.answers(.95,.20),[])[0]['action'],'listen')
+    def test_explicit_continue_request_overrides_high_stop_probability(self):
+        for text in ('Bitte hör nicht auf.','Do not stop speaking.','Keep talking, please.'):
+            self.assertEqual(interpret({'agent_speaking':True,'user_partial':text},self.answers(.99,.99),[])[0]['action'],'listen')
     def test_no_rules_cannot_invent_rule_ids_and_context_is_bounded(self):
         self.assertEqual(interpret({'agent_speaking':False}, {},[])[0],{'action':'listen','rule_id':None})
         state,questions,ids=prepare({'agent_speaking':True,'agent_full_reply':'x'*10000,'user_partial':'y'*10000})

@@ -10,6 +10,9 @@ def main():
     MODULES.extend(['test_open_speakers','test_knowledge_tools','test_audio_transport','test_stop_feedback','test_stop_voice','test_release_scan','test_avatar_actions','test_avatar_commands','test_avatar_personality','test_bolt','test_pause_endpoint','test_asr_choice','test_llm_backends'])
     if 'test_visual_identity' not in MODULES:MODULES.append('test_visual_identity')
     MODULES.append('test_conversation_focus')
+    MODULES.append('test_sentence_reliability')
+    MODULES.append('test_speaker_management')
+    MODULES.append('test_conversation_continuity')
     suite=unittest.defaultTestLoader.loadTestsFromNames(MODULES)
     result=unittest.TextTestRunner(verbosity=1).run(suite)
     report={'finished':time.time(),'modules':MODULES,'tests':result.testsRun,'failures':len(result.failures),
