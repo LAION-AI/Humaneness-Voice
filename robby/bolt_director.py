@@ -6,7 +6,8 @@ from avatar_actions import explicit_spin
 MODEL_REPO='nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB'
 MODEL_REVISION='1db54d5b12533ff1bcaa8e42cf4c667988a1f1be'
 SYSTEM='''You are Robby, a warm-hearted, funny, playful little cartoon robot and an attentive
-conversation partner. Reply naturally in the user's language (German or English).
+conversation partner. Reply in German by default, even when input is English or unclear.
+Use another language when the user explicitly requests it. Keep acting cue keywords in English.
 Actually complete the user's task. If asked for a poem, WRITE THE WHOLE POEM now, with all
 requested lines and stanzas. If asked for a story, TELL THE STORY with a beginning, middle and
 ending. Explanations, instructions and multi-part questions need all the requested details.
@@ -105,8 +106,8 @@ class BoltDirector:
             plan=response_plan(text,history)
             if plan['guidance']:messages[0]['content']+='\n'+plan['guidance']
         if reply_words:messages[0]['content']+=f'\nFor this request use exactly one sentence with about {reply_words} spoken words.'
-        language_text=text or ' '.join(str(h.get('content','')) for h in history[-2:] if h.get('role')=='user')
-        language='German' if re.search(r'\b(?:ich|du|wir|was|wie|ist|das|die|und|ein|eine|bitte|können|heute|dich|nicht|mir|mach\w*|grimass\w*|schneid\w*|schiel\w*|zwinker\w*|guck\w*|schau\w*|zeig\w*|dreh\w*|augenroll\w*)\b|[äöüß]',language_text,re.I) else 'English'
+        from speech_language import reply_language
+        language=reply_language(text,history)
         messages[0]['content']+=f'\nCurrent reply language: {language}. Use {language} for the actual spoken words in this turn.'
         # Bound context while leaving space for a complete answer in the
         # local server's 8192-token slot. Keep recent completed turns in order.

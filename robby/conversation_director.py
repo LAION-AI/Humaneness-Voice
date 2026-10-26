@@ -114,6 +114,9 @@ class CompactDirector:
         event=(avatar_context or {}).get('event')
         knowledge_enabled=not event and relevant(text,history)
         messages=[{'role':'system','content':POLICY+'\n'+DIRECTOR_NOTE+'\n'+RECIPE}]
+        from speech_language import reply_language
+        spoken_language=reply_language(text,history)
+        messages[0]['content']+='\nReply in '+spoken_language+'. German is the default unless the user explicitly requests another language. Acting directions remain English.'
         from avatar_actions import TOOL as AVATAR_TOOL, NOTE as AVATAR_NOTE, TOOL_NAME as AVATAR_NAME, validate as validate_avatar
         from avatar_actions import explicit_spin
         requested_spin=explicit_spin(text) if not event else []
@@ -141,7 +144,7 @@ class CompactDirector:
         for item in history[-16:]:
             if item.get('role') in ('user','assistant') and isinstance(item.get('content'),str):
                 messages.append({'role':item['role'],'content':item['content'][:3000]})
-        current=({'avatar_event':event,'language':(avatar_context or {}).get('language','en'),
+        current=({'avatar_event':event,'language':'de' if spoken_language=='German' else 'en',
             'task':'React to THIS ongoing mouse stroke with a fresh soft playful vocalization and/or a few warm words. Vary from your previous reaction; not another greeting or a formulaic thank-you.' if event=='petted' else
                    'Voice THIS cartoon carousel ride: brief, playful bursts, not an explanation. Respect play_intensity: restrained at low settings; only at high settings grow from gentle Hui/Whee into exuberant Juhu/Woohoo.' if event=='play_vocal' else
                    'Offer one brief optional invitation to stroke your head, or choose silence. Do not answer an older utterance again.'}

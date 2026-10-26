@@ -84,7 +84,7 @@ class OpenVoiceMemory:
 
 class SentenceSession:
     def __init__(self,conversation):
-        self.c=conversation;self.memory=OpenVoiceMemory();self.records=deque(maxlen=125)
+        self.c=conversation;self.memory=OpenVoiceMemory();self.records=deque(maxlen=1000)
         self.preview='';self.preview_at=-100.;self.segment_floor=0.
         self.now=0.;self.begin=None;self.last_speech=-100.;self.reset_at=-100.;self.fresh_asr_at=-100.;self.probe_text='';self.probe_at=-100.
         self.queue=asyncio.Queue(maxsize=12);self.tasks=set();self.worker=None;self.probe=None
@@ -94,11 +94,13 @@ class SentenceSession:
         self.set_pause(float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')))
         self.vad=None;self.mic_driven=False;self.mic_now=0.;self.native_parts=[];self.native_preview=''
         self.last_activity_notice=-100.;self.last_probe_error=-100.
+        from asr_choice import ASRChoice
+        self.asr=ASRChoice(self)
     def set_pause(self,value):
         if not math.isfinite(value) or not 200<=value<=2000:raise ValueError('Speech pause must be 200–2000 ms')
         self.pause_ms=round(value)
     def settings(self):
-        return {'type':'asr_settings','speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
+        return {'type':'asr_settings',**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
                 'vad':'Silero ONNX CPU · neural speech activity','submission':'All pending sentences after a speech pause'}
     def start(self):self.worker=asyncio.create_task(self.deliver())
     async def close(self):
@@ -106,6 +108,7 @@ class SentenceSession:
         tasks=[t for t in [self.worker,self.probe,self.embedding_task,*self.tasks] if t]
         for t in tasks:t.cancel()
         await asyncio.gather(*tasks,return_exceptions=True);self.memory.users.clear();self.records.clear()
+        await self.asr.close()
     def audio(self,start,end):
         result=[]
         for a,b,w in self.records:
@@ -211,8 +214,14 @@ class SentenceSession:
             if len(audio)<3200:return
             async def recognize():
                 try:
-                    async with self.c.speaker_ext.asr_slot(5):
-                        result=await asyncio.to_thread(self.c.ears.service.engine.asr.transcribe,[np.pad(audio,(0,max(0,10240-len(audio))))])
+                    model=self.asr.selected;receipt={'model':'nemotron'}
+                    if due and model!='nemotron':
+                        await self.c.ws.send_json({'type':'asr_finalizing','model':model,'label':'Transcribing the completed speech segment…'})
+                        receipt=await self.asr.transcribe(model,self.audio(self.begin,at))
+                        result=[receipt['text']]
+                    else:
+                        async with self.c.speaker_ext.asr_slot(5):
+                            result=await asyncio.to_thread(self.c.ears.service.engine.asr.transcribe,[np.pad(audio,(0,max(0,10240-len(audio))))])
                     if not self.closed and epoch==self.epoch and result:
                         self.probe_text=result[0];self.probe_at=at
                         await self.c.ws.send_json({'type':'asr_preview','text':result[0],'status':'sentence_stream','source':'local_sentence_asr'})
@@ -224,31 +233,34 @@ class SentenceSession:
                         still_quiet=self.quiet_ready()
                         unchanged=self.last_speech<=speech_end+1e-6
                         if due and still_quiet and unchanged:
-                            text=self.native_text() if at-self.begin>28 and self.native_text() else result[0] or self.native_text()
+                            text=self.native_text() if model=='nemotron' and at-self.begin>28 and self.native_text() else result[0]
+                            if epoch!=self.epoch or self.last_speech>speech_end+1e-6 or not self.quiet_ready():return
                             if not text.strip() or self.agent_echo(text):
                                 if self.mic_now-self.last_speech>=max(1.28,self.pause_ms/1000+.32):
                                     self.c.session.reset();self.reset_segment()
                                 return
-                            await self.commit_pause(text,at,epoch,speech_end)
+                            await self.commit_pause(text,at,epoch,speech_end,receipt)
                 except asyncio.CancelledError:raise
                 except Exception:
                     # A transient probe failure must neither discard text nor
                     # turn background energy into activity. Retry on later audio.
                     if self.mic_now-self.last_probe_error>3:
                         self.last_probe_error=self.mic_now
-                        await self.c.ws.send_json({'type':'warning','text':'Checking the last spoken words again before sending.'})
+                        await self.c.ws.send_json({'type':'warning','text':'Checking the last spoken words again before sending. If the selected ASR is unavailable, switch to Nemotron original.'})
+                    self.last_probe=self.mic_now+.8
             self.probe=asyncio.create_task(recognize())
-    async def commit_pause(self,text,at,epoch,speech_end):
+    async def commit_pause(self,text,at,epoch,speech_end,asr=None):
         if (epoch!=self.epoch or self.last_speech>speech_end+1e-6
             or not self.quiet_ready()):return False
         text=' '.join(text.split())
         if not text or self.begin is None:return False
         start=self.begin;audio=self.audio(start,at)
         cached=self.prefetched if self.prefetched and self.prefetched['epoch']==epoch and 0<=self.mic_now-self.prefetched['at']<=1.2 else None
-        try:self.queue.put_nowait((text,audio,at,time.perf_counter(),cached))
+        try:self.queue.put_nowait((text,audio,at,time.perf_counter(),cached,asr or {'model':self.asr.selected}))
         except asyncio.QueueFull:
             await self.c.ws.send_json({'type':'warning','text':'Several turns are queued. Please let Robby catch up.'});return False
         await self.c.ws.send_json({'type':'asr_sentence','text':text,'audio_s':at,'queued':self.c.speaking,
+            'asr':asr or {'model':self.asr.selected},
             'reason':'neural speech pause','speech_pause_ms':self.pause_ms,
             'observed_quiet_ms':round((self.mic_now-self.last_speech)*1000)})
         self.c.session.reset();self.reset_segment();return True
@@ -258,7 +270,9 @@ class SentenceSession:
     async def deliver(self):
         try:
             while True:
-                text,audio,at,queued_at,cached=await self.queue.get();start=time.perf_counter();embedding=None
+                item=await self.queue.get();text,audio,at,queued_at,cached=item[:5]
+                asr=item[5] if len(item)>5 else {'model':'nemotron'}
+                start=time.perf_counter();embedding=None
                 if cached and cached['task'].done() and not cached['task'].cancelled():embedding=cached.get('embedding')
                 prefetched=embedding is not None
                 if embedding is None and len(audio)>=10240:
@@ -280,6 +294,7 @@ class SentenceSession:
                 if self.closed:return
                 self.c.current_speaker=context
                 await self.c.ws.send_json({'type':'endpoint','transcript':text,'speaker_id':context['speaker_id'],
+                    'asr':asr,
                     'speaker_name':context['display_name'],'by':'asr_complete_sentence','timing':{
                         'speaker_assignment_ms':round(embedding_wait_ms+lookup_ms,3),
                         'speaker_embedding_wait_ms':round(embedding_wait_ms,3),'speaker_lookup_ms':round(lookup_ms,3),

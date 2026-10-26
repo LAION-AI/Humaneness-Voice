@@ -144,6 +144,16 @@ silently suppress the requested face; Robby still generates its spoken reaction.
 Standalone silent stage notes no longer become empty TTS requests.
 [Command reliability fix and real-model/browser tests](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-command-update.html).
 
+The [German ASR selection report](https://laion-ai.github.io/Humaneness-Voice/robby/asr-model-update.html)
+documents original Nemotron 3.5, Moonshine German, telephony-adapted German Nemotron,
+Parakeet v3 and Whisper Turbo CT2 to Robby's visible recognition menu. Four
+alternatives are preloaded in CPU RAM; only one extra recognizer is on GPU.
+The original encoder/TYGER path retains live previews and interruptions while
+the selected model supplies the speech-pause-final transcript. Whisper uses
+buffered input segments. Robby replies in German by default, with an explicit
+English override. Exact pinned sources, setup, synthetic checks and limits are
+in [Robby's README](robby/README.md).
+
 The [English latency and precision report](robby/static/robby-local-speed-report.html)
 contains GPU stage profiling, 54 paired precision/adapter experiments, two CUDA
 experiments and synthetic socket/browser checks. Merged FP32 reduced median
