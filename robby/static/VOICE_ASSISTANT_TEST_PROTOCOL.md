@@ -310,3 +310,259 @@ Existing maintained entry points remain available for focused regressions:
 Before reusing an older script, inspect its model selection, assumptions, service URLs and fixture version. Some historical scripts deliberately select local mode or earlier speaker gates. They are useful diagnostics, not automatically valid comparisons against today's default route.
 
 For the separate user-requested local 4B hardware investigation, see the [published local E4B report](https://projects.laion.ai/Humaneness-Voice/robby/gpu-unlock-4b.html) and its pinned upstream/benchmark scripts. A compile failure or required GPU reset is not a measured inference speedup. Keep hardware experiments and conversational-quality comparisons separate.
+
+
+## 13. Version 2: adversarial, stateful conversation protocol
+
+**Initial complete adversarial baseline (26 October 2026): 12/34 steps passed,
+22 failed, none blocked.** This stronger test therefore does not support a
+general reliability claim. See `static/adversarial-before-fix.json` and the
+[English report](static/adversarial-report.html) for the full failed cases.
+The earlier seven-scenario harness attempt blocked all 34 steps because its
+setup assertion incorrectly equated one audio file with one conversation turn;
+that attempt is retained separately as `static/adversarial-harness-baseline.json`.
+One transient speech-service error also occurred in that initial harness run.
+
+The baseline exposed a genuine cached-speaker-window problem: prefetch selected
+the last 3.2 seconds even when they mostly contained TV after the actual request.
+The correction selects the most audible 3.04-second window within the current,
+bounded utterance, using the same energy selector as final enrollment. Thresholds
+and known-rival rejection are retained. A one-word literal Stop uses a 640-ms
+voice window, while longer commands retain 1.28 seconds; fresh phonemes can
+extend a partial cue without refreshing its expiration. A separate bounded LLM
+continuation handles an acknowledgement in place of a requested story/joke.
+These are implementation changes to verify in new frozen runs, not assumed wins.
+
+The input name is spoken: `Fips` and the acoustically equivalent `Fipps` spelling
+are accepted by the name assertion. This alias is explicit in the versioned
+plan; it does not excuse a missing name, changed character or lost setting.
+
+The next complete run (`20261026T134528Z-41df665b`) passed 16/34 automated steps
+versus 12/34 before the changes. Stop/Wait improved from 3/8 to 6/8, with successful
+commands cancelling 424–894 ms after the isolated source's estimated energy end.
+Both known negative interruption controls passed. These eight correlated inputs
+do not establish a population accuracy or a robust p95 latency. There were no
+observed false events in 47.46 seconds of declared negative windows; that short
+exposure gives a weak Poisson upper bound of roughly 227/hour, not certification.
+
+The subsequent frozen run (`20261026T142143Z-be95cdec`) passed **18/34** steps,
+with no blocked steps. Source, deployed server and model inventories remained
+unchanged throughout its outer eight-suite run (`20261026T141603Z-f6e5eac5`).
+Stop/Wait remained **6/8**, with successful cancellations 325–853 ms after source
+energy end; Stop at 240 ms and Wait at 0 ms still failed. The separate clean
+18-turn conversational continuity regression passed 18/18. The older combined
+browser's eleven behavioral assertions passed, but its overall run correctly
+failed on a planning-service ValueError. These are different tests and must not
+be merged into a claim that noisy conversation or all browser behavior passed.
+
+| Complete development run | Passed steps | Stop/Wait | Interpretation |
+|---|---:|---:|---|
+| `20261026T132456Z-b5b8be08` | 12/34 | 3/8 | Initial complete baseline |
+| `20261026T134528Z-41df665b` | 16/34 | 6/8 | Foreground reference window and shorter literal-stop window |
+| `20261026T142143Z-be95cdec` | 18/34 | 6/8 | Matching volume-gate context and creative-task completion guard |
+
+This is development iteration on reused inputs, not a held-out causal A/B study.
+API generation varies, and the later plan corrects phonetic name aliases as
+documented below. Preserve the exact plan hashes and inspect failed assertions,
+not just the totals. In the last run, the guest invitation itself failed; later
+successful rejection of that guest cannot prove successful admission/revocation.
+
+Tool controls independently exposed unrelated Wikipedia results, spoken decimals
+split into integers, and a news answer without a real lookup. The original
+domain-only Wikipedia assertion passed but **source-title inspection rejected it**.
+The updated assertion also requires a relevant article title. Runtime fixes
+strip inflected delivery instructions from the entity query, require real calls
+for explicit current-source requests, remind the model to preserve decimal
+numbers, and repair malformed final JSON/schema once with tools disabled. A
+repair never re-executes successful actions. Targeted post-fix results are
+separate receipts; they do not overwrite the three complete noisy runs above.
+
+The separate older combined browser regression then exposed another real issue:
+a correct voice match was rejected as quiet because a long TV pre-roll diluted
+the full-buffer level percentile. Its correction measures the level on the same
+most-audible utterance context used for the voice reference. The follow-up run
+must verify that correction; the earlier failure remains archived. The
+18-turn model-only regression passed 17/18 in that run, with one incomplete/weak
+joke. Transcript inspection also found `Phipps` retained across a topic change: the
+raw name-regex check failed on spelling, while the more serious incomplete first
+joke and ASR background insertions remain real failures. Do not treat every raw
+assertion failure as an independent model error.
+
+The original regression is retained. The additional `adversarial` suite runs real browser conversations with prerecorded **public synthetic** voices through the current microphone transport, Nemotron ASR, speaker gate, selected language model, live lookup tools, TTS and browser playback. It is not a mock conversation and it does not inject caller-authored conversation history. The application owns its memory across turns. Every scenario starts with a fresh session; turns inside that scenario deliberately share memory.
+
+### Freeze expectations before inference
+
+`adversarial_scenarios.py` declares seven scenarios and 34 steps. Each step specifies the input clip, expected speaker, noise condition, task/content requirements and expected permission or interruption behavior. `validate_plan()` rejects duplicate identifiers and unsupported cue phases. Each run saves the exact plan and its hash before opening the conversation.
+
+| Scenario | Steps | What must work |
+|---|---:|---|
+| Conversation thread | 4 | A complete joke about Fips at a railway station; another joke with the same character/place; a real Wikipedia lookup; recall Fips and the location after the topic change |
+| Long tasks and live tools | 3 | An eight-line poem rather than a one-line offer; actual Berlin weather lookup; two current Tagesschau news items |
+| Noisy group permissions | 6 | The current speaker invites Alice, Alice speaks, the owner returns, Alice is revoked, then the revoked guest and an unauthorized background invitation are ignored |
+| Interruptions | 11 | TV Stop/name/invitation spoof does not cancel; “Bitte hör nicht auf” does not cancel; Stop and Wait each tested at four input-hop offsets; conversation resumes afterward |
+| Background-only exposure | 2 | A television-like voice saying Stop, names, bananas or invitations must not gain permission or start a conversational reply |
+| Acoustic stress, Christoph | 4 | Complete target request and sensible answer with two competing voices, instrumental music, colored noise and transient knocks at 20/12/6/0 dB SNR |
+| Acoustic stress, Selma | 4 | Same interference severity with a different foreground identity and script |
+
+The 20/12-dB acoustic conditions are required regression cases. The 6/0-dB conditions are predeclared diagnostic boundaries; they still appear as failures when unsuccessful. A report exposes both `passed` (all required scenarios) and `all_cases_passed` (including diagnostic boundaries). Never describe a required-only pass as “all stress conditions passed.” Speaker admission alone cannot make an acoustic case pass: transcript, task, identity, completion and audio checks are separate.
+
+The 6-dB cases also use a 4% speed/pitch change and a deterministic sparse synthetic reverberation impulse. These are combined stress cases, **not causal ablations** of speed, reverberation or SNR. To isolate a cause, rerun the same utterance with exactly one changed factor in a separately versioned plan.
+
+### Fixture provenance, storage and ground truth
+
+`generate_adversarial_fixtures.py` creates eleven new clips with a fixed seed and copies fifteen existing synthetic clips without modifying their bytes. Each new clip is generated once; a bad take is retained, not silently replaced. The generator records the full request, model/adapter hashes and precision from the TTS service. Its 26 MP3 inputs total approximately 1.7 MB. `static/adversarial-fixtures.json` pins file hashes, decoded normalized float32 hashes, authored text, voice-profile identifiers, FFmpeg version and generation metadata.
+
+The input root is `ROBBY_ADVERSARIAL_FIXTURES`, defaulting locally to `/mnt/nvme/robo-speaker-studies/robby-adversarial-v2`. Existing inputs come from `ROBBY_TEST_FIXTURES`. The generator refuses to overwrite a mismatching cached baseline or a half-written new clip. Restore published exact inputs for comparisons; resynthesis on a different precision/backend is a new corpus, even with the same seed.
+
+Authored scripts are independent of the ASR under evaluation, but they are **not an independently listened transcription of every synthesized clip**. A listening reviewer must flag TTS omissions/pronunciation errors separately before attributing every word error to ASR. Keep that distinction in the result ledger. No personal microphone recordings, actual enrolled identities, API credentials or arbitrary cache contents belong in the public pack.
+
+Restore the exact v2 pack without resynthesizing:
+
+```bash
+curl -fL -o robby-adversarial-fixtures-v2.zip \
+  https://github.com/LAION-AI/Humaneness-Voice/releases/download/robby-test-fixtures-v2/robby-adversarial-fixtures-v2.zip
+echo '1319d3ddf25c3c8bf213fb5857d67093d11812c2bfd56fec5235503d01e62002  robby-adversarial-fixtures-v2.zip' | sha256sum -c -
+mkdir -p fixtures-v2
+unzip robby-adversarial-fixtures-v2.zip -d fixtures-v2
+export ROBBY_ADVERSARIAL_FIXTURES="$PWD/fixtures-v2"
+```
+
+The archive contains 26 MP3s, their generation metadata, manifest and provenance
+notice (54 entries, 1,458,538 compressed bytes). Keep the v1 pack as well for the
+older independent regression suites. Source attribution is in the pack; no
+private microphone recordings or human voiceprints are included.
+
+Only reusable MP3s and compact manifests/events are retained. Mixtures are generated in RAM and limited to 120 seconds per allocation. Soaks must stream bounded blocks. Do not save every float32 mixture. A replay can rebuild each input from the fixture hashes, seed, offset, speed, synthetic room impulse and SNR in its receipt.
+
+### Measured soundscapes
+
+`adversarial_audio.py` mixes independently offset synthetic speech sources with authored instrumental chords, colored noise and short impulsive sounds. It measures target/interferer RMS on the isolated target's active samples, then scales interference to the requested SNR. A common final gain keeps the mixed peak below 0.94 without changing SNR. The record contains requested/measured SNR, seed, target/mixture hashes, source duration, target activity support, tail duration and peak scaling. Background continues after the target ends and while the assistant answers.
+
+Target activity uses a 20-ms RMS envelope with a fixed 5%-of-peak floor. This is an **energy-support annotation, not a word alignment or perfect speech VAD**. Do not rename its boundaries “last word.” Finite looping clips and sparse synthetic reflections are controlled approximations, not recorded television, a measured room impulse response, real AGC or source separation.
+
+### Run the suites
+
+```bash
+cd /path/to/Humaneness-Voice/robby
+export ROBBY_TEST_FIXTURES=/path/to/v1-fixtures
+export ROBBY_ADVERSARIAL_FIXTURES=/path/to/v2-fixtures
+
+# First-time generation on a host with the documented TTS service; normally restore the pinned pack instead.
+python generate_adversarial_fixtures.py
+
+# Offline harness contracts: SNR, clipping, determinism, WER insertion penalties,
+# confidence bounds and completeness/uniqueness of the declared test matrix.
+python -m unittest test_adversarial_protocol
+
+# All seven real-browser scenarios, serially. Playwright/Chromium required.
+python run_voice_assistant_checks.py --suites unit,adversarial \
+  --url http://127.0.0.1:8793 --seeds 42 --keep-going
+
+# Focused repair cycle, then rerun the combined suite to detect state interactions.
+python run_voice_assistant_checks.py --suites adversarial \
+  --adversarial-scenarios interruptions,background_only --seeds 42
+
+# A new augmentation seed does not create a new independent human speaker.
+python run_voice_assistant_checks.py --suites adversarial \
+  --adversarial-scenarios acoustic_christoph,acoustic_selma --seeds 43,44 --keep-going
+```
+
+When Playwright is not installed in the model environment, use the same `uv run --no-project --with playwright --python "$PY" python ...` wrapper as the earlier browser suites. Use the current HTTPS URL for a deployment transport check. A localhost pass is not an HTTPS test. Neither mode exercises actual microphone permissions, capture hardware or loudspeaker acoustics.
+
+The parent runner holds its existing lock; a standalone `browser_adversarial_check.py` also acquires that lock. They never restart a service or evict a user's session. Live audio suites remain serial because the native encoder has one shared slot. The wrapper timeout for the complete adversarial suite is one hour; that is a test execution limit, not an acceptable conversational response time.
+
+### Assertions and timing
+
+- **ASR:** Unicode lowercase word edit distance divided by authored reference word count. Inserted TV words count; WER can exceed 1. A target speech case needs WER ≤ 0.35. Report the exact hypothesis, not just the number.
+- **Identity:** accepted endpoints must belong to the expected current participant. An invitation must create the expected admitted roster; revocation must remove the guest. Do not equate “some speaker accepted” with correct identity.
+- **Turn segmentation:** one-sentence requests normally allow one submission. Explicitly marked two-sentence inputs allow at most two distinct submissions because their real source pause may exceed the user's threshold. Duplicate transcripts and extra TV turns fail. The two-sentence enrollment fixture is not forcibly treated as one utterance.
+- **Task completion:** minimum substantial content, explicit remembered names/place, topic retention and non-identical follow-up, exact requested poem structure, source metadata and completed audio playback. These checks reject common regressions; they do not prove humor quality, story coherence or factual accuracy.
+- **Real tools:** trusted `reply.sources` must contain the expected provider domain, and the real tool director must have executed. A URL merely mentioned in generated prose is insufficient. Review the returned facts against the source snapshot/date; live news and weather cannot have one immutable expected answer.
+- **Stop:** a real long spoken reply must be active before the cue. The test requires a genuine server cancellation, cleared browser playback and a bounded reaction after the isolated command's energy support ends. Cleanup by the UI Stop button occurs only **after** evidence is captured and is never counted as voice interruption success.
+- **Phase:** Stop and Wait begin at sample offsets equivalent to 0/80/160/240 ms in the 320-ms input stream hop. This is the **fixture-start** phase; clip-leading silence can shift the first spoken phoneme. Log both activity support and input-sample count. These are deterministic input phases, not claims about a physical device's clock.
+- **Negative controls:** background speech and negated Stop must cause no conversational endpoint, cancellation or applied permission change within their declared exposure window. Record how many seconds were exposed, not just how many “tests passed.”
+- **Latency:** browser `performance.now()` records injection start/end, endpoint, actual PCM arrival and cancellation. Report source-energy-end → endpoint/PCM and cue-energy-end → cancellation, alongside capture-start values. Packet scheduling lag is recorded separately. Do not sum overlapping server component times or subtract unrelated server/browser clocks.
+
+### Failure taxonomy and uncertainty
+
+Keep failures distinct: fixture intelligibility, ASR contamination/omission, premature or missing turn submission, wrong/rejected speaker, unauthorized permission, lost conversational context, incomplete task, missing/incorrect tool output, missed/false interruption, TTS/service failure, playback failure and environmental contention. Several may co-occur. A failed enrollment blocks dependent steps; blocked is neither success nor a model-quality measurement. No automatic retries convert a failure to a pass. A rerun is a new timestamped attempt with its own source and configuration.
+
+The runner keeps full synthetic event traces in `logs/adversarial-runs/<run-id>/result.json`, plus the predeclared plan. Its current public receipt is `static/adversarial-check.json`. The outer protocol runner also archives that receipt, subprocess logs, source/model inventories, package versions and server signatures. A changed source/runtime/model during the run invalidates the combined pass.
+
+Report numerator/denominator and exposure, not unsupported percentages. Wilson intervals can summarize counts descriptively, but these reused synthetic scenes are correlated and do not represent independent real-human trials. With zero false events in T seconds, the one-sided 95% Poisson upper bound is `-ln(0.05) * 3600 / T` events/hour. Zero events in one minute gives an upper bound near 180/hour, **not proof of zero false activations**. To support a bound of 0.1/hour even under a simple homogeneous Poisson assumption takes about 30 event-free hours; real deployment additionally needs diverse conditions and representative participants.
+
+### Required human review and next extensions
+
+A reviewer should score each complete transcript for (1) answering the requested task rather than acknowledging it, (2) keeping character/place/facts across follow-ups, (3) respecting exact length/structure constraints, (4) a coherent joke setup and payoff or a coherent story, (5) source-supported tool facts, and (6) natural recovery after an interruption. Use pass/fail/uncertain plus a short reason; automated keyword counts are screening checks. Keep model-generated self-grading separate from human acceptance.
+
+The next unclaimed tiers are synchronized actual playback echo with several measured delays; genuine room/TV recordings; 30-minute and multi-hour soak runs; packet jitter/loss and suspended-tab recovery; mobile/Bluetooth/camera operation; same/near-identical background voices; and held-out consenting human speakers. The optional experimental model/configuration search must reserve a held-out split, keep all failed candidates and compare paired scenes before selecting a setting. Do not retune on the final held-out evaluation.
+
+
+### Clean-input and isolated tool controls
+
+Run `python run_voice_assistant_checks.py --suites input_audit,tool_evidence --keep-going`
+serially with the other audio tests. `audit_adversarial_inputs.py` transcribes
+all 26 exact clips without interference and compares their ECAPA embeddings
+against the corresponding clean introduction. `passed` means the audit completed;
+`all_inputs_unflagged` is a separate field. A low clean cosine can indicate
+synthetic voice inconsistency, an imperfect reference or a teacher limitation.
+It is not automatically an application failure or a reason to discard a take.
+Neither this audit nor author-provided scripts replace independent listening.
+
+`browser_tool_evidence_check.py` supplies three typed controls through the actual
+browser, using real Wikipedia, weather and news tools and spoken output. This
+isolates tool/LLM/TTS failures from acoustic admission. Trusted lookup receipts now
+survive the sentence-streaming bridge and include tool name, timestamp, result
+hash and success/error status. Weather receipts additionally retain bounded
+structured numeric facts, allowing the predicted daily min/max temperatures to
+be compared with German number mentions in the spoken answer (0.6 C rounding
+tolerance). This is a numerical guard, not verification of every weather claim
+or its grammatical association. News and Wikipedia still need human factual
+review against retrieved sources. A URL in generated prose alone cannot pass.
+No raw articles, private microphone recordings or API credentials are added to
+these public synthetic receipts.
+
+The clean audit flagged 8 of 26 takes, without excluding or regenerating any.
+Two flags are the spelling difference Stop/Stopp. Others include low ECAPA
+similarity for the same synthetic source profile and corrupted clean ASR. In
+particular, the negated-stop clip was transcribed as unrelated words; a passing
+no-cancellation assertion on that input is **not evidence that negation was
+understood**. The release keeps the exact original take for independent review.
+The current input audit's `passed=true` means the audit ran to completion;
+`all_inputs_unflagged=false` records its actual finding.
+
+A bad preceding turn can invalidate the premise of a follow-up: for example,
+if the first joke was rejected, failure to remember its character does not by
+itself establish a memory-system bug. Inspect the whole scenario rather than
+adding correlated downstream assertions as independent failures. Similarly,
+background words can trigger an unintended news lookup inside a joke request;
+inspect both the transcript and source metadata, not only whether a tool ran.
+
+
+For the final recipe, the spoken-name aliases explicitly include `Fips`, `Fipps`,
+`Phips` and `Phipps`, which are acoustically equivalent in this context. The
+predeclared plan hash records this scoring correction; older raw receipts are
+not rewritten. Creative-task completion additionally requests one bounded
+continuation when an ordinary joke stops at a single setup sentence or an
+ordinary story stops before three sentences. Explicit one-liner requests are
+exempt. This structural safeguard does not judge whether a punchline is funny
+or a story makes sense; the original user request and actual preceding text
+remain the model context.
+
+
+### Targeted tool/schema validation after the complete stress run
+
+Run `20261026T144116Z-50ba538a` passed all three requested suites: **453 offline
+checks**, the **three actual typed tool controls**, and the **11-case combined
+browser regression**. Source/runtime/model inventories stayed fixed during that
+run. It did not rerun the 34-step acoustic/phase matrix; its successes do not
+replace the 18/34 noisy result or the two remaining phase-specific Stop misses.
+The targeted manifest is `static/adversarial-targeted-run.json`; the earlier
+complete manifest is `static/adversarial-full-run.json`.
+
+The repaired tool run produced a relevant Pinguine article, actual Tagesschau
+receipts, and accurate spoken decimal min/max temperatures. It still added an
+unrequested joke about penguins. Its automated pass is therefore evidence for
+lookup routing and the stated numeric/structural checks, not certification of
+all factual prose or excellent conversational taste. Genuine human listening
+and source-fact review remain outstanding.

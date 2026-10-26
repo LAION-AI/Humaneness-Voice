@@ -169,18 +169,23 @@ story or other work, still complete that task in full. These are screen effects,
               # as possible' AFTER our task/personality instructions.
               'chat_template_kwargs':{'enable_thinking':False,'conversational_mode':False}}
         from bolt_text import join_sentences
+        from conversation_tasks import acknowledgement_only
         first=True;emitted=[];units=0;target=plan['units'];poetry=plan['kind']=='poem'
-        for attempt in range(3 if target else 1):
+        repair_task=not target and plan['kind'] in ('story','joke')
+        explicit_tiny=bool(re.search(r'\b(?:einzeiler|one[- ]liner|(?:ein\w*|one|1)\s+(?:satz|zeile|sentence|line))\b',text,re.I))
+        minimum_units=(2 if plan['kind']=='joke' else 3) if repair_task and not explicit_tiny else 0
+        for attempt in range(3 if target else 2 if repair_task else 1):
             framer=SentenceFramer(lines_only=poetry);attempt_parts=0;guard_stop=False
             request=dict(body)
             if attempt:
-                remaining=target-units
-                instruction=(f'Continue the SAME {plan["kind"]} with exactly {remaining} additional '
+                remaining=target-units if target else None
+                instruction=((f'Continue the SAME {plan["kind"]} with exactly {remaining} additional '
                     +('verse lines' if poetry else 'complete prose sentences')
-                    +'. Continue from its ending, using the same subject and style. Do not repeat existing text, add an introduction or restart. Put each new unit on its own line with an acting cue. Output only the missing continuation.')
+                    +'. Continue from its ending, using the same subject and style. Do not repeat existing text, add an introduction or restart. Put each new unit on its own line with an acting cue. Output only the missing continuation.') if target else
+                    f'The previous response stopped before completing the requested {plan["kind"]}. Continue from the existing words, keeping the SAME characters and setting, and deliver the COMPLETE actual {plan["kind"]} with its development and final payoff/ending. Do not repeat the existing setup. No promise, introduction, apology or follow-up question. Use short acting cues and the original requested reply language.')
                 request['messages']=messages+[{'role':'assistant','content':join_sentences(emitted)},
                     {'role':'user','content':instruction}]
-                request['max_tokens']=min(2048,max(256,remaining*56))
+                request['max_tokens']=min(2048,max(256,remaining*56)) if target else 2048
             def accept(part):
                 nonlocal units,attempt_parts
                 if attempt and attempt_parts==0:part.separator_before='\n'
@@ -213,10 +218,13 @@ story or other work, still complete that task in full. These are screen effects,
                         metrics.setdefault('llm_first_sentence_ms',round((time.perf_counter()-start)*1000,2));yield part
             metrics['generation_calls']=attempt+1
             if guard_stop:metrics['finish_reason']='structure_complete'
-            if not target or units>=target:break
+            if target and units>=target:break
+            if not target and not (repair_task and (acknowledgement_only(join_sentences(emitted)) or units<minimum_units)):break
         if target:metrics.update(requested_units=target,completed_units=units,completion_repairs=metrics['generation_calls']-1)
+        if repair_task:metrics.update(task_acknowledgement_only=acknowledgement_only(join_sentences(emitted)),task_minimum_units=minimum_units,
+            task_missing_units=units<minimum_units,completion_repairs=metrics['generation_calls']-1)
         metrics['llm_total_ms']=round((time.perf_counter()-start)*1000,2)
-        metrics['response_complete']=(units>=target) if target else metrics.get('finish_reason')!='length'
+        metrics['response_complete']=(units>=target) if target else metrics.get('finish_reason')!='length' and not metrics.get('task_acknowledgement_only',False) and not metrics.get('task_missing_units',False)
 
 def needs_tools(text,history,interaction_state):
     from interaction_policy import rule_authorized,cancellation_authorized,rule_control_request

@@ -43,3 +43,19 @@ def memory_content(record,interrupted=False):
     if not interrupted:return reply
     warning='[My preceding reply was interrupted. The following text was generated; only a prefix may have been heard. Do not assume it was all heard or repeat it automatically.]'
     return warning+('\n'+reply if reply else '')
+
+
+def acknowledgement_only(text):
+    """Bounded repair for a promise in place of a creative task, not a judge.
+
+    A real short joke/story must remain short when requested. Only detect a
+    small acknowledgment/offer; never classify arbitrary concise prose as bad.
+    """
+    value=' '.join(re.findall(r'\w+',text.casefold()))
+    if not value:return True
+    if len(value.split())>30:return False
+    if re.search(r'\b(?:es war|eines tages|einmal|sagte|fragte|rief|antwortete|ging|fand|traf|once|asked|said)\b',value):return False
+    return bool(re.search(r'\b(?:bitte|wunsch)\b.*\b(?:erfülle|erfüllen|nachkomme)\b',value)
+        or re.fullmatch(r'(?:klar|gerne|natürlich|okay|ja|sehr gerne|of course|sure)(?: \w+){0,6}',value)
+        or re.fullmatch(r'(?:ich (?:kann|werde|möchte)|i (?:can|will|would)) .{0,160}',value)
+        or re.fullmatch(r'(?:hier ist|here is) .{0,100}',value))

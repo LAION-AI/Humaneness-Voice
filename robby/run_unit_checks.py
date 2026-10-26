@@ -13,6 +13,7 @@ def main():
     MODULES.append('test_sentence_reliability')
     MODULES.append('test_speaker_management')
     MODULES.append('test_conversation_continuity')
+    MODULES.append('test_adversarial_protocol')
     suite=unittest.defaultTestLoader.loadTestsFromNames(MODULES)
     result=unittest.TextTestRunner(verbosity=1).run(suite)
     report={'finished':time.time(),'modules':MODULES,'tests':result.testsRun,'failures':len(result.failures),
