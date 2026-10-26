@@ -1,7 +1,9 @@
 """Small task-resolution hints; all actual creative content comes from the LLM."""
 import re
 
-JOKE=re.compile(r'\b(?:witz(?:e|en)?|jokes?)\b',re.I)
+# Common compound joke nouns also establish the subject of "noch einen".
+# Do not match arbitrary *witz strings (e.g. a place name or "schwitze").
+JOKE=re.compile(r'\b(?:(?:(?:katzen|hunde|pinguin|roboter|tier|flach|kinder|schüler)?)witz(?:e|en)?|jokes?)\b',re.I)
 OTHER_TASK=re.compile(r'\b(?:gedicht|poem|geschichte|story|märchen|nachrichten|news|erklär\w*)\b',re.I)
 FOLLOWUP=re.compile(r'^\s*(?:(?:und|bitte|haha|ha|okay|ja)[,!\s]+)*(?:noch\s+(?:ein\w*|mehr)|(?:erzähl\w*\s+(?:mir\s+)?)?(?:ein\w*\s+)?(?:weiter\w*|ander\w*)|(?:den|diesen|das|ihn)\b|mach\w*\s+(?:ihn|den|das)\b)',re.I)
 
@@ -14,7 +16,8 @@ def joke_task(text,history):
     if re.search(r'\b(?:kein\w*|no|not a)\s+(?:witz\w*|jokes?)\b',text,re.I):return None
     explicit=bool(JOKE.search(text));prior=None
     if not explicit:
-        if OTHER_TASK.search(text) or not FOLLOWUP.search(text):return None
+        followup_text=re.sub(r'^\s*(?:der|das) war (?:lahm|langweilig|nicht lustig)[.!]\s*','',text,flags=re.I)
+        if OTHER_TASK.search(text) or not FOLLOWUP.search(followup_text):return None
         for item in reversed(history):
             if item.get('role')!='user' or not isinstance(item.get('content'),str):continue
             previous=item['content']

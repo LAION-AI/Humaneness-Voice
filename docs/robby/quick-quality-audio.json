@@ -1,0 +1,4019 @@
+{
+  "created": "2026-10-26T23:20:40.520851+00:00",
+  "scope": "Four authored live API/Qwen/TTS trials; not microphone-to-ear or a human listening rating.",
+  "rows": [
+    {
+      "case": "cat_joke",
+      "input": "Erzähl mir einen Witz über Katzen.",
+      "history": [],
+      "events": [
+        {
+          "at_ms": 386.28,
+          "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+          "script": "(amusement, playful) Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "amusement, playful",
+                "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+                "start_s": 0.0,
+                "end_s": 5.1
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "amusement.soft",
+          "sentence_index": 0,
+          "sentence_text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 314.79,
+            "llm_first_sentence_ms": 360.13,
+            "sentence_ready_ms": 372.15,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "amusement.soft"
+          }
+        },
+        {
+          "at_ms": 1528.23,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 314.79,
+          "llm_first_sentence_ms": 360.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1625,
+            "completion_tokens": 73,
+            "total_tokens": 1698,
+            "cost": 0.0017003448,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00171752,
+              "upstream_inference_prompt_cost": 0.00160875,
+              "upstream_inference_completions_cost": 0.00010877
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 395.57,
+          "response_complete": true,
+          "answer_first_audio_ms": 1514.91,
+          "tts_first_audio_ms": 1142.7,
+          "first_audio_ms": 1514.92
+        },
+        {
+          "at_ms": 1528.44,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 2350.42,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 3221.39,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 3803.6,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 21120
+        },
+        {
+          "at_ms": 3893.26,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 15120
+        },
+        {
+          "at_ms": 3895.91,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 3896.07,
+          "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.\nDie eine sagt: „Na und?",
+          "script": "(amusement, playful) Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun. (soft, firm) Die eine sagt: „Na und?",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "amusement, playful",
+                "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+                "start_s": 0.0,
+                "end_s": 5.31
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "soft, firm",
+                "text": "Die eine sagt: „Na und?",
+                "start_s": 5.31,
+                "end_s": 7.01
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "delivery.firm.soft",
+          "sentence_index": 1,
+          "sentence_text": "Die eine sagt: „Na und?",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 314.79,
+            "llm_first_sentence_ms": 360.13,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1625,
+              "completion_tokens": 73,
+              "total_tokens": 1698,
+              "cost": 0.0017003448,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00171752,
+                "upstream_inference_prompt_cost": 0.00160875,
+                "upstream_inference_completions_cost": 0.00010877
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 395.57,
+            "response_complete": true,
+            "answer_first_audio_ms": 1514.91,
+            "tts_first_audio_ms": 1142.7,
+            "first_audio_ms": 1514.92,
+            "tts_server_stages": [
+              {
+                "generation_ms": 3282,
+                "alignment_ms": 85,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 3497,
+                "performance": {
+                  "device_seconds": 2.6604978041648866,
+                  "raw_audio_seconds": 5.68,
+                  "aggregate_rtf": 0.4683975007332547,
+                  "audio_seconds_per_second": 2.134938803974287,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 2.6604978041648866,
+                      "audio_seconds": [
+                        5.68
+                      ],
+                      "model_wall_seconds": 3.1097188740968704,
+                      "first_audio_seconds": 0.7743006591796875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.4418344423174858
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 3508.68,
+                "audio_s": 5.31
+              }
+            ],
+            "sentence_ready_ms": 3881.68,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "delivery.firm.soft"
+          }
+        },
+        {
+          "at_ms": 5019.31,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 314.79,
+          "llm_first_sentence_ms": 360.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1625,
+            "completion_tokens": 73,
+            "total_tokens": 1698,
+            "cost": 0.0017003448,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00171752,
+              "upstream_inference_prompt_cost": 0.00160875,
+              "upstream_inference_completions_cost": 0.00010877
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 395.57,
+          "response_complete": true,
+          "answer_first_audio_ms": 1514.91,
+          "tts_first_audio_ms": 1142.7,
+          "first_audio_ms": 1514.92,
+          "tts_server_stages": [
+            {
+              "generation_ms": 3282,
+              "alignment_ms": 85,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3497,
+              "performance": {
+                "device_seconds": 2.6604978041648866,
+                "raw_audio_seconds": 5.68,
+                "aggregate_rtf": 0.4683975007332547,
+                "audio_seconds_per_second": 2.134938803974287,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.6604978041648866,
+                    "audio_seconds": [
+                      5.68
+                    ],
+                    "model_wall_seconds": 3.1097188740968704,
+                    "first_audio_seconds": 0.7743006591796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.4418344423174858
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 3508.68,
+              "audio_s": 5.31
+            }
+          ]
+        },
+        {
+          "at_ms": 5019.48,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 5547.24,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38160
+        },
+        {
+          "at_ms": 5596.71,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 5596.9,
+          "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.\nDie eine sagt: „Na und? Was macht die da unten?“",
+          "script": "(amusement, playful) Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun. (soft, firm) Die eine sagt: „Na und? (soft, firm) Was macht die da unten?“",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "amusement, playful",
+                "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+                "start_s": 0.0,
+                "end_s": 5.31
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "soft, firm",
+                "text": "Die eine sagt: „Na und?",
+                "start_s": 5.31,
+                "end_s": 7.5
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "soft, firm",
+                "text": "Was macht die da unten?“",
+                "start_s": 7.5,
+                "end_s": 9.2
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "delivery.firm.soft",
+          "sentence_index": 2,
+          "sentence_text": "Was macht die da unten?“",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 314.79,
+            "llm_first_sentence_ms": 360.13,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1625,
+              "completion_tokens": 73,
+              "total_tokens": 1698,
+              "cost": 0.0017003448,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00171752,
+                "upstream_inference_prompt_cost": 0.00160875,
+                "upstream_inference_completions_cost": 0.00010877
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 395.57,
+            "response_complete": true,
+            "answer_first_audio_ms": 1514.91,
+            "tts_first_audio_ms": 1142.7,
+            "first_audio_ms": 1514.92,
+            "tts_server_stages": [
+              {
+                "generation_ms": 3282,
+                "alignment_ms": 85,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 3497,
+                "performance": {
+                  "device_seconds": 2.6604978041648866,
+                  "raw_audio_seconds": 5.68,
+                  "aggregate_rtf": 0.4683975007332547,
+                  "audio_seconds_per_second": 2.134938803974287,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 2.6604978041648866,
+                      "audio_seconds": [
+                        5.68
+                      ],
+                      "model_wall_seconds": 3.1097188740968704,
+                      "first_audio_seconds": 0.7743006591796875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.4418344423174858
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 1518,
+                "alignment_ms": 51,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1693,
+                "performance": {
+                  "device_seconds": 1.1939678473472597,
+                  "raw_audio_seconds": 2.56,
+                  "aggregate_rtf": 0.4663936903700233,
+                  "audio_seconds_per_second": 2.1441113390848594,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.1939678473472597,
+                      "audio_seconds": [
+                        2.56
+                      ],
+                      "model_wall_seconds": 1.3423648327589035,
+                      "first_audio_seconds": 0.7263375244140625,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.14281930029392242
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 3508.68,
+                "audio_s": 5.31
+              },
+              {
+                "sentence": 1,
+                "total_ms": 1699.91,
+                "audio_s": 2.19
+              }
+            ],
+            "sentence_ready_ms": 5582.45,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "delivery.firm.soft"
+          }
+        },
+        {
+          "at_ms": 6744.1,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 314.79,
+          "llm_first_sentence_ms": 360.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1625,
+            "completion_tokens": 73,
+            "total_tokens": 1698,
+            "cost": 0.0017003448,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00171752,
+              "upstream_inference_prompt_cost": 0.00160875,
+              "upstream_inference_completions_cost": 0.00010877
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 395.57,
+          "response_complete": true,
+          "answer_first_audio_ms": 1514.91,
+          "tts_first_audio_ms": 1142.7,
+          "first_audio_ms": 1514.92,
+          "tts_server_stages": [
+            {
+              "generation_ms": 3282,
+              "alignment_ms": 85,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3497,
+              "performance": {
+                "device_seconds": 2.6604978041648866,
+                "raw_audio_seconds": 5.68,
+                "aggregate_rtf": 0.4683975007332547,
+                "audio_seconds_per_second": 2.134938803974287,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.6604978041648866,
+                    "audio_seconds": [
+                      5.68
+                    ],
+                    "model_wall_seconds": 3.1097188740968704,
+                    "first_audio_seconds": 0.7743006591796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.4418344423174858
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1518,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1693,
+              "performance": {
+                "device_seconds": 1.1939678473472597,
+                "raw_audio_seconds": 2.56,
+                "aggregate_rtf": 0.4663936903700233,
+                "audio_seconds_per_second": 2.1441113390848594,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.1939678473472597,
+                    "audio_seconds": [
+                      2.56
+                    ],
+                    "model_wall_seconds": 1.3423648327589035,
+                    "first_audio_seconds": 0.7263375244140625,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.14281930029392242
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 3508.68,
+              "audio_s": 5.31
+            },
+            {
+              "sentence": 1,
+              "total_ms": 1699.91,
+              "audio_s": 2.19
+            }
+          ]
+        },
+        {
+          "at_ms": 6744.27,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 7265.14,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 40080
+        },
+        {
+          "at_ms": 7345.25,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 7345.49,
+          "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.\nDie eine sagt: „Na und? Was macht die da unten?“\nDie andere antwortet: „Ich weiß es nicht, aber ich wette, sie ist gerade sehr beschäftigt.“",
+          "script": "(amusement, playful) Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun. (soft, firm) Die eine sagt: „Na und? (soft, firm) Was macht die da unten?“ (surprise, natural) Die andere antwortet: „Ich weiß es nicht, aber ich wette, sie ist gerade sehr beschäftigt.“",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "amusement",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "amusement, playful",
+                "text": "Zwei Katzen sitzen auf einem Dach und schauen auf eine kleine Maus unter dem Zaun.",
+                "start_s": 0.0,
+                "end_s": 5.31
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "soft, firm",
+                "text": "Die eine sagt: „Na und?",
+                "start_s": 5.31,
+                "end_s": 7.5
+              },
+              {
+                "emotion": "contentment",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "soft, firm",
+                "text": "Was macht die da unten?“",
+                "start_s": 7.5,
+                "end_s": 9.77
+              },
+              {
+                "emotion": "surprise",
+                "secondary": "contentment",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "surprise, natural",
+                "text": "Die andere antwortet: „Ich weiß es nicht, aber ich wette, sie ist gerade sehr beschäftigt.“",
+                "start_s": 9.77,
+                "end_s": 14.87
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "surprise.soft",
+          "sentence_index": 3,
+          "sentence_text": "Die andere antwortet: „Ich weiß es nicht, aber ich wette, sie ist gerade sehr beschäftigt.“",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 314.79,
+            "llm_first_sentence_ms": 360.13,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1625,
+              "completion_tokens": 73,
+              "total_tokens": 1698,
+              "cost": 0.0017003448,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00171752,
+                "upstream_inference_prompt_cost": 0.00160875,
+                "upstream_inference_completions_cost": 0.00010877
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 395.57,
+            "response_complete": true,
+            "answer_first_audio_ms": 1514.91,
+            "tts_first_audio_ms": 1142.7,
+            "first_audio_ms": 1514.92,
+            "tts_server_stages": [
+              {
+                "generation_ms": 3282,
+                "alignment_ms": 85,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 3497,
+                "performance": {
+                  "device_seconds": 2.6604978041648866,
+                  "raw_audio_seconds": 5.68,
+                  "aggregate_rtf": 0.4683975007332547,
+                  "audio_seconds_per_second": 2.134938803974287,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 2.6604978041648866,
+                      "audio_seconds": [
+                        5.68
+                      ],
+                      "model_wall_seconds": 3.1097188740968704,
+                      "first_audio_seconds": 0.7743006591796875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.4418344423174858
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 1518,
+                "alignment_ms": 51,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1693,
+                "performance": {
+                  "device_seconds": 1.1939678473472597,
+                  "raw_audio_seconds": 2.56,
+                  "aggregate_rtf": 0.4663936903700233,
+                  "audio_seconds_per_second": 2.1441113390848594,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.1939678473472597,
+                      "audio_seconds": [
+                        2.56
+                      ],
+                      "model_wall_seconds": 1.3423648327589035,
+                      "first_audio_seconds": 0.7263375244140625,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.14281930029392242
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 1546,
+                "alignment_ms": 77,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1741,
+                "performance": {
+                  "device_seconds": 1.1861202468872072,
+                  "raw_audio_seconds": 2.48,
+                  "aggregate_rtf": 0.47827429309968034,
+                  "audio_seconds_per_second": 2.0908504061948054,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.1861202468872072,
+                      "audio_seconds": [
+                        2.48
+                      ],
+                      "model_wall_seconds": 1.3701241239905357,
+                      "first_audio_seconds": 0.7434956665039063,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.17879826575517654
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 3508.68,
+                "audio_s": 5.31
+              },
+              {
+                "sentence": 1,
+                "total_ms": 1699.91,
+                "audio_s": 2.19
+              },
+              {
+                "sentence": 2,
+                "total_ms": 1747.46,
+                "audio_s": 2.27
+              }
+            ],
+            "sentence_ready_ms": 7330.94,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "surprise.soft"
+          }
+        },
+        {
+          "at_ms": 8522.22,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 314.79,
+          "llm_first_sentence_ms": 360.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1625,
+            "completion_tokens": 73,
+            "total_tokens": 1698,
+            "cost": 0.0017003448,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00171752,
+              "upstream_inference_prompt_cost": 0.00160875,
+              "upstream_inference_completions_cost": 0.00010877
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 395.57,
+          "response_complete": true,
+          "answer_first_audio_ms": 1514.91,
+          "tts_first_audio_ms": 1142.7,
+          "first_audio_ms": 1514.92,
+          "tts_server_stages": [
+            {
+              "generation_ms": 3282,
+              "alignment_ms": 85,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3497,
+              "performance": {
+                "device_seconds": 2.6604978041648866,
+                "raw_audio_seconds": 5.68,
+                "aggregate_rtf": 0.4683975007332547,
+                "audio_seconds_per_second": 2.134938803974287,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.6604978041648866,
+                    "audio_seconds": [
+                      5.68
+                    ],
+                    "model_wall_seconds": 3.1097188740968704,
+                    "first_audio_seconds": 0.7743006591796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.4418344423174858
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1518,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1693,
+              "performance": {
+                "device_seconds": 1.1939678473472597,
+                "raw_audio_seconds": 2.56,
+                "aggregate_rtf": 0.4663936903700233,
+                "audio_seconds_per_second": 2.1441113390848594,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.1939678473472597,
+                    "audio_seconds": [
+                      2.56
+                    ],
+                    "model_wall_seconds": 1.3423648327589035,
+                    "first_audio_seconds": 0.7263375244140625,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.14281930029392242
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1546,
+              "alignment_ms": 77,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1741,
+              "performance": {
+                "device_seconds": 1.1861202468872072,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.47827429309968034,
+                "audio_seconds_per_second": 2.0908504061948054,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.1861202468872072,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.3701241239905357,
+                    "first_audio_seconds": 0.7434956665039063,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.17879826575517654
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 3508.68,
+              "audio_s": 5.31
+            },
+            {
+              "sentence": 1,
+              "total_ms": 1699.91,
+              "audio_s": 2.19
+            },
+            {
+              "sentence": 2,
+              "total_ms": 1747.46,
+              "audio_s": 2.27
+            }
+          ]
+        },
+        {
+          "at_ms": 8522.4,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 9301.64,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 10159.78,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 10903.24,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 26880
+        },
+        {
+          "at_ms": 10980.71,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 22800
+        },
+        {
+          "at_ms": 10981.49,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 10981.66,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 314.79,
+          "llm_first_sentence_ms": 360.13,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1625,
+            "completion_tokens": 73,
+            "total_tokens": 1698,
+            "cost": 0.0017003448,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00171752,
+              "upstream_inference_prompt_cost": 0.00160875,
+              "upstream_inference_completions_cost": 0.00010877
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 395.57,
+          "response_complete": true,
+          "answer_first_audio_ms": 1514.91,
+          "tts_first_audio_ms": 1142.7,
+          "first_audio_ms": 1514.92,
+          "tts_server_stages": [
+            {
+              "generation_ms": 3282,
+              "alignment_ms": 85,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3497,
+              "performance": {
+                "device_seconds": 2.6604978041648866,
+                "raw_audio_seconds": 5.68,
+                "aggregate_rtf": 0.4683975007332547,
+                "audio_seconds_per_second": 2.134938803974287,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.6604978041648866,
+                    "audio_seconds": [
+                      5.68
+                    ],
+                    "model_wall_seconds": 3.1097188740968704,
+                    "first_audio_seconds": 0.7743006591796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.4418344423174858
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1518,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1693,
+              "performance": {
+                "device_seconds": 1.1939678473472597,
+                "raw_audio_seconds": 2.56,
+                "aggregate_rtf": 0.4663936903700233,
+                "audio_seconds_per_second": 2.1441113390848594,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.1939678473472597,
+                    "audio_seconds": [
+                      2.56
+                    ],
+                    "model_wall_seconds": 1.3423648327589035,
+                    "first_audio_seconds": 0.7263375244140625,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.14281930029392242
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1546,
+              "alignment_ms": 77,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1741,
+              "performance": {
+                "device_seconds": 1.1861202468872072,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.47827429309968034,
+                "audio_seconds_per_second": 2.0908504061948054,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.1861202468872072,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.3701241239905357,
+                    "first_audio_seconds": 0.7434956665039063,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.17879826575517654
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 3421,
+              "alignment_ms": 70,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3623,
+              "performance": {
+                "device_seconds": 2.7614823813438414,
+                "raw_audio_seconds": 5.92,
+                "aggregate_rtf": 0.4664666184702435,
+                "audio_seconds_per_second": 2.143776125458785,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.7614823813438414,
+                    "audio_seconds": [
+                      5.92
+                    ],
+                    "model_wall_seconds": 3.245129093527794,
+                    "first_audio_seconds": 0.7783905029296875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.4769063740968704
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 3508.68,
+              "audio_s": 5.31
+            },
+            {
+              "sentence": 1,
+              "total_ms": 1699.91,
+              "audio_s": 2.19
+            },
+            {
+              "sentence": 2,
+              "total_ms": 1747.46,
+              "audio_s": 2.27
+            },
+            {
+              "sentence": 3,
+              "total_ms": 3637.09,
+              "audio_s": 5.87
+            }
+          ],
+          "total_ms": 10968.2,
+          "audio_s": 15.64,
+          "sentences": 4,
+          "generation_rtf": 0.7013
+        }
+      ],
+      "first_pcm_ms": 1528.44,
+      "first_main_audio_ms": 1528.44,
+      "audio_s": 15.64
+    },
+    {
+      "case": "another_joke",
+      "input": "Noch einen bitte.",
+      "history": [
+        {
+          "role": "user",
+          "content": "Erzähl mir einen Witz über Katzen."
+        },
+        {
+          "role": "assistant",
+          "content": "Ein bisschen Spaß passt immer. Was bestellt eine Katze im Café? Einen Miauccino!"
+        }
+      ],
+      "events": [
+        {
+          "at_ms": 342.68,
+          "text": "Warum sitzen Katzen immer genau auf der Tastatur?",
+          "script": "(interest, playful) Warum sitzen Katzen immer genau auf der Tastatur?",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "interest",
+                "secondary": "amusement",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "interest, playful",
+                "text": "Warum sitzen Katzen immer genau auf der Tastatur?",
+                "start_s": 0.0,
+                "end_s": 2.72
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "interest.soft",
+          "sentence_index": 0,
+          "sentence_text": "Warum sitzen Katzen immer genau auf der Tastatur?",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 301.57,
+            "llm_first_sentence_ms": 327.33,
+            "sentence_ready_ms": 331.48,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "interest.soft"
+          }
+        },
+        {
+          "at_ms": 1387.57,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 301.57,
+          "llm_first_sentence_ms": 327.33,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1663,
+            "completion_tokens": 25,
+            "total_tokens": 1688,
+            "cost": 0.0016667838,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00168362,
+              "upstream_inference_prompt_cost": 0.00164637,
+              "upstream_inference_completions_cost": 3.725e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 349.69,
+          "response_complete": true,
+          "answer_first_audio_ms": 1376.85,
+          "tts_first_audio_ms": 1045.31,
+          "first_audio_ms": 1376.85
+        },
+        {
+          "at_ms": 1387.74,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 2222.07,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 2903.64,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 26880
+        },
+        {
+          "at_ms": 2982.49,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 17040
+        },
+        {
+          "at_ms": 2985.64,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 2985.75,
+          "text": "Warum sitzen Katzen immer genau auf der Tastatur? Weil sie den besten Zugang zum WLAN haben!",
+          "script": "(interest, playful) Warum sitzen Katzen immer genau auf der Tastatur? (interest, playful) Weil sie den besten Zugang zum WLAN haben!",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "interest",
+                "secondary": "amusement",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "interest, playful",
+                "text": "Warum sitzen Katzen immer genau auf der Tastatur?",
+                "start_s": 0.0,
+                "end_s": 4.03
+              },
+              {
+                "emotion": "interest",
+                "secondary": "amusement",
+                "blend": 0.25,
+                "intensity": 0.72,
+                "direction": "interest, playful",
+                "text": "Weil sie den besten Zugang zum WLAN haben!",
+                "start_s": 4.03,
+                "end_s": 6.75
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "interest.soft",
+          "sentence_index": 1,
+          "sentence_text": "Weil sie den besten Zugang zum WLAN haben!",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 301.57,
+            "llm_first_sentence_ms": 327.33,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1663,
+              "completion_tokens": 25,
+              "total_tokens": 1688,
+              "cost": 0.0016667838,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.00168362,
+                "upstream_inference_prompt_cost": 0.00164637,
+                "upstream_inference_completions_cost": 3.725e-05
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "task_acknowledgement_only": false,
+            "task_minimum_units": 2,
+            "task_missing_units": false,
+            "completion_repairs": 0,
+            "llm_total_ms": 349.69,
+            "response_complete": true,
+            "answer_first_audio_ms": 1376.85,
+            "tts_first_audio_ms": 1045.31,
+            "first_audio_ms": 1376.85,
+            "tts_server_stages": [
+              {
+                "generation_ms": 2435,
+                "alignment_ms": 72,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2629,
+                "performance": {
+                  "device_seconds": 1.9919096102714537,
+                  "raw_audio_seconds": 4.32,
+                  "aggregate_rtf": 0.4610901875628365,
+                  "audio_seconds_per_second": 2.1687731098457217,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.9919096102714537,
+                      "audio_seconds": [
+                        4.32
+                      ],
+                      "model_wall_seconds": 2.3124767914414406,
+                      "first_audio_seconds": 0.723662841796875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.31441589444875717
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 2641.37,
+                "audio_s": 4.03
+              }
+            ],
+            "sentence_ready_ms": 2973.98,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "interest.soft"
+          }
+        },
+        {
+          "at_ms": 4153.97,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 301.57,
+          "llm_first_sentence_ms": 327.33,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1663,
+            "completion_tokens": 25,
+            "total_tokens": 1688,
+            "cost": 0.0016667838,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00168362,
+              "upstream_inference_prompt_cost": 0.00164637,
+              "upstream_inference_completions_cost": 3.725e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 349.69,
+          "response_complete": true,
+          "answer_first_audio_ms": 1376.85,
+          "tts_first_audio_ms": 1045.31,
+          "first_audio_ms": 1376.85,
+          "tts_server_stages": [
+            {
+              "generation_ms": 2435,
+              "alignment_ms": 72,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2629,
+              "performance": {
+                "device_seconds": 1.9919096102714537,
+                "raw_audio_seconds": 4.32,
+                "aggregate_rtf": 0.4610901875628365,
+                "audio_seconds_per_second": 2.1687731098457217,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.9919096102714537,
+                    "audio_seconds": [
+                      4.32
+                    ],
+                    "model_wall_seconds": 2.3124767914414406,
+                    "first_audio_seconds": 0.723662841796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.31441589444875717
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 2641.37,
+              "audio_s": 4.03
+            }
+          ]
+        },
+        {
+          "at_ms": 4154.14,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 4933.46,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 5774.93,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 6208.75,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 11520
+        },
+        {
+          "at_ms": 6274.36,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 24000
+        },
+        {
+          "at_ms": 6275.02,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 6275.13,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 301.57,
+          "llm_first_sentence_ms": 327.33,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1663,
+            "completion_tokens": 25,
+            "total_tokens": 1688,
+            "cost": 0.0016667838,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00168362,
+              "upstream_inference_prompt_cost": 0.00164637,
+              "upstream_inference_completions_cost": 3.725e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "task_acknowledgement_only": false,
+          "task_minimum_units": 2,
+          "task_missing_units": false,
+          "completion_repairs": 0,
+          "llm_total_ms": 349.69,
+          "response_complete": true,
+          "answer_first_audio_ms": 1376.85,
+          "tts_first_audio_ms": 1045.31,
+          "first_audio_ms": 1376.85,
+          "tts_server_stages": [
+            {
+              "generation_ms": 2435,
+              "alignment_ms": 72,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2629,
+              "performance": {
+                "device_seconds": 1.9919096102714537,
+                "raw_audio_seconds": 4.32,
+                "aggregate_rtf": 0.4610901875628365,
+                "audio_seconds_per_second": 2.1687731098457217,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.9919096102714537,
+                    "audio_seconds": [
+                      4.32
+                    ],
+                    "model_wall_seconds": 2.3124767914414406,
+                    "first_audio_seconds": 0.723662841796875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.31441589444875717
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 3095,
+              "alignment_ms": 55,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3276,
+              "performance": {
+                "device_seconds": 2.4765242171287536,
+                "raw_audio_seconds": 5.28,
+                "aggregate_rtf": 0.46903867748650635,
+                "audio_seconds_per_second": 2.1320203386185965,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.4765242171287536,
+                    "audio_seconds": [
+                      5.28
+                    ],
+                    "model_wall_seconds": 2.9171821251511574,
+                    "first_audio_seconds": 0.7567337646484374,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.43392543494701385
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 2641.37,
+              "audio_s": 4.03
+            },
+            {
+              "sentence": 1,
+              "total_ms": 3290.51,
+              "audio_s": 5.28
+            }
+          ],
+          "total_ms": 6264.62,
+          "audio_s": 9.31,
+          "sentences": 2,
+          "generation_rtf": 0.6729
+        }
+      ],
+      "first_pcm_ms": 1387.74,
+      "first_main_audio_ms": 1387.74,
+      "audio_s": 9.31
+    },
+    {
+      "case": "bereavement",
+      "input": "Mein Hund ist heute gestorben.",
+      "history": [],
+      "events": [
+        {
+          "at_ms": 323.43,
+          "text": "Das tut mir sehr leid.",
+          "script": "(contentment, soft, warm) Das tut mir sehr leid.",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "contentment",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "contentment, soft, warm",
+                "text": "Das tut mir sehr leid.",
+                "start_s": 0.0,
+                "end_s": 1.7
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "reaction",
+          "template_id": "contentment.soft",
+          "sentence_index": 0,
+          "sentence_text": "Das tut mir sehr leid.",
+          "timing": {
+            "quick_reply_status": "selected",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "quick_reply_generation_ms": 311.92,
+            "quick_reply_model": "nemotron-bolt",
+            "quick_reply_words": 5,
+            "sentence_ready_ms": 313.86,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "contentment.soft"
+          }
+        },
+        {
+          "at_ms": 860.75,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74
+        },
+        {
+          "at_ms": 860.82,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 3590
+        },
+        {
+          "at_ms": 1093.06,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 9600
+        },
+        {
+          "at_ms": 1331.7,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 9600
+        },
+        {
+          "at_ms": 1564.15,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 9600
+        },
+        {
+          "at_ms": 1804.02,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 9600
+        },
+        {
+          "at_ms": 2046.45,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 9600
+        },
+        {
+          "at_ms": 2285.82,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 7680
+        },
+        {
+          "at_ms": 2295.67,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 250
+        },
+        {
+          "at_ms": 2295.78,
+          "text": "Das tut mir sehr leid. Oh, das tut mir so, so sehr leid.",
+          "script": "(contentment, soft, warm) Das tut mir sehr leid. (sadness, soft) Oh, das tut mir so, so sehr leid.",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "contentment",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "contentment, soft, warm",
+                "text": "Das tut mir sehr leid.",
+                "start_s": 0.0,
+                "end_s": 2.48
+              },
+              {
+                "emotion": "sadness",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "sadness, soft",
+                "text": "Oh, das tut mir so, so sehr leid.",
+                "start_s": 2.48,
+                "end_s": 5.2
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "sadness.soft",
+          "sentence_index": 1,
+          "sentence_text": "Oh, das tut mir so, so sehr leid.",
+          "timing": {
+            "quick_reply_status": "played",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "quick_reply_generation_ms": 311.92,
+            "quick_reply_model": "nemotron-bolt",
+            "quick_reply_words": 5,
+            "tts_first_audio_ms": 537.82,
+            "first_audio_ms": 851.74,
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 1240.67,
+            "llm_first_sentence_ms": 1270.93,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1363,
+              "completion_tokens": 77,
+              "total_tokens": 1440,
+              "cost": 0.001449459,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0014641,
+                "upstream_inference_prompt_cost": 0.00134937,
+                "upstream_inference_completions_cost": 0.00011473
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "llm_total_ms": 1348.05,
+            "response_complete": true,
+            "tts_server_stages": [
+              {
+                "generation_ms": 1840,
+                "alignment_ms": 0,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1963,
+                "performance": {
+                  "device_seconds": 1.6535211882591248,
+                  "raw_audio_seconds": 2.48,
+                  "aggregate_rtf": 0.6667424146206148,
+                  "audio_seconds_per_second": 1.4998295864663314,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.6535211882591248,
+                      "audio_seconds": [
+                        2.48
+                      ],
+                      "model_wall_seconds": 1.6557160764932632,
+                      "first_audio_seconds": 0.2259435577392578,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.001526370644569397
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 5,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "quick_reply_audio_s": 2.48,
+            "quick_reply_tts_ms": 1968.76,
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 1968.77,
+                "audio_s": 2.48
+              }
+            ],
+            "sentence_ready_ms": 2284.44,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "sadness.soft"
+          }
+        },
+        {
+          "at_ms": 3482.78,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74,
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 1240.67,
+          "llm_first_sentence_ms": 1270.93,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1363,
+            "completion_tokens": 77,
+            "total_tokens": 1440,
+            "cost": 0.001449459,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0014641,
+              "upstream_inference_prompt_cost": 0.00134937,
+              "upstream_inference_completions_cost": 0.00011473
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 1348.05,
+          "response_complete": true,
+          "tts_server_stages": [
+            {
+              "generation_ms": 1840,
+              "alignment_ms": 0,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1963,
+              "performance": {
+                "device_seconds": 1.6535211882591248,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.6667424146206148,
+                "audio_seconds_per_second": 1.4998295864663314,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.6535211882591248,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.6557160764932632,
+                    "first_audio_seconds": 0.2259435577392578,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.001526370644569397
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 5,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "quick_reply_audio_s": 2.48,
+          "quick_reply_tts_ms": 1968.76,
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 1968.77,
+              "audio_s": 2.48
+            }
+          ],
+          "answer_first_audio_ms": 3473.43
+        },
+        {
+          "at_ms": 3482.95,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 4244.8,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 4688.01,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 36240
+        },
+        {
+          "at_ms": 4740.14,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 4740.28,
+          "text": "Das tut mir sehr leid. Oh, das tut mir so, so sehr leid.\nIch kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+          "script": "(contentment, soft, warm) Das tut mir sehr leid. (sadness, soft) Oh, das tut mir so, so sehr leid. (affection, warm) Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "contentment",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "contentment, soft, warm",
+                "text": "Das tut mir sehr leid.",
+                "start_s": 0.0,
+                "end_s": 2.48
+              },
+              {
+                "emotion": "sadness",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "sadness, soft",
+                "text": "Oh, das tut mir so, so sehr leid.",
+                "start_s": 2.48,
+                "end_s": 6.19
+              },
+              {
+                "emotion": "affection",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "affection, warm",
+                "text": "Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+                "start_s": 6.19,
+                "end_s": 9.25
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "affection.soft",
+          "sentence_index": 2,
+          "sentence_text": "Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+          "timing": {
+            "quick_reply_status": "played",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "quick_reply_generation_ms": 311.92,
+            "quick_reply_model": "nemotron-bolt",
+            "quick_reply_words": 5,
+            "tts_first_audio_ms": 537.82,
+            "first_audio_ms": 851.74,
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 1240.67,
+            "llm_first_sentence_ms": 1270.93,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1363,
+              "completion_tokens": 77,
+              "total_tokens": 1440,
+              "cost": 0.001449459,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0014641,
+                "upstream_inference_prompt_cost": 0.00134937,
+                "upstream_inference_completions_cost": 0.00011473
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "llm_total_ms": 1348.05,
+            "response_complete": true,
+            "tts_server_stages": [
+              {
+                "generation_ms": 1840,
+                "alignment_ms": 0,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1963,
+                "performance": {
+                  "device_seconds": 1.6535211882591248,
+                  "raw_audio_seconds": 2.48,
+                  "aggregate_rtf": 0.6667424146206148,
+                  "audio_seconds_per_second": 1.4998295864663314,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.6535211882591248,
+                      "audio_seconds": [
+                        2.48
+                      ],
+                      "model_wall_seconds": 1.6557160764932632,
+                      "first_audio_seconds": 0.2259435577392578,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.001526370644569397
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 5,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 2258,
+                "alignment_ms": 53,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2437,
+                "performance": {
+                  "device_seconds": 1.8303051085472108,
+                  "raw_audio_seconds": 3.84,
+                  "aggregate_rtf": 0.4766419553508362,
+                  "audio_seconds_per_second": 2.098010862816182,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.8303051085472108,
+                      "audio_seconds": [
+                        3.84
+                      ],
+                      "model_wall_seconds": 2.0802470222115517,
+                      "first_audio_seconds": 0.7658231201171875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.2463180050253868
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "quick_reply_audio_s": 2.48,
+            "quick_reply_tts_ms": 1968.76,
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 1968.77,
+                "audio_s": 2.48
+              },
+              {
+                "sentence": 1,
+                "total_ms": 2444.5,
+                "audio_s": 3.71
+              }
+            ],
+            "answer_first_audio_ms": 3473.43,
+            "sentence_ready_ms": 4729.98,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "affection.soft"
+          }
+        },
+        {
+          "at_ms": 5919.72,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74,
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 1240.67,
+          "llm_first_sentence_ms": 1270.93,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1363,
+            "completion_tokens": 77,
+            "total_tokens": 1440,
+            "cost": 0.001449459,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0014641,
+              "upstream_inference_prompt_cost": 0.00134937,
+              "upstream_inference_completions_cost": 0.00011473
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 1348.05,
+          "response_complete": true,
+          "tts_server_stages": [
+            {
+              "generation_ms": 1840,
+              "alignment_ms": 0,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1963,
+              "performance": {
+                "device_seconds": 1.6535211882591248,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.6667424146206148,
+                "audio_seconds_per_second": 1.4998295864663314,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.6535211882591248,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.6557160764932632,
+                    "first_audio_seconds": 0.2259435577392578,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.001526370644569397
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 5,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2258,
+              "alignment_ms": 53,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2437,
+              "performance": {
+                "device_seconds": 1.8303051085472108,
+                "raw_audio_seconds": 3.84,
+                "aggregate_rtf": 0.4766419553508362,
+                "audio_seconds_per_second": 2.098010862816182,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8303051085472108,
+                    "audio_seconds": [
+                      3.84
+                    ],
+                    "model_wall_seconds": 2.0802470222115517,
+                    "first_audio_seconds": 0.7658231201171875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.2463180050253868
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "quick_reply_audio_s": 2.48,
+          "quick_reply_tts_ms": 1968.76,
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 1968.77,
+              "audio_s": 2.48
+            },
+            {
+              "sentence": 1,
+              "total_ms": 2444.5,
+              "audio_s": 3.71
+            }
+          ],
+          "answer_first_audio_ms": 3473.43
+        },
+        {
+          "at_ms": 5919.9,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 6752.06,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 7263.82,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 17280
+        },
+        {
+          "at_ms": 7322.59,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 15120
+        },
+        {
+          "at_ms": 7324.26,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 7324.41,
+          "text": "Das tut mir sehr leid. Oh, das tut mir so, so sehr leid.\nIch kann mir vorstellen, wie schmerzhaft diese Nachricht ist.\nEin treuer Freund ist einfach so gegangen.",
+          "script": "(contentment, soft, warm) Das tut mir sehr leid. (sadness, soft) Oh, das tut mir so, so sehr leid. (affection, warm) Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist. (contemplation, gentle) Ein treuer Freund ist einfach so gegangen.",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "contentment",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "contentment, soft, warm",
+                "text": "Das tut mir sehr leid.",
+                "start_s": 0.0,
+                "end_s": 2.48
+              },
+              {
+                "emotion": "sadness",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "sadness, soft",
+                "text": "Oh, das tut mir so, so sehr leid.",
+                "start_s": 2.48,
+                "end_s": 6.19
+              },
+              {
+                "emotion": "affection",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "affection, warm",
+                "text": "Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+                "start_s": 6.19,
+                "end_s": 9.74
+              },
+              {
+                "emotion": "contemplation",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "contemplation, gentle",
+                "text": "Ein treuer Freund ist einfach so gegangen.",
+                "start_s": 9.74,
+                "end_s": 12.120000000000001
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "contemplation.soft",
+          "sentence_index": 3,
+          "sentence_text": "Ein treuer Freund ist einfach so gegangen.",
+          "timing": {
+            "quick_reply_status": "played",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "quick_reply_generation_ms": 311.92,
+            "quick_reply_model": "nemotron-bolt",
+            "quick_reply_words": 5,
+            "tts_first_audio_ms": 537.82,
+            "first_audio_ms": 851.74,
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 1240.67,
+            "llm_first_sentence_ms": 1270.93,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1363,
+              "completion_tokens": 77,
+              "total_tokens": 1440,
+              "cost": 0.001449459,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0014641,
+                "upstream_inference_prompt_cost": 0.00134937,
+                "upstream_inference_completions_cost": 0.00011473
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "llm_total_ms": 1348.05,
+            "response_complete": true,
+            "tts_server_stages": [
+              {
+                "generation_ms": 1840,
+                "alignment_ms": 0,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1963,
+                "performance": {
+                  "device_seconds": 1.6535211882591248,
+                  "raw_audio_seconds": 2.48,
+                  "aggregate_rtf": 0.6667424146206148,
+                  "audio_seconds_per_second": 1.4998295864663314,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.6535211882591248,
+                      "audio_seconds": [
+                        2.48
+                      ],
+                      "model_wall_seconds": 1.6557160764932632,
+                      "first_audio_seconds": 0.2259435577392578,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.001526370644569397
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 5,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 2258,
+                "alignment_ms": 53,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2437,
+                "performance": {
+                  "device_seconds": 1.8303051085472108,
+                  "raw_audio_seconds": 3.84,
+                  "aggregate_rtf": 0.4766419553508362,
+                  "audio_seconds_per_second": 2.098010862816182,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.8303051085472108,
+                      "audio_seconds": [
+                        3.84
+                      ],
+                      "model_wall_seconds": 2.0802470222115517,
+                      "first_audio_seconds": 0.7658231201171875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.2463180050253868
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 2407,
+                "alignment_ms": 51,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2575,
+                "performance": {
+                  "device_seconds": 1.8613621401786806,
+                  "raw_audio_seconds": 3.92,
+                  "aggregate_rtf": 0.4748372806578267,
+                  "audio_seconds_per_second": 2.1059845987969332,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.8613621401786806,
+                      "audio_seconds": [
+                        3.92
+                      ],
+                      "model_wall_seconds": 2.23168034106493,
+                      "first_audio_seconds": 0.7643341064453125,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.36346564441919327
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "quick_reply_audio_s": 2.48,
+            "quick_reply_tts_ms": 1968.76,
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 1968.77,
+                "audio_s": 2.48
+              },
+              {
+                "sentence": 1,
+                "total_ms": 2444.5,
+                "audio_s": 3.71
+              },
+              {
+                "sentence": 2,
+                "total_ms": 2584.17,
+                "audio_s": 3.55
+              }
+            ],
+            "answer_first_audio_ms": 3473.43,
+            "sentence_ready_ms": 7314.76,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "contemplation.soft"
+          }
+        },
+        {
+          "at_ms": 8440.87,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74,
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 1240.67,
+          "llm_first_sentence_ms": 1270.93,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1363,
+            "completion_tokens": 77,
+            "total_tokens": 1440,
+            "cost": 0.001449459,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0014641,
+              "upstream_inference_prompt_cost": 0.00134937,
+              "upstream_inference_completions_cost": 0.00011473
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 1348.05,
+          "response_complete": true,
+          "tts_server_stages": [
+            {
+              "generation_ms": 1840,
+              "alignment_ms": 0,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1963,
+              "performance": {
+                "device_seconds": 1.6535211882591248,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.6667424146206148,
+                "audio_seconds_per_second": 1.4998295864663314,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.6535211882591248,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.6557160764932632,
+                    "first_audio_seconds": 0.2259435577392578,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.001526370644569397
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 5,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2258,
+              "alignment_ms": 53,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2437,
+              "performance": {
+                "device_seconds": 1.8303051085472108,
+                "raw_audio_seconds": 3.84,
+                "aggregate_rtf": 0.4766419553508362,
+                "audio_seconds_per_second": 2.098010862816182,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8303051085472108,
+                    "audio_seconds": [
+                      3.84
+                    ],
+                    "model_wall_seconds": 2.0802470222115517,
+                    "first_audio_seconds": 0.7658231201171875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.2463180050253868
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2407,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2575,
+              "performance": {
+                "device_seconds": 1.8613621401786806,
+                "raw_audio_seconds": 3.92,
+                "aggregate_rtf": 0.4748372806578267,
+                "audio_seconds_per_second": 2.1059845987969332,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8613621401786806,
+                    "audio_seconds": [
+                      3.92
+                    ],
+                    "model_wall_seconds": 2.23168034106493,
+                    "first_audio_seconds": 0.7643341064453125,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.36346564441919327
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "quick_reply_audio_s": 2.48,
+          "quick_reply_tts_ms": 1968.76,
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 1968.77,
+              "audio_s": 2.48
+            },
+            {
+              "sentence": 1,
+              "total_ms": 2444.5,
+              "audio_s": 3.71
+            },
+            {
+              "sentence": 2,
+              "total_ms": 2584.17,
+              "audio_s": 3.55
+            }
+          ],
+          "answer_first_audio_ms": 3473.43
+        },
+        {
+          "at_ms": 8441.04,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 9216.25,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 36480
+        },
+        {
+          "at_ms": 9292.19,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 7440
+        },
+        {
+          "at_ms": 9295.1,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 9295.29,
+          "text": "Das tut mir sehr leid. Oh, das tut mir so, so sehr leid.\nIch kann mir vorstellen, wie schmerzhaft diese Nachricht ist.\nEin treuer Freund ist einfach so gegangen.\nMöchtest du über ihn erzählen, oder brauchst du gerade nur ein wenig Ruhe?",
+          "script": "(contentment, soft, warm) Das tut mir sehr leid. (sadness, soft) Oh, das tut mir so, so sehr leid. (affection, warm) Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist. (contemplation, gentle) Ein treuer Freund ist einfach so gegangen. (hope, quiet) Möchtest du über ihn erzählen, oder brauchst du gerade nur ein wenig Ruhe?",
+          "language": "de",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "contentment",
+                "secondary": "affection",
+                "blend": 0.25,
+                "intensity": 0.55,
+                "direction": "contentment, soft, warm",
+                "text": "Das tut mir sehr leid.",
+                "start_s": 0.0,
+                "end_s": 2.48
+              },
+              {
+                "emotion": "sadness",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "sadness, soft",
+                "text": "Oh, das tut mir so, so sehr leid.",
+                "start_s": 2.48,
+                "end_s": 6.19
+              },
+              {
+                "emotion": "affection",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.72,
+                "direction": "affection, warm",
+                "text": "Ich kann mir vorstellen, wie schmerzhaft diese Nachricht ist.",
+                "start_s": 6.19,
+                "end_s": 9.74
+              },
+              {
+                "emotion": "contemplation",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "contemplation, gentle",
+                "text": "Ein treuer Freund ist einfach so gegangen.",
+                "start_s": 9.74,
+                "end_s": 12.17
+              },
+              {
+                "emotion": "hope",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "hope, quiet",
+                "text": "Möchtest du über ihn erzählen, oder brauchst du gerade nur ein wenig Ruhe?",
+                "start_s": 12.17,
+                "end_s": 16.59
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "hope.soft",
+          "sentence_index": 4,
+          "sentence_text": "Möchtest du über ihn erzählen, oder brauchst du gerade nur ein wenig Ruhe?",
+          "timing": {
+            "quick_reply_status": "played",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "quick_reply_generation_ms": 311.92,
+            "quick_reply_model": "nemotron-bolt",
+            "quick_reply_words": 5,
+            "tts_first_audio_ms": 537.82,
+            "first_audio_ms": 851.74,
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 1240.67,
+            "llm_first_sentence_ms": 1270.93,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1363,
+              "completion_tokens": 77,
+              "total_tokens": 1440,
+              "cost": 0.001449459,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0014641,
+                "upstream_inference_prompt_cost": 0.00134937,
+                "upstream_inference_completions_cost": 0.00011473
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "generation_calls": 1,
+            "llm_total_ms": 1348.05,
+            "response_complete": true,
+            "tts_server_stages": [
+              {
+                "generation_ms": 1840,
+                "alignment_ms": 0,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1963,
+                "performance": {
+                  "device_seconds": 1.6535211882591248,
+                  "raw_audio_seconds": 2.48,
+                  "aggregate_rtf": 0.6667424146206148,
+                  "audio_seconds_per_second": 1.4998295864663314,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.6535211882591248,
+                      "audio_seconds": [
+                        2.48
+                      ],
+                      "model_wall_seconds": 1.6557160764932632,
+                      "first_audio_seconds": 0.2259435577392578,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.001526370644569397
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 5,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 2258,
+                "alignment_ms": 53,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2437,
+                "performance": {
+                  "device_seconds": 1.8303051085472108,
+                  "raw_audio_seconds": 3.84,
+                  "aggregate_rtf": 0.4766419553508362,
+                  "audio_seconds_per_second": 2.098010862816182,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.8303051085472108,
+                      "audio_seconds": [
+                        3.84
+                      ],
+                      "model_wall_seconds": 2.0802470222115517,
+                      "first_audio_seconds": 0.7658231201171875,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.2463180050253868
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 2407,
+                "alignment_ms": 51,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 2575,
+                "performance": {
+                  "device_seconds": 1.8613621401786806,
+                  "raw_audio_seconds": 3.92,
+                  "aggregate_rtf": 0.4748372806578267,
+                  "audio_seconds_per_second": 2.1059845987969332,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.8613621401786806,
+                      "audio_seconds": [
+                        3.92
+                      ],
+                      "model_wall_seconds": 2.23168034106493,
+                      "first_audio_seconds": 0.7643341064453125,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.36346564441919327
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              },
+              {
+                "generation_ms": 1755,
+                "alignment_ms": 75,
+                "scoring_ms": 0,
+                "speaker_preparation_ms": 0,
+                "total_ms": 1961,
+                "performance": {
+                  "device_seconds": 1.417962281703949,
+                  "raw_audio_seconds": 3.12,
+                  "aggregate_rtf": 0.4544750902897272,
+                  "audio_seconds_per_second": 2.2003406157254988,
+                  "batches": [
+                    {
+                      "batch_size": 1,
+                      "device_seconds": 1.417962281703949,
+                      "audio_seconds": [
+                        3.12
+                      ],
+                      "model_wall_seconds": 1.572543017566204,
+                      "first_audio_seconds": 0.739330078125,
+                      "graph_capture_seconds": 0.0,
+                      "live_callback_seconds": 0.15198525041341782
+                    }
+                  ],
+                  "streaming": true,
+                  "chunk_frames": 20,
+                  "backend": "fused CFG + local CUDA graphs + compiled global",
+                  "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                  "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                  "graph_capture_seconds": 0.0,
+                  "oom_batch_retries": []
+                }
+              }
+            ],
+            "quick_reply_audio_s": 2.48,
+            "quick_reply_tts_ms": 1968.76,
+            "sentence_tts": [
+              {
+                "sentence": 0,
+                "total_ms": 1968.77,
+                "audio_s": 2.48
+              },
+              {
+                "sentence": 1,
+                "total_ms": 2444.5,
+                "audio_s": 3.71
+              },
+              {
+                "sentence": 2,
+                "total_ms": 2584.17,
+                "audio_s": 3.55
+              },
+              {
+                "sentence": 3,
+                "total_ms": 1969.3,
+                "audio_s": 2.43
+              }
+            ],
+            "answer_first_audio_ms": 3473.43,
+            "sentence_ready_ms": 9284.98,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "hope.soft"
+          }
+        },
+        {
+          "at_ms": 10476.59,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74,
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 1240.67,
+          "llm_first_sentence_ms": 1270.93,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1363,
+            "completion_tokens": 77,
+            "total_tokens": 1440,
+            "cost": 0.001449459,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0014641,
+              "upstream_inference_prompt_cost": 0.00134937,
+              "upstream_inference_completions_cost": 0.00011473
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 1348.05,
+          "response_complete": true,
+          "tts_server_stages": [
+            {
+              "generation_ms": 1840,
+              "alignment_ms": 0,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1963,
+              "performance": {
+                "device_seconds": 1.6535211882591248,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.6667424146206148,
+                "audio_seconds_per_second": 1.4998295864663314,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.6535211882591248,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.6557160764932632,
+                    "first_audio_seconds": 0.2259435577392578,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.001526370644569397
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 5,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2258,
+              "alignment_ms": 53,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2437,
+              "performance": {
+                "device_seconds": 1.8303051085472108,
+                "raw_audio_seconds": 3.84,
+                "aggregate_rtf": 0.4766419553508362,
+                "audio_seconds_per_second": 2.098010862816182,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8303051085472108,
+                    "audio_seconds": [
+                      3.84
+                    ],
+                    "model_wall_seconds": 2.0802470222115517,
+                    "first_audio_seconds": 0.7658231201171875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.2463180050253868
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2407,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2575,
+              "performance": {
+                "device_seconds": 1.8613621401786806,
+                "raw_audio_seconds": 3.92,
+                "aggregate_rtf": 0.4748372806578267,
+                "audio_seconds_per_second": 2.1059845987969332,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8613621401786806,
+                    "audio_seconds": [
+                      3.92
+                    ],
+                    "model_wall_seconds": 2.23168034106493,
+                    "first_audio_seconds": 0.7643341064453125,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.36346564441919327
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1755,
+              "alignment_ms": 75,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1961,
+              "performance": {
+                "device_seconds": 1.417962281703949,
+                "raw_audio_seconds": 3.12,
+                "aggregate_rtf": 0.4544750902897272,
+                "audio_seconds_per_second": 2.2003406157254988,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.417962281703949,
+                    "audio_seconds": [
+                      3.12
+                    ],
+                    "model_wall_seconds": 1.572543017566204,
+                    "first_audio_seconds": 0.739330078125,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.15198525041341782
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "quick_reply_audio_s": 2.48,
+          "quick_reply_tts_ms": 1968.76,
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 1968.77,
+              "audio_s": 2.48
+            },
+            {
+              "sentence": 1,
+              "total_ms": 2444.5,
+              "audio_s": 3.71
+            },
+            {
+              "sentence": 2,
+              "total_ms": 2584.17,
+              "audio_s": 3.55
+            },
+            {
+              "sentence": 3,
+              "total_ms": 1969.3,
+              "audio_s": 2.43
+            }
+          ],
+          "answer_first_audio_ms": 3473.43
+        },
+        {
+          "at_ms": 10476.78,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 11285.65,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 12157.9,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 12539.01,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 7680
+        },
+        {
+          "at_ms": 12599.96,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 17040
+        },
+        {
+          "at_ms": 12600.97,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 12601.12,
+          "quick_reply_status": "played",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "quick_reply_generation_ms": 311.92,
+          "quick_reply_model": "nemotron-bolt",
+          "quick_reply_words": 5,
+          "tts_first_audio_ms": 537.82,
+          "first_audio_ms": 851.74,
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 1240.67,
+          "llm_first_sentence_ms": 1270.93,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1363,
+            "completion_tokens": 77,
+            "total_tokens": 1440,
+            "cost": 0.001449459,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0014641,
+              "upstream_inference_prompt_cost": 0.00134937,
+              "upstream_inference_completions_cost": 0.00011473
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "generation_calls": 1,
+          "llm_total_ms": 1348.05,
+          "response_complete": true,
+          "tts_server_stages": [
+            {
+              "generation_ms": 1840,
+              "alignment_ms": 0,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1963,
+              "performance": {
+                "device_seconds": 1.6535211882591248,
+                "raw_audio_seconds": 2.48,
+                "aggregate_rtf": 0.6667424146206148,
+                "audio_seconds_per_second": 1.4998295864663314,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.6535211882591248,
+                    "audio_seconds": [
+                      2.48
+                    ],
+                    "model_wall_seconds": 1.6557160764932632,
+                    "first_audio_seconds": 0.2259435577392578,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.001526370644569397
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 5,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2258,
+              "alignment_ms": 53,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2437,
+              "performance": {
+                "device_seconds": 1.8303051085472108,
+                "raw_audio_seconds": 3.84,
+                "aggregate_rtf": 0.4766419553508362,
+                "audio_seconds_per_second": 2.098010862816182,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8303051085472108,
+                    "audio_seconds": [
+                      3.84
+                    ],
+                    "model_wall_seconds": 2.0802470222115517,
+                    "first_audio_seconds": 0.7658231201171875,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.2463180050253868
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 2407,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2575,
+              "performance": {
+                "device_seconds": 1.8613621401786806,
+                "raw_audio_seconds": 3.92,
+                "aggregate_rtf": 0.4748372806578267,
+                "audio_seconds_per_second": 2.1059845987969332,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.8613621401786806,
+                    "audio_seconds": [
+                      3.92
+                    ],
+                    "model_wall_seconds": 2.23168034106493,
+                    "first_audio_seconds": 0.7643341064453125,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.36346564441919327
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 1755,
+              "alignment_ms": 75,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 1961,
+              "performance": {
+                "device_seconds": 1.417962281703949,
+                "raw_audio_seconds": 3.12,
+                "aggregate_rtf": 0.4544750902897272,
+                "audio_seconds_per_second": 2.2003406157254988,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.417962281703949,
+                    "audio_seconds": [
+                      3.12
+                    ],
+                    "model_wall_seconds": 1.572543017566204,
+                    "first_audio_seconds": 0.739330078125,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.15198525041341782
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            },
+            {
+              "generation_ms": 3124,
+              "alignment_ms": 51,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 3294,
+              "performance": {
+                "device_seconds": 2.431072164058685,
+                "raw_audio_seconds": 5.12,
+                "aggregate_rtf": 0.47481878204271194,
+                "audio_seconds_per_second": 2.1060666465170406,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 2.431072164058685,
+                    "audio_seconds": [
+                      5.12
+                    ],
+                    "model_wall_seconds": 2.9415963888168335,
+                    "first_audio_seconds": 0.7714937133789063,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.5047990530729294
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "quick_reply_audio_s": 2.48,
+          "quick_reply_tts_ms": 1968.76,
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 1968.77,
+              "audio_s": 2.48
+            },
+            {
+              "sentence": 1,
+              "total_ms": 2444.5,
+              "audio_s": 3.71
+            },
+            {
+              "sentence": 2,
+              "total_ms": 2584.17,
+              "audio_s": 3.55
+            },
+            {
+              "sentence": 3,
+              "total_ms": 1969.3,
+              "audio_s": 2.43
+            },
+            {
+              "sentence": 4,
+              "total_ms": 3306.7,
+              "audio_s": 4.83
+            }
+          ],
+          "answer_first_audio_ms": 3473.43,
+          "total_ms": 12591.87,
+          "audio_s": 17.0,
+          "sentences": 5,
+          "generation_rtf": 0.7407
+        }
+      ],
+      "first_pcm_ms": 860.82,
+      "first_main_audio_ms": 3482.95,
+      "audio_s": 17.0
+    },
+    {
+      "case": "english_loss",
+      "input": "Please speak English. My cat died yesterday.",
+      "history": [],
+      "events": [
+        {
+          "at_ms": 350.13,
+          "text": "I am so deeply sorry to hear that.",
+          "script": "(sadness, soft) I am so deeply sorry to hear that.",
+          "language": "en",
+          "performance": {
+            "sentences": [
+              {
+                "emotion": "sadness",
+                "secondary": null,
+                "blend": 0.0,
+                "intensity": 0.55,
+                "direction": "sadness, soft",
+                "text": "I am so deeply sorry to hear that.",
+                "start_s": 0.0,
+                "end_s": 2.72
+              }
+            ],
+            "source": "qwen/qwen3.8-27b sentence cues + fixed GENERAL catalogue",
+            "timing": "Sentence starts anchored to actual preceding PCM duration; within-sentence estimates"
+          },
+          "avatar_actions": [],
+          "avatar_action_id": null,
+          "avatar_event": null,
+          "interaction_actions": [],
+          "sources": [],
+          "lookups": [],
+          "speaker": {},
+          "sentence_role": "answer",
+          "template_id": "sadness.soft",
+          "sentence_index": 0,
+          "sentence_text": "I am so deeply sorry to hear that.",
+          "timing": {
+            "quick_reply_status": "main_answer_won",
+            "llm_model": "qwen/qwen3.8-27b",
+            "llm_provider": "cerebras/fp16",
+            "llm_backend": "OpenRouter",
+            "llm_actual_provider": "Cerebras",
+            "llm_ttft_ms": 302.14,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 1364,
+              "completion_tokens": 16,
+              "total_tokens": 1380,
+              "cost": 0.001360458,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0013742,
+                "upstream_inference_prompt_cost": 0.00135036,
+                "upstream_inference_completions_cost": 2.384e-05
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "llm_first_sentence_ms": 338.18,
+            "generation_calls": 1,
+            "llm_total_ms": 338.2,
+            "response_complete": true,
+            "sentence_ready_ms": 339.28,
+            "director_mode": "bolt",
+            "director_model": "qwen/qwen3.8-27b",
+            "template_id": "sadness.soft"
+          }
+        },
+        {
+          "at_ms": 1447.16,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 302.14,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1364,
+            "completion_tokens": 16,
+            "total_tokens": 1380,
+            "cost": 0.001360458,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0013742,
+              "upstream_inference_prompt_cost": 0.00135036,
+              "upstream_inference_completions_cost": 2.384e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 338.18,
+          "generation_calls": 1,
+          "llm_total_ms": 338.2,
+          "response_complete": true,
+          "answer_first_audio_ms": 1436.75,
+          "tts_first_audio_ms": 1097.42,
+          "first_audio_ms": 1436.76
+        },
+        {
+          "at_ms": 1447.33,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 14390
+        },
+        {
+          "at_ms": 2253.01,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 38400
+        },
+        {
+          "at_ms": 2712.55,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 15360
+        },
+        {
+          "at_ms": 2766.31,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 17040
+        },
+        {
+          "at_ms": 2767.05,
+          "encoding": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "samples": 10
+        },
+        {
+          "at_ms": 2767.15,
+          "quick_reply_status": "main_answer_won",
+          "llm_model": "qwen/qwen3.8-27b",
+          "llm_provider": "cerebras/fp16",
+          "llm_backend": "OpenRouter",
+          "llm_actual_provider": "Cerebras",
+          "llm_ttft_ms": 302.14,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 1364,
+            "completion_tokens": 16,
+            "total_tokens": 1380,
+            "cost": 0.001360458,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0013742,
+              "upstream_inference_prompt_cost": 0.00135036,
+              "upstream_inference_completions_cost": 2.384e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "llm_first_sentence_ms": 338.18,
+          "generation_calls": 1,
+          "llm_total_ms": 338.2,
+          "response_complete": true,
+          "answer_first_audio_ms": 1436.75,
+          "tts_first_audio_ms": 1097.42,
+          "first_audio_ms": 1436.76,
+          "tts_server_stages": [
+            {
+              "generation_ms": 2237,
+              "alignment_ms": 47,
+              "scoring_ms": 0,
+              "speaker_preparation_ms": 0,
+              "total_ms": 2407,
+              "performance": {
+                "device_seconds": 1.7806700062751768,
+                "raw_audio_seconds": 3.84,
+                "aggregate_rtf": 0.46371614746749396,
+                "audio_seconds_per_second": 2.1564916500348934,
+                "batches": [
+                  {
+                    "batch_size": 1,
+                    "device_seconds": 1.7806700062751768,
+                    "audio_seconds": [
+                      3.84
+                    ],
+                    "model_wall_seconds": 2.0548474937677383,
+                    "first_audio_seconds": 0.7333079223632812,
+                    "graph_capture_seconds": 0.0,
+                    "live_callback_seconds": 0.2680693194270134
+                  }
+                ],
+                "streaming": true,
+                "chunk_frames": 20,
+                "backend": "fused CFG + local CUDA graphs + compiled global",
+                "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+                "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+                "graph_capture_seconds": 0.0,
+                "oom_batch_retries": []
+              }
+            }
+          ],
+          "sentence_tts": [
+            {
+              "sentence": 0,
+              "total_ms": 2417.6,
+              "audio_s": 3.55
+            }
+          ],
+          "total_ms": 2756.95,
+          "audio_s": 3.55,
+          "sentences": 1,
+          "generation_rtf": 0.7766
+        }
+      ],
+      "first_pcm_ms": 1447.33,
+      "first_main_audio_ms": 1447.33,
+      "audio_s": 3.55
+    }
+  ]
+}
