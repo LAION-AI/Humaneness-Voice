@@ -19,6 +19,9 @@ TTS_BASE=os.environ.get('ROBO_TTS_BASE','http://127.0.0.1:8792')
 async def lifespan(app):
     app.state.http=httpx.AsyncClient(timeout=180,limits=httpx.Limits(max_connections=20,max_keepalive_connections=12))
     app.state.admission=asyncio.Semaphore(2)
+    from llm_backends import refresh_providers
+    try:await refresh_providers(app.state.http)
+    except Exception:pass
     yield
     await app.state.http.aclose()
 
@@ -31,6 +34,8 @@ class Chat(BaseModel):
     voice:str=Field(default='emolia_c1699',max_length=80)
     chunk_frames:int=Field(default=20)
     reply_words:int|None=Field(default=None,ge=3,le=80)
+    llm_model:str|None=Field(default=None,max_length=40)
+    llm_provider:str|None=Field(default=None,max_length=100)
 
 class Speech(BaseModel):
     text:str=Field(min_length=1,max_length=1200)
@@ -48,9 +53,12 @@ async def state(request:Request):
             r=await client.get(url,timeout=3.);return r.status_code==200,r.json()
         except Exception as exc:return False,{'error':type(exc).__name__}
     llm,asr,tts=await asyncio.gather(check(base+'/health'),check(ASR_BASE+'/api/state'),check(TTS_BASE+'/api/state'))
-    return {'model':model,'repository':MODEL_REPO,'revision':MODEL_REVISION,
-        'engine':'llama.cpp CUDA Q4_K_M','templates':len(CATALOGUE),
-        'ready':llm[0] and asr[0] and asr[1].get('ready',False) and tts[0] and tts[1].get('ready',True),
+    from llm_backends import default_selection,catalog,MODELS
+    chosen=default_selection();remote=chosen['model']=='qwen';configured=catalog()['server_key_available']
+    return {'model':MODELS[chosen['model']]['model'],'repository':None if remote else MODEL_REPO,'revision':None if remote else MODEL_REVISION,
+        'engine':'OpenRouter · '+chosen['provider'] if remote else 'llama.cpp CUDA Q4_K_M','templates':len(CATALOGUE),
+        'default_llm':chosen,'server_key_available':configured,
+        'ready':(configured if remote else llm[0]) and asr[0] and asr[1].get('ready',False) and tts[0] and tts[1].get('ready',True),
         'llm':llm[1],'asr':asr[1],'tts_ready':tts[0],
         'streaming':'ASR sentences -> local LLM sentences -> TTS PCM chunks',
         'speaker_mode':'All intelligible voices; nearest voice prototype, optional names, session RAM'}
@@ -60,11 +68,14 @@ async def templates():return [{k:v for k,v in row.items() if k!='keywords'} for 
 
 @app.post('/api/bolt/llm')
 async def llm(body:Chat,request:Request):
+    from llm_backends import selection
+    try:chosen=selection({'model':body.llm_model,'provider':body.llm_provider or ('local' if body.llm_model=='local' else 'cerebras/fp16')} if body.llm_model else None)
+    except ValueError as exc:raise HTTPException(422,str(exc))
     async def events():
         metrics={}
         try:
             async with request.app.state.admission:
-                async for sentence in BoltDirector().stream(request.app.state.http,body.text,body.speaker,body.history,metrics=metrics,reply_words=body.reply_words):
+                async for sentence in BoltDirector().stream(request.app.state.http,body.text,body.speaker,body.history,metrics=metrics,reply_words=body.reply_words,backend=chosen):
                     yield sse('sentence',sentence.spec())
                 yield sse('done',metrics)
         except Exception as exc:yield sse('error',{'error':type(exc).__name__})
@@ -73,13 +84,16 @@ async def llm(body:Chat,request:Request):
 @app.post('/api/bolt/chat')
 async def chat(body:Chat,request:Request):
     if body.chunk_frames not in (2,5,10,20):raise HTTPException(422,'chunk_frames must be 2, 5, 10 or 20')
+    from llm_backends import selection
+    try:chosen=selection({'model':body.llm_model,'provider':body.llm_provider or ('local' if body.llm_model=='local' else 'cerebras/fp16')} if body.llm_model else None)
+    except ValueError as exc:raise HTTPException(422,str(exc))
     async def events():
         from bolt_pipeline import pipeline
         # A dedicated client with the TTS base keeps URL handling local and
         # reuses keep-alive connections across all sentences in this reply.
         async with request.app.state.admission,httpx.AsyncClient(base_url=TTS_BASE,timeout=180) as client:
             try:
-                async for kind,value in pipeline(client,body.text,body.speaker,body.history,body.voice,chunk_frames=body.chunk_frames,reply_words=body.reply_words):
+                async for kind,value in pipeline(client,body.text,body.speaker,body.history,body.voice,chunk_frames=body.chunk_frames,reply_words=body.reply_words,llm_selection=chosen):
                     if kind=='audio':
                         pcm=(np.clip(value,-1,1)*32767).astype('<i2')
                         value={'encoding':'pcm_s16le','sample_rate':24000,'channels':1,

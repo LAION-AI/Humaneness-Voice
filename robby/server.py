@@ -2,6 +2,7 @@
 import asyncio
 import json
 import logging
+import math
 import os
 from pathlib import Path
 import time
@@ -28,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','sentence_session.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
+for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','bolt_pipeline.py','tts_bridge.py','static/client.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -39,7 +40,9 @@ class RoboConversation(Conversation):
         if data.get('avatar_action'):
             await self.ws.send_json({'type':'avatar_action',**data['avatar_action']});return
         if data.get('pipeline_metrics'):
-            await self.ws.send_json({'type':'pipeline_metrics','metrics':data['pipeline_metrics']});return
+            await self.ws.send_json({'type':'pipeline_metrics','reply_id':self.playback.rid,'metrics':data['pipeline_metrics']});return
+        if data.get('component_metrics'):
+            await self.ws.send_json({'type':'latency_update','reply_id':self.playback.rid,'metrics':data['component_metrics']});return
         if data.get('text') and not data.get('status_only'):self.open_agent_text=data['text']
         if data.get('error_type'):
             await self.ws.send_json({'type':'error','error':data['text'],'stage':data.get('error_stage'),
@@ -67,6 +70,8 @@ class RoboConversation(Conversation):
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
+        from llm_session import LLMSession
+        self.llm=LLMSession(self)
         from avatar_personality import AvatarPersonality
         self.avatar_personality=AvatarPersonality();self.avatar_optional=False
         self.identity_enabled=False;self.predictor=None;self.last_identity_notice=0
@@ -122,18 +127,22 @@ class RoboConversation(Conversation):
 
     def _ready_message(self):
         return {**super()._ready_message(),'identity_enabled':self.identity_enabled,'identity_mode':self.identity_mode,
+            'llm_settings':self.llm.settings(),
             'interaction':self.decisions.state(),
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
             'asr_settings':self.sentence_stream.settings() if self.sentence_stream else None,
-            'speaker_instruction':'Speak normally. All voices are answered and labelled; introductions are optional.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
+            'speaker_instruction':'Speak normally. Robby keeps the current conversation partner; say Hey Robbie to join a different conversation.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
         self.decisions.note_user(transcript,self.current_speaker)
         self._start_speaking()
+        await self.ws.send_json({'type':'latency_start','reply_id':self.playback.rid,
+            'input':getattr(self,'pending_input_timing',None) or {'kind':'unknown'}})
+        self.pending_input_timing=None
         await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':self.decisions.state(),
-            'avatar_context':self.avatar_personality.snapshot()})
+            'avatar_context':self.avatar_personality.snapshot(),**self.llm.snapshot()})
 
     async def _finish_turn(self,barged):
         self.avatar_optional=False
@@ -175,6 +184,7 @@ class RoboConversation(Conversation):
         elif self.speaker_ext is not None:self.speaker_ext.start()
         try:await super().run()
         finally:
+            self.llm.credential=None
             if self.sentence_stream:await self.sentence_stream.close()
             self.stop_feedback.cancel()
             await self.decisions.close()
@@ -211,7 +221,7 @@ class RoboConversation(Conversation):
                 elif event['kind']=='ENDPOINT':
                     await self.sentence_stream.native_endpoint(event.get('transcript',''),hop_end/self.ears.sr)
                 elif event['kind']=='BARGE' and self.speaking and not self.await_onset:
-                    await self._on_barge(event,hop_end)
+                    self.sentence_stream.propose_barge(event,hop_end)
             await self.sentence_stream.advance()
             await super()._on_events([e for e in events if e['kind']=='FRAME'],hop_end)
             return
@@ -370,6 +380,9 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if data.startswith('text:'):self.pending_input_timing={'kind':'typed'}
+        if data.startswith('llm:'):
+            await self.llm.command(data);return
         if self.sentence_stream and data.startswith('asr:model:'):
             await self.sentence_stream.asr.select(data.split(':',2)[2]);return
         if self.sentence_stream and data.startswith('asr:pause_ms:'):
@@ -379,17 +392,23 @@ class RoboConversation(Conversation):
             await self.ws.send_json(self.sentence_stream.settings());return
         if self.sentence_stream and data.startswith('identity:'):
             command=data[9:]
-            if command=='clear':self.sentence_stream.memory.clear();self.current_speaker=None
+            if command=='clear':self.sentence_stream.memory.clear();self.sentence_stream.focus.release();self.current_speaker=None
+            if command=='focus:release':self.sentence_stream.focus.release();self.sentence_stream.focus_activity=None
+            if command.startswith('focus:enabled:'):
+                self.sentence_stream.focus.enabled=command.endswith(':on');self.sentence_stream.focus_activity=None
+            if command.startswith('focus:threshold:'):
+                try:
+                    value=float(command.split(':')[-1])
+                    if not math.isfinite(value) or not .25<=value<=.65:raise ValueError()
+                    self.sentence_stream.focus.threshold=value
+                except ValueError:pass
             if command.startswith('timeout:'):
                 try:self.sentence_stream.memory.timeout_s=max(0,min(3600,float(command.split(':',1)[1])))
                 except ValueError:pass
             if command.startswith('utterance_threshold:'):
                 try:self.sentence_stream.memory.threshold=max(.25,min(.9,float(command.split(':',1)[1])))
                 except ValueError:pass
-            await self.ws.send_json({'type':'identity','enabled':False,'mode':'open-sentences','sentence_mode':True,
-                'open_enrollment':True,'speakers':self.sentence_stream.memory.status(),
-                'users':[u['name'] for u in self.sentence_stream.memory.users.values()],
-                'threshold':self.sentence_stream.memory.threshold,'storage':'Session RAM'})
+            await self.ws.send_json(self.sentence_stream.identity_state())
             return
         if data=='avatar:cancel':
             if self.avatar_optional and self.speaking:
@@ -406,7 +425,7 @@ class RoboConversation(Conversation):
                 if accepted:self._start_speaking();self.avatar_optional=True
                 await self.ws.send_json({'type':'avatar_event','event':event.get('event'),'accepted':accepted})
                 if accepted:
-                    await self.to_mouth(b'T',{'transcript':'','speaker':{},'avatar_context':context})
+                    await self.to_mouth(b'T',{'transcript':'','speaker':{},'avatar_context':context,**self.llm.snapshot()})
             except (ValueError,TypeError,KeyError):
                 await self.ws.send_json({'type':'avatar_event','accepted':False,'reason':'Invalid or unavailable avatar event'})
             return
@@ -592,6 +611,11 @@ async def startup(app):
     app['mouth_server']=await asyncio.start_server(bridge.accept,'127.0.0.1',8795)
     cfg={'server':{'max_sessions':1,'max_session_s':int(os.environ.get('ROBO_MAX_SESSION_S','1800')),'mouth_host':'127.0.0.1','mouth_port':8795},'mouth':{}}
     app['cfg']=cfg
+    from llm_backends import refresh_providers
+    async def providers():
+        try:await refresh_providers()
+        except Exception:log.warning('OpenRouter provider catalogue unavailable; retaining Cerebras and local options')
+    app['tasks'].append(asyncio.create_task(providers()))
     async def load():
         try:
             block={'plugin':'tyger','model':str(paths.BUNDLE),'ep_thr':.915,'ep_deb':2,
@@ -627,16 +651,20 @@ async def state(request):
     failure=audio_failure(STATE.get('ears'))
     status={k:v for k,v in STATE.items() if k!='ears'}
     if failure:status.update(ready=False,error=failure,phase='Audio GPU worker unavailable')
+    from llm_backends import default_selection,MODELS
+    chosen=default_selection()
     return web.json_response(status|{
         'audio_gpu_serialized':bool(STATE.get('ears') and getattr(STATE['ears'].service.engine,'robo_gpu_serialized',False)),
         'audio_worker_error':failure,
-        'llm':os.environ.get('ROBO_DIRECTOR_MODEL','configured Luna'),
+        'llm':MODELS[chosen['model']]['model'],
+        'llm_default':chosen,
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
+        'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
         'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','400')),
         'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
-        'privacy':('Camera inference stays in your browser. ASR, speaker matching, Nemotron LLM and TTS run on this server. No microphone recordings are saved.' if os.environ.get('ROBO_DIRECTOR_MODE')=='bolt' else 'Camera inference is local in your browser. Mic audio goes to this server; transcripts go to the configured Luna API. No mic recordings are saved by Robo.'),
+        'privacy':'Camera inference stays in your browser. Audio and voice matching run on this server. OpenRouter mode sends conversation text to OpenRouter and the selected provider; local mode keeps it on this server. No microphone recordings are saved.',
         'identity_model':'V4 layer-mix 320-ms + session enrollment; experimental, not authentication' if students else 'legacy ECAPA baseline',
         'identity_available':bool(students) or teacher,'identity_student_available':bool(students),
         'identity_models':students,'identity_quiet_seconds':1.,
@@ -654,6 +682,13 @@ async def asr_models(request):
     except Exception:
         return web.json_response({'active_gpu_model':None,'models':[{'id':key,'label':s['label'],'repo':s['repo'],
             'ready':key=='nemotron','phase':'resident' if key=='nemotron' else 'worker_unavailable'} for key,s in MODELS.items()]})
+
+
+async def llm_models(request):
+    from llm_backends import catalog,refresh_providers
+    try:await refresh_providers()
+    except Exception:pass
+    return web.json_response(catalog(),headers={'Cache-Control':'no-store'})
 
 
 async def socket(request):
@@ -807,6 +842,7 @@ def main():
     app.router.add_get('/downloads/tyger-v2-public-pilot.zip',release_download)
     app.router.add_get('/downloads/robby-source.zip',source_download)
     app.router.add_get('/api/asr/models',asr_models)
+    app.router.add_get('/api/llm/models',llm_models)
     app.router.add_static('/static/',ROOT/'static')
     app.on_startup.append(startup);app.on_cleanup.append(cleanup)
     logging.basicConfig(level=logging.INFO,format='%(asctime)s %(name)s %(message)s')

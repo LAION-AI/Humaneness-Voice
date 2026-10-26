@@ -1,12 +1,17 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Robby · a little more human</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/controls.css"><link rel="stylesheet" href="/static/expressions.css"></head>
+<title>Robby · a little more human</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/controls.css"><link rel="stylesheet" href="/static/expressions.css"><link rel="stylesheet" href="/static/live-overview.css"></head>
 <body>
 <header><a class="back" href="https://fuji-formal-while-plugin.trycloudflare.com/">← Voice Playground</a><div class="brand">◉ robby<span class="brand-note">a little more human</span></div><a class="model-pill" href="/desk-robot/">3D desk robot ↗</a></header>
 <main><section class="stage">
 <div class="eyebrow">A FACE. A VOICE. A CONVERSATION.</div><h1>Talk to Robby.</h1>
 <div id="quick-controls" class="quick-controls">
 <div class="call-controls"><button id="call" class="primary" disabled>◉ Start talking</button><button id="camera" class="secondary">Starting camera…</button><button id="interrupt" class="secondary" aria-label="Stop Robby speaking">Stop reply</button></div>
+<section id="llm-model-controls" aria-label="Language model and provider">
+<div class="llm-selectors"><label>Language model<select id="llm-model"><option value="qwen">Qwen 3.8 27B · OpenRouter</option><option value="local">Nemotron Bolt E4B · local GPU</option></select></label><label>Endpoint<select id="llm-provider"><option value="cerebras/fp16">Cerebras · FP16</option></select></label></div>
+<p id="llm-status" role="status">Loading available models and endpoints…</p>
+<details><summary>API key · optional personal key</summary><p>The administrator’s key stays encrypted on this server and is never shown. Leave this empty to use it. A personal key is kept encrypted for this connection only and is never saved in browser storage.</p><label>Your OpenRouter key<input id="llm-personal-key" type="password" autocomplete="off" maxlength="240" placeholder="Optional · leave blank to use the hidden server key"></label><button id="llm-key-use" type="button">Use for this connection</button><button id="llm-key-clear" type="button">Use server key</button><p>Provider selections are exact. If an endpoint is unavailable, Robby reports an error instead of silently charging a different provider. OpenRouter mode sends conversation text to the selected cloud provider.</p></details>
+</section>
 <section id="asr-model-controls" aria-label="Speech recognition model">
 <label for="asr-model">Speech recognition <select id="asr-model">
 <option value="nemotron">Nemotron 3.5 · original</option>
@@ -33,7 +38,7 @@
 <label><input id="allow-proactive" type="checkbox" checked> Allow Robby to interrupt me</label>
 <label><input id="allow-helpful" type="checkbox" checked> Also allow useful conversational interjections (experimental)</label>
 <details><summary>Agreed rules & interruption details</summary><p>For example: “When I talk about bananas, interrupt me and say Stop, stop.” No pause is required. Say “Stop” to silence Robby.</p>
-<p>Decisions are scheduled every 320 ms, with one check in flight. Agreed keywords use a direct path; usefulness uses Luna with conversation context and asks briefly to jump in, at most once per 12 seconds. Unchanged text reuses its decision. Speaker checks apply; visible-speech checks apply only when face VAD is enabled. Recognition and speech generation add latency.</p>
+<p>Decisions are scheduled every 320 ms, with one check in flight. Agreed keywords use a direct path; usefulness uses the configured decision model with conversation context and asks briefly to jump in, at most once per 12 seconds. Unchanged text reuses its decision. Speaker checks apply; visible-speech checks apply only when face VAD is enabled. Recognition and speech generation add latency.</p>
 <p id="interaction-status" role="status">No agreed rules yet. Introduce yourself with “Hey Robbie, I’m …” first.</p>
 <div id="interaction-rules"></div><button id="clear-interaction-rules" type="button" class="text-button">Clear agreed rules</button>
 </details><p id="live-interruption-health" role="status">Agree a rule first. Waiting reasons will appear here.</p>
@@ -41,16 +46,16 @@
 <div id="avatar" class="avatar" aria-label="Animated Robby robot"></div>
 <div class="under-avatar"><div id="phase" class="phase"><span class="dot"></span><span id="phase-text">Getting my ears ready…</span></div><p id="subtitle">Meet Robby. Talk naturally, interrupt whenever you need to.</p></div>
 <div class="input-health"><label>Microphone <meter id="mic-level" min="0" max="1" value="0"></meter></label><p id="mic-status" role="status">Microphone off. Click Start talking and allow microphone access.</p><p id="asr-status" role="status">Speech recognition: waiting for audio.</p><p id="asr-preview" aria-live="polite"></p><button id="unfiltered-talk" class="secondary">Talk without speaker filter</button></div>
-<div id="speaker-controls" class="speaker-controls"><strong>Talk to Robby, not the background</strong><p>Say “Hey Robbie, I’m Christoph” or “Hey Robby, ich bin Christoph.” Another person can join the same way. Robby remembers each voice for this session and submits after about one second without that speaker.</p><div id="speaker-chips" aria-live="polite"></div><p class="speaker-caution">Experimental voice matching, not authentication. Overlapping speech can still be uncertain. Typed messages bypass voice enrollment.</p></div>
-<div class="expression-controls"><label for="expression">Face preview</label><select id="expression"><option value="auto">Automatic · Luna’s acting directions</option><option value="neutral">Neutral</option></select><a href="/expressions/">Explore and blend all 40 ↗</a><p id="acting-status">Luna’s sentence-level acting directions drive the face. Audio only moves the mouth.</p></div>
-<p class="privacy">Camera tracking stays in your browser. Voice is processed on this server.<br>Conversation text is sent to the configured Luna API. Speaker cues are not authentication.</p>
+<div id="speaker-controls" class="speaker-controls"><strong>Talk to Robby, not the background</strong><p>Start speaking normally; introductions are optional. Robby keeps one conversation partner in focus. Another person can say “Hey Robbie” while he is listening, or you can release the focus. Voice profiles stay in this session only.</p><div id="speaker-chips" aria-live="polite"></div><p class="speaker-caution">Experimental voice matching, not authentication. Overlapping speech can still be uncertain. Typed messages bypass voice enrollment.</p></div>
+<div class="expression-controls"><label for="expression">Face preview</label><select id="expression"><option value="auto">Automatic · language-model acting directions</option><option value="neutral">Neutral</option></select><a href="/expressions/">Explore and blend all 40 ↗</a><p id="acting-status">Sentence-level acting directions drive the face. Audio only moves the mouth.</p></div>
+<p class="privacy">Camera tracking stays in your browser. Voice is processed on this server. Choose local LLM processing or OpenRouter for conversation text. Speaker cues are not authentication.</p>
 </section>
 <aside><details class="people-panel" open><summary>People · voice, face & reference images</summary><p>Local camera previews. A face match is not authentication. Old profiles may have no saved reference image.</p><div id="people-overview" aria-live="polite"></div></details><div class="chat-heading"><span>Our conversation</span><button id="clear" class="text-button">Clear</button></div>
 <div id="chat" class="chat" aria-live="polite"><div class="welcome"><span class="mini-heart">◉</span><h2>Hey, I’m Robby.</h2><p>Tell me about your day, try an acting scene, or just say hello.</p><div class="suggestions"><button data-text="Hello Robby. Tell me something comforting.">A gentle hello</button><button data-text="Tell me a tiny story: begin worried, then end with delighted relief.">A little acting scene</button></div></div></div>
 <form id="form"><label class="sr-only" for="message">Message Robby</label><input id="message" placeholder="Or type something…" maxlength="2000" autocomplete="off"><button type="submit" aria-label="Send message">↑</button></form>
-<details class="settings"><summary>Advanced · animation & audio diagnostics <span>↗</span></summary>
-<p>One shared Humaneness Small 1.1 Alpha RL model, Luna acting director, original Nemotron 3.5 + TYGER turn-taking. Forty authored expressions; smoothly varying brows, eyelids, gaze, mouth, head and arms.</p>
-<label><input id="acting" type="checkbox" checked> Let Luna’s TTS acting directions animate the face</label>
+<details class="settings" id="advanced-settings"><summary>Advanced · animation & audio diagnostics <span>↗</span></summary>
+<p>One shared Humaneness Small 1.1 Alpha RL model, selectable local/OpenRouter language model, original Nemotron 3.5 + TYGER turn-taking. Forty authored expressions; smoothly varying brows, eyelids, gaze, mouth, head and arms.</p>
+<label><input id="acting" type="checkbox" checked> Let the language model’s TTS acting directions animate the face</label>
 <label>Expression intensity <input id="face-intensity" type="range" min="0" max="1" step=".05" value="1"></label>
 <label><input id="robot-keypoints" type="checkbox"> Show the robot’s 101 animation anchors</label>
 <label><input id="landmarks" type="checkbox"> Show camera landmarks locally</label>
@@ -64,6 +69,7 @@
 <a href="/static/long-replies-update.html" target="_blank" rel="noopener">Complete replies, poems &amp; playful conversation · tests ↗</a>
 <a href="/static/avatar-command-update.html" target="_blank" rel="noopener">Requested faces &amp; spoken reactions · fixes and tests ↗</a>
 <a href="/static/asr-model-update.html" target="_blank" rel="noopener">German ASR choices · timing, offloading &amp; tests ↗</a>
+<a href="/static/openrouter-update.html" target="_blank" rel="noopener">OpenRouter, private keys &amp; visible component timings ↗</a>
 <a href="/speaker-training/" target="_blank" rel="noopener">Larger speaker training · live progress ↗</a>
 </details></aside></main>
 <footer>HUMANENESS VOICE · LAION <span>Authored cartoon expressions, not an emotion detector or medical service.</span></footer>

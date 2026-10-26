@@ -21,7 +21,7 @@ def main():
         path=PurePosixPath(name);raw=subprocess.check_output(['git','show',':'+name])
         if (path.name in ('config.local.json','.env','server.json') or
             any(p in ('.runtime','logs','uploads','node_modules','vendor','__pycache__') for p in path.parts) or
-            path.suffix.lower() in ('.wav','.mp3','.mp4','.pt','.pth','.npz','.npy','.safetensors','.gguf','.zip','.png','.jpg')):
+            path.suffix.lower() in ('.wav','.mp3','.mp4','.pt','.pth','.npz','.npy','.safetensors','.gguf','.zip','.png','.jpg','.key','.enc')):
             failures.append({'file':name,'rule':'private_or_binary_artifact_path'})
         for label,pattern in PATTERNS.items():
             if re.search(pattern,raw):failures.append({'file':name,'rule':label})

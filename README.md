@@ -15,7 +15,7 @@ speaker LoRAs, and must not be mixed with those by filename or rank alone.
 
 | Find it quickly | Read / download |
 | --- | --- |
-| **Robby conversational robot:** local Bolt LLM, sentence streaming, voice labels, interruptible TTS and gaze | [Robby source and setup](robby/README.md) · [latency, BF16 and CUDA experiments](robby/static/robby-local-speed-report.html) |
+| **Robby conversational robot:** Qwen/OpenRouter or local Bolt, focused voice conversation, sentence streaming, interruptible TTS and gaze | [Robby source and setup](robby/README.md) · [latency, BF16 and CUDA experiments](robby/static/robby-local-speed-report.html) |
 | **Robby expressions & little tricks:** 40 poses, head turns, grimaces and LLM action tools | [Interactive GitHub Pages manual](https://laion-ai.github.io/Humaneness-Voice/robby/) · [tests and banana-game diagnosis](https://laion-ai.github.io/Humaneness-Voice/robby/avatar-checks.html) |
 | All six UI checkpoints, exact base/adapter relationships and earlier stages | [Weights and compatibility guide](docs/PLAYGROUND_MODELS.md) · [runtime pins and hashes](manifests/playground-2026-10-16.json) · [file-level checkpoint inventory](manifests/checkpoint-inventory-2026-10-16.json) |
 | Installation: standalone model vs full demo, assets and hardware | [Run the current system](docs/PLAYGROUND_INSTALL.md) |
@@ -114,6 +114,17 @@ The [working-host live UI](https://fuji-formal-while-plugin.trycloudflare.com/)
 uses a temporary Cloudflare URL, not permanent hosting or an authenticated API.
 
 ## Robby: conversational robot integration
+
+The current demo supports **Qwen 3.8 27B via OpenRouter/Cerebras**, other exact
+provider endpoints and the local Nemotron LLM. Administrator credentials are
+authenticated-encrypted outside the checkout; the browser can select routes
+without receiving the key. Recent ASR/user/robot turns sit beside the avatar,
+with live component timings below it. The default **conversation focus** keeps
+the current person across intonation changes and verifies both conversational
+turns and interruptions before admitting background voices. The focus can be
+tuned, released or disabled. See the [deployment and timing report](https://laion-ai.github.io/Humaneness-Voice/robby/openrouter-update.html)
+and [speaker-focus report, tests and acoustic limits](https://laion-ai.github.io/Humaneness-Voice/robby/conversation-focus-update.html).
+
 
 The additive [`robby/`](robby/) snapshot connects the existing Small RL speech
 service to a browser-local robot, frozen Nemotron ASR and TYGER turn taking.

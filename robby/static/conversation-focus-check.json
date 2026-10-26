@@ -1,0 +1,385 @@
+{
+  "passed": true,
+  "physical_microphone_used": false,
+  "source": "Existing public synthetic reference profiles; no private voiceprints",
+  "cases": [
+    {
+      "voice": "Mira",
+      "condition": "AGEV | extremely_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": true,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.3921,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "AGEV | moderately_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": true,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.5016,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "AGEV | moderately_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": true,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.4334,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "AGEV | very_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": true,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.5912,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "AROU | extremely_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": true,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.572,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "AROU | moderately_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": true,
+      "speaker_id": "speaker-1",
+      "similarity": 0.3379,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Active conversation partner"
+    },
+    {
+      "voice": "Mira",
+      "condition": "background Idris",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.095,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Mira",
+      "condition": "background Selma",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2173,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Mira",
+      "condition": "background Anton",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.0234,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Mira",
+      "condition": "background Robin",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2567,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Mira",
+      "condition": "background Osku",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.1607,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AGEV | extremely_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.0162,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AGEV | moderately_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2734,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AGEV | moderately_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2308,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AGEV | very_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.291,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AROU | extremely_low | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2149,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "AROU | moderately_high | de",
+      "audio_seconds": 3.04,
+      "legacy_038_accepts": false,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.315,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "background Selma",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": -0.0245,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "background Mira",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.095,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "background Anton",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2611,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "background Robin",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.0307,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "voice": "Idris",
+      "condition": "background Osku",
+      "expected_background": true,
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.2452,
+      "rival_similarity": -1.0,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    }
+  ],
+  "guard_cases": [
+    {
+      "case": "owner",
+      "cancelled": true,
+      "expected": true,
+      "wall_ms": 46.32
+    },
+    {
+      "case": "background",
+      "cancelled": false,
+      "expected": false,
+      "wall_ms": 40.9
+    },
+    {
+      "case": "silence",
+      "cancelled": false,
+      "expected": false,
+      "wall_ms": 0.65
+    }
+  ],
+  "limitations": "Small proxy test, not a room/overlap or human evaluation. Emotion synthesis may itself change identity.",
+  "teacher_cpu_ms": {
+    "median": 56.22,
+    "n": 12
+  },
+  "short_command_probes": [
+    {
+      "case": "christoph-stop",
+      "expected_owner": true,
+      "cancelled": true,
+      "wall_ms": 40.52,
+      "teacher_similarity": 0.345,
+      "fast_similarity": 0.3943,
+      "fast_consistency": 1.0,
+      "fast_frames": 2,
+      "reason": "Active conversation partner"
+    },
+    {
+      "case": "christoph-wait",
+      "expected_owner": true,
+      "cancelled": true,
+      "wall_ms": 47.49,
+      "teacher_similarity": 0.2823,
+      "fast_similarity": 0.3239,
+      "fast_consistency": 0.6666666666666666,
+      "fast_frames": 3,
+      "reason": "Explicit Stop with temporally consistent voice features"
+    },
+    {
+      "case": "christoph-halt",
+      "expected_owner": true,
+      "cancelled": true,
+      "wall_ms": 44.92,
+      "teacher_similarity": 0.4768,
+      "fast_similarity": 0.8851,
+      "fast_consistency": 1.0,
+      "fast_frames": 6,
+      "reason": "Active conversation partner"
+    },
+    {
+      "case": "christoph-pause-clear",
+      "expected_owner": true,
+      "cancelled": true,
+      "wall_ms": 43.57,
+      "teacher_similarity": 0.4041,
+      "fast_similarity": 0.6153,
+      "fast_consistency": 1.0,
+      "fast_frames": 2,
+      "reason": "Active conversation partner"
+    },
+    {
+      "case": "robert-stop",
+      "expected_owner": false,
+      "cancelled": true,
+      "wall_ms": 43.96,
+      "teacher_similarity": 0.4052,
+      "fast_similarity": 0.6949,
+      "fast_consistency": 1.0,
+      "fast_frames": 4,
+      "reason": "Active conversation partner"
+    },
+    {
+      "case": "background-stop",
+      "expected_owner": false,
+      "cancelled": false,
+      "wall_ms": 40.69,
+      "teacher_similarity": 0.35,
+      "fast_similarity": 0.4659,
+      "fast_consistency": 0.5,
+      "fast_frames": 4,
+      "reason": "Unstable recent speaker identity; background cannot cancel the reply"
+    }
+  ],
+  "summary": {
+    "background_rejected": 10,
+    "background_total": 10,
+    "emotion_accepted": 6,
+    "emotion_total": 12,
+    "legacy_038_emotion_accepted": 5,
+    "short_command_correct": 5,
+    "short_command_total": 6
+  },
+  "short_commands_all_correct": false,
+  "known_rival_check": [
+    {
+      "case": "robert-stop",
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.4052,
+      "rival_similarity": 0.8945,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    },
+    {
+      "case": "background-stop",
+      "accepted": false,
+      "speaker_id": "speaker-1",
+      "similarity": 0.35,
+      "rival_similarity": 0.8762,
+      "bot_similarity": -1.0,
+      "reason": "Background, echo or uncertain voice; keeping the current conversation"
+    }
+  ],
+  "finished": 1793011602.768617
+}
