@@ -1,8 +1,11 @@
 # Robby voice chat and TYGER speaker predictor
 
 Robby connects a browser-local animated robot to the existing Humaneness Voice
-Playground. The current local mode uses [NVIDIA Nemotron 3.5 Bolt E4B Q4_K_M](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB)
-through CUDA llama.cpp and shares the loaded [Small 1.1 Alpha RL speech model](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1).
+Playground. The configured demo defaults to [Qwen 3.8 27B through OpenRouter,
+using Cerebras](https://openrouter.ai/qwen/qwen3.8-27b), with an explicit provider
+menu. [NVIDIA Nemotron 3.5 Bolt E4B Q4_K_M](https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB)
+through CUDA llama.cpp remains selectable locally. Both share the loaded
+[Small 1.1 Alpha RL speech model](https://huggingface.co/laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1).
 Nemotron ASR 3.5 and the original TYGER GRU supply recognition and interruptions.
 The previous configured Luna path remains available as a compatibility mode.
 
@@ -14,6 +17,129 @@ inactivity, not global room silence. Speaker filtering is enabled by default;
 it is approximate session memory, not reliable biometric authentication.
 
 ## Local sentence streaming and latency report (2026-10-25)
+
+### OpenRouter, private credentials and visible conversation timings (2026-10-26)
+
+The **Language model** menu switches between Qwen 3.8 27B / OpenRouter and the
+existing local Nemotron. Qwen's **Endpoint** menu comes from OpenRouter's public
+model-endpoint catalogue (five-minute cache). The requested Cerebras endpoint
+uses API routing tag `cerebras/fp16`, with `provider.only` and
+`allow_fallbacks=false`. Other currently available endpoint tags are selectable.
+The query-string UUID in the OpenRouter web page is not used as an invented API
+parameter. Real responses record the actual provider as well as the requested
+tag. Unsupported JSON-format parameters are omitted for Cerebras; actual tool
+calls, strict validation and German reply defaults remain. Explicit rule changes
+require real tools, rather than trusting a verbal promise.
+
+With a configured server credential, Qwen/Cerebras is the default. Without one,
+the source package falls back to local Nemotron. Only model/provider preferences
+persist in browser storage (`robby.llmSelection`). Changes affect the next reply;
+an already speaking response retains its model. A 429 before any streamed words
+gets at most one short retry on the same endpoint. No other provider is silently
+charged. Cancellation still closes the active LLM/TTS pipeline.
+
+Enroll an administrator's OpenRouter key using a hidden terminal prompt:
+
+```bash
+python credential_store.py
+```
+
+[credential_store.py](credential_store.py) stores an authenticated Fernet
+ciphertext at `~/.config/robby-credentials/openrouter.enc`, with a separately
+generated `master.key`; directory permissions are 0700 and files 0600.
+`ROBO_CREDENTIAL_DIR` can select another private directory outside the checkout.
+Never put either credential file in Git. The key is decrypted only for a
+server-side OpenRouter Authorization header; no read-key API exists. This is
+encryption at rest with OS access controls, not an HSM or protection against a
+compromised server account. Keep the master secret private and back it up safely.
+
+An optional **personal key** password field uses only that user's current
+WebSocket connection. It is cleared immediately after submission, encrypted in
+session memory, never stored in browser storage or written as the administrator's
+key, and discarded at disconnection. **Use server key** clears only the personal
+override. Neither plaintext nor ciphertext is included in public settings,
+transcripts or timing receipts. Public users can use the deliberately configured
+shared credential without seeing its value. Cloud mode sends conversation text
+to OpenRouter and the selected provider; camera inference remains local and
+microphone/ASR processing remains on this server.
+
+The same streaming director, acting catalogue, avatar commands, voice pipeline
+and conversation tools serve both model routes. The independent turn-taking /
+decision model remains separate. Public API examples:
+
+```json
+{"text":"Schreibe ein Gedicht mit vier Zeilen.","llm_model":"qwen","llm_provider":"cerebras/fp16"}
+```
+
+POST that object to `/api/bolt/llm` for sentence SSE or `/api/bolt/chat` for text
+and audio SSE. Choose `llm_model=local` / `llm_provider=local` for the local model.
+`GET /api/llm/models` returns public choices and credential availability only.
+The browser uses `llm:select:<JSON>` on its existing WebSocket. Arbitrary models,
+provider URLs and base URLs are not accepted from public input.
+
+The latest ASR preview, submitted user turn and Robby reply now have dedicated
+cards beside the avatar. The sidebar stays visible as the desktop page scrolls;
+full history remains available in a collapsible section. Mobile stacks the
+panels. The pause/interruption options are grouped compactly; microphone,
+camera and main model selectors remain accessible above the avatar.
+
+**Response timing** is directly under the avatar. Six cards show final ASR,
+remaining speaker-identity wait, first LLM sentence, first TTS PCM, server reply
+to first PCM, and the browser's real scheduling lead. Per-reply IDs prevent
+later metrics from being assigned to another active response. Typed input is
+marked **Typed**, not a fabricated zero. Background-prefetched ECAPA compute,
+LLM first token/stream wall time, completed-sentence TTS GPU times and RTF are
+available in details. Timings overlap and must not be added. TTS first PCM
+includes transport/decoding; browser lead is not physical loudspeaker latency.
+Cloud LLM timing includes API transit, rather than claiming device-only compute.
+
+`validate_openrouter.py` exercises real Cerebras, an alternate provider, local
+Nemotron, complete poems, tools and the public credential boundary.
+`browser_openrouter_check.py` checks real HTTPS microphone → ASR → Qwen → TTS,
+model/provider switches, context positioning, every timing card, personal-key
+handling, reload persistence and mobile layout. Historical local-only browser
+regressions explicitly select local Nemotron, to keep those comparisons local.
+The [English deployment and timing report](static/openrouter-update.html) retains
+measurements and limits. Test inputs are authored synthetic requests/audio.
+
+### Keep the current conversation partner (2026-10-26)
+
+The main **Stay with the current conversation partner** checkbox is on by
+default. The first clear voice starts normally; while focused, a different
+voice cannot simply take the floor or cancel speech. The adjustable partner
+threshold starts at **0.32**, independently of the 0.38 new-voice label threshold.
+Changes in pitch, delivery or emotion retain the owner when the acoustic match
+is plausible. Up to eight confirmed variants preserve the original anchor;
+explicit “Ich bin auch Christoph” corrections can link a changed voice.
+
+TYGER BARGE events and literal Stop previews now go through the same acoustic
+guard: fresh post-reply speech, ECAPA identity, bot/rival margins and available
+320-ms native-feature evidence. Nonlexical interruptions need stronger matching
+(at least 0.55 ECAPA). Short explicit commands can use temporally consistent
+student evidence; a late confirmation cannot cancel a different reply ID.
+Manual Stop remains independent. Recent 1.28-s ownership checks at 640-ms cadence
+can keep clear background speech from extending the owner's pause; full-utterance
+anchors use up to 3.04 s already heard.
+
+Another person can say “Hey Robbie” **while Robby is listening**, use **Let
+another person join**, disable focus, or join after three minutes of inactivity.
+Settings persist in this browser; profiles remain session RAM. The independent
+camera/face switches, audio turn-taking and avatar controls are retained.
+Both LLM prompts maintain the conversation thread instead of inventing a new
+person from changing intonation.
+
+See the [English report and exact acoustic limits](static/conversation-focus-update.html).
+In particular, two similar **unknown** synthetic male voices still produce one
+false acceptance in the difficult Stop probes; known rival enrollment resolves
+that example. A lower threshold cannot reliably separate overlapping or similar
+voices. The profile-emotion diagnostics also expose synthesis identity drift.
+These limits are retained in the receipts, not relabelled as passing accuracy.
+
+Reproduce with `python run_unit_checks.py`,
+`python prepare_focus_fixtures.py`, `python validate_conversation_focus.py` and
+`uv run --no-project --with playwright --python /path/to/venv/bin/python python browser_conversation_focus.py`.
+The latter exercises real HTTPS ASR/TTS, background turns/playback, owner return,
+spoken/manual Stop and persisted controls using public synthetic fixtures.
 
 ### German replies and selectable recognition (2026-10-26)
 
@@ -190,13 +316,17 @@ These audio tests must run serially. The [pause update report](static/speech-pau
 records results and limits; the earlier speed report retains its original,
 pre-pause-gate latency records.
 
-The current live configuration is `ROBO_DIRECTOR_MODE=bolt` and
-`ROBO_SENTENCE_STREAM=1`. All intelligible voices are admitted without a wake
-phrase or introduction. Approximate nearest-prototype ECAPA matching assigns
+The live sentence-transport configuration is `ROBO_DIRECTOR_MODE=bolt` and
+`ROBO_SENTENCE_STREAM=1`; the selected director may be local or OpenRouter.
+The first intelligible voice is admitted without a wake phrase or introduction.
+The default conversation focus then guards background turns and interruptions;
+turn it off to restore the earlier all-voices behavior.
+Approximate nearest-prototype ECAPA matching assigns
 Speaker 1, Speaker 2… labels; optional names and explicit corrections such as
 “Ich bin auch Christoph” associate several acoustic anchors with one person.
 Profiles remain in session RAM and expire by the configured inactivity timeout.
-The threshold controls voice labelling rather than permission to speak.
+The label threshold controls voice labelling; the separate partner threshold
+controls admission during a focused conversation.
 
 The local LLM streams short cues and words. One hundred fixed GENERAL templates
 (40 emotions at two strengths, plus 10 delivery styles at two strengths) replace
@@ -206,7 +336,7 @@ all pending input sentences form one turn after a configurable neural speech
 pause (400 ms default). Later turns queue in order; a running LLM decode cannot
 be retroactively edited.
 Read-only information tools and avatar tools retain the verified tool loop
-through the same local model. Direct rotations retain their six-second,
+through the selected model. Direct rotations retain their six-second,
 playback-anchored fallback.
 
 The speaker teacher is warmed at startup. Background work prepares 1.28–3.04 s

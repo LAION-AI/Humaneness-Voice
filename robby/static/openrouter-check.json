@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "started": 1793009385.3248456,
+  "rows": [
+    {
+      "model": "qwen",
+      "provider": "cerebras/fp16",
+      "actual_provider": "Cerebras",
+      "input": "Sag mir freundlich guten Morgen.",
+      "reply": "Guten Morgen!\nIch hoffe, dein Kaffee ist schon bereit und die Sonne schickt dir ein kleines Lächeln.",
+      "first_token_ms": 450.37,
+      "first_sentence_ms": 468.79,
+      "total_http_ms": 489.37,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "provider": "cerebras/fp16",
+      "actual_provider": "Cerebras",
+      "input": "Schreibe ein lustiges Gedicht mit vier Zeilen.",
+      "reply": "Ein Roboter stolpert in den Türrahmen rein,\nsein Blinklicht flackert, doch er bleibt nicht allein,\ndenn der Staubsauger lacht und saugt den Keks am Boden auf,\nso wird aus einem Patzer ein ganz lustiger Strauß.",
+      "first_token_ms": 277.14,
+      "first_sentence_ms": 304.07,
+      "total_http_ms": 372.4,
+      "passed": true
+    },
+    {
+      "model": "local",
+      "provider": "local",
+      "actual_provider": "local",
+      "input": "Schlage ein Spiel vor.",
+      "reply": "Wir könnten ein Wortassoziationsspiel spielen, wo wir uns gegenseitig Wörter nennen, die mit dem vorherigen verbunden sind!",
+      "first_token_ms": 49.01,
+      "first_sentence_ms": 298.49,
+      "total_http_ms": 300.98,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "provider": "deepinfra/bf16",
+      "actual_provider": "DeepInfra",
+      "input": "Sag nur: Guten Morgen.",
+      "reply": "Guten Morgen.",
+      "first_token_ms": 495.05,
+      "first_sentence_ms": 642.28,
+      "total_http_ms": 644.78,
+      "passed": true
+    }
+  ],
+  "physical_microphone": false,
+  "owner_encrypted_outside_source": true,
+  "real_rule_tool": {
+    "passed": true,
+    "reply": "Klar, das habe ich jetzt eingestellt! Sobald du von Bananen sprichst, rufe ich dir sofort zu: Stopp, stopp!",
+    "actions": [
+      {
+        "name": "set_interruption_rule",
+        "arguments": {
+          "condition": "User talks about bananas",
+          "trigger_terms": [
+            "Banane",
+            "Bananen",
+            "banana",
+            "bananas"
+          ],
+          "match_mode": "any_term",
+          "reply": "Stopp, stopp!"
+        }
+      }
+    ],
+    "provider": "Cerebras"
+  },
+  "finished": 1793009388.2036214,
+  "key_never_in_responses": true
+}

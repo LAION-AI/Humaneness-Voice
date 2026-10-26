@@ -14,6 +14,7 @@ def runtime_signature():
         'speaker_names.py','identity.py','audio_sync.py','feature_tap.py','paths.py','tts_bridge.py','shared_turn.py',
         'asr_priority.py','gpu_guard.py','enrollment_cues.py','recovery_rules.py','stop_commands.py','interaction_policy.py','live_decisions.py','laya_policy.py','laya_decision_server.py','conversation_prompt.py','conversation_director.py','performance.py','diarization_client.py')]
     files.append(ROOT/'visual_identity.py')
+    files.extend(ROOT/n for n in ('conversation_focus.py','sentence_session.py','llm_backends.py','llm_session.py','credential_store.py'))
     files.extend([ROOT/'open_speakers.py',ROOT/'knowledge_tools.py'])
     files.append(ROOT/'stop_feedback.py')
     files.append(ROOT/'stop_voice.py')

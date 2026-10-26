@@ -19,15 +19,17 @@ async def main():
                 '--use-file-for-fake-audio-capture='+str(wav),'--autoplay-policy=no-user-gesture-required'])
             page=await browser.new_page(viewport={'width':1280,'height':1000});errors=[]
             page.on('pageerror',lambda e:errors.append(str(e)))
-            await page.add_init_script("localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false')")
+            await page.add_init_script("localStorage.setItem('robby.llmSelection',JSON.stringify({model:'local',provider:'local'}));localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false')")
             try:
                 await page.goto(URL+'/desk-robot/')
                 await page.wait_for_function('window.robo && !document.querySelector("#call").disabled',timeout=60000)
+                await page.locator('#conversation-options').evaluate('(e)=>e.open=true')
                 assert await page.locator('#speech-pause').input_value()=='400'
                 assert await page.locator('#speech-pause-controls').is_visible()
                 await page.locator('#speech-pause').fill('950');await page.locator('#speech-pause').dispatch_event('change')
                 assert await page.locator('#speech-pause-value').text_content()=='950 ms'
                 await page.reload();await page.wait_for_function('window.robo && !document.querySelector("#call").disabled',timeout=60000)
+                await page.locator('#conversation-options').evaluate('(e)=>e.open=true')
                 assert await page.locator('#speech-pause').input_value()=='950'
                 report['default_and_persistence']=True
                 await page.evaluate('''()=>{window.pauseEvents=[];const old=robo.on.message;robo.on.message=m=>{if(['asr_sentence','asr_settings','endpoint','error'].includes(m.type))pauseEvents.push({...m,at:performance.now()});old(m)}}''')

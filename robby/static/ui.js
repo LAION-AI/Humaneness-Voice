@@ -8,10 +8,14 @@ import {AvatarActions} from './avatar-actions.js';
 import {attachActionControls} from './avatar-action-controls.js';
 import {attachPetting} from './avatar-petting.js';
 import {ASRControls} from './asr-controls.js';
+import {LLMControls} from './llm-controls.js';
+import {LiveOverview} from './live-overview.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let sentenceMode=false;
 let asrControls=null;
+let llmControls=null;
+const overview=new LiveOverview();
 let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
 let lastPersonalityUser=personalityStarted;
@@ -30,11 +34,13 @@ function saveThreshold(key,value){try{localStorage.setItem(key,String(value));}c
 const DEFAULT_VOICE_THRESHOLD=.32,CAMERA_FPS=10,FACE_INTERVAL_MS=1000/CAMERA_FPS;
 let desiredUtteranceThreshold=savedThreshold('robby.voiceThreshold',DEFAULT_VOICE_THRESHOLD,.3,.9),desiredFastThreshold=savedThreshold('robby.fastThreshold',null,.1,.95);
 let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.38,.3,.9);
+let desiredFocus=true;try{desiredFocus=localStorage.getItem('robby.conversationFocus')!=='false';}catch{}
+let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.32,.25,.65);
 let desiredSpeechPause=savedThreshold('robby.speechPauseMs',400,200,2000);
 $('speech-pause').value=desiredSpeechPause;$('speech-pause-value').value=desiredSpeechPause+' ms';
 $('speech-pause').oninput=()=>{$('speech-pause-value').value=$('speech-pause').value+' ms';};
 $('speech-pause').onchange=()=>{desiredSpeechPause=Number($('speech-pause').value);saveThreshold('robby.speechPauseMs',desiredSpeechPause);client.send('asr:pause_ms:'+desiredSpeechPause);};
-function applySpeakerSettings(){client.send('identity:open:'+(desiredOpenSpeakers?'on':'off'));client.send('identity:utterance_threshold:'+(sentenceMode?desiredOpenVoiceThreshold:desiredUtteranceThreshold));if(sentenceMode)client.send('asr:pause_ms:'+desiredSpeechPause);if(desiredFastThreshold!==null)client.send('identity:threshold:'+desiredFastThreshold);}
+function applySpeakerSettings(){client.send('identity:open:'+(desiredOpenSpeakers?'on':'off'));client.send('identity:utterance_threshold:'+(sentenceMode?desiredOpenVoiceThreshold:desiredUtteranceThreshold));if(sentenceMode){client.send('asr:pause_ms:'+desiredSpeechPause);client.send('identity:focus:enabled:'+(desiredFocus?'on':'off'));client.send('identity:focus:threshold:'+desiredFocusThreshold);}if(desiredFastThreshold!==null)client.send('identity:threshold:'+desiredFastThreshold);}
 let cameraStream=null,landmarker=null,lastVideo=-1,face={},cameraBusy=false,cameraGeneration=0,multimodal,videoFrameAt=null,cameraStarting=null;
 const gaze=new GazeTracker();let eyeContact=null;
 const deskView=document.body.dataset.robotView==='desk3d';
@@ -71,13 +77,15 @@ function showInteraction(m){
   d?.action==='interrupt_user'?`Rule triggered · decision ${d.decision_ms} ms. Microphone remains active.`:'Agreed rules armed · listening continuously.';
 }
 const client=window.robo=new RoboClient({
- connection(on){connected=on;if(!on){avatarActions.clear();petting?.reset();optionalAvatarReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
+ connection(on){connected=on;if(!on){llmControls?.disconnected();if($('conversation-focus-status'))$('conversation-focus-status').textContent='Waiting for the first conversation partner.';avatarActions.clear();petting?.reset();optionalAvatarReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
  microphone(on){mic=on;micStarted=on?performance.now():0;lastCapture=lastServerAudio=0;serverAudioSeconds=0;$('mic-level').value=0;$('mic-status').textContent=on?'Microphone started. Waiting for audio frames…':'Microphone off. Click Start talking and allow microphone access.';$('call').textContent=on?'■ End conversation':'◉ Start talking';$('call').classList.toggle('active',on);phase(on?'Listening to you':'Ready when you are',on?'ready':'');},
  input(s){lastCapture=performance.now();if(s.rms>.003){avatarActions.touch();cancelOptionalAvatar();} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
  playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
+ audio(m){overview.audio(m);},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
   asrControls?.message(m);
+  llmControls?.message(m);overview.message(m);
   if(['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
   if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
    if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
@@ -107,7 +115,7 @@ const client=window.robo=new RoboClient({
   if(m.type==='partial'){if(!partial)partial=bubble(m.text,'user partial');else partial.textContent=m.text;$('asr-preview').textContent=m.text;$('asr-status').textContent='Speech recognized · waiting for the end of your turn.';}
   if(m.type==='endpoint'){replyPending=true;const text=(m.speaker_name?m.speaker_name+': ':'')+m.transcript;if(partial){partial.classList.remove('partial');partial.textContent=text;partial=null;}else if(m.transcript)bubble(text,'user');answer=null;$('asr-preview').textContent=m.transcript;$('asr-status').textContent='Turn submitted'+(m.speaker_name?' · '+m.speaker_name:'')+'.';phase('Thinking of a reply');}
   if(m.type==='asr_sentence'){$('asr-preview').textContent=m.text;$('asr-status').textContent=m.queued?'Speech pause detected · your next turn is queued.':`Speech pause detected (${m.speech_pause_ms??desiredSpeechPause} ms) · sending your complete turn.`;}
-  if(m.type==='pipeline_metrics'){$('local-pipeline-status').textContent=`Local Nemotron · first token ${Math.round(m.metrics.llm_ttft_ms||0)} ms · first sentence ${Math.round(m.metrics.llm_first_sentence_ms||0)} ms · first audio ${Math.round(m.metrics.first_audio_ms||0)} ms · generation RTF ${m.metrics.generation_rtf??'—'}`+(m.metrics.response_complete===false?' · Response limit reached; ask Robby to continue.':'');}
+  if(m.type==='pipeline_metrics'){$('local-pipeline-status').textContent=`${m.metrics.llm_model||'Language model'} · ${m.metrics.llm_actual_provider||m.metrics.llm_provider||'local'} · first token ${Math.round(m.metrics.llm_ttft_ms||0)} ms · first sentence ${Math.round(m.metrics.llm_first_sentence_ms||0)} ms · first audio ${Math.round(m.metrics.first_audio_ms||0)} ms · generation RTF ${m.metrics.generation_rtf??'—'}`+(m.metrics.response_complete===false?' · Response limit reached; ask Robby to continue.':'');}
   if(m.type==='reply'){timeline.set(m.reply_id,m.performance);if(!answer)answer=bubble(m.text,'assistant');else answer.textContent=m.text;$('subtitle').textContent=m.text.length>140?m.text.slice(0,137)+'…':m.text;
    if(m.sources?.length){const box=document.createElement('details');box.className='reply-sources';const title=document.createElement('summary');title.textContent='Sources consulted · '+m.sources.length;box.append(title);for(const s of m.sources){try{const url=new URL(s.url);if(url.protocol!=='https:')continue;const a=document.createElement('a');a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';a.textContent=(s.publisher?s.publisher+' · ':'')+s.title;box.append(a,document.createElement('br'));}catch{}}answer.append(box);}
   }
@@ -129,7 +137,8 @@ const client=window.robo=new RoboClient({
    $('identity-status').textContent=`Speaker cue: ${p.name||p.kind||'waiting'}${p.similarity==null?'':' · cosine '+p.similarity.toFixed(2)}. Enrolled: ${(m.users||[]).join(', ')||'none — say Hey Robbie, I’m …'}. ${m.enabled?'Filter ON · '+(m.diarization_active?'Nemotron diarization + V4 · ':'embedding-only · ')+'submit after ~1 s without this speaker.':'Filter off: original TYGER endpointing.'} RAM only; not authentication.`;
   }
   if(m.type==='warning'){$('identity-status').textContent=m.text;$('asr-status').textContent=m.text;}
-  if(m.type==='identity'&&m.sentence_mode){setSentenceMode(true);$('identity-status').textContent=`All intelligible voices are answered. Session speakers: ${(m.speakers||[]).map(s=>s.name+' · '+s.voice_variants+' voice reference(s)').join(', ')||'none yet'}. Names are optional; say “I am also Christoph” to link a voice variant.`;}
+  if(m.type==='identity'&&m.sentence_mode){setSentenceMode(true);const f=m.conversation_focus;focusStatus.textContent=f?.enabled?`Conversation partner: ${f.name||'waiting for the first voice'} · match threshold ${Number(f.threshold).toFixed(2)} · focus expires after 3 minutes of inactivity.`:'Focus disabled: all intelligible voices can join and interrupt.';$('identity-status').textContent=`Session speakers: ${(m.speakers||[]).map(s=>s.name+' · '+s.voice_variants+' voice reference(s)').join(', ')||'none yet'}. Names are optional; say “I am also Christoph” to link a voice variant.`;}
+  if(m.type==='speaker_focus'){focusStatus.textContent=(m.accepted?'Current partner confirmed':'Background or uncertain voice ignored')+(m.similarity==null?'':` · voice cosine ${m.similarity.toFixed(2)}`)+'.';}
   if(m.type==='busy'){$('subtitle').textContent=m.text;}
   if(m.type==='service_status'){if(m.stage==='interjection_ready'){$('live-interruption-health').textContent=m.text;return;}phase(m.stage==='planning'?'Thinking of a useful reply':m.stage==='preparing'?'Preparing a spoken reply':'Waiting for the shared voice model');$('subtitle').textContent=m.text;$('asr-status').textContent=m.text;}
   if(m.type==='calibration'){
@@ -139,6 +148,7 @@ const client=window.robo=new RoboClient({
  }
 });
 asrControls=new ASRControls(client);window.robotFace.asrControls=asrControls;
+llmControls=new LLMControls(client);window.robotFace.llmControls=llmControls;window.robotFace.overview=overview;
 multimodal=new MultimodalUI(client,$('speaker-controls'));window.robotFace.multimodal=multimodal;
 const canPersonalitySpeak=()=>connected&&ready&&!speaking&&!replyPending&&!$('message').value.trim()&&!document.hidden&&!eyeContact?.state.active;
 const avatarEvent=event=>{if(['petted','ask_pet','play_vocal'].includes(event.event)){optionalAvatarReply=true;avatarCancelPending=false;replyPending=true;}client.send('avatar:'+JSON.stringify({...event,play_intensity:avatarActions.playIntensity,cuddle_intensity:avatarActions.cuddleIntensity}));};
@@ -168,7 +178,7 @@ for(const id of ['avatar-play-intensity','avatar-cuddle-intensity'])$(id).addEve
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelOptionalAvatar();});
 for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
 $('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
-$('unfiltered-talk').onclick=async()=>{desiredGate=false;try{await client.start(true);client.send('identity:off');gate.checked=false;$('asr-status').textContent='Speaker filter OFF. Speak normally; background voices may also be transcribed.';phase('Listening to you','ready');}catch(e){$('mic-status').textContent='Microphone unavailable: '+e.message;}};
+$('unfiltered-talk').onclick=async()=>{desiredGate=false;try{await client.start(true);client.send('identity:off');if(sentenceMode){desiredFocus=false;focusToggle.checked=false;saveThreshold('robby.conversationFocus',false);client.send('identity:focus:enabled:off');}gate.checked=false;$('asr-status').textContent='Speaker filter OFF. Speak normally; background voices may also be transcribed.';phase('Listening to you','ready');}catch(e){$('mic-status').textContent='Microphone unavailable: '+e.message;}};
 setInterval(()=>{if(!mic)return;const now=performance.now();if(now-micStarted<2500)return;
  if(!lastCapture||now-lastCapture>2500)$('mic-status').textContent=`No audio frames from the microphone (${client.ctx?.state||'no audio context'}). Check browser permission/input device, then End conversation and Start talking.`;
  else if(!lastServerAudio||now-lastServerAudio>4000)$('mic-status').textContent='Microphone captures audio, but the server has not acknowledged recent packets. Reconnect the conversation.';
@@ -182,28 +192,45 @@ const stopLabel=document.createElement('label'),stopFeedback=document.createElem
 const stopHelp=document.createElement('p');stopHelp.textContent='Keep your microphone on. Say “Stopp”, “Hör bitte auf” or “Warte bitte” while Robby speaks. The current speaker is checked continuously, independently of proactive-interruption settings. Wait/quiet commands always stay silent. Acknowledgments yield to continuing speech.';stopLabel.after(stopHelp);
 stopFeedback.onchange=()=>{desiredStopFeedback=stopFeedback.checked;saveThreshold('robby.stopFeedback',desiredStopFeedback);client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));};
 async function submit(text){if(!ready)return;lastPersonalityUser=performance.now();avatarActions.touch();invitedQuiet=false;try{
+ overview.typed(text);
  if(optionalAvatarReply){cancelOptionalAvatar();for(let i=0;i<40&&optionalAvatarReply;i++)await new Promise(r=>setTimeout(r,50));}
  await client.start(false);sendRecentIdle();bubble(text,'user');answer=null;replyPending=true;client.send('text:'+text);phase('Thinking of a reply');}catch(e){replyPending=false;$('subtitle').textContent=e.message;}}
 $('message').addEventListener('input',()=>{lastPersonalityUser=performance.now();avatarActions.touch();cancelOptionalAvatar();});
 $('form').onsubmit=e=>{e.preventDefault();const text=$('message').value.trim();if(text){$('message').value='';submit(text);}};
 for(const b of document.querySelectorAll('[data-text]'))b.onclick=()=>submit(b.dataset.text);
-$('clear').onclick=()=>{timeline.clear();client.stop();$('chat').replaceChildren();partial=answer=null;};
+$('clear').onclick=()=>{timeline.clear();client.stop();$('chat').replaceChildren();overview.clear();partial=answer=null;};
 const gateLabel=document.createElement('label'),gate=document.createElement('input');gate.type='checkbox';gate.id='identity-gate';gate.disabled=true;gate.checked=true;gateLabel.append(gate,' Recognize enrolled speakers · ignore background turns');$('speaker-controls').append(gateLabel);
 const openLabel=document.createElement('label'),openSpeakers=document.createElement('input');openSpeakers.type='checkbox';openSpeakers.id='open-speakers';openSpeakers.checked=desiredOpenSpeakers;openLabel.append(openSpeakers,' Welcome new voices without “Hey Robbie”');gateLabel.after(openLabel);
 const openHelp=document.createElement('p');openHelp.textContent='ON: clear new foreground voices can join as temporary guests; Robby asks their name once. Say “It’s me, Bob” / “Ich bin’s doch, Bob” in a clear sentence to explicitly add a voice variant to an existing name (up to four). This trusts your statement, not secure authentication. Background speech can also be admitted: switch OFF for wake-phrase-only enrollment. All voiceprints remain in session RAM.';openLabel.after(openHelp);
 openSpeakers.onchange=()=>{desiredOpenSpeakers=openSpeakers.checked;saveThreshold('robby.openSpeakers',desiredOpenSpeakers);client.send('identity:open:'+(desiredOpenSpeakers?'on':'off'));};
 const modelLabel=document.createElement('label');modelLabel.textContent='Speaker recognition ';const identityModel=document.createElement('select');identityModel.id='identity-model';for(const [value,label] of [['v4-long3','V4 · fast 320 ms + longer 3.04-s identity context (default)'],['v4-long','V4 · fast 320 ms + 2-s identity context'],['v4','V4 · 320-ms layer-mix only'],['ecapa','ECAPA comparison · legacy endpoint gate']]){const o=document.createElement('option');o.value=value;o.textContent=label;o.disabled=value==='v4-long3';identityModel.append(o);}identityModel.value='v4-long3';modelLabel.append(identityModel);gateLabel.after(modelLabel);identityModel.onchange=async()=>{const desired=identityModel.value;try{await client.start(true);client.send('identity:mode:'+desired);applySpeakerSettings();gate.checked=desired.startsWith('v4');gate.disabled=false;}catch(e){$('identity-status').textContent=e.message;}};
 const localPipeline=document.createElement('p');localPipeline.id='local-pipeline-status';localPipeline.hidden=true;$('asr-status').after(localPipeline);
+const focusBox=document.createElement('section');focusBox.id='conversation-focus-controls';focusBox.hidden=true;
+const focusLabel=document.createElement('label'),focusToggle=document.createElement('input');focusToggle.type='checkbox';focusToggle.id='conversation-focus';focusToggle.checked=desiredFocus;focusLabel.append(focusToggle,' Stay with the current conversation partner');
+const focusHelp=document.createElement('p');focusHelp.textContent='Background voices cannot take over or stop Robby without a voice match. A new person can say “Hey Robbie” while Robby is listening, or you can release the focus below. Voice changes and explicit name corrections can share one profile.';
+const focusThresholdLabel=document.createElement('label');focusThresholdLabel.textContent='Partner match · lower tolerates more voice variation ';
+const focusRange=document.createElement('input'),focusValue=document.createElement('output');focusRange.id='conversation-focus-threshold';focusRange.type='range';focusRange.min=.25;focusRange.max=.65;focusRange.step=.01;focusRange.value=desiredFocusThreshold;focusValue.value=desiredFocusThreshold.toFixed(2);focusThresholdLabel.append(focusValue,focusRange);
+const releaseFocus=document.createElement('button');releaseFocus.type='button';releaseFocus.id='release-conversation-focus';releaseFocus.className='secondary';releaseFocus.textContent='Let another person join';
+const focusStatus=document.createElement('p');focusStatus.id='conversation-focus-status';focusStatus.setAttribute('role','status');focusStatus.textContent='Waiting for the first conversation partner.';
+const focusSettings=document.createElement('details'),focusSummary=document.createElement('summary');focusSummary.textContent='Voice tolerance & switching people';focusSettings.append(focusSummary,focusHelp,focusThresholdLabel,releaseFocus);
+const focusReport=document.createElement('a');focusReport.href='/static/conversation-focus-update.html';focusReport.target='_blank';focusReport.rel='noopener';focusReport.textContent='Tests, thresholds and known limits ↗';focusSettings.append(focusReport);
+focusBox.append(focusLabel,focusStatus,focusSettings);$('quick-controls').append(focusBox);
+focusToggle.onchange=()=>{desiredFocus=focusToggle.checked;saveThreshold('robby.conversationFocus',desiredFocus);client.send('identity:focus:enabled:'+(desiredFocus?'on':'off'));};
+focusRange.oninput=()=>focusValue.value=Number(focusRange.value).toFixed(2);
+focusRange.onchange=()=>{desiredFocusThreshold=Number(focusRange.value);saveThreshold('robby.focusThreshold',desiredFocusThreshold);client.send('identity:focus:threshold:'+desiredFocusThreshold);};
+releaseFocus.onclick=()=>client.send('identity:focus:release');
 function setSentenceMode(on){sentenceMode=on;if(!on)return;
+ focusBox.hidden=false;
  $('speech-pause-controls').hidden=false;
  if(!identityModel.querySelector('[value="open-sentences"]'))identityModel.add(new Option('ECAPA voice profiles · open sentence streaming','open-sentences'));identityModel.value='open-sentences';
- gate.checked=false;gate.disabled=true;gateLabel.lastChild.textContent=' All voices welcome · speaker matching labels voices instead of filtering them';
+ gate.checked=false;gate.disabled=true;gateLabel.lastChild.textContent=' Voice labels use full-utterance ECAPA; conversation focus is controlled above';
  openSpeakers.checked=true;openSpeakers.disabled=true;identityModel.disabled=true;modelLabel.title='Open sentence mode uses full-utterance ECAPA reference embeddings.';
- $('speaker-controls').querySelector('strong').textContent='Recognize people while welcoming every voice';
- $('speaker-controls').querySelector('p').textContent='Speak normally. Complete sentences are sent promptly; no wake phrase or introduction is required. Unknown voices receive Speaker 1, Speaker 2… labels. Tell Robby your name, or correct a voice mismatch, to link several voice references to one person.';
+ openHelp.hidden=true;
+ $('speaker-controls').querySelector('strong').textContent='Keep the conversation together';
+ gateLabel.title='The independent conversation-focus switch guards background speech in this mode.';
  localPipeline.hidden=false;
- const pill=document.querySelector('.brand-note');if(pill)pill.textContent='local Nemotron · sentence streaming';
- matchHelp.textContent='Default: 0.38 cosine for voice labels. Lower values merge similar voices more readily; higher values create more provisional speakers. Every intelligible speaker is still answered. Say “I am also Christoph” to join two voice references.';
+ const pill=document.querySelector('.brand-note');if(pill)pill.textContent='sentence-streamed voice chat';
+ matchHelp.textContent='Voice-label threshold: 0.38 by default. During an active conversation the separate partner threshold (default 0.32) preserves identity across prosody changes. Say “I am also Christoph” to link a confirmed voice variant.';
  utteranceStrictness.value=desiredOpenVoiceThreshold;utteranceValue.value=desiredOpenVoiceThreshold.toFixed(2);
 }
 gate.onchange=async()=>{const enabled=gate.checked;desiredGate=enabled;try{await client.start(true);client.send('identity:'+(enabled?'on':'off'));$('asr-status').textContent=enabled?'Speaker filter ON. Say “Hey Robbie, ich bin …” to join.':'Speaker filter OFF. Speak normally; background voices may also be transcribed.';}catch(e){gate.checked=false;desiredGate=false;$('identity-status').textContent=e.message;}};
@@ -220,8 +247,8 @@ const advancedHelp=document.createElement('p');advancedHelp.textContent='Only lo
 resetThresholds.onclick=()=>{desiredUtteranceThreshold=DEFAULT_VOICE_THRESHOLD;desiredFastThreshold=null;try{localStorage.removeItem('robby.voiceThreshold');localStorage.removeItem('robby.fastThreshold');}catch{}utteranceStrictness.value=DEFAULT_VOICE_THRESHOLD;utteranceValue.value=DEFAULT_VOICE_THRESHOLD.toFixed(2);strictness.value=.62;strictValue.value='0.62';applySpeakerSettings();client.send('identity:threshold:0.619811549782753');};
 const forget=document.createElement('button');forget.className='text-button';forget.textContent='Forget enrolled users';forget.onclick=()=>client.send('identity:clear');timeoutLabel.after(forget);
 const studyLink=document.createElement('a');studyLink.href='/speaker-study/';studyLink.target='_blank';studyLink.rel='noopener';studyLink.textContent='Speaker predictor study ↗';$('identity-status').after(studyLink);
-const overview=document.createElement('a');overview.href='/static/report.html';overview.target='_blank';overview.rel='noopener';overview.textContent='Implementation, tests and limitations ↗';studyLink.after(document.createElement('br'),overview);
-const latencyReport=document.createElement('a');latencyReport.href='/static/robby-local-speed-report.html';latencyReport.target='_blank';latencyReport.rel='noopener';latencyReport.textContent='Local LLM, TTS precision and latency measurements ↗';overview.after(document.createElement('br'),latencyReport);
+const implementationLink=document.createElement('a');implementationLink.href='/static/report.html';implementationLink.target='_blank';implementationLink.rel='noopener';implementationLink.textContent='Implementation, tests and limitations ↗';studyLink.after(document.createElement('br'),implementationLink);
+const latencyReport=document.createElement('a');latencyReport.href='/static/robby-local-speed-report.html';latencyReport.target='_blank';latencyReport.rel='noopener';latencyReport.textContent='Local LLM, TTS precision and latency measurements ↗';implementationLink.after(document.createElement('br'),latencyReport);
 const identityHelp=document.createElement('p');identityHelp.textContent='Default: streaming diarization, fast 320-ms speaker cues and a longer 3.04-s identity context. This longer context uses speech already heard; it does not extend the one-second pause. Transcript and speaker checks are prepared during that pause and discarded if you continue speaking. Names and voice memory are session-only; uncertain overlaps can require repetition. The 2-s option remains available for comparison.';studyLink.after(identityHelp);
 async function poll(){try{const s=await fetch('/api/state').then(r=>r.json());ready=s.ready;gate.disabled=!s.identity_available;$('call').disabled=!ready;const long=s.identity_models?.long,long3=s.identity_models?.long3;identityModel.querySelector('[value="v4-long3"]').disabled=!long3;if(long)identityModel.querySelector('[value="v4-long"]').textContent='V4 320 ms + '+long.label;if(long3)identityModel.querySelector('[value="v4-long3"]').textContent='V4 320 ms + '+long3.label;if(!connected){phase(s.ready?'Ready when you are':s.error||s.phase,s.ready?'ready':'');$('identity-status').textContent='Speaker extension: '+s.identity_model+'. Voiceprints stay in RAM for this conversation only.';}if(s.sentence_stream){setSentenceMode(true);identityHelp.textContent='ASR collects all sentences until your selected speech pause. A small CPU neural detector separates speech from background sounds. Output sentences still stream immediately to TTS. Speech after a submitted turn enters the next request; an LLM request already running cannot be edited in place.';}}catch{phase('Reconnecting…');}}
 poll();setInterval(poll,10000);
