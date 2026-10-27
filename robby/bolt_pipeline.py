@@ -97,7 +97,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
 
     producer=asyncio.create_task(produce());spoken=[];scripts=[];cues=[];total_samples=0;index=0
     from speech_language import reply_language
-    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history),memory=context.get('knowledge_memory'))) if reaction_enabled else None
+    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history),memory=context.get('knowledge_memory'),environment=context.get('environment'))) if reaction_enabled else None
     first_main=asyncio.create_task(queue.get());intro=None;initial=True;main_started=False;actions_sent=False
     try:
         if reaction_enabled and os.environ.get('ROBO_INFORMED_BRIDGE','1')=='1':

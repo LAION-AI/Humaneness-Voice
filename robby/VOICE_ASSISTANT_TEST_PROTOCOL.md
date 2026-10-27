@@ -703,3 +703,28 @@ own isolated memory capability; never inspect/reset a real visitor's store.
 Test cancelling at the reaction and at the informed transition, not only in the
 legacy exact-length story route. Retain browser scheduling gaps and server PCM
 timings without treating them as physical loudspeaker measurements.
+
+
+## Proactive environment regression suite — 2026-10-27
+
+See [PROACTIVE_ENVIRONMENT.md](PROACTIVE_ENVIRONMENT.md) for model pins, launch
+commands and detection thresholds. The new authored fixtures cover steady noise,
+impacts, beeps, speech onset, echo/playback suppression, cooldowns and cancellation.
+`check_sound_caption.py` compares actual serial and parallel GPU services.
+`browser_environment_check.py` checks HTTPS fake-device capture, automatic welcome,
+real autoplay blocking, a simulated permission denial with typed fallback, sound
+reaction, visible timing, mobile layout and persistent shutdown.
+`browser_environment_voices.py` uses the existing synthetic speaker corpus with
+real ASR/ECAPA/Ears/LLM/TTS: quiet TV must not elicit a reply; a clearly different
+foreground voice may elicit a question without enrollment or focus transfer.
+The ordinary memory and two-stage browser suites are rerun with automatic start
+and environmental sensing explicitly disabled to isolate those contracts.
+The adversarial harness disables page autostart but leaves environment defaults
+intact; its quiet-background expectations must still hold. Run browsers serially.
+
+Save every attempt with source hash, exact fixture seed and event trace, including
+failures. Do not count an interrupted question as a fully heard reply. Speaker
+identity and physical echo immunity need separate room/device trials. Future
+coverage should add held-out licensed real room events, level/SNR sweeps, unknown
+voice variants, long TV programs, far-field microphones and measured acoustic
+loopback; do not tune solely to the small procedural test set.
