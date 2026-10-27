@@ -4,6 +4,7 @@ No second microphone, raw-audio persistence, identity mutation or caption queue.
 Only idle slots may produce a proactive reply; real user turns take priority.
 """
 import asyncio
+import math
 import os
 import time
 from collections import deque
@@ -13,7 +14,8 @@ from ambient_audio import AmbientDetector, caption_kind
 class EnvironmentSession:
     def __init__(self, conversation, clock=time.monotonic):
         self.c=conversation; self.clock=clock; self.enabled=False; self.voices=True
-        self.impressions=False; self.events=True; self.closed=False; self.epoch=0
+        self.impressions=True; self.events=True; self.closed=False; self.epoch=0
+        self.background_notices=[]
         self.detector=AmbientDetector(); self.job=None; self.worker=None; self.pending=None
         self.last_reply=-1e9; self.last_voice=-1e9; self.last_playback=-1e9
         self.last_audio=-1e9; self.last_user=-1e9; self.recent={}; self.greeted=False
@@ -153,6 +155,23 @@ class EnvironmentSession:
         finally:
             self.listening=False
 
+    def notice_background(self,audio,decision,level):
+        """Repeated audible background speech may invite one cautious question.
+
+        Never enroll an ignored voice, interrupt a real answer or infer that a
+        TV is a person. Levels are just salience, not an identity classifier.
+        """
+        if not self.enabled or not self.voices or self.c.speaking or level<.003 or len(audio)<16000:return
+        if decision.get('known_voice_similarity',-1.)>=.5:return
+        prominence=decision.get('estimated_level_above_floor_db')
+        if not isinstance(prominence,(int,float)) or not math.isfinite(prominence) or prominence<8:return
+        now=self.clock();self.background_notices=[t for t in self.background_notices if now-t<25]+[now]
+        if len(self.background_notices)<2 or now-self.last_voice<120 or now-self.last_playback<1 or (self.job and not self.job.done()):return
+        stream=getattr(self.c,'sentence_stream',None)
+        if stream and not stream.permissions.questions:return
+        self.last_voice=now;self.background_notices=[]
+        self.job=asyncio.create_task(self.describe_voice(audio[-48000:].copy(),self.epoch))
+
     def background_voice(self,audio,decision,level,owner_level):
         stream=getattr(self.c,'sentence_stream',None)
         if (not self.enabled or not self.voices or not stream or not stream.permissions.questions
@@ -219,7 +238,7 @@ class EnvironmentSession:
             await self.c.ws.send_json({'type':'environment_observation','kind':item['kind'],'status':'responding'})
             await self.c.ws.send_json({'type':'latency_start','reply_id':self.c.playback.rid,
                 'input':{'kind':'environment','sound_caption_ms':item.get('timing',{}).get('request_ms')}})
-            await self.c.to_mouth(b'T',{'transcript':'','speaker':self.c.current_speaker or {},
+            await self.c.to_mouth(b'T',{'transcript':'','speaker':{**(self.c.current_speaker or {}),'needs_name':False,'self_introduction':False},
                 'avatar_context':context,'quick_replies':self.c.quick_replies and item['kind']!='welcome',**self.c.llm.snapshot()})
 
     async def close(self):

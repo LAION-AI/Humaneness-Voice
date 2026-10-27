@@ -30,13 +30,14 @@ def voice_level(audio):
     return float(np.quantile(rms,.8))
 
 class OpenVoiceMemory:
-    def __init__(self,threshold=.38,max_users=32,max_variants=8,clock=time.monotonic):
+    def __init__(self,threshold=.32,max_users=32,max_variants=8,clock=time.monotonic):
         self.threshold=threshold;self.max_users=max_users;self.max_variants=max_variants
         self.users={};self.counter=0;self.turn=0;self.clock=clock;self.timeout_s=900
+        self.last_speaker=None;self.last_name_question=-1e9
     def expire(self):
         for sid in list(self.users):
             if self.timeout_s>0 and self.clock()-self.users[sid].get('seen',self.clock())>self.timeout_s:del self.users[sid]
-    def clear(self):self.users.clear();self.counter=0;self.turn=0
+    def clear(self):self.users.clear();self.counter=0;self.turn=0;self.last_speaker=None;self.last_name_question=-1e9
     def assign(self,embedding,text,preferred=None,adapt=False,force_new=False):
         self.expire()
         self.turn+=1;name=name_claim(text);vector=unit(embedding) if embedding is not None else None
@@ -50,6 +51,9 @@ class OpenVoiceMemory:
         ranking=sorted(((max((float(vector@v) for v in u['vectors']),default=-1),sid)
             for sid,u in self.users.items()),reverse=True) if vector is not None else []
         score,sid=ranking[0] if ranking else (-1,None)
+        rival=max((value for value,key in ranking if key!=sid),default=-1.)
+        continuity=bool(not name and sid and score<self.threshold and sid==self.last_speaker and self.users[sid]['named']
+            and self.clock()-self.users[sid]['seen']<60 and score>=max(.24,self.threshold-.08) and score>=rival+.08)
         # An explicit self-identification can attach another acoustic mode to
         # the same named person; a mere third-person name mention cannot.
         named=next((sid for sid,u in self.users.items() if name and u['named'] and u['name'].casefold()==name.casefold()),None)
@@ -70,7 +74,7 @@ class OpenVoiceMemory:
         elif force_new:sid=None
         elif pending_label:sid=pending_label
         elif preferred in self.users:sid=preferred
-        elif score<self.threshold:sid=None
+        elif score<self.threshold and not continuity:sid=None
         elif name and self.users[sid]['named'] and self.users[sid]['name'].casefold()!=name.casefold():sid=None
         if sid is None:
             if vector is None and name is None:
@@ -89,19 +93,22 @@ class OpenVoiceMemory:
         if vector is not None:
             refs=user['vectors']
             similarity=max((float(vector@v) for v in refs),default=-1.)
-            if (not refs or name or named or similarity>=(.42 if adapt else .70)) and similarity<.96:
+            strong_variant=similarity>=.55 and score>=rival+.12
+            if (not refs or name or named or (not continuity and (strong_variant or similarity>=(.42 if adapt else .70)))) and similarity<.96:
                 if len(refs)<self.max_variants:refs.append(vector.copy())
                 elif named or adapt:refs[1:]=[*refs[2:],vector.copy()]  # preserve original anchor
         user['turns']+=1
-        needs=not user['named'] and self.turn-user['asked_turn']>=3
-        if needs:user['asked_turn']=self.turn
+        needs=not user['named'] and self.turn-user['asked_turn']>=3 and self.clock()-user.get('asked_at',-1e9)>=90 and self.clock()-self.last_name_question>=45
+        if needs:user['asked_turn']=self.turn;user['asked_at']=self.clock();self.last_name_question=self.clock()
+        self.last_speaker=sid
         return {'speaker_id':sid,'display_name':user['name'],'named':user['named'],'enrolled':True,
                 'needs_name':needs,'similarity':round(score,4),'voice_variants':len(user['vectors']),
+                'identity_uncertain':continuity and score<self.threshold,'continuity_match':continuity,
                 'self_introduction':bool(name),'name_resolution':name_resolution,'source':'wake-free nearest-prototype ECAPA'}
     def status(self):
         self.expire()
         return [{'id':sid,'name':u['name'],'named':u['named'],'reference_ready':bool(u['vectors']),
-                 'voice_variants':len(u['vectors'])} for sid,u in self.users.items()]
+                 'voice_variants':len(u['vectors']),'social_profile':__import__('social_profiles').describe(u)} for sid,u in self.users.items()]
 
 class SentenceSession:
     def __init__(self,conversation):
@@ -305,8 +312,11 @@ class SentenceSession:
             return
 
     def identity_state(self):
+        speakers=self.memory.status()
+        if not getattr(getattr(self.c,'environment',None),'impressions',True):
+            for row in speakers:row['social_profile']=None
         return {'type':'identity','enabled':self.focus.enabled,'mode':'open-sentences','sentence_mode':True,
-                'open_enrollment':True,'speakers':[{**u,'admitted':u['id'] in self.focus.members} for u in self.memory.status()],'users':[u['name'] for u in self.memory.users.values()],
+                'open_enrollment':True,'speakers':[{**u,'admitted':u['id'] in self.focus.members} for u in speakers],'users':[u['name'] for u in self.memory.users.values()],
                 'threshold':self.memory.threshold,'conversation_focus':self.focus.state(self.memory.users,self.c.speaking),
                 'handover_pending':time.monotonic()<self.handover_until,'storage':'Session RAM'}
 
@@ -564,7 +574,7 @@ class SentenceSession:
                 caption_task=None
                 if due and self.captions_enabled:
                     from voice_captioning import describe
-                    caption_task=asyncio.create_task(describe(self.audio(audio_start,audio_end)))
+                    caption_task=asyncio.create_task(describe(self.audio(audio_start,audio_end),impression=bool(getattr(getattr(self.c,'environment',None),'impressions',True))))
                     self.tasks.add(caption_task);caption_task.add_done_callback(self.tasks.discard)
                 try:
                     model=self.asr.selected;receipt={'model':'nemotron'}
@@ -687,6 +697,7 @@ class SentenceSession:
                 if not addressed['accepted']:
                     await self.c.ws.send_json({'type':'speaker_focus','operation':'turn',**addressed})
                     await self.c.ws.send_json({'type':'ignored',**addressed})
+                    if getattr(self.c,'environment',None):self.c.environment.notice_background(audio,addressed,level)
                     continue
                 decision=self.turn_decision(embedding,fast,level)
                 guest=None
@@ -706,7 +717,27 @@ class SentenceSession:
                 preferred=decision.get('speaker_id',owner) if decision['accepted'] and not handover else None
                 reference=self.memory.users.get(preferred,{}).get('level',0.)
                 safe_update=(not decision.get('provisional') and decision.get('similarity',1.)>=.5 and len(audio)>=20480 and (not reference or level>=reference*.45))
+                visual=getattr(self.c,'visual',None)
+                view=visual.gate(max(0,at-len(audio)/16000),at) if visual else {'allowed':True}
+                if not view.get('allowed',True):
+                    await self.c.ws.send_json({'type':'ignored','source':'visual_filter',**view});continue
+                if visual and visual.camera=='on' and visual.settings['faceIdEnabled'] and not visual.settings['ignoreOffscreenSpeakers']:
+                    optional_view=visual.select(max(0,at-len(audio)/16000),at)
+                    if optional_view.get('allowed'):view={**optional_view,'allowed':True}
+                # Fresh, unambiguous optional Face ID can corroborate a weak
+                # voice match, but never overrides an explicit name or strong rival.
+                track=view.get('track_id');binding=visual.bindings.get(track) if visual and track else None
+                if binding and visual.settings['faceIdEnabled'] and visual.corroborates(binding['speaker_id'],max(0,at-len(audio)/16000),at) and not claim and embedding is not None:
+                    target=binding['speaker_id'];refs=self.memory.users.get(target,{}).get('vectors',[])
+                    own=max((float(embedding@v) for v in refs),default=-1.)
+                    rival=max((float(embedding@v) for key,u in self.memory.users.items() if key!=target for v in u['vectors']),default=-1.)
+                    if own>=.18 and rival<max(.45,own+.15):preferred=target
                 context=guest or self.memory.assign(embedding,text,preferred=preferred,adapt=bool(preferred and safe_update and decision.get('fast_similarity',1.)>=.35),force_new=bool(foreground_reclaim))
+                if visual and track:
+                    await self.c.ws.send_json({'type':'visual_active','track_id':track,'confidence':view.get('confidence',0)})
+                    if context.get('named') and visual.settings['faceIdEnabled']:
+                        person=visual.bind(track,context)
+                        if person:await self.c.ws.send_json({'type':'visual_person',**person})
                 if (initial_intro or foreground_reclaim) and owner and context['speaker_id']!=owner:
                     self.focus.members.discard(owner)
                     if self.focus.primary==owner:self.focus.primary=context['speaker_id']
@@ -733,8 +764,17 @@ class SentenceSession:
                 if admission!=self.admission_epoch:continue
                 from voice_captioning import completed_hint
                 delivery=completed_hint(item[8] if len(item)>8 else None,self.captions_enabled)
+                impressions=bool(getattr(getattr(self.c,'environment',None),'impressions',True))
+                if delivery.get('voice_impression_only') and not impressions:delivery={'status':'settings_changed'}
                 if self.closed or admission!=self.admission_epoch:continue
                 if delivery.get('status')=='available':context={**context,'voice_delivery':delivery}
+                from social_profiles import observe,describe as profile_description
+                user=self.memory.users.get(context['speaker_id'])
+                if user is not None:
+                    if not context.get('identity_uncertain'):observe(user,delivery,impressions)
+                    context['social_profile']=profile_description(user,impressions)
+                context['known_people']=[{'name':u['name'],'voice_variants':len(u['vectors'])} for u in self.memory.users.values() if u['named']][:8]
+                await self.c.ws.send_json(self.identity_state())
                 await self.c.ws.send_json({'type':'voice_caption',**delivery})
                 self.c.current_speaker=context
                 self.c.pending_input_timing={'kind':'voice','asr':asr,

@@ -8,6 +8,44 @@ Start with the executable regression checks below. Use the configuration-search 
 
 ## 1. Current evidence and its limits
 
+### October 27: role confusion, person memory and curiosity regression
+
+See [SOCIAL_IDENTITY.md](SOCIAL_IDENTITY.md) and the
+[English report](static/social-identity-report.html). Run the browser audio suites
+sequentially against the deployed source hash, using authored synthetic fixtures;
+keep private microphone recordings and voiceprint arrays out of published results.
+
+| Test | Required assertions | Executable / receipt |
+| --- | --- | --- |
+| User/robot role | “I am Christoph” names the user; a correction is acknowledged; another name in history does not become the current person | `check_social_dialogue.py`; `static/social-dialogue-*.json` |
+| Current-person name lookup | A narrow identity question uses the named current speaker; weak continuity asks for confirmation; general knowledge/relationship questions still use the LLM | `test_social_profiles.py`; actual browser name turns |
+| Voice variation | Calm and playful questions keep the correct person; weak continuity never creates a new acoustic anchor | `test_social_profiles.py`, `browser_social_profiles.py` |
+| Speaker change and return | Christoph → Selma → Christoph must yield both the correct endpoint identity AND the correct spoken name | `browser_social_profiles.py`; the earlier failed receipt is retained |
+| Optional profile persistence | Default OFF; explicit consent; reconnect without another introduction; disable removes local storage; Forget clears face/voice state | `browser_social_profiles.py`; multimodal consent checks |
+| Traits are uncertain | GPU impressions toggle changes returned dimensions; trait changes do not determine identity; disabling use hides current summaries | `static/social-vocal-traits.json`, `test_social_profiles.py` |
+| Repeated audible background | Two rejected background observations may produce one tentative, audible question, without enrollment; relevant question content is required, not just playback; known soft voice, invalid floor and ignore instruction must not | `browser_social_curiosity.py`, `check_social_curiosity_prompt.py`, `test_social_profiles.py` |
+| Camera still optional | Camera, Face ID and face VAD start OFF; position tracking independent; real CPU two-face detection and descriptors; unambiguous speaking face can bind without gating speech | `browser_multimodal_checks.py`, `test_social_profiles.py` |
+
+The browser profile suite uses 20-ms digital microphone packets, actual Parakeet,
+ECAPA, Ears, Qwen or the explicit name-lookup controller, real TTS and PCM playback.
+The camera suite uses fake device permission, synthetic landmark trajectories and
+public imagery. Do not describe these as physical-device accuracy measurements.
+The profile suite has six turns on two synthetic voices, not a representative
+biometric benchmark. Ten role probes include six deterministic name lookups and
+four real LLM generations; never report all ten as LLM accuracy successes.
+
+Future held-out expansion: at least 20 consenting human speakers, quiet and
+television rooms, two microphones/distances, multiple emotions/languages per
+speaker, explicitly corrected identity variants, twins/similar voices, replayed
+voices, stale camera frames and overlap. Measure name confusion, duplicate-profile
+rate, unnecessary naming questions per ten minutes, missed actual speaker changes,
+false proactive questions, turn completion and interruption latency. Sweep
+threshold, rival margin and continuity timeout jointly; do not optimize recall
+alone by accepting every voice. Include private test fixtures only with suitable
+permission; publish anonymized aggregate results rather than voiceprints.
+
+### Historical initial protocol evidence
+
 The initial October 26 development evidence is in these machine-readable receipts, relative to this directory:
 
 | Receipt | Executed scope | Result recorded before this protocol was introduced |

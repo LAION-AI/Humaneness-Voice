@@ -12,7 +12,9 @@ import {LLMControls} from './llm-controls.js';
 import {LiveOverview} from './live-overview.js';
 import {MemoryControls} from './memory-controls.js';
 import {EnvironmentControls} from './environment-controls.js';
+import {SocialProfiles} from './social-profiles.js';
 const $=id=>document.getElementById(id);
+let socialProfiles=null;
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let sentenceMode=false;
 let foregroundInputUntil=0;
@@ -38,7 +40,8 @@ function savedThreshold(key,fallback,min,max){try{const raw=localStorage.getItem
 function saveThreshold(key,value){try{localStorage.setItem(key,String(value));}catch{/* Private-mode storage is optional. */}}
 const DEFAULT_VOICE_THRESHOLD=.32,CAMERA_FPS=10,FACE_INTERVAL_MS=1000/CAMERA_FPS;
 let desiredUtteranceThreshold=savedThreshold('robby.voiceThreshold',DEFAULT_VOICE_THRESHOLD,.3,.9),desiredFastThreshold=savedThreshold('robby.fastThreshold',null,.1,.95);
-let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.38,.3,.9);
+let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.32,.3,.9);
+try{if(localStorage.getItem('robby.openVoiceBalanceVersion')!=='4'){if(desiredOpenVoiceThreshold===.38)desiredOpenVoiceThreshold=.32;saveThreshold('robby.openVoiceThreshold',desiredOpenVoiceThreshold);localStorage.setItem('robby.openVoiceBalanceVersion','4');}}catch{}
 let desiredFocus=false;try{if(localStorage.getItem('robby.speakerModeVersion')!=='3'){localStorage.setItem('robby.conversationFocus','false');localStorage.setItem('robby.speakerModeVersion','3');}desiredFocus=localStorage.getItem('robby.conversationFocus')==='true';}catch{}
 let desiredBackgroundFilter=true;try{desiredBackgroundFilter=localStorage.getItem('robby.backgroundSpeechFilter')!=='false';}catch{}
 let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.28,.20,.65);
@@ -109,7 +112,7 @@ const client=window.robo=new RoboClient({
   // Compatibility guard for an older server/history echo. The actual server
   // also removes this obsolete note before sentence framing and synthesis.
   if(m.type==='reply'&&typeof m.text==='string')m={...m,text:m.text.replace(/\[My preceding reply was interrupted\.[^\]]*(?:\]|$)/gi,'').trim()};
-  asrControls?.message(m);memoryControls?.message(m);
+  asrControls?.message(m);memoryControls?.message(m);socialProfiles?.message(m);
   if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Optional reaction enabled: Qwen receives the exact reaction and continues while TTS prepares both streams.':'Quick reactions disabled; play the main answer directly.';
   if(m.type==='voice_caption')$('voice-caption-status').textContent=m.status==='available'?`${m.caption} · uncertain estimate · ${Math.round(m.request_ms)} ms · ${m.window_s} s audio`:`Tone hint: ${m.status.replaceAll('_',' ')} · transcript-only response.`;
   llmControls?.message(m);overview.message(m);environmentControls?.message(m);
@@ -377,3 +380,5 @@ $('follow-center').onclick=()=>{if(eyeContact?.state.active)eyeContact.finish();
 $('quick-calibrate').onclick=()=>{const panel=document.querySelector('.gaze-controls');if(panel){panel.open=true;$('gaze-start').click();}};
 window.robotFace.cameraControls={ensure:startCamera,stop:stopCamera,get active(){return !!cameraStream;}};
 if($('camera-auto').checked)void startCamera();else $('camera').textContent='Enable camera';
+
+socialProfiles=new SocialProfiles(client);

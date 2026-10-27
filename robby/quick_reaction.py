@@ -45,6 +45,9 @@ User corrects their name to Alice -> Danke für die Korrektur, Alice.
 Never copy these example names/facts unless they occur in this turn's evidence.
 '''
 
+from social_profiles import SOCIAL_NOTE
+SYSTEM+='\n'+SOCIAL_NOTE
+
 TEMPERATURE=.35
 TOP_P=.9
 

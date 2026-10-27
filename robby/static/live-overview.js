@@ -15,6 +15,7 @@ export class LiveOverview{
   recent.innerHTML='<h2>With Robby, right now</h2><article class="recent-card asr"><h3>ASR · live preview</h3><p id="recent-asr" class="recent-copy">Waiting for speech…</p></article><article class="recent-card user"><h3 id="recent-user-label">You · last turn</h3><p id="recent-user" class="recent-copy">Say something or type a message.</p></article><article class="recent-card robot"><h3>Robby · latest reply</h3><p id="recent-robby" class="recent-copy">I’m ready to chat with you.</p></article>';
   const playbackStatus=document.createElement('p');playbackStatus.id='recent-playback-status';playbackStatus.setAttribute('role','status');
   playbackStatus.textContent='No spoken reply yet.';recent.querySelector('.robot').append(playbackStatus);
+  const modelLabel=document.createElement('p');modelLabel.id='recent-reply-model';modelLabel.textContent='Reply model: waiting for an actual response.';recent.querySelector('.robot').append(modelLabel);
   const history=document.createElement('details');history.className='settings chat-history';history.id='chat-history';
   const title=document.createElement('summary');title.textContent='Full conversation history';history.append(title,document.querySelector('.chat-heading'),document.getElementById('chat'));
   history.ontoggle=()=>{if(history.open){const chat=document.getElementById('chat');chat.scrollTop=chat.scrollHeight;}};
@@ -76,6 +77,7 @@ export class LiveOverview{
   for(const [key,name] of Object.entries(fields))if(finite(metrics[name]))this.values[key]=metrics[name];
   if(finite(metrics.tool_director_ms)&&!finite(this.values.llm))this.values.llm=metrics.tool_director_ms;
   if(metrics.llm_model)this.values.model=metrics.llm_model;
+  if(metrics.quick_reply_model)this.values.reaction_model=metrics.quick_reply_model;
   if(metrics.llm_actual_provider||metrics.llm_provider)this.values.provider=metrics.llm_actual_provider||metrics.llm_provider;
   const stages=metrics.tts_server_stages||[];
   if(stages.some(s=>finite(s.generation_ms)))this.values.tts_gpu=stages.reduce((sum,s)=>sum+(finite(s.generation_ms)?s.generation_ms:0),0);
@@ -83,7 +85,7 @@ export class LiveOverview{
  }
  paint(){
   for(const id of ids)document.getElementById('latency-'+id).textContent=id==='asr'&&this.kind==='typed'?'Typed':ms(this.values[id]);
-  const v=this.values;document.getElementById('latency-status').textContent=this.pending?'Current response · updating live':'Latest measured response';
+  const v=this.values;document.getElementById('recent-reply-model').textContent='Main reply: '+(v.model||'waiting for model metadata')+(v.provider?' · '+v.provider:'')+(v.reaction_model?' · optional reaction: '+v.reaction_model:'');document.getElementById('latency-status').textContent=this.pending?'Current response · updating live':'Latest measured response';
   document.getElementById('latency-details').textContent=[
    `Model: ${v.model||'waiting'}${v.provider?' · '+v.provider:''}`,
    `LLM first token: ${ms(v.ttft)}; LLM stream wall time: ${ms(v.llm_wall)}`,
