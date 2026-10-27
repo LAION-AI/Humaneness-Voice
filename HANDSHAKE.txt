@@ -1,0 +1,267 @@
+ROBBY / HUMANENESS VOICE — PROJECT HANDOVER
+Snapshot: 2026-10-27 16:32 UTC. Operational details such as URLs, PIDs,
+free space and GPU occupancy are transient: check them again before acting.
+
+1. PURPOSE AND CURRENT STATE
+
+This machine runs an interactive German-first voice assistant called Robby:
+browser avatar / 3D desk robot, streaming speech recognition, approximate
+speaker identity, conversation and tools, Humaneness Voice TTS, optional
+environmental listening, facial tracking and local wiki-style memory.
+The user values a responsive, warm, playful conversation, reliable stop /
+interrupt handling, usable speaker continuity in TV/noisy environments, and
+transparent reproducible tests. Keep previous capabilities and user choices.
+
+Live demo, checked HTTP 200 at the snapshot:
+  https://diane-asylum-understood-invoice.trycloudflare.com/desk-robot/
+Latest social identity report, checked HTTP 200:
+  https://diane-asylum-understood-invoice.trycloudflare.com/static/social-identity-report.html
+Other English documentation and reports:
+  https://projects.laion.ai/Humaneness-Voice/robby/
+
+The Cloudflare trycloudflare hostname is temporary. It may change or become
+unavailable after a tunnel restart. Never claim an old URL still works without
+checking it. Browser microphone, camera, and audio autoplay may require explicit
+user permission or a click. Test the live public URL and local readiness after
+any restart. Reload the browser after changing Python or JS.
+
+The local GitHub checkout was clean on main at merge commit
+72c4c875a413fa84e0e86e42139f9254371ad5c2 (PR 22, social identity).
+  https://github.com/LAION-AI/Humaneness-Voice/pull/22
+The live Robby server reported ready, with loaded source SHA-256
+8ee4806a252c91033e3290f32c850919153e4ccd8a0e3f9da631debe3728e6a6.
+This hash covers the specific runtime file list in robo-integration/server.py;
+it is not a hash of all model weights or of the entire repository.
+
+2. WHERE THINGS ARE
+
+  /mnt/nvme/moss-15-v2/                 This project root; older MOSS demo,
+                                        experiments and historical reports.
+  /mnt/nvme/moss-15-v2/robo-integration/ ACTIVE Robby source and runtime.
+                                        This directory is NOT a Git checkout.
+  /mnt/nvme/moss-15-v2/humaneness-small/ Humaneness Small TTS service, assets,
+                                        playground, studies and service logs.
+  /mnt/nvme/moss-15-v2/repository-update/Humaneness-Voice/
+                                        Publication Git checkout. Its robby/
+                                        is an exported snapshot, not the
+                                        directory serving the running demo.
+  /mnt/nvme/moss-15-v2-assets/          Earlier models/retrieval/assets;
+                                        the root wikiskills is a symlink here.
+  /mnt/nvme/robby-asr/                  ASR model cache.
+  /mnt/nvme/robby-bolt/                 Local Nemotron Bolt weights.
+  /mnt/nvme/robby-sound-caption/        Sound captioning cache.
+  /mnt/nvme/robby-sound-events/         CPU AudioSet event worker/cache.
+  /mnt/nvme/robo-speaker-studies/       Earlier speaker studies and robot
+                                        design PDFs/SVG/3D assets; private.
+
+Start reading these files from robo-integration/; they contain exact defaults,
+code locations, model revisions, receipts, measured limitations and setup:
+  README.md                     Overall integration; newest update is at top.
+  SOCIAL_IDENTITY.md            Current roles, profiles, camera and curiosity.
+  PROACTIVE_ENVIRONMENT.md      Sound/event detection and background behavior.
+  PERSISTENT_MEMORY.md          Optional wiki memory and its privacy model.
+  VOICE_ASSISTANT_TEST_PROTOCOL.md  Reproducible multi-speaker/audio test matrix.
+  VOICE_CAPTIONS.md             Humaneness Ears and voice-caption pipeline.
+  TWO_STAGE_SPEECH.md           Optional reaction / shared streaming TTS.
+  RESTORE_BEFORE_PROACTIVE.md   Explicitly HISTORICAL rollback, not current
+                                main; useful for startup and asset inventory.
+  static/worklog.html           Historical task and verification log.
+  static/social-identity-report.html and static/social-*.json
+                                Latest results, including failed attempts.
+
+The root VOICE_ASSISTANT_TEST_PROTOCOL.md is an older copy; use the current
+file in robo-integration/ or the published robby/ snapshot. Large READMEs have
+historical sections: prefer latest dated sections and actual code/config over
+earlier prose if they disagree.
+
+Key implementation: server.py and sentence_session.py handle input, acoustic
+turns and identity; social_profiles.py stores prototypes/traits and name lookup;
+bolt_director.py, bolt_pipeline.py and conversation_director.py handle LLM
+and speech; environment_session.py, ambient_audio.py, sound_event_worker.py
+and sound_caption_worker.py handle environmental sound; voice_caption_worker.py
+uses Ears; visual_identity.py and static/multimodal-ui.js handle optional face
+identity; static/ui.js, static/social-profiles.js and static/live-overview.js
+implement controls, profiles and actual model labels. Interruption policies
+are in live_decisions.py, sentence_decisions.py, laya_policy.py and related
+stop modules. The test protocol maps the rest.
+
+3. MACHINE AND RUNNING SERVICES
+
+Python environment: /home/c4r33u19/moss15v2/.venv/bin/python
+uv:                 /home/c4r33u19/.local/bin/uv
+Browser:            /usr/bin/google-chrome
+
+Two NVIDIA RTX 3090 GPUs, 24 GiB each. At snapshot GPU 0 used 14,165 MiB and
+GPU 1 used 14,853 MiB; zero utilization does NOT mean VRAM is free. Existing
+services occupy both GPUs; inspect processes and workload before experiments.
+Never reset a GPU, kill unrelated processes, or stop shared services merely
+to run a test. Ask/coordinate when work would disrupt a live user.
+
+Disk snapshot: root filesystem / had only ~12 GB available (99% displayed);
+/mnt/nvme had ~52 GB available (95% displayed); /dev/shm had ~42 GB available.
+Check df -h and inode/asset usage before downloads, training or big caches.
+Use suitable other mounted drives when available, and keep persistent assets
+off root if possible. /dev/shm is volatile and disappears at reboot. Never
+delete recordings, model weights, user data or caches merely because they look
+large; identify ownership and value first. Logs, browser state, reference audio
+and private research data may be sensitive.
+
+Verified local listeners at the snapshot (loopback unless otherwise noted):
+  8792   Humaneness Small TTS, /api/state; shared by demos.
+  8793   Robby application, /api/state, /desk-robot/ and /static/ reports.
+  8795   Robby TYGER MOUTH bridge, owned by the 8793 Robby process.
+  8797   Laya decision worker; distinct process, do not confuse with Robby.
+  8798   FastAPI facade, proxied by a Cloudflare tunnel.
+  8799   Local llama.cpp Nemotron Bolt E4B Q4 model.
+  8801   Alternative final-ASR worker; live audio has one session slot.
+  8802   Humaneness Ears voice-caption worker, GPU 1, /state.
+  8803   Sound-effect Whisper caption worker, GPU 0, /state.
+  8804   EfficientAT MN04 AudioSet event candidate worker, CPU, /state.
+Other Cloudflare tunnels also existed. Determine their owned upstream before
+changing any. The live demo may be reached through the 8798 facade.
+
+Read-only first checks:
+  ss -ltnp | rg ':8792|:8793|:8795|:8797|:8798|:8799|:8801|:8802|:8803|:8804'
+  nvidia-smi
+  df -h / /mnt/nvme /dev/shm
+  curl -fsS http://127.0.0.1:8793/api/state
+  curl -fsS http://127.0.0.1:8792/api/state
+  curl -fsS http://127.0.0.1:8802/state
+  curl -fsS http://127.0.0.1:8803/state
+  curl -fsS http://127.0.0.1:8804/state
+
+The runtime source fingerprint can be compared without exposing credentials:
+  cd /mnt/nvme/moss-15-v2/robo-integration
+  /home/c4r33u19/moss15v2/.venv/bin/python -c 'from run_voice_assistant_checks import deployed_source_hash; print(deployed_source_hash())'
+Compare with source_sha256 in Robby's /api/state. A source edit does not update
+already-imported server code. JS may require a browser reload. The TTS and
+Ears workers are separate processes and require their own restart if changed.
+
+For full recovery, follow README.md and RESTORE_BEFORE_PROACTIVE.md carefully,
+then PROACTIVE_ENVIRONMENT.md for the later sound workers; the restore guide
+describes a historical baseline, not a promise to revert current behavior.
+Use manage.py / manage_laya.py only after verifying ownership and live activity.
+At snapshot /tmp/restart_robby_owned.py existed for a paired restart of the
+owned 8793 process; /tmp is volatile, inspect it before trusting it, and do
+not assume it is part of the repository. Preserve required environment and
+restart immediately, wait for readiness, then check HTTPS. Never print process
+environment or credentials while diagnosing startup.
+
+4. CURRENT SETTINGS AND DATA FLOW
+
+Current main LLM: qwen/qwen3.8-27b via OpenRouter, Cerebras FP16 endpoint
+when the server credential is configured; local Nemotron Bolt E4B is another
+selectable backend and may become the fallback default without a credential.
+Provider choices and exact active source are visible in the UI. Hosted LLMs
+receive relevant conversation text and authorized context; they do not receive
+raw speaker embedding vectors or face photos.
+
+ASR: Parakeet TDT v3 final by default; Nemotron 3.5 streaming previews and
+TYGER features/turn decisions remain in use. Alternatives, including German
+Moonshine, Nemotron telephony and Whisper Turbo, are in asr_catalog.py.
+The pause setting defaults to 700 ms and is user adjustable. Voice identity
+uses existing SpeechBrain ECAPA 192-D prototypes; open-speaker threshold is
+0.32 by default. A narrowly bounded recent-person continuity rule may report
+uncertainty and must not train on a weak match. Multiple voice variants per
+person and explicit name corrections are supported. Focus uses separate
+controls; do not silently conflate the focus threshold with open-speaker 0.32.
+
+TTS: Humaneness Voice Small 1.1 Alpha RL r128 v1, pinned model and launch
+details in README/restore inventory and humaneness-small/. Current normal
+speech generation passes temperature 0.8 and guidance 2.0; the normal chunk
+default is 20 semantic frames (approximately 1.6 s). Optional quick reaction
+uses shorter chunks; it is OFF by default. Verify runtime env and selected
+voice/profile rather than assuming every historical TTS study setting is live.
+
+Proactive sounds / unfamiliar audible voices are enabled by default, with an
+8-dB prominence default, playback protection, cooldowns and uncertainty.
+Whisper sound captions run alongside CPU EfficientAT candidates. Ears Medium
+voice-delivery and uncertain vocal age/gender/timbre hints run on GPU and are
+ON by default. They are approximate audible impressions, not facts, speaker
+authentication or reliable demographic identification. The optional background
+question is checked before TTS; one invalid draft may be regenerated, and a
+second invalid draft is suppressed. Normal foreground streaming is not held
+by this check.
+
+Camera auto-start, face-ID and face-VAD filtering are OFF by default; face
+position following is available when a user enables their camera. Face ID can
+optionally associate an unambiguous visible speaking face with voice identity.
+Persistent biometric profile storage is explicitly consented and OFF by
+default; browser storage is unencrypted. The separate factual wiki memory is
+also OFF by default and has its own settings/reset. Browser-saved preferences
+can override defaults. Never publish private microphone recordings, camera
+images, biometric vectors, wiki contents, personal settings or credentials.
+
+5. VALIDATION AND REPRODUCTION
+
+The latest recorded live and exported-source offline runs passed 567 unit
+tests. This is a historical measurement, not proof that future changes pass.
+The latest authored-synthetic HTTPS identity replay passed six turns, including
+two vocal styles, opt-in profile restore, a Selma/Christoph switch and real
+TTS PCM. Five guarded real-Qwen proactive-question probes passed; the browser
+background test produced an audible, relevant question without enrolling the
+background voice. Camera checks exercised CPU MediaPipe/face-api, fake camera,
+synthetic landmark motion and public images. Earlier semantic failures and
+provider/harness errors are retained, not hidden. Consult report receipts and
+their source hashes for which version each test actually ran against.
+
+These tests are NOT held-out human accuracy, microphone/room/TV robustness,
+physical webcam verification, arbitrary German grammar, or a guarantee that
+all interruptions work. Strong overlap and background-word contamination have
+previously failed. The exact historical source of the user's quoted grammar
+error was not retained; Qwen did reproduce a separate wrong-name error.
+
+Useful commands, from robo-integration/ with the usual dependencies:
+  /home/c4r33u19/moss15v2/.venv/bin/python run_unit_checks.py
+  /home/c4r33u19/moss15v2/.venv/bin/python check_social_dialogue.py
+  /home/c4r33u19/moss15v2/.venv/bin/python check_social_curiosity_prompt.py
+  /home/c4r33u19/moss15v2/.venv/bin/python build_social_report.py
+
+Browser tests require Playwright, Chrome, live services and authored fixture
+audio. See SOCIAL_IDENTITY.md and VOICE_ASSISTANT_TEST_PROTOCOL.md. Example:
+  /home/c4r33u19/.local/bin/uv run --no-project --with playwright --python /home/c4r33u19/moss15v2/.venv/bin/python python browser_social_profiles.py --url https://diane-asylum-understood-invoice.trycloudflare.com
+  /home/c4r33u19/.local/bin/uv run --no-project --with playwright --python /home/c4r33u19/moss15v2/.venv/bin/python python browser_social_curiosity.py --url https://diane-asylum-understood-invoice.trycloudflare.com
+These are real paid-provider/model/TTS calls and occupy the single live ASR
+session: run sequentially, only when an actual user is not using it. Fixture
+generation also consumes TTS/GPU time; reuse verified fixtures where possible.
+Never turn synthetic-pass metrics into human-room accuracy claims.
+
+6. PUBLICATION AND SECRETS
+
+GitHub source: https://github.com/LAION-AI/Humaneness-Voice
+The live tree is edited first; export_source.py creates a vetted UTF-8-only
+source archive and SOURCE_MANIFEST.json. Export into the Git checkout's robby/
+and verify manifest hashes; copy reviewed public report artifacts to docs/robby/.
+Run the exported unit checks, git diff --check and robby/scan_staged_release.py
+on staged files before committing. Check the allowlist and output size cap.
+Inspect the final diff; no blanket copying of logs, audio, model weights or
+browser data. PR 22 shows the recent publication procedure and evidence.
+Follow current user authorization and repository rules before remote changes.
+
+OpenRouter credentials are kept outside the checkout by credential_store.py;
+its README explains encrypted-at-rest storage and separate key material. The
+user supplied credentials in earlier conversation: treat them as sensitive,
+do not repeat them, print environment variables, put them in commands, log
+them, include them in receipts, or commit them. Do not assume encryption protects
+against a compromised server account. The scanner reduces risk; it cannot
+prove that every possible secret encoding is absent. Browser profile consent
+and the factual-memory setting are separate and neither is authentication.
+
+7. IMPORTANT OPEN FOLLOW-UPS
+
+No new development task is implied merely by this handover. If asked to improve
+the system, start from actual current user observations and reproduce failures.
+The most important remaining validation is with consenting held-out humans and
+real microphones/webcams: varied emotions/languages, same-person variants,
+similar voices, quiet addressed speech with TV/music, simultaneous speakers,
+false matches, duplicate profiles, unsolicited background questions, stop /
+interrupt timing, echo and ASR word loss. Measure both false accepts and misses;
+do not just lower thresholds or claim perfect reliability. Check whether the
+user has enabled camera or persistent memory before diagnosing those features.
+
+Recheck proactive-question relevance and actual audible output (not just that
+text was generated), preserve failed cases, and separate routing/lexical checks
+from real semantic quality. Maintain the test protocol and report as findings
+change. Keep the demo responsive and prioritize the current speaker; respect
+requests to ignore background audio. For experiments, use non-disruptive CPU
+or available GPU capacity, bounded disk storage and reproducible seeds/config.
