@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Restore point before proactive audio awareness:** [`robby-before-proactive-2026-10-27`](https://github.com/LAION-AI/Humaneness-Voice/tree/robby-before-proactive-2026-10-27) preserves the running PR #17 baseline. [Recovery guide, model inventory, launch order and source verifier](robby/RESTORE_BEFORE_PROACTIVE.md).
+
 **Current Robby update:** memory-informed first reactions, an informed transition based on Qwen’s actual opening, and the complete answer. One shared TTS model batches two streams at temperature **0.8**, preparing the main answer while the transition runs. Warm HTTPS scheduled playback was **634–781 ms** in two tested turns; first post-restart playback was 2.47 s. [English report, audio, failed attempts and timings](https://projects.laion.ai/Humaneness-Voice/robby/two-stage-report.html) · [Architecture and reproducible tests](robby/TWO_STAGE_SPEECH.md).
 
 **Quick-reaction quality update:** [40-case study with listening examples](https://projects.laion.ai/Humaneness-Voice/robby/quick-quality-report.html), tone-specific local prompting, repeated-opening suppression, better joke follow-ups and duplicate-condolence handling. Local generation remains about 200 ms; model-rated engagement improved, but some factual prefaces remain generic and main-answer joke quality is imperfect. [Method and reproducible tests](robby/QUICK_REACTIONS.md).
