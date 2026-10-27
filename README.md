@@ -1,5 +1,8 @@
 # Humaneness Voice
 
+**Current identity update:** Robby distinguishes user and robot roles explicitly, uses the current registered speaker for direct name questions, and shows the actual reply model/provider. Open-speaker matching defaults to **0.32**, with bounded continuity and multiple voice prototypes. Uncertain vocal age/gender/timbre hints and cautious background questions are on; durable biometric profiles require separate opt-in consent. Camera, Face ID and factual wiki memory remain off by default. [Implementation and reproduction](robby/SOCIAL_IDENTITY.md) · [Tests, timings and retained failures](https://projects.laion.ai/Humaneness-Voice/robby/social-identity-report.html).
+
+
 **Current Robby update:** parallel CPU AudioSet candidates (EfficientAT MN04) and GPU sound captions, **8-dB** prominence, music-at-start detection and after-question sound identification. Local reactions are **OFF by default**; if enabled, the exact memory/sound-informed reaction enters Qwen before its answer starts, while reaction playback overlaps generation. No second filler bridge. Foreground guests can join without a wake phrase, with independent quiet-background filtering and optional partner focus. Camera and persistent wiki memory remain off by default.
 [Setup, pinned models and controls](robby/PROACTIVE_ENVIRONMENT.md) ·
 [English measurements, semantic errors and browser receipts](https://projects.laion.ai/Humaneness-Voice/robby/environment-report.html) ·
@@ -159,10 +162,7 @@ The current demo supports **Qwen 3.8 27B via OpenRouter/Cerebras**, other exact
 provider endpoints and the local Nemotron LLM. Administrator credentials are
 authenticated-encrypted outside the checkout; the browser can select routes
 without receiving the key. Recent ASR/user/robot turns sit beside the avatar,
-with live component timings below it. The default **conversation focus** keeps
-the current person across intonation changes and verifies both conversational
-turns and interruptions before admitting background voices. The focus can be
-tuned, released or disabled. See the [deployment and timing report](https://laion-ai.github.io/Humaneness-Voice/robby/openrouter-update.html)
+with live component timings below it. The optional **conversation focus** can retain the current person across intonation changes. It is off by default so foreground guests can join. Open recognition uses a 0.32 threshold plus bounded recent-speaker continuity; focused retention uses its separate 0.28 control. Quiet-background and interruption checks remain independent. Focus can be tuned, released or disabled. See the [deployment and timing report](https://laion-ai.github.io/Humaneness-Voice/robby/openrouter-update.html)
 and [speaker-focus report, tests and acoustic limits](https://laion-ai.github.io/Humaneness-Voice/robby/conversation-focus-update.html).
 
 

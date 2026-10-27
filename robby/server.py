@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','social_profiles.py','voice_caption_worker.py','visual_identity.py','static/social-profiles.js','static/multimodal-ui.js','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -149,6 +149,13 @@ class RoboConversation(Conversation):
             self.current_speaker={k:v for k,v in self.current_speaker.items() if k!='voice_delivery'}
         if self.sentence_stream:
             typed=(getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed'
+            if typed:
+                from sentence_session import name_claim
+                if name_claim(transcript):
+                    # An explicit typed introduction names the current texter,
+                    # but supplies no acoustic prototype for another person.
+                    self.current_speaker=self.sentence_stream.memory.assign(None,transcript)
+                    await self.ws.send_json(self.sentence_stream.identity_state())
             result=self.sentence_stream.permissions.command(transcript,self.current_speaker,typed=typed)
             if result:
                 await self.ws.send_json({'type':'speaker_permission',**result})
@@ -452,6 +459,24 @@ class RoboConversation(Conversation):
         if data in ('reply:quick:on','reply:quick:off'):
             self.quick_replies=data.endswith(':on')
             await self.ws.send_json({'type':'quick_reply_settings','enabled':self.quick_replies});return
+        if self.sentence_stream and data.startswith('profiles:'):
+            try:
+                from social_profiles import export_profiles,import_profiles
+                if len(data)>384000:raise ValueError('Profiles too large')
+                command=json.loads(data[9:])
+                if not isinstance(command,dict):raise ValueError('Expected profile command')
+                if command.get('action')=='export' and command.get('consent') is True:
+                    await self.ws.send_json({'type':'speaker_profiles','profiles':export_profiles(self.sentence_stream.memory)})
+                elif command.get('action')=='import' and command.get('consent') is True:
+                    import_profiles(self.sentence_stream.memory,command.get('profiles'))
+                    await self.ws.send_json(self.sentence_stream.identity_state())
+                elif command.get('action')=='forget':
+                    self.sentence_stream.clear_identity();self.current_speaker=None;self.visual.forget()
+                    await self.ws.send_json(self.sentence_stream.identity_state())
+                else:raise ValueError('Consent required')
+            except (ValueError,TypeError,KeyError):
+                await self.ws.send_json({'type':'warning','text':'Speaker profile update rejected; check explicit consent and profile format.'})
+            return
         if data.startswith('llm:'):
             await self.llm.command(data);return
         if self.sentence_stream and data in ('captions:on','captions:off'):
@@ -515,6 +540,7 @@ class RoboConversation(Conversation):
                 elif kind=='frame':self.visual.observe(message,self.mic_pos/self.ears.sr)
                 elif kind=='forget':
                     self.visual.forget()
+                    if self.sentence_stream:self.sentence_stream.clear_identity();self.current_speaker=None
                     if self.speaker_ext is not None:await self.speaker_ext.clear();self.current_speaker=None
                 elif kind=='identify':
                     if not self.visual.settings['faceIdEnabled']:return
@@ -526,6 +552,11 @@ class RoboConversation(Conversation):
                     if type(age) in (int,float) and np.isfinite(age) and 0<=age<=5000:self.visual.face_verified[track_id]=time.monotonic()-age/1000
                 elif kind=='export' and (message.get('consent') is True or message.get('session') is True):
                     profiles=[]
+                    if self.sentence_stream:
+                        for person in self.visual.people.values():
+                            user=self.sentence_stream.memory.users.get(person['speaker_id'])
+                            if user and user.get('vectors'):
+                                profiles.append({**person,'schema':'sentence-ecapa-v1','vectors':[v.tolist() for v in user['vectors'][:8]]})
                     if self.speaker_ext is not None:
                         for person in self.visual.people.values():
                             user=self.speaker_ext.memory.users.get(person['speaker_id'])
@@ -540,6 +571,14 @@ class RoboConversation(Conversation):
                     for p in profiles:
                         if not isinstance(p,dict) or not isinstance(p.get('name'),str) or not 1<=len(p['name'])<=60:raise ValueError('Invalid profile')
                         if not __import__('visual_identity').TOKEN.fullmatch(str(p.get('person_id',''))):raise ValueError('Invalid person ID')
+                        if self.sentence_stream and p.get('schema')=='sentence-ecapa-v1':
+                            refs=[np.asarray(v,np.float32) for v in p.get('vectors',[])]
+                            if not 1<=len(refs)<=8 or any(v.shape!=(192,) or not np.isfinite(v).all() or not .5<np.linalg.norm(v)<1.5 for v in refs):raise ValueError('Invalid voice prototypes')
+                            if p['person_id'] not in self.visual.people:
+                                context=self.sentence_stream.memory.assign(refs[0],'Ich bin '+p['name']+'.')
+                                self.sentence_stream.memory.users[context['speaker_id']]['vectors']=[v/np.linalg.norm(v) for v in refs]
+                                self.visual.people[p['person_id']]={'person_id':p['person_id'],'speaker_id':context['speaker_id'],'name':p['name']}
+                            continue
                         checked.append((p,unit(p['fast']),unit(p['long']) if p.get('long') is not None else None,unit(p['teacher'])))
                     if self.speaker_ext is not None:
                         for p,fast,long,teacher in checked:

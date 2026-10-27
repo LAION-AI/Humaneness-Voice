@@ -146,6 +146,8 @@ class CompactDirector:
         if knowledge_enabled:
             messages[0]['content']+='\nException to the no-tools rule: the following real read-only tools are available.\n'+KNOWLEDGE_NOTE
             messages[0]['content']+='\nCurrent UTC date: '+str(datetime.datetime.now(datetime.timezone.utc).date())
+        from social_profiles import context_note
+        messages[0]['content']+=context_note(identity)
         if identity.get('needs_name'):
             messages[0]['content']+='\nThis is a NEW unnamed session guest. Answer their request in at most 100 words, briefly welcome them and ask their name ONCE. This is an explicit exception to the no-follow-up rule.'
         tools_enabled=interaction_state is not None
