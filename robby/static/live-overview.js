@@ -1,5 +1,5 @@
 // Last conversational context and measured stage timings, without guessing zeros.
-const ids=['asr','speaker','reaction','bridge','llm','tts','reply','buffer'];
+const ids=['asr','speaker','reaction','bridge','llm','tts','reply','buffer','sound'];
 const finite=n=>typeof n==='number'&&Number.isFinite(n)&&n>=0;
 const ms=n=>finite(n)?(n>0&&n<1?'<1 ms':`${Math.round(n)} ms`):'—';
 export class LiveOverview{
@@ -24,7 +24,7 @@ export class LiveOverview{
   robotColumn.append(avatar,under);contextColumn.append(recent,form);row.append(robotColumn,contextColumn);
   const people=document.querySelector('.people-panel');people.open=false;aside.append(people);
   const panel=document.createElement('section');panel.id='latency-dashboard';panel.setAttribute('aria-label','Latency of the current reply');
-  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',bridge:'Informed bridge',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead'};
+  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',bridge:'Informed bridge',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead',sound:'Sound caption · GPU request'};
   panel.innerHTML='<div class="latency-heading"><h2>Response timing</h2><span id="latency-status" role="status">Waiting for a turn</span></div><div class="latency-grid">'+ids.map(id=>`<div class="latency-cell"><span>${labels[id]}</span><strong id="latency-${id}">—</strong></div>`).join('')+'</div><details><summary>Timing details</summary><p id="latency-details">These are measured server / browser timings. Stages overlap, so the values must not be added. A dash means not measured yet.</p></details>';
   document.querySelector('.under-avatar').after(panel);
  }
@@ -34,11 +34,13 @@ export class LiveOverview{
  typed(text){this.copy('recent-user',text);this.copy('recent-asr','Typed input · no ASR needed.');this.copy('recent-robby','Preparing a reply…');document.getElementById('recent-user-label').textContent='You · typed';}
  audio(m){if(m.first){this.values.buffer=m.playback_lead_ms;this.paint();}}
  message(m){
+  if(m.type==='sound_caption'){this.lastSound=m;this.values.sound=m.status==='available'?m.request_ms:null;this.paint();}
+
   if(['asr_preview','partial'].includes(m.type)&&m.text?.trim())this.copy('recent-asr',m.text);
   if(m.type==='latency_start'){
    this.begin(m.input?.kind||'unknown');this.turn=m.reply_id;const p=m.input||{};
    this.values.asr=p.asr?.transcribe_ms;this.values.pause=p.asr?.observed_quiet_ms;this.values.asr_model=p.asr?.model;
-   this.values.caption=p.voice_caption_ms;this.values.caption_status=p.voice_caption_status;this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
+   this.values.sound=p.sound_caption_ms??(this.lastSound?.status==='available'?this.lastSound.request_ms:null);this.values.caption=p.voice_caption_ms;this.values.caption_status=p.voice_caption_status;this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
    this.values.speaker_cached=p.speaker_prefetch_used;this.values.queue=p.sentence_queue_ms;this.paint();
   }
   if(m.type==='asr_finalizing')document.getElementById('latency-status').textContent='Recognizing your next words…';
@@ -84,6 +86,7 @@ export class LiveOverview{
    `TTS job wall time (overlapping; completed sentences): ${ms(v.tts_gpu)}; generation RTF: ${finite(v.rtf)?v.rtf.toFixed(2):'—'}`,
    `Local reaction: ${v.reaction_status||'not measured'}; first useful answer PCM: ${ms(v.answer)}`,
    `Informed bridge: ${v.bridge_status||'not measured'}; main PCM ready in buffer: ${ms(v.answer_ready)}`,
+   `Environmental sound: capture ${ms(this.lastSound?.capture_ms)}; GPU inference ${ms(this.lastSound?.inference_ms)}; worker request ${ms(this.lastSound?.request_ms)}. Runs alongside ASR; can be skipped.`,
    `Optional tone caption: ${ms(v.caption)} · ${v.caption_status||'not measured'}`,
    `Speech pause observed: ${ms(v.pause)}; input turn queue: ${ms(v.queue)}`,
    `Speaker background embedding: ${ms(v.speaker_background)}${v.speaker_cached?' (prefetched; main card shows only the remaining wait)':''}`,

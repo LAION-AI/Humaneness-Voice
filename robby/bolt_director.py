@@ -156,7 +156,9 @@ class BoltDirector:
             messages[0]['content']+='\nA separate local companion may speak a short acknowledgment while you generate this reply. Start the actual useful answer directly, without an acknowledgment or preamble. Do not mention the companion or refer to a phrase you have not seen. Complete the full task normally; your answer must also stand alone if no acknowledgment plays.'
         if memory:
             messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
-        browser_context={k:v for k,v in (avatar_context or {}).items() if k!='knowledge_memory'}
+        from ambient_audio import context_instruction
+        messages[0]['content']+='\n'+context_instruction((avatar_context or {}).get('environment'),(avatar_context or {}).get('environment_proactive',False))
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment')}
         if browser_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if (avatar_context or {}).get('requested_actions'):
             messages[0]['content']+='''\nThe requested visual actions have already been sent to the browser. React playfully while
@@ -171,7 +173,7 @@ story or other work, still complete that task in full. These are screen effects,
             messages[0]['content']+='\nThe current requested interruption-rule change was already applied by the real controller. Acknowledge it briefly and naturally. Actual active rules (JSON data): '+json.dumps(avatar_context['applied_interruption_rules'],ensure_ascii=False)
         # Plain user speech matches the model's conversation training format;
         # burying it inside English JSON reduced German answer quality in tests.
-        messages.append({'role':'user','content':text[:3000] if text else 'Respond briefly to the current optional avatar event, or output [silent].'})
+        messages.append({'role':'user','content':text[:3000] if text else ('Respond to the supplied optional environment observation.' if (avatar_context or {}).get('environment_proactive') else 'Respond briefly to the current optional avatar event, or output [silent].')})
         body={'model':model,'messages':messages,'stream':True,'stream_options':{'include_usage':True},
               'max_tokens':2048 if not reply_words and not (avatar_context or {}).get('event') else 320,
               'temperature':.7,'top_p':.95,

@@ -138,7 +138,9 @@ class CompactDirector:
         messages[0]['content']+='\n'+PERSONALITY_NOTE
         memory=(avatar_context or {}).get('knowledge_memory')
         if memory:messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
-        browser_context={k:v for k,v in (avatar_context or {}).items() if k!='knowledge_memory'}
+        from ambient_audio import context_instruction
+        messages[0]['content']+='\n'+context_instruction((avatar_context or {}).get('environment'),(avatar_context or {}).get('environment_proactive',False))
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment')}
         if browser_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if event:messages[0]['content']+='\nThis turn is an optional avatar event, not speech from the user. The three-field JSON speech format is still required unless choosing {"silent": true}.'
         if knowledge_enabled:

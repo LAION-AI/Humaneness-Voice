@@ -23,6 +23,7 @@ def main():
     p.add_argument('--reuse-llm',action='store_true',help='Use an already running compatible local server at port 8799')
     p.add_argument('--with-asr-models',action='store_true',help='Start the optional CPU-preloaded ASR bank on port 8801')
     p.add_argument('--with-voice-captions',action='store_true',help='Start the pinned Humaneness Ears GPU sidecar on port 8802')
+    p.add_argument('--with-sound-captions',action='store_true',help='Start pinned Whisper sound captions on GPU, loopback port 8803')
     args=p.parse_args();model=args.models/FILE
     if not args.llama_server.is_file():p.error('llama-server binary does not exist')
     if not model.exists() and args.download:
@@ -32,6 +33,7 @@ def main():
     if args.with_robo and port_used(8793):p.error('ASR port 8793 is in use; this launcher will not replace its owner')
     if args.with_asr_models and port_used(8801):p.error('ASR model bank port 8801 is already in use')
     if args.with_voice_captions and port_used(8802):p.error('Caption worker port 8802 is already in use; keep its existing owner')
+    if args.with_sound_captions and port_used(8803):p.error('Sound caption worker port 8803 is already in use')
     if not args.reuse_llm and port_used(8799):p.error('LLM port 8799 is in use; use --reuse-llm to retain that server')
     env=dict(os.environ,ROBO_DIRECTOR_MODE='bolt',ROBO_SENTENCE_STREAM='1',ROBO_BOLT_CHUNK_FRAMES='20',
         ROBO_BOLT_BASE='http://127.0.0.1:8799',ROBO_DIRECTOR_BASE='http://127.0.0.1:8799',
@@ -47,6 +49,7 @@ def main():
                 '--host','127.0.0.1','--port','8799','-ngl','999','-c','16384','-np','2',
                 '-fa','on','-b','512','-ub','256','-t','6','--jinja','--no-webui'],{'CUDA_VISIBLE_DEVICES':args.gpu})
         if args.with_voice_captions:spawn('voice-captions',[sys.executable,'-u','voice_caption_worker.py'])
+        if args.with_sound_captions:spawn('sound-captions',[sys.executable,'-u','sound_caption_worker.py'],{'ROBO_SOUND_DEVICE':os.environ.get('ROBO_SOUND_DEVICE','cuda:'+args.gpu)})
         if args.with_robo:spawn('bolt-robo',[sys.executable,'-u','server.py'],{'CUDA_VISIBLE_DEVICES':args.gpu})
         if args.with_asr_models:spawn('asr-model-worker',[sys.executable,'-u','asr_model_worker.py'],{'CUDA_VISIBLE_DEVICES':args.gpu,'ROBO_ASR_DEVICE':'cuda:0'})
         spawn('bolt-api',[sys.executable,'-m','uvicorn','bolt_api:app','--host','127.0.0.1','--port','8798'])
