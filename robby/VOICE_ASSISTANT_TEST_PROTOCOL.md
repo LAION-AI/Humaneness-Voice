@@ -728,3 +728,11 @@ identity and physical echo immunity need separate room/device trials. Future
 coverage should add held-out licensed real room events, level/SNR sweeps, unknown
 voice variants, long TV programs, far-field microphones and measured acoustic
 loopback; do not tune solely to the small procedural test set.
+
+
+Music follow-up: `python browser_environment_music.py --url https://YOUR-DEMO`
+uses authored melody/bass/drums through Chrome's microphone path. Quiet music
+must not trigger, a prominent onset must yield an actual spoken music response,
+and a second onset after the detector cooldown must be suppressed by the
+three-minute music-category cooldown. Receipt: `environment-music-*.json`.
+The ordinary speech VAD remains enabled; this is an instrumental-music test.

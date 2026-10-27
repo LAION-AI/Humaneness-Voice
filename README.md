@@ -1,7 +1,7 @@
 # Humaneness Voice
 
 **New Robby update:** automatic welcome with explicit off/permission controls,
-proactive prominent-sound captions on GPU alongside ASR, and cautious questions
+proactive prominent-sound and music captions on GPU alongside ASR, and cautious questions
 about unfamiliar voices while retaining the current conversation partner.
 [Setup and reproducible tests](robby/PROACTIVE_ENVIRONMENT.md) ·
 [Measured latency and browser report](https://projects.laion.ai/Humaneness-Voice/robby/environment-report.html).
