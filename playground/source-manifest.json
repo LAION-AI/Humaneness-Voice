@@ -808,8 +808,8 @@
     },
     {
       "path": "playground/runtime/small_app.py",
-      "bytes": 60094,
-      "sha256": "2c59374a87aa1d0b89b2a09341aadfa13ee69f73b2495c202ffe3c83c9d5fa4f"
+      "bytes": 60433,
+      "sha256": "f4bd150a8aa951b64b120055b94df88dece6c457cb2936811527aad896c04219"
     },
     {
       "path": "playground/runtime/smoke_test.py",
@@ -1190,9 +1190,24 @@
       "path": "playground/runtime/test_turn_cancellation.py",
       "bytes": 1301,
       "sha256": "7ef0180a96de91178cbee17f933c329d7735189a865d2cbd9cfc03bd4259654c"
+    },
+    {
+      "path": "playground/runtime/live_batch.py",
+      "bytes": 12290,
+      "sha256": "947e53c27cdde11bfd0db8082530c8ff797bcf9451536ecbbd6b57c4d5726916"
+    },
+    {
+      "path": "playground/runtime/live_batch_api.py",
+      "bytes": 7180,
+      "sha256": "24b026c308dd6b0c93f755942d2ff4c04e032113d1265b477a17ebb515562108"
+    },
+    {
+      "path": "playground/runtime/test_live_batch.py",
+      "bytes": 2202,
+      "sha256": "e329b9b045c33606f6c60806fdafe8094dfd9f8c29540ebb0e0517b6c9289b51"
     }
   ],
   "note": "Hashes describe the published snapshot, not untracked runtime state or missing audio. No model or upload directories are included.",
-  "runtime_update_date": "2026-10-26",
-  "runtime_update_note": "Opt-in PCM/live-only single-stream transport and shorter first codec block; other snapshot paths retain their recorded versions."
+  "runtime_update_date": "2026-10-27",
+  "runtime_update_note": "Adds loopback continuous two-stream TTS batching for Robby, one shared model, per-stream KV/codec state, startup warmup at T=0.8, retained final alignment. Other paths keep their recorded snapshots."
 }
