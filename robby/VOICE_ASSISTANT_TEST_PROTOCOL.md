@@ -686,3 +686,20 @@ old results before an intentional rerun. Main answers are tested separately from
 optional first reactions: a good preface does not imply a good joke or a shorter
 time to substantive content. See `static/quick-quality-report.html` for all
 results and limitations.
+
+
+## Two-stage speech and memory-grounded first reactions (2026-10-27)
+
+See [TWO_STAGE_SPEECH.md](TWO_STAGE_SPEECH.md) for the exact scripts, settings,
+receipt files and scope. Preserve all failed attempts; use fresh output filenames.
+The GPU cache-isolation pilot is deterministic at temperature zero and deliberately
+truncated, while conversational TTS uses 0.8. Do not compare those as quality runs.
+Measure first sound separately from the time the substantive answer is heard.
+Test the first reaction with known people, unknown people, memory disabled, empty
+memory, current-session-only facts, explicit name corrections, English, and hostile
+instructions embedded in reference data. Reconnect with a zero history budget to
+prove that recall comes from wiki retrieval. Each browser test uses and resets its
+own isolated memory capability; never inspect/reset a real visitor's store.
+Test cancelling at the reaction and at the informed transition, not only in the
+legacy exact-length story route. Retain browser scheduling gaps and server PCM
+timings without treating them as physical loudspeaker measurements.

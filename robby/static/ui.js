@@ -107,7 +107,7 @@ const client=window.robo=new RoboClient({
   // also removes this obsolete note before sentence framing and synthesis.
   if(m.type==='reply'&&typeof m.text==='string')m={...m,text:m.text.replace(/\[My preceding reply was interrupted\.[^\]]*(?:\]|$)/gi,'').trim()};
   asrControls?.message(m);memoryControls?.message(m);
-  if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Local contextual reactions enabled; the main answer wins when ready first.':'Quick reactions disabled; play the main answer directly.';
+  if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Two-stage replies enabled: short reaction, informed bridge, then the full answer.':'Quick reactions disabled; play the main answer directly.';
   if(m.type==='voice_caption')$('voice-caption-status').textContent=m.status==='available'?`${m.caption} · uncertain estimate · ${Math.round(m.request_ms)} ms · ${m.window_s} s audio`:`Tone hint: ${m.status.replaceAll('_',' ')} · transcript-only response.`;
   llmControls?.message(m);overview.message(m);
   if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;

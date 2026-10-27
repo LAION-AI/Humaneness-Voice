@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parent
 
 def main():
     files=list(ROOT.glob('*.py'))
-    files += [ROOT/name for name in ['README.md','QUICK_REACTIONS.md','PERSISTENT_MEMORY.md','VOICE_CAPTIONS.md','BRIDGE_PHRASES_PLAN.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
+    files += [ROOT/name for name in ['README.md','TWO_STAGE_SPEECH.md','QUICK_REACTIONS.md','PERSISTENT_MEMORY.md','VOICE_CAPTIONS.md','BRIDGE_PHRASES_PLAN.md','VOICE_ASSISTANT_TEST_PROTOCOL.md','voice_assistant_test_matrix.json','LICENSE','NOTICE','requirements.txt','requirements-asr.txt','config.example.json','.gitignore']]
     files.append(ROOT/'static/VOICE_ASSISTANT_TEST_PROTOCOL.md')
     for pattern in ['*.js','*.css','*.html','*.svg','LICENSE-MIT.txt']:files+=list((ROOT/'static').glob(pattern))
     files.append(ROOT/'static/emotion-catalog.json')
@@ -37,7 +37,7 @@ def main():
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     # Authored synthetic quick-reaction and memory receipts, never private storage.
-    for prefix in ('quick-reaction-', 'quick-quality-', 'knowledge-memory-'):
+    for prefix in ('quick-reaction-', 'quick-quality-', 'two-stage-', 'knowledge-memory-'):
         files+=list((ROOT/'static').glob(prefix+'*.json'))
     # Reviewed synthetic experiment implementations and original prompt only.
     files += [ROOT/'experiments/quick-reaction-v1.json']
@@ -57,12 +57,15 @@ def main():
     for path in sorted(set(files)):
         if path.is_symlink():raise ValueError('No symlinks in source export')
         raw=path.read_bytes();raw.decode('utf-8')
-        if path.name=='bolt-precision.json' or path.name.startswith(('quick-reaction-audio','quick-quality-audio')) and path.suffix=='.json':
+        if path.name=='bolt-precision.json' or path.name.startswith(('quick-reaction-audio','quick-quality-audio','two-stage-audio')) and path.suffix=='.json':
             # Representative authored clips are embedded once in the report.
             # Keep the raw measurement record compact in the source release.
             record=json.loads(raw)
             for row in record.get('rows',[]):row.pop('listen_mp3_b64',None)
             raw=json.dumps(record,indent=2,ensure_ascii=False).encode()
+        if path.name.startswith('two-stage-') and path.suffix=='.json':
+            # Preserve every event while avoiding repeated pretty-print padding.
+            raw=json.dumps(json.loads(raw),separators=(',',':'),ensure_ascii=False).encode()
         if path.name=='rebalance-before-group-fix.json' or path.name.startswith('adversarial-') and path.suffix=='.json':
             # Preserve every failed-run event; only remove JSON whitespace.
             raw=json.dumps(json.loads(raw),separators=(',',':'),ensure_ascii=False).encode()
@@ -73,9 +76,10 @@ def main():
     # Retain every synthetic stress attempt (including failures), compacting
     # JSON whitespace only. The new evidence adds about 8 MB of text.
     # The UTF-8, path allowlist and credential checks above still apply.
-    # Expanded cap covers retained failed browser attempts and one listening HTML.
+    # Expanded 26-MB cap covers the reviewed two-stage code, retained failed
+    # browser attempts and three short authored listening examples (~2.3 MB new).
     # No binary/secret/path checks are relaxed.
-    if sum(len(raw) for raw in payload.values())>24_000_000:raise ValueError('Unexpected source export size')
+    if sum(len(raw) for raw in payload.values())>26_000_000:raise ValueError('Unexpected source export size: '+str(sum(len(raw) for raw in payload.values())))
     folder=ROOT/'releases';folder.mkdir(exist_ok=True)
     target=folder/'robby-source.zip';temporary=folder/'robby-source.tmp.zip'
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as archive:

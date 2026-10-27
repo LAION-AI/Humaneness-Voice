@@ -1,5 +1,5 @@
 // Last conversational context and measured stage timings, without guessing zeros.
-const ids=['asr','speaker','reaction','llm','tts','reply','buffer'];
+const ids=['asr','speaker','reaction','bridge','llm','tts','reply','buffer'];
 const finite=n=>typeof n==='number'&&Number.isFinite(n)&&n>=0;
 const ms=n=>finite(n)?(n>0&&n<1?'<1 ms':`${Math.round(n)} ms`):'—';
 export class LiveOverview{
@@ -24,7 +24,7 @@ export class LiveOverview{
   robotColumn.append(avatar,under);contextColumn.append(recent,form);row.append(robotColumn,contextColumn);
   const people=document.querySelector('.people-panel');people.open=false;aside.append(people);
   const panel=document.createElement('section');panel.id='latency-dashboard';panel.setAttribute('aria-label','Latency of the current reply');
-  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead'};
+  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',bridge:'Informed bridge',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead'};
   panel.innerHTML='<div class="latency-heading"><h2>Response timing</h2><span id="latency-status" role="status">Waiting for a turn</span></div><div class="latency-grid">'+ids.map(id=>`<div class="latency-cell"><span>${labels[id]}</span><strong id="latency-${id}">—</strong></div>`).join('')+'</div><details><summary>Timing details</summary><p id="latency-details">These are measured server / browser timings. Stages overlap, so the values must not be added. A dash means not measured yet.</p></details>';
   document.querySelector('.under-avatar').after(panel);
  }
@@ -64,7 +64,9 @@ export class LiveOverview{
  }
  consume(metrics){
   if(metrics.quick_reply_status){this.values.reaction_status=metrics.quick_reply_status;document.getElementById('quick-reply-status').textContent=metrics.quick_reply_status.replaceAll('_',' ')+(metrics.quick_reply_words?` · ${metrics.quick_reply_words} words`:'');}
-  const fields={reaction:'quick_reply_generation_ms',answer:'answer_first_audio_ms',llm:'llm_first_sentence_ms',ttft:'llm_ttft_ms',tts:'tts_first_audio_ms',reply:'first_audio_ms',llm_wall:'llm_total_ms',rtf:'generation_rtf'};
+  if(metrics.informed_bridge_status)this.values.bridge_status=metrics.informed_bridge_status;
+  if(finite(metrics.answer_audio_ready_ms))this.values.answer_ready=metrics.answer_audio_ready_ms;
+  const fields={reaction:'quick_reply_generation_ms',bridge:'informed_bridge_generation_ms',answer:'answer_first_audio_ms',llm:'llm_first_sentence_ms',ttft:'llm_ttft_ms',tts:'tts_first_audio_ms',reply:'first_audio_ms',llm_wall:'llm_total_ms',rtf:'generation_rtf'};
   for(const [key,name] of Object.entries(fields))if(finite(metrics[name]))this.values[key]=metrics[name];
   if(finite(metrics.tool_director_ms)&&!finite(this.values.llm))this.values.llm=metrics.tool_director_ms;
   if(metrics.llm_model)this.values.model=metrics.llm_model;
@@ -79,8 +81,9 @@ export class LiveOverview{
   document.getElementById('latency-details').textContent=[
    `Model: ${v.model||'waiting'}${v.provider?' · '+v.provider:''}`,
    `LLM first token: ${ms(v.ttft)}; LLM stream wall time: ${ms(v.llm_wall)}`,
-   `TTS GPU generation (completed sentences): ${ms(v.tts_gpu)}; generation RTF: ${finite(v.rtf)?v.rtf.toFixed(2):'—'}`,
+   `TTS job wall time (overlapping; completed sentences): ${ms(v.tts_gpu)}; generation RTF: ${finite(v.rtf)?v.rtf.toFixed(2):'—'}`,
    `Local reaction: ${v.reaction_status||'not measured'}; first useful answer PCM: ${ms(v.answer)}`,
+   `Informed bridge: ${v.bridge_status||'not measured'}; main PCM ready in buffer: ${ms(v.answer_ready)}`,
    `Optional tone caption: ${ms(v.caption)} · ${v.caption_status||'not measured'}`,
    `Speech pause observed: ${ms(v.pause)}; input turn queue: ${ms(v.queue)}`,
    `Speaker background embedding: ${ms(v.speaker_background)}${v.speaker_cached?' (prefetched; main card shows only the remaining wait)':''}`,
