@@ -1,5 +1,6 @@
 # EARS + HTTP bridge only. Do not install TYGER's vLLM/VoxCPM requirements.
-# Python 3.12; install the appropriate CUDA torch/torchaudio build separately.
+# Python 3.12; install matched torch / torchaudio / torchvision builds separately.
+# Tested: torch+torchaudio 2.6.0+cu124, torchvision 0.21.0+cu124 (EfficientAT CPU sidecar).
 aiohttp==3.14.3
 fastapi==0.141.1
 uvicorn==0.52.1

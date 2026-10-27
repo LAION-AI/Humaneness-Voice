@@ -8,7 +8,7 @@ from speaker_management import request
 class ManagementTests(unittest.TestCase):
     def session(self):
         c=SimpleNamespace(speaking=False,ws=SimpleNamespace(send_json=AsyncMock()),session=SimpleNamespace(reset=Mock()))
-        s=SentenceSession(c);v=np.eye(192,dtype=np.float32)
+        s=SentenceSession(c);s.focus.enabled=True;v=np.eye(192,dtype=np.float32)
         s.memory.assign(v[0],'Ich bin Christoph.');s.memory.users['speaker-1']['level']=.06;s.focus.accept('speaker-1')
         return s,v
 

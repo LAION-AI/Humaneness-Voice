@@ -54,7 +54,7 @@ class Flow(unittest.IsolatedAsyncioTestCase):
         live=FakeLive()
         async def open_live(*args):return live
         with patch('bolt_pipeline.BoltDirector.stream',main),patch('quick_reaction.generate',reaction),patch('live_speech.LiveSpeech.open',open_live):
-            events=[e async for e in pipeline(None,'Erinnerst du dich an mich?',{'display_name':'Bob'},[],memory=Memory(),llm_selection={'model':'qwen'})]
+            events=[e async for e in pipeline(None,'Erinnerst du dich an mich?',{'display_name':'Bob'},[],memory=Memory(),llm_selection={'model':'qwen'},quick_replies=True)]
         self.assertTrue(live.closed)
         self.assertEqual([e[1]['sentence_text'] for e in events if e[0]=='sentence'],['Du magst Jazz.'])
     def setup_flow(self,live,*,intro=True,main=True,count=2,text='Warum ist der Himmel blau?'):
@@ -68,17 +68,16 @@ class Flow(unittest.IsolatedAsyncioTestCase):
         return render(None,live,text=text,identity={},history=[],queue=queue,first_main=self.first,
             reaction_task=self.reaction,metrics={},start=time.perf_counter(),context={},avatar_steps=[],action_id=None,
             actions=[{'action':'one'}],sources=[],lookups=[],chunk_frames=20)
-    async def test_main_is_prefetched_before_informed_llm_and_played_after_link(self):
+    async def test_answer_prefetch_and_no_second_filler_model(self):
+        from unittest.mock import AsyncMock
         live=FakeLive()
-        async def bridge(client,text,reaction,opening,*args):
-            self.assertEqual(opening,'Licht wird in der Luft gestreut. Die weitere Antwort Nummer 0.')
-            self.assertEqual([s[0] for s in live.submissions],['reaction','answer'])
-            return {'text':'Dabei hilft ein Blick aufs Licht.','ms':1,'status':'ready','word_count':7}
-        with patch('informed_bridge.generate',bridge):events=[e async for e in self.setup_flow(live)]
+        with patch('informed_bridge.generate',new_callable=AsyncMock) as bridge:
+            events=[e async for e in self.setup_flow(live)]
+            bridge.assert_not_awaited()
         sentences=[e[1] for e in events if e[0]=='sentence']
-        self.assertEqual([s['sentence_role'] for s in sentences],['reaction','informed_bridge','answer','answer','answer'])
+        self.assertEqual([s['sentence_role'] for s in sentences],['reaction','answer','answer','answer'])
         self.assertEqual(sum(bool(s['interaction_actions']) for s in sentences),1)
-        self.assertEqual(sentences[2]['sentence_text'],'Licht wird in der Luft gestreut.')
+        self.assertEqual(sentences[1]['sentence_text'],'Licht wird in der Luft gestreut.')
         self.assertTrue(live.finished and live.closed)
     async def test_abstention_keeps_the_whole_main_answer(self):
         live=FakeLive()

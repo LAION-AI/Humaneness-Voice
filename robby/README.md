@@ -13,25 +13,29 @@ A separate pinned **Whisper sound-captioning GPU worker** processes salient soun
 alongside ASR. Quiet/background-level audio and Robby's playback are gated out.
 Fresh captions inform both the local reaction and main LLM as uncertain data.
 Prominent music is included, with a three-minute repeat-comment cooldown.
-A salient unfamiliar voice can prompt a cautious question without changing the
-current partner or enrolling a new user. Camera and persistent wiki memory remain
-OFF by default; existing normal two-stage replies remain available.
+Unknown foreground speakers can join without a wake phrase, receive session labels,
+and are asked their name. A separate, switchable combined salience filter rejects
+very quiet unaddressed background speech. Camera, persistent wiki memory and
+local bridging are **OFF by default**. The sound threshold defaults to **8 dB**.
+Ask “Was ist das hier?” and immediately play a sound: a bounded after-question
+window informs both models before the answer. EfficientAT MN04 supplies CPU
+AudioSet candidates in parallel with GPU captioning, with its own timing card.
 
 [Implementation, defaults and reproduction](PROACTIVE_ENVIRONMENT.md) ·
 [English measurements and browser receipts](https://projects.laion.ai/Humaneness-Voice/robby/environment-report.html) ·
 [Restore the pre-feature checkpoint](RESTORE_BEFORE_PROACTIVE.md).
 
-## Two-stage speech and memory-informed reactions
+## Optional reaction before an informed Qwen answer
 
-The first local reaction now sees the recent conversation and the same retrieved
-wiki context used by Qwen. It can answer a small memory question meaningfully
-instead of playing waiting-room filler. A second short transition sees Qwen's
-actual opening, followed by the complete answer. Main-answer TTS starts while
-that transition is being generated. A single shared TTS weight instance batches
-**two streams**, with independent KV/codec state, at **temperature 0.8**.
-First audio blocks are 160 ms, following blocks 400 ms; main alignment remains.
-[Architecture, defaults and reproducible tests](TWO_STAGE_SPEECH.md) ·
-[Measurements, failed variants and listening examples](static/two-stage-report.html).
+Enable the reaction checkbox only when wanted. The local model reads the same
+retrieved memory and sound context, then its exact short phrase goes into Qwen’s
+prompt. While that reaction plays, Qwen generates and the shared TTS prepares the
+answer. There is **no second filler bridge**. One TTS weight instance batches two
+streams at temperature **0.8**, with 160-ms first blocks and 400-ms following
+blocks on this optional path. Invalid reactions are skipped; poems and exact
+requests keep their direct path.
+[Architecture and retained prior experiment](TWO_STAGE_SPEECH.md) ·
+[Current measurements](static/environment-report.html).
 
 **Optional persistent memory is OFF by default.** Enable it in the settings below
 the conversation. It maintains private wiki entries with evidence quotes, five

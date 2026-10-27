@@ -13,7 +13,7 @@ from performance import plan
 from shared_turn import admitted_turn
 
 async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_context=None,
-                   interaction_state=None,chunk_frames=None,tts=True,preset=None,reply_words=None,llm_selection=None,credential=None,quick_replies=True,memory=None):
+                   interaction_state=None,chunk_frames=None,tts=True,preset=None,reply_words=None,llm_selection=None,credential=None,quick_replies=False,memory=None):
     from app.runtime.audio import StreamingAudioResampler
     from tts_bridge import decode_mp3
     start=time.perf_counter();metrics={};queue=asyncio.Queue(maxsize=4)
@@ -52,11 +52,21 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
     from quick_reaction import eligible,generate,duplicate_acknowledgment
     reaction_enabled=bool(quick_replies and tts and eligible(text,history,context,preset,reply_words,
         remote=(llm_selection or {}).get('model')=='qwen'))
-    if reaction_enabled:context['parallel_quick_reaction']=True
-    metrics['quick_reply_status']='racing' if reaction_enabled else 'disabled_or_ineligible'
+    metrics['quick_reply_status']='preparing_contextual_reaction' if reaction_enabled else 'disabled_or_ineligible'
+    from speech_language import reply_language
+    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history),memory=context.get('knowledge_memory'),environment=context.get('environment'))) if reaction_enabled else None
 
     async def produce():
         try:
+            # The main model must see the EXACT validated phrase queued before
+            # its answer. Only the tiny text generation precedes the API call;
+            # reaction audio and main text/audio then run concurrently.
+            if reaction_task:
+                reaction=await reaction_task
+                if reaction.get('text'):
+                    context['spoken_reaction']=reaction['text']
+                    metrics['main_informed_by_reaction']=True
+                metrics['main_launch_ms']=round((time.perf_counter()-start)*1000,2)
             if preset is not None:
                 for sentence in preset:await queue.put(sentence)
             elif needs_tools(text,history,interaction_state) and not context.get('event'):
@@ -96,11 +106,9 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
         await queue.put(None)
 
     producer=asyncio.create_task(produce());spoken=[];scripts=[];cues=[];total_samples=0;index=0
-    from speech_language import reply_language
-    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history),memory=context.get('knowledge_memory'),environment=context.get('environment'))) if reaction_enabled else None
     first_main=asyncio.create_task(queue.get());intro=None;initial=True;main_started=False;actions_sent=False
     try:
-        if reaction_enabled and os.environ.get('ROBO_INFORMED_BRIDGE','1')=='1':
+        if reaction_enabled:
             from live_speech import LiveSpeech
             live=await LiveSpeech.open(client,voice)
             if live is not None:
@@ -112,16 +120,11 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 await producer
                 return
         if reaction_task:
-            await asyncio.wait((first_main,reaction_task),return_when=asyncio.FIRST_COMPLETED)
-            if first_main.done():
-                metrics['quick_reply_status']='main_answer_won';reaction_task.cancel()
-            else:
-                reaction=await reaction_task
-                metrics.update(quick_reply_generation_ms=reaction['ms'],quick_reply_model=reaction['model'],quick_reply_status=reaction['status'])
-                if first_main.done():metrics['quick_reply_status']='main_answer_won'
-                elif reaction.get('text'):
-                    intro=Sentence(reaction['text'],reaction.get('direction','interest, warm, natural'),language='de' if reply_language(text,history)=='German' else 'en')
-                    metrics.update(quick_reply_status='selected',quick_reply_words=reaction['word_count'])
+            reaction=await reaction_task
+            metrics.update(quick_reply_generation_ms=reaction['ms'],quick_reply_model=reaction.get('model'),quick_reply_status=reaction['status'])
+            if reaction.get('text'):
+                intro=Sentence(reaction['text'],reaction.get('direction','interest, warm, natural'),language='de' if reply_language(text,history)=='German' else 'en')
+                metrics.update(quick_reply_status='selected',quick_reply_words=reaction['word_count'])
         pending_intro=intro
         while True:
             role='reaction' if pending_intro else 'answer'

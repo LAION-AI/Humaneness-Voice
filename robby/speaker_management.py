@@ -44,6 +44,7 @@ class SpeakerPermissions:
             return None
         if action['action']=='ignore_background':
             self.pending=None;self.questions=False
+            s.focus.enabled=True
             if sid and re.search(r'\bnur\s+mit\s+mir|only\s+to\s+me',text,re.I):s.focus.members={sid};s.focus.accept(sid)
             return {'action':'ignore_background','applied':True,'speaker_id':sid}
         name=action['name']

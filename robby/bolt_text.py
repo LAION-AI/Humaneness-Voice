@@ -114,6 +114,18 @@ class SentenceFramer:
                     break
                 self.buffer=self.buffer[end+1:];continue
             if folded and prefix.startswith(folded) and not final:break
+            # Providers occasionally use [soft, warm] instead of (soft, warm).
+            # Recognized leading keywords are metadata, never literal speech.
+            # Buffer split tokens; keep numeric pauses and other brackets intact.
+            if self.buffer.startswith('['):
+                end=self.buffer.find(']')
+                if end<0 and not final and len(self.buffer)<120:break
+                if end>0:
+                    raw=self.buffer[1:end].strip()
+                    known=set(SLUGS)|set(ALIASES)|set(DELIVERIES)|{'intense','strong'}
+                    tokens=re.findall(r'[A-Za-z_]+',raw.lower())
+                    if tokens and re.fullmatch(r'[A-Za-z_ ,\-]{1,100}',raw) and all(t in known for t in tokens):
+                        self.direction=raw;self.buffer=self.buffer[end+1:];continue
             boundaries=[]
             newline=self.buffer.find('\n')
             if newline>=0:boundaries.append((newline,newline,'\n'))

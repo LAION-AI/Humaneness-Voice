@@ -736,3 +736,129 @@ must not trigger, a prominent onset must yield an actual spoken music response,
 and a second onset after the detector cooldown must be suppressed by the
 three-minute music-category cooldown. Receipt: `environment-music-*.json`.
 The ordinary speech VAD remains enabled; this is an instrumental-music test.
+
+## Environmental sounds, music and after-question answers (2026-10-27)
+
+This extension tests three distinct outcomes separately: **capture/routing**, **sound
+interpretation**, and **delivered speech**. A visible reply or a nonempty caption
+alone is never evidence that the user heard it or that its label was correct.
+All recordings in this automated suite are authored synthetic speech/music or
+identified public test clips; never use or publish private microphone recordings.
+
+### Fixed sources and reproducible commands
+
+Run in the Robby directory using the pinned Python environment. Start the existing
+ASR/ECAPA/Ears/LLM/TTS services plus `sound_caption_worker.py` (GPU, port 8803)
+and `sound_event_worker.py` (CPU, port 8804). Check both `/state` routes. The
+`launch_bolt_stack.py --with-sound-captions` option starts both sidecars. Install
+matched PyTorch/torchaudio/torchvision builds; tested versions are 2.6.0+cu124,
+2.6.0+cu124 and 0.21.0+cu124. Event model bootstrap downloads only inference
+code and a 4.07-MB checkpoint. The model source revision and weight hash are
+recorded in `bootstrap_sound_events.py` and the measurement receipt.
+
+```bash
+python run_unit_checks.py
+python bootstrap_sound_events.py
+python generate_environment_question.py
+python check_environment_diversity.py
+python check_sound_events.py
+# Run browsers SEQUENTIALLY; the public demo currently has one ASR session slot.
+python browser_environment_check.py --url https://YOUR-DEMO
+python browser_environment_music.py --url https://YOUR-DEMO
+python browser_environment_expanded.py --url https://YOUR-DEMO --group all
+python browser_two_stage_check.py --url https://YOUR-DEMO
+python browser_two_stage_memory.py --url https://YOUR-DEMO
+```
+
+`environment_fixtures.py` supplies deterministic CC0 melody, bass/drums, impacts,
+beeps and low-level noise. `check_environment_diversity.py` chooses the **first
+two metadata rows**, without success-based selection, for dog, cat, breaking
+glass, car horn, engine and rain in ESC-50 commit
+`33c8ce9eb2cf0b1c2f8bcf322eb349b6be34dbb6`. It downloads twelve five-second files,
+not the dataset. Per-file SHA256, source URL and original credit/license line
+are in `environment-diversity*.json` and `environment-event-tagger.json`.
+[ESC-50 licensing](https://github.com/karolpiczak/ESC-50/blob/33c8ce9eb2cf0b1c2f8bcf322eb349b6be34dbb6/LICENSE)
+is retained; downloaded audio stays in the excluded local `logs/environment-fixtures`
+cache and is not redistributed as CC0. Existing synthetic speaker fixtures use
+the adversarial manifest described above. The spoken sound question has one fixed
+TTS take, with script, generation settings and hash in
+`environment-question-fixture.json`; never silently regenerate a failed take.
+
+### Required scenarios and assertions
+
+| ID | Input and procedure | Required outcome / measurement |
+| --- | --- | --- |
+| ENV-01 | Quiet authored music at gain 0.005, then silence | No unsolicited caption/reply; record actual digital level. |
+| ENV-02 | Prominent melody/bass/drums after two seconds of room floor | Music is routed, tentative reply has real TTS PCM and completes. |
+| ENV-03 | Music present from microphone start, at least 16 seconds | Sustained probe detects it despite calibration; no permanent floor absorption. |
+| ENV-04 | Repeat music after onset cooldown but before 180-second music cooldown | A new caption may occur; no repeated unsolicited commentary. Explicit questions remain answerable. |
+| ENV-05 | Each pinned animal, traffic, weather, impact clip | Record captured window, both model outputs, expected category, latency and errors. Routing and semantic correctness are separate columns. |
+| ENV-06 | Repeat detector replay with VAD forced positive | Capture is not discarded merely because music activates speech VAD. This synthetic control does not certify singing detection. |
+| ENV-07 | Type “Was ist das hier?”, then begin music 200 ms later | Microphone ingress continues; requested after-question caption enters the actual answer. Test bridges OFF and ON. |
+| ENV-08 | Play the authored spoken question, pause 350 ms, then music | Real Parakeet endpoint, sound context, main answer and TTS; retain recognized text, including ASR spelling errors. |
+| ENV-09 | Explicit sound question followed by silence | No hallucinated sound. Bounded listening timeout and an uncertain/no-clear-sound answer. |
+| ENV-10 | Disable sensing or issue Stop during capture/caption | Old results cannot start a reply; queued audio is cancelled appropriately. |
+| ENV-11 | During an environmental spoken reply, inject a high RMS update plus foreground VAD activity | Browser must not send `avatar:cancel` merely for energy/VAD. Genuine explicit Stop still uses the server verifier. |
+| ENV-12 | Caption/event disagreement, e.g. rain vs pouring or meow vs siren | Both uncertain sources reach the LLM; no unsupported certainty, danger or spatial direction. Human review of response wording required. |
+| ENV-13 | CPU tagger absent, busy or delayed beyond 180 ms | Caption/ASR/TTS continue without its optional hint; no stale queue. |
+| ENV-14 | Alternate caption-only and parallel caption+events on identical audio, six repetitions | Report individual and median/p95 wall times; do not sum overlapping stages or claim speedup from timing noise. |
+| ENV-15 | Existing robot playback and delayed echo, low-level room noise | No self-triggered environmental turn. Explicit interruption remains a separate path. |
+
+The dedicated music test uses Chrome's fake media device through the actual
+capture worklet. Expanded tests inject float32 PCM through the real browser
+client's 20-ms microphone sender and playback-position tags. This exercises
+HTTPS, ASR, speaker assignment, GPU/CPU models, hosted/local LLMs and actual TTS,
+but **does not reproduce a physical speaker–room–microphone acoustic path**.
+Camera remains OFF. Browser settings must be recorded/reset deliberately.
+The stronger foreground-focus tests set focus ON explicitly; the open-speaker
+suite sets it OFF. Never mix these policies in a single claimed comparison.
+
+### Addressed speech versus background: controlled matrix
+
+Current heuristic: very quiet relative level (<0.28 of session reference), no
+confident known-voice match (<0.62), and no explicit address/self-introduction
+must all agree before withholding a turn. Neither RMS nor estimated SNR alone
+proves intent. No anchor means no automatic background rejection. Open foreground
+speakers remain welcome. Turn this filter OFF to compare with the raw open policy.
+
+Required positives: known speaker at normal and low levels; a different foreground
+speaker with no wake phrase; an explicit quiet “Robby”; self-introduction;
+changed intonation; a name correction adding another prototype. Required
+negatives: a quieter unrelated weather/news statement; the same signal during a
+bot reply; delayed echo; music/impacts incorrectly activating VAD. Report false
+accept/reject counts separately. The expanded speaker browser test verifies
+Christoph → unknown foreground guest → “Ich bin Selma” → later Selma, plus a
+background clip at gain 0.1. It also catches a prior bug where a name answer at
+cosine 0.315 created a duplicate person instead of labeling the recent guest.
+
+For systematic extension, cross three independent voices with relative levels
+{0.1, 0.2, 0.35, 0.6, 1.0}, speech-to-background ratios {−5, 0, 5, 10, 20 dB},
+clean/telephone/reverberant audio, and direct/unaddressed wording. Hold out voices
+and text when selecting thresholds. Include a loud television and a quiet real
+user: these adversarial cases reveal why volume alone is inadequate. Measure
+missed genuine turns, unsolicited TV replies, false barge-ins, name-fragmentation,
+question completion and first audible PCM. Bootstrap confidence intervals over
+independent scenes/speakers, not individual overlapping frames. Do not call the
+small current replay a statistically validated intent classifier.
+
+Additional future checks: real singing/rap, human speech over music, different
+microphone devices/AGC implementations, off-axis speech, diffuse room music,
+long recordings already present at startup, real loudspeaker echo, and a
+counterbalanced blind listening review. Spatial localization needs synchronized
+multi-microphone hardware; 1.28-second event windows supply only coarse time.
+
+### Evidence, privacy and publication
+
+Every browser attempt writes a unique `environment-expanded-<group>-<UTC>.json`,
+including setup failures and traces. Record source SHA256, active models,
+settings, synthetic input hashes, accepted/ignored endpoints, captions/tags,
+reply text, PCM arrival counts and cancellation events. A busy public slot is a
+**blocked setup**, not an accuracy failure or a passed test. Keep its receipt.
+A reply generated but cancelled before audio must be reported as not spoken.
+The UI now distinguishes text awaiting audio, scheduled PCM and cancellation.
+
+The live report is `/static/environment-report.html`; the publication copy is
+[the English environment report](https://projects.laion.ai/Humaneness-Voice/robby/environment-report.html).
+Raw microphone recordings, private wiki entries, voiceprints and credentials
+must remain excluded from GitHub and Pages. Session-only voice identity and
+opt-in persistent factual memory are distinct systems.
