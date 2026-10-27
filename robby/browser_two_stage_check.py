@@ -1,7 +1,7 @@
 """Actual HTTPS UI, two-stage shared TTS, continuity and cancellation.
 
 Typed authored turns only; this does not certify acoustic interruption. Every
-attempt keeps its own receipt. The informed transition must be played before the unchanged main answer.
+attempt keeps its own receipt. The validated reaction must precede the main answer and be present in its context.
 """
 import argparse,asyncio,datetime,fcntl,json,re,time
 from pathlib import Path
@@ -31,7 +31,7 @@ async def main(args):
             assert await page.evaluate('cameraRequests')==0
             assert await page.locator('#asr-model').input_value()=='parakeet_v3'
             assert not await page.locator('#camera-auto').is_checked()
-            assert await page.locator('#quick-replies').is_checked()
+            assert not await page.locator('#quick-replies').is_checked()
             report['layout']={'all_static_controls_retained':True,'boxes':boxes,'camera_requests':0}
             await page.screenshot(path=str(ROOT/'logs/two-stage-desktop.png'),full_page=True)
             await page.evaluate('''()=>{
@@ -71,7 +71,8 @@ async def main(args):
             for text in ['Warum ist der Himmel blau?', 'Erzähl mir einen kurzen Katzenwitz.']:
                 row=await turn(text,True);assert row['passed']
                 roles=[e.get('sentence_role') for e in row['events'] if e['type']=='reply']
-                assert roles[:3]==['reaction','informed_bridge','answer'],roles
+                assert roles[:2]==['reaction','answer'] and 'informed_bridge' not in roles,roles
+                assert row['metrics'].get('main_informed_by_reaction'),row['metrics']
                 assert row['metrics'].get('tts_backend')=='continuous_batch'
                 assert row['metrics'].get('tts_temperature')==.8
             row=await turn('Schreib ein Gedicht mit vier Zeilen über einen kleinen Roboter.',True)

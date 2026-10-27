@@ -1,5 +1,5 @@
 // Last conversational context and measured stage timings, without guessing zeros.
-const ids=['asr','speaker','reaction','bridge','llm','tts','reply','buffer','sound'];
+const ids=['asr','speaker','reaction','bridge','llm','tts','reply','buffer','sound','events'];
 const finite=n=>typeof n==='number'&&Number.isFinite(n)&&n>=0;
 const ms=n=>finite(n)?(n>0&&n<1?'<1 ms':`${Math.round(n)} ms`):'—';
 export class LiveOverview{
@@ -13,6 +13,8 @@ export class LiveOverview{
   const aside=document.querySelector('aside');
   const recent=document.createElement('section');recent.id='live-conversation';recent.setAttribute('aria-label','Latest conversation beside Robby');
   recent.innerHTML='<h2>With Robby, right now</h2><article class="recent-card asr"><h3>ASR · live preview</h3><p id="recent-asr" class="recent-copy">Waiting for speech…</p></article><article class="recent-card user"><h3 id="recent-user-label">You · last turn</h3><p id="recent-user" class="recent-copy">Say something or type a message.</p></article><article class="recent-card robot"><h3>Robby · latest reply</h3><p id="recent-robby" class="recent-copy">I’m ready to chat with you.</p></article>';
+  const playbackStatus=document.createElement('p');playbackStatus.id='recent-playback-status';playbackStatus.setAttribute('role','status');
+  playbackStatus.textContent='No spoken reply yet.';recent.querySelector('.robot').append(playbackStatus);
   const history=document.createElement('details');history.className='settings chat-history';history.id='chat-history';
   const title=document.createElement('summary');title.textContent='Full conversation history';history.append(title,document.querySelector('.chat-heading'),document.getElementById('chat'));
   history.ontoggle=()=>{if(history.open){const chat=document.getElementById('chat');chat.scrollTop=chat.scrollHeight;}};
@@ -24,23 +26,24 @@ export class LiveOverview{
   robotColumn.append(avatar,under);contextColumn.append(recent,form);row.append(robotColumn,contextColumn);
   const people=document.querySelector('.people-panel');people.open=false;aside.append(people);
   const panel=document.createElement('section');panel.id='latency-dashboard';panel.setAttribute('aria-label','Latency of the current reply');
-  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',bridge:'Informed bridge',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead',sound:'Sound caption · GPU request'};
+  const labels={asr:'ASR · final check',speaker:'Speaker ID · wait',reaction:'Local quick reply',bridge:'Informed bridge',llm:'LLM · first sentence',tts:'TTS · first PCM',reply:'Reply → first PCM',buffer:'Playback lead',sound:'Sound caption · GPU request',events:'Sound events · CPU request'};
   panel.innerHTML='<div class="latency-heading"><h2>Response timing</h2><span id="latency-status" role="status">Waiting for a turn</span></div><div class="latency-grid">'+ids.map(id=>`<div class="latency-cell"><span>${labels[id]}</span><strong id="latency-${id}">—</strong></div>`).join('')+'</div><details><summary>Timing details</summary><p id="latency-details">These are measured server / browser timings. Stages overlap, so the values must not be added. A dash means not measured yet.</p></details>';
   document.querySelector('.under-avatar').after(panel);
  }
  copy(id,text){const p=document.getElementById(id);p.textContent=text;p.scrollTop=p.scrollHeight;}
  clear(){this.values={};this.turn=null;this.pending=false;this.hasInput=false;this.kind=null;this.copy('recent-asr','Waiting for speech…');this.copy('recent-user','Say something or type a message.');this.copy('recent-robby','I’m ready to chat with you.');document.getElementById('recent-user-label').textContent='You · last turn';this.paint();}
- begin(kind){this.values={};this.turn=null;this.pending=true;this.hasInput=true;this.kind=kind;this.paint();}
+ begin(kind){this.values={};this.turn=null;this.pending=true;this.hasInput=true;this.kind=kind;this.audioReceived=false;this.paint();}
  typed(text){this.copy('recent-user',text);this.copy('recent-asr','Typed input · no ASR needed.');this.copy('recent-robby','Preparing a reply…');document.getElementById('recent-user-label').textContent='You · typed';}
- audio(m){if(m.first){this.values.buffer=m.playback_lead_ms;this.paint();}}
+ audio(m){if(m.first){this.audioReceived=true;this.copy('recent-playback-status','Audio received · playback scheduled.');this.values.buffer=m.playback_lead_ms;this.paint();}}
+ playbackEnded(){if(this.audioReceived)this.copy('recent-playback-status','Current audio buffer played.');}
  message(m){
-  if(m.type==='sound_caption'){this.lastSound=m;this.values.sound=m.status==='available'?m.request_ms:null;this.paint();}
+  if(m.type==='sound_caption'){this.lastSound=m;this.values.sound=m.status==='available'?m.request_ms:null;this.values.events=m.sound_events?.status==='available'?m.sound_events.request_ms:null;this.paint();}
 
   if(['asr_preview','partial'].includes(m.type)&&m.text?.trim())this.copy('recent-asr',m.text);
   if(m.type==='latency_start'){
    this.begin(m.input?.kind||'unknown');this.turn=m.reply_id;const p=m.input||{};
    this.values.asr=p.asr?.transcribe_ms;this.values.pause=p.asr?.observed_quiet_ms;this.values.asr_model=p.asr?.model;
-   this.values.sound=p.sound_caption_ms??(this.lastSound?.status==='available'?this.lastSound.request_ms:null);this.values.caption=p.voice_caption_ms;this.values.caption_status=p.voice_caption_status;this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
+   this.values.events=this.lastSound?.sound_events?.status==='available'?this.lastSound.sound_events.request_ms:null;this.values.sound=p.sound_caption_ms??(this.lastSound?.status==='available'?this.lastSound.request_ms:null);this.values.caption=p.voice_caption_ms;this.values.caption_status=p.voice_caption_status;this.values.speaker=p.speaker_assignment_ms;this.values.speaker_background=p.speaker_prefetch_compute_ms;
    this.values.speaker_cached=p.speaker_prefetch_used;this.values.queue=p.sentence_queue_ms;this.paint();
   }
   if(m.type==='asr_finalizing')document.getElementById('latency-status').textContent='Recognizing your next words…';
@@ -55,14 +58,15 @@ export class LiveOverview{
   if(m.type==='reply'){
    if(!this.pending)this.begin(m.avatar_event?'avatar':'reply');
    this.turn=m.reply_id;this.copy('recent-robby',m.text||'');this.consume(m.timing||{});
+   if(!this.audioReceived)this.copy('recent-playback-status','Text ready · waiting for speech audio.');
   }
   if(m.type==='latency_update'||m.type==='pipeline_metrics'){
    if(this.turn&&m.reply_id&&this.turn!==m.reply_id)return;
    this.consume(m.metrics||{});
   }
   if(m.type==='turn_done'){this.pending=false;document.getElementById('latency-status').textContent='Latest response · generation complete';}
-  if(['barge','reply_cancelled','stop_command'].includes(m.type)){this.pending=false;document.getElementById('latency-status').textContent='Interrupted · last measured timings retained';}
-  if(m.type==='error'){this.pending=false;document.getElementById('latency-status').textContent='Reply error · available timings retained';}
+  if(['barge','reply_cancelled','stop_command'].includes(m.type)){this.copy('recent-playback-status',this.audioReceived?'Speech interrupted · some text may not have been heard.':'Reply cancelled before speech playback.');this.audioReceived=false;this.pending=false;document.getElementById('latency-status').textContent='Interrupted · last measured timings retained';}
+  if(m.type==='error'){this.copy('recent-playback-status','Speech failed · this text may not have been played.');this.audioReceived=false;this.pending=false;document.getElementById('latency-status').textContent='Reply error · available timings retained';}
  }
  consume(metrics){
   if(metrics.quick_reply_status){this.values.reaction_status=metrics.quick_reply_status;document.getElementById('quick-reply-status').textContent=metrics.quick_reply_status.replaceAll('_',' ')+(metrics.quick_reply_words?` · ${metrics.quick_reply_words} words`:'');}

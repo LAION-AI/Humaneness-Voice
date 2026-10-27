@@ -63,7 +63,7 @@ def main():
             record=json.loads(raw)
             for row in record.get('rows',[]):row.pop('listen_mp3_b64',None)
             raw=json.dumps(record,indent=2,ensure_ascii=False).encode()
-        if path.name.startswith('two-stage-') and path.suffix=='.json':
+        if path.name.startswith(('two-stage-','environment-')) and path.suffix=='.json':
             # Preserve every event while avoiding repeated pretty-print padding.
             raw=json.dumps(json.loads(raw),separators=(',',':'),ensure_ascii=False).encode()
         if path.name=='rebalance-before-group-fix.json' or path.name.startswith('adversarial-') and path.suffix=='.json':
@@ -76,10 +76,11 @@ def main():
     # Retain every synthetic stress attempt (including failures), compacting
     # JSON whitespace only. The new evidence adds about 8 MB of text.
     # The UTF-8, path allowlist and credential checks above still apply.
-    # Expanded 26-MB cap covers the reviewed two-stage code, retained failed
-    # browser attempts and three short authored listening examples (~2.3 MB new).
+    # Expanded 28-MB cap also retains the reviewed sound-diversity receipts,
+    # CPU-event implementation and failed browser attempts. JSON compaction
+    # removes whitespace only; no event or failed measurement is discarded.
     # No binary/secret/path checks are relaxed.
-    if sum(len(raw) for raw in payload.values())>26_000_000:raise ValueError('Unexpected source export size: '+str(sum(len(raw) for raw in payload.values())))
+    if sum(len(raw) for raw in payload.values())>28_000_000:raise ValueError('Unexpected source export size: '+str(sum(len(raw) for raw in payload.values())))
     folder=ROOT/'releases';folder.mkdir(exist_ok=True)
     target=folder/'robby-source.zip';temporary=folder/'robby-source.tmp.zip'
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as archive:

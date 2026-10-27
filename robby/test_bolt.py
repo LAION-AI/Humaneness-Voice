@@ -6,6 +6,16 @@ from bolt_text import SentenceFramer,ASRSentenceCommitter,select_template,CATALO
 from sentence_session import OpenVoiceMemory,name_claim,SentenceSession
 
 class BoltTextTests(unittest.TestCase):
+    def test_square_acting_keywords_are_not_literal_speech(self):
+        source='[soft, warm] Danke. [interest, calm] Wie geht es dir?'
+        for width in (1,2,7,len(source)):
+            f=SentenceFramer();out=[]
+            for at in range(0,len(source),width):out+=f.feed(source[at:at+width])
+            out+=f.feed('',final=True)
+            self.assertEqual([s.text for s in out],['Danke.','Wie geht es dir?'])
+            self.assertEqual(out[0].direction,'soft, warm')
+            self.assertNotIn('[soft',out[0].spec()['manual_prompt'])
+
     def test_internal_playback_note_never_leaks_across_stream_boundaries(self):
         note='[My preceding reply was interrupted. The following text was generated; only a prefix may have been heard. Do not assume it was all heard or repeat it automatically.]'
         for prefix in ('','(amusement) '):

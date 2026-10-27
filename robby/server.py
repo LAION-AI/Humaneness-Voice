@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -75,7 +75,7 @@ class RoboConversation(Conversation):
         super().__init__(*args,**kwargs)
         from llm_session import LLMSession
         self.llm=LLMSession(self)
-        self.quick_replies=os.environ.get('ROBO_QUICK_REPLIES','1')=='1'
+        self.quick_replies=os.environ.get('ROBO_QUICK_REPLIES','0')=='1'
         from avatar_personality import AvatarPersonality
         self.avatar_personality=AvatarPersonality();self.avatar_optional=False
         self.identity_enabled=False;self.predictor=None;self.last_identity_notice=0
@@ -138,11 +138,13 @@ class RoboConversation(Conversation):
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
             'asr_settings':self.sentence_stream.settings() if self.sentence_stream else None,
-            'speaker_instruction':'Speak normally. Robby keeps the current conversation partner; say Hey Robbie to join a different conversation.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
+            'speaker_instruction':'Speak normally. All audible speakers can join; unknown voices receive session labels and can introduce themselves.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
-        observation=self.environment.take_context() if getattr(self,'environment',None) else None
+        environment_epoch=self.environment.epoch if getattr(self,'environment',None) else None
+        observation=await self.environment.context_for_turn(transcript) if getattr(self,'environment',None) else None
+        if environment_epoch is not None and environment_epoch!=self.environment.epoch:return
         if (getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed' and self.current_speaker:
             self.current_speaker={k:v for k,v in self.current_speaker.items() if k!='voice_delivery'}
         if self.sentence_stream:
@@ -166,7 +168,7 @@ class RoboConversation(Conversation):
             'input':getattr(self,'pending_input_timing',None) or {'kind':'unknown'}})
         self.pending_input_timing=None
         await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':{**self.decisions.state(),'current_rule_applied':preapplied},
-            'avatar_context':{**self.avatar_personality.snapshot(),**({'environment':observation} if observation else {})},'quick_replies':getattr(self,'quick_replies',True),**self.llm.snapshot()})
+            'avatar_context':{**self.avatar_personality.snapshot(),**({'environment':observation} if observation else {})},'quick_replies':getattr(self,'quick_replies',False),**self.llm.snapshot()})
         if preapplied and compiled['name']=='set_interruption_rule':
             await self.to_mouth(b'W',{'replies':[compiled['arguments']['reply']],'language':self.decisions.language})
 
@@ -216,6 +218,9 @@ class RoboConversation(Conversation):
         try:await super().run()
         finally:
             self.llm.credential=None
+            typed_task=getattr(self,'typed_turn_task',None)
+            if typed_task:
+                typed_task.cancel();await asyncio.gather(typed_task,return_exceptions=True)
             await self.environment.close()
             if self.sentence_stream:await self.sentence_stream.close()
             self.stop_feedback.cancel()
@@ -369,6 +374,7 @@ class RoboConversation(Conversation):
         if not self.speaking:return
         # Claim cancellation before the first socket await: native TYGER,
         # lexical ASR and the semantic controller may commit in the same hop.
+        log.info('Reply cancellation: source=%s, before_audio=%s',event.get('source','manual'),getattr(self.playback,'n16',0)==0)
         self.speaking=False;self.halting=True
         if event.get('source')=='verified_stop_command' and self.speaker_ext is not None:
             self.speaker_ext.remember_stop((self.current_speaker or {}).get('speaker_id'),event.get('stop_text',''),hop_end/self.ears.sr)
@@ -417,6 +423,13 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if data in ('identity:background-filter:on','identity:background-filter:off') and self.sentence_stream:
+            self.sentence_stream.addressed.enabled=data.endswith(':on')
+            await self.ws.send_json(self.sentence_stream.settings());return
+        if data=='interrupt' and getattr(self,'environment',None) and self.environment.listening:
+            self.environment.epoch+=1;self.environment.pending=None
+            await self.ws.send_json({'type':'environment_observation','kind':'requested_sound','status':'cancelled'})
+            return
         if data.startswith('environment:'):
             try:
                 if len(data)>1000:raise ValueError('Environment command too long')
@@ -650,9 +663,16 @@ class RoboConversation(Conversation):
             self.calibration_task=asyncio.create_task(finish_calibration())
         elif data=='interrupt' and self.speaking:
             await self._on_barge({'onset_s':0.,'yield_prob':1.},self.hop_pos)
-        elif data.startswith('text:') and not self.speaking and not self.halting:
+        elif data.startswith('text:') and not self.speaking and not self.halting and not (getattr(self,'typed_turn_task',None) and not self.typed_turn_task.done()):
             text=data[5:].strip()[:2000]
-            if text:self.current_speaker=None;await self._send_turn(text)
+            if text:
+                self.current_speaker=None
+                from ambient_audio import sound_question
+                if sound_question(text):
+                    # Keep accepting binary microphone packets while the
+                    # explicitly requested after-question window is open.
+                    self.typed_turn_task=asyncio.create_task(self._send_turn(text))
+                else:await self._send_turn(text)
         elif data.startswith('text:'):await self.ws.send_json({'type':'busy','text':'Please stop or finish this reply before sending another typed turn.'})
         else:await super()._on_command(data)
 
