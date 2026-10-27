@@ -99,9 +99,10 @@ export class RoboClient {
   if(id&&!firstReply&&this.next>0){const gap=Math.max(0,this.ctx.currentTime-this.next);
    if(gap>.02){this.startupReserve=Math.min(.65,Math.max(this.startupReserve,gap+.12));this.metrics.underflows=(this.metrics.underflows||0)+1;this.metrics.max_gap_ms=Math.max(this.metrics.max_gap_ms||0,gap*1000);}}
   // The short optional reaction has 160-ms TTS chunks. Keep adaptive recovery
-  // after an underrun, but avoid the normal 300-ms small-block startup floor.
+  // after an underrun. A 220-ms reserve covers admission of the second TTS
+  // prefix while keeping warm first playback below the old 300-ms floor.
   const reserve=id===this.quickReplyId
-   ? (this.startupReserve<=.18 ? .14 : this.startupReserve)
+   ? Math.max(.22,this.startupReserve)
    : Math.max(this.startupReserve,b.duration<.8?.3:.18);
   if(firstReply)this.metrics.startup_buffer_ms=reserve*1000;
   const start=playbackStart(this.ctx,this.next,firstReply,reserve),end=start+b.duration;

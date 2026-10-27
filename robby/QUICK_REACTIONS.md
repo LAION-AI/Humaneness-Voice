@@ -1,5 +1,10 @@
 # Local contextual quick reactions and conversation-first layout
 
+**Current implementation:** [two-stage, memory-informed speech](TWO_STAGE_SPEECH.md).
+The sections below preserve earlier experiments; their one-preface race, 140-ms
+reserve and direct handoff were superseded on 2026-10-27. TTS now uses 0.8; the
+local reaction text model remains at 0.35.
+
 ## Quality follow-up (2026-10-26)
 
 See [the complete quality report](static/quick-quality-report.html) for 40 authored
