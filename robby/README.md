@@ -1,5 +1,8 @@
 # Robby voice chat and TYGER speaker predictor
 
+**Current identity update:** explicit user/robot role grounding; direct registered-name lookup; open-speaker threshold **0.32** with cautious temporal continuity; multiple acoustic prototypes; and **default-on uncertain vocal age/gender/timbre impressions**. A lower profile panel provides separate, consented, default-off browser persistence. Repeated audible background voices can invite a tentative question without taking over the conversation. Camera/Face ID remain opt-in, with the missing sentence-pipeline connection repaired. [Implementation and reproducible checks](SOCIAL_IDENTITY.md) · [English results](static/social-identity-report.html).
+
+
 The [quick-reaction quality study](static/quick-quality-report.html) tests 40 synthetic situations, tone-aware local prompting, repeated joke requests, serious topics and real TTS handoffs. See [QUICK_REACTIONS.md](QUICK_REACTIONS.md) for measured gains and remaining generic phrasing/main-answer joke limitations.
 
 ## Current update: proactive environmental listening
@@ -159,12 +162,9 @@ The browser uses `llm:select:<JSON>` on its existing WebSocket. Arbitrary models
 provider URLs and base URLs are not accepted from public input.
 
 The latest ASR preview, submitted user turn and Robby reply now have dedicated
-cards beside the avatar. The sidebar stays visible as the desktop page scrolls;
-full history remains available in a collapsible section. Mobile stacks the
-panels. The pause/interruption options are grouped compactly; microphone,
-camera and main model selectors remain accessible above the avatar.
+cards beside the avatar. Full history remains available in a collapsible section. Mobile stacks the panels. Optional model, microphone, camera and interruption controls are grouped below the conversation. The actual model/provider is shown below each latest reply.
 
-**Response timing** is directly under the avatar. Six cards show final ASR,
+**Response timing** is directly under the avatar. Cards show final ASR,
 remaining speaker-identity wait, first LLM sentence, first TTS PCM, server reply
 to first PCM, and the browser's real scheduling lead. Per-reply IDs prevent
 later metrics from being assigned to another active response. Typed input is

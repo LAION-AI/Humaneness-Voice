@@ -32,7 +32,7 @@ export class MultimodalUI{
    if(consent.checked)this.send({type:'export',consent:true});
   };
   const forget=document.createElement('button');forget.type='button';forget.className='text-button';forget.id='forget-multimodal-people';forget.textContent='Forget all face + voice profiles';forget.onclick=()=>{
-   this.people.clear();consent.checked=false;this.pending.clear();this.visual.clear();this.generation++;if(this.people.storageError)this.faceError='Storage access denied: clear this site’s browser data to remove saved profiles.';this.send({type:'forget'});this.render();};panel.append(forget);
+   this.people.clear();consent.checked=false;this.pending.clear();this.visual.clear();this.generation++;if(this.people.storageError)this.faceError='Storage access denied: clear this site’s browser data to remove saved profiles.';this.send({type:'forget'});this.render();window.dispatchEvent(new Event('robby-forget-people'));};panel.append(forget);
   host.append(panel);const overview=document.getElementById('people-overview');if(overview)this.peopleView=new PeopleView(this,overview);this.render();
   // Keep recovery beside the rejected transcript, not buried in Advanced.
   const recovery=this.recovery=document.createElement('button');recovery.type='button';recovery.className='text-button';recovery.id='visual-filter-recovery';recovery.hidden=true;
@@ -52,7 +52,7 @@ export class MultimodalUI{
  disconnected(){this.pending.clear();this.generation++;}
  frame(result,at,video,ms){
   this.metrics.landmarkMs.push(ms);this.metrics.landmarkMs=this.metrics.landmarkMs.slice(-300);
-  this.tracks=this.visual.update(result.faceLandmarks||[],at,this.settings.ignoreOffscreenSpeakers);this.sendFrame(at);
+  this.tracks=this.visual.update(result.faceLandmarks||[],at,this.settings.ignoreOffscreenSpeakers||this.settings.faceIdEnabled);this.sendFrame(at);
   this.peopleView?.updateVideo(video,this.tracks,performance.now());
   const now=performance.now(),candidate=this.tracks.find(t=>(!t.embedding||now-(t.embeddingAt||0)>20000)&&t.box.w*video.videoWidth>=75&&t.box.h*video.videoHeight>=90&&now-t.born>500&&now>(t.retryAt||0)&&now>(t.ambiguousUntil||0));
   if(this.settings.faceIdEnabled&&candidate&&!this.embeddingBusy&&now-(this.lastEmbedding??-Infinity)>1500)this.embed(candidate,video);

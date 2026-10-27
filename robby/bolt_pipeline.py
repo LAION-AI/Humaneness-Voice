@@ -50,7 +50,8 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
         yield 'done',{'silent':True,'reason':'User explicitly requested a silent visual action'};return
 
     from quick_reaction import eligible,generate,duplicate_acknowledgment
-    reaction_enabled=bool(quick_replies and tts and eligible(text,history,context,preset,reply_words,
+    from social_profiles import identity_answer
+    reaction_enabled=bool(not identity_answer(text,identity) and quick_replies and tts and eligible(text,history,context,preset,reply_words,
         remote=(llm_selection or {}).get('model')=='qwen'))
     metrics['quick_reply_status']='preparing_contextual_reaction' if reaction_enabled else 'disabled_or_ineligible'
     from speech_language import reply_language
