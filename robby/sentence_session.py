@@ -671,6 +671,8 @@ class SentenceSession:
                     await self.c.ws.send_json({'type':'speaker_focus','operation':'turn',**decision})
                     await self.c.ws.send_json({'type':'ignored','source':'conversation_focus','reason':decision['reason']})
                     self.permissions.observe_background()
+                    if getattr(self.c,'environment',None):
+                        self.c.environment.background_voice(audio,decision,level,old_level)
                     continue
                 preferred=decision.get('speaker_id',owner) if decision['accepted'] and not handover else None
                 reference=self.memory.users.get(preferred,{}).get('level',0.)

@@ -41,7 +41,7 @@ async def render(client,live,*,text,identity,history,queue,first_main,reaction_t
             # the informed transition has been played in the correct order.
             main_job=await live.submit(main,'answer',2,chunk_frames)
             following=[]
-            if intro:
+            if intro and not context.get('environment_proactive'):
                 # A first sentence may be only a preamble. Peek at the next one
                 # with a strict 60-ms budget, retaining every item in order.
                 try:following.append(await asyncio.wait_for(queue.get(),.06))
@@ -59,7 +59,7 @@ async def render(client,live,*,text,identity,history,queue,first_main,reaction_t
                     link=Sentence(bridge['text'],main.direction,language=main.language)
                     metrics['informed_bridge_words']=bridge['word_count']
                     await publish('informed_bridge',link,1)
-            else:metrics['informed_bridge_status']='no_first_reaction'
+            else:metrics['informed_bridge_status']='short_environment_turn' if context.get('environment_proactive') else 'no_first_reaction'
             await publish('answer',main,2,main_job)
             order=3
             while True:

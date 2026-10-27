@@ -112,7 +112,7 @@ class MouthBridge:
                     prefix=('Current session speaker: '+json.dumps({'speaker_id':speaker.get('speaker_id'),'display_name':speaker.get('display_name')})+'\n'
                         if speaker.get('enrolled') else '')
                     # A mouse gesture is not a fabricated spoken user turn.
-                    if not record.get('avatar_context',{}).get('event'):
+                    if not record.get('avatar_context',{}).get('event') and not record.get('avatar_context',{}).get('environment_proactive'):
                         history.append({'role':'user','content':prefix+record['text']})
                     record['index']=len(history)
                     history.append(entry)

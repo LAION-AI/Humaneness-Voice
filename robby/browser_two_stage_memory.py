@@ -11,6 +11,7 @@ async def main(args):
   browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
   page=await browser.new_page(viewport={'width':1366,'height':950});page.on('pageerror',lambda e:errors.append(str(e)))
   page.on('dialog',lambda d:asyncio.create_task(d.accept()))
+  await page.add_init_script("localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.environment','false');")
   await page.add_init_script("localStorage.setItem('robby.quickReplies','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');")
   async def open_page():
    await page.goto(args.url+'/desk-robot/');await page.wait_for_function('window.robotFace?.memoryControls&&!document.querySelector("#call").disabled',timeout=60000)

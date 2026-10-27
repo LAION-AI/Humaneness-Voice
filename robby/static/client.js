@@ -30,12 +30,15 @@ export class RoboClient {
   try{
   if(!this.ctx){this.ctx=new AudioContext({latencyHint:'interactive'});this.clock=new PlaybackClock(this.ctx);
    this.output=this.ctx.createGain();this.analyser=this.ctx.createAnalyser();this.analyser.fftSize=256;
-   this.output.connect(this.analyser);this.analyser.connect(this.ctx.destination);await this.ctx.resume();}
+   this.output.connect(this.analyser);this.analyser.connect(this.ctx.destination);}
   // A typed session may already own a context suspended by the browser. The
   // microphone button is a fresh user gesture: resume capture as well as TTS.
-  if(this.ctx.state&&this.ctx.state!=='running')await this.ctx.resume();
+  if(this.ctx.state&&this.ctx.state!=='running'){
+   let timer;try{await Promise.race([this.ctx.resume(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Click Enable microphone & sound to allow playback.')),600);})]);}finally{clearTimeout(timer);}
+   if(this.ctx.state!=='running')throw new Error('Click Enable microphone & sound to allow playback.');
+  }
   if(connectionEpoch!==this.connectionEpoch)throw new Error('Conversation start cancelled.');
-  if(withMic&&!this.stream)await this.microphone(connectionEpoch);
+  if(withMic&&!this.stream){let timer;try{await Promise.race([this.microphone(connectionEpoch),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Please allow microphone access, then enable Robby.')),20000);})]);}finally{clearTimeout(timer);}}
   if(this.ws?.readyState===1)return;
   await new Promise((resolve,reject)=>{const u=new URL('/ws',location.href);u.protocol=location.protocol==='https:'?'wss:':'ws:';
    // These counters describe THIS connection, like input_status on the server.

@@ -15,6 +15,7 @@ async def main():
     async with async_playwright() as p:
         browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
         page=await browser.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+        await page.add_init_script("localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.environment','false');")
         await page.add_init_script("localStorage.setItem('robby.quickReplies','true');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');")
         try:
             await page.goto(URL+'/desk-robot/');await page.wait_for_function('window.robo&&!document.querySelector("#call").disabled',timeout=60000)

@@ -27,7 +27,7 @@ class BrowserSession:
         self.wait_bed=None;self.bed_offset=0
 
     async def open(self):
-        await self.page.add_init_script('''localStorage.setItem('robby.cameraAuto','false');
+        await self.page.add_init_script('''localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.cameraAuto','false');
             localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');
             localStorage.setItem('robby.focusBalanceVersion','2');localStorage.setItem('robby.pauseBalanceVersion','2');'''
             +f'localStorage.setItem("robby.focusThreshold","{self.args.threshold}");localStorage.setItem("robby.speechPauseMs","{self.args.pause_ms}");')
