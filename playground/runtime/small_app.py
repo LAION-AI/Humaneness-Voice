@@ -52,6 +52,10 @@ def initialize():
         # warming the old Small 8/12-row banks on a 24-GB card.
         STATE['phase']='warming optional single-take live streaming'
         STATE['engine'].warm_live_stream()
+        if settings.DEFAULT_MODEL=='small_rl':
+            STATE['phase']='warming two-stage continuous speech'
+            from live_batch import warm_up
+            warm_up(STATE['engine'])
     STATE["phase"] = "loading Parakeet and quality scorers"
     STATE["scorers"] = Scorers()
     vc_manager.bind_condition_scorer(STATE['scorers'].ears)
@@ -483,6 +487,7 @@ def state(request: Request):
     release=getattr(STATE['engine'],'release',MODELS[settings.DEFAULT_MODEL])
     return {"ready": STATE["phase"] == "ready", "phase": STATE["phase"], "error": STATE["error"],
             "cooperative_disconnect_cancellation": True,
+            "continuous_tts": True,
             "model": release.get('repo',settings.REPO), "stage":release.get('label',STATE['phase']), "revision":release.get('revision',settings.REVISION),
             "model_id":getattr(STATE['engine'],'model_id',settings.DEFAULT_MODEL),
             "model_default":settings.DEFAULT_MODEL,"batch_size_default":release.get('batch_size',1),
@@ -1151,3 +1156,7 @@ async def asr(request: Request):
         raise HTTPException(400, "Empty recording.")
     text = await asyncio.to_thread(STATE["scorers"].asr.transcribe, bytes(raw))
     return {"text": text}
+
+
+from live_batch_api import install as install_live_batch
+install_live_batch(app, STATE, switch_acting_model)

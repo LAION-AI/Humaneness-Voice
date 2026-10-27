@@ -97,9 +97,20 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
 
     producer=asyncio.create_task(produce());spoken=[];scripts=[];cues=[];total_samples=0;index=0
     from speech_language import reply_language
-    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history))) if reaction_enabled else None
+    reaction_task=asyncio.create_task(generate(client,text,identity,history,reply_language(text,history),memory=context.get('knowledge_memory'))) if reaction_enabled else None
     first_main=asyncio.create_task(queue.get());intro=None;initial=True;main_started=False;actions_sent=False
     try:
+        if reaction_enabled and os.environ.get('ROBO_INFORMED_BRIDGE','1')=='1':
+            from live_speech import LiveSpeech
+            live=await LiveSpeech.open(client,voice)
+            if live is not None:
+                from two_stage_pipeline import render
+                async for kind,value in render(client,live,text=text,identity=identity,history=history,queue=queue,
+                    first_main=first_main,reaction_task=reaction_task,metrics=metrics,start=start,context=context,
+                    avatar_steps=avatar_steps,action_id=action_id,actions=actions,sources=sources,lookups=lookups,chunk_frames=chunk_frames):
+                    yield kind,value
+                await producer
+                return
         if reaction_task:
             await asyncio.wait((first_main,reaction_task),return_when=asyncio.FIRST_COMPLETED)
             if first_main.done():
@@ -147,7 +158,7 @@ async def pipeline(client,text,identity,history,voice='emolia_c1699',avatar_cont
                 'message':spec['manual_prompt'],'language':spec['language'],
                 'generation':'single','n':1,'batch_size':1,'streaming':True,'stream_transport':'pcm_f32','live_only':True,
                 'chunk_frames':5 if role=='reaction' else chunk_frames,'cancel_on_disconnect':True,
-                'temperature':.7,'guidance':2.,'voice_mode':'profile','voice_profile':voice,
+                'temperature':.8,'guidance':2.,'voice_mode':'profile','voice_profile':voice,
                 'voice_conversion':False,'speaker_steering':False,'dynamic_reference':False,
                 'align':role!='reaction','seed':int(os.environ.get('ROBO_BOLT_SEED','777'))+index}
             if role=='reaction':

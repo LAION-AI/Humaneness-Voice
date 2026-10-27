@@ -2,15 +2,17 @@
 
 The [quick-reaction quality study](static/quick-quality-report.html) tests 40 synthetic situations, tone-aware local prompting, repeated joke requests, serious topics and real TTS handoffs. See [QUICK_REACTIONS.md](QUICK_REACTIONS.md) for measured gains and remaining generic phrasing/main-answer joke limitations.
 
-## Current update: contextual quick replies and optional wiki memory
+## Current update: two-stage speech and memory-informed reactions
 
-The existing local **Bolt E4B** now races Qwen to generate at most six contextual
-words. A faster complete Qwen sentence wins; the full answer is preserved.
-The short reaction starts with a 160-ms audio block, then uses 400-ms blocks.
-Direct PCM between the shared TTS and Robby servers avoids MP3 round trips;
-single live takes skip unnecessary ranking/export. Normal Playground downloads
-remain mono 96-kbps MP3. [Design and reproduction](QUICK_REACTIONS.md) ·
-[Latency/listening report](https://projects.laion.ai/Humaneness-Voice/robby/quick-reaction-report.html).
+The first local reaction now sees the recent conversation and the same retrieved
+wiki context used by Qwen. It can answer a small memory question meaningfully
+instead of playing waiting-room filler. A second short transition sees Qwen's
+actual opening, followed by the complete answer. Main-answer TTS starts while
+that transition is being generated. A single shared TTS weight instance batches
+**two streams**, with independent KV/codec state, at **temperature 0.8**.
+First audio blocks are 160 ms, following blocks 400 ms; main alignment remains.
+[Architecture, defaults and reproducible tests](TWO_STAGE_SPEECH.md) ·
+[Measurements, failed variants and listening examples](static/two-stage-report.html).
 
 **Optional persistent memory is OFF by default.** Enable it in the settings below
 the conversation. It maintains private wiki entries with evidence quotes, five
