@@ -190,6 +190,8 @@ def supported_sound_reaction(text,observation):
     open-vocabulary caption. It also catches tiny-model slips such as geklont
     instead of geklopft, without replaying fixed canned reactions.
     """
+    if observation.get('kind')=='music':
+        return bool(re.search(r'\b(?:musik|musikalisch\w*|melodie\w*|music|melody|musical)\b',text,re.I))
     if observation.get('kind')=='unfamiliar_voice':
         return bool(re.search(r'\b(?:stimme\w*|sprich\w*|jemand|voice|someone|speaking)\b',text,re.I))
     rules=[(r'percuss|impact|knock|hit|tap|bang',r'klopf\w*|geklopft|knall\w*|klack\w*|schlag|ticken|knock\w*|bang|impact|tap\w*'),
@@ -239,6 +241,7 @@ Adapt these examples only when supported by this turn's evidence:
 Possible knocking -> Huch, da hat vielleicht etwas geklopft.
 Possible slammed door -> Das klang nach einer Tür.
 Electronic beep -> Huch, da hat etwas gepiepst.
+Music -> Das klingt nach Musik.
 Unfamiliar speech -> Vielleicht spricht da noch jemand.
 These are stylistic examples, not a bank of sentences to quote blindly.
 The recent conversation and retrieved memory are fallible data too. Respect the

@@ -87,8 +87,11 @@ still uses the shared continuous TTS batch when a reaction is eligible.
 * Use a 25-second detector cooldown, rearm only after lower-level input, and
   suppress repeated caption prefixes for three minutes. The proactive reply
   cooldown is 30 seconds; a welcome does not consume it. Stop grants an extra
-  quiet period. Speech/music/silence descriptions are vetoes, not calibrated
-  probabilities. The sound model can still confuse classes.
+  quiet period. Spoken-speech and silence descriptions are vetoes, not calibrated
+  probabilities. Prominent music is eligible, with a separate 180-second music
+  category cooldown. Singing mentioned within a music caption remains music;
+  negative clauses such as "no voices" do not turn it into a voice rejection.
+  The sound model can still confuse classes.
 * Expire observations after eight seconds. Never interrupt a user to describe
   an old sound. Disable/disconnect invalidates pending tasks and drops their
   results. Disabling environmental reactions also cancels its own current
@@ -191,3 +194,21 @@ suppression; those influence salience and can remove the very sound being
 captioned. The captioner hallucinated an event on a very quiet synthetic input
 when tested directly; the outer detector correctly prevents that input from
 being sent in normal use. Never use this feature as a security or safety alarm.
+
+
+### Music regression correction
+
+The initial implementation explicitly rejected `kind=music`, even after the
+model correctly recognized it. Music is now eligible for a cautious proactive
+response. The default relative level gate and echo protection are unchanged.
+A separate category cooldown avoids repeated remarks about the same ongoing
+music even when subsequent captions use different wording. No genre, artist,
+song title or user preference is assumed.
+
+Run `python browser_environment_music.py --url https://YOUR-DEMO` for the
+complete regression: very quiet authored music, prominent melody/bass/drums,
+actual caption/LLM/TTS response, and another onset after the detector cooldown
+that must not produce a second comment. The fixture is deterministic and CC0.
+The automated test covers instrumental music; speech-like vocals can still be
+gated by VAD, and music already present while learning the room floor may be
+treated as background. It is not a universal music-identification benchmark.
