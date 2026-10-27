@@ -27,18 +27,16 @@ Below the conversation, **Proactive listening & sounds** contains:
 | Control | New-browser default | Meaning |
 | --- | --- | --- |
 | Notice prominent sounds | ON | Enable the optional sound detector and proactive environmental turns. |
-| Ask about unfamiliar foreground voices | ON | In optional focused mode, permit a cautious question about salient unmatched speech. Open mode instead labels new foreground speakers and asks their name. |
+| Ask about unfamiliar audible voices | ON | New foreground speakers may introduce themselves. Repeated salient background speech can prompt a cautious question without enrollment; focused mode retains its independent guards. |
 | Preserve music / environmental sounds | ON | Browser noise suppression and automatic gain OFF, echo cancellation ON; applies to the same microphone. |
 | AudioSet event candidates | ON | EfficientAT MN04 CPU tags, parallel to Whisper; independent toggle. |
 | Local reaction before Qwen | OFF | Generate one memory/sound-informed reaction, then give its exact text to Qwen. |
 | Stay with current partner | OFF | All foreground speakers can join without a wake phrase. |
 | Quiet background speech filter | ON | Combined relative level, known-voice similarity and explicit-address evidence; not a volume-only gate. |
-| Include uncertain vocal age / gender impressions | OFF | Let the existing Ears model add perceived vocal characteristics, never identity or demographic facts. |
+| Include uncertain vocal age / gender and timbre impressions | ON | Let the existing Ears model add perceived vocal characteristics, never identity or demographic facts. |
 | Sound prominence | 8 dB | Adjustable 6–24 dB above the learned room floor. Higher is less sensitive. |
 
-Settings use the existing browser-local settings mechanism. Voice impressions
-and microphone recordings are not saved. Camera and wiki-memory defaults remain
-OFF. Environmental captions can be sent to the selected hosted LLM, just like
+Settings use the existing browser-local settings mechanism. No microphone recordings are saved. Voice impressions remain session-local unless the separate, default-off, explicitly consented voice-profile setting is enabled. Camera and wiki-memory defaults remain OFF. See [social identity and optional profile persistence](SOCIAL_IDENTITY.md). Environmental captions can be sent to the selected hosted LLM, just like
 the normal transcript. Turn environmental sensing off to stop this extra context.
 
 ## Data flow and concurrency
@@ -98,7 +96,8 @@ Default replies go directly to the main model. When explicitly enabled, the flow
   an old sound. Disable/disconnect invalidates pending tasks and drops their
   results. Disabling environmental reactions also cancels its own current
   reply, without cancelling an unrelated normal answer.
-* Only in the optional focused-partner mode, for a possible unfamiliar voice, reuse the existing focus rejection. Require
+* In open mode, two salient quiet-background rejections within 25 seconds may prompt a question (one second or more each, RMS ≥0.003, prominence ≥8 dB, known-voice match below 0.5). They never enroll that voice; playback, user permissions, idle scheduling and a 120-second cooldown apply. See [social identity](SOCIAL_IDENTITY.md).
+* In optional focused-partner mode, for a possible unfamiliar voice, reuse the existing focus rejection. Require
   two background observations, at least one second of audio, a sufficiently
   different embedding (similarity ≤ 0.25), and appreciable level (at least half
   the owner's reference level and 0.008 RMS). Quiet-background rejections,

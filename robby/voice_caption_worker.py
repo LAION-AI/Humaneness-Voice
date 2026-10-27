@@ -46,7 +46,9 @@ class Captioner:
         from humaneness_caption_settings import caption_view
         start=time.perf_counter()
         prediction=self.model.predict_batch([wave],event_threshold=.7,max_events=8,include_frames=False)[0]
-        view=caption_view(prediction,self.baseline,self.settings)
+        view=caption_view(prediction,self.baseline,{**self.settings,'omit_demographic_wording':not impression})
+        from social_profiles import TRAITS
+        traits={k:{'score':round(float(v),4),'meaning':TRAITS[k]} for k,v in view['dims'].items() if k in TRAITS} if impression else {}
         # This is a conversation aid, not a character/timbre or personality
         # caption: omit demographics, perceived honesty and quality judgments.
         view['dims']={k:v for k,v in view['dims'].items() if k in (PROSODY | ({'AGEV','GEND'} if impression else set()))}
@@ -58,6 +60,7 @@ class Captioner:
         return {'status':'available','caption':'Possibly '+caption if caption else 'No distinctive delivery cue.',
             'uncertainty':'Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.',
             'voice_impression_only':impression,'window_s':round(len(wave)/16000,3),'inference_ms':round((time.perf_counter()-start)*1000,2),
+            'vocal_traits':traits,
             'model':'laion/humaneness-ears-base-medium','model_revision':MODEL_REVISION,
             'rules_revision':CAPTION_REVISION,'device':self.device,'precision':'bfloat16' if self.device.startswith('cuda') else 'float32',
             'selected':{k:detail[k] for k in ('voicenet','emotions')},

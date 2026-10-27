@@ -126,10 +126,40 @@ def response_guidance(text,history):return response_plan(text,history)['guidance
 
 class BoltDirector:
     async def stream(self,client,text,identity,history,avatar_context=None,metrics=None,reply_words=None,backend=None,credential=None):
+        context=avatar_context or {}
+        if not text and context.get('environment_proactive') and context.get('environment',{}).get('kind')=='unfamiliar_voice':
+            # Optional background comments are tiny. Validate before any TTS,
+            # so a stale greeting cannot leak into a real conversation. Normal
+            # foreground answers retain sentence streaming without this wait.
+            from social_profiles import background_question
+            metrics=metrics if metrics is not None else {};start=time.perf_counter();attempts=[]
+            for attempt in range(2):
+                current={}
+                parts=[s async for s in self._stream(client,text,identity,history,{**context,'background_question_repair':bool(attempt)},current,reply_words,backend,credential)]
+                attempts.append(current);metrics.update(current)
+                metrics.update(background_question_attempts=attempt+1,generation_calls=sum(m.get('generation_calls',1) for m in attempts),
+                    llm_total_ms=round((time.perf_counter()-start)*1000,2))
+                question=next((s for s in parts if background_question(s.text)),None)
+                if question:
+                    metrics.update(background_question_status='validated',llm_first_sentence_ms=round((time.perf_counter()-start)*1000,2))
+                    yield question;return
+            metrics.update(background_question_status='skipped_invalid',response_complete=False)
+            return
+        async for sentence in self._stream(client,text,identity,history,avatar_context,metrics,reply_words,backend,credential):yield sentence
+
+    async def _stream(self,client,text,identity,history,avatar_context=None,metrics=None,reply_words=None,backend=None,credential=None):
         metrics=metrics if metrics is not None else {};start=time.perf_counter()
+        from social_profiles import identity_answer
+        direct=identity_answer(text,identity) if not (avatar_context or {}).get('event') else None
+        if direct:
+            from bolt_text import Sentence
+            metrics.update(reply_source='session_identity',llm_model='Session identity · name lookup',llm_provider='local controller',llm_first_sentence_ms=0.,llm_total_ms=0.,generation_calls=0,response_complete=True)
+            yield Sentence(direct,'affection, warm, soft',language='en' if direct.startswith(('Your','I think')) else 'de')
+            return
         from llm_backends import config,completion_stream,metrics as backend_metrics
         cfg=config(backend if backend is not None else {'model':'local','provider':'local'},credential)
-        model=cfg['model'];metrics.update(backend_metrics(cfg));messages=[{'role':'system','content':SYSTEM}]
+        from social_profiles import context_note
+        model=cfg['model'];metrics.update(backend_metrics(cfg));messages=[{'role':'system','content':SYSTEM+context_note(identity)}]
         plan={'kind':'chat','units':None,'guidance':''}
         if not reply_words and not (avatar_context or {}).get('event'):
             plan=response_plan(text,history)
@@ -177,7 +207,24 @@ story or other work, still complete that task in full. These are screen effects,
             messages[0]['content']+='\nThe current requested interruption-rule change was already applied by the real controller. Acknowledge it briefly and naturally. Actual active rules (JSON data): '+json.dumps(avatar_context['applied_interruption_rules'],ensure_ascii=False)
         # Plain user speech matches the model's conversation training format;
         # burying it inside English JSON reduced German answer quality in tests.
-        messages.append({'role':'user','content':text[:3000] if text else ('Respond to the supplied optional environment observation.' if (avatar_context or {}).get('environment_proactive') else 'Respond briefly to the current optional avatar event, or output [silent].')})
+        current_words=text[:3000] if text else ('Respond to the supplied optional environment observation.' if (avatar_context or {}).get('environment_proactive') else 'Respond briefly to the current optional avatar event, or output [silent].')
+        if not text and (avatar_context or {}).get('environment_proactive') and (avatar_context or {}).get('environment',{}).get('kind')=='unfamiliar_voice':
+            # A generic empty-turn request sometimes repeated the preceding
+            # introduction despite correct environment metadata in the system.
+            # Put the actual controller event at the newest conversational edge.
+            current_words=('Interner Ereignisauftrag, keine neue Nutzeräußerung: Gerade war möglicherweise eine weitere Stimme im Hintergrund zu hören. '
+                'Das kann ein Fernseher, eine Aufnahme, eine andere Person oder derselbe Mensch mit anderer Betonung sein. '
+                'Der bisherige Gesprächspartner wurde bereits begrüßt. Frage ihn jetzt in EINER kurzen, vorsichtigen Frage, ob noch jemand da ist oder ein Fernseher läuft. '
+                'Keine erneute Begrüßung, keine Namensfrage an den bisherigen Gesprächspartner; behaupte nicht sicher, dass eine weitere Person da ist.'
+                if language=='German' else 'Internal event request, not a new user utterance: another voice may have been audible in the background. '
+                'It could be a TV, recording, another person or the same person speaking differently. The existing partner was already greeted. '
+                'Ask ONE brief, tentative question about whether someone else is there or a TV is playing. Do not greet again or ask the current partner their name. Do not assert another person is present.')
+        if text and (identity or {}).get('named'):
+            name=json.dumps(identity.get('display_name'),ensure_ascii=False)
+            current_words=('Aktuelle Gesprächsrolle: Der Nutzer '+name+' spricht mit Robby. Eine ausdrückliche Namenskorrektur gilt vorrangig.\nNutzeräußerung: ' if language=='German' else 'Current turn: the USER '+name+' is speaking to Robby. An explicit name correction takes precedence.\nUser utterance: ')+current_words
+        if (avatar_context or {}).get('background_question_repair'):
+            current_words+='\nYour last unspoken draft did not ask about the background voice. Return a single question about another audible person or a TV, in the specified language. No greeting, self-introduction or name question.'
+        messages.append({'role':'user','content':current_words})
         body={'model':model,'messages':messages,'stream':True,'stream_options':{'include_usage':True},
               'max_tokens':2048 if not reply_words and not (avatar_context or {}).get('event') else 320,
               'temperature':.7,'top_p':.95,
