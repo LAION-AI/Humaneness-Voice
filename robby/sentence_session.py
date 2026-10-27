@@ -53,6 +53,14 @@ class OpenVoiceMemory:
         # An explicit self-identification can attach another acoustic mode to
         # the same named person; a mere third-person name mention cannot.
         named=next((sid for sid,u in self.users.items() if name and u['named'] and u['name'].casefold()==name.casefold()),None)
+        # A name supplied immediately after an unnamed guest was asked for it
+        # may have different phonemes from their first sentence. Use a modest,
+        # margin-checked match ONLY for this explicit labeling exchange.
+        pending_label=None
+        if name and not named and sid and not self.users[sid]['named']:
+            u=self.users[sid];rival=max((value for value,key in ranking if key!=sid),default=-1.)
+            if score>=.28 and score>=rival+.06 and self.clock()-u['seen']<45 and self.turn-u['asked_turn']<=3:
+                pending_label=sid
         if named:
             if sid and sid!=named and score>=self.threshold and not self.users[sid]['named']:
                 for v in self.users[sid]['vectors']:
@@ -60,6 +68,7 @@ class OpenVoiceMemory:
                 del self.users[sid]
             sid=named
         elif force_new:sid=None
+        elif pending_label:sid=pending_label
         elif preferred in self.users:sid=preferred
         elif score<self.threshold:sid=None
         elif name and self.users[sid]['named'] and self.users[sid]['name'].casefold()!=name.casefold():sid=None
@@ -108,6 +117,9 @@ class SentenceSession:
         self.last_activity_notice=-100.;self.last_probe_error=-100.
         from conversation_focus import ConversationFocus
         self.focus=ConversationFocus()
+        self.focus.enabled=os.environ.get('ROBO_CONVERSATION_FOCUS','0')=='1'
+        from addressed_speech import AddressedSpeechGate
+        self.addressed=AddressedSpeechGate()
         self.barge_task=None;self.last_barge_check=-100.;self.bot_voice=None
         self.reply_seen=None;self.reply_started=0.
         self.activity_task=None;self.last_focus_check=-100.;self.focus_activity=None
@@ -129,7 +141,7 @@ class SentenceSession:
         if not math.isfinite(value) or not 200<=value<=2000:raise ValueError('Speech pause must be 200–2000 ms')
         self.pause_ms=round(value)
     def settings(self):
-        return {'type':'asr_settings','voice_captions_enabled':self.captions_enabled,**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
+        return {'type':'asr_settings','background_speech_filter':self.addressed.enabled,'voice_captions_enabled':self.captions_enabled,**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
                 'conversation_focus':self.focus.state(self.memory.users,self.c.speaking),
                 'vad':'Silero ONNX CPU · neural speech activity','submission':'All pending sentences after a speech pause'}
     def start(self):self.worker=asyncio.create_task(self.deliver())
@@ -263,6 +275,7 @@ class SentenceSession:
         self.foreground_last=-100.;self.foreground_peak=0.;self.foreground_now=False;self.foreground_first=None
         self.stop_candidate=None
     async def preview_text(self,text,at,final=False,fresh=True,source='native'):
+        if getattr(self.c,'environment',None):self.c.environment.note_text(text,at)
         if not text.strip():return
         if at<self.handover_floor:return
         if fresh:self.fresh_asr_at=at
@@ -425,7 +438,6 @@ class SentenceSession:
         return {'frames':len(rows),'consistency':sum(v>=.25 for v in scores)/len(scores)}
 
     async def verify_barge(self,at,rid,lexical=False,brief=False):
-        if not self.focus.enabled:return {'accepted':True,'reason':'Conversation focus disabled'}
         if self.last_speech<at-.48 and not lexical:return {'accepted':False,'reason':'No fresh speech'}
         # Only the current reply's recent microphone audio; no old enrollment
         # speech may authorize a new background speaker to cancel playback.
@@ -448,6 +460,17 @@ class SentenceSession:
                 self.bot_voice=(rid,bot)
             decision=self.focus.check(embedding,self.memory.users,True,bot)
             level=voice_level(audio)
+            if not self.focus.enabled:
+                # Open enrollment is not permission for silence or loudspeaker
+                # echo to stop playback. Any real foreground speaker can say
+                # Stop; free-form barge-in still needs a known voice match.
+                scores=sorted((max((float(embedding@v) for v in u['vectors']),default=-1.),sid)
+                    for sid,u in self.memory.users.items())
+                score,sid=scores[-1] if scores else (-1.,None)
+                echo=float(embedding@bot) if bot is not None else -1.
+                decision={'accepted':bool(level>=.008 and (lexical or score>=.55) and (echo<.4 or score>=echo+.06)),
+                    'speaker_id':sid if score>=self.memory.threshold else None,'similarity':score,'bot_similarity':echo,
+                    'reason':'Fresh speaker control in open conversation mode'}
             reference_level=self.memory.users.get(decision.get('speaker_id') or self.focus.owner,{}).get('level',0.)
             if reference_level>0 and level<reference_level*.35 and decision.get('similarity',-1.)<.65:
                 decision.update(accepted=False,quiet_background=True,reason='Quiet background voice cannot cancel the current reply')
@@ -659,6 +682,12 @@ class SentenceSession:
                 # context. Long TV pre-roll otherwise dilutes the 80th-percentile
                 # level and rejects an otherwise correctly matched short request.
                 level=voice_level(enrollment_reference(audio))
+                detector=getattr(getattr(self.c,'environment',None),'detector',None)
+                addressed=self.addressed.evaluate(text,embedding,self.memory.users,level,getattr(detector,'floor',None))
+                if not addressed['accepted']:
+                    await self.c.ws.send_json({'type':'speaker_focus','operation':'turn',**addressed})
+                    await self.c.ws.send_json({'type':'ignored',**addressed})
+                    continue
                 decision=self.turn_decision(embedding,fast,level)
                 guest=None
                 if self.permissions.candidate(embedding,fast,level,text):

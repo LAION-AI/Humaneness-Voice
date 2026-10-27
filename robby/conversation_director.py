@@ -140,7 +140,7 @@ class CompactDirector:
         if memory:messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
         from ambient_audio import context_instruction
         messages[0]['content']+='\n'+context_instruction((avatar_context or {}).get('environment'),(avatar_context or {}).get('environment_proactive',False))
-        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment')}
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment','spoken_reaction')}
         if browser_context:messages[0]['content']+='\nObserved avatar context (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if event:messages[0]['content']+='\nThis turn is an optional avatar event, not speech from the user. The three-field JSON speech format is still required unless choosing {"silent": true}.'
         if knowledge_enabled:
@@ -157,8 +157,8 @@ class CompactDirector:
             messages[0]['content']+='\nCurrent live controller state (data): '+json.dumps(interaction_state,ensure_ascii=False)
         if identity.get('enrolled') and identity.get('named'):
             messages[0]['content']+='\nAuthoritative current speaker label (JSON data): '+json.dumps(identity.get('display_name'),ensure_ascii=False)+'. Respond to this person, but normally omit their name in spoken replies. Other names in the utterance/history are third persons, never the current speaker. If asked the current user\'s name, answer from this label.'
-        if (avatar_context or {}).get('parallel_quick_reaction'):
-            messages[0]['content']+='\nAn optional brief acknowledgment may be played concurrently by the local companion. Begin with the substantive answer/tool result, with no repeated acknowledgment or preamble. Complete the full requested task. The answer must also stand alone if no acknowledgment plays.'
+        from quick_reaction import continuation_instruction
+        messages[0]['content']+=continuation_instruction((avatar_context or {}).get('spoken_reaction'))
         from voice_captioning import prompt_hint
         if not event:messages[0]['content']+=prompt_hint(identity)
         identity={k:v for k,v in identity.items() if k!='voice_delivery'}

@@ -61,7 +61,7 @@ class FocusIntegrationTests(unittest.IsolatedAsyncioTestCase):
         c=SimpleNamespace(ws=SimpleNamespace(send_json=AsyncMock()),speaking=True,halting=False,
             session=SimpleNamespace(reset=Mock()),ears=SimpleNamespace(sr=16000),
             playback=SimpleNamespace(rid=7,audio=np.zeros(0),n16=0),_on_barge=AsyncMock(),_send_turn=AsyncMock())
-        s=SentenceSession(c);s.now=s.mic_now=s.last_speech=2.;s.reply_started=0.
+        s=SentenceSession(c);s.focus.enabled=True;s.now=s.mic_now=s.last_speech=2.;s.reply_started=0.
         s.records.append((0.,2.,np.ones(32000,np.float32)*.02))
         s.memory.assign(np.eye(192,dtype=np.float32)[0],'Ich bin Christoph.');s.focus.accept('speaker-1')
         return s

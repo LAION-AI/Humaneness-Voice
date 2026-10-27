@@ -75,6 +75,7 @@ class Race(unittest.IsolatedAsyncioTestCase):
         closed=[]
         async def stream(*args,**kwargs):
             try:
+                if enabled and not invalid:self.assertEqual(args[5]['spoken_reaction'],'Ich höre dir zu.')
                 await asyncio.sleep(main_delay);yield Sentence('Hier steht die eigentliche vollständige Antwort.',language='de')
             finally:closed.append('main')
         async def lead(*args,**kwargs):
@@ -92,7 +93,9 @@ class Race(unittest.IsolatedAsyncioTestCase):
                     yield 'data: '+json.dumps({'event':'audio_chunk','pcm_f32':base64.b64encode(np.ones(48000,dtype='<f4').tobytes()).decode(),'sample_rate':48000,'channels':1})
                 else:yield 'data: '+json.dumps({'event':'audio_chunk','url':'/synthetic.mp3'})
         @asynccontextmanager
-        async def admission(*args,**kwargs):yield Response()
+        async def admission(*args,**kwargs):
+            await asyncio.sleep(.001)  # actual HTTP always yields to producer
+            yield Response()
         class Client:
             async def get(self,*args,**kwargs):return SimpleNamespace(content=b'synthetic',raise_for_status=lambda:None)
         output=[]
@@ -104,10 +107,10 @@ class Race(unittest.IsolatedAsyncioTestCase):
                 if kind!='audio':output.append((kind,json.loads(json.dumps(value))))
                 if close_early and kind=='audio':await it.aclose();break
         return output,closed
-    async def test_main_first_skips_and_cancels_local(self):
+    async def test_main_waits_for_actual_reaction_context(self):
         output,closed=await self.collect(.001,.2)
-        self.assertEqual([v['sentence_role'] for k,v in output if k=='sentence'],['answer'])
-        self.assertEqual(output[-1][1]['quick_reply_status'],'main_answer_won');self.assertIn('local',closed)
+        self.assertEqual([v['sentence_role'] for k,v in output if k=='sentence'],['reaction','answer'])
+        self.assertTrue(output[-1][1]['main_informed_by_reaction']);self.assertIn('local',closed)
     async def test_local_first_keeps_full_answer(self):
         output,_=await self.collect(.02,.001)
         self.assertEqual([v['sentence_role'] for k,v in output if k=='sentence'],['reaction','answer'])
