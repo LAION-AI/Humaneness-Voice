@@ -21,10 +21,10 @@ let llmControls=null;
 let memoryControls=null;
 let environmentControls=null;
 const overview=new LiveOverview();
-let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
+let petting=null,optionalAvatarReply=false,optionalEnvironmentReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
 let lastPersonalityUser=personalityStarted;
-function cancelOptionalAvatar(){pendingPlayFallback=null;if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
+function cancelOptionalAvatar(source='control'){if(optionalEnvironmentReply&&source==='acoustic_activity')return;pendingPlayFallback=null;if(optionalAvatarReply&&!avatarCancelPending){avatarCancelPending=true;client.stopAudio();client.send('avatar:cancel');}}
 function silentPlayFallback(){const steps=pendingPlayFallback;pendingPlayFallback=null;
  if(steps&&avatarActions.enabled&&avatarActions.idleEnabled&&!document.hidden&&!eyeContact?.state.active&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
   avatarActions.play(steps,'idle');avatarActions.lastIdleEnd=avatarActions.queue.at(-1)?.end??performance.now();avatarActions.nextIdle=avatarActions.lastIdleEnd+avatarActions.idleDelayMs;
@@ -39,10 +39,11 @@ function saveThreshold(key,value){try{localStorage.setItem(key,String(value));}c
 const DEFAULT_VOICE_THRESHOLD=.32,CAMERA_FPS=10,FACE_INTERVAL_MS=1000/CAMERA_FPS;
 let desiredUtteranceThreshold=savedThreshold('robby.voiceThreshold',DEFAULT_VOICE_THRESHOLD,.3,.9),desiredFastThreshold=savedThreshold('robby.fastThreshold',null,.1,.95);
 let desiredOpenVoiceThreshold=savedThreshold('robby.openVoiceThreshold',.38,.3,.9);
-let desiredFocus=true;try{desiredFocus=localStorage.getItem('robby.conversationFocus')!=='false';}catch{}
+let desiredFocus=false;try{if(localStorage.getItem('robby.speakerModeVersion')!=='3'){localStorage.setItem('robby.conversationFocus','false');localStorage.setItem('robby.speakerModeVersion','3');}desiredFocus=localStorage.getItem('robby.conversationFocus')==='true';}catch{}
+let desiredBackgroundFilter=true;try{desiredBackgroundFilter=localStorage.getItem('robby.backgroundSpeechFilter')!=='false';}catch{}
 let desiredFocusThreshold=savedThreshold('robby.focusThreshold',.28,.20,.65);
 try{if(localStorage.getItem('robby.focusBalanceVersion')!=='2'){if(Math.abs(desiredFocusThreshold-.32)<.001)desiredFocusThreshold=.28;saveThreshold('robby.focusThreshold',desiredFocusThreshold);localStorage.setItem('robby.focusBalanceVersion','2');}}catch{}
-let desiredQuickReplies=true;try{desiredQuickReplies=localStorage.getItem('robby.quickReplies')!=='false';}catch{}
+let desiredQuickReplies=false;try{if(localStorage.getItem('robby.reactionFlowVersion')!=='3'){localStorage.setItem('robby.quickReplies','false');localStorage.setItem('robby.reactionFlowVersion','3');}desiredQuickReplies=localStorage.getItem('robby.quickReplies')==='true';}catch{}
 $('quick-replies').checked=desiredQuickReplies;
 $('quick-replies').onchange=()=>{desiredQuickReplies=$('quick-replies').checked;try{localStorage.setItem('robby.quickReplies',String(desiredQuickReplies));}catch{}client.send('reply:quick:'+(desiredQuickReplies?'on':'off'));};
 let desiredCaptions=true;try{desiredCaptions=localStorage.getItem('robby.voiceCaptions')!=='false';}catch{}
@@ -98,10 +99,10 @@ function showInteraction(m){
   d?.action==='interrupt_user'?`Rule triggered · decision ${d.decision_ms} ms. Microphone remains active.`:'Agreed rules armed · listening continuously.';
 }
 const client=window.robo=new RoboClient({
- connection(on){connected=on;if(!on){llmControls?.disconnected();if($('conversation-focus-status'))$('conversation-focus-status').textContent='Waiting for the first conversation partner.';avatarActions.clear();petting?.reset();optionalAvatarReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
+ connection(on){connected=on;if(!on){llmControls?.disconnected();if($('conversation-focus-status'))$('conversation-focus-status').textContent='Waiting for the first conversation partner.';avatarActions.clear();petting?.reset();optionalAvatarReply=optionalEnvironmentReply=avatarCancelPending=false;replyPending=false;mic=false;gate.checked=desiredGate;identityModel.value='v4-long3';timeout.value=900;$('speaker-chips').replaceChildren();$('call').textContent='◉ Start talking';$('call').classList.remove('active');phase(ready?'Ready when you are':'Connecting…','ready');}},
  microphone(on){mic=on;micStarted=on?performance.now():0;lastCapture=lastServerAudio=0;serverAudioSeconds=0;$('mic-level').value=0;$('mic-status').textContent=on?'Microphone started. Waiting for audio frames…':'Microphone off. Click Start talking and allow microphone access.';$('call').textContent=on?'■ End conversation':'◉ Start talking';$('call').classList.toggle('active',on);phase(on?'Listening to you':'Ready when you are',on?'ready':'');},
- input(s){lastCapture=performance.now();if(s.rms>.003&&(!sentenceMode||performance.now()<foregroundInputUntil)){avatarActions.touch();cancelOptionalAvatar();} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
- playing(on){speaking=on;phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
+ input(s){lastCapture=performance.now();if(s.rms>.003&&(!sentenceMode||performance.now()<foregroundInputUntil)){avatarActions.touch();cancelOptionalAvatar('acoustic_activity');} $('mic-level').value=Math.min(1,(s.rms||0)*12);$('mic-status').textContent=s.state==='ended'?'The microphone was disconnected. Start talking again.':`${s.rms>.001?'Audio detected':'Microphone active · quiet input'} · ${s.sent} packets sent · ${serverAudioSeconds.toFixed(1)} s received by server.`;},
+ playing(on){speaking=on;if(!on)overview.playbackEnded();phase(on?'Robby is speaking':mic?'Listening to you':'Ready when you are',on?'speaking':'ready');},
  audio(m){overview.audio(m);},
  sync(r){$('sync-status').textContent=`Audio sync: ${r.method} · output ${Math.round(r.output_ms)} ms · input ${r.input_ms===null?'unknown':Math.round(r.input_ms)+' ms'}${r.uncertain?' · device estimate incomplete':''}. No fixed playback offset.`;},
  message(m){
@@ -109,28 +110,28 @@ const client=window.robo=new RoboClient({
   // also removes this obsolete note before sentence framing and synthesis.
   if(m.type==='reply'&&typeof m.text==='string')m={...m,text:m.text.replace(/\[My preceding reply was interrupted\.[^\]]*(?:\]|$)/gi,'').trim()};
   asrControls?.message(m);memoryControls?.message(m);
-  if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Two-stage replies enabled: short reaction, informed bridge, then the full answer.':'Quick reactions disabled; play the main answer directly.';
+  if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Optional reaction enabled: Qwen receives the exact reaction and continues while TTS prepares both streams.':'Quick reactions disabled; play the main answer directly.';
   if(m.type==='voice_caption')$('voice-caption-status').textContent=m.status==='available'?`${m.caption} · uncertain estimate · ${Math.round(m.request_ms)} ms · ${m.window_s} s audio`:`Tone hint: ${m.status.replaceAll('_',' ')} · transcript-only response.`;
   llmControls?.message(m);overview.message(m);environmentControls?.message(m);
-  if(m.type==='environment_observation'&&m.status==='responding'){optionalAvatarReply=true;replyPending=true;answer=null;}
+  if(m.type==='environment_observation'&&m.status==='responding'){optionalAvatarReply=true;optionalEnvironmentReply=true;avatarCancelPending=false;replyPending=true;answer=null;}
   if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;
   const foregroundMessage=m.type==='endpoint'||!sentenceMode||performance.now()<foregroundInputUntil;
-  if(foregroundMessage&&['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
+  if(foregroundMessage&&['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar(m.type==='endpoint'?'control':'acoustic_activity');}
   if(m.type==='avatar_event'&&['petted','ask_pet','play_vocal'].includes(m.event)){
-   if(m.accepted){optionalAvatarReply=true;replyPending=true;answer=null;}
+   if(m.accepted){optionalAvatarReply=true;optionalEnvironmentReply=false;replyPending=true;answer=null;}
    else if(optionalAvatarReply){optionalAvatarReply=avatarCancelPending=false;replyPending=false;silentPlayFallback();}
   }
   if(m.type==='reply')pendingPlayFallback=null;
   if(m.type==='turn_done')silentPlayFallback();
   if(['barge','stop_command','error','reply_cancelled'].includes(m.type))pendingPlayFallback=null;
-  if(['turn_done','stop_command','error'].includes(m.type)){optionalAvatarReply=avatarCancelPending=false;}
+  if(['turn_done','stop_command','error','reply_cancelled'].includes(m.type)){optionalAvatarReply=optionalEnvironmentReply=avatarCancelPending=false;}
   if(['endpoint','reply','backchannel'].includes(m.type)||(foregroundMessage&&['asr_preview','partial'].includes(m.type)))avatarActions.touch();
   if(['barge','stop_command','reply_cancelled'].includes(m.type)||m.type==='error'&&!avatarActions.queue.some(q=>q.source==='requested'))avatarActions.clear();
   if(m.type==='avatar_action')avatarActions.request(m.action_id,m.steps);
   if(m.type==='avatar_gesture'&&!speaking&&!replyPending)avatarActions.listen(m.kind);
   if(m.type==='reply'&&!avatarActions.hasRequested(m.avatar_action_id))avatarActions.set(m.reply_id,m.avatar_actions,m.performance,m.avatar_event?'optional':'reply');
   multimodal?.message(m);
-  if(m.type==='ready'){sendRecentIdle();multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
+  if(m.type==='ready'){client.send('identity:background-filter:'+(desiredBackgroundFilter?'on':'off'));sendRecentIdle();multimodal?.ready();client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off'));client.send('interaction:stop-feedback:'+(desiredStopFeedback?'on':'off'));}
   if(m.type==='ready'&&m.sentence_stream)setSentenceMode(true);
   if(m.type==='asr_settings'){$('speech-pause-status').textContent=`Wait for ${m.speech_pause_ms} ms without speech before sending · background sounds are ignored.`;}
   if(m.type==='speech_activity'){$('speech-pause-status').textContent=m.speech?'Speech detected · collecting your words.':m.pending?`Speech pause · ${Math.min(m.quiet_ms,2000)} / ${m.speech_pause_ms} ms`:'Listening · background sounds do not reset the speech timer.';}
@@ -241,6 +242,7 @@ const focusHelp=document.createElement('p');focusHelp.textContent='Say “This i
 const focusThresholdLabel=document.createElement('label');focusThresholdLabel.textContent='Partner match · lower tolerates more voice variation ';
 const focusRange=document.createElement('input'),focusValue=document.createElement('output');focusRange.id='conversation-focus-threshold';focusRange.type='range';focusRange.min=.20;focusRange.max=.65;focusRange.step=.01;focusRange.value=desiredFocusThreshold;focusValue.value=desiredFocusThreshold.toFixed(2);focusThresholdLabel.append(focusValue,focusRange);
 const releaseFocus=document.createElement('button');releaseFocus.type='button';releaseFocus.id='release-conversation-focus';releaseFocus.className='secondary';releaseFocus.textContent='Let another person join';
+const backgroundLabel=document.createElement('label'),backgroundToggle=document.createElement('input');backgroundToggle.type='checkbox';backgroundToggle.id='background-speech-filter';backgroundToggle.checked=desiredBackgroundFilter;backgroundLabel.append(backgroundToggle,' Filter very quiet, unaddressed background speech');focusBox.append(backgroundLabel);backgroundLabel.title='Uses relative loudness, known voice similarity and explicit address together. New foreground voices remain welcome. Voice matching is approximate.';backgroundToggle.onchange=()=>{desiredBackgroundFilter=backgroundToggle.checked;saveThreshold('robby.backgroundSpeechFilter',desiredBackgroundFilter);client.send('identity:background-filter:'+(desiredBackgroundFilter?'on':'off'));};
 const focusStatus=document.createElement('p');focusStatus.id='conversation-focus-status';focusStatus.setAttribute('role','status');focusStatus.textContent='Waiting for the first conversation partner.';
 const focusSettings=document.createElement('details'),focusSummary=document.createElement('summary');focusSummary.textContent='Voice tolerance & switching people';focusSettings.append(focusSummary,focusHelp,focusThresholdLabel,releaseFocus);
 const focusReport=document.createElement('a');focusReport.href='/static/rebalance-update.html';focusReport.target='_blank';focusReport.rel='noopener';focusReport.textContent='Tests, thresholds and known limits ↗';focusSettings.append(focusReport);

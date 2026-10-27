@@ -51,6 +51,8 @@ in the background and whether to include them. Never interrupt a requested poem,
 news explanation or other task to ask this. Respect an instruction to ignore them.
 Do not claim permissions changed unless the supplied result confirms it.
 Your own name is always Robby; never claim that you share the user's name.
+Robbie, Robby and Robbi in recognized speech address you equally. Never correct
+the spelling of a spoken name; ASR spelling is not a mistake by the person.
 Use the resolved speaker name supplied by the acoustic session for a name correction.
 Output the actual answer, with a short English cue before each spoken sentence or poem line, e.g.
 (interest, soft) Natürlich, was möchtest du wissen?
@@ -151,14 +153,16 @@ class BoltDirector:
         messages.extend(model_history);messages[0]['content']+=playback_note
         from voice_captioning import prompt_hint
         if identity:messages[0]['content']+='\nCurrent acoustic speaker metadata (session data): '+json.dumps({k:v for k,v in identity.items() if k!='voice_delivery'},ensure_ascii=False)
+        if (identity or {}).get('needs_name'):
+            messages[0]['content']+='\nThis guest has no known name yet. Answer their actual request, then briefly welcome them and ask what to call them ONCE. Do not claim they are a different person with certainty. Accept a name correction naturally; the controller can keep multiple voice variants for one name.'
         if not (avatar_context or {}).get('event'):messages[0]['content']+=prompt_hint(identity)
-        if (avatar_context or {}).get('parallel_quick_reaction'):
-            messages[0]['content']+='\nA separate local companion may speak a short acknowledgment while you generate this reply. Start the actual useful answer directly, without an acknowledgment or preamble. Do not mention the companion or refer to a phrase you have not seen. Complete the full task normally; your answer must also stand alone if no acknowledgment plays.'
+        from quick_reaction import continuation_instruction
+        messages[0]['content']+=continuation_instruction((avatar_context or {}).get('spoken_reaction'))
         if memory:
             messages[0]['content']+='\n'+memory['note']+'\nRetrieved wiki data (JSON): '+json.dumps(memory['entries'],ensure_ascii=False)
         from ambient_audio import context_instruction
         messages[0]['content']+='\n'+context_instruction((avatar_context or {}).get('environment'),(avatar_context or {}).get('environment_proactive',False))
-        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment')}
+        browser_context={k:v for k,v in (avatar_context or {}).items() if k not in ('knowledge_memory','environment','spoken_reaction')}
         if browser_context:messages[0]['content']+='\nObserved browser events (session data): '+json.dumps(browser_context,ensure_ascii=False)
         if (avatar_context or {}).get('requested_actions'):
             messages[0]['content']+='''\nThe requested visual actions have already been sent to the browser. React playfully while
@@ -235,6 +239,15 @@ story or other work, still complete that task in full. These are screen effects,
         if target:metrics.update(requested_units=target,completed_units=units,completion_repairs=metrics['generation_calls']-1)
         if repair_task:metrics.update(task_acknowledgement_only=acknowledgement_only(join_sentences(emitted)),task_minimum_units=minimum_units,
             task_missing_units=units<minimum_units,completion_repairs=metrics['generation_calls']-1)
+        # The speaker controller asks only for genuinely unnamed guests, with
+        # a turn cooldown. Keep this dialogue action reliable even when the
+        # generative model omits its requested name question. Exact tasks win.
+        if (identity or {}).get('needs_name') and plan['kind']=='chat' and not target and not reply_words and not re.search(r'\b(?:nur|only|genau|exactly|wortwörtlich|verbatim)\b',text,re.I):
+            if not re.search(r'wie (?:heißt|heisst)|dein(?:en)? name|dich nennen|your name|call you',join_sentences(emitted),re.I):
+                from bolt_text import Sentence
+                part=Sentence('Und wie darf ich dich nennen?' if language=='German' else 'And what should I call you?',
+                    'interest, soft, warm',language='de' if language=='German' else 'en')
+                emitted.append(part);yield part;metrics['name_question_added']=True
         metrics['llm_total_ms']=round((time.perf_counter()-start)*1000,2)
         metrics['response_complete']=(units>=target) if target else metrics.get('finish_reason')!='length' and not metrics.get('task_acknowledgement_only',False) and not metrics.get('task_missing_units',False)
 

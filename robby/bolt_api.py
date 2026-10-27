@@ -34,7 +34,7 @@ class Chat(BaseModel):
     voice:str=Field(default='emolia_c1699',max_length=80)
     chunk_frames:int=Field(default=20)
     reply_words:int|None=Field(default=None,ge=3,le=80)
-    quick_replies:bool=True
+    quick_replies:bool=False
     llm_model:str|None=Field(default=None,max_length=40)
     llm_provider:str|None=Field(default=None,max_length=100)
 

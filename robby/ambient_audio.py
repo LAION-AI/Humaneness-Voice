@@ -7,7 +7,7 @@ from collections import deque
 import numpy as np
 
 class AmbientDetector:
-    def __init__(self, prominence_db=12., minimum_db=-30., cooldown=25.):
+    def __init__(self, prominence_db=8., minimum_db=-42., cooldown=6.):
         self.prominence_db=prominence_db; self.minimum_db=minimum_db; self.cooldown=cooldown
         self.reset()
 
@@ -15,6 +15,7 @@ class AmbientDetector:
         self.levels=deque(maxlen=300); self.pre=deque(maxlen=12)
         self.floor=-60.; self.now=0.; self.started=None; self.until=-1e9
         self.event=None; self.hot_s=0.; self.armed=True; self.quiet_s=0.
+        self.last_probe=0.;self.sustained_s=0.
 
     def feed(self, audio, end, speech=False, playback=False):
         wave=np.asarray(audio,np.float32)
@@ -25,9 +26,14 @@ class AmbientDetector:
         # Keep a robust lower-room estimate. Speech and playback never train it.
         if not speech and not playback and self.event is None:
             self.levels.append(float(db))
-            if len(self.levels)>=15:self.floor=float(np.percentile(self.levels,30))
+            if len(self.levels)>=15:
+                estimate=float(np.percentile(self.levels,30))
+                # A new continuous sound must not become the room floor in
+                # a few seconds before we have had a chance to classify it.
+                self.floor=estimate if end-self.started<1.5 else min(estimate,self.floor+dt*.5)
         threshold=max(self.minimum_db,self.floor+self.prominence_db)
         loud=db>=threshold
+        self.sustained_s=self.sustained_s+dt if db>=-36 else 0.
         if playback:
             self.event=None; self.pre.clear(); self.hot_s=0.; self.until=max(self.until,end+1.)
             return None
@@ -38,20 +44,36 @@ class AmbientDetector:
         if self.event is None:
             self.hot_s=self.hot_s+dt if loud else 0.
             self.pre.append(wave.copy())
-            if end-self.started<1.5 or end<self.until or not self.armed or speech:return None
-            if self.hot_s<.039:return None
+            # VAD also activates on singing and instruments. It is metadata,
+            # never a hard veto here; the captioner rejects ordinary speech.
+            # A bounded probe also catches music present during calibration.
+            probe=self.sustained_s>=.8 and end-self.last_probe>=12.
+            if end-self.started<1.5 or end<self.until:return None
+            if not probe and (not self.armed or self.hot_s<.039):return None
+            self.last_probe=end
             self.event={'start':end-self.hot_s,'parts':list(self.pre),'speech_s':0.,'length':0.,
-                'peak_dbfs':float(db),'floor_dbfs':self.floor,'threshold_dbfs':float(threshold)}
+                'peak_dbfs':float(db),'floor_dbfs':self.floor,'threshold_dbfs':float(threshold),
+                'probe':probe,'last_loud':end}
+            self.event['start']=end-min(self.hot_s,.24)
             self.armed=False
             return None
         event=self.event; event['parts'].append(wave.copy());event['length']+=dt
         event['speech_s']+=dt if speech else 0.;event['peak_dbfs']=max(event['peak_dbfs'],float(db))
-        if event['length']<1.0:return None
+        if db>=self.minimum_db:event['last_loud']=end
+        if event['length']<1.6:return None
+        if end-event['last_loud']<.25 and event['length']<3.2:return None
         self.event=None; self.hot_s=0.; self.until=end+self.cooldown
-        if event['speech_s']>event['length']*.45:return None
-        return {'audio':np.concatenate(event.pop('parts'))[-32000:],
+        return {'audio':np.concatenate(event.pop('parts'))[-64000:],
             **event,'end':end,'capture_ms':round((end-event['start'])*1000,1),
             'prominence_db':round(event['peak_dbfs']-event['floor_dbfs'],1)}
+
+def sound_question(text):
+    """Only explicit requests to identify a sound get an extra listening window."""
+    import re
+    return bool(re.search(r'\b(?:was (?:ist|war) (?:denn )?das(?: (?:hier|da|für (?:ein )?(?:geräusch|sound)))?\s*[?!.]*$|'
+        r'was (?:hörst|hoerst) du|hör (?:dir )?mal|horch mal|erkennst du (?:das|dieses) (?:geräusch|lied|musik)|'
+        r'what (?:is|was)(?: that| this)(?: sound| noise)?\s*[?!.]*$|what (?:can you|do you) hear|listen to this)'
+        ,str(text).strip(),re.I))
 
 def caption_kind(caption):
     """Route positive descriptions; these are not calibrated probabilities.
@@ -64,7 +86,7 @@ def caption_kind(caption):
     text=str(caption).lower()
     positive=re.sub(r'\b(?:no|without|absence of|not)\b[^.!?;,]*','',text)
     if re.search(r'\b(?:music|musical|melody|melodic|song|singing|instrumental|piano|guitar|synthesizer|orchestral|drumbeat|bassline|vocals)\b',positive):return 'music'
-    if re.search(r'\b(?:speech|speaking|talking|conversation|voice|vocalization|vocalisation|groan|moan|laugh|scream|shout)\b',positive):return 'voice'
+    if re.search(r'\b(?:speech|speaking|talking|conversation|voice)\b',positive):return 'voice'
     if re.search(r'\b(?:silence|silent|no (?:(?:discernible|audible) )?(?:sound|audio)|white noise|background noise only)\b',text):return 'quiet'
     return 'sound'
 
@@ -83,6 +105,10 @@ def context_instruction(observation, proactive=False):
     if not observation:return ''
     import json
     note=OBSERVATION_NOTE+'\nUnconfirmed environment observation (JSON): '+json.dumps(observation,ensure_ascii=False)
+    if observation.get('sound_events',{}).get('status')=='available':
+        note+='\nAn independent tiny AudioSet classifier ran in parallel with the captioner. Its ranked labels and overlapping time windows are ADDITIONAL uncertain evidence, not probabilities or ground truth. Compare both: a vague caption can be clarified by a strong specific event candidate. If they disagree, avoid confidently choosing a source; describe the broad shared sound and ask for confirmation. Never infer a person\'s identity or spatial direction from these event labels.'
+    if observation.get('requested'):
+        note+='\nCURRENT TURN INTENT: The user explicitly asked to identify the captured SOUND. In their question, "das", "hier", "this" or "that" refers to this SOUND, not Robby, the screen or your identity. The short listening window includes audio AFTER their question. Describe the possible sound immediately using this evidence, tentatively. If status is no_clear_sound, say you could not clearly identify a sound and invite them to play it again. Do not invent a source or claim no sound existed.'
     if proactive:
         if observation.get('kind')=='welcome':
             note+='\nThe page has just been enabled; nobody said anything yet. Greet warmly in ONE short sentence and invite conversation. Never pretend to recognize a person without evidence. No sound was detected.'

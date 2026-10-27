@@ -19,7 +19,7 @@ class ReliabilityTests(unittest.IsolatedAsyncioTestCase):
             playback=SimpleNamespace(rid=1,heard_s=lambda at:.5,n16=16000,audio=np.zeros(0)),
             speaker_ext=SimpleNamespace(predictor=None),_on_barge=AsyncMock(),_send_turn=AsyncMock(),
             _send_interjection=AsyncMock(return_value=True))
-        s=SentenceSession(c);c.sentence_stream=s;c.decisions=LiveDecisions(c)
+        s=SentenceSession(c);s.focus.enabled=True;c.sentence_stream=s;c.decisions=LiveDecisions(c)
         s.now=s.mic_now=s.last_speech=3.;s.begin=0.
         v=np.eye(192,dtype=np.float32);s.memory.assign(v[0],'Ich bin Christoph.');s.focus.accept('speaker-1')
         s.fast_anchors['speaker-1']=[v[0]];s.fast_records.append((3.,v[0]))

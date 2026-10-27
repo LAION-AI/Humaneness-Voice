@@ -1,4 +1,10 @@
-# Two-stage, memory-informed speech
+# Optional reaction and informed main answer
+
+**Current default: OFF.** Enable “Short local reaction before Qwen” in the lower model settings. The local model reads authorized memory and current sound evidence, generates up to six useful words, and passes the exact validated phrase to Qwen before Qwen starts. Reaction audio, Qwen generation and main-answer synthesis then overlap through the shared TTS batch. There is no second informed-transition call. Invalid/empty reactions abstain. Persistent memory is a separate OFF-by-default option.
+
+See [current environment/reaction integration](PROACTIVE_ENVIRONMENT.md) and the [test protocol](VOICE_ASSISTANT_TEST_PROTOCOL.md). The measurements below describe the earlier three-part experiment; they are retained for reproducibility, not current defaults.
+
+## Historical three-part experiment
 
 Robby now speaks a short local reaction, a short transition grounded in the
 actual Qwen opening, and then the complete Qwen answer. The first reaction sees

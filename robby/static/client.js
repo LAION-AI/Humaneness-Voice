@@ -52,7 +52,8 @@ export class RoboClient {
   }catch(error){if(connectionEpoch===this.connectionEpoch)this.stop();throw error;}
  }
  async microphone(connectionEpoch){
-  const stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+  let preserve=true;try{preserve=localStorage.getItem('robby.preserveSounds')!=='false';}catch{}
+  const stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:!preserve,autoGainControl:!preserve}});
   if(connectionEpoch!==this.connectionEpoch){stream.getTracks().forEach(t=>t.stop());throw new Error('Microphone start cancelled.');}
   this.stream=stream;
   const latency=this.stream.getAudioTracks()[0].getSettings().latency;

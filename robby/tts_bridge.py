@@ -165,7 +165,7 @@ class MouthBridge:
                         from bolt_pipeline import pipeline
                         async for event,value in pipeline(client,text,identity,history,voice=turn_voice,
                                 avatar_context=record.get('avatar_context'),interaction_state=record.get('interaction_state'),
-                                llm_selection=record.get('llm_selection'),credential=record.get('llm_credential'),quick_replies=record.get('quick_replies',True),memory=memory):
+                                llm_selection=record.get('llm_selection'),credential=record.get('llm_credential'),quick_replies=record.get('quick_replies',False),memory=memory):
                             if event=='sentence':
                                 stage='speech'
                                 reply=value['text'];record['reply']=reply
@@ -287,7 +287,7 @@ class MouthBridge:
                         if warm_task and not warm_task.done():warm_task.cancel();await asyncio.gather(warm_task,return_exceptions=True)
                         if task and not task.done():task.cancel();await asyncio.gather(task,return_exceptions=True)
                         latest={'text':payload['transcript'],'speaker':payload.get('speaker'),'reply':'','index':None,
-                            'llm_selection':payload.get('llm_selection'),'llm_credential':payload.get('llm_credential'),'quick_replies':payload.get('quick_replies',True),
+                            'llm_selection':payload.get('llm_selection'),'llm_credential':payload.get('llm_credential'),'quick_replies':payload.get('quick_replies',False),
                             'interaction_state':payload.get('interaction_state'),'interaction_reply':payload.get('interaction_reply'),
                             'interaction_language':payload.get('interaction_language','de'),'stop_feedback':payload.get('stop_feedback',False),
                             'avatar_context':payload.get('avatar_context') or {}}

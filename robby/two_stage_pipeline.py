@@ -1,4 +1,4 @@
-"""Reaction -> informed transition -> unchanged main answer, with TTS lookahead."""
+"""Optional contextual reaction -> informed main answer, with TTS lookahead."""
 import asyncio,base64,time
 import paths
 import numpy as np
@@ -10,17 +10,16 @@ from performance import plan
 async def render(client,live,*,text,identity,history,queue,first_main,reaction_task,
                  metrics,start,context,avatar_steps,action_id,actions,sources,lookups,chunk_frames):
     from app.runtime.audio import StreamingAudioResampler
-    import informed_bridge
     stages=asyncio.Queue(maxsize=2);language=reply_language(text,history)
     spoken=[];scripts=[];cues=[];samples=0;index=0;actions_sent=False
-    metrics.update(tts_backend='continuous_batch',tts_weight_instances=1,tts_temperature=.8,informed_bridge_status='pending')
+    metrics.update(tts_backend='continuous_batch',tts_weight_instances=1,tts_temperature=.8,informed_bridge_status='replaced_by_informed_main')
     async def publish(role,sentence,order,job=None):
         job=job or await live.submit(sentence,role,order,chunk_frames)
         await stages.put((role,sentence,job))
     async def prepare():
         try:
-            # The requested two-stage mode gives the tiny reaction its bounded
-            # deadline even when Qwen is already ready. Both LLMs started earlier.
+            # The producer starts Qwen with this exact validated text.
+            # Submit reaction audio immediately, without waiting for Qwen.
             reaction=await reaction_task;intro=None
             metrics.update(quick_reply_generation_ms=reaction['ms'],quick_reply_model=reaction.get('model'),quick_reply_status=reaction['status'])
             metrics.update(quick_reply_memory_entries=reaction.get('memory_entries',0),quick_reply_memory_person_matched=reaction.get('memory_person_matched',False))
@@ -37,33 +36,13 @@ async def render(client,live,*,text,identity,history,queue,first_main,reaction_t
                 if isinstance(main,Exception):raise main
                 if main is None:
                     await live.finish();await stages.put(None);return
-            # Start the actual answer TTS NOW. It is buffered privately until
-            # the informed transition has been played in the correct order.
-            main_job=await live.submit(main,'answer',2,chunk_frames)
-            following=[]
-            if intro and not context.get('environment_proactive'):
-                # A first sentence may be only a preamble. Peek at the next one
-                # with a strict 60-ms budget, retaining every item in order.
-                try:following.append(await asyncio.wait_for(queue.get(),.06))
-                except TimeoutError:pass
-                from bolt_director import response_plan
-                # A joke's second sentence can be its entire punchline. Never
-                # give that away to a model asked to write an earlier lead-in.
-                visible=[] if response_plan(text,history)['kind']=='joke' else [s for s in following if isinstance(s,Sentence)]
-                opening=main.text+' '+ ' '.join(s.text for s in visible)
-                metrics['informed_bridge_context_sentences']=1+len(visible)
-                bridge=await informed_bridge.generate(client,text,intro.text,opening.strip(),history,language)
-                metrics.update(informed_bridge_generation_ms=bridge['ms'],informed_bridge_status=bridge['status'])
-                if bridge.get('text'):
-                    # Match the main utterance's delivery at the second seam.
-                    link=Sentence(bridge['text'],main.direction,language=main.language)
-                    metrics['informed_bridge_words']=bridge['word_count']
-                    await publish('informed_bridge',link,1)
-            else:metrics['informed_bridge_status']='short_environment_turn' if context.get('environment_proactive') else 'no_first_reaction'
-            await publish('answer',main,2,main_job)
-            order=3
+            # Shared-weight continuous batching prepares the answer while
+            # reaction audio is being delivered. No second filler sentence.
+            main_job=await live.submit(main,'answer',1,chunk_frames)
+            await publish('answer',main,1,main_job)
+            order=2
             while True:
-                sentence=following.pop(0) if following else await queue.get()
+                sentence=await queue.get()
                 if sentence is None:break
                 if isinstance(sentence,Exception):raise sentence
                 await publish('answer',sentence,order);order+=1
@@ -80,7 +59,7 @@ async def render(client,live,*,text,identity,history,queue,first_main,reaction_t
             at=samples/24000;current=plan(spec)['sentences']
             for cue in current:cues.append({**cue,'start_s':cue['start_s']+at,'end_s':cue['end_s']+at})
             yield 'sentence',{'text':join_sentences(spoken),'script':' '.join(scripts),'language':spec['language'],
-                'performance':{'sentences':list(cues),'source':'Two-stage local reaction + Qwen + shared TTS batch',
+                'performance':{'sentences':list(cues),'source':'Contextual reaction + informed Qwen + shared TTS batch',
                     'timing':'Sentence starts anchored to preceding PCM; within-sentence estimates'},
                 'avatar_actions':avatar_steps,'avatar_action_id':action_id,'avatar_event':context.get('event'),
                 'interaction_actions':actions if role=='answer' and not actions_sent else [],'sources':sources,'lookups':lookups,'speaker':identity,

@@ -31,6 +31,8 @@ class BrowserSession:
             localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');
             localStorage.setItem('robby.focusBalanceVersion','2');localStorage.setItem('robby.pauseBalanceVersion','2');'''
             +f'localStorage.setItem("robby.focusThreshold","{self.args.threshold}");localStorage.setItem("robby.speechPauseMs","{self.args.pause_ms}");')
+        focus=getattr(self.args,'focus',True)
+        await self.page.add_init_script('localStorage.setItem("robby.speakerModeVersion","3");localStorage.setItem("robby.conversationFocus",'+json.dumps(str(focus).lower())+');')
         model=getattr(self.args,'asr_model','nemotron')
         await self.page.add_init_script('localStorage.setItem("robby.asrDefaultVersion","2");localStorage.setItem("robby.asrModel",'+json.dumps(model)+');')
         self.page.on('pageerror',lambda e:self.errors.append(str(e)))
