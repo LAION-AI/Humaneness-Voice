@@ -2,7 +2,25 @@
 
 The [quick-reaction quality study](static/quick-quality-report.html) tests 40 synthetic situations, tone-aware local prompting, repeated joke requests, serious topics and real TTS handoffs. See [QUICK_REACTIONS.md](QUICK_REACTIONS.md) for measured gains and remaining generic phrasing/main-answer joke limitations.
 
-## Current update: two-stage speech and memory-informed reactions
+## Current update: proactive environmental listening
+
+Robby now starts the existing microphone and a brief welcome automatically when
+browser permissions allow it. A prominent **Turn Robby off** control stops capture
+and playback and persists that preference. Browser-blocked autoplay has a visible
+one-click enable path; typed chat remains usable after microphone denial.
+
+A separate pinned **Whisper sound-captioning GPU worker** processes salient sounds
+alongside ASR. Quiet/background-level audio and Robby's playback are gated out.
+Fresh captions inform both the local reaction and main LLM as uncertain data.
+A salient unfamiliar voice can prompt a cautious question without changing the
+current partner or enrolling a new user. Camera and persistent wiki memory remain
+OFF by default; existing normal two-stage replies remain available.
+
+[Implementation, defaults and reproduction](PROACTIVE_ENVIRONMENT.md) ·
+[English measurements and browser receipts](https://projects.laion.ai/Humaneness-Voice/robby/environment-report.html) ·
+[Restore the pre-feature checkpoint](RESTORE_BEFORE_PROACTIVE.md).
+
+## Two-stage speech and memory-informed reactions
 
 The first local reaction now sees the recent conversation and the same retrieved
 wiki context used by Qwen. It can answer a small memory question meaningfully

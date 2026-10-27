@@ -16,6 +16,7 @@ async def main(args):
     async with async_playwright() as p:
         browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
         page=await browser.new_page(viewport={'width':1366,'height':950});page.on('pageerror',lambda e:errors.append(str(e)))
+        await page.add_init_script("localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.environment','false');")
         await page.add_init_script('''localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');
             window.cameraRequests=0;const gum=navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);navigator.mediaDevices.getUserMedia=x=>{if(x.video)cameraRequests++;return gum(x);};''')
         try:

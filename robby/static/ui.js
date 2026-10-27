@@ -11,6 +11,7 @@ import {ASRControls} from './asr-controls.js';
 import {LLMControls} from './llm-controls.js';
 import {LiveOverview} from './live-overview.js';
 import {MemoryControls} from './memory-controls.js';
+import {EnvironmentControls} from './environment-controls.js';
 const $=id=>document.getElementById(id);
 let ready=false,connected=false,mic=false,speaking=false,replyPending=false,partial=null,answer=null;
 let sentenceMode=false;
@@ -18,6 +19,7 @@ let foregroundInputUntil=0;
 let asrControls=null;
 let llmControls=null;
 let memoryControls=null;
+let environmentControls=null;
 const overview=new LiveOverview();
 let petting=null,optionalAvatarReply=false,avatarCancelPending=false,lastPetSpeech=-Infinity,lastPetInvite=-Infinity,lastPlaySpeech=-Infinity,petInvites=0,invitedQuiet=false,lastIdleEvent=null,pendingPlayFallback=null;
 const personalityStarted=performance.now();
@@ -109,7 +111,8 @@ const client=window.robo=new RoboClient({
   asrControls?.message(m);memoryControls?.message(m);
   if(m.type==='quick_reply_settings')$('quick-reply-status').textContent=m.enabled?'Two-stage replies enabled: short reaction, informed bridge, then the full answer.':'Quick reactions disabled; play the main answer directly.';
   if(m.type==='voice_caption')$('voice-caption-status').textContent=m.status==='available'?`${m.caption} · uncertain estimate · ${Math.round(m.request_ms)} ms · ${m.window_s} s audio`:`Tone hint: ${m.status.replaceAll('_',' ')} · transcript-only response.`;
-  llmControls?.message(m);overview.message(m);
+  llmControls?.message(m);overview.message(m);environmentControls?.message(m);
+  if(m.type==='environment_observation'&&m.status==='responding'){optionalAvatarReply=true;replyPending=true;answer=null;}
   if(m.type==='speech_activity'&&m.foreground_speech)foregroundInputUntil=performance.now()+800;
   const foregroundMessage=m.type==='endpoint'||!sentenceMode||performance.now()<foregroundInputUntil;
   if(foregroundMessage&&['asr_preview','partial','endpoint'].includes(m.type)&& (m.text||m.transcript)?.trim()){lastPersonalityUser=performance.now();invitedQuiet=false;cancelOptionalAvatar();}
@@ -204,7 +207,7 @@ for(const id of ['avatar-actions-enabled','avatar-idle-enabled','avatar-play-voi
 for(const id of ['avatar-play-intensity','avatar-cuddle-intensity'])$(id).addEventListener('input',()=>{petting.reset();cancelOptionalAvatar();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelOptionalAvatar();});
 for(const id of ['avatar-actions-enabled','avatar-listening-enabled'])$(id).addEventListener('change',()=>client.send('interaction:gestures:'+(avatarActions.enabled&&avatarActions.listeningEnabled?'on':'off')));
-$('call').onclick=async()=>{try{if(mic)client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
+$('call').onclick=async()=>{try{if(mic)environmentControls?environmentControls.off():client.stop();else await client.start(true);}catch(e){$('subtitle').textContent=e.message;phase('Microphone unavailable — try typing');}};
 $('unfiltered-talk').onclick=async()=>{desiredGate=false;try{await client.start(true);client.send('identity:off');if(sentenceMode){desiredFocus=false;focusToggle.checked=false;saveThreshold('robby.conversationFocus',false);client.send('identity:focus:enabled:off');}gate.checked=false;$('asr-status').textContent='Speaker filter OFF. Speak normally; background voices may also be transcribed.';phase('Listening to you','ready');}catch(e){$('mic-status').textContent='Microphone unavailable: '+e.message;}};
 setInterval(()=>{if(!mic)return;const now=performance.now();if(now-micStarted<2500)return;
  if(!lastCapture||now-lastCapture>2500)$('mic-status').textContent=`No audio frames from the microphone (${client.ctx?.state||'no audio context'}). Check browser permission/input device, then End conversation and Start talking.`;
@@ -277,7 +280,7 @@ const studyLink=document.createElement('a');studyLink.href='/speaker-study/';stu
 const implementationLink=document.createElement('a');implementationLink.href='/static/report.html';implementationLink.target='_blank';implementationLink.rel='noopener';implementationLink.textContent='Implementation, tests and limitations ↗';studyLink.after(document.createElement('br'),implementationLink);
 const latencyReport=document.createElement('a');latencyReport.href='/static/robby-local-speed-report.html';latencyReport.target='_blank';latencyReport.rel='noopener';latencyReport.textContent='Local LLM, TTS precision and latency measurements ↗';implementationLink.after(document.createElement('br'),latencyReport);
 const identityHelp=document.createElement('p');identityHelp.textContent='Default: streaming diarization, fast 320-ms speaker cues and a longer 3.04-s identity context. This longer context uses speech already heard; it does not extend the one-second pause. Transcript and speaker checks are prepared during that pause and discarded if you continue speaking. Names and voice memory are session-only; uncertain overlaps can require repetition. The 2-s option remains available for comparison.';studyLink.after(identityHelp);
-async function poll(){try{const s=await fetch('/api/state').then(r=>r.json());ready=s.ready;gate.disabled=!s.identity_available;$('call').disabled=!ready;const long=s.identity_models?.long,long3=s.identity_models?.long3;identityModel.querySelector('[value="v4-long3"]').disabled=!long3;if(long)identityModel.querySelector('[value="v4-long"]').textContent='V4 320 ms + '+long.label;if(long3)identityModel.querySelector('[value="v4-long3"]').textContent='V4 320 ms + '+long3.label;if(!connected){phase(s.ready?'Ready when you are':s.error||s.phase,s.ready?'ready':'');$('identity-status').textContent='Speaker extension: '+s.identity_model+'. Voiceprints stay in RAM for this conversation only.';}if(s.sentence_stream){setSentenceMode(true);identityHelp.textContent='ASR collects all sentences until your selected speech pause. A small CPU neural detector separates speech from background sounds. Output sentences still stream immediately to TTS. Speech after a submitted turn enters the next request; an LLM request already running cannot be edited in place.';}}catch{phase('Reconnecting…');}}
+async function poll(){try{const s=await fetch('/api/state').then(r=>r.json());ready=s.ready;environmentControls?.poll(ready);gate.disabled=!s.identity_available;$('call').disabled=!ready;const long=s.identity_models?.long,long3=s.identity_models?.long3;identityModel.querySelector('[value="v4-long3"]').disabled=!long3;if(long)identityModel.querySelector('[value="v4-long"]').textContent='V4 320 ms + '+long.label;if(long3)identityModel.querySelector('[value="v4-long3"]').textContent='V4 320 ms + '+long3.label;if(!connected){phase(s.ready?'Ready when you are':s.error||s.phase,s.ready?'ready':'');$('identity-status').textContent='Speaker extension: '+s.identity_model+'. Voiceprints stay in RAM for this conversation only.';}if(s.sentence_stream){setSentenceMode(true);identityHelp.textContent='ASR collects all sentences until your selected speech pause. A small CPU neural detector separates speech from background sounds. Output sentences still stream immediately to TTS. Speech after a submitted turn enters the next request; an LLM request already running cannot be edited in place.';}}catch{phase('Reconnecting…');}}
 poll();setInterval(poll,10000);
 
 async function startCamera(){
@@ -364,6 +367,7 @@ function animate(t){
 }
 requestAnimationFrame(animate);
 organisePlayground();
+environmentControls=new EnvironmentControls(client);window.robotFace.environmentControls=environmentControls;
 memoryControls=new MemoryControls(client);window.robotFace.memoryControls=memoryControls;
 $('mirror').onchange=()=>{try{localStorage.setItem('robby.followPosition',String($('mirror').checked));}catch{}if($('mirror').checked){rig.center?.();void startCamera();}};
 $('camera-auto').onchange=()=>{try{localStorage.setItem('robby.cameraAuto',String($('camera-auto').checked));}catch{}if($('camera-auto').checked)void startCamera();};

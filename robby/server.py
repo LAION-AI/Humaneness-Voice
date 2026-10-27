@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -115,6 +115,8 @@ class RoboConversation(Conversation):
             self.identity_mode='v4-long3' if long=='long3' else 'v4-long';self.identity_enabled=True
             self._speaker_barge_sensitivity(True)
         except Exception as exc:log.warning('Completed speaker student unavailable: %s',type(exc).__name__)
+        from environment_session import EnvironmentSession
+        self.environment=EnvironmentSession(self)
         self.sentence_stream=None
         if os.environ.get('ROBO_SENTENCE_STREAM','0')=='1' and self.speaker_ext is not None:
             from sentence_session import SentenceSession
@@ -131,7 +133,7 @@ class RoboConversation(Conversation):
 
     def _ready_message(self):
         return {**super()._ready_message(),'identity_enabled':self.identity_enabled,'identity_mode':self.identity_mode,
-            'llm_settings':self.llm.settings(),'quick_replies_enabled':self.quick_replies,
+            'llm_settings':self.llm.settings(),'quick_replies_enabled':self.quick_replies,'environment':self.environment.state(),
             'interaction':self.decisions.state(),
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
@@ -140,6 +142,7 @@ class RoboConversation(Conversation):
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
+        observation=self.environment.take_context() if getattr(self,'environment',None) else None
         if (getattr(self,'pending_input_timing',None) or {}).get('kind')=='typed' and self.current_speaker:
             self.current_speaker={k:v for k,v in self.current_speaker.items() if k!='voice_delivery'}
         if self.sentence_stream:
@@ -163,7 +166,7 @@ class RoboConversation(Conversation):
             'input':getattr(self,'pending_input_timing',None) or {'kind':'unknown'}})
         self.pending_input_timing=None
         await self.to_mouth(b'T',{'transcript':transcript,'speaker':self.current_speaker,'interaction_state':{**self.decisions.state(),'current_rule_applied':preapplied},
-            'avatar_context':self.avatar_personality.snapshot(),'quick_replies':getattr(self,'quick_replies',True),**self.llm.snapshot()})
+            'avatar_context':{**self.avatar_personality.snapshot(),**({'environment':observation} if observation else {})},'quick_replies':getattr(self,'quick_replies',True),**self.llm.snapshot()})
         if preapplied and compiled['name']=='set_interruption_rule':
             await self.to_mouth(b'W',{'replies':[compiled['arguments']['reply']],'language':self.decisions.language})
 
@@ -213,6 +216,7 @@ class RoboConversation(Conversation):
         try:await super().run()
         finally:
             self.llm.credential=None
+            await self.environment.close()
             if self.sentence_stream:await self.sentence_stream.close()
             self.stop_feedback.cancel()
             await self.decisions.close()
@@ -359,6 +363,7 @@ class RoboConversation(Conversation):
         await super()._on_endpoint(event)
 
     async def _on_barge(self,event,hop_end):
+        if getattr(self,'environment',None):self.environment.pending=None;self.environment.last_reply=time.monotonic()+30
         # Stopping is not a conversational reply. Preserve the manual stop and
         # existing acoustically verified barge paths even without visible lips.
         if not self.speaking:return
@@ -394,6 +399,7 @@ class RoboConversation(Conversation):
                         count=max(0,min(len(pcm),self.playback.n16-at))
                         if count:reference[:count]=self.playback.audio[at:at+count]
                     await self.sentence_stream.microphone(pcm,self.input_samples/16000,reference)
+                if getattr(self,'environment',None):self.environment.feed(pcm,self.input_samples/16000,playback=block[1]>=0)
                 now=time.monotonic()
                 if now-self.last_input_notice>.5:
                     self.last_input_notice=now
@@ -411,6 +417,15 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if data.startswith('environment:'):
+            try:
+                if len(data)>1000:raise ValueError('Environment command too long')
+                message=json.loads(data[12:])
+                if not isinstance(message,dict):raise ValueError('Expected settings')
+                if message.get('welcome') is True:self.environment.welcome()
+                else:await self.environment.configure(message)
+            except (ValueError,TypeError):await self.ws.send_json({'type':'warning','text':'Invalid environment settings'})
+            return
         if data.startswith('text:'):self.pending_input_timing={'kind':'typed'}
         if data.startswith('memory:'):
             try:
@@ -643,6 +658,8 @@ class RoboConversation(Conversation):
 
     async def _finish_turn(self,barged):
         if getattr(self,'decisions',None):self.decisions.finish_interjection(self.hop_pos)
+        self.avatar_optional=False
+        if getattr(self,'environment',None):self.environment.active_reply=None
         offset=self.playback.offset_ms()
         await super()._finish_turn(barged)
         if not barged:
@@ -711,7 +728,8 @@ async def state(request):
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
-        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,
+        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,'auto_start_default':True,'environment_default':True,
+        'sound_caption_model':'laion/sound-effect-captioning-whisper','sound_caption_device':'cuda:0',
         'voice_caption_model':'Humaneness Ears Medium + procedural-voice-captions (GPU, parallel to ASR)',
         'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','700')),
         'pause_detector':'Silero ONNX CPU neural speech activity',

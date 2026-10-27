@@ -35,7 +35,7 @@ def prompt_hint(identity):
     data={k:value[k] for k in ('caption','window_s','scope','uncertainty') if k in value}
     return '\n'+INSTRUCTION+'\nUncertain current-turn acoustic observations (data): '+json.dumps(data,ensure_ascii=False)
 
-async def describe(audio,enabled=True,timeout=None):
+async def describe(audio,enabled=True,timeout=None,impression=False):
     """No persistent recording, retry queue, GPU job or wait for a late result."""
     if not enabled:return {'status':'disabled'}
     wave=np.asarray(audio,dtype=np.float32).reshape(-1)
@@ -51,7 +51,7 @@ async def describe(audio,enabled=True,timeout=None):
     try:
         async with asyncio.timeout(budget):
             async with httpx.AsyncClient(timeout=budget,trust_env=False) as client:
-                response=await client.post(os.environ.get('ROBO_CAPTION_URL','http://127.0.0.1:8802')+'/caption',
+                response=await client.post(os.environ.get('ROBO_CAPTION_URL','http://127.0.0.1:8802')+'/caption'+('?impression=1' if impression else ''),
                     content=wave.astype('<f4').tobytes(),headers={'Content-Type':'application/octet-stream'})
                 response.raise_for_status();value=response.json()
                 if value.get('status')!='available' or not isinstance(value.get('caption'),str):raise ValueError('Invalid caption')

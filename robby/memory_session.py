@@ -109,7 +109,7 @@ class MemorySession:
         await self.notice(state='updating' if self.worker and not self.worker.done() else 'ready',entries=len(entries),context=result['metrics'],effective_budgets=result['settings'])
         return recent,result
     def enqueue(self,record,history):
-        if not self.config['enabled'] or not self.store or record.get('memory_queued') or record.get('avatar_context',{}).get('event'):return
+        if not self.config['enabled'] or not self.store or record.get('memory_queued') or record.get('avatar_context',{}).get('event') or record.get('avatar_context',{}).get('environment_proactive'):return
         record['memory_queued']=True
         # Never persist turns from before the checkbox was enabled.
         authorized=[dict(r) for r in history[self.persist_start:]]

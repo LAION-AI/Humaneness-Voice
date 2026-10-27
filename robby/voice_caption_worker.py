@@ -41,7 +41,7 @@ class Captioner:
         self.baseline=load_baseline();self.settings=load_settings()
         self.model.predict_batch([np.ones(16000,np.float32)*.01],include_frames=False)
 
-    def predict(self,wave):
+    def predict(self,wave,impression=False):
         from caption import caption_detail,render_caption
         from humaneness_caption_settings import caption_view
         start=time.perf_counter()
@@ -49,15 +49,15 @@ class Captioner:
         view=caption_view(prediction,self.baseline,self.settings)
         # This is a conversation aid, not a character/timbre or personality
         # caption: omit demographics, perceived honesty and quality judgments.
-        view['dims']={k:v for k,v in view['dims'].items() if k in PROSODY}
+        view['dims']={k:v for k,v in view['dims'].items() if k in (PROSODY | ({'AGEV','GEND'} if impression else set()))}
         view['emo']={k:v for k,v in view['emo'].items() if k in EMOTIONS}
         view['content_enjoyment']=None
         detail=caption_detail(view,self.baseline,k_voicenet=2,k_emonet=1,
-            always_on=('TEMP',),template='tags',synonym_seed=0,reliability_weighting=False)
+            always_on=('TEMP','AGEV','GEND') if impression else ('TEMP',),template='tags',synonym_seed=0,reliability_weighting=False)
         caption=render_caption(detail).strip()
         return {'status':'available','caption':'Possibly '+caption if caption else 'No distinctive delivery cue.',
             'uncertainty':'Uncalibrated acoustic estimates; noise, other speakers and acting may be misleading.',
-            'window_s':round(len(wave)/16000,3),'inference_ms':round((time.perf_counter()-start)*1000,2),
+            'voice_impression_only':impression,'window_s':round(len(wave)/16000,3),'inference_ms':round((time.perf_counter()-start)*1000,2),
             'model':'laion/humaneness-ears-base-medium','model_revision':MODEL_REVISION,
             'rules_revision':CAPTION_REVISION,'device':self.device,'precision':'bfloat16' if self.device.startswith('cuda') else 'float32',
             'selected':{k:detail[k] for k in ('voicenet','emotions')},
@@ -70,7 +70,7 @@ async def caption(request):
     wave=np.frombuffer(raw,dtype='<f4')
     if not 8000<=len(wave)<=128000 or not np.isfinite(wave).all():raise web.HTTPBadRequest(text='Expected finite 0.5–8-second audio')
     request.app['busy']=True
-    try:return web.json_response(await asyncio.to_thread(request.app['captioner'].predict,wave))
+    try:return web.json_response(await asyncio.to_thread(request.app['captioner'].predict,wave,request.query.get('impression')=='1'))
     finally:request.app['busy']=False
 
 async def startup(app):app['captioner']=await asyncio.to_thread(Captioner)
