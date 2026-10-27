@@ -78,11 +78,16 @@ class EnvironmentSession:
             kind=caption_kind(result['caption']);result['kind']=kind
             signature=' '.join(result['caption'].lower().split()[:12])
             duplicate=self.clock()-self.recent.get(signature,-1e9)<180
-            result['eligible']=kind=='sound' and not duplicate
+            # Different descriptions of the same playing music must not cause
+            # repeated comments. Ordinary sounds retain their own signatures.
+            music_repeat=kind=='music' and self.clock()-self.recent.get('category:music',-1e9)<180
+            result['eligible']=kind in ('sound','music') and not duplicate and not music_repeat
+            result['suppression_reason']='music_cooldown' if music_repeat else 'repeated_caption' if duplicate else 'speech_or_quiet' if kind not in ('sound','music') else None
             if result['eligible']:
                 self.recent={k:v for k,v in self.recent.items() if self.clock()-v<180}
                 self.recent[signature]=self.clock()
-                self.pending={'kind':'sound','caption':result['caption'],'created':start,
+                if kind=='music':self.recent['category:music']=self.clock()
+                self.pending={'kind':kind,'caption':result['caption'],'created':start,
                     'epoch':epoch,'timing':{k:result[k] for k in ('request_ms','capture_ms','event_age_ms','inference_ms') if k in result},
                     'prominence_db':event['prominence_db'],'peak_dbfs':event['peak_dbfs']}
         await self.c.ws.send_json(result)

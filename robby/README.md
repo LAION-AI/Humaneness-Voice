@@ -12,6 +12,7 @@ one-click enable path; typed chat remains usable after microphone denial.
 A separate pinned **Whisper sound-captioning GPU worker** processes salient sounds
 alongside ASR. Quiet/background-level audio and Robby's playback are gated out.
 Fresh captions inform both the local reaction and main LLM as uncertain data.
+Prominent music is included, with a three-minute repeat-comment cooldown.
 A salient unfamiliar voice can prompt a cautious question without changing the
 current partner or enrolling a new user. Camera and persistent wiki memory remain
 OFF by default; existing normal two-stage replies remain available.
