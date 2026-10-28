@@ -78,13 +78,14 @@ const worklog=document.createElement('a');worklog.href='/static/worklog.html';wo
 $('mirror').parentElement.lastChild.textContent=' Follow my position';
 try{
  $('mirror').checked=localStorage.getItem('robby.followPosition')!=='false';
- // Apply the requested opt-in camera default once to existing browsers too.
- // Subsequent explicit user choices continue to persist normally.
- if(localStorage.getItem('robby.cameraAutoVersion')!=='2'){
-  localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.cameraAutoVersion','2');
+ // Apply the new camera and gaze-following defaults once. Subsequent explicit
+ // choices persist, and the browser still controls camera permission.
+ if(localStorage.getItem('robby.cameraAutoVersion')!=='3'){
+  localStorage.setItem('robby.cameraAuto','true');localStorage.setItem('robby.followPosition','true');localStorage.setItem('robby.cameraAutoVersion','3');
  }
+ $('mirror').checked=localStorage.getItem('robby.followPosition')!=='false';
  $('camera-auto').checked=localStorage.getItem('robby.cameraAuto')==='true';
-}catch{$('camera-auto').checked=false;}
+}catch{$('camera-auto').checked=true;}
 $('acting').onchange=()=>timeline.enabled=$('acting').checked;
 $('robot-keypoints').onchange=()=>rig.showKeypoints($('robot-keypoints').checked);
 function phase(text,kind=''){ $('phase-text').textContent=text;$('phase').className='phase '+kind; }
@@ -292,7 +293,7 @@ poll();setInterval(poll,10000);
 
 async function startCamera(){
  if(cameraStream)return true;if(cameraStarting)return cameraStarting;
- cameraStarting=openCamera();try{return await cameraStarting;}finally{cameraStarting=null;$('camera').disabled=false;}
+ const ticket=cameraGeneration;cameraStarting=openCamera(ticket);try{return await cameraStarting;}finally{cameraStarting=null;$('camera').disabled=false;}
 }
 function stopCamera(){
  if(cameraStream){if(eyeContact?.state.active)eyeContact.finish();cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}
@@ -302,7 +303,7 @@ $('camera').onclick=async()=>{
  if(cameraStream){stopCamera();$('camera-auto').checked=false;try{localStorage.setItem('robby.cameraAuto','false');}catch{}return;}
  return startCamera();
 };
-async function openCamera(){
+async function openCamera(ticket){
  try{
   $('camera').disabled=true;$('camera').textContent='Starting camera…';
   $('camera-status').textContent='Loading local face tracking…';
@@ -328,7 +329,10 @@ async function openCamera(){
     if(!canvas.hidden){canvas.width=320;canvas.height=240;const c=canvas.getContext('2d');c.clearRect(0,0,320,240);for(const t of multimodal.tracks){c.fillStyle=t.speaking?'#16804a':'#b88a50';for(const p of t.points){c.beginPath();c.arc((1-p.x)*320,p.y*240,1,0,Math.PI*2);c.fill();}c.fillText(t.id,(1-t.box.x-t.box.w)*320,t.box.y*240);}}
    };
   }
-  cameraStream=await navigator.mediaDevices.getUserMedia({video:{width:640,height:480,frameRate:{ideal:CAMERA_FPS,max:CAMERA_FPS},facingMode:'user'},audio:false});
+  if(ticket!==cameraGeneration)return false;
+  const stream=await navigator.mediaDevices.getUserMedia({video:{width:640,height:480,frameRate:{ideal:CAMERA_FPS,max:CAMERA_FPS},facingMode:'user'},audio:false});
+  if(ticket!==cameraGeneration){stream.getTracks().forEach(t=>t.stop());return false;}
+  cameraStream=stream;
   cameraGeneration++;lastVideo=-1;multimodal.setCamera('on');
   videoFrameAt=null;const frameTicket=cameraGeneration;
   const stamp=(now,metadata)=>{if(frameTicket!==cameraGeneration)return;videoFrameAt=Number.isFinite(metadata.captureTime)?metadata.captureTime:now;$('video').requestVideoFrameCallback?.(stamp);};
@@ -374,7 +378,7 @@ function animate(t){
 }
 requestAnimationFrame(animate);
 organisePlayground();
-environmentControls=new EnvironmentControls(client);window.robotFace.environmentControls=environmentControls;
+environmentControls=new EnvironmentControls(client);window.robotFace.environmentControls=environmentControls;environmentControls.poll(ready);
 const wakePanel=document.createElement('section');wakePanel.className='wake-controls';wakePanel.innerHTML='<label><input type="checkbox" id="wake-mode"> Hey Robby mode · only the addressed speaker</label><p id="wake-mode-status" role="status"></p>';
 document.querySelector('.under-avatar').append(wakePanel);const wakeBox=$('wake-mode');wakeBox.checked=desiredWake;
 wakeBox.onchange=()=>{desiredWake=wakeBox.checked;saveThreshold('robby.wakeMode',desiredWake);client.send('wake:'+(desiredWake?'on':'off'));$('open-speakers').disabled=desiredWake;$('wake-mode-status').textContent=desiredWake?'Say “Hey Robby”, then speak. The same speaker can continue for 10 seconds.':'Open conversation: no wake phrase required.';};

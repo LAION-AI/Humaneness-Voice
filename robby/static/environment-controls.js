@@ -4,6 +4,9 @@ const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}ca
 export class EnvironmentControls{
  constructor(client){
   this.client=client;this.attempted=false;this.ready=false;this.greeted=false;
+  // Apply the new automatic-listening default once to existing browsers;
+  // later explicit off/on choices remain persistent.
+  if(read('robby.autoStartDefaultVersion',0)!==1){save('robby.autoStart',true);save('robby.autoStartDefaultVersion',1);}
   this.auto=read('robby.autoStart',true)===true;
   if(read('robby.environmentDefaultVersion',0)!==1){save('robby.environment',false);save('robby.environmentDefaultVersion',1);}
   this.enabled=read('robby.environment',false)===true;
@@ -33,20 +36,22 @@ export class EnvironmentControls{
   }
   $('sound-prominence').oninput=()=>{$('sound-prominence-value').textContent=$('sound-prominence').value;};
   $('sound-prominence').onchange=()=>{this.prominence=Number($('sound-prominence').value);save('robby.soundProminence',this.prominence);this.configure();};
-  this.status.textContent=this.auto?'Starts when the server and browser permissions are ready.':'Automatic start is off.';
+  this.status.textContent=this.auto?'Starts listening for “Hey Robby” when the server and browser permissions are ready.':'Automatic start is off.';
  }
  configure(){this.client.send('environment:'+JSON.stringify({enabled:this.enabled,voices:this.voices,impressions:this.impressions,events:this.events,prominence_db:this.prominence}));}
  poll(ready){this.ready=ready;if(ready&&this.auto&&!this.attempted)void this.start();}
  async start(){
   if(!this.ready)return;this.attempted=true;this.enable.hidden=true;this.status.textContent='Starting microphone & sound…';
-  try{await this.client.start(true);this.status.textContent='Microphone active. Turn Robby off to stop listening and playback.';}
+  try{await this.client.start(true);this.status.textContent='Microphone active. '+(document.getElementById('wake-mode')?.checked===false?'Speak normally.':'Say “Hey Robby” to begin.')+' Turn Robby off to stop listening and playback.';}
   catch(e){this.status.textContent='Browser permission needed: '+e.message;this.enable.hidden=false;}
  }
  off(){
   this.auto=false;this.attempted=true;save('robby.autoStart',false);
   document.getElementById('robby-auto-start').checked=false;
   this.client.send('environment:'+JSON.stringify({enabled:false}));this.client.stop();
-  this.status.textContent='Robby is off. Microphone and playback stopped. Automatic start is disabled.';this.enable.hidden=false;
+  // “Turn Robby off” also stops the now-default camera, including on reload.
+  window.robotFace?.cameraControls?.stop();const cameraAuto=document.getElementById('camera-auto');if(cameraAuto)cameraAuto.checked=false;save('robby.cameraAuto',false);
+  this.status.textContent='Robby is off. Microphone, camera and playback stopped. Automatic start is disabled.';this.enable.hidden=false;
  }
  message(m){
   if(m.type==='ready'){

@@ -1,8 +1,10 @@
 # Robby voice chat and TYGER speaker predictor
 
+**Current auto-start update:** The microphone, camera and gaze following now start automatically when server readiness and browser permissions allow. Robby waits for “Hey Robby”, “Hi Robbie” and equivalent spellings. The same speaker's 10-second follow-up window is renewed after playback finishes. Face ID and camera-based speech gating remain off. Users can explicitly turn Robby or the camera off, and those choices persist. Persistent text memory is on by default, can be disabled or reset, and is not encrypted at rest. [Behavior and reproduction](WAKE_MODE.md) · [Memory and privacy](PERSISTENT_MEMORY.md).
+
 **Current wake-mode update:** “Hey Robby” is required by default, followed by a 10-second window for the same voice. Speech-pause default: 300 ms. Automatic environmental reactions are off by default and can be enabled beside the avatar; explicit questions about recent/following sounds still work. [Wake mode, limits and reproducible tests](WAKE_MODE.md). Older defaults described below are historical.
 
-**Current identity update:** explicit user/robot role grounding; direct registered-name lookup; open-speaker threshold **0.32** with cautious temporal continuity; multiple acoustic prototypes; and **default-on uncertain vocal age/gender/timbre impressions**. A lower profile panel provides separate, consented, default-off browser persistence. Repeated audible background voices can invite a tentative question without taking over the conversation. Camera/Face ID remain opt-in, with the missing sentence-pipeline connection repaired. [Implementation and reproducible checks](SOCIAL_IDENTITY.md) · [English results](static/social-identity-report.html).
+**Current identity update:** explicit user/robot role grounding; direct registered-name lookup; open-speaker threshold **0.32** with cautious temporal continuity; multiple acoustic prototypes; and **default-on uncertain vocal age/gender/timbre impressions**. A lower profile panel provides separate, consented, default-off browser persistence. Repeated audible background voices can invite a tentative question without taking over the conversation. Camera now starts automatically if permitted; Face ID remains opt-in, with the missing sentence-pipeline connection repaired. [Implementation and reproducible checks](SOCIAL_IDENTITY.md) · [English results](static/social-identity-report.html).
 
 
 The [quick-reaction quality study](static/quick-quality-report.html) tests 40 synthetic situations, tone-aware local prompting, repeated joke requests, serious topics and real TTS handoffs. See [QUICK_REACTIONS.md](QUICK_REACTIONS.md) for measured gains and remaining generic phrasing/main-answer joke limitations.
@@ -20,8 +22,7 @@ Fresh captions inform both the local reaction and main LLM as uncertain data.
 Prominent music is included, with a three-minute repeat-comment cooldown.
 Unknown foreground speakers can join without a wake phrase, receive session labels,
 and are asked their name. A separate, switchable combined salience filter rejects
-very quiet unaddressed background speech. Camera, persistent wiki memory and
-local bridging are **OFF by default**. The sound threshold defaults to **8 dB**.
+very quiet unaddressed background speech. Persistent wiki memory is **ON by default**, local bridging is **OFF by default**, and camera auto-start is ON when permitted. The sound threshold defaults to **8 dB**.
 Ask “Was ist das hier?” and immediately play a sound: a bounded after-question
 window informs both models before the answer. EfficientAT MN04 supplies CPU
 AudioSet candidates in parallel with GPU captioning, with its own timing card.
@@ -42,7 +43,7 @@ requests keep their direct path.
 [Architecture and retained prior experiment](TWO_STAGE_SPEECH.md) ·
 [Current measurements](static/environment-report.html).
 
-**Optional persistent memory is OFF by default.** Enable it in the settings below
+**Persistent text memory is ON by default.** Manage it in the settings below
 the conversation. It maintains private wiki entries with evidence quotes, five
 versions, BM25/trigger retrieval and zero-to-two-hop links. Independent context
 ceilings default to 10,000 knowledge / 5,000 recent-chat tokens, conservatively

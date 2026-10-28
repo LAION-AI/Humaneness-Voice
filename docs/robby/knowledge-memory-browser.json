@@ -1,7 +1,7 @@
 {
   "passed": true,
-  "scope": "Real HTTPS opt-in/wiki/reconnect/reset regression with authored text only.",
-  "source_sha256": "ac780285ac072e6643a2e35f4b2d265efcdd492f500ecb3dbd0f7ce4724e675e",
+  "scope": "Real HTTPS default-on/wiki/reconnect/disable/reset regression with authored text only.",
+  "source_sha256": "9684236ea848d0b3185793cfdf4864be940dad4738260fcc2441e673f88fa0b0",
   "turns": [
     {
       "user": "Hallo, ich bin Bob. Meine Freundin heißt Alice und ich wohne in Bremen. Alice mag Jazz. Bitte antworte nur: Danke.",
@@ -16,27 +16,16 @@
             "hops": 1
           },
           "state": "ready",
-          "entries": 0
-        },
-        {
-          "type": "memory_status",
-          "settings": {
-            "enabled": true,
-            "knowledge_budget": 10000,
-            "history_budget": 0,
-            "hops": 1
-          },
-          "state": "ready",
           "entries": 0,
           "context": {
             "knowledge_used_bound": 0,
             "activated": [],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.48
+            "retrieval_ms": 0.44
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           }
@@ -56,10 +45,10 @@
             "activated": [],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.48
+            "retrieval_ms": 0.44
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           }
@@ -79,15 +68,15 @@
             "activated": [],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.48
+            "retrieval_ms": 0.44
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           },
           "updated": 2,
-          "update_ms": 432.62,
+          "update_ms": 3059.12,
           "error": null
         }
       ],
@@ -96,7 +85,7 @@
     },
     {
       "user": "Wie heißt Bobs Freundin?",
-      "reply": "Laut meinen Daten ist Bobs Freundin Alice.",
+      "reply": "Alice heißt Bobs Freundin",
       "memory_events": [
         {
           "type": "memory_status",
@@ -122,10 +111,10 @@
             ],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.85
+            "retrieval_ms": 0.86
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           }
@@ -154,10 +143,10 @@
             ],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.85
+            "retrieval_ms": 0.86
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           }
@@ -170,7 +159,7 @@
             "history_budget": 0,
             "hops": 1
           },
-          "state": "ready",
+          "state": "error",
           "entries": 2,
           "context": {
             "knowledge_used_bound": 377,
@@ -186,25 +175,24 @@
             ],
             "budget_accounting": "UTF-8 bytes + framing; conservative byte-BPE token upper bound",
             "history_used_bound": 0,
-            "retrieval_ms": 0.85
+            "retrieval_ms": 0.86
           },
           "effective_budgets": {
-            "knowledge_budget": 10000,
+            "knowledge_budget": 2500,
             "history_budget": 0,
             "hops": 1
           },
-          "updated": 0,
-          "update_ms": 292.94,
-          "error": null
+          "error": "ValueError",
+          "update_ms": 1708.5
         }
       ],
       "errors": [],
       "pcm_chunks": 4
     }
   ],
-  "default_off": true,
+  "default_on": true,
   "explorer": "Alice · person\n\npartner: Bob; interests: Jazz\n\nDelete entry\nBob · person\n\npartner: Alice; home: Bremen\n\nDelete entry",
-  "evidence_visible": "{\n  \"id\": \"2bd806c97f0e00af1a1fc332\",\n  \"title\": \"Alice\",\n  \"kind\": \"person\",\n  \"summary\": \"partner: Bob; interests: Jazz\",\n  \"detail\": \"partner: Bob\\ninterests: Jazz\",\n  \"facts\": {\n    \"partner\": {\n      \"value\": \"Bob\",\n      \"evidence\": \"Meine Freundin heißt Alice\",\n      \"related\": \"Bob\",\n      \"recorded_at\": 1793052155.907\n    },\n    \"interests\": {\n      \"value\": \"Jazz\",\n      \"evidence\": \"Alice mag Jazz\",\n      \"related\": null,\n      \"recorded_at\": 1793052155.907\n    }\n  },\n  \"triggers\": [\n    \"Alice\"\n  ],\n  \"links\": [\n    \"81b637d8fcd2c6da6359e696\"\n  ],\n  \"updated_at\": 1793052155.919,\n  \"versions\": []\n}",
+  "evidence_visible": "{\n  \"id\": \"2bd806c97f0e00af1a1fc332\",\n  \"title\": \"Alice\",\n  \"kind\": \"person\",\n  \"summary\": \"partner: Bob; interests: Jazz\",\n  \"detail\": \"partner: Bob\\ninterests: Jazz\",\n  \"facts\": {\n    \"partner\": {\n      \"value\": \"Bob\",\n      \"evidence\": \"Meine Freundin heißt Alice.\",\n      \"related\": \"Bob\",\n      \"recorded_at\": 1793182538.354\n    },\n    \"interests\": {\n      \"value\": \"Jazz\",\n      \"evidence\": \"Alice mag Jazz.\",\n      \"related\": null,\n      \"recorded_at\": 1793182538.354\n    }\n  },\n  \"triggers\": [\n    \"Alice\"\n  ],\n  \"links\": [\n    \"81b637d8fcd2c6da6359e696\"\n  ],\n  \"updated_at\": 1793182538.371,\n  \"versions\": []\n}",
   "recall_without_recent_history": true,
   "disable_verified": true,
   "reset_verified": true,

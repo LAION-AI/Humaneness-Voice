@@ -9,7 +9,7 @@ async def main(url):
     async with async_playwright() as p:
         browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream'])
         page=await browser.new_page(viewport={'width':1440,'height':1100});errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-        await page.add_init_script("localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.multimodal.settings.v1',JSON.stringify({ignoreOffscreenSpeakers:true,lookAtActiveSpeaker:true,greetUnknownSpeakers:true}))")
+        await page.add_init_script("localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.autoStartDefaultVersion','1');localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.cameraAutoVersion','3');localStorage.setItem('robby.multimodal.settings.v1',JSON.stringify({ignoreOffscreenSpeakers:true,lookAtActiveSpeaker:true,greetUnknownSpeakers:true}))")
         try:
             await page.goto(url);await page.wait_for_function('window.robo&&window.robotFace.multimodal',timeout=90000)
             await page.locator('#ignoreOffscreenSpeakers').evaluate("e=>{for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true}")
