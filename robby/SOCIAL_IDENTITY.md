@@ -1,5 +1,7 @@
 # Social identity, role grounding and curious listening
 
+**Current override:** Hey Robby mode defaults ON and automatic sound reactions default OFF; see [WAKE_MODE.md](WAKE_MODE.md). The proactive defaults described below are historical.
+
 This update fixes a reproduced **correct acoustic identity / wrong spoken name**
 failure and reduces repeated onboarding after changes in intonation. It adds
 inspectable voice profiles without replacing ASR, interruption handling, camera

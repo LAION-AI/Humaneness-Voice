@@ -44,11 +44,13 @@ def context_note(identity):
 
 def identity_answer(text,identity):
     """Narrow registered-name lookup; general memory questions remain generative."""
-    if not identity or not identity.get('named') or not identity.get('enrolled'):return None
+    if not identity or not identity.get('enrolled'):return None
     query=re.sub(r'[^\w\s]','',text.casefold()).strip()
     german=bool(re.fullmatch(r'(?:und )?(?:wer bin ich|wie heiße ich|wie heisse ich|weißt du (?:noch )?wie ich heiße|weisst du (?:noch )?wie ich heisse|kennst du meinen namen)',query))
     english=bool(re.fullmatch(r'(?:and )?(?:who am i|what is my name|whats my name|do you know my name)',query))
     if not (german or english):return None
+    if not identity.get('named'):
+        return 'Ich bin mir nicht sicher. Wie heißt du?' if german else 'I am not sure. What is your name?'
     name=identity.get('display_name','')
     if not isinstance(name,str) or not 1<=len(name)<=60:return None
     if identity.get('identity_uncertain'):

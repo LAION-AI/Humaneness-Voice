@@ -1,4 +1,6 @@
 ROBBY / HUMANENESS VOICE — PROJECT HANDOVER
+LATEST UPDATE (2026-10-28, after PR 22): Hey Robby mode is the new default. A wake phrase starts a same-speaker 10-second follow-up window, renewed after the reply finishes playing; another speaker must use their own wake phrase. Default speech pause is 300 ms; a bare wake phrase waits briefly for the rest of the request. Automatic background sound reactions are OFF by default, but explicit sound questions still use a bounded roughly 15-second in-memory buffer and separate recent/post-question audio windows. The UI switches are beside the avatar. See robo-integration/WAKE_MODE.md and the latest wake report/test receipts. Latest running-source fingerprint: f2080cbee4b13375eb89d8187fa3e4053bf0b2e1790cce8dda0c69231c502e29. During this update the root filesystem was about 100% displayed with roughly 6.5 GB available; check df before writing caches. Older defaults in the snapshot below are historical; re-check runtime state, sources, Git HEAD and tests before acting.
+
 Snapshot: 2026-10-27 16:32 UTC. Operational details such as URLs, PIDs,
 free space and GPU occupancy are transient: check them again before acting.
 
