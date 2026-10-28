@@ -37,7 +37,7 @@ def main():
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     # Authored synthetic quick-reaction and memory receipts, never private storage.
-    for prefix in ('quick-reaction-', 'quick-quality-', 'two-stage-', 'knowledge-memory-', 'environment-', 'social-', 'wake-'):
+    for prefix in ('quick-reaction-', 'quick-quality-', 'two-stage-', 'knowledge-memory-', 'environment-', 'social-', 'wake-', 'auto-wake-'):
         files+=list((ROOT/'static').glob(prefix+'*.json'))
     # Reviewed synthetic experiment implementations and original prompt only.
     files += [ROOT/'experiments/quick-reaction-v1.json']
@@ -63,7 +63,7 @@ def main():
             record=json.loads(raw)
             for row in record.get('rows',[]):row.pop('listen_mp3_b64',None)
             raw=json.dumps(record,indent=2,ensure_ascii=False).encode()
-        if path.name.startswith(('two-stage-','environment-','social-','wake-')) and path.suffix=='.json':
+        if path.name.startswith(('two-stage-','environment-','social-','wake-','auto-wake-')) and path.suffix=='.json':
             # Preserve every event while avoiding repeated pretty-print padding.
             raw=json.dumps(json.loads(raw),separators=(',',':'),ensure_ascii=False).encode()
         if path.name=='rebalance-before-group-fix.json' or path.name.startswith('adversarial-') and path.suffix=='.json':

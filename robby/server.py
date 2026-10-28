@@ -138,7 +138,7 @@ class RoboConversation(Conversation):
             'visual_identity':self.visual.state(),
             'sentence_stream':self.sentence_stream is not None,
             'asr_settings':self.sentence_stream.settings() if self.sentence_stream else None,
-            'speaker_instruction':'Speak normally. All audible speakers can join; unknown voices receive session labels and can introduce themselves.' if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
+            'speaker_instruction':('Say Hey Robby or Hi Robbie, then speak. The same voice can continue for ten seconds after playback.' if self.sentence_stream.wake.enabled else 'Speak normally. All audible speakers can join; unknown voices receive session labels and can introduce themselves.') if self.sentence_stream else 'Say: Hey Robbie, I am Christoph. Only enrolled voices keep their turn open.'}
 
     async def _send_turn(self,transcript):
         self.avatar_optional=False;self.avatar_personality.user()
@@ -797,7 +797,7 @@ async def state(request):
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
-        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,'auto_start_default':True,'environment_default':False,'wake_default':True,
+        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':True,'voice_caption_default':True,'auto_start_default':True,'environment_default':False,'wake_default':True,
         'sound_caption_model':'laion/sound-effect-captioning-whisper','sound_caption_device':'cuda:0',
         'voice_caption_model':'Humaneness Ears Medium + procedural-voice-captions (GPU, parallel to ASR)',
         'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','300')),
