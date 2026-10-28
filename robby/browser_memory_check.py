@@ -1,4 +1,4 @@
-"""Real HTTPS opt-in/wiki/reconnect/reset regression with authored text only."""
+"""Real HTTPS default-on/wiki/reconnect/disable/reset regression with authored text only."""
 import argparse,asyncio,datetime,fcntl,json
 from pathlib import Path
 from playwright.async_api import async_playwright
@@ -11,28 +11,29 @@ async def main(args):
   browser=await p.chromium.launch(executable_path='/usr/bin/google-chrome',headless=True,args=['--no-sandbox','--disable-gpu','--autoplay-policy=no-user-gesture-required'])
   page=await browser.new_page(viewport={'width':1366,'height':950});page.on('pageerror',lambda e:errors.append(str(e)))
   page.on('dialog',lambda d:asyncio.create_task(d.accept()))
-  await page.add_init_script("localStorage.setItem('robby.quickReplies','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');")
+  await page.add_init_script("localStorage.setItem('robby.quickReplies','false');localStorage.setItem('robby.avatar-idle-enabled','false');localStorage.setItem('robby.avatar-pet-invites-enabled','false');localStorage.setItem('robby.autoStartDefaultVersion','1');localStorage.setItem('robby.autoStart','false');localStorage.setItem('robby.cameraAutoVersion','3');localStorage.setItem('robby.cameraAuto','false');localStorage.setItem('robby.llmSelection',JSON.stringify({model:'local',provider:'local'}));")
   async def open_page():
    await page.goto(args.url+'/desk-robot/');await page.wait_for_function('window.robotFace?.memoryControls&&!document.querySelector("#call").disabled',timeout=60000)
    await page.locator('#memory-settings').evaluate('e=>e.open=true')
    await page.evaluate('''()=>{window.memEvents=[];const old=robo.on.message;robo.on.message=m=>{memEvents.push(m);old(m)};}''')
-  async def turn(text):
+  async def turn(text,require_update=True):
    mark=await page.evaluate('memEvents.length');await page.fill('#message',text);await page.locator('#form').evaluate('f=>f.requestSubmit()')
    await page.wait_for_function('(n)=>memEvents.slice(n).some(e=>e.type==="turn_done"||e.type==="error")',arg=mark,timeout=90000)
-   await page.wait_for_function('(n)=>memEvents.slice(n).some(e=>e.type==="memory_status"&&["ready","error"].includes(e.state)&&e.updated!==undefined)',arg=mark,timeout=30000)
+   if require_update:
+    await page.wait_for_function('(n)=>memEvents.slice(n).some(e=>e.type==="memory_status"&&(e.state==="error"||(e.state==="ready"&&e.updated!==undefined)))',arg=mark,timeout=30000)
    await page.wait_for_function('!robo.sources.length',timeout=90000)
    ev=await page.evaluate('(n)=>memEvents.slice(n)',mark);replies=[e for e in ev if e['type']=='reply']
    row={'user':text,'reply':replies[-1]['text'] if replies else '', 'memory_events':[e for e in ev if e['type'].startswith('memory_')],
         'errors':[e for e in ev if e['type']=='error'],'pcm_chunks':await page.evaluate('robo.metrics.chunks')}
    report['turns'].append(row);assert replies and not row['errors'],row
-   assert row['memory_events'][-1]['state']=='ready',row
+   if require_update:assert row['memory_events'][-1]['state']=='ready',row
    return row
   try:
-   await open_page();assert not await page.locator('#memory-enabled').is_checked();report['default_off']=True
+   await open_page();assert await page.locator('#memory-enabled').is_checked();report['default_on']=True
    assert await page.locator('#memory-knowledge-budget').input_value()=='10000'
    assert await page.locator('#memory-history-budget').input_value()=='5000'
    await page.locator('#memory-history-budget').evaluate('e=>{e.value=0;e.dispatchEvent(new Event("input"));e.dispatchEvent(new Event("change"));}')
-   await page.locator('#memory-enabled').check()
+   await page.evaluate('robo.start(false)')
    await page.wait_for_function('memEvents.some(e=>e.type==="memory_status"&&e.state==="ready"&&e.settings.enabled)',timeout=20000)
    await page.evaluate('robo.ctx.resume()');assert await page.evaluate('robo.ctx.state')=='running'
    await turn('Hallo, ich bin Bob. Meine Freundin heißt Alice und ich wohne in Bremen. Alice mag Jazz. Bitte antworte nur: Danke.')
@@ -45,7 +46,7 @@ async def main(args):
    assert await page.locator('#memory-enabled').is_checked() and await page.locator('#memory-history-budget').input_value()=='0'
    await page.click('#message');await page.evaluate('robo.start(false)');await page.evaluate('robo.ctx.resume()')
    await page.wait_for_function('memEvents.some(e=>e.type==="memory_status"&&e.state==="ready"&&e.entries>=2)',timeout=15000)
-   row=await turn('Wie heißt Bobs Freundin?');assert 'alice' in row['reply'].casefold(),row['reply'];report['recall_without_recent_history']=True
+   row=await turn('Wie heißt Bobs Freundin?',require_update=False);assert 'alice' in row['reply'].casefold(),row['reply'];report['recall_without_recent_history']=True
    await page.locator('#memory-enabled').uncheck();await page.wait_for_function('memEvents.at(-1)?.type==="memory_status"&&memEvents.at(-1).state==="off"',timeout=10000)
    report['disable_verified']=True
    await page.click('#memory-reset');await page.wait_for_function('memEvents.some(e=>e.type==="memory_status"&&e.reset&&e.entries===0)',timeout=10000)

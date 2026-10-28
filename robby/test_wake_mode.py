@@ -29,8 +29,15 @@ class WakePolicy(unittest.TestCase):
  def test_open_mode_and_clear(self):
   self.w.configure(False);self.assertTrue(self.w.evaluate('Ohne Aufruf.',None,self.m.users)['accepted'])
   self.w.configure(True);self.assertFalse(self.w.active())
+ def test_common_wake_spellings_and_greetings(self):
+  for greeting in ('Hey','Hi','Hallo','Hello','hey'):
+   for name in ('Robby','Robbie','Robbi','Robi'):
+    with self.subTest(greeting=greeting,name=name):
+     self.assertTrue(self.w.evaluate(f'{greeting}, {name}, wie geht es dir?',None,self.m.users)['wake'])
+  for text in ('Jemand sagte Hey Robby.', 'Hallo, Robert.', 'Robby erzählt eine Geschichte.'):
+   self.assertFalse(self.w.evaluate(text,None,self.m.users)['accepted'])
  def test_reply_keeps_same_speaker_available_then_renews_window(self):
-  a=self.m.assign(self.v[0],'Ich bin Christoph.');self.w.accept(a['speaker_id'],self.v[0]);self.t[0]+=12
+  a=self.m.assign(self.v[0],'Ich bin Christoph.');self.w.accept(a['speaker_id'],self.v[0]);self.t[0]+=30
   self.assertFalse(self.w.active());self.assertTrue(self.w.evaluate('Weiter.',self.v[0],self.m.users,reply_active=True)['accepted'])
   self.assertFalse(self.w.evaluate('Fremd.',self.v[1],self.m.users,reply_active=True)['accepted'])
   self.w.finish_reply('wrong-speaker');self.assertFalse(self.w.active())

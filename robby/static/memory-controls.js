@@ -1,12 +1,15 @@
 // Private browser-scoped wiki memory. Never place its capability in URLs or logs.
 export class MemoryControls {
  constructor(client){
-  this.client=client;this.config={enabled:false,knowledge_budget:10000,history_budget:5000,hops:1};this.capability=null;
-  try{Object.assign(this.config,JSON.parse(localStorage.getItem('robby.memorySettings')||'{}'));this.capability=localStorage.getItem('robby.memoryCapability');}catch{}
+  this.client=client;this.config={enabled:true,knowledge_budget:10000,history_budget:5000,hops:1};this.capability=null;
+  try{Object.assign(this.config,JSON.parse(localStorage.getItem('robby.memorySettings')||'{}'));this.capability=localStorage.getItem('robby.memoryCapability');
+   // Apply the new default once to existing browsers; subsequent choices persist.
+   if(localStorage.getItem('robby.memoryDefaultVersion')!=='1'){this.config.enabled=true;localStorage.setItem('robby.memoryDefaultVersion','1');localStorage.setItem('robby.memorySettings',JSON.stringify(this.config));}
+  }catch{}
   const d=document.createElement('details');d.className='settings option-menu';d.id='memory-settings';
-  d.innerHTML=`<summary>Optional persistent memory</summary>
+  d.innerHTML=`<summary>Persistent memory</summary>
    <label><input id="memory-enabled" type="checkbox"> Remember knowledge between visits</label>
-   <p>Off by default. When enabled, Robby saves a small private wiki for this browser: people, relationships, interests and concepts. No voiceprints, face images or microphone recordings are saved by this feature.</p>
+   <p>On by default. Robby saves a private text wiki and recent conversation for this browser, so he can remember people, relationships, interests and shared experiences. Turn it off or reset it here at any time. This feature does not save voiceprints, face images or microphone recordings.</p>
    <p>Updates run after replies using the selected language model. Cloud mode sends this text to your selected provider and costs additional model calls. Server-side files are private to this browser’s random access key; anyone using the same browser profile can see them.</p>
    <label for="memory-knowledge-budget">Knowledge context ceiling <output id="memory-knowledge-value"></output></label>
    <input id="memory-knowledge-budget" type="range" min="0" max="10000" step="500">
@@ -14,7 +17,7 @@ export class MemoryControls {
    <input id="memory-history-budget" type="range" min="0" max="5000" step="250">
    <label for="memory-hops">Related concepts <select id="memory-hops"><option value="0">Direct matches only</option><option value="1">One link away</option><option value="2">Up to two links away</option></select></label>
    <p>Token ceilings use conservative UTF-8 accounting, so actual model token counts are smaller. The local 4B model gets a reduced budget to fit its context. Only relevant entries are retrieved.</p>
-   <p id="memory-status" role="status">Memory is off. Conversation stays in this session.</p>
+   <p id="memory-status" role="status">Preparing memory when the conversation connects.</p>
    <div class="memory-buttons"><button id="memory-browse" type="button">Browse knowledge</button><button id="memory-reset" type="button">Reset knowledge & chat context</button></div>
    <label for="memory-query">Search saved knowledge</label><input id="memory-query" type="search" maxlength="500" placeholder="A name, interest or concept"><button id="memory-search" type="button">Search</button>
    <div id="memory-entries"></div><pre id="memory-entry" hidden></pre>`;

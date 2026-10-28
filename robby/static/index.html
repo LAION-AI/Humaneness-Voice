@@ -5,6 +5,7 @@
 <header><a class="back" href="https://fuji-formal-while-plugin.trycloudflare.com/">← Voice Playground</a><div class="brand">◉ robby<span class="brand-note">a little more human</span></div><a class="model-pill" href="/desk-robot/">3D desk robot ↗</a></header>
 <main><section class="stage">
 <div class="eyebrow">A FACE. A VOICE. A CONVERSATION.</div><h1>Talk to Robby.</h1>
+<p>Persistent text memory is on by default; <a href="#memory-settings">review, turn off or reset memory</a>. Conversation text may be sent to your selected language-model provider.</p>
 <div id="quick-controls" class="quick-controls">
 <div class="call-controls"><button id="call" class="primary" disabled>◉ Start talking</button><button id="camera" class="secondary">Starting camera…</button><button id="interrupt" class="secondary" aria-label="Stop Robby speaking">Stop reply</button></div>
 <section id="llm-model-controls" aria-label="Language model and provider">
@@ -32,7 +33,7 @@
 <p id="speech-pause-status" role="status">Neural speech detection · waiting for microphone.</p>
 <a href="/static/speech-pause-update.html" target="_blank" rel="noopener">How it works &amp; test results ↗</a>
 </section>
-<div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox"> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
+<div class="follow-controls"><label><input id="mirror" type="checkbox" checked> Follow my position</label><label><input id="camera-auto" type="checkbox" checked> Start camera automatically</label><button id="follow-center" type="button" class="secondary">Resume eye contact</button><button id="quick-calibrate" type="button" class="text-button">Calibrate eye contact</button></div>
 <p id="follow-status" role="status">Camera permission is needed. Head movement follows your position, not your head rotation.</p>
 <p id="action-notice" role="status" hidden></p>
 </div>
@@ -72,7 +73,7 @@
 <a href="/static/avatar-command-update.html" target="_blank" rel="noopener">Requested faces &amp; spoken reactions · fixes and tests ↗</a>
 <a href="/static/asr-model-update.html" target="_blank" rel="noopener">German ASR choices · timing, offloading &amp; tests ↗</a>
 <a href="/static/openrouter-update.html" target="_blank" rel="noopener">OpenRouter, private keys &amp; visible component timings ↗</a>
-<a href="/static/knowledge-memory-report.html" target="_blank" rel="noopener">Optional persistent wiki · privacy, recall and reset tests ↗</a>
+<a href="/static/knowledge-memory-report.html" target="_blank" rel="noopener">Persistent wiki · privacy, recall and reset tests ↗</a>
 <a href="/speaker-training/" target="_blank" rel="noopener">Larger speaker training · live progress ↗</a>
 </details></aside></main>
 <footer>HUMANENESS VOICE · LAION <span>Authored cartoon expressions, not an emotion detector or medical service.</span></footer>
