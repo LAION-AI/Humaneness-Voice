@@ -1,0 +1,214 @@
+{
+  "source_sha256": "79d050abd3fcb71310b8cca87b81247806d83dde8d1f2dca0c6c19c96a77442c",
+  "fixtures": {
+    "music": {
+      "duration_s": 3.064,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 3997.0,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "bells",
+              "background": "none",
+              "speech": "none",
+              "music": "bells",
+              "changes": "no clear changes"
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 1113.6,
+            "generation_ms": 1233.9,
+            "total_ms": 2347.4,
+            "output_tokens": 44,
+            "output_tokens_per_s": 35.66
+          },
+          "video": {
+            "annotation": {
+              "foreground": "A series of vertical color bars in red, green, yellow, blue, magenta, and cyan.",
+              "background": "The same vertical color bars continue behind the foreground elements.",
+              "actions": [
+                {
+                  "id": "1",
+                  "description": "Diagonal streaks of light move across the screen.",
+                  "action": "The streaks appear and disappear, shifting positions between frames."
+                },
+                {
+                  "id": "2",
+                  "description": "Small pixelated squares and rectangles appear and move around the center area.",
+                  "action": "These elements drift slightly, changing location and orientation."
+                }
+              ],
+              "changes": [
+                "The diagonal light streaks change position and intensity between frames.",
+                "The small pixelated shapes shift slightly in the central region."
+              ],
+              "people": []
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 93.1,
+            "generation_ms": 3828.9,
+            "total_ms": 3922.0,
+            "output_tokens": 181,
+            "output_tokens_per_s": 47.27
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "speech-music": {
+      "duration_s": 3.021,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 978.7,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Huh",
+              "background": "None",
+              "speech": "Hi Robbie",
+              "music": "None",
+              "changes": "None"
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 4.8,
+            "generation_ms": 929.0,
+            "total_ms": 933.9,
+            "output_tokens": 43,
+            "output_tokens_per_s": 46.28
+          },
+          "video": {
+            "annotation": {
+              "foreground": "",
+              "background": "Solid blue color",
+              "actions": [],
+              "changes": [],
+              "people": []
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 16.0,
+            "generation_ms": 562.7,
+            "total_ms": 578.6,
+            "output_tokens": 27,
+            "output_tokens_per_s": 47.98
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 6187.3,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "a single, clear, and distinct sound",
+              "background": "no background sounds",
+              "speech": "no speech",
+              "music": "no music",
+              "changes": "no changes"
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 4.7,
+            "generation_ms": 1141.8,
+            "total_ms": 1146.5,
+            "output_tokens": 52,
+            "output_tokens_per_s": 45.54
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly individual wearing a dark military uniform with a peaked cap adorned with insignia, glasses, and ribbons on the chest.",
+              "background": "An American flag partially visible on the left side against a solid blue backdrop.",
+              "actions": [],
+              "changes": [],
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual with short hair, wearing a dark military uniform, a peaked cap with gold and silver emblems, eyeglasses with thin frames, and a black tie over a white shirt.",
+                  "action": "Sitting or standing still, facing forward with a neutral expression."
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 14.5,
+            "generation_ms": 3017.2,
+            "total_ms": 3031.7,
+            "output_tokens": 148,
+            "output_tokens_per_s": 49.05
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "silence",
+              "background": "silence",
+              "speech": "none",
+              "music": "none",
+              "changes": "none"
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 5.6,
+            "generation_ms": 941.2,
+            "total_ms": 946.8,
+            "output_tokens": 45,
+            "output_tokens_per_s": 47.81
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly individual wearing a dark military uniform with a peaked cap adorned with insignia, glasses, and ribbons on the chest.",
+              "background": "An American flag partially visible on the left side against a solid blue backdrop.",
+              "actions": [],
+              "changes": [],
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual with short hair, wearing a dark military uniform, a peaked cap with gold and silver emblems, eyeglasses with thin frames, and a black tie over a white shirt.",
+                  "action": "Sitting or standing still, facing forward with a neutral expression."
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 16.6,
+            "generation_ms": 2990.1,
+            "total_ms": 3006.7,
+            "output_tokens": 148,
+            "output_tokens_per_s": 49.5
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}
