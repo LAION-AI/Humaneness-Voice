@@ -19,7 +19,9 @@ def main():
     r.raise_for_status();d=r.json();d.pop('playback_mp4_base64',None)
   s=d['segments'][0]
   checks={'private_context_used':d['relevance_context']['memory_used'],'context_bound':d['relevance_context']['conservative_token_bound']<=1000,'capability_not_returned':token not in json.dumps(d),
-   'audio_one_call':s['audio']['model_calls']==1,'vision_five_fps':s['video']['sampling_fps']==5 and s['video']['encoded_frames_with_padding']>=14,
+   'audio_one_call':s['audio']['model_calls']==1,
+   'audio_has_model_description':any(o.get('description') and o.get('category')!='signal' and not o.get('possible_context_echo') for o in (s['audio'].get('annotation') or {}).get('observations',[]) if isinstance(o,dict)),
+   'vision_five_fps':s['video']['sampling_fps']==5 and s['video']['encoded_frames_with_padding']>=14,
    'omni_one_call':s['omni']['model_calls']==1,'omni_grid_nine':s['omni'].get('contact_sheet_frames')==9,'omni_output':s['omni']['parse_ok']}
   report={'source_sha256':deployed_source_hash(),'checks':checks,'passed':all(checks.values()),'result':d,'limitations':['Synthetic input; not a real-world accuracy evaluation.','Model output and relevance can be biased by context.']}
   (ROOT/'static/lfm3-three-model-repro.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps({'passed':report['passed'],'checks':checks,'wall_ms':d['wall_ms']}))
