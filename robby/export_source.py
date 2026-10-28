@@ -37,7 +37,7 @@ def main():
         path=ROOT/'static'/name
         if path.exists():files.append(path)
     # Authored synthetic quick-reaction and memory receipts, never private storage.
-    for prefix in ('quick-reaction-', 'quick-quality-', 'two-stage-', 'knowledge-memory-', 'environment-', 'social-', 'wake-', 'auto-wake-'):
+    for prefix in ('quick-reaction-', 'quick-quality-', 'two-stage-', 'knowledge-memory-', 'environment-', 'social-', 'wake-', 'auto-wake-', 'name-continuity-'):
         files+=list((ROOT/'static').glob(prefix+'*.json'))
     # Reviewed synthetic experiment implementations and original prompt only.
     files += [ROOT/'experiments/quick-reaction-v1.json']

@@ -136,6 +136,27 @@ class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
         optional=patch('voice_captioning.describe',new_callable=AsyncMock,return_value={'status':'disabled'})
         optional.start();self.addCleanup(optional.stop)
 
+    async def test_unnamed_track_does_not_force_contradictory_name_question(self):
+        from bolt_director import BoltDirector
+        calls=[]
+        class Response:
+            async def __aenter__(self):return self
+            async def __aexit__(self,*args):pass
+            def raise_for_status(self):pass
+            async def aiter_lines(self):
+                yield 'data: '+json.dumps({'choices':[{'delta':{'content':'(happy) Mir geht es prima, Christoph!'}}]})
+                yield 'data: '+json.dumps({'choices':[{'delta':{},'finish_reason':'stop'}]})
+        class Client:
+            def stream(self,*args,**kwargs):calls.append(kwargs['json']);return Response()
+        memory={'note':'Remembered data may be uncertain.','entries':[{'title':'Christoph','summary':'likes music'}]}
+        identity={'needs_name':True,'named':False,'display_name':'Speaker 1'}
+        history=[{'role':'user','content':'Ich bin Christoph.'},{'role':'assistant','content':'Hallo Christoph!'}]
+        parts=[p async for p in BoltDirector().stream(Client(),"Hey Robby, wie geht's?",identity,history,{'knowledge_memory':memory})]
+        self.assertEqual(join_sentences(parts),'Mir geht es prima, Christoph!')
+        self.assertIn('likes music',calls[0]['messages'][0]['content'])
+        self.assertIn('Ich bin Christoph.',str(calls[0]['messages']))
+        self.assertIn('does not prove a new person',calls[0]['messages'][0]['content'])
+
     async def test_acknowledgment_only_story_gets_one_bounded_real_continuation(self):
         from bolt_director import BoltDirector
         calls=[]
