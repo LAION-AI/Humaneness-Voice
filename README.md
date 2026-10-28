@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Current Robby default:** Say “Hey Robby”; the same voice can continue for 10 seconds, renewed when Robby finishes its reply. The speech-pause setting defaults to 300 ms. Automatic environmental comments are OFF by default; explicit sound questions still examine bounded recent audio and a post-question window. Both options are visible beside the avatar. [Implementation and test procedure](robby/WAKE_MODE.md) · [Wake-mode report](https://projects.laion.ai/Humaneness-Voice/robby/wake-report.html). Earlier descriptions below are historical.
+
 **Current identity update:** Robby distinguishes user and robot roles explicitly, uses the current registered speaker for direct name questions, and shows the actual reply model/provider. Open-speaker matching defaults to **0.32**, with bounded continuity and multiple voice prototypes. Uncertain vocal age/gender/timbre hints and cautious background questions are on; durable biometric profiles require separate opt-in consent. Camera, Face ID and factual wiki memory remain off by default. [Implementation and reproduction](robby/SOCIAL_IDENTITY.md) · [Tests, timings and retained failures](https://projects.laion.ai/Humaneness-Voice/robby/social-identity-report.html).
 
 

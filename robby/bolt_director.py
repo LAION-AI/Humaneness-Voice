@@ -154,7 +154,7 @@ class BoltDirector:
         if direct:
             from bolt_text import Sentence
             metrics.update(reply_source='session_identity',llm_model='Session identity · name lookup',llm_provider='local controller',llm_first_sentence_ms=0.,llm_total_ms=0.,generation_calls=0,response_complete=True)
-            yield Sentence(direct,'affection, warm, soft',language='en' if direct.startswith(('Your','I think')) else 'de')
+            yield Sentence(direct,'affection, warm, soft',language='en' if direct.startswith(('Your','I think','I am not sure')) else 'de')
             return
         from llm_backends import config,completion_stream,metrics as backend_metrics
         cfg=config(backend if backend is not None else {'model':'local','provider':'local'},credential)
