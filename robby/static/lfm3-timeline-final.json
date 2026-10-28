@@ -1,0 +1,213 @@
+{
+  "source_sha256": "117d1c74da83115cf2c2bfeac7f298b3805d55591b78ea40c92f83886378af21",
+  "fixtures": {
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 9466.6,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly person wearing a dark uniform with medals and a hat, positioned centrally facing forward.",
+              "background": "An American flag on the left side and a solid blue backdrop on the right side.",
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward."
+                }
+              ],
+              "events": [
+                {
+                  "start_s": 0.0,
+                  "end_s": 2.0,
+                  "person_id": "person_1",
+                  "kind": "facial_expression",
+                  "description": "Neutral facial expression with closed mouth and steady gaze directed forward.",
+                  "absolute_start_s": 0.0,
+                  "absolute_end_s": 2.0,
+                  "timing_status": "model_estimate"
+                },
+                {
+                  "start_s": 0.0,
+                  "end_s": 2.0,
+                  "person_id": "person_1",
+                  "kind": "attention",
+                  "description": "Looking directly at the camera with no discernible shift in gaze.",
+                  "absolute_start_s": 0.0,
+                  "absolute_end_s": 2.0,
+                  "timing_status": "model_estimate"
+                }
+              ],
+              "changes": "No noticeable changes in appearance or posture across the frames.",
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 2 fps."
+            },
+            "raw_text": "{\"foreground\":\"An elderly person wearing a dark uniform with medals and a hat, positioned centrally facing forward.\", \"background\":\"An American flag on the left side and a solid blue backdrop on the right side.\", \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward.\"}], \"events\":[{\"start_s\":0.0,\"end_s\":2.0,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"Neutral facial expression with closed mouth and steady gaze directed forward.\"},{\"start_s\":0.0,\"end_s\":2.0,\"person_id\":\"person_1\",\"kind\":\"attention\",\"description\":\"Looking directly at the camera with no discernible shift in gaze.\"}] \"changes\": \"No noticeable changes in appearance or posture across the frames.\"}",
+            "parse_ok": true,
+            "parse_repaired": true,
+            "preprocess_ms": 100.4,
+            "generation_ms": 4359.4,
+            "total_ms": 4459.8,
+            "output_tokens": 198,
+            "output_tokens_per_s": 45.42,
+            "detail_passes": []
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly person in a dark uniform with a peaked cap, glasses, white shirt, black tie, and medals on the chest, centered and facing forward.",
+              "background": "An American flag on the left side and a solid blue backdrop on the right side.",
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward."
+                }
+              ],
+              "events": [
+                {
+                  "start_s": 0.0,
+                  "end_s": 2.0,
+                  "person_id": "person_1",
+                  "kind": "facial_expression",
+                  "description": "Neutral facial expression with closed mouth and steady gaze directed forward.",
+                  "absolute_start_s": 1.0,
+                  "absolute_end_s": 3.0,
+                  "timing_status": "model_estimate"
+                },
+                {
+                  "start_s": 0.0,
+                  "end_s": 2.0,
+                  "person_id": "person_1",
+                  "kind": "attention",
+                  "description": "Looking directly at the camera with no discernible shift in gaze.",
+                  "absolute_start_s": 1.0,
+                  "absolute_end_s": 3.0,
+                  "timing_status": "model_estimate"
+                }
+              ],
+              "changes": "No noticeable changes in appearance or posture across the frames.",
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 2 fps."
+            },
+            "raw_text": "{\"foreground\": \"An elderly person in a dark uniform with a peaked cap, glasses, white shirt, black tie, and medals on the chest, centered and facing forward.\", \"background\": \"An American flag on the left side and a solid blue backdrop on the right side.\", \"people\": [{\"id\": \"person_1\", \"description\": \"Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward.\"}]}, \"events\": [{\"start_s\": 0.0, \"end_s\": 2.0, \"person_id\": \"person_1\", \"kind\": \"facial_expression\", \"description\": \"Neutral facial expression with closed mouth and steady gaze directed forward.\"}, {\"start_s\": 0.0, \"end_s\": 2.0, \"person_id\": \"person_1\", \"kind\": \"attention\", \"description\": \"Looking directly at the camera with no discernible shift in gaze.\"}]}, \"changes\": \"No noticeable changes in appearance or posture across the frames.\"}",
+            "parse_ok": true,
+            "parse_repaired": true,
+            "preprocess_ms": 16.0,
+            "generation_ms": 4842.7,
+            "total_ms": 4858.7,
+            "output_tokens": 236,
+            "output_tokens_per_s": 48.73,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 2 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "synthetic": {
+      "duration_s": 3.064,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 5117.9,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "a high-pitched, sustained electronic tone",
+              "background": "a low, continuous hum",
+              "speech": "unintelligible",
+              "music": "unintelligible",
+              "changes": "no clear changes",
+              "speech_detail": "The words \"Ooh\" are intelligible in the recording. The speech is a single, drawn-out vocalization with a breathy, wavering quality, delivered slowly and at a low volume. The tone is soft and introspective, with no discernible emotional intensity.",
+              "music_detail": "A soft, mellow piano melody plays in a slow, gentle rhythm, accompanied by a subtle, sustained string pad. The music is in a minimalist style, with a simple, repetitive pattern. The tempo is approximately 60 beats per minute, and the overall mood is calm and introspective."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "parse_repaired": false,
+            "preprocess_ms": 1134.5,
+            "generation_ms": 3935.2,
+            "total_ms": 5069.7,
+            "output_tokens": 178,
+            "output_tokens_per_s": 45.23,
+            "detail_passes": [
+              "speech",
+              "music"
+            ]
+          },
+          "video": {
+            "annotation": {
+              "foreground": "Abstract colorful vertical stripes with diagonal light streaks and small pixelated shapes moving across the screen.",
+              "background": "Solid vertical bands of red, green, yellow, blue, magenta, and cyan.",
+              "people": [],
+              "events": [],
+              "changes": "Diagonal light streaks shift position and intensity between frames.",
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 2 fps."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "parse_repaired": false,
+            "preprocess_ms": 14.2,
+            "generation_ms": 1373.1,
+            "total_ms": 1387.3,
+            "output_tokens": 65,
+            "output_tokens_per_s": 47.34,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 2 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}

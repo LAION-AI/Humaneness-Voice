@@ -1,0 +1,136 @@
+{
+  "source_sha256": "bad1f382d51065798fb4152cb8f107c979ec78ae452a35a67ece03dcc71d11b6",
+  "fixtures": {
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 8933.1,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"An elderly person wearing a dark uniform with medals and a cap, positioned centrally facing forward.\", \"background\":\"An American flag on the left side and a solid blue backdrop on the right side.\", \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward.\"}], \"events\":[{\"start_s\":0.0,\"end_s\":0.5,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"Neutral facial expression with closed mouth and steady gaze directed forward.\"},{\"start_s\":0.5,\"end_s\":2.0,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"No noticeable change in facial expression; remains neutral.\"}]}, \"changes\": \"No significant changes in appearance, posture, or background elements observed during the window.\"}",
+            "parse_ok": false,
+            "preprocess_ms": 117.8,
+            "generation_ms": 4325.0,
+            "total_ms": 4442.8,
+            "output_tokens": 202,
+            "output_tokens_per_s": 46.71,
+            "detail_passes": []
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"An elderly person wearing a dark uniform with medals and a peaked cap adorned with insignia, positioned centrally facing forward.\", \"background\":\"An American flag on the left side and a solid blue backdrop on the right side.\", \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly individual in a dark uniform with a peaked cap adorned with insignia, wearing glasses, a white shirt, black tie, and medals on the chest; positioned centrally facing forward.\"}]], \"events\":[{\"start_s\":0.0,\"end_s\":0.5,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"Neutral facial expression with closed mouth and steady gaze directed forward.\"},{\"start_s\":0.5,\"end_s\":2.0,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"No noticeable change in facial expression; remains neutral.\"}]}, \"changes\": \"No significant changes in appearance, posture, or background elements observed during the window.\"}",
+            "parse_ok": false,
+            "preprocess_ms": 16.6,
+            "generation_ms": 4334.5,
+            "total_ms": 4351.2,
+            "output_tokens": 208,
+            "output_tokens_per_s": 47.99,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 2 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "synthetic": {
+      "duration_s": 3.064,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 5283.9,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "a high-pitched, sustained electronic tone",
+              "background": "a low, continuous hum",
+              "speech": "unintelligible",
+              "music": "unintelligible",
+              "changes": "no clear changes",
+              "speech_detail": "The words \"Ooh\" are intelligible in the recording. The speech is a single, drawn-out vocalization with a breathy, wavering quality, delivered slowly and at a low volume. The tone is soft and introspective, with no discernible emotional intensity.",
+              "music_detail": "A soft, mellow piano melody plays in a slow, gentle rhythm, accompanied by a subtle, sustained string pad. The music is in a minimalist style, with a simple, repetitive pattern. The tempo is approximately 60 beats per minute, and the overall mood is calm and introspective."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 1150.9,
+            "generation_ms": 4087.2,
+            "total_ms": 5238.1,
+            "output_tokens": 178,
+            "output_tokens_per_s": 43.55,
+            "detail_passes": [
+              "speech",
+              "music"
+            ]
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"Abstract colorful vertical stripes with diagonal light streaks and small pixelated shapes moving across the screen.\", \"background\":\"Solid vertical bands of red, green, yellow, blue, magenta, and cyan.\", \"people\":[],\"events\":[{\"start_s\":0.0,\"end_s\":0.5,\"person_id\":\"person_1\",\"kind\":\"gesture\",\"description\":\"No visible person or gesture.\"},{\"start_s\":0.5,\"end_s\":1.0,\"person_id\":\"person_1\",\"kind\":\"action\",\"description\":\"No visible person or action.\"}]}, \"changes\":\"Diagonal light streaks shift position between frames; small pixelated elements move slightly.\"}",
+            "parse_ok": false,
+            "preprocess_ms": 18.0,
+            "generation_ms": 2841.2,
+            "total_ms": 2859.1,
+            "output_tokens": 140,
+            "output_tokens_per_s": 49.28,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 2 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}
