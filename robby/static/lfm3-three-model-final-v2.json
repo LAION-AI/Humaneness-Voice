@@ -1,0 +1,392 @@
+{
+  "source_sha256": "cda61bcf9739123c53f5ea81f0416481f08d7dce9e7c117d3ce217233b364da8",
+  "fixtures": {
+    "speech-music": {
+      "duration_s": 3.021,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 3078.7,
+      "relevance_context": {
+        "memory_used": true,
+        "recent_turns": 1,
+        "conservative_token_bound": 396
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "observations": [
+                {
+                  "category": "speech",
+                  "description": "Hi Robby",
+                  "relevance": 1
+                },
+                {
+                  "category": "music",
+                  "description": "Bob likes jazz music",
+                  "relevance": 2,
+                  "possible_context_echo": true
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 1153.6,
+            "generation_ms": 1874.1,
+            "total_ms": 3027.8,
+            "output_tokens": 71,
+            "output_tokens_per_s": 37.88,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "Solid blue screen with no discernible objects or figures.",
+              "background": "Uniform blue color filling entire frame.",
+              "observations": [
+                {
+                  "category": "foreground",
+                  "description": "No visible elements; uniform blue field throughout.",
+                  "relevance": 1
+                },
+                {
+                  "people": [],
+                  "events": [],
+                  "changes": "No changes observed; consistent blue screen across all frames.",
+                  "relevance": null
+                },
+                {
+                  "category": "background",
+                  "description": "Uniform blue color filling entire frame.",
+                  "relevance": null,
+                  "source": "unscored_summary"
+                }
+              ],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "raw_text": "{\"foreground\":\"Solid blue screen with no discernible objects or figures.\", \"background\":\"Uniform blue color filling entire frame.\", \"observations\":[{\"category\":\"foreground\",\"description\":\"No visible elements; uniform blue field throughout.\", \"relevance\":1}, \"people\":[],\"events\":[],\"changes\":\"No changes observed; consistent blue screen across all frames.\"}]",
+            "parse_ok": true,
+            "parse_repaired": true,
+            "silence_gate": false,
+            "preprocess_ms": 106.0,
+            "generation_ms": 1878.0,
+            "total_ms": 1984.1,
+            "output_tokens": 74,
+            "output_tokens_per_s": 39.4,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "A short, upbeat instrumental jazz-style music loop featuring a walking bass line, light piano chords, and a simple drum groove, played at a steady tempo.",
+              "visual": "A 3-column contact sheet (grid) showing a sequence of three frames at approximately 3 frames per second, left to right and top to bottom. The first tile contains a small abstract graphic/icon, the second tile contains a small abstract graphic/icon, and the third tile is blank (no visible content). The grid is a presentation aid, not an object in the scene.",
+              "cross_modal": "The music is audible; the visual is a static contact-sheet grid with three tiles, each showing a small abstract icon or blank space, with no facial expressions, gestures, or actions present.",
+              "observations": [
+                {
+                  "category": "audio",
+                  "description": "Upbeat jazz instrumental loop with bass, piano, and drums, playing continuously throughout the clip.",
+                  "relevance": 2
+                },
+                {
+                  "category": "visual",
+                  "description": "Three-tile contact sheet at ~3 fps, each tile containing a small abstract icon or blank space; the grid is a presentation aid, not a scene object.",
+                  "relevance": 2
+                },
+                {
+                  "category": "cross_modal",
+                  "description": "The music is audible; the visual is a static contact-sheet grid with three tiles, each showing a small abstract icon or blank space, with no facial expressions, gestures, or actions present.",
+                  "relevance": null,
+                  "source": "unscored_summary"
+                }
+              ],
+              "people": [
+                {
+                  "id": "Robby",
+                  "description": "Warm, playful, and attentive conversational robot; helps the user and follows requests.",
+                  "relevance": 2
+                }
+              ],
+              "events": [
+                {
+                  "start_s": 0.0,
+                  "end_s": 0.33,
+                  "person_id": "Robby",
+                  "kind": "speech",
+                  "description": "Robby says 'Hi Robby' in a friendly, playful tone.",
+                  "relevance": 2,
+                  "absolute_start_s": 0.0,
+                  "absolute_end_s": 0.33,
+                  "timing_status": "model_estimate"
+                }
+              ],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 3 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 133.3,
+            "generation_ms": 1749.1,
+            "total_ms": 1882.4,
+            "output_tokens": 417,
+            "output_tokens_per_s": 238.41,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 8703.3,
+      "relevance_context": {
+        "memory_used": true,
+        "recent_turns": 1,
+        "conservative_token_bound": 396
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": "",
+              "observations": [],
+              "level_note": "Very quiet signal; model interpretation is uncertain."
+            },
+            "raw_text": "{\"observations\": []}",
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": true,
+            "preprocess_ms": 4.1,
+            "generation_ms": 185.5,
+            "total_ms": 189.6,
+            "output_tokens": 7,
+            "output_tokens_per_s": 37.73,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "Elderly man wearing a dark uniform with medals and a cap, facing forward.",
+              "background": "American flag on the left, blue backdrop behind the subject.",
+              "observations": [
+                {
+                  "category": "foreground",
+                  "description": "Man in dark uniform, white shirt, black tie, medals on chest, cap with insignia, glasses, looking directly at camera.",
+                  "relevance": null
+                },
+                {
+                  "category": "foreground",
+                  "description": "Uniform includes name tag and ribbon bars, indicating formal military or service attire.",
+                  "relevance": null
+                },
+                {
+                  "category": "background",
+                  "description": "Flag with stars and stripes, partially visible, mounted on a pole against solid blue background.",
+                  "relevance": null
+                }
+              ],
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly man in dark uniform, wearing a peaked cap, glasses, and medals; positioned centrally, facing forward.",
+                  "relevance": null
+                }
+              ],
+              "events": [],
+              "changes": "No noticeable changes across frames; static portrait.",
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "raw_text": "{\"foreground\":\"Elderly man wearing a dark uniform with medals and a cap, facing forward.\", \"background\":\"American flag on the left, blue backdrop behind the subject.\", \"observations\":[{\"category\":\"foreground\",\"description\":\"Man in dark uniform, white shirt, black tie, medals on chest, cap with insignia, glasses, looking directly at camera.\"},{\"category\":\"foreground\",\"description\":\"Uniform includes name tag and ribbon bars, indicating formal military or service attire.\"},{\"category\":\"background\",\"description\":\"Flag with stars and stripes, partially visible, mounted on a pole against solid blue background.\"}]}, \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly man in dark uniform, wearing a peaked cap, glasses, and medals; positioned centrally, facing forward.\"], \"events\": [], \"changes\": \"No noticeable changes across frames; static portrait.\"}",
+            "parse_ok": true,
+            "parse_repaired": true,
+            "silence_gate": false,
+            "preprocess_ms": 35.0,
+            "generation_ms": 3923.4,
+            "total_ms": 3958.3,
+            "output_tokens": 178,
+            "output_tokens_per_s": 45.37,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "No audio is present in the audio track.",
+              "visual": "A 3-column contact sheet (9 tiles total) showing the same portrait of an older man in a U.S. Navy dress uniform—dark navy jacket with name tag, rank insignia, and service ribbons, wearing round glasses and a peaked cap with an emblem—positioned in front of a U.S. flag against a blue backdrop. The tiles are arranged left-to-right and top-to-bottom at approximately 0.33-second intervals, forming a grid presentation aid.",
+              "cross_modal": "The visual content is static and identical across all tiles; no sound or motion is heard, so no audio events can be associated with the images.",
+              "observations": [
+                {
+                  "category": "visual",
+                  "description": "The man faces forward with a neutral, calm expression; his gaze is directed slightly off-camera. He wears glasses, a peaked cap with an embroidered emblem, a dark navy service uniform with a nameplate on the left chest, a rank insignia on the right chest, and rows of service ribbons on the lower left chest.",
+                  "relevance": 2
+                },
+                {
+                  "category": "visual",
+                  "description": "Behind him is a U.S. flag with stars and stripes, partially visible on the left side of each tile, set against a solid blue background.",
+                  "relevance": 2
+                },
+                {
+                  "category": "audio",
+                  "description": "No audio is present in the audio track.",
+                  "relevance": 0
+                },
+                {
+                  "category": "audio",
+                  "description": "No speech or sound events are heard.",
+                  "relevance": 0
+                },
+                {
+                  "category": "cross_modal",
+                  "description": "The visual content is static and identical across all tiles; no sound or motion is heard, so no audio events can be associated with the images.",
+                  "relevance": null,
+                  "source": "unscored_summary"
+                }
+              ],
+              "people": [
+                {
+                  "id": "robby",
+                  "description": "Robby is a warm, playful and attentive conversational robot who helps the current user and follows their requests.",
+                  "relevance": 1
+                }
+              ],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 3 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 150.6,
+            "generation_ms": 1546.0,
+            "total_ms": 1696.6,
+            "output_tokens": 395,
+            "output_tokens_per_s": 255.5,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": "",
+              "observations": [],
+              "level_note": "Very quiet signal; model interpretation is uncertain."
+            },
+            "raw_text": "{\"observations\": []}",
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": true,
+            "preprocess_ms": 5.7,
+            "generation_ms": 230.2,
+            "total_ms": 235.9,
+            "output_tokens": 7,
+            "output_tokens_per_s": 30.41,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"Elderly man in dark uniform, white shirt, black tie, medals on chest, cap with insignia, glasses, looking directly at camera.\"},\n{\"background\":\"American flag on the left, blue backdrop behind the subject.\"},\n{\"observations\":[{\"category\":\"foreground\",\"description\":\"Man in dark uniform, white shirt, black tie, medals on chest, cap with insignia, glasses, looking directly at camera.\"},{\"category\":\"foreground\",\"description\":\"Uniform includes name tag and ribbon bars, indicating formal military or service attire.\"},{\"category\":\"background\",\"description\":\"Flag with stars and stripes, partially visible, mounted on a pole against solid blue background.\"}],\"people\":[{\"id\":\"person_1\",\"description\":\"Elderly man in dark uniform, wearing a peaked cap, glasses, and medals; positioned centrally, facing forward.\"},{\"type\":\"event\",\"category\":\"facial_expression\",\"start_s\":0.0,\"end_s\":3.0,\"person_id\":\"person_1\",\"description\":\"Neutral expression, no movement observed.\"}]}",
+            "parse_ok": false,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 28.5,
+            "generation_ms": 4554.8,
+            "total_ms": 4583.4,
+            "output_tokens": 217,
+            "output_tokens_per_s": 47.64,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "No audio is present in the audio track.",
+              "visual": "A 3-column contact sheet (9 tiles total) showing the same portrait of an older man in a U.S. Navy dress uniform—dark navy jacket with name tag, rank insignia, and service ribbons, wearing round glasses and a peaked cap with an emblem—positioned in front of a U.S. flag against a blue backdrop. The tiles are arranged left-to-right and top-to-bottom at approximately 0.33-second intervals, forming a grid presentation aid. The man faces forward with a neutral, calm expression; his gaze is directed slightly off-camera. He wears glasses, a peaked cap with an embroidered emblem, a dark navy service uniform with a nameplate on the left chest, a rank insignia on the right chest, and rows of service ribbons on the lower left chest.",
+              "cross_modal": "The visual content is static and identical across all tiles; no sound or motion is heard, so no audio events can be associated with the images.",
+              "observations": [
+                {
+                  "category": "visual",
+                  "description": "The man faces forward with a neutral, calm expression; his gaze is directed slightly off-camera. He wears glasses, a peaked cap with an embroidered emblem, a dark navy service uniform with a nameplate on the left chest, a rank insignia on the right chest, and rows of service ribbons on the lower left chest.",
+                  "relevance": 2
+                },
+                {
+                  "category": "visual",
+                  "description": "Behind him is a U.S. flag with stars and stripes, partially visible on the left side of each tile, set against a solid blue background.",
+                  "relevance": 2
+                },
+                {
+                  "category": "cross_modal",
+                  "description": "The visual content is static and identical across all tiles; no sound or motion is heard, so no audio events can be associated with the images.",
+                  "relevance": null,
+                  "source": "unscored_summary"
+                }
+              ],
+              "people": [
+                {
+                  "id": "robby",
+                  "description": "Robby is a warm, playful and attentive conversational robot who helps the current user and follows their requests.",
+                  "relevance": 1
+                }
+              ],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 3 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 124.6,
+            "generation_ms": 1466.1,
+            "total_ms": 1590.7,
+            "output_tokens": 444,
+            "output_tokens_per_s": 302.85,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}
