@@ -1,5 +1,7 @@
 # Robby voice chat and TYGER speaker predictor
 
+**Experimental audio/video lab:** Record an opt-in short clip and inspect overlapping windows with pinned Liquid LFM3 Audio and LFM3 Vision models, timing and segment playback. It runs separately from the conversation. [Setup, privacy, measurements and limitations](LFM3_LAB.md).
+
 **Current conversation fix:** The streaming and tool directors no longer forcibly append a name question to a provisional voice track. A new track is not proof of a new person. The system prompts instruct Robby to use relevant remembered information, avoid asking what is already known, and avoid guessing an uncertain acoustic identity. Test with `python check_name_continuity.py` and `python run_unit_checks.py`.
 
 **Current auto-start update:** The microphone, camera and gaze following now start automatically when server readiness and browser permissions allow. Robby waits for “Hey Robby”, “Hi Robbie” and equivalent spellings. The same speaker's 10-second follow-up window is renewed after playback finishes. Face ID and camera-based speech gating remain off. Users can explicitly turn Robby or the camera off, and those choices persist. Persistent text memory is on by default, can be disabled or reset, and is not encrypted at rest. [Behavior and reproduction](WAKE_MODE.md) · [Memory and privacy](PERSISTENT_MEMORY.md).

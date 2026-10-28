@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Experimental LFM3 audio/video lab:** Robby includes an opt-in recorded-clip lab for overlapping audio and video descriptions, person labels and timing, separate from its live conversation. [Setup, privacy, model limitations and measurements](robby/LFM3_LAB.md).
+
 **Conversation continuity:** A provisional unknown voice no longer forces a name question. Both directors use relevant memory and dialogue and avoid assuming a new person solely from a voice-track change. [Reproducible conversation checks](robby/VOICE_ASSISTANT_TEST_PROTOCOL.md).
 
 **Latest Robby update (October 28):** Automatic microphone, camera and gaze start when browser permissions allow; say “Hey Robby” or “Hi Robbie”. Same-speaker follow-ups remain open for ten seconds after playback. Persistent text memory is enabled by default and can be disabled or reset; it is not encrypted at rest and the selected cloud provider receives conversation text. Face ID and biometric persistence remain separately opt-in. [Auto-start checks](https://projects.laion.ai/Humaneness-Voice/robby/auto-wake-report.html) · [Memory and privacy](robby/PERSISTENT_MEMORY.md) · [Browser memory check](https://projects.laion.ai/Humaneness-Voice/robby/knowledge-memory-browser.json). Earlier status updates below are historical.
