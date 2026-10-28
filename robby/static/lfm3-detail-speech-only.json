@@ -1,0 +1,56 @@
+{
+  "duration_s": 3.021,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 2319.7,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "foreground": "Huh, Hi Robbie",
+          "background": "None",
+          "speech": "Hi Robbie",
+          "music": "None",
+          "changes": "None",
+          "speech_detail": "The speaker says, \"Hi Robbie.\" The voice is low-pitched, breathy, and hesitant, with a slow, deliberate pace and soft volume. The delivery is gentle and uncertain, suggesting the speaker is trying to sound friendly but is nervous or hesitant.",
+          "music_detail": "There is no music in the audio."
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 9.3,
+        "generation_ms": 2264.2,
+        "total_ms": 2273.5,
+        "output_tokens": 112,
+        "output_tokens_per_s": 49.46,
+        "detail_passes": [
+          "speech",
+          "music"
+        ]
+      },
+      "video": {
+        "annotation": {
+          "foreground": "",
+          "background": "Solid blue color",
+          "actions": [],
+          "changes": [],
+          "people": []
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 11.0,
+        "generation_ms": 569.7,
+        "total_ms": 580.7,
+        "output_tokens": 27,
+        "output_tokens_per_s": 47.39,
+        "detail_passes": []
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}
