@@ -1,3 +1,9 @@
+## Audio empty-output fix (2026-10-28)
+
+The audio model sometimes returned `{"observations":[]}` after the long, strict JSON instruction even for a signal above the silence threshold. The level check only indicates non-quiet audio, not that the model heard a particular event. The audio specialist now gets a shorter question and returns an observation array; a single free-text description is also accepted without inventing a relevance rating. There is still exactly one audio model call per window. Quiet signals retain the existing silence guard. Context is bounded and marked as fallible, but can still bias descriptions; relevance is shown as unknown if the model does not provide a valid score.
+
+On authored three-second clips, the live service described electronic music (805 ms), speech with music (1,481 ms), and speech alone (842 ms), each with one audio model call. A separate memory-context fixture identified music but incorrectly called it jazz, matching the synthetic memory; these examples do not establish real-world reliability. Timings are from one warm run and include preprocessing, not upload. `test_lfm3_audio_output.py` checks the response parser and `lfm3_three_model_check.py` checks that the synthetic music yields an actual model description, not only a level warning.
+
 # Experimental LFM3 audio / video lab
 
 ## Current three-model configuration
