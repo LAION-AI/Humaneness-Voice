@@ -1,0 +1,232 @@
+{
+  "source_sha256": "3e0ddac59b9273e5ee74055e5672bc7805a1afc7f185daade49a97ddafadbfa9",
+  "fixtures": {
+    "music": {
+      "duration_s": 3.064,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 4182.9,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "bells",
+              "background": "none",
+              "speech": "none",
+              "music": "bells",
+              "changes": "no clear changes",
+              "music_detail": "The music is a short, upbeat electronic tune with a simple, catchy melody played on a synthesized instrument. It has a steady, bouncy rhythm and is in a major key, which gives it a cheerful and positive mood. The tempo is moderate, and the style is typical of modern, commercial background music."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 1130.6,
+            "generation_ms": 2629.5,
+            "total_ms": 3760.1,
+            "output_tokens": 111,
+            "output_tokens_per_s": 42.21,
+            "detail_passes": [
+              "music"
+            ]
+          },
+          "video": {
+            "annotation": {
+              "foreground": "A series of vertical color bars in red, green, yellow, blue, magenta, and cyan.",
+              "background": "The same vertical color bars continue behind the foreground elements.",
+              "actions": [
+                {
+                  "id": "1",
+                  "description": "Diagonal streaks of light move across the screen.",
+                  "action": "The streaks appear and disappear, shifting positions between frames."
+                },
+                {
+                  "id": "2",
+                  "description": "Small pixelated squares and rectangles appear and move around the center area.",
+                  "action": "These elements drift slightly, changing location and orientation."
+                }
+              ],
+              "changes": [
+                "The diagonal light streaks change position and intensity between frames.",
+                "The small pixelated shapes shift slightly in the central region."
+              ],
+              "people": []
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 95.1,
+            "generation_ms": 4004.3,
+            "total_ms": 4099.4,
+            "output_tokens": 181,
+            "output_tokens_per_s": 45.2,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "speech-music": {
+      "duration_s": 3.021,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 3316.7,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Huh",
+              "background": "None",
+              "speech": "Hi Robbie",
+              "music": "None",
+              "changes": "None",
+              "speech_detail": "The words \"Hi Robbie\" are intelligible. The speech is delivered in a calm, neutral tone with a moderate pace and clear volume. The speaker's delivery is friendly and informal, and there is no discernible emotional inflection.",
+              "music_detail": "The music is a soft, upbeat instrumental track featuring a synthesized piano or keyboard playing a simple, major-key melody. The rhythm is gentle and steady, with a slow tempo that creates a calm and pleasant atmosphere. There are no other instruments or sound sources, and the music is unobtrusive, supporting the spoken greeting."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 9.6,
+            "generation_ms": 3260.0,
+            "total_ms": 3269.6,
+            "output_tokens": 159,
+            "output_tokens_per_s": 48.77,
+            "detail_passes": [
+              "speech",
+              "music"
+            ]
+          },
+          "video": {
+            "annotation": {
+              "foreground": "",
+              "background": "Solid blue color",
+              "actions": [],
+              "changes": [],
+              "people": []
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 13.1,
+            "generation_ms": 567.8,
+            "total_ms": 580.9,
+            "output_tokens": 27,
+            "output_tokens_per_s": 47.55,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 6218.8,
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly individual wearing a dark military uniform with a peaked cap adorned with insignia, glasses, and ribbons on the chest.",
+              "background": "An American flag partially visible on the left side against a solid blue backdrop.",
+              "actions": [],
+              "changes": [],
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual with short hair, wearing a dark military uniform, a peaked cap with gold and silver emblems, eyeglasses with thin frames, and a black tie over a white shirt.",
+                  "action": "Sitting or standing still, facing forward with a neutral expression."
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 18.5,
+            "generation_ms": 3040.1,
+            "total_ms": 3058.7,
+            "output_tokens": 148,
+            "output_tokens_per_s": 48.68,
+            "detail_passes": []
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": ""
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 0.0,
+            "generation_ms": 0.0,
+            "total_ms": 0.0,
+            "output_tokens": 0,
+            "output_tokens_per_s": 0.0,
+            "silence_gate": true,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "An elderly individual wearing a dark military uniform with a peaked cap adorned with insignia, glasses, and ribbons on the chest.",
+              "background": "An American flag partially visible on the left side against a solid blue backdrop.",
+              "actions": [],
+              "changes": [],
+              "people": [
+                {
+                  "id": "person_1",
+                  "description": "Elderly individual with short hair, wearing a dark military uniform, a peaked cap with gold and silver emblems, eyeglasses with thin frames, and a black tie over a white shirt.",
+                  "action": "Sitting or standing still, facing forward with a neutral expression."
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "preprocess_ms": 13.6,
+            "generation_ms": 3007.4,
+            "total_ms": 3021.0,
+            "output_tokens": 148,
+            "output_tokens_per_s": 49.21,
+            "detail_passes": []
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}
