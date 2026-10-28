@@ -3,8 +3,8 @@ export class LLMControls{
  constructor(client){
   this.client=client;this.model=document.getElementById('llm-model');this.provider=document.getElementById('llm-provider');this.status=document.getElementById('llm-status');
   this.desired={model:'local',provider:'local'};this.current=null;this.connected=false;this.hasSaved=false;
-  try{const saved=JSON.parse(localStorage.getItem('robby.llmSelection'));if(saved&&['qwen','local'].includes(saved.model)){this.desired=saved;this.hasSaved=true;}}catch{}
-  this.model.onchange=()=>{this.desired={model:this.model.value,provider:this.model.value==='local'?'local':'cerebras/fp16'};this.render();this.apply();};
+  try{const saved=JSON.parse(localStorage.getItem('robby.llmSelection'));if(saved&&['qwen','local','gemma12'].includes(saved.model)){this.desired=saved;this.hasSaved=true;}}catch{}
+  this.model.onchange=()=>{this.desired={model:this.model.value,provider:this.model.value==='qwen'?'cerebras/fp16':'local'};this.render();this.apply();};
   this.provider.onchange=()=>{this.desired.provider=this.provider.value;this.apply();};
   document.getElementById('llm-key-use').onclick=async()=>{
    const input=document.getElementById('llm-personal-key'),value=input.value.trim();input.value='';
@@ -27,8 +27,8 @@ export class LLMControls{
  }
  render(){
   this.model.value=this.desired.model;
-  const rows=this.desired.model==='local'?[{id:'local',label:'Local GPU'}]:this.catalog?.providers||[{id:'cerebras/fp16',label:'Cerebras · FP16'}];
-  this.provider.replaceChildren(...rows.map(p=>new Option(p.label,p.id)));this.provider.value=this.desired.provider;this.provider.disabled=this.desired.model==='local';
+  const rows=this.desired.model!=='qwen'?[{id:'local',label:'Local GPU'}]:this.catalog?.providers||[{id:'cerebras/fp16',label:'Cerebras · FP16'}];
+  this.provider.replaceChildren(...rows.map(p=>new Option(p.label,p.id)));this.provider.value=this.desired.provider;this.provider.disabled=this.desired.model!=='qwen';
  }
  async apply(){
   this.hasSaved=true;
@@ -44,8 +44,9 @@ export class LLMControls{
   }
   if(m.type==='llm_settings'){
    this.current={model:m.model,provider:m.provider};
-   this.status.textContent=(m.model==='local'?'Local Nemotron on this GPU':`Qwen 3.8 27B · ${m.provider}`)+' · '+(m.model==='local'?'no API key needed':m.key_mode==='personal_session'?'personal key for this connection':m.key_available?'hidden server key':'API key missing')+'. Changes apply to the next response.';
-   document.querySelector('.privacy').textContent=m.model==='local'?'Camera tracking stays in this browser. Speech recognition, voice matching, local LLM and TTS run on this server. No microphone recordings are saved.':'Camera tracking stays in this browser. Audio is processed on this server; conversation text is sent to OpenRouter and the selected provider. The server API key stays hidden.';
+   const local=m.model!=='qwen';
+   this.status.textContent=(local?(m.model==='gemma12'?'Gemma 4 12B Q4 on this GPU':'Local Nemotron on this GPU'):`Qwen 3.8 27B · ${m.provider}`)+' · '+(local?'no API key needed':m.key_mode==='personal_session'?'personal key for this connection':m.key_available?'hidden server key':'API key missing')+'. Changes apply to the next response.';
+   document.querySelector('.privacy').textContent=local?'Camera tracking stays in this browser. Speech recognition, voice matching, local LLM and TTS run on this server. No microphone recordings are saved.':'Camera tracking stays in this browser. Audio is processed on this server; conversation text is sent to OpenRouter and the selected provider. The server API key stays hidden.';
   }
  }
 }

@@ -8,7 +8,9 @@ export function organisePlayground(){
  const input=document.querySelector('.input-health');const health=document.createElement('details');health.className='input-details settings';const title=document.createElement('summary');title.textContent='Microphone & speech recognition';health.append(title,input);aside.append(health);
  // Keep the conversation first. Existing controls/listeners are moved intact.
  const section=(id,label,nodes)=>{const d=document.createElement('details');d.id=id;d.className='settings option-menu';const s=document.createElement('summary');s.textContent=label;d.append(s,...nodes.filter(Boolean));aside.append(d);return d;};
- section('model-settings','Models & quick replies',[$('llm-model-controls'),$('asr-model-controls'),$('quick-reply-controls')]);
+ // Keep the language-model switch visible near the top of the page.
+ document.querySelector('.stage h1').insertAdjacentElement('afterend',$('llm-model-controls'));
+ section('model-settings','Speech recognition & quick replies',[$('asr-model-controls'),$('quick-reply-controls')]);
  section('camera-settings','Camera & eye contact',[$('camera'),document.querySelector('.follow-controls'),$('follow-status')]);
  const conversation=$('conversation-options');conversation.classList.add('settings','option-menu');
  const proactive=document.querySelector('.quick-interrupt-switch');if(proactive)conversation.append(proactive);

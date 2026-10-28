@@ -33,8 +33,8 @@
       "bytes": 8222
     },
     "README.md": {
-      "sha256": "a1581ba388be55f3ff9316be09cc7eeaa0a6571aae757a644227b91cb4531d76",
-      "bytes": 179327
+      "sha256": "e317a039cae48f5fd8574bdbf2c659f13da8c8c6accafbf97b63ea4cf09912b5",
+      "bytes": 181529
     },
     "RESTORE_BEFORE_PROACTIVE.md": {
       "sha256": "cce1cc637c17540da5b5847f79158a75f013a6fde6bbf67c34677aa334b29507",
@@ -143,6 +143,10 @@
     "benchmark_bolt_speakers.py": {
       "sha256": "8bf50813fb245bb61f10641c6524d2a02d78c7bb81184638fe4d251e971d5b59",
       "bytes": 3739
+    },
+    "benchmark_gemma12_comparison.py": {
+      "sha256": "6a05252a125d2c5e421a2666a4691b97a3d659cb7414c21852d4cad3398eda65",
+      "bytes": 2263
     },
     "benchmark_knowledge_memory.py": {
       "sha256": "ed4e1ff3af33bbaaf5a5746aba27cc88078046b07d301badca8654df1055183d",
@@ -311,6 +315,10 @@
     "browser_gaze_checks.py": {
       "sha256": "9340d9dbcc1bbb590fedebdc988c5bd211edb7ac9de157640b7d6e8110819769",
       "bytes": 13078
+    },
+    "browser_gemma12_check.py": {
+      "sha256": "8944e68208406130417958f0cdcf6108f3d1457da4bb282796b04c69883c262c",
+      "bytes": 2205
     },
     "browser_knowledge_checks.py": {
       "sha256": "70a9e8c986c6a84be5fa14c54efcf32a8b82233f5b73ab778ba9677ceb414a56",
@@ -641,8 +649,8 @@
       "bytes": 1479
     },
     "export_source.py": {
-      "sha256": "9d59c2a0b32555d7efa13d26517be1a68a820885a800cdbc0e5d2179edd4c27e",
-      "bytes": 7197
+      "sha256": "1261881f3760968d2794f830c008716d62588e6f8a045ff01bb6d2820bf62beb",
+      "bytes": 7209
     },
     "expression_checks.py": {
       "sha256": "3e5408a367212f56ce798c44b203bf8d9c2293644b10bd41eafcedd69be7dfb5",
@@ -785,8 +793,8 @@
       "bytes": 4590
     },
     "llm_backends.py": {
-      "sha256": "7c8f4ecd661f2ac4dc05e63871f30bf20a90487375bad57184f3f00c8c3f9219",
-      "bytes": 5017
+      "sha256": "0ef485fcc526159a89d5bf8f457bbbafe9e23af5a3d5777458c9574ec52ad078",
+      "bytes": 5600
     },
     "llm_session.py": {
       "sha256": "90577cacb3004d4da83f4488280830bd9c130b828406ac306a5eea289c40b00b",
@@ -1728,13 +1736,21 @@
       "sha256": "a00b25a33cd0a94d4f73c870cecb63a1ef3bc8cf1902264567a91e32555a3755",
       "bytes": 5424
     },
+    "static/gemma12-latency.html": {
+      "sha256": "4e369742dccec105ab851a547f9b613478dbcdcd7e4232e22567eddc7f85cdfd",
+      "bytes": 4661
+    },
+    "static/gemma12-latency.json": {
+      "sha256": "36433239a3aa442d38e38356c0146a9d92b0de921dc929a2129100c7e8107d65",
+      "bytes": 13290
+    },
     "static/gpu-unlock-4b.html": {
       "sha256": "8b621a3e12290fc1030e9c33481310cbd45ff2e5abe86438ca7b5d37945f4d48",
       "bytes": 8775
     },
     "static/index.html": {
-      "sha256": "f9e063d0ece890d0fbc742fe2da73aa7695df77f17f9b2e3eb401376d66d6c35",
-      "bytes": 13441
+      "sha256": "fb93edaf0cf4c314d48e9ec6b93152c4bcc6b2f5bb4601d087e973a2a66a3d29",
+      "bytes": 13616
     },
     "static/internal-note-model.json": {
       "sha256": "72f8c588ca2d6875f2099d3fd3449cd2ecc82f3c7d4800b74c46826153a95fdc",
@@ -1965,8 +1981,8 @@
       "bytes": 11623
     },
     "static/llm-controls.js": {
-      "sha256": "d54c19147f93ef469749ef8321e21d3e36a9ac25843553ed7de7bd6604368db4",
-      "bytes": 4136
+      "sha256": "0c20a515b70cf814532ac07c69997862d70521c092c62aebafa0bf087fd8fb7d",
+      "bytes": 4191
     },
     "static/long-replies-browser.json": {
       "sha256": "eba45c8d9f43fa077cd70dddb58a8f1a77a1aceb0e9b75de2a978b3bb3ed440c",
@@ -2021,8 +2037,8 @@
       "bytes": 7921
     },
     "static/playground-layout.js": {
-      "sha256": "179c5ee0148ff95b21bc9a34819d8d2f12aeb48bcee51ab1e25e5f9cd6af2b39",
-      "bytes": 2829
+      "sha256": "0abec7ab1b706bc950b2ba62c0b8e0c1991868da1abf6b30edea754d3e715fac",
+      "bytes": 2982
     },
     "static/quick-quality-audio.json": {
       "sha256": "fb4a1dec2cd12fbf35dc144cc04b4048ce912f4592be410789a8f15ea8ca1034",
@@ -2657,8 +2673,8 @@
       "bytes": 21388
     },
     "test_llm_backends.py": {
-      "sha256": "071f45444772d38a6a5d6b35ba3f77e7b5a596dda92a995579872bd04cae39c2",
-      "bytes": 6045
+      "sha256": "74a64f95a1ea9e8036397a9a260b41ddb837fb677018523d8f5ea29980cf41eb",
+      "bytes": 6754
     },
     "test_open_speakers.py": {
       "sha256": "01fd43107de335f4050d66748761671f2dd9a723287fc79f9fd36fb6c0ac5293",
