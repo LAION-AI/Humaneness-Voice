@@ -13,6 +13,7 @@ async def main(url):
   try:
    response=await page.goto(url.rstrip('/')+'/desk-robot/');assert response.status==200
    await page.wait_for_selector('#lfm-open',state='attached',timeout=45000);await page.locator('#lfm-open').evaluate('e=>e.closest("details").open=true');await page.click('#lfm-open')
+   assert await page.locator('#lfm-context').is_checked()
    assert await page.locator('#lfm-win').input_value()=='3';assert await page.locator('#lfm-stride').input_value()=='1'
    await page.locator('#lfm-win').evaluate("e=>{e.value='2.5';e.dispatchEvent(new Event('input'))}")
    await page.locator('#lfm-stride').evaluate("e=>{e.value='0.5';e.dispatchEvent(new Event('input'))}")
@@ -21,7 +22,9 @@ async def main(url):
    await page.click('#lfm-analyze');await page.wait_for_function('document.querySelector("#lfm-status").textContent.includes("windows analyzed")||document.querySelector("#lfm-status").textContent.includes("Analysis failed")',timeout=180000)
    status=await page.locator('#lfm-status').inner_text();report['status']=status;assert 'windows analyzed' in status,status
    report['windows']=await page.locator('.lfm-card').count();assert report['windows']>=6
-   report['ui_fields']=await page.locator('.lfm-card').first.inner_text();assert 'Audio' in report['ui_fields'] and 'Video' in report['ui_fields'] and 'tokens/s' in report['ui_fields']
+   report['ui_fields']=await page.locator('.lfm-card').first.inner_text();assert 'Audio' in report['ui_fields'] and 'Video' in report['ui_fields'] and 'Omni' in report['ui_fields'] and 'tokens/s' in report['ui_fields']
+   assert '5 fps sampled' in report['ui_fields'] and 'model calls 1' in report['ui_fields']
+   assert 'Omni analysis unavailable' not in report['ui_fields'],report['ui_fields']
    await page.locator('.lfm-card video').first.evaluate('(v)=>v.play()');await page.wait_for_function('document.querySelectorAll(".lfm-card video")[0].currentTime>0',timeout=10000);report['playback_time']=await page.locator('.lfm-card video').first.evaluate('v=>v.currentTime')
    await page.locator('.lfm-card video').nth(1).evaluate('(v)=>v.play()');await page.wait_for_function('document.querySelectorAll(".lfm-card video")[1].currentTime>=0.5',timeout=10000);report['second_window_playback_time']=await page.locator('.lfm-card video').nth(1).evaluate('v=>v.currentTime');assert report['second_window_playback_time']<3
    await page.locator('#lfm-close').click();assert not await page.locator('.lfm-dialog').evaluate('d=>d.open');report['passed']=not errors
