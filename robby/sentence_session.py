@@ -17,6 +17,12 @@ def name_claim(text):
     candidate=claimed_name(cleaned) or self_name(cleaned)
     return candidate if candidate and candidate.casefold() not in NOT_NAMES else None
 
+def bare_address(text):
+    # Streaming ASR may first emit the robot's name by itself, including a
+    # common phonetic misrecognition, before the actual question follows.
+    words=re.findall(r'[^\W_]+',text.casefold(),re.UNICODE)
+    return len(words)==1 and words[0] in {'robby','robbie','robi','roby','rabi','rabbi','hoppy','hobby'}
+
 def unit(v):
     v=np.asarray(v,np.float32).reshape(-1);return v/max(1e-8,float(np.linalg.norm(v)))
 
@@ -113,13 +119,15 @@ class OpenVoiceMemory:
 class SentenceSession:
     def __init__(self,conversation):
         self.c=conversation;self.memory=OpenVoiceMemory();self.records=deque(maxlen=1000)
+        from wake_mode import WakeMode
+        self.wake=WakeMode()
         self.preview='';self.preview_at=-100.;self.segment_floor=0.
         self.now=0.;self.begin=None;self.last_speech=-100.;self.reset_at=-100.;self.fresh_asr_at=-100.;self.probe_text='';self.probe_at=-100.
         self.queue=asyncio.Queue(maxsize=12);self.tasks=set();self.worker=None;self.probe=None
         self.last_probe=-100.;self.closed=False;self.epoch=0;self.last_context=None
         self.embedding_task=None;self.prefetched=None;self.last_embedding=-100.;self.sentence_begin=None;self.pause_checked=False
-        self.pause_ms=700
-        self.set_pause(float(os.environ.get('ROBO_SPEECH_PAUSE_MS','700')))
+        self.pause_ms=300
+        self.set_pause(float(os.environ.get('ROBO_SPEECH_PAUSE_MS','300')))
         self.vad=None;self.mic_driven=False;self.mic_now=0.;self.native_parts=[];self.native_preview=''
         self.last_activity_notice=-100.;self.last_probe_error=-100.
         from conversation_focus import ConversationFocus
@@ -149,7 +157,7 @@ class SentenceSession:
         self.pause_ms=round(value)
     def settings(self):
         return {'type':'asr_settings','background_speech_filter':self.addressed.enabled,'voice_captions_enabled':self.captions_enabled,**self.asr.settings(),'speech_pause_ms':self.pause_ms,'min_ms':200,'max_ms':2000,
-                'conversation_focus':self.focus.state(self.memory.users,self.c.speaking),
+                'conversation_focus':self.focus.state(self.memory.users,self.c.speaking),'wake_mode':self.wake.state(),
                 'vad':'Silero ONNX CPU · neural speech activity','submission':'All pending sentences after a speech pause'}
     def start(self):self.worker=asyncio.create_task(self.deliver())
     async def close(self):
@@ -219,7 +227,8 @@ class SentenceSession:
         if self.foreground_now or (self.foreground_last>=self.segment_floor and self.mic_now-self.foreground_last<self.pause_ms/1000):word_pause=False
         # Do not build the initial voice reference from an isolated wake word
         # while the person is about to say their name or first full sentence.
-        if self.focus.owner is None and 0<len(self.preview.split())<4:
+        wake_only=(self.wake.enabled and self.wake.is_wake(self.preview) and len(self.preview.split())<=2) or bare_address(self.preview)
+        if (wake_only or (self.focus.owner is None and 0<len(self.preview.split())<4 and not (self.wake.enabled and self.wake.is_wake(self.preview)))):
             quiet_for=self.mic_now-max(self.last_speech,self.word_at)
             if quiet_for<1.2:return False
         return neural or foreground_pause or word_pause
@@ -266,6 +275,7 @@ class SentenceSession:
 
     def clear_identity(self):
         self.invite_speaker();self.memory.clear();self.fast_anchors.clear();self.fast_records.clear();self.records.clear()
+        self.wake.clear()
         self.focus.members.clear();self.focus.primary=None
         from speaker_management import SpeakerPermissions
         self.permissions=SpeakerPermissions(self)
@@ -300,7 +310,7 @@ class SentenceSession:
         if decisions:
             hop=round(at*self.c.ears.sr)
             if self.c.speaking:decisions.offer_agent([text],hop)
-            else:decisions.offer(self.preview,hop)
+            elif not self.wake.enabled or (self.wake.active() and (self.fast_match(at,self.wake.owner) or -1)>=.45):decisions.offer(self.preview,hop)
         from stop_commands import is_stop_command
         if self.c.speaking and is_stop_command(text):
             rid=getattr(getattr(self.c,'playback',None),'rid',None)
@@ -426,6 +436,8 @@ class SentenceSession:
             if evidence['frames']>=3 and evidence['consistency']<.60 and not decision.get('foreground_literal_control'):decision.update(accepted=False,reason='Unstable recent speaker identity; background cannot cancel the reply')
             if not event.get('stop_text') and (decision.get('similarity',-1.)<max(.55,self.focus.threshold) or (fast is not None and fast<.45)):
                 decision.update(accepted=False,reason='Background conversation is not an addressed interruption')
+        if self.wake.enabled and (decision.get('speaker_id')!=self.wake.owner or decision.get('similarity',-1.)<self.memory.threshold or decision.get('similarity',-1.)<decision.get('rival_similarity',-1.)+.06):
+            decision.update(accepted=False,reason='Only the wake-window speaker can interrupt this reply')
         return decision
 
     def fast_vector(self,start,end):
@@ -470,7 +482,12 @@ class SentenceSession:
                 self.bot_voice=(rid,bot)
             decision=self.focus.check(embedding,self.memory.users,True,bot)
             level=voice_level(audio)
-            if not self.focus.enabled:
+            if self.wake.enabled:
+                decision=self.wake.match(embedding,self.memory.users,self.memory.threshold,require_active=False)
+                echo=float(embedding@bot) if bot is not None else -1.
+                decision['bot_similarity']=round(echo,4)
+                if echo>=.4 and decision.get('similarity',-1.)<echo+.06:decision.update(accepted=False,reason='Possible playback echo')
+            elif not self.focus.enabled:
                 # Open enrollment is not permission for silence or loudspeaker
                 # echo to stop playback. Any real foreground speaker can say
                 # Stop; free-form barge-in still needs a known voice match.
@@ -603,7 +620,7 @@ class SentenceSession:
                         if decisions:
                             hop=round(at*self.c.ears.sr)
                             if self.c.speaking:decisions.offer_agent([result[0]],hop)
-                            else:decisions.offer(complete,hop)
+                            elif not self.wake.enabled or (self.wake.active() and (self.fast_match(at,self.wake.owner) or -1)>=.45):decisions.offer(complete,hop)
                         from stop_commands import is_stop_command
                         if self.c.speaking and is_stop_command(result[0]):
                             await self.preview_text(result[0],at,source='probe');return
@@ -638,7 +655,8 @@ class SentenceSession:
             or not self.quiet_ready()):return False
         text=' '.join(text.split())
         if not text or self.begin is None:return False
-        if self.focus.owner is None and len(text.split())<4 and self.mic_now-max(self.last_speech,self.word_at)<1.2:
+        wake_only=(self.wake.enabled and self.wake.is_wake(text) and len(text.split())<=2) or bare_address(text)
+        if (wake_only or (self.focus.owner is None and len(text.split())<4 and not (self.wake.enabled and self.wake.is_wake(text)))) and self.mic_now-max(self.last_speech,self.word_at)<1.2:
             if not self.preview:self.preview=text;self.note_words(text,at)
             return False
         decisions=getattr(self.c,'decisions',None)
@@ -682,11 +700,49 @@ class SentenceSession:
                 if admission!=self.admission_epoch:continue
                 lookup_start=time.perf_counter()
                 from speaker_turns import wake_intent
+                # Admission is based on when speech began, not when an ASR or
+                # GPU queue eventually completed. Late processing cannot steal
+                # a follow-up that began within the ten-second window.
+                started=queued_at-len(audio)/16000 if queued_at>0 else None
+                reply_owner=(self.c.current_speaker or {}).get('speaker_id') if self.c.speaking else None
+                wake_decision=self.wake.evaluate(text,embedding,self.memory.users,self.memory.threshold,at=started,reply_active=bool(reply_owner and reply_owner==self.wake.owner))
+                fast=item[6] if len(item)>6 else None
+                if (self.wake.enabled and not wake_decision['accepted'] and embedding is not None and len(audio)>=40000
+                    and (self.wake.active(started) or reply_owner==self.wake.owner and reply_owner is not None)):
+                    # A loud sound before speech can dominate the original
+                    # energy-selected ECAPA window. Recheck bounded tail
+                    # windows; do not train prototypes from this rescue.
+                    try:
+                        from speaker_teacher import get_cached_teacher
+                        teacher=get_cached_teacher()
+                        for seconds in (3.04,2.4,1.6):
+                            if len(audio)<round(seconds*16000):continue
+                            tail=audio[-round(seconds*16000):]
+                            candidate=await asyncio.to_thread(teacher.embed,tail)
+                            retry=self.wake.match(candidate,self.memory.users,self.memory.threshold,at=started,
+                                require_active=not bool(reply_owner and reply_owner==self.wake.owner))
+                            if retry['accepted']:
+                                embedding=candidate;wake_decision={**retry,'wake':False,'provisional':True,'reason':'Speaker matched on a cleaner tail window'};break
+                    except Exception:pass
+                if (self.wake.enabled and not wake_decision['accepted'] and fast is not None
+                    and (self.wake.active(started) or reply_owner==self.wake.owner and reply_owner is not None)):
+                    # Only rescue a modest ECAPA dip when the independent fast
+                    # speaker predictor strongly agrees with the wake owner.
+                    # Neither this cue nor a demographic guess is a voice ID.
+                    own=wake_decision.get('similarity',-1.);rival=wake_decision.get('rival_similarity',-1.)
+                    refs=self.fast_anchors.get(self.wake.owner,[]);center=self.fast_center if self.fast_center is not None else 0.
+                    score=max((float(unit(fast-center)@unit(v-center)) for v in refs),default=-1.)
+                    if own>=.25 and own>=rival+.10 and score>=.85:
+                        wake_decision={**wake_decision,'accepted':True,'speaker_id':self.wake.owner,'wake':False,
+                            'provisional':True,'fast_similarity':round(score,4),'reason':'Same speaker supported by an independent fast voice cue'}
+                if admission!=self.admission_epoch:continue
+                if not wake_decision['accepted']:
+                    await self.c.ws.send_json({'type':'ignored','source':'wake_mode',**wake_decision})
+                    continue
                 owner=self.focus.active(self.memory.users,self.c.speaking)
                 claim=name_claim(text)
                 correction=claim and owner and self.memory.users[owner]['name'].casefold()==claim.casefold()
                 handover=not self.c.speaking and bool(wake_intent(text))
-                fast=item[6] if len(item)>6 else None
                 from speaker_teacher import enrollment_reference
                 # Identity and its level gate must describe the same audible
                 # context. Long TV pre-roll otherwise dilutes the 80th-percentile
@@ -694,12 +750,14 @@ class SentenceSession:
                 level=voice_level(enrollment_reference(audio))
                 detector=getattr(getattr(self.c,'environment',None),'detector',None)
                 addressed=self.addressed.evaluate(text,embedding,self.memory.users,level,getattr(detector,'floor',None))
-                if not addressed['accepted']:
+                if not addressed['accepted'] and not (self.wake.enabled and wake_decision['accepted']):
                     await self.c.ws.send_json({'type':'speaker_focus','operation':'turn',**addressed})
                     await self.c.ws.send_json({'type':'ignored',**addressed})
                     if getattr(self.c,'environment',None):self.c.environment.notice_background(audio,addressed,level)
                     continue
                 decision=self.turn_decision(embedding,fast,level)
+                if self.wake.enabled:
+                    decision={**wake_decision,'accepted':True,'speaker_id':None if wake_decision['wake'] else self.wake.owner}
                 guest=None
                 if self.permissions.candidate(embedding,fast,level,text):
                     guest=self.permissions.enroll(embedding,text,fast,level)
@@ -733,6 +791,9 @@ class SentenceSession:
                     rival=max((float(embedding@v) for key,u in self.memory.users.items() if key!=target for v in u['vectors']),default=-1.)
                     if own>=.18 and rival<max(.45,own+.15):preferred=target
                 context=guest or self.memory.assign(embedding,text,preferred=preferred,adapt=bool(preferred and safe_update and decision.get('fast_similarity',1.)>=.35),force_new=bool(foreground_reclaim))
+                if self.wake.enabled:
+                    self.wake.accept(context['speaker_id'],embedding,at=queued_at if queued_at>0 else None)
+                    await self.c.ws.send_json(self.settings())
                 if visual and track:
                     await self.c.ws.send_json({'type':'visual_active','track_id':track,'confidence':view.get('confidence',0)})
                     if context.get('named') and visual.settings['faceIdEnabled']:

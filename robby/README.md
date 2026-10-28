@@ -1,5 +1,7 @@
 # Robby voice chat and TYGER speaker predictor
 
+**Current wake-mode update:** “Hey Robby” is required by default, followed by a 10-second window for the same voice. Speech-pause default: 300 ms. Automatic environmental reactions are off by default and can be enabled beside the avatar; explicit questions about recent/following sounds still work. [Wake mode, limits and reproducible tests](WAKE_MODE.md). Older defaults described below are historical.
+
 **Current identity update:** explicit user/robot role grounding; direct registered-name lookup; open-speaker threshold **0.32** with cautious temporal continuity; multiple acoustic prototypes; and **default-on uncertain vocal age/gender/timbre impressions**. A lower profile panel provides separate, consented, default-off browser persistence. Repeated audible background voices can invite a tentative question without taking over the conversation. Camera/Face ID remain opt-in, with the missing sentence-pipeline connection repaired. [Implementation and reproducible checks](SOCIAL_IDENTITY.md) · [English results](static/social-identity-report.html).
 
 

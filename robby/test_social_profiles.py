@@ -58,6 +58,7 @@ class SocialProfiles(unittest.TestCase):
   self.assertIn('Stimmt das?',identity_answer('Wie heiße ich?',{**person,'identity_uncertain':True}))
   self.assertIsNone(identity_answer('Was weißt du über meine Freundin?',person))
   self.assertIsNone(identity_answer('Wer bin ich?',{'named':False}))
+  self.assertEqual(identity_answer('Wer bin ich?',{'named':False,'enrolled':True}),'Ich bin mir nicht sicher. Wie heißt du?')
 
 class Curiosity(unittest.IsolatedAsyncioTestCase):
  async def test_background_greeting_is_not_spoken_and_one_repair_can_recover(self):

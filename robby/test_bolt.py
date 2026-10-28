@@ -221,7 +221,7 @@ class BoltAsyncTests(unittest.IsolatedAsyncioTestCase):
     async def test_ready_embedding_is_reused_instead_of_recomputed_on_submit(self):
         c=SimpleNamespace(ws=SimpleNamespace(send_json=AsyncMock()),speaking=False,halting=False,
             _send_turn=AsyncMock(),current_speaker=None)
-        s=SentenceSession(c);ready=asyncio.create_task(asyncio.sleep(0));await ready
+        s=SentenceSession(c);s.wake.configure(False);ready=asyncio.create_task(asyncio.sleep(0));await ready
         cached={'task':ready,'embedding':np.eye(192,dtype=np.float32)[0],'compute_ms':40.}
         await s.queue.put(('Wie geht es dir?',np.ones(32000,np.float32)*.01,2.,0.,cached))
         with patch('speaker_teacher.get_cached_teacher',side_effect=AssertionError('Must use prefetch')):
