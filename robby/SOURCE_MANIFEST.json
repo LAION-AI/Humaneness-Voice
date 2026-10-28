@@ -8,6 +8,10 @@
       "sha256": "9be0e779893fd35ed082587b44672b75f407bc7d461b666483a556566e6297d1",
       "bytes": 12569
     },
+    "LFM3_LAB.md": {
+      "sha256": "50031ebd3e8abdd38fa05eb307d9452f8b0aeb143be95c13b5377ba9dbf8e728",
+      "bytes": 6262
+    },
     "LICENSE": {
       "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
       "bytes": 11358
@@ -29,8 +33,8 @@
       "bytes": 8222
     },
     "README.md": {
-      "sha256": "54e07c5835aa74625a437cbb6d5b9f2f5998fd057a4dd5afb57692e31047fb1a",
-      "bytes": 179046
+      "sha256": "a1581ba388be55f3ff9316be09cc7eeaa0a6571aae757a644227b91cb4531d76",
+      "bytes": 179327
     },
     "RESTORE_BEFORE_PROACTIVE.md": {
       "sha256": "cce1cc637c17540da5b5847f79158a75f013a6fde6bbf67c34677aa334b29507",
@@ -311,6 +315,10 @@
     "browser_knowledge_checks.py": {
       "sha256": "70a9e8c986c6a84be5fa14c54efcf32a8b82233f5b73ab778ba9677ceb414a56",
       "bytes": 3233
+    },
+    "browser_lfm3_lab_check.py": {
+      "sha256": "fe3b5634b3b786413f76f345dedbdb64b03cd3af0c28f42b5965179f04734d29",
+      "bytes": 4264
     },
     "browser_lifecycle_checks.py": {
       "sha256": "470aba23576a65a059bbe855cb405fef2aadbfb2e15ef8c55a8fed0dd1926c28",
@@ -633,8 +641,8 @@
       "bytes": 1479
     },
     "export_source.py": {
-      "sha256": "127e1acd25f8e177814c8dc58f40e20df29fd8e48ea5b12c533b500fbb7a474b",
-      "bytes": 7174
+      "sha256": "9d59c2a0b32555d7efa13d26517be1a68a820885a800cdbc0e5d2179edd4c27e",
+      "bytes": 7197
     },
     "expression_checks.py": {
       "sha256": "3e5408a367212f56ce798c44b203bf8d9c2293644b10bd41eafcedd69be7dfb5",
@@ -739,6 +747,14 @@
     "laya_rule_probe.py": {
       "sha256": "7d835bb36b03c6fb3e1c03ab6ac89f38cea4fa307cba9fd698cef4bd22321de4",
       "bytes": 1540
+    },
+    "lfm3_service.py": {
+      "sha256": "5b8b3163b54fe168074a68faf4c9215827f78cd1ffcbd6531f3c0fe45c894fd0",
+      "bytes": 7688
+    },
+    "lfm3_worker.py": {
+      "sha256": "622ce945469a72a2cea57bf46d8a506733064ece6e85b9c15a4ffc145c68eb3a",
+      "bytes": 4390
     },
     "live_decisions.py": {
       "sha256": "42e4bed1924c1b712f86ce5ff86537fb59b9ad783418b8694349094a427cde46",
@@ -905,8 +921,8 @@
       "bytes": 62406
     },
     "server.py": {
-      "sha256": "d36be97f4c2480d3cedab8517769f7ff2bca1b16d825ed8a177a1bf7e75d0bc2",
-      "bytes": 63678
+      "sha256": "bdaf2f6f5652edea9186de35543876b0204019df0f8043c873f7bdd1deab8677",
+      "bytes": 65000
     },
     "shared_cancel_check.py": {
       "sha256": "4f428516a72283657363c741d1359e8d098083646c67e07b9b7806f6145d606f",
@@ -1352,6 +1368,10 @@
       "sha256": "3bc0f0ccec5dff53cf85f350a9dc9fedd2e88f3c2e3a29246df5b0e63d62c80a",
       "bytes": 1189
     },
+    "static/auto-wake-browser-20261028T103826Z.json": {
+      "sha256": "f908c49c8920a77f0866739d973490874fd6ac2567ce193b95c1e2715fb7294d",
+      "bytes": 1188
+    },
     "static/auto-wake-fixture.json": {
       "sha256": "a0bc0633a1cb627e6ba125042be342abeaba7c6bf58576f31cfa754de3b671d4",
       "bytes": 603
@@ -1681,8 +1701,8 @@
       "bytes": 8775
     },
     "static/index.html": {
-      "sha256": "249dc294bcd662e7977db5c82488565fa9fab7e6444eab89d2cd77626e8245e5",
-      "bytes": 13384
+      "sha256": "f9e063d0ece890d0fbc742fe2da73aa7695df77f17f9b2e3eb401376d66d6c35",
+      "bytes": 13441
     },
     "static/internal-note-model.json": {
       "sha256": "72f8c588ca2d6875f2099d3fd3449cd2ecc82f3c7d4800b74c46826153a95fdc",
@@ -1715,6 +1735,46 @@
     "static/knowledge-memory-unit.json": {
       "sha256": "25e6d67e8ef2a3ea9c9d8308c9760941f672dd8606a214927f7e66dad1234ab7",
       "bytes": 1379
+    },
+    "static/lfm3-browser-20261028T103302Z.json": {
+      "sha256": "bb88dc5083cf95bee0de0db6ba544b194e961141dfe148798b14c57830f57392",
+      "bytes": 350
+    },
+    "static/lfm3-browser-20261028T103355Z.json": {
+      "sha256": "3600b8c090f4197d6b7083c102693e08f348a84db283e1b12d51dbfade484fca",
+      "bytes": 1217
+    },
+    "static/lfm3-browser-20261028T103451Z.json": {
+      "sha256": "9ef92a2f93b9ee9066b7ebf82e7906f10b4106eab88996f8b14d3d4503552204",
+      "bytes": 1241
+    },
+    "static/lfm3-browser-20261028T103739Z.json": {
+      "sha256": "95c9020acb08715e4092470cd6988ba840633c38b73108de1b36f2254cb4ff5e",
+      "bytes": 1146
+    },
+    "static/lfm3-browser-20261028T103823Z.json": {
+      "sha256": "21c53a91e91a6453b85ec2acdbc17318ceb8afc12279e42fa1ece9b970d36a63",
+      "bytes": 1161
+    },
+    "static/lfm3-lab.js": {
+      "sha256": "7a5884ef72ed43b055586a28d4f68a0a76c3be1d0819c168977c73642a30c8d7",
+      "bytes": 8221
+    },
+    "static/lfm3-music-prompt-test.json": {
+      "sha256": "e08c2dae48bb6b91f81a22c7621b3324263fdd04db4064e5eea243af105369d4",
+      "bytes": 1521
+    },
+    "static/lfm3-music-test.json": {
+      "sha256": "4730c30b3649d1888eb3513c9de63bfc217abca82643e392c992a5d5465bb4fc",
+      "bytes": 1458
+    },
+    "static/lfm3-portrait-test.json": {
+      "sha256": "cee2483e2b53d6444f1a241976411a4463d40da05b165f474906e76f2d363661",
+      "bytes": 2924
+    },
+    "static/lfm3-speech-music-test.json": {
+      "sha256": "19747624aa3fc7fda8492aabb67de8b70950608963427b00d26bb4797e402d4c",
+      "bytes": 1218
     },
     "static/live-follow-update.html": {
       "sha256": "37d3b3ee0bbf9aabba041505a69a93c60d0d23134c61a94a3415946660e58ed8",

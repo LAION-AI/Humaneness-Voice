@@ -1,0 +1,95 @@
+{
+  "duration_s": 4.264,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 4770.8,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "foreground": "melody",
+          "background": "none",
+          "music": "melody",
+          "changes": "none"
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 6.4,
+        "generation_ms": 583.1,
+        "total_ms": 589.4,
+        "output_tokens": 28,
+        "output_tokens_per_s": 48.02
+      },
+      "video": {
+        "annotation": {
+          "foreground": "An elderly person wearing a dark uniform with a white shirt, black tie, and a peaked cap adorned with insignia.",
+          "background": "An American flag on the left and a solid blue backdrop on the right.",
+          "actions": "None",
+          "changes": "None",
+          "people": [
+            {
+              "id": "person_1",
+              "description": "Elderly individual in a military-style uniform, wearing glasses and a cap with badges.",
+              "action": "Sitting still, facing forward."
+            }
+          ]
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 31.3,
+        "generation_ms": 2437.0,
+        "total_ms": 2468.3,
+        "output_tokens": 123,
+        "output_tokens_per_s": 50.47
+      }
+    },
+    {
+      "start_s": 1.0,
+      "end_s": 4.0,
+      "audio": {
+        "annotation": {
+          "foreground": "melody",
+          "background": "none",
+          "music": "melody",
+          "changes": "none"
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 2.7,
+        "generation_ms": 586.9,
+        "total_ms": 589.5,
+        "output_tokens": 28,
+        "output_tokens_per_s": 47.71
+      },
+      "video": {
+        "annotation": {
+          "foreground": "An elderly person wearing a dark uniform with a white shirt, black tie, and a peaked cap adorned with insignia.",
+          "background": "An American flag on the left and a solid blue backdrop on the right.",
+          "actions": "None",
+          "changes": "None",
+          "people": [
+            {
+              "id": "person_1",
+              "description": "Elderly individual in a military-style uniform, wearing glasses and a cap with badges.",
+              "action": "Sitting still, facing forward."
+            }
+          ]
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 15.7,
+        "generation_ms": 2130.9,
+        "total_ms": 2146.5,
+        "output_tokens": 107,
+        "output_tokens_per_s": 50.21
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}

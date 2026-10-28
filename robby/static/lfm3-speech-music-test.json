@@ -1,0 +1,48 @@
+{
+  "duration_s": 3.021,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 2084.7,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "foreground": "Hi Robbie",
+          "background": "",
+          "music": "",
+          "changes": " "
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 1119.8,
+        "generation_ms": 914.5,
+        "total_ms": 2034.3,
+        "output_tokens": 31,
+        "output_tokens_per_s": 33.9
+      },
+      "video": {
+        "annotation": {
+          "foreground": "",
+          "background": "Solid blue color",
+          "actions": "",
+          "changes": "",
+          "people": []
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 137.7,
+        "generation_ms": 943.6,
+        "total_ms": 1081.3,
+        "output_tokens": 34,
+        "output_tokens_per_s": 36.03
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}

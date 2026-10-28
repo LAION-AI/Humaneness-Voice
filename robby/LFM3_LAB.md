@@ -1,0 +1,44 @@
+# Experimental LFM3 audio / video lab
+
+This opt-in lab is independent of Robby's conversation, memory, ASR and speaker identity. Open **Experimental audio & video lab** in the lower settings, press Record and Stop, choose a window (default 3 s) and stride (default 1 s), then press Analyze. Recording uses low-resolution video and audio for at most 30 s. The browser displays one player per complete window, each restricted to its time range, and both model descriptions and measured timing. Audio and video run in parallel on separate GPUs; windows are processed sequentially per model. The preceding two descriptions are supplied as uncertain context to that same model. There is no cross-modal person tracking or biometric recognition; proposed person IDs are approximate and can drift. Partial final tails are omitted, except that a clip shorter than one window is analyzed once.
+
+The server receives the recording only on Analyze, limits it to 24 MiB/30 s, permits one job at a time, and deletes its private temporary files on normal completion or errors. The server sends a seekable MP4 of the same recording back to the browser; the browser retains it locally until the page is closed or another recording starts. A hard process crash may leave temporary files in `.runtime/lfm3-*`; do not publish them. Seekable playback is needed because Chromium's MediaRecorder WebM often has no duration metadata. Capturing people requires their permission. This demo endpoint has no user accounts: anyone with access to the demo can submit a recording, one at a time. It never adds audio/video or descriptions to Robby's conversation memory.
+
+## Models and reproducible setup
+
+Both checkpoint revisions are pinned and run in separate worker processes using BF16:
+
+- [LiquidAI/LFM3-Audio-2B](https://huggingface.co/LiquidAI/LFM3-Audio-2B), revision `9d49701c372d6011d900f6abb40c6b296fb706dd`, GPU 0.
+- [LiquidAI/LFM3-VL-2B](https://huggingface.co/LiquidAI/LFM3-VL-2B), revision `f83d2b0a2296aaa277f394990a9b8b949ddf9691`, GPU 1. Per model card, the video encoder samples at 2 fps, despite the 5–10 fps recording.
+
+Both have the Liquid LFM Open License v1.0; consult each model card and license before use or redistribution. Remote custom model code is executed locally from the pinned downloads. The example environment here uses the existing torch 2.6 CUDA stack plus a separate Python package target with `transformers==5.21.0`, `huggingface-hub==1.31.0`, `tokenizers==0.23.3`, `av==19.0.2`, and a compatible recent `regex`. PyAV 19 requires a small compatibility shim for the installed torchvision decoder. The audio model warns that causal-conv1d is not installed and uses a slower PyTorch reference implementation. Neither model changes Robby's existing Python environment.
+
+Example installation (choose a cache on a drive with at least 10 GB free, and review custom code):
+
+```bash
+export HF_HOME=/mnt/nvme/moss-15-v2/.cache/lfm3
+export LFM3_PYTHONPATH=/mnt/nvme/moss-15-v2/lfm3-env
+uv pip install --python "$ROBBY_PYTHON" --target "$LFM3_PYTHONPATH" --no-deps \
+  transformers==5.21.0 huggingface-hub==1.31.0 tokenizers==0.23.3 \
+  av==19.0.2 'regex>=2025.10.22'
+"$ROBBY_PYTHON" - <<'PY'
+from huggingface_hub import snapshot_download
+for repo, revision in [
+ ('LiquidAI/LFM3-Audio-2B','9d49701c372d6011d900f6abb40c6b296fb706dd'),
+ ('LiquidAI/LFM3-VL-2B','f83d2b0a2296aaa277f394990a9b8b949ddf9691')]:
+    snapshot_download(repo,revision=revision,ignore_patterns=['assets/*','*.svg','*.webp'])
+PY
+PYTHONPATH="$LFM3_PYTHONPATH" "$ROBBY_PYTHON" lfm3_service.py
+```
+
+`ROBBY_PYTHON` must be set to the existing Robby Python with PyTorch, aiohttp and model dependencies. Configure `LFM3_AUDIO_GPU`, `LFM3_VIDEO_GPU`, `HF_HOME` and `LFM3_PYTHONPATH` as needed. The service listens on loopback port 8810; the Robby server proxies `/api/lfm3/*` and must be restarted after adding routes. It has its own lifecycle; restart it after a machine reboot. The source export excludes weights and recordings.
+
+## Measurements and limitations
+
+A 3-second synthetic beeping/color-pattern clip tested on two RTX 3090s returned audio in about 1.8–2.0 s and video in about 2.2–2.7 s including preprocessing; the models ran concurrently. Another warmed run detected an authored synthetic melody in 2.28 s audio processing (43 output tokens, 37 tokens/s, including prefill). On an authored mixture of speech and quiet music it identified the speech but missed the music. These single samples are not an accuracy or throughput benchmark. Results depend on output length, GPU contention and warmup. Token/s divides output tokens by model generation wall time including prefill; it is not decode-only speed. FFmpeg conversion, upload and queuing are included in the overall wall time, not in per-model timing.
+
+The model can hallucinate, omit quiet sound, misdescribe visual content, return non-JSON text or misassociate people across windows. Unstructured output is shown verbatim instead of inventing structured fields. It is not a safety detector, identity verifier or validated diarization system. It can return a label such as “none” instead of an empty field. The first browser run failed because MediaRecorder WebM lacked duration; the current version remuxes it and returns seekable MP4. Browser tests use fake devices and synthetic audio; real-device behavior needs user testing.
+
+Reproduce the end-to-end browser test with `browser_lfm3_lab_check.py` using Playwright and Google Chrome, after both services are running. It records from fake browser devices, changes window and stride, submits to the live HTTPS service, checks multiple annotated windows and tests later-window playback. Reports named `static/lfm3-*.json` contain only authored synthetic test material, never user recordings.
+
+In an additional two-window test using one static public-domain portrait, the vision model returned `person_1` in both windows. This is a minimal continuity check, not evidence that it can reliably track multiple moving people. With the two LFM workers resident on the GPUs, the regular Robby fake-microphone wake, TTS, camera and permission browser checks also passed. The 584 offline regression checks passed. No physical camera or human multi-speaker recording was tested.
