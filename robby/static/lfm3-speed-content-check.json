@@ -1,0 +1,145 @@
+{
+  "portrait": {
+    "duration_s": 4.264,
+    "window_s": 3.0,
+    "stride_s": 1.0,
+    "wall_ms": 3683.4,
+    "segments": [
+      {
+        "start_s": 0.0,
+        "end_s": 3.0,
+        "audio": {
+          "annotation": {
+            "foreground": "melody",
+            "background": "none",
+            "music": "melody",
+            "changes": "none"
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 4.1,
+          "generation_ms": 586.4,
+          "total_ms": 590.5,
+          "output_tokens": 28,
+          "output_tokens_per_s": 47.75
+        },
+        "video": {
+          "annotation": {
+            "foreground": "Elderly man in navy uniform with cap and glasses",
+            "background": "American flag and blue backdrop",
+            "actions": "None",
+            "changes": "",
+            "people": [
+              {
+                "id": "person_1",
+                "description": "Man wearing dark uniform, white shirt, black tie, ribbons, and cap",
+                "action": "Sitting still for portrait"
+              }
+            ]
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 15.3,
+          "generation_ms": 1897.2,
+          "total_ms": 1912.5,
+          "output_tokens": 96,
+          "output_tokens_per_s": 50.6
+        }
+      },
+      {
+        "start_s": 1.0,
+        "end_s": 4.0,
+        "audio": {
+          "annotation": {
+            "foreground": "melody",
+            "background": "none",
+            "music": "melody",
+            "changes": "none"
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 2.5,
+          "generation_ms": 573.5,
+          "total_ms": 575.9,
+          "output_tokens": 28,
+          "output_tokens_per_s": 48.83
+        },
+        "video": {
+          "annotation": {
+            "foreground": "Elderly man in navy uniform with cap and glasses",
+            "background": "American flag and blue backdrop",
+            "actions": "None",
+            "changes": "",
+            "people": [
+              {
+                "id": "person_1",
+                "description": "Man wearing dark uniform, white shirt, black tie, ribbons, and cap",
+                "action": "Sitting still for portrait"
+              }
+            ]
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 16.0,
+          "generation_ms": 1614.4,
+          "total_ms": 1630.4,
+          "output_tokens": 80,
+          "output_tokens_per_s": 49.55
+        }
+      }
+    ],
+    "notes": [
+      "Models may hallucinate. Person IDs are approximate, not face recognition.",
+      "Previous two descriptions are supplied separately to each model.",
+      "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+    ]
+  },
+  "speech-music": {
+    "duration_s": 3.021,
+    "window_s": 3.0,
+    "stride_s": 1.0,
+    "wall_ms": 682.6,
+    "segments": [
+      {
+        "start_s": 0.0,
+        "end_s": 3.0,
+        "audio": {
+          "annotation": {
+            "foreground": "Hi Robbie",
+            "background": "",
+            "music": "",
+            "changes": " "
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 3.7,
+          "generation_ms": 628.8,
+          "total_ms": 632.5,
+          "output_tokens": 31,
+          "output_tokens_per_s": 49.3
+        },
+        "video": {
+          "annotation": {
+            "foreground": "",
+            "background": "solid blue",
+            "actions": "",
+            "changes": "",
+            "people": []
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "preprocess_ms": 12.3,
+          "generation_ms": 536.5,
+          "total_ms": 548.8,
+          "output_tokens": 26,
+          "output_tokens_per_s": 48.46
+        }
+      }
+    ],
+    "notes": [
+      "Models may hallucinate. Person IDs are approximate, not face recognition.",
+      "Previous two descriptions are supplied separately to each model.",
+      "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+    ]
+  }
+}
