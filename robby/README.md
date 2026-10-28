@@ -2721,3 +2721,22 @@ Use `ROBBY_COMPLETION_FIXTURES` for the three additional MP3s and metadata; thei
 one-take generation records and hashes are retained. Every browser attempt has
 a timestamped `logs/completion-stop-*.json` receipt; blocked and failed attempts
 are never silently retried into a pass. [Current explanation and evidence](static/interruption-update.html).
+
+
+## Gemma 4 12B local option (2026-10-28)
+
+The language-model selector at the top offers Gemma 4 12B QAT Q4, Qwen 3.8 27B over OpenRouter, and the existing Nemotron Bolt option. Existing model preferences and Qwen default are retained. Local Gemma requests go only to the loopback server on port 18812. The current host runs the existing `gemma-4-12b-it-qat-q4_0.gguf` using CUDA llama.cpp on GPU 0 with an 8192-token context and one slot. This is Google's quantization-aware Q4 checkpoint, not FP4. Large contexts and concurrent workloads can increase latency or exceed the context limit. The LFM audio/video and Omni services have been stopped to free VRAM; the experimental lab remains in the UI but cannot analyze recordings until those services are explicitly restarted.
+
+Start the text model using the locally installed CUDA llama.cpp build (adjust paths on another host):
+
+```sh
+CUDA_VISIBLE_DEVICES=0 /mnt/nvme/moss-15-v2/lfm3-llama-cpp/build/bin/llama-server \
+  -m /mnt/nvme/robo-speaker-studies/llm-speed-models/weights/gemma-4-12b-it-qat-q4_0.gguf \
+  --alias gemma-4-12b-q4 --host 127.0.0.1 --port 18812 --n-gpu-layers 99 \
+  --ctx-size 8192 --batch-size 512 --ubatch-size 256 --parallel 1 --threads 8 \
+  --flash-attn on --reasoning off --jinja --no-webui
+```
+
+Run `python benchmark_gemma12_comparison.py` with both endpoints up and the owner credential configured. It uses four synthetic German prompts, the actual Robby text director, and emits `static/gemma12-latency.json`; it does not measure microphone, ASR or TTS. Provider and GPU contention, caching, context and output lengths affect the result. Live audio was separately checked in the browser. See `/static/gemma12-latency.html`.
+
+For local Gemma tool calls, the transport removes the conflicting forced JSON grammar on the first tool-enabled request; the director still validates the actual call and output. A live weather lookup for Berlin completed in 12.9 s in one warm example, including a real Open-Meteo query. This single case does not validate every tool or conversation. `browser_gemma12_check.py` exercises the HTTPS selector, typed request, audio delivery, and return to Qwen with a synthetic browser microphone.

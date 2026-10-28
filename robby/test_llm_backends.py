@@ -35,7 +35,15 @@ class VaultTests(unittest.TestCase):
     def test_local_transport_never_reads_the_openrouter_key(self):
         with patch('llm_backends.store',side_effect=AssertionError('No cloud key in local mode')):
             cfg=config({'model':'local','provider':'local'})
+            gemma=config({'model':'gemma12','provider':'local'})
         self.assertEqual(cfg['headers'],{});self.assertFalse(cfg['remote'])
+        self.assertEqual(gemma['url'],'http://127.0.0.1:18812/v1/chat/completions')
+        self.assertEqual(gemma['model'],'gemma-4-12b-q4');self.assertFalse(gemma['remote'])
+        body=request_body(gemma,{'tools':[{'type':'function'}],'tool_choice':'auto','response_format':{'type':'json_object'}})
+        self.assertNotIn('response_format',body)
+        self.assertIn('tools',body)
+        self.assertIn('response_format',request_body(gemma,{'tools':[{'type':'function'}],'tool_choice':'none','response_format':{'type':'json_object'}}))
+        with self.assertRaises(ValueError):selection({'model':'gemma12','provider':'cerebras/fp16'})
 
 class TransportTests(unittest.IsolatedAsyncioTestCase):
     async def test_public_catalog_refresh_installs_alternative_endpoint_tags(self):

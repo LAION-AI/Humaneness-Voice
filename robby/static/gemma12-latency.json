@@ -1,0 +1,395 @@
+{
+  "created": "2026-10-28T14:07:39.065300+00:00",
+  "scope": "Actual Robby text director; synthetic independent prompts, no ASR, TTS or browser. First call may be cold.",
+  "rows": [
+    {
+      "case": "greeting",
+      "input": "Hallo Robby, wie geht es dir?",
+      "model": "qwen",
+      "elapsed_ms": 710.7,
+      "metrics": {
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 655.07,
+        "llm_first_sentence_ms": 688.3,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1835,
+          "completion_tokens": 28,
+          "total_tokens": 1863,
+          "cost": 0.0018397863,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00185837,
+            "upstream_inference_prompt_cost": 0.00181665,
+            "upstream_inference_completions_cost": 4.172e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 710.67,
+        "response_complete": true
+      },
+      "sentences": [
+        "Hallo!",
+        "Mir geht es bestens, meine Blätter flattern vor Freude.",
+        "Und wie ist es bei dir?"
+      ],
+      "error": null
+    },
+    {
+      "case": "greeting",
+      "input": "Hallo Robby, wie geht es dir?",
+      "model": "gemma12",
+      "elapsed_ms": 9311.4,
+      "metrics": {
+        "llm_model": "gemma-4-12b-q4",
+        "llm_provider": "local",
+        "llm_backend": "Local GPU",
+        "llm_ttft_ms": 5606.61,
+        "llm_first_sentence_ms": 6023.34,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 73,
+          "prompt_tokens": 1858,
+          "total_tokens": 1931,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "llama_timings": {
+          "cache_n": 0,
+          "prompt_n": 1858,
+          "prompt_ms": 5590.971,
+          "prompt_per_token_ms": 3.0091340150699675,
+          "prompt_per_second": 332.3215233990661,
+          "predicted_n": 73,
+          "predicted_ms": 3703.945,
+          "predicted_per_token_ms": 51.44368055555556,
+          "predicted_per_second": 19.43873356650814
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 9311.39,
+        "response_complete": true
+      },
+      "sentences": [
+        "Hallo!",
+        "Mir geht es wunderbar, danke der Nachfrage.",
+        "Meine Schaltkreise summen vor Freude, weil ich dich hier sehe!",
+        "Und wie geht es dir heute?",
+        "Möchtest du mir etwas Schönes erzählen oder sollen wir etwas zusammen unternehmen?"
+      ],
+      "error": null
+    },
+    {
+      "case": "joke",
+      "input": "Erzähl mir einen kurzen Witz über Katzen.",
+      "model": "qwen",
+      "elapsed_ms": 721.3,
+      "metrics": {
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 643.44,
+        "llm_first_sentence_ms": 672.33,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 2097,
+          "completion_tokens": 35,
+          "total_tokens": 2132,
+          "cost": 0.0021068982,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00212818,
+            "upstream_inference_prompt_cost": 0.00207603,
+            "upstream_inference_completions_cost": 5.215e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "task_acknowledgement_only": false,
+        "task_minimum_units": 2,
+        "task_missing_units": false,
+        "completion_repairs": 0,
+        "llm_total_ms": 721.27,
+        "response_complete": true
+      },
+      "sentences": [
+        "Warum tragen Katzen keine Sonnenbrille?",
+        "Weil sie ihre Augen schon ganz gut schützen, indem sie einfach das Licht ignorieren."
+      ],
+      "error": null
+    },
+    {
+      "case": "joke",
+      "input": "Erzähl mir einen kurzen Witz über Katzen.",
+      "model": "gemma12",
+      "elapsed_ms": 5079.6,
+      "metrics": {
+        "llm_model": "gemma-4-12b-q4",
+        "llm_provider": "local",
+        "llm_backend": "Local GPU",
+        "llm_ttft_ms": 2332.13,
+        "llm_first_sentence_ms": 3282.93,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 53,
+          "prompt_tokens": 2120,
+          "total_tokens": 2173,
+          "prompt_tokens_details": {
+            "cached_tokens": 1818
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1818,
+          "prompt_n": 302,
+          "prompt_ms": 2316.927,
+          "prompt_per_token_ms": 7.671943708609272,
+          "prompt_per_second": 130.34506482077336,
+          "predicted_n": 53,
+          "predicted_ms": 2746.815,
+          "predicted_per_token_ms": 52.823365384615386,
+          "predicted_per_second": 18.931016468164035
+        },
+        "generation_calls": 1,
+        "task_acknowledgement_only": false,
+        "task_minimum_units": 2,
+        "task_missing_units": false,
+        "completion_repairs": 0,
+        "llm_total_ms": 5079.63,
+        "response_complete": true
+      },
+      "sentences": [
+        "Warum haben Katzen immer so ein tolles Selbstbewusstsein?",
+        "Weil sie wissen, dass sie im Internet \"Katzenvideos\" sind, aber im echten Leben einfach nur die Chefs im Haus bleiben!"
+      ],
+      "error": null
+    },
+    {
+      "case": "explanation",
+      "input": "Warum ist der Himmel blau? Erklär es mir einfach.",
+      "model": "qwen",
+      "elapsed_ms": 472.9,
+      "metrics": {
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 394.75,
+        "llm_first_sentence_ms": 424.28,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1839,
+          "completion_tokens": 66,
+          "total_tokens": 1905,
+          "cost": 0.0018997605,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00191895,
+            "upstream_inference_prompt_cost": 0.00182061,
+            "upstream_inference_completions_cost": 9.834e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 472.89,
+        "response_complete": true
+      },
+      "sentences": [
+        "Das liegt am Sonnenlicht, das aus vielen Farben besteht.",
+        "Wenn es in die Luft trifft, streuen die kleinen Luftteilchen das blaue Licht am stärksten.",
+        "Deshalb sehen wir den Himmel blau, denn das blaue Licht kommt von überall zu unseren Augen."
+      ],
+      "error": null
+    },
+    {
+      "case": "explanation",
+      "input": "Warum ist der Himmel blau? Erklär es mir einfach.",
+      "model": "gemma12",
+      "elapsed_ms": 15134.5,
+      "metrics": {
+        "llm_model": "gemma-4-12b-q4",
+        "llm_provider": "local",
+        "llm_backend": "Local GPU",
+        "llm_ttft_ms": 1713.27,
+        "llm_first_sentence_ms": 2862.48,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 258,
+          "prompt_tokens": 1861,
+          "total_tokens": 2119,
+          "prompt_tokens_details": {
+            "cached_tokens": 1597
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1597,
+          "prompt_n": 264,
+          "prompt_ms": 1699.319,
+          "prompt_per_token_ms": 6.436814393939394,
+          "prompt_per_second": 155.35635157377752,
+          "predicted_n": 258,
+          "predicted_ms": 13420.491,
+          "predicted_per_token_ms": 52.2198093385214,
+          "predicted_per_second": 19.14982097152779
+        },
+        "generation_calls": 1,
+        "llm_total_ms": 15134.49,
+        "response_complete": true
+      },
+      "sentences": [
+        "Das ist eine wirklich tolle Frage, die sich viele kleine Entdecker stellen!",
+        "Stell dir vor, das Sonnenlicht sieht für uns zwar weiß aus, aber es besteht eigentlich aus allen Regenbogenfarben.",
+        "Wenn dieses Licht auf die Erdatmosphäre trifft, stößt es auf winzige Gasmoleküle und kleine Teilchen in der Luft.",
+        "Diese Teilchen wirken wie winzige Hindernisse, an denen das Licht herumprallen muss.",
+        "Blaues Licht bewegt sich nämlich in kürzeren, kleineren Wellen als zum Beispiel rotes Licht.",
+        "Weil die blauen Wellen so klein sind, werden sie von den Teilchen in der Luft viel öfter gestreut und in alle Richtungen abgelenkt.",
+        "Überall in der Luft wird das blaue Licht also \"verstreut\", weshalb wir den Himmel überall blau sehen, wenn wir nach oben schauen!",
+        "Die anderen Farben schaffen das nicht so gut und fliegen fast gerade durch die Luft hindurch bis zu uns."
+      ],
+      "error": null
+    },
+    {
+      "case": "poem",
+      "input": "Schreib mir ein kurzes Gedicht über einen freundlichen Roboter mit vier Zeilen.",
+      "model": "qwen",
+      "elapsed_ms": 745.8,
+      "metrics": {
+        "llm_model": "qwen/qwen3.8-27b",
+        "llm_provider": "cerebras/fp16",
+        "llm_backend": "OpenRouter",
+        "llm_actual_provider": "Cerebras",
+        "llm_ttft_ms": 666.03,
+        "llm_first_sentence_ms": 697.05,
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 1943,
+          "completion_tokens": 66,
+          "total_tokens": 2009,
+          "cost": 0.0020016909,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00202191,
+            "upstream_inference_prompt_cost": 0.00192357,
+            "upstream_inference_completions_cost": 9.834e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "generation_calls": 1,
+        "requested_units": 4,
+        "completed_units": 4,
+        "completion_repairs": 0,
+        "llm_total_ms": 745.74,
+        "response_complete": true
+      },
+      "sentences": [
+        "Ein freundlicher Roboter winkt dir zu.",
+        "Sein Lächeln blitzt in warmem Blau.",
+        "Er hört genau auf jedes Wort.",
+        "Und macht den Tag ein Stückchen besser, fort und fort."
+      ],
+      "error": null
+    },
+    {
+      "case": "poem",
+      "input": "Schreib mir ein kurzes Gedicht über einen freundlichen Roboter mit vier Zeilen.",
+      "model": "gemma12",
+      "elapsed_ms": 5646.5,
+      "metrics": {
+        "llm_model": "gemma-4-12b-q4",
+        "llm_provider": "local",
+        "llm_backend": "Local GPU",
+        "llm_ttft_ms": 2302.36,
+        "llm_first_sentence_ms": 3079.26,
+        "finish_reason": "stop",
+        "usage": {
+          "completion_tokens": 66,
+          "prompt_tokens": 1966,
+          "total_tokens": 2032,
+          "prompt_tokens_details": {
+            "cached_tokens": 1600
+          }
+        },
+        "llama_timings": {
+          "cache_n": 1600,
+          "prompt_n": 366,
+          "prompt_ms": 2288.128,
+          "prompt_per_token_ms": 6.251715846994536,
+          "prompt_per_second": 159.95608637279034,
+          "predicted_n": 66,
+          "predicted_ms": 3343.362,
+          "predicted_per_token_ms": 51.43633846153846,
+          "predicted_per_second": 19.441508278194224
+        },
+        "generation_calls": 1,
+        "requested_units": 4,
+        "completed_units": 4,
+        "completion_repairs": 0,
+        "llm_total_ms": 5646.49,
+        "response_complete": true
+      },
+      "sentences": [
+        "Mein Metall glänzt hell im Sonnenlicht",
+        "Ich schenke dir ein Lächeln aus Metall",
+        "Mit Zahnrädern, die freundlich schlagen",
+        "Bin ich dein treuer Gefährte im Alltag"
+      ],
+      "error": null
+    }
+  ],
+  "medians": {
+    "qwen": {
+      "llm_ttft_ms": 649.3,
+      "llm_first_sentence_ms": 680.3,
+      "llm_total_ms": 716.0
+    },
+    "gemma12": {
+      "llm_ttft_ms": 2317.2,
+      "llm_first_sentence_ms": 3181.1,
+      "llm_total_ms": 7478.9
+    }
+  }
+}

@@ -11,6 +11,7 @@ from credential_store import store
 OPENROUTER='https://openrouter.ai/api/v1'
 QWEN='qwen/qwen3.8-27b'
 MODELS={'qwen':{'label':'Qwen 3.8 27B · OpenRouter','model':QWEN},
+        'gemma12':{'label':'Gemma 4 12B Q4 · local GPU','model':'gemma-4-12b-q4'},
         'local':{'label':'Nemotron Bolt E4B · local GPU','model':'nemotron-bolt'}}
 _providers={'cerebras/fp16':{'id':'cerebras/fp16','label':'Cerebras · FP16','parameters':['tools','tool_choice']}}
 _updated=0.
@@ -39,7 +40,7 @@ def selection(value=None):
     value=value if value is not None else default_selection()
     if not isinstance(value,dict) or set(value)-{'model','provider'}:raise ValueError('Invalid language model selection')
     model=value.get('model');provider=value.get('provider','cerebras/fp16' if model=='qwen' else 'local')
-    if model not in MODELS or (model=='qwen' and provider not in _providers) or (model=='local' and provider!='local'):
+    if model not in MODELS or (model=='qwen' and provider not in _providers) or (model!='qwen' and provider!='local'):
         raise ValueError('Language model or provider is not available')
     return {'model':model,'provider':provider}
 
@@ -52,6 +53,9 @@ def catalog():
 
 def config(value=None,credential=None):
     chosen=selection(value)
+    if chosen['model']=='gemma12':
+        return {'selection':chosen,'url':'http://127.0.0.1:18812/v1/chat/completions',
+            'model':MODELS['gemma12']['model'],'headers':{},'remote':False}
     if chosen['model']=='local':
         from bolt_director import local_config
         base,model=local_config()
@@ -63,6 +67,10 @@ def config(value=None,credential=None):
 
 def request_body(config,body):
     body=dict(body);body['model']=config['model']
+    # llama.cpp's JSON grammar suppresses tool-call tokens for Gemma. Let the
+    # chat template emit real tool calls; the director validates its result.
+    if config['selection']['model']=='gemma12' and body.get('tools') and body.get('tool_choice')!='none':
+        body.pop('response_format',None)
     if not config['remote']:return body
     body.pop('chat_template_kwargs',None);body.pop('reasoning_effort',None);body.pop('parallel_tool_calls',None)
     if 'max_completion_tokens' in body:body['max_tokens']=body.pop('max_completion_tokens')
