@@ -1,5 +1,7 @@
 # Proactive environmental listening
 
+**Current override:** Automatic sound reactions default OFF; explicit sound questions remain available using a short RAM buffer and a bounded post-question window. In the default wake mode, automatic non-speech observations are spoken only inside the active 10-second speaker window; background voices do not cause unsolicited replies. See [WAKE_MODE.md](WAKE_MODE.md). The original defaults below describe the earlier release.
+
 This additive extension reuses Robby's existing 16-kHz microphone packets,
 playback-reference tags, neural speech detector, ASR, speaker manager, local
 reaction model and main language model. It does not replace TYGER, enable the

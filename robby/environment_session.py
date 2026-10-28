@@ -20,7 +20,9 @@ class EnvironmentSession:
         self.last_reply=-1e9; self.last_voice=-1e9; self.last_playback=-1e9
         self.last_audio=-1e9; self.last_user=-1e9; self.recent={}; self.greeted=False
         self.active_reply=None
-        self.audio_ring=deque(maxlen=320);self.audio_end=0.;self.question_mark=None;self.listening=False
+        # Keep at most about 15 seconds in session RAM. A 6.4-second ring
+        # discarded a sound before a long question plus the post-question wait.
+        self.audio_ring=deque(maxlen=750);self.audio_end=0.;self.question_mark=None;self.listening=False
 
     def state(self):
         return {'type':'environment_settings','enabled':self.enabled,'voices':self.voices,
@@ -47,6 +49,8 @@ class EnvironmentSession:
     def welcome(self):
         if self.greeted:return
         self.greeted=True
+        wake=getattr(getattr(self.c,'sentence_stream',None),'wake',None)
+        if wake and wake.enabled:return
         # The browser calls this once AFTER audio playback is actually enabled.
         # Environment sensing may be disabled independently of the welcome.
         if self.clock()-self.last_user<5:return
@@ -54,7 +58,7 @@ class EnvironmentSession:
             'caption':'Page enabled; no user utterance or sound event.', 'not_before':self.clock()+.6}
 
     def feed(self, audio, end, playback=False):
-        if self.closed or not self.enabled:return
+        if self.closed:return
         self.last_audio=self.clock()
         if playback or self.c.speaking:self.last_playback=self.clock()
         stream=getattr(self.c,'sentence_stream',None)
@@ -63,6 +67,7 @@ class EnvironmentSession:
         self.audio_end=end
         if blocked:self.audio_ring.clear()
         else:self.audio_ring.append((end,np.asarray(audio,np.float32).copy()))
+        if not self.enabled:return  # bounded in-memory context for an explicit sound question only
         event=self.detector.feed(audio,end,speech=speech,playback=blocked)
         if event and not (self.job and not self.job.done()):
             self.job=asyncio.create_task(self.caption(event,self.epoch))
@@ -83,7 +88,7 @@ class EnvironmentSession:
             tag_task.cancel();await asyncio.gather(tag_task,return_exceptions=True);raise
         except (httpx.HTTPError,ValueError):result={'status':'unavailable'}
         tags=await tag_task
-        if epoch!=self.epoch or self.closed or not self.enabled:return
+        if epoch!=self.epoch or self.closed or (not self.enabled and not requested):return
         result['sound_events']=tags
         result.update(type='sound_caption',request_ms=round((self.clock()-start)*1000,2),
             capture_ms=event['capture_ms'],event_age_ms=round((self.clock()-start)*1000+event['capture_ms'],2))
@@ -119,14 +124,14 @@ class EnvironmentSession:
 
     def note_text(self,text,at):
         from ambient_audio import sound_question
-        if self.enabled and sound_question(text) and (not self.question_mark or self.clock()-self.question_mark[1]>10):
+        if sound_question(text) and (not self.question_mark or self.clock()-self.question_mark[1]>10):
             self.question_mark=(at,self.clock())
 
     async def context_for_turn(self,text):
         """Bounded, explicitly requested after-question audio; ordinary turns never wait."""
         from ambient_audio import sound_question
         existing=self.take_context()
-        if not self.enabled or not sound_question(text):return existing
+        if not sound_question(text):return existing
         epoch=self.epoch;start=self.clock();self.listening=True
         marker=self.question_mark;self.question_mark=None
         anchor=marker[0] if marker and start-marker[1]<10 else self.audio_end
@@ -135,21 +140,30 @@ class EnvironmentSession:
             # The ASR preview can arm this before endpointing, so much of the
             # 2.4 s is usually already captured. Silence is not hallucinated.
             while self.audio_end<anchor+2.4 and self.clock()-start<3.:
-                if self.closed or epoch!=self.epoch or not self.enabled:return None
+                if self.closed or epoch!=self.epoch:return None
                 await asyncio.sleep(.05)
-            chunks=[x for end,x in self.audio_ring if anchor<end<=anchor+3.]
-            wave=np.concatenate(chunks)[-48000:] if chunks else np.zeros(0,np.float32)
-            levels=[20*np.log10(max(1e-7,float(np.sqrt(np.mean(x*x))))) for x in chunks]
-            peak=max(levels,default=-140.)
-            if len(wave)>=8000 and peak>=self.detector.minimum_db:
-                # Don't race the single-flight GPU worker against a proactive
-                # caption already in progress. It is bounded to 2.5 seconds.
-                if self.job and not self.job.done():
-                    await asyncio.gather(self.job,return_exceptions=True)
+            # Process the two windows separately: otherwise the user's much
+            # louder spoken question can drown out music just before it.
+            # Preview timestamps are approximate, so both remain uncertain.
+            windows=[('before_early',[x for end,x in self.audio_ring if anchor-6.5<end<=anchor-3.5]),
+                     ('before',[x for end,x in self.audio_ring if anchor-3.5<end<=anchor-.8]),
+                     ('after',[x for end,x in self.audio_ring if anchor<end<=anchor+3.])]
+            results=[]
+            if self.job and not self.job.done():await asyncio.gather(self.job,return_exceptions=True)
+            for label,chunks in windows:
+                wave=np.concatenate(chunks)[-48000:] if chunks else np.zeros(0,np.float32)
+                levels=[20*np.log10(max(1e-7,float(np.sqrt(np.mean(x*x))))) for x in chunks]
+                peak=max(levels,default=-140.)
+                if len(wave)<8000 or peak<self.detector.minimum_db:continue
                 result=await self.caption({'audio':wave,'capture_ms':round(len(wave)/16),
                     'prominence_db':round(peak-self.detector.floor,1),'peak_dbfs':round(peak,1)},epoch,requested=True)
-                self.pending=None  # consumed by this answer, never a second comment
-                if result:return result
+                if result:results.append({**result,'sound_window':label})
+                if self.closed or epoch!=self.epoch:return None
+            self.pending=None  # consumed by this answer, never a second comment
+            if results:
+                # A voice-only description of the question is less useful than
+                # an independently described sound; this is not ground truth.
+                return max(results,key=lambda x:(x.get('kind') in ('music','sound'),x.get('sound_window')=='after'))
             return {**existing,'requested':True} if existing else {'kind':'requested_sound','requested':True,'status':'no_clear_sound',
                 'caption':'No identifiable non-speech event was captured in this short listening window.'}
         finally:
@@ -226,6 +240,11 @@ class EnvironmentSession:
                 await self.c.ws.send_json({'type':'environment_observation','kind':item['kind'],'status':'expired_while_busy'})
                 continue
             if self.clock()<item.get('not_before',0) or not self.idle():continue
+            wake=getattr(getattr(self.c,'sentence_stream',None),'wake',None)
+            if item['kind']!='welcome' and wake and wake.enabled and (not wake.active() or item['kind']=='unfamiliar_voice'):
+                self.pending=None
+                await self.c.ws.send_json({'type':'environment_observation','kind':item['kind'],'status':'outside_wake_window'})
+                continue
             if item['kind']!='welcome' and (not self.enabled or self.clock()-self.last_reply<30):
                 self.pending=None
                 await self.c.ws.send_json({'type':'environment_observation','kind':item['kind'],'status':'cooldown'})

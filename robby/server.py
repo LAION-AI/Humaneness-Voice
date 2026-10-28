@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','social_profiles.py','voice_caption_worker.py','visual_identity.py','static/social-profiles.js','static/multimodal-ui.js','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','wake_mode.py','social_profiles.py','voice_caption_worker.py','visual_identity.py','static/social-profiles.js','static/multimodal-ui.js','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -430,6 +430,10 @@ class RoboConversation(Conversation):
         await super()._on_browser(msg)
 
     async def _on_command(self,data):
+        if data in ('wake:on','wake:off') and self.sentence_stream:
+            self.sentence_stream.admission_epoch+=1
+            self.sentence_stream.wake.configure(data.endswith(':on'))
+            await self.ws.send_json(self.sentence_stream.settings());return
         if data in ('identity:background-filter:on','identity:background-filter:off') and self.sentence_stream:
             self.sentence_stream.addressed.enabled=data.endswith(':on')
             await self.ws.send_json(self.sentence_stream.settings());return
@@ -523,7 +527,8 @@ class RoboConversation(Conversation):
                 if len(data)>600:raise ValueError('Avatar message too large')
                 event=json.loads(data[7:])
                 context=self.avatar_personality.observe(event,busy=self.speaking or self.halting or self.ending,language=self.decisions.language)
-                accepted=bool(context and self.have_mouth)
+                wake=getattr(getattr(self,'sentence_stream',None),'wake',None)
+                accepted=bool(context and self.have_mouth and (not wake or not wake.enabled or wake.active()))
                 # Claim the optional turn before yielding to the ASR hop task.
                 if accepted:self._start_speaking();self.avatar_optional=True
                 await self.ws.send_json({'type':'avatar_event','event':event.get('event'),'accepted':accepted})
@@ -717,10 +722,15 @@ class RoboConversation(Conversation):
 
     async def _finish_turn(self,barged):
         if getattr(self,'decisions',None):self.decisions.finish_interjection(self.hop_pos)
+        optional=self.avatar_optional
+        speaker_id=(self.current_speaker or {}).get('speaker_id')
         self.avatar_optional=False
         if getattr(self,'environment',None):self.environment.active_reply=None
         offset=self.playback.offset_ms()
         await super()._finish_turn(barged)
+        if not optional and self.sentence_stream:
+            self.sentence_stream.wake.finish_reply(speaker_id)
+            await self.ws.send_json(self.sentence_stream.settings())
         if not barged:
             self.identity_audio=np.zeros(0,np.float32);self.identity.reset_utterance()
             if self.predictor is not None:self.predictor.reset()
@@ -787,10 +797,10 @@ async def state(request):
         'sentence_stream':os.environ.get('ROBO_SENTENCE_STREAM','0')=='1',
         'llm_selection_available':True,
         'reply_language_default':'de','asr_model_selection':True,
-        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,'auto_start_default':True,'environment_default':True,
+        'asr_default_model':__import__('asr_catalog').default_model(),'camera_auto_default':False,'voice_caption_default':True,'auto_start_default':True,'environment_default':False,'wake_default':True,
         'sound_caption_model':'laion/sound-effect-captioning-whisper','sound_caption_device':'cuda:0',
         'voice_caption_model':'Humaneness Ears Medium + procedural-voice-captions (GPU, parallel to ASR)',
-        'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','700')),
+        'speech_pause_default_ms':float(os.environ.get('ROBO_SPEECH_PAUSE_MS','300')),
         'pause_detector':'Silero ONNX CPU neural speech activity',
         'tts':'Humaneness Voice Small 1.1 Alpha RL r128 v1','tts_shared':True,
         'privacy':'Camera inference stays in your browser. Audio and voice matching run on this server. OpenRouter mode sends conversation text to OpenRouter and the selected provider; local mode keeps it on this server. No microphone recordings are saved.',

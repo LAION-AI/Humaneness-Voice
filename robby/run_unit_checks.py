@@ -15,7 +15,7 @@ def main():
     MODULES.append('test_conversation_continuity')
     MODULES.append('test_adversarial_protocol')
     MODULES.append('test_voice_captions')
-    MODULES.extend(['test_quick_reactions','test_two_stage','test_knowledge_memory','test_environment','test_addressed_speech','test_social_profiles'])
+    MODULES.extend(['test_quick_reactions','test_two_stage','test_knowledge_memory','test_environment','test_addressed_speech','test_social_profiles','test_wake_mode'])
     suite=unittest.defaultTestLoader.loadTestsFromNames(MODULES)
     result=unittest.TextTestRunner(verbosity=1).run(suite)
     report={'finished':time.time(),'modules':MODULES,'tests':result.testsRun,'failures':len(result.failures),

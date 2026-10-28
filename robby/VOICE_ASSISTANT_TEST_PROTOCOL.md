@@ -6,6 +6,10 @@ This is the repeatable test procedure for Robby's microphone → ASR → person 
 
 Start with the executable regression checks below. Use the configuration-search procedure only after those checks work. **Implemented**, **executed**, and **proposed** are different statuses throughout this document. A passing unit test is not a successful microphone conversation. A lower cosine threshold is not automatically an improvement.
 
+## Current wake-mode regression
+
+The default requires an initial Hey Robby and 300-ms speech pause, followed by a ten-second same-voice window. The test must cover no-wake rejection, same-speaker follow-up, other-speaker rejection, expiry and new wake, mode toggle, automatic sound OFF and an explicit sound question with real audio. See [WAKE_MODE.md](WAKE_MODE.md), `test_wake_mode.py`, `browser_wake_check.py` and the preserved `static/wake-browser-*.json` attempts. Browser fixtures are synthetic, and two overlapping voices or a real TV are not covered by the small basic check. Explicitly run prior open-conversation tests with wake mode disabled.
+
 ## 1. Current evidence and its limits
 
 ### October 27: role confusion, person memory and curiosity regression

@@ -5,7 +5,8 @@ export class EnvironmentControls{
  constructor(client){
   this.client=client;this.attempted=false;this.ready=false;this.greeted=false;
   this.auto=read('robby.autoStart',true)===true;
-  this.enabled=read('robby.environment',true)===true;
+  if(read('robby.environmentDefaultVersion',0)!==1){save('robby.environment',false);save('robby.environmentDefaultVersion',1);}
+  this.enabled=read('robby.environment',false)===true;
   this.voices=read('robby.environmentVoices',true)===true;
   this.events=read('robby.soundEvents',true)===true;
   if(read('robby.voiceImpressionDefaultVersion',0)!==1){save('robby.voiceImpressions',true);save('robby.voiceImpressionDefaultVersion',1);}
@@ -54,7 +55,7 @@ export class EnvironmentControls{
     this.greeted=true;this.client.send('environment:'+JSON.stringify({welcome:true}));
    }
   }
-  if(m.type==='environment_settings')document.getElementById('environment-status').textContent=m.enabled?'Listening alongside ASR · prominent sounds only · no saved recordings.':'Proactive sound reactions are off.';
+  if(m.type==='environment_settings')document.getElementById('environment-status').textContent=m.enabled?'Listening alongside ASR · prominent sounds only · no saved recordings.':'Automatic sound reactions are off. You can still ask about a recent or upcoming sound.';
   if(m.type==='sound_caption'){
    document.getElementById('environment-caption').textContent=m.caption?'Unconfirmed sound: '+m.caption+(m.sound_events?.status==='available'?' · Event candidates: '+m.sound_events.candidates.slice(0,3).map(c=>c.label+' '+c.score.toFixed(2)).join(' / '):''):'';
    document.getElementById('environment-status').textContent=`Sound caption: ${m.status} · ${Math.round(m.request_ms||0)} ms${m.kind?' · '+m.kind:''}${m.eligible?' · waiting for a conversational pause':' · no proactive reply'}`;

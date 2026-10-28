@@ -31,7 +31,7 @@ class PauseSubmissionTests(unittest.IsolatedAsyncioTestCase):
     def session(self):
         c=SimpleNamespace(ws=SimpleNamespace(send_json=AsyncMock()),speaking=False,halting=False,
             session=SimpleNamespace(reset=Mock()),ears=SimpleNamespace(sr=16000),_on_barge=AsyncMock())
-        s=SentenceSession(c);s.set_pause(400);s.begin=0.;s.last_speech=1.;s.mic_now=1.2;s.now=1.2
+        s=SentenceSession(c);s.wake.configure(False);s.set_pause(400);s.begin=0.;s.last_speech=1.;s.mic_now=1.2;s.now=1.2
         s.records.append((0.,2.,np.zeros(32000,np.float32)))
         return s
     async def test_punctuation_and_native_endpoint_do_not_submit_while_speaking(self):
