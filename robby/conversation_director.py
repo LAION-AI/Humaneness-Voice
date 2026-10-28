@@ -149,7 +149,7 @@ class CompactDirector:
         from social_profiles import context_note
         messages[0]['content']+=context_note(identity)
         if identity.get('needs_name'):
-            messages[0]['content']+='\nThis is a NEW unnamed session guest. Answer their request in at most 100 words, briefly welcome them and ask their name ONCE. This is an explicit exception to the no-follow-up rule.'
+            messages[0]['content']+='\nThis voice has no confirmed name in the acoustic session; it may still belong to someone already known. Answer naturally without guessing identity. A name question is optional and only appropriate when genuinely useful, never if already answered in context.'
         tools_enabled=interaction_state is not None
         from interaction_policy import rule_authorized,cancellation_authorized
         action_tools_enabled=tools_enabled and (rule_authorized(text) or cancellation_authorized(text))
@@ -304,12 +304,6 @@ class CompactDirector:
             rest=[s for s in avatar_steps if s['kind'] not in ('spin','carousel','afterglow')]
             avatar_steps=validate_avatar({'steps':requested_spin+rest[:5]}) if sum(s['duration_s'] for s in rest[:5])<=18 else requested_spin
         raw=complete_visual_acknowledgment(parsed_value,avatar_steps)
-        if identity.get('needs_name') and isinstance(raw,dict) and isinstance(raw.get('script'),str):
-            spoken=re.sub(r'\([^)]*\)|\[[^\]]*\]',' ',raw['script'])
-            if not re.search(r'(?:wie\s+hei(?:ß|ss)t|dein(?:en)?\s+name|dich\s+nennen|your\s+name|call\s+you)',spoken,re.I):
-                extra=(' (interest, welcoming and gently curious) Schön, dich kennenzulernen. Wie heißt du?' if raw.get('language')=='de'
-                    else ' (interest, welcoming and gently curious) Nice to meet you. What is your name?')
-                if len(spoken.split())<=105:raw['script']+=extra
         result=validate(ensure_addressee(raw,text,identity));result['director_ms']=round((time.perf_counter()-start)*1000,2)
         result['avatar_actions']=avatar_steps
         if tools_enabled:result['interaction_actions']=actions
