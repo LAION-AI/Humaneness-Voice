@@ -1,10 +1,11 @@
 {
-  "source_sha256": "6a5428f22e11ae9e02dff76ef561a44e42ba1c96eb2c668fdbde289af6345947",
+  "source_sha256": "0367ce2350fbffb87b1720811cdb43b581e99500c106ef950eb8a328ee1138b4",
   "checks": {
     "private_context_used": true,
     "context_bound": true,
     "capability_not_returned": true,
     "audio_one_call": true,
+    "audio_has_model_description": true,
     "vision_five_fps": true,
     "omni_one_call": true,
     "omni_grid_nine": true,
@@ -15,7 +16,7 @@
     "duration_s": 3.064,
     "window_s": 3.0,
     "stride_s": 1.0,
-    "wall_ms": 3473.1,
+    "wall_ms": 3647.1,
     "relevance_context": {
       "memory_used": true,
       "recent_turns": 1,
@@ -29,22 +30,28 @@
           "annotation": {
             "observations": [
               {
-                "category": "signal",
-                "description": "Audio exceeds the silence threshold; the model provided no description.",
-                "relevance": null,
-                "source": "signal_level_check"
+                "category": "music",
+                "description": "Jazz music",
+                "relevance": 1
+              },
+              {
+                "category": "conversation",
+                "description": "Bob likes jazz music",
+                "relevance": 1,
+                "possible_context_echo": true
               }
-            ]
+            ],
+            "context_only_items_filtered": 1
           },
           "raw_text": null,
           "parse_ok": true,
           "parse_repaired": false,
           "silence_gate": false,
-          "preprocess_ms": 7.9,
-          "generation_ms": 188.1,
-          "total_ms": 195.9,
-          "output_tokens": 7,
-          "output_tokens_per_s": 37.22,
+          "preprocess_ms": 16.3,
+          "generation_ms": 1952.5,
+          "total_ms": 1968.8,
+          "output_tokens": 93,
+          "output_tokens_per_s": 47.63,
           "model_calls": 1,
           "detail_passes": []
         },
@@ -90,11 +97,11 @@
           "parse_ok": true,
           "parse_repaired": false,
           "silence_gate": false,
-          "preprocess_ms": 50.7,
-          "generation_ms": 3336.7,
-          "total_ms": 3387.4,
+          "preprocess_ms": 38.8,
+          "generation_ms": 3527.0,
+          "total_ms": 3565.9,
           "output_tokens": 162,
-          "output_tokens_per_s": 48.55,
+          "output_tokens_per_s": 45.93,
           "model_calls": 1,
           "detail_passes": [],
           "temporal_patches": 8,
@@ -103,28 +110,28 @@
         },
         "omni": {
           "annotation": {
-            "audio": "A short, upbeat instrumental jazz piece featuring a walking upright bass, syncopated piano chords, and light swing drums",
-            "visual": "A 3-column contact sheet of vertical color stripes (red, yellow, green, cyan, magenta, blue) with small gray cross/plus shapes, dotted pixel-like specks, and black timestamp/frame labels (e.g., '00:00:01,000', '00:00:01,400', '00:00:02,149', '00:00:02,749') across each tile",
-            "cross_modal": "The music's playful, rhythmic jazz style matches Robby's warm, playful, and attentive conversational robot persona, suggesting a friendly, engaging audio backdrop for the visual contact sheet",
+            "audio": "A short, upbeat instrumental jazz piece featuring a bright electric piano playing a syncopated, swinging melody, accompanied by a walking bass line and light, steady drum groove; the style is characteristic of classic jazz with a playful, energetic feel.",
+            "visual": "A contact sheet of five vertical columns of colored rectangular tiles (red, yellow, green, cyan, magenta, blue) arranged left to right and top to bottom. Each tile contains a small black label box with a timecode and frame number (e.g., '00:00:01,000' / '11', '00:00:01,400' / '14', '00:00:01,900' / '17', '00:00:02,149' / '21', '00:00:02,449' / '24', '00:00:02,749' / '27'). Scattered across the tiles are small gray cross/plus shapes, dotted pixel clusters, and diagonal cyan and orange light streaks. The overall look is a presentation aid showing a sequence of frames at about 3 frames per second.",
+            "cross_modal": "The music's playful, energetic jazz character aligns with the cheerful, vibrant visual of the contact sheet, creating a warm, engaging atmosphere consistent with the user's interest in jazz music mentioned earlier.",
             "observations": [
               {
                 "category": "audio",
-                "description": "Jazz instrumental music with bass, piano, and drums",
+                "description": "Upbeat jazz instrumental with piano, bass, and drums; no vocals or speech present.",
                 "relevance": 1
               },
               {
                 "category": "visual",
-                "description": "Contact sheet with vertical color stripes, gray cross shapes, dotted specks, and timestamped frames",
+                "description": "Five vertical columns of colored tiles with timecode/frame labels, plus gray cross shapes and diagonal light streaks; a presentation aid showing a frame sequence.",
                 "relevance": 2
               },
               {
                 "category": "cross-modal",
-                "description": "The jazz music's playful tone complements Robby's warm, attentive conversational robot persona",
+                "description": "The lively, playful jazz music complements the vibrant, energetic visual of the contact sheet, matching the user's interest in jazz music.",
                 "relevance": 2
               },
               {
                 "category": "cross_modal",
-                "description": "The music's playful, rhythmic jazz style matches Robby's warm, playful, and attentive conversational robot persona, suggesting a friendly, engaging audio backdrop for the visual contact sheet",
+                "description": "The music's playful, energetic jazz character aligns with the cheerful, vibrant visual of the contact sheet, creating a warm, engaging atmosphere consistent with the user's interest in jazz music mentioned earlier.",
                 "relevance": null,
                 "source": "unscored_summary"
               }
@@ -136,11 +143,11 @@
           "parse_ok": true,
           "parse_repaired": false,
           "raw_text": null,
-          "preprocess_ms": 123.3,
-          "generation_ms": 2112.2,
-          "total_ms": 2235.5,
-          "output_tokens": 292,
-          "output_tokens_per_s": 138.25,
+          "preprocess_ms": 144.3,
+          "generation_ms": 3219.3,
+          "total_ms": 3363.6,
+          "output_tokens": 432,
+          "output_tokens_per_s": 134.19,
           "model_calls": 1,
           "backend": "LFM3-Omni-2B Q4_K_M",
           "contact_sheet_fps": 3,
