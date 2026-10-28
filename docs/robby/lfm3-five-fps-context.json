@@ -1,0 +1,86 @@
+{
+  "source_sha256": "08e400b48ee83b3e4e43e02ef54e658aeb623606ecd9428492f0a0735c9fb464",
+  "result": {
+    "duration_s": 3.021,
+    "window_s": 3.0,
+    "stride_s": 1.0,
+    "wall_ms": 3330.1,
+    "relevance_context": {
+      "memory_used": true,
+      "recent_turns": 1,
+      "conservative_token_bound": 396
+    },
+    "segments": [
+      {
+        "start_s": 0.0,
+        "end_s": 3.0,
+        "audio": {
+          "annotation": {
+            "foreground": "Hesitation sound",
+            "background": "Music",
+            "speech": "Hi Robby",
+            "music": "Jazz music",
+            "changes": [],
+            "observations": [
+              {
+                "category": "music",
+                "description": "Jazz music",
+                "relevance": 2
+              }
+            ]
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "parse_repaired": false,
+          "preprocess_ms": 1140.4,
+          "generation_ms": 2133.1,
+          "total_ms": 3273.4,
+          "output_tokens": 82,
+          "output_tokens_per_s": 38.44,
+          "model_calls": 1,
+          "detail_passes": []
+        },
+        "video": {
+          "annotation": {
+            "foreground": "Solid blue color filling the entire frame",
+            "background": "Solid blue color filling the entire frame",
+            "people": [],
+            "events": [],
+            "changes": "No change observed; the screen remains uniformly blue throughout the video window.",
+            "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "parse_repaired": false,
+          "preprocess_ms": 163.5,
+          "generation_ms": 1336.2,
+          "total_ms": 1499.7,
+          "output_tokens": 46,
+          "output_tokens_per_s": 34.43,
+          "model_calls": 1,
+          "detail_passes": [],
+          "temporal_patches": 8,
+          "encoded_frames_with_padding": 16,
+          "sampling_fps": 5.0
+        },
+        "omni": {
+          "annotation": null,
+          "parse_ok": false,
+          "raw_text": "Omni analysis unavailable: ConnectError",
+          "preprocess_ms": 0,
+          "generation_ms": 0,
+          "total_ms": 0,
+          "output_tokens": 0,
+          "output_tokens_per_s": 0,
+          "model_calls": 0
+        }
+      }
+    ],
+    "notes": [
+      "Models may hallucinate. Person IDs are approximate, not face recognition.",
+      "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+      "Previous two descriptions are supplied separately to each model.",
+      "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+    ]
+  }
+}

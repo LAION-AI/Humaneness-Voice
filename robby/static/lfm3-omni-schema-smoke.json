@@ -1,0 +1,40 @@
+{
+  "frames": 9,
+  "result": {
+    "annotation": {
+      "audio": "A short, upbeat chiptune-style music loop featuring a bright, arpeggiated synth melody, a simple bass line, and a steady electronic drum beat (kick, snare/clap, and hi-hat). The music is clean, digital, and looped, with no vocals or speech.",
+      "visual": "A contact-sheet layout with three vertical columns of identical blue rectangular tiles, each separated by thin dark gray borders. Each tile contains white text showing a time label followed by a frame count in parentheses, such as '100s | 0.00s', '+0.33s | 0.33s', '+0.67s | 0.67s' in the top row; '+1.00s | 1.00s', '+1.33s | 1.33s', '+1.67s | 1.67s' in the middle row; and '+2.00s | 2.00s', '+2.33s | 2.33s', '+2.67s | 2.67s' in the bottom row. The background of the entire image is solid blue.",
+      "cross_modal": "The music plays continuously throughout the image window; there is no speech, voice, or human action present in either the audio or the visual content.",
+      "observations": [
+        {
+          "category": "audio",
+          "description": "A continuous, cheerful chiptune music loop with no vocals or speech.",
+          "relevance": 2
+        },
+        {
+          "category": "visual",
+          "description": "Three columns of blue tiles with white time/frame labels on dark borders, forming a contact sheet; no people, gestures, or actions appear.",
+          "relevance": 0
+        },
+        {
+          "category": "cross_modal",
+          "description": "No audio-visual cross-modal relationship exists; the music is purely auditory and the image is purely visual.",
+          "relevance": 0
+        }
+      ],
+      "people": [],
+      "events": []
+    },
+    "parse_ok": true,
+    "parse_repaired": false,
+    "raw_text": null,
+    "preprocess_ms": 0.0,
+    "generation_ms": 1501.4,
+    "total_ms": 1501.4,
+    "output_tokens": 421,
+    "output_tokens_per_s": 280.41,
+    "model_calls": 1,
+    "backend": "LFM3-Omni-2B Q4_K_M",
+    "contact_sheet_fps": 3
+  }
+}

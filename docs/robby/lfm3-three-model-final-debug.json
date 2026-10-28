@@ -1,0 +1,151 @@
+{
+  "duration_s": 3.021,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 3192.2,
+  "relevance_context": {
+    "memory_used": false,
+    "recent_turns": 1,
+    "conservative_token_bound": 353
+  },
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "observations": [
+            {
+              "category": "speech",
+              "description": "Hi Robby",
+              "relevance": 1
+            },
+            {
+              "category": "music",
+              "description": "likes jazz music",
+              "relevance": 2,
+              "possible_context_echo": true
+            }
+          ]
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "parse_repaired": false,
+        "silence_gate": false,
+        "preprocess_ms": 5.7,
+        "generation_ms": 1595.2,
+        "total_ms": 1600.9,
+        "output_tokens": 71,
+        "output_tokens_per_s": 44.51,
+        "model_calls": 1,
+        "detail_passes": []
+      },
+      "video": {
+        "annotation": {
+          "foreground": "Solid blue color filling the entire frame",
+          "background": "Solid blue color matching the foreground",
+          "observations": [
+            {
+              "category": "foreground",
+              "description": "Uniform blue color throughout the video window",
+              "relevance": 1
+            },
+            {
+              "category": "background",
+              "description": "Solid blue color matching the foreground",
+              "relevance": null,
+              "source": "unscored_summary"
+            }
+          ],
+          "people": [],
+          "events": [],
+          "changes": "No changes observed; the screen remains a consistent solid blue color across all frames.",
+          "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "parse_repaired": false,
+        "silence_gate": false,
+        "preprocess_ms": 29.2,
+        "generation_ms": 1502.9,
+        "total_ms": 1532.1,
+        "output_tokens": 71,
+        "output_tokens_per_s": 47.24,
+        "model_calls": 1,
+        "detail_passes": [],
+        "temporal_patches": 8,
+        "encoded_frames_with_padding": 16,
+        "sampling_fps": 5.0
+      },
+      "omni": {
+        "annotation": {
+          "audio": "A short, upbeat instrumental jazz-style music loop featuring a walking upright bass, light piano chords, and a subtle swing rhythm. The music is cheerful and playful, matching Robby's warm, playful conversational robot persona.",
+          "visual": "A 3-column contact sheet (grid) of square tiles, each showing a single frame from a 3 fps sequence. The first tile at 0 seconds displays a plain solid blue background; the subsequent tiles at approximately 0.33 seconds each show a horizontal row of small, evenly spaced dark gray/black rectangular shapes (like a sequence of icons or frames) across the tiles. The grid is a presentation aid, not an object in the scene.",
+          "cross_modal": "The music and the contact-sheet frames are temporally aligned: the first tile (0 s) has the blue background, and the following tiles (0.33 s, 0.66 s, 1.05 s, 1.38 s) each show the row of small dark shapes, indicating a frame-by-frame sequence that the robot (Robby) is referencing during his greeting.",
+          "observations": [
+            {
+              "category": "audio",
+              "description": "Upbeat, cheerful jazz instrumental loop with walking bass and piano; no vocals or speech present.",
+              "relevance": 2
+            },
+            {
+              "category": "visual",
+              "description": "3-column contact sheet of square tiles; first tile solid blue, subsequent tiles each contain a horizontal row of small dark gray/black rectangular shapes; grid layout is a presentation aid.",
+              "relevance": 2
+            },
+            {
+              "category": "cross-modal",
+              "description": "The music begins at the start of the first tile (0 s) and continues through the sequence, aligning with the first tile's content, suggesting the robot is greeting the user while the jazz loop plays.",
+              "relevance": 2
+            },
+            {
+              "category": "cross_modal",
+              "description": "The music and the contact-sheet frames are temporally aligned: the first tile (0 s) has the blue background, and the following tiles (0.33 s, 0.66 s, 1.05 s, 1.38 s) each show the row of small dark shapes, indicating a frame-by-frame sequence that the robot (Robby) is referencing during his greeting.",
+              "relevance": null,
+              "source": "unscored_summary"
+            }
+          ],
+          "people": [
+            {
+              "id": "Robby",
+              "description": "A warm, playful, and attentive conversational robot who helps the user and follows their requests.",
+              "relevance": 2
+            }
+          ],
+          "events": [
+            {
+              "start_s": 0.0,
+              "end_s": 0.33,
+              "person_id": "Robby",
+              "kind": "greeting",
+              "description": "Robby says 'Hi Robby' in a friendly, playful tone, greeting the user.",
+              "relevance": 2,
+              "absolute_start_s": 0.0,
+              "absolute_end_s": 0.33,
+              "timing_status": "model_estimate"
+            }
+          ],
+          "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 3 fps."
+        },
+        "parse_ok": true,
+        "parse_repaired": false,
+        "raw_text": null,
+        "preprocess_ms": 129.6,
+        "generation_ms": 3060.8,
+        "total_ms": 3190.4,
+        "output_tokens": 569,
+        "output_tokens_per_s": 185.9,
+        "model_calls": 1,
+        "backend": "LFM3-Omni-2B Q4_K_M",
+        "contact_sheet_fps": 3,
+        "contact_sheet_frames": 9
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "source_sha256": "6a5428f22e11ae9e02dff76ef561a44e42ba1c96eb2c668fdbde289af6345947",
+  "checks": {
+    "private_context_used": true,
+    "context_bound": true,
+    "capability_not_returned": true,
+    "audio_one_call": true,
+    "vision_five_fps": true,
+    "omni_one_call": true,
+    "omni_grid_nine": true,
+    "omni_output": true
+  },
+  "passed": true,
+  "result": {
+    "duration_s": 3.064,
+    "window_s": 3.0,
+    "stride_s": 1.0,
+    "wall_ms": 3473.1,
+    "relevance_context": {
+      "memory_used": true,
+      "recent_turns": 1,
+      "conservative_token_bound": 396
+    },
+    "segments": [
+      {
+        "start_s": 0.0,
+        "end_s": 3.0,
+        "audio": {
+          "annotation": {
+            "observations": [
+              {
+                "category": "signal",
+                "description": "Audio exceeds the silence threshold; the model provided no description.",
+                "relevance": null,
+                "source": "signal_level_check"
+              }
+            ]
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "parse_repaired": false,
+          "silence_gate": false,
+          "preprocess_ms": 7.9,
+          "generation_ms": 188.1,
+          "total_ms": 195.9,
+          "output_tokens": 7,
+          "output_tokens_per_s": 37.22,
+          "model_calls": 1,
+          "detail_passes": []
+        },
+        "video": {
+          "annotation": {
+            "foreground": "Color bars with moving diagonal streaks and gray plus signs on colored vertical bands.",
+            "background": "Vertical stripes in red, green, yellow, blue, magenta, cyan; digital timer and number counter in top left corner.",
+            "observations": [
+              {
+                "category": "foreground",
+                "description": "Diagonal multicolor streak moves across screen from upper right to lower left over time.",
+                "relevance": 1
+              },
+              {
+                "category": "foreground",
+                "description": "Gray plus-shaped symbol appears on green and magenta bands, shifting position slightly.",
+                "relevance": 1
+              },
+              {
+                "category": "foreground",
+                "description": "Small pixelated squares and dots appear scattered across colored bands.",
+                "relevance": 1
+              },
+              {
+                "category": "background",
+                "description": "Vertical stripes in red, green, yellow, blue, magenta, cyan; digital timer and number counter in top left corner.",
+                "relevance": null,
+                "source": "unscored_summary"
+              },
+              {
+                "category": "changes",
+                "description": "Diagonal streak continues moving steadily; plus sign shifts position slightly between frames.",
+                "relevance": null,
+                "source": "unscored_summary"
+              }
+            ],
+            "people": [],
+            "events": [],
+            "changes": "Diagonal streak continues moving steadily; plus sign shifts position slightly between frames.",
+            "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+          },
+          "raw_text": null,
+          "parse_ok": true,
+          "parse_repaired": false,
+          "silence_gate": false,
+          "preprocess_ms": 50.7,
+          "generation_ms": 3336.7,
+          "total_ms": 3387.4,
+          "output_tokens": 162,
+          "output_tokens_per_s": 48.55,
+          "model_calls": 1,
+          "detail_passes": [],
+          "temporal_patches": 8,
+          "encoded_frames_with_padding": 16,
+          "sampling_fps": 5.0
+        },
+        "omni": {
+          "annotation": {
+            "audio": "A short, upbeat instrumental jazz piece featuring a walking upright bass, syncopated piano chords, and light swing drums",
+            "visual": "A 3-column contact sheet of vertical color stripes (red, yellow, green, cyan, magenta, blue) with small gray cross/plus shapes, dotted pixel-like specks, and black timestamp/frame labels (e.g., '00:00:01,000', '00:00:01,400', '00:00:02,149', '00:00:02,749') across each tile",
+            "cross_modal": "The music's playful, rhythmic jazz style matches Robby's warm, playful, and attentive conversational robot persona, suggesting a friendly, engaging audio backdrop for the visual contact sheet",
+            "observations": [
+              {
+                "category": "audio",
+                "description": "Jazz instrumental music with bass, piano, and drums",
+                "relevance": 1
+              },
+              {
+                "category": "visual",
+                "description": "Contact sheet with vertical color stripes, gray cross shapes, dotted specks, and timestamped frames",
+                "relevance": 2
+              },
+              {
+                "category": "cross-modal",
+                "description": "The jazz music's playful tone complements Robby's warm, attentive conversational robot persona",
+                "relevance": 2
+              },
+              {
+                "category": "cross_modal",
+                "description": "The music's playful, rhythmic jazz style matches Robby's warm, playful, and attentive conversational robot persona, suggesting a friendly, engaging audio backdrop for the visual contact sheet",
+                "relevance": null,
+                "source": "unscored_summary"
+              }
+            ],
+            "people": [],
+            "events": [],
+            "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 3 fps."
+          },
+          "parse_ok": true,
+          "parse_repaired": false,
+          "raw_text": null,
+          "preprocess_ms": 123.3,
+          "generation_ms": 2112.2,
+          "total_ms": 2235.5,
+          "output_tokens": 292,
+          "output_tokens_per_s": 138.25,
+          "model_calls": 1,
+          "backend": "LFM3-Omni-2B Q4_K_M",
+          "contact_sheet_fps": 3,
+          "contact_sheet_frames": 9
+        }
+      }
+    ],
+    "notes": [
+      "Models may hallucinate. Person IDs are approximate, not face recognition.",
+      "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+      "Previous two descriptions are supplied separately to each model.",
+      "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+    ]
+  },
+  "limitations": [
+    "Synthetic input; not a real-world accuracy evaluation.",
+    "Model output and relevance can be biased by context."
+  ]
+}

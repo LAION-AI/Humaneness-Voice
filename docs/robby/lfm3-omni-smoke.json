@@ -1,0 +1,58 @@
+{
+  "frames": 9,
+  "result": {
+    "annotation": {
+      "audio": "A short, upbeat chiptune-style music loop featuring a bright, arpeggiated synth melody, a simple bass line, and a steady electronic drum beat (kick, snare/clap, hi-hat). The tone is clean, digital, and energetic, with no vocals or speech.",
+      "visual": "A video-game style contact sheet: three horizontal dark-gray bands across the frame, each labeled with a time range in the format 'Xs|Ys' (e.g., '100s|0.00s', '+0.33s|0.33s', '+0.67s|0.67s' on the top band; '+1.00s|1.00s', '+1.33s|1.33s', '+1.67s|1.67s' on the middle band; '+2.00s|2.00s', '+2.33s|2.33s', '+2.67s|2.67s' on the bottom band). The background is solid blue, and the bands are evenly spaced with no visible people, icons, or actions.",
+      "cross_modal": [
+        {
+          "category": "visual",
+          "description": "Three time-labeled dark bands arranged left-to-right and top-to-bottom on a solid blue background, resembling a game contact sheet or level indicator."
+        },
+        {
+          "category": "audio",
+          "description": "Upbeat chiptune music loop with synth melody, bass, and drum beat, playing continuously throughout the clip.",
+          "observations": [
+            {
+              "category": "visual",
+              "description": "Three horizontal dark-gray bands labeled with time ranges (e.g., '100s|0.00s', '+0.33s|0.33s', '+0.67s|0.67s' on top; '+1.00s|1.00s', '+1.33s|1.33s', '+1.67s|1.67s' in the middle; '+2.00s|2.00s', '+2.33s|2.33s', '+2.67s|2.67s' at the bottom) on a uniform blue background, with no people, icons, or actions present."
+            },
+            {
+              "category": "audio",
+              "description": "A continuous, energetic chiptune music loop with no speech or vocal elements; the tempo is steady and the mood is playful and upbeat.",
+              "people": [
+                {
+                  "id": null,
+                  "description": "None observed; the contact sheet contains only text labels and no human figures."
+                },
+                {
+                  "id": null,
+                  "description": "None observed; no facial expressions, gestures, or body language are present in the visual frame.",
+                  "events": [
+                    {
+                      "start_s": 0,
+                      "end_s": 3,
+                      "person_id": null,
+                      "kind": "music_playing"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "parse_ok": true,
+    "parse_repaired": true,
+    "raw_text": "{\n  \"audio\": \"A short, upbeat chiptune-style music loop featuring a bright, arpeggiated synth melody, a simple bass line, and a steady electronic drum beat (kick, snare/clap, hi-hat). The tone is clean, digital, and energetic, with no vocals or speech.\",\n  \"visual\": \"A video-game style contact sheet: three horizontal dark-gray bands across the frame, each labeled with a time range in the format 'Xs|Ys' (e.g., '100s|0.00s', '+0.33s|0.33s', '+0.67s|0.67s' on the top band; '+1.00s|1.00s', '+1.33s|1.33s', '+1.67s|1.67s' on the middle band; '+2.00s|2.00s', '+2.33s|2.33s', '+2.67s|2.67s' on the bottom band). The background is solid blue, and the bands are evenly spaced with no visible people, icons, or actions.\",\n  \"cross_modal\": [\n    { \"category\": \"visual\", \"description\": \"Three time-labeled dark bands arranged left-to-right and top-to-bottom on a solid blue background, resembling a game contact sheet or level indicator.\",\n    { \"category\": \"audio\", \"description\": \"Upbeat chiptune music loop with synth melody, bass, and drum beat, playing continuously throughout the clip.\"\n  ],\n  \"observations\": [\n    { \"category\": \"visual\", \"description\": \"Three horizontal dark-gray bands labeled with time ranges (e.g., '100s|0.00s', '+0.33s|0.33s', '+0.67s|0.67s' on top; '+1.00s|1.00s', '+1.33s|1.33s', '+1.67s|1.67s' in the middle; '+2.00s|2.00s', '+2.33s|2.33s', '+2.67s|2.67s' at the bottom) on a uniform blue background, with no people, icons, or actions present.\",\n    { \"category\": \"audio\", \"description\": \"A continuous, energetic chiptune music loop with no speech or vocal elements; the tempo is steady and the mood is playful and upbeat.\"\n  ],\n  \"people\": [\n    { \"id\": null, \"description\": \"None observed; the contact sheet contains only text labels and no human figures.\",\n    { \"id\": null, \"description\": \"None observed; no facial expressions, gestures, or body language are present in the visual frame.\"\n  ],\n  \"events\": [\n    { \"start_s\": 0, \"end_s\": 3, \"person_id\": null, \"kind\": \"music_playing\",",
+    "preprocess_ms": 0.0,
+    "generation_ms": 1953.7,
+    "total_ms": 1953.7,
+    "output_tokens": 640,
+    "output_tokens_per_s": 327.58,
+    "model_calls": 1,
+    "backend": "LFM3-Omni-2B Q4_K_M",
+    "contact_sheet_fps": 3
+  }
+}

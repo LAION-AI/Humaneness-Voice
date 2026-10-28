@@ -1,0 +1,40 @@
+{
+  "frames": 9,
+  "result": {
+    "annotation": {
+      "audio": "A brief, upbeat instrumental music loop featuring a synthesized, bell-like arpeggiated melody, a simple bass line, and a basic drum machine beat.",
+      "visual": "A contact sheet with three columns of solid blue tiles, each column containing three rows of white text labels with timestamps. The top row reads '100s | 0.00s', '+0.33s | 0.33s', '+0.67s | 0.67s'; the middle row reads '1.00s | 1.00s', '+1.33s | 1.33s', '+1.67s | 1.67s'; the bottom row reads '2.00s | 2.00s', '+2.33s | 2.33s', '+2.67s | 2.67s'. The blue background fills the entire frame, and dark horizontal bars separate each row of text.",
+      "cross_modal": "The music plays continuously throughout the clip, and the text labels in the contact sheet indicate a frame-by-frame sequence (approximately 3 frames per second) across the three columns, left to right and top to bottom.",
+      "observations": [
+        {
+          "category": "audio",
+          "description": "A short, cheerful synthesized instrumental loop with no speech or vocals.",
+          "relevance": 1
+        },
+        {
+          "category": "visual",
+          "description": "A three-column contact sheet of blue tiles with white timestamped text labels; no people, gestures, or actions are present.",
+          "relevance": 0
+        },
+        {
+          "category": "cross_modal",
+          "description": "The music is audible and continuous; the visual contact sheet displays only text and color, with no speech or human action to relate to the audio.",
+          "relevance": 0
+        }
+      ],
+      "people": [],
+      "events": []
+    },
+    "parse_ok": true,
+    "parse_repaired": false,
+    "raw_text": null,
+    "preprocess_ms": 0.0,
+    "generation_ms": 1447.7,
+    "total_ms": 1447.7,
+    "output_tokens": 393,
+    "output_tokens_per_s": 271.46,
+    "model_calls": 1,
+    "backend": "LFM3-Omni-2B Q4_K_M",
+    "contact_sheet_fps": 3
+  }
+}
