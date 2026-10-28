@@ -1,0 +1,95 @@
+{
+  "duration_s": 4.264,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 3153.5,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "foreground": "melody",
+          "background": "none",
+          "music": "melody",
+          "changes": "none"
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 3.3,
+        "generation_ms": 595.6,
+        "total_ms": 598.8,
+        "output_tokens": 28,
+        "output_tokens_per_s": 47.01
+      },
+      "video": {
+        "annotation": {
+          "foreground": "person in uniform with cap and glasses",
+          "background": "American flag and blue backdrop",
+          "actions": "none",
+          "changes": "",
+          "people": [
+            {
+              "id": "1",
+              "description": "person wearing dark uniform, cap, glasses, ribbons",
+              "action": "standing still"
+            }
+          ]
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 14.8,
+        "generation_ms": 1643.1,
+        "total_ms": 1657.9,
+        "output_tokens": 83,
+        "output_tokens_per_s": 50.52
+      }
+    },
+    {
+      "start_s": 1.0,
+      "end_s": 4.0,
+      "audio": {
+        "annotation": {
+          "foreground": "melody",
+          "background": "none",
+          "music": "melody",
+          "changes": "none"
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 3.0,
+        "generation_ms": 597.1,
+        "total_ms": 600.1,
+        "output_tokens": 28,
+        "output_tokens_per_s": 46.89
+      },
+      "video": {
+        "annotation": {
+          "foreground": "person in uniform with cap and glasses",
+          "background": "American flag and blue backdrop",
+          "actions": "none",
+          "changes": "",
+          "people": [
+            {
+              "id": "1",
+              "description": "person wearing dark uniform, cap, glasses, ribbons",
+              "action": "standing still"
+            }
+          ]
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 14.7,
+        "generation_ms": 1331.3,
+        "total_ms": 1346.0,
+        "output_tokens": 67,
+        "output_tokens_per_s": 50.33
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}
