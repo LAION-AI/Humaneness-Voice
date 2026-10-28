@@ -27,8 +27,9 @@ Foreground and background: describe distinct audible sounds, their relative prom
 Speech: if audible, quote only the intelligible words in the original language; mark unclear words as unclear. Describe how it sounds: apparent delivery, emotion or tone as tentative impressions, pace, volume and speaking style. Do not invent speech, a speaker's identity or inner feelings.
 Music: only if audible, describe the melody or rhythm, likely instruments or sounds, style, approximate tempo and perceived mood. If a tune, title or artist cannot be recognized with confidence, do not guess it. Music may be faint under speech; if absent, leave music empty.
 Changes: describe clear changes in sound within this window or versus the prior window; leave empty if none is evident.''',
-'video':'''Analyze this video window in detail. Return JSON with string fields foreground, background, actions, changes and an array people of objects {id, description, action}.
-Describe prominent subjects, objects, their appearance, position and surroundings, then visible movement and interactions. Describe only clearly visible changes within this window or versus the prior one; leave changes empty if none is apparent. For each visible person describe clothing, position, posture and visible actions. Use the same person ID as earlier windows only if the visual match is reasonably supported; otherwise use a new or uncertain label. Do not infer gender, age, real identity, intent or feelings as facts. Distinguish observed movement from guesses.'''}
+'video':'''Analyze the video window as a concise, precise sequence of observable events. Return ONE valid JSON object with this exact structure:
+{"foreground":"brief description", "background":"brief description", "people":[{"id":"person_1","description":"clothing, visual features and position"}], "events":[{"start_s":null,"end_s":null,"person_id":"person_1","kind":"facial_expression","description":"observed movement or pose"}], "changes":"brief notable change or empty"}.
+Each event has start_s and end_s as approximate seconds RELATIVE TO THE START OF THIS WINDOW, not the full recording. Prior descriptions refer to their own window, not this one; do not copy their timestamps. Use only times you can support from the frames: if the timing is uncertain leave start_s and end_s null. Never invent timestamps. Include separate short events for visible facial expression and changes, hand gestures, posture or body language, physical actions and movement, and where the person appears to be looking or directing attention, with changes over time. Describe observed cues rather than asserting emotions, intentions or what someone is thinking. State uncertainty when eyes or gaze cannot be seen. Use kind values facial_expression, gesture, body_language, action, attention or scene_change. Use an empty person_id for a scene event. Assign person IDs consistently with prior descriptions only when visual continuity is supported; otherwise use a new ID or leave it uncertain. Do not guess age, gender, identity or internal feelings. If no person is visible, people must be empty and never make person-related events. An absence is not an event.'''}
 def run(x):
  previous=json.dumps(x.get('previous',[])[-2:],ensure_ascii=False)[:4000]
  def generate(question,system_prompt,limit):
@@ -51,10 +52,19 @@ def run(x):
   samples,_=sf.read(x['path'],dtype='float32');rms=float(np.sqrt(np.mean(np.square(samples)))) if len(samples) else 0.
   if rms<0.0003:
    return {'annotation':{'foreground':'Silence or very quiet audio.','background':'','speech':'','music':'','changes':''},'raw_text':None,'parse_ok':True,'preprocess_ms':0.,'generation_ms':0.,'total_ms':0.,'output_tokens':0,'output_tokens_per_s':0.,'silence_gate':True,'detail_passes':[]}
- raw,prep,elapsed,tokens=generate(questions[mode]+' Previous descriptions (uncertain): '+previous,system,512)
+ window_note=(f" Window duration: {x.get('duration_s',3):.2f} seconds. Sampled at about 2 frames per second." if mode=='video' else '')
+ raw,prep,elapsed,tokens=generate(questions[mode]+window_note+' Previous descriptions (uncertain): '+previous,system,640 if mode=='video' else 512)
+ repaired=False
  try:
   a=raw.find('{');b=raw.rfind('}');parsed=json.loads(raw[a:b+1]);assert isinstance(parsed,dict)
- except (ValueError,AssertionError):parsed=None
+ except (ValueError,AssertionError):
+  parsed=None
+  if mode=='video':
+   try:
+    from json_repair import loads as repair_loads
+    candidate=repair_loads(raw)
+    if isinstance(candidate,dict) and isinstance(candidate.get('events'),list):parsed=candidate;repaired=True
+   except (ValueError,TypeError):pass
  passes=[]
  def present(value):
   if not isinstance(value,str):return bool(value)
@@ -74,7 +84,7 @@ def run(x):
      parsed[key+'_detail']=detail
      if key=='music' and not present(parsed.get('music')) and not re.search(r'\b(?:no|without|not any)\s+(?:audible\s+)?music\b|\b(?:cannot|can.t|do not|don.t)\s+hear\s+(?:any\s+)?music\b',detail,re.I):
       parsed['music']='First pass did not detect music; the follow-up suggests it may be present.'
- return {'annotation':parsed,'raw_text':raw if parsed is None else None,'parse_ok':parsed is not None,'preprocess_ms':round(prep*1000,1),'generation_ms':round(elapsed*1000,1),'total_ms':round((prep+elapsed)*1000,1),'output_tokens':tokens,'output_tokens_per_s':round(tokens/elapsed,2) if elapsed else 0,'detail_passes':passes}
+ return {'annotation':parsed,'raw_text':raw if parsed is None or repaired else None,'parse_ok':parsed is not None,'parse_repaired':repaired,'preprocess_ms':round(prep*1000,1),'generation_ms':round(elapsed*1000,1),'total_ms':round((prep+elapsed)*1000,1),'output_tokens':tokens,'output_tokens_per_s':round(tokens/elapsed,2) if elapsed else 0,'detail_passes':passes}
 
 for line in sys.stdin:
  try:

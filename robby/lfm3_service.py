@@ -25,10 +25,10 @@ async def cmd(*args):
  except asyncio.TimeoutError:p.kill();await p.wait();raise ValueError('Media decoding timed out')
  if p.returncode:raise ValueError('Unsupported or invalid media')
  return out
-async def worker(mode,path,previous):
+async def worker(mode,path,previous,duration):
  p=workers[mode]
  if p.returncode is not None:raise RuntimeError(mode+' model stopped')
- p.stdin.write((json.dumps({'path':str(path),'previous':previous},ensure_ascii=False)+'\n').encode());await p.stdin.drain()
+ p.stdin.write((json.dumps({'path':str(path),'previous':previous,'duration_s':duration},ensure_ascii=False)+'\n').encode());await p.stdin.drain()
  reading=asyncio.create_task(p.stdout.readline())
  try:response=await asyncio.wait_for(asyncio.shield(reading),120)
  except asyncio.CancelledError:
@@ -85,8 +85,14 @@ async def analyze(request):
       base=['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(start),'-i',str(normalized),'-t',str(length)]
       if mode=='audio':args=base+['-vn','-ac','1','-ar','16000',str(path)]
       else:args=base+['-an','-vf','fps=2,scale=320:240:force_original_aspect_ratio=decrease','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p',str(path)]
-      await cmd(*args);result=await worker(mode,path,previous)
-      previous.append(result['annotation'] if result['parse_ok'] else {'unstructured':result['raw_text']})
+      await cmd(*args);result=await worker(mode,path,previous,length)
+      if mode=='video' and result['parse_ok']:
+       from lfm3_timeline import normalize_timeline
+       result['annotation']=normalize_timeline(result['annotation'],start,length)
+      observation=result['annotation'] if result['parse_ok'] else {'unstructured':result['raw_text']}
+      # Prior events have their own window-relative clock; label their window
+      # explicitly so their times cannot be mistaken for the current window.
+      previous.append({'window_start_s':round(start,3),'window_end_s':round(start+length,3),'observations':observation} if mode=='video' else observation)
       results.append(result);path.unlink(missing_ok=True)
      return results
     started=time.perf_counter()
@@ -104,7 +110,7 @@ async def analyze(request):
      raise
     return web.json_response({'duration_s':round(duration,3),'window_s':window,'stride_s':stride,'wall_ms':round((time.perf_counter()-started)*1000,1),'playback_mp4_base64':playable,
       'segments':[{'start_s':s,'end_s':round(min(s+window,duration),3),'audio':a,'video':v} for s,a,v in zip(starts,audio,video)],
-      'notes':['Models may hallucinate. Person IDs are approximate, not face recognition.','Previous two descriptions are supplied separately to each model.','Token/s includes prefill and decoding. Media is deleted when the request finishes.']})
+      'notes':['Models may hallucinate. Person IDs are approximate, not face recognition.','Visual event times are model estimates, not verified frame timestamps; samples are about 2 fps.','Previous two descriptions are supplied separately to each model.','Token/s includes prefill and decoding. Media is deleted when the request finishes.']})
    except web.HTTPException:raise
    except (ValueError,KeyError,TypeError,json.JSONDecodeError) as e:raise web.HTTPBadRequest(text=str(e)[:200])
    except Exception as e:raise web.HTTPBadGateway(text=type(e).__name__+': '+str(e)[:180])

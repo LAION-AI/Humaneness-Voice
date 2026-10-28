@@ -25,7 +25,10 @@ async def main(url):
    await page.locator('.lfm-card video').first.evaluate('(v)=>v.play()');await page.wait_for_function('document.querySelectorAll(".lfm-card video")[0].currentTime>0',timeout=10000);report['playback_time']=await page.locator('.lfm-card video').first.evaluate('v=>v.currentTime')
    await page.locator('.lfm-card video').nth(1).evaluate('(v)=>v.play()');await page.wait_for_function('document.querySelectorAll(".lfm-card video")[1].currentTime>=0.5',timeout=10000);report['second_window_playback_time']=await page.locator('.lfm-card video').nth(1).evaluate('v=>v.currentTime');assert report['second_window_playback_time']<3
    await page.locator('#lfm-close').click();assert not await page.locator('.lfm-dialog').evaluate('d=>d.open');report['passed']=not errors
-  except Exception as e:report['error']=type(e).__name__+': '+str(e)[:700]
+  except Exception as e:
+   report['error']=type(e).__name__+': '+str(e)[:700]
+   try:report['failure_status']=await page.locator('#lfm-status').inner_text(timeout=1000)
+   except Exception:pass
   finally:await browser.close()
  report['page_errors']=errors;report['source_unchanged']=report['source_sha256']==deployed_source_hash();report['passed'] &= report['source_unchanged']
  stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');(ROOT/'static'/('lfm3-browser-'+stamp+'.json')).write_text(json.dumps(report,indent=2,ensure_ascii=False));print(json.dumps(report,ensure_ascii=False),flush=True)
