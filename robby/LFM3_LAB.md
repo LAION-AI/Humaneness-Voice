@@ -11,7 +11,7 @@ Both checkpoint revisions are pinned and run in separate worker processes using 
 - [LiquidAI/LFM3-Audio-2B](https://huggingface.co/LiquidAI/LFM3-Audio-2B), revision `9d49701c372d6011d900f6abb40c6b296fb706dd`, GPU 0.
 - [LiquidAI/LFM3-VL-2B](https://huggingface.co/LiquidAI/LFM3-VL-2B), revision `f83d2b0a2296aaa277f394990a9b8b949ddf9691`, GPU 1. Per model card, the video encoder samples at 2 fps, despite the 5–10 fps recording.
 
-Both have the Liquid LFM Open License v1.0; consult each model card and license before use or redistribution. Remote custom model code is executed locally from the pinned downloads. The example environment here uses the existing torch 2.6 CUDA stack plus a separate Python package target with `transformers==5.21.0`, `huggingface-hub==1.31.0`, `tokenizers==0.23.3`, `av==19.0.2`, and a compatible recent `regex`. PyAV 19 requires a small compatibility shim for the installed torchvision decoder. The audio model warns that causal-conv1d is not installed and uses a slower PyTorch reference implementation. Neither model changes Robby's existing Python environment.
+Both have the Liquid LFM Open License v1.0; consult each model card and license before use or redistribution. Remote custom model code is executed locally from the pinned downloads. The example environment here uses the existing torch 2.6 CUDA stack plus a separate Python package target with `transformers==5.21.0`, `huggingface-hub==1.31.0`, `tokenizers==0.23.3`, `av==19.0.2`, `json-repair==0.57.0`, and a compatible recent `regex`. PyAV 19 requires a small compatibility shim for the installed torchvision decoder. The audio model warns that causal-conv1d is not installed and uses a slower PyTorch reference implementation. Neither model changes Robby's existing Python environment.
 
 Example installation (choose a cache on a drive with at least 10 GB free, and review custom code):
 
@@ -20,7 +20,7 @@ export HF_HOME=/mnt/nvme/moss-15-v2/.cache/lfm3
 export LFM3_PYTHONPATH=/mnt/nvme/moss-15-v2/lfm3-env
 uv pip install --python "$ROBBY_PYTHON" --target "$LFM3_PYTHONPATH" --no-deps \
   transformers==5.21.0 huggingface-hub==1.31.0 tokenizers==0.23.3 \
-  av==19.0.2 'regex>=2025.10.22'
+  av==19.0.2 json-repair==0.57.0 'regex>=2025.10.22'
 "$ROBBY_PYTHON" - <<'PY'
 from huggingface_hub import snapshot_download
 for repo, revision in [
@@ -58,3 +58,13 @@ When the first pass detects speech or music, a second audio query asks for detai
 On authored three-second fixtures, the model described the synthetic melody, rhythm and mood; identified the words “Hi Robbie” and described their delivery; and the follow-up found music underneath that speech, which the first pass had missed. A speech-only fixture produced “no music” on the follow-up. The muted portrait clip activated the silence gate. The model still made potentially inaccurate visual/voice judgments, so these are illustrative checks, not calibrated accuracy measurements. The `static/lfm3-detail-*.json` receipts contain only synthetic media descriptions and no audio/video bytes. Tests ran locally on the RTX 3090s; a warm speech-plus-music sample used about 3.27 s of summed audio model processing and the more detailed synthetic video sample took about 4.1 s (including preprocessing). Browser and real-world end-to-end timings vary.
 
 A final repeat after the disagreement indicator was added is in `static/lfm3-detail-release.json`: the first pass missed background music, while the follow-up suggested it, and the displayed result records that disagreement. The same test exposed an unsupported inference about a speaker being nervous; treat such descriptions as uncertain model output. The facade browser check passed with six windows in 16.7 s on fake devices.
+
+## Approximate visual event timeline (current)
+
+Video descriptions request separate short events for facial expression, gesture, body language, actions and apparent gaze/attention, using times relative to each window. The backend validates each range and also supplies recording-relative times. The UI labels these as model estimates; missing or invalid times remain explicitly uncertain rather than being interpolated. The video model samples at approximately 2 fps and its estimates are not frame-level annotations or verified timing. Person IDs are tentative visual labels, not established identities, and are linked only when the model finds continuity. Reported gaze, expression and especially mental-state language can be wrong.
+
+The model sometimes outputs invalid JSON. `json-repair==0.57.0` attempts structural repair, clearly labels the result and keeps the raw response available for inspection; repair may itself alter information. Person references absent from the returned people list are marked unconfirmed. An explicit non-event such as “no visible person” is omitted from the event list. Previous windows remain model-generated context and can propagate mistakes.
+
+An authored static-portrait test produced a `person_1` label and relative facial/gaze observations in both overlapping windows, with recording-relative conversion; a moving synthetic pattern produced no person events. This does not test real human facial movement, multi-person identity switches or actual eye-contact accuracy. Test invalid, missing and out-of-range timestamps with `python -m unittest test_lfm3_timeline`; browser tests use fake devices.
+
+Final browser verification produced six windows with visible timeline and segment playback in 17.8 seconds using fake devices. The final two-window portrait and non-person synthetic probes are recorded in `static/lfm3-timeline-release.json`; both portrait model outputs needed JSON structural repair. The model still inferred age despite being told not to, illustrating the limitations of prompt-only safeguards. No real human gesture or gaze-ground-truth test was performed.
