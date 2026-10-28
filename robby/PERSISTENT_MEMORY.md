@@ -1,9 +1,17 @@
-# Optional persistent wiki memory
+# Persistent wiki memory
 
-The **Optional persistent memory** menu is below the avatar and timing panel.
-**Remember knowledge between visits is OFF by default.** Enable it explicitly
-in this browser. The existing audio speaker recognition and face settings are
+The **Persistent memory** menu is below the avatar and timing panel.
+**Remember knowledge between visits is ON by default.** The new default also
+applies once to existing browser profiles; after that, a user can turn it off
+and the choice persists. The existing audio speaker recognition and face settings are
 independent: this feature stores text knowledge, not biometric profiles.
+
+The stable Robby persona comes from the application prompt; saved user-provided
+facts and bounded recent conversation give that character continuity across
+visits. The wiki does not establish consciousness, independently train the model,
+or guarantee perfect recall. Private wiki text is not encrypted at rest. Users
+can browse or reset it in the same menu, and cloud updates send text to the
+selected provider.
 
 ## What is remembered
 

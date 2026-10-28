@@ -6,6 +6,14 @@ This is the repeatable test procedure for Robby's microphone → ASR → person 
 
 Start with the executable regression checks below. Use the configuration-search procedure only after those checks work. **Implemented**, **executed**, and **proposed** are different statuses throughout this document. A passing unit test is not a successful microphone conversation. A lower cosine threshold is not automatically an improvement.
 
+## Current persistent-memory regression
+
+Text wiki memory now defaults on, including a one-time migration of older preferences. `browser_memory_check.py` tests saving authored facts, reconnecting and retrieving with recent history disabled, then disabling and resetting. It uses a synthetic test workspace and removes its contents; it does not test biometric identity or publish actual user data. See `PERSISTENT_MEMORY.md` for the non-encrypted-at-rest storage and cloud-provider implications.
+
+## Current automatic start and playback-window regression
+
+New-browser and migrated legacy defaults enable microphone, camera and gaze following, while Face ID and face-VAD remain off. `browser_auto_wake.py` checks fake devices, actual ASR for “Hi Robbie”, spoken PCM, ten seconds after playback, explicit stop/disable persistence and microphone/camera denial. `browser_auto_wake_policy.py` checks Chromium autoplay restrictions and click-to-enable recovery. `test_wake_mode.py` exercises greeting/spelling variants and a simulated 30-second reply. Use the receipts and source hashes in `static/auto-wake-*.json`; none of these are a real physical microphone or eye-contact accuracy study.
+
 ## Current wake-mode regression
 
 The default requires an initial Hey Robby and 300-ms speech pause, followed by a ten-second same-voice window. The test must cover no-wake rejection, same-speaker follow-up, other-speaker rejection, expiry and new wake, mode toggle, automatic sound OFF and an explicit sound question with real audio. See [WAKE_MODE.md](WAKE_MODE.md), `test_wake_mode.py`, `browser_wake_check.py` and the preserved `static/wake-browser-*.json` attempts. Browser fixtures are synthetic, and two overlapping voices or a real TV are not covered by the small basic check. Explicitly run prior open-conversation tests with wake mode disabled.

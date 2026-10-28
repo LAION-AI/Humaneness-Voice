@@ -1,5 +1,30 @@
 # Hey Robby mode and on-demand sound questions
 
+## Automatic startup and eye contact (October 28)
+
+For a new browser, the page automatically starts the microphone and waits for
+the wake phrase as soon as the server is ready and browser permissions and
+autoplay policy allow it. Camera startup and position-based gaze following are
+also on by default. A one-time migration applies these defaults to existing
+browser settings; later explicit choices are remembered. Face ID and face-VAD
+gating remain separately **off** by default. Camera face landmarks and gaze
+run in browser CPU workers; enabling the camera does not enroll a face identity.
+
+Browser permission prompts and autoplay restrictions cannot be bypassed. If
+the microphone or playback is blocked, click **Enable microphone & sound** and
+grant permission. If camera permission is denied, voice conversation continues
+and the camera controls offer a retry. **Turn Robby off** stops microphone,
+camera and playback, and remembers auto-start OFF; enable the controls again
+when desired. Closing the page also stops its media streams.
+
+The wake detector accepts “Hey”, “Hi”, “Hallo” and “Hello” with Robby/Robbie/
+Robbi/Robi, including commas and case variations. This operates on live ASR
+text, so recognition errors can still prevent activation. The same voice may
+continue during the answer. The ten-second follow-up period is renewed only
+after the browser reports that playback has completed (or the existing TYGER
+playback-timeout fallback ends a stalled playback). It does not run out just
+because Robby speaks for 20–30 seconds.
+
 The default microphone mode requires an utterance to begin with “Hey Robby”
 (also recognizes common Robby/Robbie/Robi spellings and greetings such as
 “Hallo”). After this wake turn, the same voice can begin another turn within
@@ -83,3 +108,12 @@ spoken question with automatic reactions off. Both browser scripts accept
 `--local` to select the local Nemotron LLM explicitly for that test only.
 Provider rate limits and each test's actual selected model are retained in
 the receipts; testing a local route does not prove Qwen availability.
+
+`generate_auto_wake_fixture.py`, `browser_auto_wake.py` and
+`browser_auto_wake_policy.py` exercise default migration, fake microphone and
+camera, an authored spoken “Hi Robbie” through real ASR/LLM/TTS, playback-end
+window renewal, camera/microphone denial and Chromium's autoplay recovery.
+Run sequentially because the live ASR worker has a single session slot. The
+browser tests use fake devices and local synthetic audio, not a real webcam,
+microphone, or a perceptual eye-contact accuracy study. Exact outcomes and
+runtime fingerprints are in `static/auto-wake-*.json`.
