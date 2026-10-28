@@ -1,0 +1,323 @@
+{
+  "source_sha256": "9dddf176215038b4fd7767b1112eb07634b08314260a5588715cb14c5902659f",
+  "fixtures": {
+    "speech-music": {
+      "duration_s": 3.021,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 3264.0,
+      "relevance_context": {
+        "memory_used": true,
+        "recent_turns": 1,
+        "conservative_token_bound": 396
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "h",
+              "background": "music",
+              "speech": "Hi Robby",
+              "music": "music",
+              "changes": [],
+              "observations": [
+                {
+                  "category": "speech",
+                  "description": "Hi Robby",
+                  "relevance": 1
+                }
+              ]
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 1112.9,
+            "generation_ms": 2094.1,
+            "total_ms": 3207.0,
+            "output_tokens": 78,
+            "output_tokens_per_s": 37.25,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": {
+              "foreground": "Solid blue color fills the entire frame.",
+              "background": "Solid blue color fills the entire frame.",
+              "people": [],
+              "events": [],
+              "changes": "No change observed.",
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "raw_text": null,
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 114.7,
+            "generation_ms": 1315.1,
+            "total_ms": 1429.9,
+            "output_tokens": 38,
+            "output_tokens_per_s": 28.89,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "A short, upbeat instrumental jazz loop featuring a walking upright bass, light piano chords, and a subtle swing rhythm. The music is steady and cheerful, matching Bob's jazz interest.",
+              "visual": "A contact sheet with three columns of blue tiles, each tile showing a frame sequence labeled with time and frame counts (e.g., '100s | 0.00s', '+0.33s | 0.33s', '+0.67s | 0.67s' in the top row; '+1.00s | 1.00s', '+1.33s | 1.33s', '+1.67s | 1.67s' in the middle row; '+2.00s | 2.00s', '+2.33s | 2.33s', '+2.67s | 2.67s' in the bottom row). Dark gray borders frame each row, and the background is solid blue.",
+              "cross_modal": "The jazz music plays continuously beneath the static contact sheet, which displays a time-lapse-style sequence of three frames per row across three columns, with labels indicating frame positions and durations.",
+              "observations": [
+                {
+                  "category": "audio",
+                  "description": "Upbeat jazz instrumental loop with walking bass, piano, and light swing rhythm; no vocals or speech present.",
+                  "relevance": 2
+                },
+                {
+                  "category": "visual",
+                  "description": "Three columns of blue tiles, each containing three labeled frames (time/frame counts) separated by dark gray borders; the layout is a contact sheet with no moving elements.",
+                  "relevance": 2
+                },
+                {
+                  "category": "cross-modal",
+                  "description": "The jazz music is audible throughout the frame, providing a musical backdrop to the static visual contact sheet; no speech or interaction between the two modalities occurs.",
+                  "relevance": 2
+                }
+              ],
+              "people": [],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 123.7,
+            "generation_ms": 1609.9,
+            "total_ms": 1733.6,
+            "output_tokens": 424,
+            "output_tokens_per_s": 263.37,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    },
+    "portrait": {
+      "duration_s": 4.264,
+      "window_s": 3.0,
+      "stride_s": 1.0,
+      "wall_ms": 9936.1,
+      "relevance_context": {
+        "memory_used": true,
+        "recent_turns": 1,
+        "conservative_token_bound": 396
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 3.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": "",
+              "observations": [],
+              "level_note": "Very quiet signal; model interpretation is uncertain."
+            },
+            "raw_text": "{\n  \"foreground\": \"Bob likes jazz music\",\n  \"background\": \"\",\n  \"speech\": \"Bob likes jazz music\",\n  \"music\": \"jazz\",\n  \"changes\": [],\n  \"observations\": [\n    {\n      \"category\": \"relevant_memory\",\n      \"description\": \"Bob interests: jazz\",\n      \"relevance\": 2\n    }\n  ]\n}",
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": true,
+            "preprocess_ms": 5.6,
+            "generation_ms": 1896.3,
+            "total_ms": 1901.9,
+            "output_tokens": 84,
+            "output_tokens_per_s": 44.3,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"An elderly man wearing a dark military uniform with a white cap adorned with insignia, glasses, and ribbons on his chest.\", \"background\":\"An American flag on the left side and a solid blue backdrop behind the man.\", \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly man in a dark navy military uniform, wearing a white peaked cap with gold insignia, wire-rimmed glasses, and a black tie over a white shirt. Ribbons are pinned on his left chest. A name tag is visible on his right chest. Positioned centrally, facing forward.\", \"relevance\":1},{\"\"events\":[{\"start_s\":0.0,\"end_s\":2.8,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"Neutral, composed expression with slight downward gaze toward the camera; no noticeable movement or change in expression throughout the window.\"}, \"relevance\":1}],\"changes\":\"None observed; the image remains static with no motion or variation across the frames.\"}",
+            "parse_ok": false,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 30.1,
+            "generation_ms": 4578.5,
+            "total_ms": 4608.6,
+            "output_tokens": 214,
+            "output_tokens_per_s": 46.74,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "No audio is present in the audio stream.",
+              "visual": "A 3-column contact sheet displays nine identical portrait tiles of the same man, each showing him from the chest up wearing a dark naval uniform with a peaked cap bearing an insignia, round glasses, a black bow tie, and a small ribbon bar on his chest. Behind him is a United States flag on the left and a plain blue background on the right. The tiles are arranged in three rows and three columns, with time labels such as '+0.00s/0.00s', '+0.33s/0.33s', '+0.67s/0.67s' across the top row, '+1.00s/1.00s', '+1.33s/1.33s', '+1.67s/1.67s' across the middle row, and '+2.00s/2.00s', '+2.33s/2.33s', '+2.67s/2.67s' across the bottom row. Each tile has a dark border framing the portrait.",
+              "cross_modal": "The visual content is static and identical across all nine tiles; no motion, sound, or change occurs within the frames. The audio is silent throughout this window, so there are no sounds to relate to the visuals.",
+              "observations": [
+                {
+                  "category": "visual",
+                  "description": "Nine identical portrait tiles of an older man in a naval uniform and cap, each with a U.S. flag behind him, arranged in a 3x3 grid with time labels indicating a 3 fps sequence from 0.00s to 2.67s.",
+                  "relevance": 2
+                },
+                {
+                  "category": "audio",
+                  "description": "No audio is present; the audio stream is silent.",
+                  "relevance": 0
+                },
+                {
+                  "category": "visual",
+                  "description": "The man wears glasses, a dark navy uniform with a black bow tie, and a peaked cap with an insignia; his expression is neutral and he gazes directly forward. The flag is visible on the left side of each tile background.",
+                  "relevance": 2
+                }
+              ],
+              "people": [
+                {
+                  "id": "Robby",
+                  "description": "Robby is the warm, playful, and attentive conversational robot; he helps the current user (Bob) and follows their requests. He is the subject of the contact sheet images.",
+                  "relevance": 2
+                },
+                {
+                  "id": "Bob",
+                  "description": "Bob is the user whose request prompted the interaction; he interests in jazz music.",
+                  "relevance": 1
+                }
+              ],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 127.3,
+            "generation_ms": 4305.5,
+            "total_ms": 4432.8,
+            "output_tokens": 570,
+            "output_tokens_per_s": 132.39,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 4.0,
+          "audio": {
+            "annotation": {
+              "foreground": "Silence or very quiet audio.",
+              "background": "",
+              "speech": "",
+              "music": "",
+              "changes": "",
+              "observations": [],
+              "level_note": "Very quiet signal; model interpretation is uncertain."
+            },
+            "raw_text": "{\n  \"foreground\": \"Bob likes jazz music\",\n  \"background\": \"\",\n  \"speech\": \"Bob\",\n  \"music\": \"jazz\",\n  \"changes\": [],\n  \"observations\": [\n    {\n      \"category\": \"relevant_memory\",\n      \"description\": \"Bob interests in jazz\",\n      \"relevance\": 2\n    }\n  ]\n}",
+            "parse_ok": true,
+            "parse_repaired": false,
+            "silence_gate": true,
+            "preprocess_ms": 6.7,
+            "generation_ms": 1812.6,
+            "total_ms": 1819.3,
+            "output_tokens": 80,
+            "output_tokens_per_s": 44.14,
+            "model_calls": 1,
+            "detail_passes": []
+          },
+          "video": {
+            "annotation": null,
+            "raw_text": "{\"foreground\":\"An elderly man in a dark navy military uniform, wearing a white peaked cap with gold insignia, wire-rimmed glasses, and a black tie over a white shirt. Ribbons are pinned on his left chest. A name tag is visible on his right chest. Positioned centrally, facing forward.\", \"background\":\"An American flag on the left side and a solid blue backdrop behind the man.\", \"people\":[{\"id\":\"person_1\",\"description\":\"Elderly man in a dark navy military uniform, wearing a white peaked cap with gold insignia, wire-rimmed glasses, and a black tie over a white shirt. Ribbons are pinned on his left chest. A name tag is visible on his right chest. Positioned centrally, facing forward.\", \"relevance\":1},{\" \"events\":[{\"start_s\":0.0,\"end_s\":2.8,\"person_id\":\"person_1\",\"kind\":\"facial_expression\",\"description\":\"Neutral, composed expression with slight downward gaze toward the camera; no noticeable movement or change in expression throughout the window.\", \"relevance\":1}]], \"changes\":\"None observed; the image remains static with no motion or variation across the frames.\"}",
+            "parse_ok": false,
+            "parse_repaired": false,
+            "silence_gate": false,
+            "preprocess_ms": 30.6,
+            "generation_ms": 5132.6,
+            "total_ms": 5163.2,
+            "output_tokens": 253,
+            "output_tokens_per_s": 49.29,
+            "model_calls": 1,
+            "detail_passes": [],
+            "temporal_patches": 8,
+            "encoded_frames_with_padding": 16,
+            "sampling_fps": 5.0
+          },
+          "omni": {
+            "annotation": {
+              "audio": "Silent",
+              "visual": "A 3-column contact sheet of nine identical portrait tiles showing the same older man in a dark naval uniform with a peaked cap, round glasses, black bow tie, and a ribbon bar on his chest, with a United States flag behind him and a plain blue background. Time labels +0.00s/1.00s, +0.33s/1.33s, +0.67s/1.67s across the top row, +1.00s/1.00s, +1.33s/1.33s, +1.67s/1.67s across the middle row, and +2.00s/2.00s, +2.33s/2.33s, +2.67s/2.67s across the bottom row. Each tile has a dark border framing the portrait.",
+              "cross_modal": "No audio is present; the audio stream is silent throughout this window, so there are no sounds to relate to the visuals. The visual content is static and identical across all nine tiles; no motion, sound, or change occurs within the frames. The man gazes directly forward with a neutral expression, wearing glasses, a dark navy uniform with a black bow tie, and a peaked cap with an insignia, with the flag visible on the left side of each tile background.",
+              "observations": [
+                {
+                  "category": "visual",
+                  "description": "Nine identical portrait tiles of an older man in a naval uniform and cap, each with a U.S. flag behind him, arranged in a 3x3 grid with time labels indicating a 3 fps sequence from 0.00s to 2.67s.",
+                  "relevance": 2
+                },
+                {
+                  "category": "audio",
+                  "description": "No audio is present; the audio stream is silent.",
+                  "relevance": 0
+                },
+                {
+                  "category": "visual",
+                  "description": "The man wears glasses, a dark navy uniform with a black bow tie, and a peaked cap with an insignia; his expression is neutral and he gazes directly forward. The flag is visible on the left side of each tile background.",
+                  "relevance": 2
+                }
+              ],
+              "people": [
+                {
+                  "id": "Robby",
+                  "description": "Robby is the warm, playful, and attentive conversational robot; he helps the current user (Bob) and follows their requests. He is the subject of the contact sheet images.",
+                  "relevance": 2
+                },
+                {
+                  "id": "Bob",
+                  "description": "Bob is the user whose request prompted the interaction; he interests in jazz music.",
+                  "relevance": 1
+                }
+              ],
+              "events": [],
+              "timeline_status": "Model estimates, not verified frame timestamps; visual sampling is about 5 fps."
+            },
+            "parse_ok": true,
+            "parse_repaired": false,
+            "raw_text": null,
+            "preprocess_ms": 121.5,
+            "generation_ms": 1961.2,
+            "total_ms": 2082.7,
+            "output_tokens": 587,
+            "output_tokens_per_s": 299.3,
+            "model_calls": 1,
+            "backend": "LFM3-Omni-2B Q4_K_M",
+            "contact_sheet_fps": 3,
+            "contact_sheet_frames": 9
+          }
+        }
+      ],
+      "notes": [
+        "Models may hallucinate. Person IDs are approximate, not face recognition.",
+        "Visual event times are model estimates, not verified frame timestamps; samples are about 5 fps.",
+        "Previous two descriptions are supplied separately to each model.",
+        "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+      ]
+    }
+  }
+}

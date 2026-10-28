@@ -1,0 +1,44 @@
+{
+  "frames": 9,
+  "result": {
+    "annotation": {
+      "audio": "A short, upbeat, synthesized chiptune-style music loop featuring a bright, arpeggiated melody and a simple electronic drum beat, reminiscent of 8-bit/16-bit video game soundtracks.",
+      "visual": "A 3-column contact sheet (grid) of square tiles, each showing a single frame of a sequence at roughly 3 frames per second, left to right and top to bottom. The first tile (0 seconds) is a solid bright blue; the subsequent tiles (approximately 0.33 seconds apart) each display a different frame from the same sequence, showing a character-like figure in motion with a slight head tilt and open mouth, suggesting a talking or reacting pose.",
+      "cross_modal": "The music plays continuously throughout the clip while the contact sheet frames the visual content; the blue tile at 0 seconds contrasts with the colored frames in the later tiles, indicating a sequence of frames being presented one after another.",
+      "observations": [
+        {
+          "category": "audio",
+          "description": "Upbeat chiptune music loop with melody and drum beat, no speech or vocals.",
+          "relevance": 2
+        },
+        {
+          "category": "visual",
+          "description": "3-column contact sheet of frames at ~3 fps, first tile solid blue, subsequent tiles show a character-like figure in motion with a slight tilt and open mouth.",
+          "relevance": 2
+        }
+      ],
+      "people": [],
+      "events": [
+        {
+          "start_s": 0,
+          "end_s": 0.33,
+          "person_id": null,
+          "kind": "visual frame change",
+          "description": "First tile (blue) appears; subsequent tiles show the character frame moving left-to-right at ~3 fps.",
+          "relevance": 2
+        }
+      ]
+    },
+    "parse_ok": true,
+    "parse_repaired": false,
+    "raw_text": null,
+    "preprocess_ms": 0.0,
+    "generation_ms": 1576.9,
+    "total_ms": 1576.9,
+    "output_tokens": 406,
+    "output_tokens_per_s": 257.46,
+    "model_calls": 1,
+    "backend": "LFM3-Omni-2B Q4_K_M",
+    "contact_sheet_fps": 3
+  }
+}
