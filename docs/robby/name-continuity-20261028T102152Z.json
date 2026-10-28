@@ -1,0 +1,67 @@
+{
+  "scope": "Authored conversational probes; no actual user transcripts or voiceprints.",
+  "source_sha256": "526ba38680793ecd8161f7cf2889e1c54c0bb72f552881bc15550a774c5d70ef",
+  "rows": [
+    {
+      "model": "local",
+      "case": "greeting_named",
+      "reply": "Mir geht es ausgezeichnet, danke der Nachfrage! Ich bin bereit für ein wunderbares Gespräch mit dir.",
+      "ms": 681,
+      "passed": true
+    },
+    {
+      "model": "local",
+      "case": "greeting_uncertain",
+      "reply": "Mir geht es ausgezeichnet, danke der Nachfrage! Ich bin bereit für alles, was du vorhast.",
+      "ms": 623,
+      "passed": true
+    },
+    {
+      "model": "local",
+      "case": "memory_partner",
+      "reply": "Deine Freundin heißt Alice",
+      "ms": 487,
+      "passed": true
+    },
+    {
+      "model": "local",
+      "case": "story",
+      "reply": "Warum hat der Apfel seinen Job gewechselt\nweil er zu viel von der Ernte gesehen hat",
+      "ms": 709,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "case": "greeting_named",
+      "reply": "Hey Christoph! Mir geht’s prächtig, meine Batterien sind voll und meine Antennen kribbeln vor Vorfreude auf unser Gespräch.",
+      "ms": 595,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "case": "greeting_uncertain",
+      "reply": "Mir geht's bestens, danke der Nachfrage! Meine Batterie ist voll, meine Antennen kribbeln vor Neugier – und jetzt bin ich gespannt, wie es dir heute so ergeht?",
+      "ms": 651,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "case": "memory_partner",
+      "reply": "Deine Freundin heißt Alice.",
+      "ms": 354,
+      "passed": true
+    },
+    {
+      "model": "qwen",
+      "case": "story",
+      "reply": "Warum hat der Apfel beim Supermarkt nicht zugegriffen?\nEr hatte keine Hände.",
+      "ms": 382,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "limits": [
+    "Authored text and memory, not real microphone or proof of acoustic identity.",
+    "Few cases do not quantify model reliability."
+  ]
+}
