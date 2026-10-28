@@ -1,0 +1,115 @@
+"""Private local LFM3 audio/video analysis service. No recordings are retained."""
+import asyncio,base64,contextlib,json,os,tempfile,time,sys
+from pathlib import Path
+from aiohttp import web
+ROOT=Path(__file__).resolve().parent
+LIMIT=24*1024*1024;MAX_DURATION=30
+lock=asyncio.Lock();workers={};status={'ready':False,'error':None}
+async def start_worker(mode,gpu):
+ env={**os.environ,'PYTHONPATH':os.environ.get('LFM3_PYTHONPATH','/mnt/nvme/moss-15-v2/lfm3-env'),'HF_HOME':os.environ.get('HF_HOME','/mnt/nvme/moss-15-v2/.cache/lfm3'),'HF_HUB_OFFLINE':'1','PYTHONUNBUFFERED':'1'}
+ p=await asyncio.create_subprocess_exec(sys.executable,str(ROOT/'lfm3_worker.py'),mode,str(gpu),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=None,env=env,limit=1024*1024)
+ ready=await asyncio.wait_for(p.stdout.readline(),90);info=json.loads(ready);assert info.get('ready'),info
+ workers[mode]=p;return info
+async def startup(app):
+ try:
+  info=await asyncio.gather(start_worker('audio',int(os.getenv('LFM3_AUDIO_GPU','0'))),start_worker('video',int(os.getenv('LFM3_VIDEO_GPU','1'))));status.update(ready=True,models=info)
+ except Exception as e:status.update(ready=False,error=type(e).__name__+': '+str(e)[:160]);print('Worker startup failed',status['error'],flush=True)
+async def cleanup(app):
+ for p in workers.values():
+  if p.returncode is None:p.terminate()
+ for p in workers.values():
+  with contextlib.suppress(Exception):await asyncio.wait_for(p.wait(),5)
+async def cmd(*args):
+ p=await asyncio.create_subprocess_exec(*args,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+ try:out,err=await asyncio.wait_for(p.communicate(),20)
+ except asyncio.TimeoutError:p.kill();await p.wait();raise ValueError('Media decoding timed out')
+ if p.returncode:raise ValueError('Unsupported or invalid media')
+ return out
+async def worker(mode,path,previous):
+ p=workers[mode]
+ if p.returncode is not None:raise RuntimeError(mode+' model stopped')
+ p.stdin.write((json.dumps({'path':str(path),'previous':previous},ensure_ascii=False)+'\n').encode());await p.stdin.drain()
+ reading=asyncio.create_task(p.stdout.readline())
+ try:response=await asyncio.wait_for(asyncio.shield(reading),120)
+ except asyncio.CancelledError:
+  # Drain the current response before the lock is released, otherwise the
+  # next recording could receive a stale response from the previous one.
+  with contextlib.suppress(Exception):await asyncio.wait_for(reading,120)
+  raise
+ if not response:raise RuntimeError(mode+' model disconnected')
+ d=json.loads(response)
+ if not d.get('ok'):raise RuntimeError(mode+' model error: '+d.get('error','unknown'))
+ return d['result']
+async def get_status(request):return web.json_response({**status,'busy':lock.locked(),'max_duration_s':MAX_DURATION,'max_upload_mb':LIMIT//1024//1024})
+async def analyze(request):
+ if not status['ready']:raise web.HTTPServiceUnavailable(text='Models are not ready')
+ if lock.locked():raise web.HTTPConflict(text='Another analysis is running; please retry')
+ async with lock:
+  with tempfile.TemporaryDirectory(prefix='lfm3-',dir=ROOT/'.runtime') as tmp:
+   tmp=Path(tmp);upload=tmp/'input.webm';size=0;window=3.;stride=1.
+   try:
+    reader=await request.multipart()
+    async for part in reader:
+     if part.name=='media':
+      with upload.open('wb') as f:
+       while True:
+        chunk=await part.read_chunk(65536)
+        if not chunk:break
+        size+=len(chunk)
+        if size>LIMIT:raise web.HTTPRequestEntityTooLarge(max_size=LIMIT,actual_size=size)
+        f.write(chunk)
+     elif part.name in ('window','stride'):
+      raw=await part.text()
+      if len(raw)>20:raise ValueError('Invalid window setting')
+      if part.name=='window':window=float(raw)
+      else:stride=float(raw)
+    if not upload.exists() or size==0:raise ValueError('A recording is required')
+    if not 2<=window<=5 or not .5<=stride<=3 or stride>window:raise ValueError('Invalid window or stride')
+    # MediaRecorder WebM commonly omits duration; remuxing writes a finite
+    # container duration without transcoding or retaining the recording.
+    normalized=tmp/'normalized.mkv'
+    await cmd('ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(upload),'-map','0:v:0','-map','0:a:0','-c','copy',str(normalized))
+    out=await cmd('ffprobe','-v','error','-show_entries','format=duration:stream=codec_type','-of','json',str(normalized));meta=json.loads(out)
+    duration=float(meta['format']['duration']);types={s['codec_type'] for s in meta['streams']}
+    if not 0<duration<=MAX_DURATION+.25:raise ValueError('Recording must be between 0 and 30 seconds')
+    if not {'audio','video'}<=types:raise ValueError('The recording must contain audio and video')
+    starts=[];t=0.
+    while t+window<=duration+.05:
+     starts.append(round(t,3));t+=stride
+    if not starts:starts=[0.]
+    if len(starts)>60:raise ValueError('Too many windows')
+    async def process(mode):
+     previous=[];results=[]
+     for index,start in enumerate(starts):
+      length=min(window,duration-start);path=tmp/(mode+str(index)+('.wav' if mode=='audio' else '.mp4'))
+      base=['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(start),'-i',str(normalized),'-t',str(length)]
+      if mode=='audio':args=base+['-vn','-ac','1','-ar','16000',str(path)]
+      else:args=base+['-an','-vf','fps=5,scale=320:240:force_original_aspect_ratio=decrease','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p',str(path)]
+      await cmd(*args);result=await worker(mode,path,previous)
+      previous.append(result['annotation'] if result['parse_ok'] else {'unstructured':result['raw_text']})
+      results.append(result);path.unlink(missing_ok=True)
+     return results
+    started=time.perf_counter()
+    # A seekable MP4 is returned to the same browser for its window players;
+    # MediaRecorder WebM often has infinite duration and cannot be sought.
+    async def playback():
+     out=tmp/'playback.mp4'
+     await cmd('ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(normalized),'-vf','scale=320:240:force_original_aspect_ratio=decrease','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p','-c:a','aac','-max_muxing_queue_size','4096','-movflags','+faststart',str(out))
+     return base64.b64encode(out.read_bytes()).decode('ascii')
+    tasks=[asyncio.create_task(coro) for coro in (process('audio'),process('video'),playback())]
+    try:audio,video,playable=await asyncio.gather(*tasks)
+    except BaseException:
+     for task in tasks:task.cancel()
+     await asyncio.gather(*tasks,return_exceptions=True)
+     raise
+    return web.json_response({'duration_s':round(duration,3),'window_s':window,'stride_s':stride,'wall_ms':round((time.perf_counter()-started)*1000,1),'playback_mp4_base64':playable,
+      'segments':[{'start_s':s,'end_s':round(min(s+window,duration),3),'audio':a,'video':v} for s,a,v in zip(starts,audio,video)],
+      'notes':['Models may hallucinate. Person IDs are approximate, not face recognition.','Previous two descriptions are supplied separately to each model.','Token/s includes prefill and decoding. Media is deleted when the request finishes.']})
+   except web.HTTPException:raise
+   except (ValueError,KeyError,TypeError,json.JSONDecodeError) as e:raise web.HTTPBadRequest(text=str(e)[:200])
+   except Exception as e:raise web.HTTPBadGateway(text=type(e).__name__+': '+str(e)[:180])
+if __name__=='__main__':
+ (ROOT/'.runtime').mkdir(exist_ok=True)
+ app=web.Application(client_max_size=LIMIT+1024*1024);app.on_startup.append(startup);app.on_cleanup.append(cleanup)
+ app.router.add_get('/status',get_status);app.router.add_post('/analyze',analyze)
+ web.run_app(app,host='127.0.0.1',port=8810,access_log=None)
