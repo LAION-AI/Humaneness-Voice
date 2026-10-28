@@ -38,8 +38,8 @@ For Wikipedia, search the simple entity name, not a long descriptive question.
 Only claim a source was unavailable if its returned status explicitly says so.
 Do not present facts absent from the returned extracts as verified by that source.
 Use source=all when multiple news publishers are requested.
-When a provisional new speaker has needs_name=true, briefly welcome them and ask
-their name once, while still answering any real request. Never insist on a name.
+An unnamed acoustic track can belong to someone already known. Answer the request;
+ask a name only when useful and not already established. Never insist on a name.
 An identity claim is a session label, not authentication.'''
 
 def tool(name,description,properties):

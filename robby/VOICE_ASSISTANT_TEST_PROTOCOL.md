@@ -6,6 +6,10 @@ This is the repeatable test procedure for Robby's microphone → ASR → person 
 
 Start with the executable regression checks below. Use the configuration-search procedure only after those checks work. **Implemented**, **executed**, and **proposed** are different statuses throughout this document. A passing unit test is not a successful microphone conversation. A lower cosine threshold is not automatically an improvement.
 
+## Current conversational continuity regression
+
+`check_name_continuity.py` sends authored named and provisionally unnamed greeting, remembered-partner and joke examples to both configured Qwen and local Bolt. `test_bolt.py` and `test_knowledge_tools.py` verify that neither streaming nor tool paths append a forced name question, and that retrieved wiki and history reach the director. These small probes do not establish real-world speaker identity or general conversational quality.
+
 ## Current persistent-memory regression
 
 Text wiki memory now defaults on, including a one-time migration of older preferences. `browser_memory_check.py` tests saving authored facts, reconnecting and retrieving with recent history disabled, then disabling and resetting. It uses a synthetic test workspace and removes its contents; it does not test biometric identity or publish actual user data. See `PERSISTENT_MEMORY.md` for the non-encrypted-at-rest storage and cloud-provider implications.

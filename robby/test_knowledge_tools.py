@@ -97,10 +97,10 @@ class KnowledgeTests(unittest.IsolatedAsyncioTestCase):
         with patch('knowledge_tools.execute',new=AsyncMock()) as lookup:
             result=await CompactDirector().generate(client,'Wie ist das Wetter bei mir?',{},[])
         lookup.assert_not_awaited();self.assertFalse(result['sources']);self.assertTrue(result['lookups'][0]['error'])
-    async def test_new_guest_gets_name_question_if_model_omits_it(self):
+    async def test_unnamed_guest_does_not_get_forced_name_question(self):
         packet={'choices':[{'message':{'content':json.dumps({'general':'Natural.','script':'(interest) Hier ist deine Geschichte.','language':'de'})}}]}
         client=SimpleNamespace(post=AsyncMock(return_value=httpx.Response(200,json=packet,request=httpx.Request('POST','https://example.test'))))
         result=await CompactDirector().generate(client,'Erzähl eine Geschichte',{'needs_name':True},[])
-        self.assertIn('Wie heißt du?',result['text'])
+        self.assertEqual(result['text'],'Hier ist deine Geschichte.')
 
 if __name__=='__main__':unittest.main()
