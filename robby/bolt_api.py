@@ -7,7 +7,7 @@ import asyncio,base64,json,os,time
 from contextlib import asynccontextmanager
 import aiohttp,httpx,numpy as np
 from fastapi import FastAPI,HTTPException,Request,WebSocket,WebSocketDisconnect
-from fastapi.responses import StreamingResponse,JSONResponse
+from fastapi.responses import Response,StreamingResponse,JSONResponse
 from pydantic import BaseModel,Field
 from bolt_text import CATALOGUE,Sentence
 from bolt_director import BoltDirector,MODEL_REPO,MODEL_REVISION,local_config
@@ -175,6 +175,24 @@ async def websocket(ws:WebSocket):
     finally:
         try:await ws.close()
         except (RuntimeError,WebSocketDisconnect):pass
+
+@app.post('/api/lfm3/analyze')
+async def lfm3_analyze_proxy(request:Request):
+    """Forward only the opt-in media upload to Robby; other POSTs remain blocked."""
+    if not request.headers.get('content-type','').lower().startswith('multipart/form-data;'):
+        raise HTTPException(415,'Expected a recording upload')
+    limit=25*1024*1024;chunks=[];size=0
+    async for chunk in request.stream():
+        size+=len(chunk)
+        if size>limit:raise HTTPException(413,'Recording upload is too large')
+        chunks.append(chunk)
+    try:
+        async with httpx.AsyncClient(timeout=600.) as client:
+            r=await client.post(ASR_BASE+'/api/lfm3/analyze',content=b''.join(chunks),
+                headers={'Content-Type':request.headers['content-type']})
+    except httpx.HTTPError:raise HTTPException(503,'Audio/video analysis service unavailable')
+    return Response(content=r.content,status_code=r.status_code,
+        headers={'Content-Type':r.headers.get('content-type','text/plain'),'Cache-Control':'no-store'})
 
 @app.api_route('/{path:path}',methods=['GET','POST'])
 async def browser_proxy(path:str,request:Request):
