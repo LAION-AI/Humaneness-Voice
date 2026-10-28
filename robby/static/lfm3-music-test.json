@@ -1,0 +1,48 @@
+{
+  "duration_s": 3.064,
+  "window_s": 3.0,
+  "stride_s": 1.0,
+  "wall_ms": 1917.6,
+  "segments": [
+    {
+      "start_s": 0.0,
+      "end_s": 3.0,
+      "audio": {
+        "annotation": {
+          "foreground": "bells",
+          "background": "",
+          "music": "",
+          "changes": []
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 9.8,
+        "generation_ms": 598.4,
+        "total_ms": 608.2,
+        "output_tokens": 27,
+        "output_tokens_per_s": 45.12
+      },
+      "video": {
+        "annotation": {
+          "foreground": "A diagonal multicolored beam moves across the screen.",
+          "background": "Vertical stripes in red, green, yellow, blue, magenta, and cyan.",
+          "actions": "The beam shifts position and color slightly between frames.",
+          "changes": "The timer in the top-left corner increments, and the beam's hue and angle change subtly.",
+          "people": []
+        },
+        "raw_text": null,
+        "parse_ok": true,
+        "preprocess_ms": 16.6,
+        "generation_ms": 1818.5,
+        "total_ms": 1835.1,
+        "output_tokens": 87,
+        "output_tokens_per_s": 47.84
+      }
+    }
+  ],
+  "notes": [
+    "Models may hallucinate. Person IDs are approximate, not face recognition.",
+    "Previous two descriptions are supplied separately to each model.",
+    "Token/s includes prefill and decoding. Media is deleted when the request finishes."
+  ]
+}

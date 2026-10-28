@@ -29,7 +29,7 @@ preserve_encoder_precision()
 ROOT=paths.ROOT
 log=logging.getLogger('robo')
 _signature=hashlib.sha256()
-for _name in ('server.py','wake_mode.py','social_profiles.py','voice_caption_worker.py','visual_identity.py','static/social-profiles.js','static/multimodal-ui.js','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_prompt.py','knowledge_tools.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
+for _name in ('server.py','lfm3_worker.py','lfm3_service.py','static/lfm3-lab.js','wake_mode.py','social_profiles.py','voice_caption_worker.py','visual_identity.py','static/social-profiles.js','static/multimodal-ui.js','addressed_speech.py','sound_events.py','sound_event_worker.py','bootstrap_sound_events.py','ambient_audio.py','environment_session.py','sound_caption_worker.py','bootstrap_sound_caption.py','static/environment-controls.js','llm_backends.py','llm_session.py','credential_store.py','conversation_focus.py','sentence_session.py','sentence_decisions.py','speaker_management.py','live_decisions.py','laya_policy.py','stop_commands.py','voice_captioning.py','quick_reaction.py','informed_bridge.py','live_speech.py','two_stage_pipeline.py','knowledge_memory.py','memory_session.py','static/memory-controls.js','interaction_policy.py','conversation_prompt.py','knowledge_tools.py','conversation_director.py','asr_choice.py','asr_catalog.py','speech_language.py','pause_vad.py','avatar_commands.py','avatar_actions.py','bolt_text.py','bolt_director.py','conversation_tasks.py','bolt_pipeline.py','tts_bridge.py','static/client.js','static/live-overview.js','static/ui.js','static/avatar-actions.js'):
     _signature.update(_name.encode());_signature.update((ROOT/_name).read_bytes())
 STATE={'ready':False,'error':None,'phase':'Starting Nemotron / TYGER','ears':None,'source_sha256':_signature.hexdigest()}
 
@@ -857,6 +857,24 @@ async def socket(request):
 
 async def index(request):return web.FileResponse(ROOT/'static/index.html')
 
+async def lfm3_status(request):
+    try:
+        async with httpx.AsyncClient(timeout=3.) as client:
+            r=await client.get('http://127.0.0.1:8810/status')
+        return web.Response(body=r.content,status=r.status_code,content_type='application/json')
+    except httpx.HTTPError:raise web.HTTPServiceUnavailable(text='Audio/video test service is unavailable')
+
+async def lfm3_analyze(request):
+    if not request.content_type.startswith('multipart/'):
+        raise web.HTTPUnsupportedMediaType(text='Expected a recording upload')
+    body=await request.read()
+    if len(body)>25*1024*1024:raise web.HTTPRequestEntityTooLarge(max_size=25*1024*1024,actual_size=len(body))
+    try:
+        async with httpx.AsyncClient(timeout=600.) as client:
+            r=await client.post('http://127.0.0.1:8810/analyze',content=body,headers={'Content-Type':request.headers['Content-Type']})
+        return web.Response(body=r.content,status=r.status_code,headers={'Content-Type':r.headers.get('content-type','text/plain'),'Cache-Control':'no-store'})
+    except httpx.HTTPError:raise web.HTTPServiceUnavailable(text='Audio/video test service is unavailable')
+
 
 async def desk_robot(request):
     # Share the actual conversation UI, not a second diverging chat client.
@@ -957,11 +975,12 @@ async def source_download(request):
 
 
 def main():
-    app=web.Application(client_max_size=2*1024*1024)
+    app=web.Application(client_max_size=25*1024*1024)
     app.router.add_get('/',index);app.router.add_get('/robo/',index)
     app.router.add_get('/desk-robot/',desk_robot)
     app.router.add_get('/desk-robot',lambda request:web.HTTPFound('/desk-robot/'))
     app.router.add_get('/api/state',state);app.router.add_get('/ws',socket)
+    app.router.add_get('/api/lfm3/status',lfm3_status);app.router.add_post('/api/lfm3/analyze',lfm3_analyze)
     app.router.add_post('/internal/sync-check',validate)
     app.router.add_post('/internal/features',features)
     app.router.add_post('/internal/context-features',context_features)
