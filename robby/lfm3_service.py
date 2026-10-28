@@ -84,7 +84,7 @@ async def analyze(request):
       length=min(window,duration-start);path=tmp/(mode+str(index)+('.wav' if mode=='audio' else '.mp4'))
       base=['ffmpeg','-hide_banner','-loglevel','error','-y','-ss',str(start),'-i',str(normalized),'-t',str(length)]
       if mode=='audio':args=base+['-vn','-ac','1','-ar','16000',str(path)]
-      else:args=base+['-an','-vf','fps=5,scale=320:240:force_original_aspect_ratio=decrease','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p',str(path)]
+      else:args=base+['-an','-vf','fps=2,scale=320:240:force_original_aspect_ratio=decrease','-c:v','libx264','-preset','ultrafast','-pix_fmt','yuv420p',str(path)]
       await cmd(*args);result=await worker(mode,path,previous)
       previous.append(result['annotation'] if result['parse_ok'] else {'unstructured':result['raw_text']})
       results.append(result);path.unlink(missing_ok=True)
