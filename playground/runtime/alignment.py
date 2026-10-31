@@ -1,5 +1,6 @@
 """Reuse the old demo's word alignment and fades, with Small edge-cue protection."""
 import logging
+import os
 import re
 import sys
 import numpy as np
@@ -86,6 +87,10 @@ class AudioFinisher:
         return output, reports
 
 
+FAST_TAIL_WORDS=int(os.environ.get('SMALL_LIVE_FAST_TAIL_WORDS','5'))
+FAST_TAIL_S=float(os.environ.get('SMALL_LIVE_FAST_TAIL_S','1.0'))
+
+
 class LiveCutoff:
     """Buffered Parakeet-timestamp fades; never align unfinished target words.
 
@@ -101,6 +106,10 @@ audio supplies whatever remains held back at EOS. No prefix retraction.
         self.tail_allow=closing*align_engine.config.ALIGN_BURST_SLACK+align_engine.config.ALIGN_TAIL_PAD_S if closing else 0.
         self.buffer=np.zeros(0,np.float32);self.total=0;self.emitted=0
         self.lead_done=not self.allow_lead;self.done=False
+        # Fast start: skip the 1.3-s lead scan (short fade-in instead) and hold
+        # tail lookahead only once Parakeet hears the last few target words.
+        self.fast=os.environ.get('SMALL_LIVE_FAST_START','0')=='1';self.faded_in=not self.fast
+        if self.fast:self.lead_done=True
         self.report={'enabled':enabled,'backend':'Parakeet v3 word timestamps + final Qwen forced alignment',
                      'lead_s':None,'cut_s':None,'stopped':False,'lookahead_seconds':1.,'emitted_seconds':0.}
 
@@ -129,9 +138,12 @@ audio supplies whatever remains held back at EOS. No prefix retraction.
             if end<=seconds and cut>=self.emitted/48000:
                 self.buffer=align_engine._fade_out(self.buffer,48000,cut-self.emitted/48000,align_engine.config.ALIGN_TAIL_RAMP_S)
                 self.done=True;self.report.update(cut_s=cut,stopped=True)
-        keep_back=0 if self.done else int(48000*(1. if self.lead_done else 1.3))
+        keep_back=0 if self.done else int(48000*((FAST_TAIL_S if self.fast else 1.) if self.lead_done else 1.3))
+        if self.fast and not self.done and len(self.words)-len(recognized)>FAST_TAIL_WORDS:keep_back=0
         count=max(0,len(self.buffer)-keep_back)
         output=self.buffer[:count].copy();self.buffer=self.buffer[count:]
+        if not self.faded_in and count:
+            ramp=min(count,int(48000*.015));output[:ramp]*=np.linspace(0.,1.,ramp,dtype=np.float32);self.faded_in=True
         self.emitted+=count;self.report['emitted_seconds']=self.emitted/48000
         return output
 

@@ -6,6 +6,7 @@ distribution are changed. The legacy path remains available for comparison.
 from collections import OrderedDict
 import time
 import os
+from types import MethodType
 
 import torch
 import torch.nn.functional as F
@@ -27,6 +28,22 @@ def combine_branches(branches, pad_token, audio_pad):
     return torch.cat(ids_list), torch.cat(mask_list).bool()
 
 
+def fast_sample(mdl, logits, temperature, top_k, top_p):
+    """Same distribution as the release's top-k mask + full-sort top-p, sampled among the k survivors."""
+    if not top_k or int(top_k) >= logits.shape[-1]:
+        return mdl._sample_next_token(logits=logits, do_sample=True, temperature=temperature,
+            top_k=top_k, top_p=top_p, previous_token_ids=None, repetition_penalty=1.0)
+    values, indices = torch.topk(logits.float() / float(temperature), int(top_k), dim=-1)
+    if top_p is not None and 0.0 < float(top_p) < 1.0:
+        drop = torch.softmax(values, dim=-1).cumsum(dim=-1) > float(top_p)
+        drop = torch.cat((torch.zeros_like(drop[..., :1]), drop[..., :-1]), dim=-1)
+        values = values.masked_fill(drop, -torch.inf)
+    return indices.gather(-1, torch.multinomial(torch.softmax(values, dim=-1), 1)).squeeze(-1)
+
+
+RAMP_START=int(os.environ.get('HVS_RAMP_START','5'))
+
+
 class FastGenerator:
     def __init__(self, engine, graph_limit=4):
         self.engine = engine
@@ -38,6 +55,10 @@ class FastGenerator:
         if os.environ.get('HVS_SEMANTIC_CUDA_GRAPH','0')=='1':
             from semantic_graph import SemanticGraphs
             self.semantic=SemanticGraphs(engine.model)
+        self.fast_sample=os.environ.get('HVS_FAST_SAMPLE','0')=='1'
+        self.chunk_ramp=os.environ.get('HVS_CHUNK_RAMP','0')=='1'
+        if os.environ.get('HVS_LOCAL_COMPILE','0')=='1':
+            self.local_frame=torch.compile(self.local_frame,dynamic=False,fullgraph=True)
 
     def clear_graphs(self):
         self.graphs.clear()
@@ -62,10 +83,13 @@ class FastGenerator:
             if nb == 2:
                 conditional, neutral = logits[:n], logits[n:]
                 logits = neutral + guidance * (conditional - neutral)
-            code = mdl._sample_next_token(logits=logits, do_sample=True,
-                temperature=p["audio_temperature"], top_k=p["audio_top_k"],
-                top_p=p["audio_top_p"], previous_token_ids=None,
-                repetition_penalty=1.0)
+            if self.fast_sample:
+                code = fast_sample(mdl, logits, p["audio_temperature"], p["audio_top_k"], p["audio_top_p"])
+            else:
+                code = mdl._sample_next_token(logits=logits, do_sample=True,
+                    temperature=p["audio_temperature"], top_k=p["audio_top_k"],
+                    top_p=p["audio_top_p"], previous_token_ids=None,
+                    repetition_penalty=1.0)
             codes.append(code)
             if channel + 1 < mdl.config.n_vq:
                 shared_code = code.repeat(nb)
@@ -124,6 +148,7 @@ class FastGenerator:
         frames, past = [], None
         finished = torch.zeros(n, dtype=torch.bool, device=ids.device)
         last = 0
+        yield_sizes = []
         model_input = ids
         semantic=self.semantic.prepare(ids,budget) if self.semantic else None
         for step in range(budget):
@@ -155,11 +180,106 @@ class FastGenerator:
             # Optional short initial block, then the normal codec batch size.
             # This changes only yield boundaries, not token sampling or caches.
             block=p.get('first_chunk_frames',chunk_frames) if last==0 else chunk_frames
+            if self.chunk_ramp:
+                # Small first chunk, then double up to chunk_frames: each block
+                # finishes before the previous one has played (RTF < 0.5).
+                block=min(chunk_frames,max(1,p.get('first_chunk_frames') or RAMP_START)*2**len(yield_sizes))
             if len(frames) - last >= block:
+                yield_sizes.append(len(frames) - last)
                 last = len(frames)
                 yield frames
         if len(frames) != last:
             yield frames
+
+
+CODEC_GRAPH = os.environ.get('HVS_CODEC_GRAPH', '0') == '1'
+CODEC_GRAPH_MAX = 20
+_CODEC_GRAPHS = {}
+
+
+def _stable_cache_update(module, state, keys, values, positions, *current):
+    # Idea from kadirnar/fast-moss-tokenizer: run the upstream update, then keep
+    # the cache at its previous addresses so captured CUDA graphs stay valid.
+    type(module)._update_streaming_cache(module, state, keys, values, positions, *current)
+    keys.copy_(state.cached_keys)
+    values.copy_(state.cached_values)
+    positions.copy_(state.cached_positions)
+    state.cached_keys, state.cached_values, state.cached_positions = keys, values, positions
+
+
+class CodecGraphs:
+    """Persistent batch-1 decoder streaming state with one CUDA graph per chunk size.
+
+    The decoder's bounded KV caches are allocated at full context length once;
+    each request only resets them, so replayed graphs read fixed addresses.
+    The encoder is never put into streaming mode (reference encoding unaffected).
+    """
+    def __init__(self, codec, audio_pad):
+        self.codec = codec
+        self.audio_pad = audio_pad
+        self.device = next(codec.parameters()).device
+        self.modules = [m for m in codec.decoder.modules() if hasattr(m, '_init_streaming_state')]
+        self.states = [m._init_streaming_state(1) for m in self.modules]
+        self.graphs = {}
+        self.capture_seconds = 0.0
+
+    def attach(self):
+        if any(m._streaming_state is not None for m in self.modules):
+            raise RuntimeError('Codec decoder is already streaming')
+        for module, state in zip(self.modules, self.states):
+            module._streaming_state = state
+            if hasattr(type(module), '_update_streaming_cache'):
+                module._update_streaming_cache = MethodType(_stable_cache_update, module)
+        if not self.graphs:
+            self.capture()
+        self.reset()
+
+    def detach(self):
+        for module in self.modules:
+            module._streaming_state = None
+            module.__dict__.pop('_update_streaming_cache', None)
+
+    def reset(self):
+        for state in self.states:
+            state.reset(torch.ones_like(state.exec_mask))
+
+    def eager(self, codes):
+        valid = codes[:, :, 0].ne(self.audio_pad)
+        lengths = valid.sum(-1)
+        codes = codes.masked_fill(~valid.unsqueeze(-1), 0)
+        self.codec._set_streaming_exec_mask(lengths > 0)
+        with torch.autocast('cuda', dtype=torch.bfloat16, enabled=codes.is_cuda):
+            result = self.codec._decode_frame(codes.permute(2, 0, 1).contiguous(), lengths)
+        return result.audio.float().mean(1), result.audio_lengths
+
+    @torch.inference_mode()
+    def capture(self):
+        started = time.monotonic()
+        pool = torch.cuda.graph_pool_handle()
+        stream = torch.cuda.Stream(device=self.device)
+        stream.wait_stream(torch.cuda.current_stream(self.device))
+        for frames in range(1, CODEC_GRAPH_MAX + 1):
+            static = torch.zeros(1, frames, 12, dtype=torch.long, device=self.device)
+            with torch.cuda.stream(stream):
+                for _ in range(2):
+                    self.eager(static)
+            graph = torch.cuda.CUDAGraph()
+            with torch.cuda.graph(graph, pool=pool, stream=stream):
+                output = self.eager(static)
+            self.graphs[frames] = (graph, static, output)
+        torch.cuda.current_stream(self.device).wait_stream(stream)
+        torch.cuda.synchronize(self.device)
+        self.capture_seconds = time.monotonic() - started
+
+    def decode(self, codes):
+        entry = self.graphs.get(codes.shape[1])
+        if entry is None or codes.shape[0] != 1:
+            return self.eager(codes)
+        graph, static, (audio, lengths) = entry
+        static.copy_(codes)
+        graph.replay()
+        # The next replay overwrites the graph's outputs; callers keep chunks.
+        return audio.clone(), lengths.clone()
 
 
 class StreamingCodec:
@@ -167,20 +287,38 @@ class StreamingCodec:
 
     Never re-decode a growing prefix. Uses the pinned codec's stateful frame
     primitive under its streaming context, the same primitive as batch_decode.
+    With HVS_CODEC_GRAPH=1, batch-1 streams replay per-chunk-size CUDA graphs
+    over a persistent decoder state (bit-identical output, fewer kernel launches).
     """
     def __init__(self, codec, batch_size, audio_pad=-1):
         self.codec = codec
         self.audio_pad = audio_pad
-        self.context = codec.streaming(batch_size=batch_size)
+        self.graphs = None
+        if CODEC_GRAPH and batch_size == 1 and next(codec.parameters()).is_cuda:
+            key = id(codec)
+            if key not in _CODEC_GRAPHS or _CODEC_GRAPHS[key].codec is not codec:
+                _CODEC_GRAPHS[key] = CodecGraphs(codec, audio_pad)
+            self.graphs = _CODEC_GRAPHS[key]
+            self.context = None
+        else:
+            self.context = codec.streaming(batch_size=batch_size)
 
     def __enter__(self):
-        self.context.__enter__()
+        if self.graphs is not None:
+            self.graphs.attach()
+        else:
+            self.context.__enter__()
         return self
 
     def __exit__(self, *args):
+        if self.graphs is not None:
+            self.graphs.detach()
+            return False
         return self.context.__exit__(*args)
 
     def decode(self, codes):
+        if self.graphs is not None:
+            return self.graphs.decode(codes)
         # Input B,T,12; codec expects 12,B,T.
         valid = codes[:, :, 0].ne(self.audio_pad)
         lengths = valid.sum(-1)
