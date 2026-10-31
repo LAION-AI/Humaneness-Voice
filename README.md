@@ -1,5 +1,7 @@
 # Humaneness Voice
 
+**Inference speed (October 31):** With opt-in environment variables, the Small RL streaming TTS starts speaking 0.18 s after receiving a sentence on an NVIDIA Jetson Thor (it was 2.3–2.9 s). The changes are BF16 merged weights, a backbone CUDA graph with Inductor fusion, top-k-first sampling, codec CUDA graphs (bit-identical audio), growing chunks and a fix for re-encoding the reference voice on every request. [Step-by-step guide with measurements, code and links](INFERENCE_OPTIMIZATIONS.md) · benchmarks: `playground/runtime/live_latency_benchmark.py`, `playground/runtime/inference_speed_check.py`.
+
 **Experimental LFM3 audio/video lab:** Robby includes an opt-in recorded-clip lab for overlapping audio and video descriptions, person labels and timing, separate from its live conversation. [Setup, privacy, model limitations and measurements](robby/LFM3_LAB.md).
 
 **Conversation continuity:** A provisional unknown voice no longer forces a name question. Both directors use relevant memory and dialogue and avoid assuming a new person solely from a voice-track change. [Reproducible conversation checks](robby/VOICE_ASSISTANT_TEST_PROTOCOL.md).

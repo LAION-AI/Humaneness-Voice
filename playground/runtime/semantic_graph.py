@@ -5,7 +5,10 @@ input row and a full-capacity boolean key mask. No model weights are modified.
 The default dynamic/compiled path stays available for correctness comparison.
 """
 from collections import OrderedDict
+import os
 import torch
+
+BUCKET=int(os.environ.get('HVS_SEMANTIC_BUCKET','128'))
 
 def raw_forward(transformer):
     fn=transformer.forward
@@ -25,6 +28,9 @@ class SemanticBank:
         self.allowed=torch.zeros((nb,capacity),dtype=torch.bool,device=self.device)
         self.position=torch.zeros(1,dtype=torch.long,device=self.device)
         self.query_valid=torch.zeros((nb,1,1),dtype=torch.bool,device=self.device)
+        # Optional: fuse the many small decode kernels (norms, RoPE, residuals)
+        # with Inductor before the CUDA graph is captured; weights are unchanged.
+        if os.environ.get('HVS_SEMANTIC_COMPILE','0')=='1':self._decode=torch.compile(self._decode,dynamic=False,mode='max-autotune-no-cudagraphs')
     def prefill(self,ids,mask):
         self.allowed.zero_();self.allowed[:,:mask.shape[1]].copy_(mask)
         length=ids.shape[1]
@@ -84,7 +90,7 @@ class SemanticBank:
 class SemanticGraphs:
     def __init__(self,model,limit=2):self.model=model;self.limit=limit;self.banks=OrderedDict()
     def prepare(self,ids,budget):
-        capacity=((ids.shape[1]+budget+127)//128)*128;key=(ids.shape[0],capacity)
+        capacity=((ids.shape[1]+budget+BUCKET-1)//BUCKET)*BUCKET;key=(ids.shape[0],capacity)
         if key not in self.banks:
             self.banks[key]=SemanticBank(self.model,ids.shape[0],capacity)
             while len(self.banks)>self.limit:self.banks.popitem(last=False)
