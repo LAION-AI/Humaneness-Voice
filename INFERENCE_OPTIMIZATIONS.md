@@ -16,11 +16,18 @@ and [christophschuhmann/cartoon-face-generator](https://github.com/christophschu
 
 | Measurement | Start | After all steps |
 |---|---|---|
-| TTS: request → first audio (live server) | 2.3–2.9 s | **0.18 s** |
-| TTS: GPU time per 80 ms audio frame | ~63 ms (slower than real time) | **27.6 ms** (2.9× faster than real time) |
+| TTS: request → first audio (live server) | 2.3–2.9 s | **0.16 s** |
+| TTS: a 4.4 s sentence fully generated (live server) | slower than real time | **1.5 s** |
+| TTS: GPU time per 80 ms audio frame | ~63 ms (slower than real time) | **~21–28 ms** (≈3× faster than real time) |
 | TTS: reference voice preparation per sentence | 646 ms | **0.9 ms** |
-| Robby: user request → first sound (text test, median of 6 turns) | 4.2 s | **0.66 s** |
+| Robby: text request → first sound (median of 6 turns) | 4.2 s | **0.66 s** |
+| Robby: **end of your speech → first sound in the browser** (median, 12 runs) | not measured before | **1.46–1.58 s** |
 | Gaps during playback (simulated listener) | – | 0.0 s |
+
+The last row is what a user actually experiences (section 7.1 explains how it is measured).
+It breaks down roughly as: ~0.4 s to decide you stopped talking and transcribe you, ~0.45 s
+until the language model (Qwen 3.8 27B on Cerebras) writes its first sentence, ~0.2 s TTS,
+0.3 s browser start buffer, plus transport.
 
 Test system: Jetson Thor (Blackwell GPU sm_110, 122 GB unified memory, CUDA 13.0,
 driver 580), Python 3.12, PyTorch 2.14.1+cu130, Transformers 5.15. Model:
@@ -34,7 +41,7 @@ at revision `182bc700`, codec [`OpenMOSS-Team/MOSS-Audio-Tokenizer-v2`](https://
 3. [Quick start: switch everything on](#3-quick-start-switch-everything-on)
 4. [The TTS optimizations, one by one](#4-the-tts-optimizations-one-by-one)
 5. [Things that did not help](#5-things-that-did-not-help)
-6. [The language model side (Robby)](#6-the-language-model-side-robby)
+6. [The rest of the pipeline (Robby)](#6-the-rest-of-the-pipeline-robby)
 7. [How to measure](#7-how-to-measure)
 8. [Environment variable reference](#8-environment-variable-reference)
 9. [Ideas not tried yet](#9-ideas-not-tried-yet)
@@ -89,12 +96,19 @@ The same was true for the 12 codebook steps and for the codec.
 
 We also profiled where the time per frame went (synchronizing the GPU around each part):
 
-| Part | Before | After |
-|---|---|---|
-| Backbone step | 15.1 ms | 10.1 ms |
-| 12 codebook steps (local transformer + sampling) | 17.9 ms | 15.7 ms |
-| Codec decode (per frame, spread over chunks) | ~9 ms | ~2.4 ms |
-| Python / sync overhead between frames | ≈ 0 | ≈ 0 |
+| Part | Before | After round 1–3 | After round 4 (custom kernels) |
+|---|---|---|---|
+| Backbone step | 15.1 ms | 10.1 ms | 10.1 ms |
+| 12 codebook steps (local transformer + sampling) | 17.9 ms | 15.7 ms | **6.1 ms** (4.10) |
+| Codec decode per chunk (3–20 frames) | 90–125 ms | 35–43 ms | **~15–25 ms** (4.9) |
+| Python / sync overhead between frames | ≈ 0 | ≈ 0 | ≈ 0 |
+
+**But check every part separately.** We later found that the *codebook* part was not
+launch-bound but **bandwidth-bound with a badly used memory bus**: its local transformer is
+large (hidden size 2560, MLP 9728), so the 12 steps read ~1.9 GB of weights per frame, and
+cuBLAS only reached 75–130 GB/s on these batch-2 matrix-vector products. Hand-written
+Triton kernels reach ~230 GB/s (section 4.10). Lesson: "small model" does not mean "every part
+is small"; measure bytes moved and achieved GB/s per part.
 
 **Measure first.** Our first guess was "~10 ms Python overhead per frame". A run with the
 codec stubbed out showed 25.2 ms per frame, which is exactly backbone + codebooks. So
@@ -126,6 +140,12 @@ export HVS_CODEC_GRAPH=1
 # growing chunks 3 -> 6 -> 12 -> 20 frames (step 4.8)
 export HVS_CHUNK_RAMP=1
 export HVS_RAMP_START=3
+# fused Triton codec decode, bit-identical (step 4.9)
+export HVS_CODEC_FUSED=1
+# Triton kernels for the 12 codebook steps (step 4.10)
+export HVS_LOCAL_TRITON=1
+# keep up to 3 KV-capacity banks (step 4.11)
+export HVS_SEMANTIC_BANKS=3
 # optional, unified-memory hosts: don't prefetch the other five checkpoints into RAM
 export HUMANENESS_PRELOAD_EXPERIMENTAL=0
 ```
@@ -143,7 +163,11 @@ this, their first sentence is slow. Send a few requests with short, medium and l
 sentences, twice, before you call the server ready. The `live_latency_benchmark.py`
 request body (see section 7) is a good template.
 
-Expected startup: about 75–140 s on the Thor, plus about 30–60 s of warm-up requests.
+Expected startup: about 75–140 s on the Thor (up to ~5 min the very first time with
+`HVS_LOCAL_TRITON=1`, while Triton compiles its kernels; later starts use Triton's disk
+cache), plus about 30–60 s of warm-up requests. Since round 4 the server prints one line per
+new KV-capacity bucket, for example `[semantic] new bank rows=2 capacity=1024 (prompt 369 +
+budget 218)`. After a good warm-up, no such line should appear during conversations.
 
 ## 4. The TTS optimizations, one by one
 
@@ -334,6 +358,79 @@ if self.chunk_ramp:
     block = min(chunk_frames, max(1, p.get('first_chunk_frames') or RAMP_START) * 2 ** len(yield_sizes))
 ```
 
+### 4.9 Fused Triton kernels for the codec (round 4, adapted from fast-moss-tokenizer)
+
+* **Problem.** Even as a CUDA graph, one codec chunk ran **~7,750 GPU kernels**, whatever the
+  chunk size. The decoder has 92 transformer layers with ~84 small kernels each: rotary
+  embeddings, KV-cache and position concatenation, building the attention mask, cache
+  copy-back, float casts of LayerNorm weights, residual layer-scale adds. Matrix multiplies and
+  attention were only 14–20 ms of the 35–43 ms.
+* **Change.** `playground/runtime/codec_fused.py` (`HVS_CODEC_FUSED=1`, installed by
+  `CodecGraphs` before graph capture). Plain Triton 3.8, no NVRTC, no hardware checks.
+  Attribution and Apache-2.0 notice for kadirnar/fast-moss-tokenizer are in the file header.
+  * one kernel per attention layer for rotary embeddings of q and k plus the cache
+    concatenation, keeping the original float32 roundings (`enable_fp_fusion=False`, the same
+    precise cos/sin as PyTorch);
+  * one kernel that builds the attention mask exactly as PyTorch would;
+  * one kernel that updates cache, positions and offset **in place** (fixed addresses);
+  * layer-scale residual add in one kernel, reproducing PyTorch's bf16 rounding;
+  * LayerNorm weights cast to float32 once, weight-norm conv weights computed once;
+  * one shared exec-mask tensor for all decoder states (1 copy instead of ~190).
+  The matrix multiplies and the attention call itself are unchanged. Kadir's cached linear
+  casts don't apply (our codec weights are already bf16), and his fused quantizer only
+  speeds up *encoding*.
+* **Result.** ~1,750 kernels per chunk instead of ~7,750. Chunk of 3 frames: 27 → 15 ms
+  (quietest run); whole sentences: **~40 % less codec time**; recording all 20 graphs at startup
+  takes 3.7 s instead of ~7 s.
+* **Correctness.** **Bit-identical** waveforms (max abs error 0) on every schedule tried
+  (3,6,12,20…; 5,10,20…; all-20; random 1–20), for chunks above 20 frames, padded frames, a
+  fully padded chunk and batch-2 streaming. A standalone copy of the codec only matched after
+  setting `torch.backends.cudnn.allow_tf32=False`, as the engine does.
+* **What's left.** ~15 ms of matrix multiplies per 20-frame chunk: about 2 GB of bf16 weights at
+  ~140 GB/s. A custom kernel could save a few ms but would no longer be bit-identical.
+
+### 4.10 Triton kernels for the 12 codebook steps (round 4)
+
+* **Problem.** The local transformer (hidden 2560, MLP 9728) reads ~157 MB of bf16 weights per
+  codebook step, ~1.9 GB per frame. cuBLAS reached only 75–130 GB/s on these batch-2
+  products; the matrix multiplies alone took 13.2 of the 15.7 ms.
+* **Change.** `playground/runtime/local_fused.py` (`HVS_LOCAL_TRITON=1`), installed at the end
+  of `FastGenerator.__init__`; the compiled frame stays as fallback.
+  * hand-written batch-2 Triton matrix-vector kernels with LayerNorm, bias, SiLU and residual
+    fused; ~230 GB/s (Thor's practical ceiling is ~235 GB/s); 73 kernel launches per frame;
+  * **precomputed table** for steps 1–11: there the input is only the embedding of the code
+    just sampled, so its normalized attention projection can be computed once for all 11 × 1024
+    codes (173 MB, 0.25 s at startup). This removes 39 MB of weight reads from 11 of 12 steps
+    (`HVS_LOCAL_TRITON_TABLE=0` disables it; then ~8.3 ms per frame);
+  * an L2-cache hint for one weight matrix (~4 %);
+  * temperature, top-k 50, top-p 0.95, CFG and the stop head inside the kernel, sampling from
+    one uniform random number; ties go to the smaller index, like `torch.topk`.
+  * Static shapes and no host syncs, so it stays CUDA-graph capturable. Batched requests
+    (`n > 1`), zero temperature or a repetition penalty fall back to the original code.
+* **Result.** 13.4 → **6.1 ms** per frame for the 12 steps (in a CUDA graph, same process,
+  back-to-back); engine first audio 168 → 138 ms (median). Going lower would need FP8/INT8
+  weights, which changes the numbers and therefore the sampling distribution.
+* **Correctness.**
+  * Hidden states and logits vs an fp32 copy of the model (teacher-forced, 216 codebook steps):
+    as accurate as the release bf16 path (logit error median 0.091 vs 0.092).
+  * Sampling: 400,000 draws per test case compared with exact fp64 probabilities. Total
+    variation distance 0.0007–0.0047, the same as the original sampler; never a token outside
+    the allowed set; the stop rate matched the exact probability.
+  * End to end: 3 German sentences × 2 seeds, transcribed with Parakeet v3: word error rate 0.0.
+* **Caveat.** The table assumes the local transformer's weights don't change after startup
+  (true for the merged bf16 engine).
+
+### 4.11 Warm-up coverage and KV-capacity banks (round 4)
+
+* The backbone graph needs one "bank" per KV-capacity bucket. Robby's sentences needed only
+  two buckets (512 and 1024) with `HVS_SEMANTIC_BUCKET=512`, even for a 411-character sentence.
+* The old limit of 2 banks meant a third bucket would evict one and re-record its graph.
+  `HVS_SEMANTIC_BANKS=3` keeps three.
+* The server now logs every new bank, so missing warm-up shapes show up in the log instead of as
+  a mysterious slow sentence.
+* `HVS_RAMP_SCHEDULE` (for example `3,5,8,12`) allows a custom chunk ramp. We didn't need it: the
+  doubling ramp 3, 6, 12, 20 produced no gaps on the live server.
+
 ## 5. Things that did not help
 
 | Idea | Result | Why |
@@ -345,8 +442,11 @@ if self.chunk_ramp:
 | Smaller chunks everywhere (10 frames), before 4.7 | slower overall | Codec cost per chunk was ~100 ms regardless of size. |
 | `first_chunk_frames` of 3 or 8 via the API | rejected | The API only accepts 2, 5, 10, 20; the ramp start is an env var instead. |
 | Checking power mode | already optimal | `nvpmodel -q` showed MAXN, GPU clock at maximum. |
+| Smaller browser start buffer (160 ms instead of 300 ms) | −120 ms, but gaps | In 5 of 12 browser runs it caused 0.2–0.35 s gaps (1 of 12 with 300 ms). Chunks jitter by up to ~0.3 s between TTS and browser, which the 300 ms buffer absorbs. Kept 300 ms; `robby.startReserveMs` in localStorage overrides it for experiments. |
+| Synthesizing the next sentence in parallel | not needed | No pauses between sentences: the TTS is ~3× faster than real time and the pipeline already starts the next sentence while the previous one plays. |
+| Speculative final ASR (Robby, section 6.4) | rarely applies | Used in 2 of 12 runs; no change in the median. |
 
-## 6. The language model side (Robby)
+## 6. The rest of the pipeline (Robby)
 
 Robby (`robby/voice-assistant` in cartoon-face-generator) streams sentences from a
 language model to the TTS. Its first-sentence latency matters as much as the TTS.
@@ -391,7 +491,18 @@ Qwen 3.8 27B on Cerebras; first sentence typically ~0.4 s, sometimes up to ~3 s
 because of the network and provider. The local Gemma stays selectable.
 `ROBO_HIDE_GEMMA12=1` hides the Gemma 12B entry on hosts that don't serve port 18812.
 
-### 6.4 Shared GPU
+### 6.4 Speculative final transcription (`ROBO_EARLY_FINAL_ASR_MS`, default 120)
+
+After you stop speaking, Robby waits for 300 ms of silence and then re-transcribes the whole
+utterance with Parakeet v3 (~130–290 ms). The idea: start that transcription already at 120 ms of
+silence and reuse it if no new speech arrived. It is only reused when the segment, the voice
+activity end and the loudness end are all unchanged, so a softly spoken last word is never lost.
+**Measured effect: small.** The end of a turn is usually triggered by the *loudness* criterion,
+which often fires almost at the same moment the voice-activity detector sees the end of speech,
+so there is no time window left for the early transcription. It was used in 2 of 12 browser runs
+and didn't change the median. Set `ROBO_EARLY_FINAL_ASR_MS=0` to switch it off.
+
+### 6.5 Shared GPU
 
 On a single-GPU device the language model, ASR and TTS compete. In the live pipeline the
 TTS needed ~1.8 s for its first chunk while local Gemma was still generating the rest of
@@ -399,6 +510,37 @@ the reply, versus 1.3–1.5 s alone (before steps 4.3–4.8). Using a remote lan
 or keeping the local one idle while the TTS works, avoids that.
 
 ## 7. How to measure
+
+### 7.1 What the user hears: mouth-to-ear in a real browser
+
+`robby/voice-assistant/browser_mouth_to_ear.py` (cartoon-face-generator) starts Chromium with a
+WAV file as its microphone: a German "Hey Robby …" request in a different voice than Robby's.
+It measures, with the page's own clock:
+
+* **speech end:** the last loud microphone block before ≥ 700 ms of silence, from an
+  AnalyserNode tapped onto the captured stream. A first version took the short pause after
+  "Hey Robby," as the end of speech and reported 3.4 s instead of ~1.5 s, so require a long
+  silence.
+* **first sound:** when the first reply buffer is *scheduled* to play
+  (`AudioBufferSourceNode.start` hooked, AudioContext time converted to `performance.now`).
+  The loudspeaker's own latency is excluded.
+* plus server messages (end-of-turn transcript, pipeline timings) and the client's gap counters.
+
+```bash
+python browser_mouth_to_ear.py --config "a|http://127.0.0.1:8893|" --config "b|http://127.0.0.1:8893|160" --runs 4
+```
+
+Lessons from using it:
+* Robby allows one live session per server. A browser tab left open blocks the test (HTTP 429).
+  Start a separate test instance instead: `ROBO_PORT=8893 ROBO_MOUTH_PORT=8895
+  ROBO_MEMORY_DIR=/tmp/robby-test python server.py`.
+* The remote language model's latency varies a lot (first audio 0.6–3 s in single runs). Compare
+  configurations **interleaved** (A, B, B, A …) and wait until the shared TTS is idle before each
+  run, or one long reply from the previous run skews the next.
+* Gaps of several seconds between sentences come from the language model, not from audio
+  buffering; separate them from short (< 0.4 s) playback underruns.
+
+### 7.2 Server-side tools
 
 Always run audio benchmarks **one at a time**: a second process on the same GPU
 (another benchmark, a browser session with live ASR) makes every number worse and
@@ -443,7 +585,15 @@ creates gaps that don't exist otherwise.
 | `HVS_CODEC_GRAPH` | `0` | codec CUDA graphs, persistent decoder state | 4.7 |
 | `HVS_CHUNK_RAMP` | `0` | growing chunks | 4.8 |
 | `HVS_RAMP_START` | `5` | first chunk size of the ramp | 4.8 |
+| `HVS_CODEC_FUSED` | `0` | fused Triton codec decode kernels (bit-identical) | 4.9 |
+| `HVS_LOCAL_TRITON` | `0` | Triton kernels for the 12 codebook steps | 4.10 |
+| `HVS_LOCAL_TRITON_TABLE` | `1` | precomputed attention-input table for steps 1–11 | 4.10 |
+| `HVS_SEMANTIC_BANKS` | `2` | number of KV-capacity banks kept | 4.11 |
+| `HVS_RAMP_SCHEDULE` | empty | explicit chunk ramp, e.g. `3,5,8,12` | 4.11 |
 | `HUMANENESS_PRELOAD_EXPERIMENTAL` | `1` | `0` skips RAM prefetch of other checkpoints | 3 |
+| `ROBO_EARLY_FINAL_ASR_MS` (Robby) | `120` | speculative final transcription, `0` = off | 6.4 |
+| `ROBO_PORT`, `ROBO_MOUTH_PORT` (Robby) | `8793`, `8795` | ports, e.g. for a separate test instance | 7.1 |
+| `robby.startReserveMs` (browser localStorage) | unset | fixed playback start buffer in ms (experiments) | 5 |
 | `ROBO_LOCAL_STATIC_PREFIX` (Robby) | `1` | stable prompt prefix for local LLMs | 6.2 |
 | `ROBO_BOLT_MODEL`, `ROBO_BOLT_LABEL` (Robby) | Nemotron | local model name and UI label | 6.1 |
 | `ROBO_HIDE_GEMMA12` (Robby) | `0` | hide the Gemma 12B menu entry | 6.3 |
@@ -452,10 +602,10 @@ creates gaps that don't exist otherwise.
 
 | Idea | Expected effect |
 |---|---|
-| Synthesize the next sentence in parallel (batch 2 costs almost the same as 1 when latency-bound) | shorter pauses between sentences |
-| One Triton kernel for all 12 codebook steps | 15.7 → ~4 ms per frame |
-| Port fast-moss's fused codec kernels | codec another −30 to −60 % |
+| Find the ~0.3 s chunk jitter between TTS and browser (bridge, resampling, WebSocket) | would allow a smaller browser start buffer, −0.1 to −0.2 s |
+| A shorter or predicted end-of-turn pause (now 300 ms) | up to −0.2 s; risk of cutting people off |
 | Triton kernels for the backbone (as in [MOSS-TTS-optimized](https://github.com/kadirnar/MOSS-TTS-optimized)) | backbone 10 → ~5 ms |
+| FP8 weights for the local transformer | 6.1 → ~3–4 ms per frame; changes the distribution |
 | Start TTS on half sentences (at a comma) | −0.2 to −0.5 s end to end; intonation risk |
 | Pre-synthesized openers ("Hallo!", "Gerne!") | ~0 s first sound when used; may sound canned |
 

@@ -42,6 +42,8 @@ def fast_sample(mdl, logits, temperature, top_k, top_p):
 
 
 RAMP_START=int(os.environ.get('HVS_RAMP_START','5'))
+# Optional explicit ramp, e.g. '3,5,8,12': these chunk sizes first, then chunk_frames.
+RAMP_SCHEDULE=[int(x) for x in os.environ.get('HVS_RAMP_SCHEDULE','').split(',') if x.strip()]
 
 
 class FastGenerator:
@@ -59,6 +61,11 @@ class FastGenerator:
         self.chunk_ramp=os.environ.get('HVS_CHUNK_RAMP','0')=='1'
         if os.environ.get('HVS_LOCAL_COMPILE','0')=='1':
             self.local_frame=torch.compile(self.local_frame,dynamic=False,fullgraph=True)
+        if os.environ.get('HVS_LOCAL_TRITON','0')=='1':
+            # Bandwidth-tuned Triton kernels for the 12 codebook steps; the
+            # compiled frame above stays as fallback (see local_fused.py).
+            import local_fused
+            local_fused.install(self)
 
     def clear_graphs(self):
         self.graphs.clear()
@@ -183,7 +190,10 @@ class FastGenerator:
             if self.chunk_ramp:
                 # Small first chunk, then double up to chunk_frames: each block
                 # finishes before the previous one has played (RTF < 0.5).
-                block=min(chunk_frames,max(1,p.get('first_chunk_frames') or RAMP_START)*2**len(yield_sizes))
+                if RAMP_SCHEDULE and not p.get('first_chunk_frames'):
+                    block=min(chunk_frames,RAMP_SCHEDULE[len(yield_sizes)]) if len(yield_sizes)<len(RAMP_SCHEDULE) else chunk_frames
+                else:
+                    block=min(chunk_frames,max(1,p.get('first_chunk_frames') or RAMP_START)*2**len(yield_sizes))
             if len(frames) - last >= block:
                 yield_sizes.append(len(frames) - last)
                 last = len(frames)
@@ -220,6 +230,10 @@ class CodecGraphs:
         self.device = next(codec.parameters()).device
         self.modules = [m for m in codec.decoder.modules() if hasattr(m, '_init_streaming_state')]
         self.states = [m._init_streaming_state(1) for m in self.modules]
+        if os.environ.get('HVS_CODEC_FUSED', '0') == '1':
+            # Fused Triton decode kernels (bit-identical), see codec_fused.py.
+            import codec_fused
+            codec_fused.install(codec, self.states)
         self.graphs = {}
         self.capture_seconds = 0.0
 
