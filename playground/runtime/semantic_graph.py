@@ -88,10 +88,14 @@ class SemanticBank:
         return self.output
 
 class SemanticGraphs:
-    def __init__(self,model,limit=2):self.model=model;self.limit=limit;self.banks=OrderedDict()
+    def __init__(self,model,limit=None):
+        self.model=model;self.limit=limit or int(os.environ.get('HVS_SEMANTIC_BANKS','2'));self.banks=OrderedDict()
     def prepare(self,ids,budget):
         capacity=((ids.shape[1]+budget+BUCKET-1)//BUCKET)*BUCKET;key=(ids.shape[0],capacity)
         if key not in self.banks:
+            # A new bank means a new graph capture (and, with HVS_SEMANTIC_COMPILE, maybe a
+            # compilation); log it so missing warm-up shapes are visible.
+            print(f'[semantic] new bank rows={ids.shape[0]} capacity={capacity} (prompt {ids.shape[1]} + budget {budget})',flush=True)
             self.banks[key]=SemanticBank(self.model,ids.shape[0],capacity)
             while len(self.banks)>self.limit:self.banks.popitem(last=False)
         self.banks.move_to_end(key);return self.banks[key]
