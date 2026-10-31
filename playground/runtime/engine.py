@@ -154,7 +154,11 @@ class SmallEngine(TTSEngine):
 
     @torch.inference_mode()
     def reference(self, path):
-        key = str(path)
+        # Key by content: the app copies a fixed clip to a fresh path for every
+        # request, so a path key re-encoded the same 10-s clip each time.
+        import hashlib
+        from pathlib import Path
+        key = hashlib.sha256(Path(path).read_bytes()).hexdigest()
         if key not in self.refs:
             # The pinned processor's path reader calls torchaudio.load, which
             # requires TorchCodec on newer builds. Use SoundFile and the public
@@ -177,10 +181,19 @@ class SmallEngine(TTSEngine):
             self.reference_info[key]={'source_seconds':source_seconds,'used_seconds':len(wave)/sr,
                 'codec_frames':len(codes),'codec_seconds':len(codes)/12.5,
                 'max_seconds':settings.REFERENCE_SECONDS,'truncated':source_seconds>settings.REFERENCE_SECONDS}
+        # Reports are looked up by the request's own path; keep a bounded alias.
+        self.reference_info[str(path)] = self.reference_info[key]
+        self.__dict__.setdefault('reference_keys', {})[str(path)] = key
+        self.refs[key] = self.refs.pop(key)  # most recently used last
+        while len(self.refs) > 16:
+            old = next(iter(self.refs))
+            self.refs.pop(old); self.reference_info.pop(old, None)
         return self.refs[key]
 
     def forget_reference(self, path):
-        self.refs.pop(str(path), None)
+        # Content entries stay in the bounded LRU (fixed presets are reused by
+        # every request); only this request's path alias is dropped.
+        self.__dict__.get('reference_keys', {}).pop(str(path), None)
         self.reference_info.pop(str(path), None)
 
     def pack(self, prompt, spec, reference, n):
