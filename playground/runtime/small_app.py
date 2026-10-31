@@ -3,6 +3,7 @@ import asyncio
 from contextlib import asynccontextmanager
 import json
 import logging
+import os
 from pathlib import Path
 import re
 import shutil
@@ -32,6 +33,10 @@ from ears_reward import RankingOptions, catalog as ears_catalog
 from turn_cancellation import DisconnectCancellation, TurnCancelled
 
 log = logging.getLogger("small")
+# Fast live start: Parakeet tail checks only start near the expected end.
+FAST_LIVE=os.environ.get('SMALL_LIVE_FAST_START','0')=='1'
+FAST_SCORE_FRACTION=float(os.environ.get('SMALL_LIVE_SCORE_FRACTION','0.5'))
+
 STATE = {"engine": None, "scorers": None, "finisher": None, "error": None, "phase": "starting", "busy": False,
          "job_phase": None, "job_started": None}
 store = AudioStore()
@@ -67,7 +72,10 @@ def initialize():
     # delay to the default model's ready state. Errors remain visible in catalog.
     import threading
     from checkpoint_ram import RAM
-    threading.Thread(target=RAM.preload_experimental,name='experimental-checkpoint-ram',daemon=True).start()
+    # HUMANENESS_PRELOAD_EXPERIMENTAL=0 skips prefetching the other checkpoints
+    # (useful on unified-memory hosts that also run an LLM).
+    if os.environ.get('HUMANENESS_PRELOAD_EXPERIMENTAL','1')!='0':
+        threading.Thread(target=RAM.preload_experimental,name='experimental-checkpoint-ram',daemon=True).start()
 
 
 async def initialize_async():
@@ -786,7 +794,11 @@ async def turn(body: Turn, request: Request):
                 reference.active += 1
                 # Already normalized and measured: preserve its exact samples.
                 await asyncio.to_thread(shutil.copyfile, path, reference.path)
-                await asyncio.to_thread(encode_mp3, reference.path, reference.playback)
+                if FAST_LIVE:
+                    # Playback MP3 is only for the Playground UI; don't block generation.
+                    asyncio.get_running_loop().run_in_executor(None, encode_mp3, reference.path, reference.playback)
+                else:
+                    await asyncio.to_thread(encode_mp3, reference.path, reference.playback)
                 reference_report.update(retrieval_ms=round((time.monotonic()-tick)*1000), url=f'/api/audio/{reference.id}')
             elif reference:
                 reference_report['url'] = f'/api/audio/{reference.id}'
@@ -958,7 +970,7 @@ async def turn(body: Turn, request: Request):
                         cumulative=np.concatenate(pcm_chunks)
                         seconds=len(cumulative)/48000
                         score={}
-                        if body.align:
+                        if body.align and not (FAST_LIVE and seconds<FAST_SCORE_FRACTION*float(spec.get('frames') or 0)*.08):
                             audio16=torchaudio.functional.resample(torch.from_numpy(cumulative),48000,16000)
                             texts,stamps=timestamp_reader.transcribe_batch([audio16])
                             stable=' '.join(w['word'] for w in stamps[0] if w['end']<=seconds-.12)
