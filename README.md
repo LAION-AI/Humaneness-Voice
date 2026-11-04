@@ -1,5 +1,17 @@
 # Humaneness Voice
 
+## Recommended Large checkpoint: Humaneness Voice Large 1.7
+
+For standalone expressive speech generation, use **[Humaneness Voice Large 1.7](https://huggingface.co/laion/Humaneness-Voice-Large-1.7)**, covering **English, German, Spanish, French and Dutch** under **CC BY 4.0**. It merges the selected rank-32 voice-acting adapter at update **44,250** into its exact Acting High-8654 parent. This is a continuation of the Large 1.3 branch; it is not the older 1.5/1.6 model with another adapter attached.
+
+| Start here | Link |
+| --- | --- |
+| Model weights, inference and training code | [Large 1.7 model repository](https://huggingface.co/laion/Humaneness-Voice-Large-1.7) |
+| `GENERAL` / `SCRIPT`, inline directions, durations and examples | [Model prompting guide](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/PROMPTING.md) |
+| Choosing the runtime, batching, streaming and compatibility | [Large 1.7 integration guide](docs/HUMANENESS_VOICE_LARGE_1_7.md) |
+
+This is the **Large model recommendation**, not a silent change to the packaged Playground or Robby default below. Historical 1.5/1.6 specialist adapters and their optimized prompting recipes require new validation on 1.7. The new reference-free recipe search is being prepared; completed listening examples and pending generations are labelled separately in the showcase.
+
 **Inference speed (October 31):** With opt-in environment variables, the Small RL streaming TTS starts speaking 0.16 s after receiving a sentence on an NVIDIA Jetson Thor (it was 2.3–2.9 s). The changes are BF16 merged weights, a backbone CUDA graph with Inductor fusion, top-k-first sampling, codec CUDA graphs plus fused Triton codec kernels (bit-identical audio), Triton kernels for the codebook steps, growing chunks and a fix for re-encoding the reference voice on every request. [Step-by-step guide with measurements, code and links](INFERENCE_OPTIMIZATIONS.md) · benchmarks: `playground/runtime/live_latency_benchmark.py`, `playground/runtime/inference_speed_check.py`.
 
 **Experimental LFM3 audio/video lab:** Robby includes an opt-in recorded-clip lab for overlapping audio and video descriptions, person labels and timing, separate from its live conversation. [Setup, privacy, model limitations and measurements](robby/LFM3_LAB.md).

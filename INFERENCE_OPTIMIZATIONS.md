@@ -1,5 +1,7 @@
 # Inference optimizations: fast streaming speech on small GPUs
 
+For the current standalone Large model, start with the [Humaneness Voice Large 1.7 integration guide](docs/HUMANENESS_VOICE_LARGE_1_7.md) and its [release-specific optimization notes](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/INFERENCE_OPTIMIZATIONS.md). The measurements below concern the documented Small deployment; they are not Large 1.7 benchmark results.
+
 This guide explains how we made the Humaneness Voice **Small RL** text-to-speech model
 (and the Robby voice assistant built on it) start speaking much sooner. The numbers
 in this guide come from an **NVIDIA Jetson Thor**, but most of the ideas apply to any
