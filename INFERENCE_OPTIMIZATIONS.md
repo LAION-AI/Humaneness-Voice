@@ -252,6 +252,8 @@ if os.environ.get('HVS_SEMANTIC_COMPILE','0')=='1':
 
 ```python
 def fast_sample(mdl, logits, temperature, top_k, top_p):
+    if temperature == 0:
+        return logits.argmax(dim=-1)
     values, indices = torch.topk(logits.float() / float(temperature), int(top_k), dim=-1)
     if top_p is not None and 0.0 < float(top_p) < 1.0:
         drop = torch.softmax(values, dim=-1).cumsum(dim=-1) > float(top_p)
@@ -261,6 +263,8 @@ def fast_sample(mdl, logits, temperature, top_k, top_p):
 ```
 
 * **Gain.** Small alone; together with 4.3 and 4.5: RTF 0.51 → 0.44.
+
+Temperature zero keeps greedy decoding (argmax), including when the optional fast sampler is active; it does not divide logits by zero. `playground/runtime/test_fast_sample.py` covers this behavior.
 
 ### 4.5 Compile the codebook step
 
