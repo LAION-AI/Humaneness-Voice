@@ -30,6 +30,8 @@ def combine_branches(branches, pad_token, audio_pad):
 
 def fast_sample(mdl, logits, temperature, top_k, top_p):
     """Same distribution as the release's top-k mask + full-sort top-p, sampled among the k survivors."""
+    if temperature == 0:
+        return logits.argmax(dim=-1)
     if not top_k or int(top_k) >= logits.shape[-1]:
         return mdl._sample_next_token(logits=logits, do_sample=True, temperature=temperature,
             top_k=top_k, top_p=top_p, previous_token_ids=None, repetition_penalty=1.0)
