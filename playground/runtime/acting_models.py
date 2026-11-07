@@ -4,6 +4,20 @@ from pathlib import Path
 import settings
 
 MODELS = {
+    'large17': {
+        'id':'large17', 'label':'Large 1.7 · merged BF16', 'kind':'large',
+        'repo':'laion/Humaneness-Voice-Large-1.7',
+        'revision':'f008a7a685122b8d0e45f2c44f1912c93e29f352',
+        'checkpoint':'model.safetensors.index.json',
+        'sha256':'4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61', 'native_root':True,
+        'cache_dir':__import__('os').environ.get('HVS_LARGE17_CACHE',str(Path(settings.HF_CACHE)/'hub')),
+        'shard_sha256':{
+            'model-00001-of-00003.safetensors':'3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292',
+            'model-00002-of-00003.safetensors':'2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393',
+            'model-00003-of-00003.safetensors':'0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6'},
+        'batch_size':1, 'max_batch_size':8, 'search_max_n':8,
+        'reference_min_seconds':5.04, 'reference_max_seconds':14.96,
+    },
     'small_rl': {
         'id':'small_rl','label':'Small 1.1 Alpha RL · r128 v1 · Default','kind':'small',
         'repo':'laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1',
@@ -70,7 +84,7 @@ MODELS = {
 def catalog():
     from checkpoint_ram import RAM
     return {'default': settings.DEFAULT_MODEL, 'models': list(MODELS.values()),
-            'policy': 'Verified CPU-RAM base cache; RL policies use BF16-rounded bases upcast to FP32 plus FP32 residual adapters. Only the selected TTS model is in VRAM.',
+            'policy': 'Verified private BF16 CPU weight cache; Large 1.7 uses its already-merged release once. RL precision follows the configured mode. Only the selected TTS model is in VRAM.',
             'ram_cache':RAM.describe(),
             'steering_available': False, 'adapters_available': False}
 
@@ -79,6 +93,14 @@ def download(model_id):
     from huggingface_hub import snapshot_download
     from rank1_adapters import sha256
     release = MODELS[model_id]
+    if release.get('native_root'):
+        root=Path(snapshot_download(release['repo'],revision=release['revision'],
+            cache_dir=release['cache_dir'],token=False,allow_patterns=[
+                '*.py','*.json','*.txt','*.md','LICENSE','NOTICE*','UPSTREAM*','model-*.safetensors']))
+        for name,expected in {release['checkpoint']:release['sha256'],**release['shard_sha256']}.items():
+            if sha256(root/name)!=expected:
+                raise ValueError('Large 1.7 integrity check failed: '+name)
+        return root
     if release.get('rl_bundle'):
         bundle=Path(snapshot_download(release['repo'],revision=release['revision'],
             cache_dir=release['cache_dir'],token=False,allow_patterns=[

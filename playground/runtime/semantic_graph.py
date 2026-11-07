@@ -17,7 +17,7 @@ def raw_forward(transformer):
     return fn
 
 class SemanticBank:
-    def __init__(self,model,nb,capacity):
+    def __init__(self,model,nb,capacity,compile_decode=True):
         self.model=model;self.forward=raw_forward(model.transformer)
         if type(model.transformer).__name__!='MossQwen3Model':
             raise ValueError('Semantic graph currently supports the released MossQwen3Model only')
@@ -30,7 +30,7 @@ class SemanticBank:
         self.query_valid=torch.zeros((nb,1,1),dtype=torch.bool,device=self.device)
         # Optional: fuse the many small decode kernels (norms, RoPE, residuals)
         # with Inductor before the CUDA graph is captured; weights are unchanged.
-        if os.environ.get('HVS_SEMANTIC_COMPILE','0')=='1':self._decode=torch.compile(self._decode,dynamic=False,mode='max-autotune-no-cudagraphs')
+        if compile_decode and os.environ.get('HVS_SEMANTIC_COMPILE','0')=='1':self._decode=torch.compile(self._decode,dynamic=False,mode='max-autotune-no-cudagraphs')
     def prefill(self,ids,mask):
         self.allowed.zero_();self.allowed[:,:mask.shape[1]].copy_(mask)
         length=ids.shape[1]
@@ -96,6 +96,6 @@ class SemanticGraphs:
             # A new bank means a new graph capture (and, with HVS_SEMANTIC_COMPILE, maybe a
             # compilation); log it so missing warm-up shapes are visible.
             print(f'[semantic] new bank rows={ids.shape[0]} capacity={capacity} (prompt {ids.shape[1]} + budget {budget})',flush=True)
-            self.banks[key]=SemanticBank(self.model,ids.shape[0],capacity)
+            self.banks[key]=getattr(self,'bank_class',SemanticBank)(self.model,ids.shape[0],capacity)
             while len(self.banks)>self.limit:self.banks.popitem(last=False)
         self.banks.move_to_end(key);return self.banks[key]

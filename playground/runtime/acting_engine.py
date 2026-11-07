@@ -103,9 +103,16 @@ class ActingEngine(SmallEngine):
                 'dtype':'bf16' if precision['mode']=='bf16_all' or precision['mode']=='bf16_merged' else 'fp32',
                 'reference_adapter_dtype':'fp32'}
         self.model._sample_next_token=zero_temperature_sampler(self.model._sample_next_token)
-        self.proc=processor or Processor.from_pretrained(str(root/'assets/sft3'),
-            codec_path='OpenMOSS-Team/MOSS-Audio-Tokenizer-v2',
-            codec_weight_dtype='bf16',codec_compute_dtype='bf16')
+        if processor is None:
+            self.proc=Processor.from_pretrained(str(root/'assets/sft3'),
+                codec_path='OpenMOSS-Team/MOSS-Audio-Tokenizer-v2',
+                codec_weight_dtype='bf16',codec_compute_dtype='bf16')
+        else:
+            # Share only the codec. Each release keeps its own tokenizer,
+            # prompt processor and token IDs when returning from Large 1.7.
+            from transformers import AutoTokenizer
+            self.proc=Processor(tokenizer=AutoTokenizer.from_pretrained(str(root/'assets/sft3'),
+                trust_remote_code=True,local_files_only=True),audio_tokenizer=processor.audio_tokenizer,model_config=cfg)
         self.proc.audio_tokenizer=self.proc.audio_tokenizer.to(self.device).eval()
         # Acting training separates literal Text from Instruction; the old
         # ScorePacker repeats tagged SCRIPT in Text and must not be reused.

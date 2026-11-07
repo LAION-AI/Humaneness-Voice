@@ -138,6 +138,8 @@ class SmallEngine(TTSEngine):
         """
         from prompting import build
         path=settings.HERE/'performance/benchmark-reference.wav'
+        if getattr(self,'reference_min_seconds',0)>0:
+            path=settings.HERE/'fixed-references/audio/emolia_c1699.wav'
         spec=build({'text':'Ready when you are.','caption':'Warm, natural conversation.'},
             'caption','en',seconds=2.,reference_identity=path.is_file())
         self.generate(spec,reference_path=path if path.is_file() else None,
@@ -154,6 +156,7 @@ class SmallEngine(TTSEngine):
 
     @torch.inference_mode()
     def reference(self, path):
+        cap=getattr(self,'reference_seconds_cap',settings.REFERENCE_SECONDS)
         # Key by content: the app copies a fixed clip to a fresh path for every
         # request, so a path key re-encoded the same 10-s clip each time.
         import hashlib
@@ -166,7 +169,7 @@ class SmallEngine(TTSEngine):
             with sf.SoundFile(path) as audio:
                 sr=audio.samplerate
                 source_seconds=len(audio)/sr
-                wave=audio.read(frames=int(settings.REFERENCE_SECONDS*sr),dtype='float32',always_2d=True)
+                wave=audio.read(frames=int(cap*sr),dtype='float32',always_2d=True)
             if not len(wave) or not np.isfinite(wave).all():
                 raise ValueError('Reference audio is empty or contains invalid samples')
             wav=torch.from_numpy(wave.mean(axis=1).copy()).unsqueeze(0)
@@ -175,12 +178,12 @@ class SmallEngine(TTSEngine):
             # 12.5 Hz codec; allow up to ceil(cap/80 ms) frames without
             # imposing the old 37-frame guard. Actual codec rounding is reported.
             import math
-            if codes.ndim!=2 or codes.shape[1]!=12 or not 0 < len(codes) <= math.ceil(settings.REFERENCE_SECONDS*12.5):
+            if codes.ndim!=2 or codes.shape[1]!=12 or not 0 < len(codes) <= math.ceil(cap*12.5):
                 raise ValueError('Unexpected reference codec frames')
             self.refs[key] = codes
             self.reference_info[key]={'source_seconds':source_seconds,'used_seconds':len(wave)/sr,
                 'codec_frames':len(codes),'codec_seconds':len(codes)/12.5,
-                'max_seconds':settings.REFERENCE_SECONDS,'truncated':source_seconds>settings.REFERENCE_SECONDS}
+                'max_seconds':cap,'truncated':source_seconds>cap}
         # Reports are looked up by the request's own path; keep a bounded alias.
         self.reference_info[str(path)] = self.reference_info[key]
         self.__dict__.setdefault('reference_keys', {})[str(path)] = key
@@ -212,10 +215,12 @@ class SmallEngine(TTSEngine):
     @torch.inference_mode()
     def generate_many(self, specs, guidance=1.5, seed=777, reference_path=None,
                       temperature=1.0, progress=None, streaming=False, batch_size=None, chunk_frames=10,
-                      max_frames=None, on_audio=None, first_chunk_frames=None):
+                      max_frames=None, on_audio=None, first_chunk_frames=None, on_audio_batch=None):
         from performance_core import StreamingCodec
         if on_audio is not None and (not streaming or len(specs) != 1):
             raise ValueError('Live audio callback requires one streaming take')
+        if on_audio_batch is not None and (not streaming or on_audio is not None):
+            raise ValueError('Batch callback requires streaming and excludes the single callback')
         waves, self.last_codes, batches = [], [], []
         with self.lock, torch.cuda.device(self.device), torch.autocast("cuda", dtype=torch.bfloat16,enabled=not getattr(self,'policy_fp32',False)):
             reference = self.reference(reference_path) if reference_path else None
@@ -259,17 +264,18 @@ class SmallEngine(TTSEngine):
                             if first is None:
                                 first = torch.cuda.Event(enable_timing=True)
                                 first.record()
-                            if on_audio is not None:
+                            if on_audio is not None or on_audio_batch is not None:
                                 pcm, lengths = outputs[-1]
                                 boundary = torch.cuda.Event(enable_timing=True)
                                 boundary.record()
                                 boundary.synchronize()
                                 spans.append(segment_start.elapsed_time(boundary) / 1000)
                                 tick = time.perf_counter()
-                                chunk = pcm[0, :int(lengths[0])].float().cpu().numpy().copy()
-                                if not np.isfinite(chunk).all():
+                                chunks=[pcm[i,:int(lengths[i])].float().cpu().numpy().copy() for i in range(count)]
+                                if not all(np.isfinite(chunk).all() for chunk in chunks):
                                     raise RuntimeError('Non-finite audio values in streaming chunk')
-                                stop = bool(on_audio(chunk)) if len(chunk) else False
+                                stop=(bool(on_audio_batch(offset,chunks)) if on_audio_batch is not None else
+                                      bool(on_audio(chunks[0])) if len(chunks[0]) else False)
                                 callback_seconds += time.perf_counter() - tick
                                 segment_start = torch.cuda.Event(enable_timing=True)
                                 segment_start.record()
@@ -287,7 +293,7 @@ class SmallEngine(TTSEngine):
                         outputs.append((result.audio.float().mean(1), result.audio_lengths))
                 end.record()
                 end.synchronize()
-                seconds = sum(spans) + segment_start.elapsed_time(end) / 1000 if on_audio else start.elapsed_time(end) / 1000
+                seconds = sum(spans) + segment_start.elapsed_time(end) / 1000 if (on_audio or on_audio_batch) else start.elapsed_time(end) / 1000
                 durations = valid.sum(-1).cpu().tolist()
                 batches.append({"batch_size": count, "device_seconds": seconds,
                     "audio_seconds": [f / 12.5 for f in durations],
@@ -327,7 +333,9 @@ class SmallEngine(TTSEngine):
         references = [None]
         with self.lock, torch.cuda.device(self.device), torch.autocast("cuda", dtype=torch.bfloat16,enabled=not getattr(self,'policy_fp32',False)):
             if path.is_file():
-                references.append(self.reference(path))
+                # Large 1.7 requires at least 5.04 s; the old benchmark clip is shorter.
+                if sf.info(str(path)).duration>=getattr(self,'reference_min_seconds',0):
+                    references.append(self.reference(path))
             for n in getattr(self, 'warm_batch_sizes', sorted({1, settings.DEFAULT_N, settings.BATCH_SIZE})):
                 for reference in references:
                     branches = [self.pack(spec["prompt"], spec, reference, n),
