@@ -1,0 +1,1985 @@
+[
+  {
+    "kind": "switch",
+    "model": "large17",
+    "wall_seconds": 132.10881431400776
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": false,
+    "warmup": true,
+    "chunks": [
+      {
+        "at": 0.5985391587018967,
+        "samples": 11520,
+        "rms": 0.00036248198011890054
+      },
+      {
+        "at": 0.7127952203154564,
+        "samples": 23040,
+        "rms": 0.1333688199520111
+      },
+      {
+        "at": 0.9290359988808632,
+        "samples": 46080,
+        "rms": 0.14163395762443542
+      },
+      {
+        "at": 1.269821971654892,
+        "samples": 76800,
+        "rms": 0.0892774686217308
+      },
+      {
+        "at": 1.6131276115775108,
+        "samples": 76800,
+        "rms": 0.098089799284935
+      },
+      {
+        "at": 1.6583288833498955,
+        "samples": 7680,
+        "rms": 0.00035266196937300265
+      }
+    ],
+    "wall_seconds": 1.6698468178510666,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 1510,
+      "alignment_ms": 2,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.46072487449646,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.28982636398739287,
+        "audio_seconds_per_second": 3.450341736487088,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.46072487449646,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 1.4805909991264343,
+            "first_audio_seconds": 0.4135045166015625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.007628969848155975
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.43866507709026337
+      },
+      "total_ms": 1620
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4698934182524681,
+        "samples": 11520,
+        "rms": 0.00025272072525694966
+      },
+      {
+        "at": 0.5826034396886826,
+        "samples": 23040,
+        "rms": 0.1347413808107376
+      },
+      {
+        "at": 0.7933509349822998,
+        "samples": 46080,
+        "rms": 0.16475985944271088
+      },
+      {
+        "at": 1.1396863535046577,
+        "samples": 76800,
+        "rms": 0.08353621512651443
+      },
+      {
+        "at": 1.4738970249891281,
+        "samples": 76800,
+        "rms": 0.1068669781088829
+      },
+      {
+        "at": 1.520764134824276,
+        "samples": 7680,
+        "rms": 0.00012000052811345086
+      }
+    ],
+    "wall_seconds": 1.5322958528995514,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 1478,
+      "alignment_ms": 2,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.448026532649994,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.28730685171626863,
+        "audio_seconds_per_second": 3.4805992061322475,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.448026532649994,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 1.4555010423064232,
+            "first_audio_seconds": 0.39616921997070315,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.005697943270206451
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.41545242071151733
+      },
+      "total_ms": 1523
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4676809385418892,
+        "samples": 11520,
+        "rms": 0.0008393219322897494
+      },
+      {
+        "at": 0.5802663415670395,
+        "samples": 23040,
+        "rms": 0.09238835424184799
+      },
+      {
+        "at": 0.7945077419281006,
+        "samples": 46080,
+        "rms": 0.11910606920719147
+      },
+      {
+        "at": 1.140286959707737,
+        "samples": 76800,
+        "rms": 0.09531887620687485
+      },
+      {
+        "at": 1.4852823317050934,
+        "samples": 76800,
+        "rms": 0.07144200801849365
+      },
+      {
+        "at": 1.5339804366230965,
+        "samples": 7680,
+        "rms": 0.00047654288937337697
+      }
+    ],
+    "wall_seconds": 1.5458362624049187,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 1495,
+      "alignment_ms": 2,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.4403428349494936,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.2857823085217249,
+        "audio_seconds_per_second": 3.499166918948662,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.4403428349494936,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 1.468225508928299,
+            "first_audio_seconds": 0.3944048767089844,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.007191568613052368
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.416981041431427
+      },
+      "total_ms": 1537
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4737832844257355,
+        "samples": 11520,
+        "rms": 0.00042985856998711824
+      },
+      {
+        "at": 0.5841414928436279,
+        "samples": 23040,
+        "rms": 0.1761946976184845
+      },
+      {
+        "at": 0.7954756021499634,
+        "samples": 46080,
+        "rms": 0.17702984809875488
+      },
+      {
+        "at": 1.1372868195176125,
+        "samples": 76800,
+        "rms": 0.09404131025075912
+      },
+      {
+        "at": 1.4795829728245735,
+        "samples": 76800,
+        "rms": 0.08838947862386703
+      },
+      {
+        "at": 1.5268700122833252,
+        "samples": 7680,
+        "rms": 0.0002847457944881171
+      }
+    ],
+    "wall_seconds": 1.53781046718359,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 1488,
+      "alignment_ms": 1,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.4574330606460573,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.28917322631866216,
+        "audio_seconds_per_second": 3.4581348098181928,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.4574330606460573,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 1.464674063026905,
+            "first_audio_seconds": 0.4036843566894531,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.005495220422744751
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.42344236373901367
+      },
+      "total_ms": 1530
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": true,
+    "warmup": true,
+    "chunks": [
+      {
+        "at": 0.4869968891143799,
+        "samples": 11520,
+        "rms": 0.0003624818637035787
+      },
+      {
+        "at": 0.5980012267827988,
+        "samples": 23040,
+        "rms": 0.1333688199520111
+      },
+      {
+        "at": 0.8119753375649452,
+        "samples": 46080,
+        "rms": 0.14163395762443542
+      },
+      {
+        "at": 1.8388666585087776,
+        "samples": 76800,
+        "rms": 0.0892774686217308
+      },
+      {
+        "at": 2.7109440863132477,
+        "samples": 52800,
+        "rms": 0.11823774874210358
+      },
+      {
+        "at": 3.2969172820448875,
+        "samples": 7680,
+        "rms": 0.010105060413479805
+      },
+      {
+        "at": 3.785513147711754,
+        "samples": 6240,
+        "rms": 0.00020359295012895018
+      }
+    ],
+    "wall_seconds": 3.786515563726425,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 3273,
+      "alignment_ms": 461,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.4478390192985535,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.28726964668622096,
+        "audio_seconds_per_second": 3.4810499874784218,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.4478390192985535,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 3.2359712794423103,
+            "first_audio_seconds": 0.4149052734375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.7624077573418617
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 4.67,
+        "first_playable_seconds": 0.434453547000885
+      },
+      "total_ms": 3777
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4820856675505638,
+        "samples": 11520,
+        "rms": 0.0002527205506339669
+      },
+      {
+        "at": 0.5952330678701401,
+        "samples": 23040,
+        "rms": 0.1347413808107376
+      },
+      {
+        "at": 0.8070971742272377,
+        "samples": 46080,
+        "rms": 0.16475985944271088
+      },
+      {
+        "at": 1.559698648750782,
+        "samples": 76800,
+        "rms": 0.08353621512651443
+      },
+      {
+        "at": 2.3763450980186462,
+        "samples": 52800,
+        "rms": 0.1275663673877716
+      },
+      {
+        "at": 2.898242376744747,
+        "samples": 7680,
+        "rms": 0.04824215546250343
+      },
+      {
+        "at": 3.2395734935998917,
+        "samples": 10080,
+        "rms": 0.00018228210683446378
+      }
+    ],
+    "wall_seconds": 3.2407861202955246,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2860,
+      "alignment_ms": 330,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.453161919593811,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.2883257776971847,
+        "audio_seconds_per_second": 3.4682989775900435,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.453161919593811,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 2.8358749374747276,
+            "first_audio_seconds": 0.41174835205078125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.3636082261800766
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 4.75,
+        "first_playable_seconds": 0.43274160474538803
+      },
+      "total_ms": 3229
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4740087687969208,
+        "samples": 11520,
+        "rms": 0.0008393219322897494
+      },
+      {
+        "at": 0.5873220786452293,
+        "samples": 23040,
+        "rms": 0.09238835424184799
+      },
+      {
+        "at": 0.7979927361011505,
+        "samples": 46080,
+        "rms": 0.11910606920719147
+      },
+      {
+        "at": 1.5918850749731064,
+        "samples": 52800,
+        "rms": 0.06277113407850266
+      },
+      {
+        "at": 2.4494456574320793,
+        "samples": 76800,
+        "rms": 0.10709519684314728
+      },
+      {
+        "at": 2.9755767583847046,
+        "samples": 7680,
+        "rms": 0.010624917224049568
+      },
+      {
+        "at": 3.349697083234787,
+        "samples": 10080,
+        "rms": 0.0004572247853502631
+      }
+    ],
+    "wall_seconds": 3.3506238609552383,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2934,
+      "alignment_ms": 363,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.429910981655121,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.28371249636014306,
+        "audio_seconds_per_second": 3.524694938817942,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.429910981655121,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 2.910738170146942,
+            "first_audio_seconds": 0.40173159790039065,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.4638623669743538
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 4.75,
+        "first_playable_seconds": 0.4224928021430969
+      },
+      "total_ms": 3340
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "large17",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.45678795129060745,
+        "samples": 11520,
+        "rms": 0.00042985842446796596
+      },
+      {
+        "at": 0.5692893043160439,
+        "samples": 23040,
+        "rms": 0.1761946976184845
+      },
+      {
+        "at": 0.7809061482548714,
+        "samples": 46080,
+        "rms": 0.17702984809875488
+      },
+      {
+        "at": 1.5189599990844727,
+        "samples": 52800,
+        "rms": 0.07729371637105942
+      },
+      {
+        "at": 2.2835190296173096,
+        "samples": 76800,
+        "rms": 0.11195502430200577
+      },
+      {
+        "at": 2.752943865954876,
+        "samples": 7680,
+        "rms": 0.012305999174714088
+      },
+      {
+        "at": 3.022345647215843,
+        "samples": 6240,
+        "rms": 0.00025298952823504806
+      }
+    ],
+    "wall_seconds": 3.0237045511603355,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2715,
+      "alignment_ms": 260,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 1.4247496023178101,
+        "raw_audio_seconds": 5.04,
+        "aggregate_rtf": 0.2826884131582957,
+        "audio_seconds_per_second": 3.5374637001483142,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 1.4247496023178101,
+            "audio_seconds": [
+              5.04
+            ],
+            "model_wall_seconds": 2.692869186401367,
+            "first_audio_seconds": 0.38935858154296876,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.2578911557793617
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 4.67,
+        "first_playable_seconds": 0.40870922803878784
+      },
+      "total_ms": 3013
+    },
+    "checkpoint": {
+      "id": "large17",
+      "label": "Large 1.7 \u00b7 merged BF16",
+      "kind": "large",
+      "repo": "laion/Humaneness-Voice-Large-1.7",
+      "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+      "checkpoint": "model.safetensors.index.json",
+      "sha256": "4caf21d4613731bd40fab873a115f43c5962aac6e951c2e69b13a1285b058e61",
+      "native_root": true,
+      "cache_dir": "/mnt/nvme/hf-large17",
+      "shard_sha256": {
+        "model-00001-of-00003.safetensors": "3a58abc85d557836f30046ba8be2e677dde15004f84bf8ee849edd80fab56292",
+        "model-00002-of-00003.safetensors": "2e84194e1b60781129cc9efa0b792a08535e0a5027df9ae5ce4a1cb24cb04393",
+        "model-00003-of-00003.safetensors": "0c7873c4426f18f1367f659c5815c284abd4e3673f8270c358f8dddc556d5df6"
+      },
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "reference_min_seconds": 5.04,
+      "reference_max_seconds": 14.96,
+      "stage": "Large 1.7",
+      "steering": false,
+      "adapters": false,
+      "policy_dtype": "bf16",
+      "compute_precision": {
+        "mode": "merged_bf16",
+        "adapter_applied": false
+      }
+    }
+  },
+  {
+    "kind": "switch",
+    "model": "small_rl",
+    "wall_seconds": 81.35289629548788
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": false,
+    "warmup": true,
+    "chunks": [
+      {
+        "at": 2.377333715558052,
+        "samples": 11520,
+        "rms": 0.00010388185182819143
+      },
+      {
+        "at": 2.439104937016964,
+        "samples": 23040,
+        "rms": 0.12403383105993271
+      },
+      {
+        "at": 2.5506960079073906,
+        "samples": 46080,
+        "rms": 0.1184297427535057
+      },
+      {
+        "at": 2.727494142949581,
+        "samples": 76800,
+        "rms": 0.05161450803279877
+      },
+      {
+        "at": 2.886087380349636,
+        "samples": 76800,
+        "rms": 0.07110470533370972
+      },
+      {
+        "at": 2.9420800656080246,
+        "samples": 23040,
+        "rms": 0.00011200167500646785
+      }
+    ],
+    "wall_seconds": 2.9505467638373375,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2840,
+      "alignment_ms": 1,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 2.0172421169281005,
+        "raw_audio_seconds": 5.36,
+        "aggregate_rtf": 0.3763511412179292,
+        "audio_seconds_per_second": 2.6570930455102353,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 2.0172421169281005,
+            "audio_seconds": [
+              5.36
+            ],
+            "model_wall_seconds": 2.02692086994648,
+            "first_audio_seconds": 1.4556353759765626,
+            "graph_capture_seconds": 1.1356636062264442,
+            "live_callback_seconds": 0.0050577446818351746
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 1.1356636062264442,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 2.2656474709510803
+      },
+      "total_ms": 2941
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.4110039547085762,
+        "samples": 11520,
+        "rms": 0.0004413599381223321
+      },
+      {
+        "at": 0.4698222503066063,
+        "samples": 23040,
+        "rms": 0.19483433663845062
+      },
+      {
+        "at": 0.5799824446439743,
+        "samples": 46080,
+        "rms": 0.1343001425266266
+      },
+      {
+        "at": 0.7518966123461723,
+        "samples": 76800,
+        "rms": 0.05766970291733742
+      },
+      {
+        "at": 0.9217680245637894,
+        "samples": 76800,
+        "rms": 0.09922939538955688
+      },
+      {
+        "at": 0.9898098260164261,
+        "samples": 26880,
+        "rms": 0.0020299905445426702
+      }
+    ],
+    "wall_seconds": 0.9979725182056427,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 952,
+      "alignment_ms": 2,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.9142847118377686,
+        "raw_audio_seconds": 5.44,
+        "aggregate_rtf": 0.16806704261723687,
+        "audio_seconds_per_second": 5.9500065237504245,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.9142847118377686,
+            "audio_seconds": [
+              5.44
+            ],
+            "model_wall_seconds": 0.9300039559602737,
+            "first_audio_seconds": 0.34612939453125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.00529760867357254
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.3645142689347267
+      },
+      "total_ms": 990
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.3936140090227127,
+        "samples": 11520,
+        "rms": 0.00031961649074219167
+      },
+      {
+        "at": 0.4533834606409073,
+        "samples": 23040,
+        "rms": 0.22606761753559113
+      },
+      {
+        "at": 0.5609485954046249,
+        "samples": 46080,
+        "rms": 0.016535498201847076
+      },
+      {
+        "at": 0.7358370423316956,
+        "samples": 76800,
+        "rms": 0.10075566172599792
+      },
+      {
+        "at": 0.9050314798951149,
+        "samples": 76800,
+        "rms": 0.1177593395113945
+      },
+      {
+        "at": 0.9634291604161263,
+        "samples": 23040,
+        "rms": 0.00035241516889072955
+      }
+    ],
+    "wall_seconds": 0.9737283289432526,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 926,
+      "alignment_ms": 2,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.894627396583557,
+        "raw_audio_seconds": 5.36,
+        "aggregate_rtf": 0.1669080963775293,
+        "audio_seconds_per_second": 5.991321102471272,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.894627396583557,
+            "audio_seconds": [
+              5.36
+            ],
+            "model_wall_seconds": 0.9024458155035973,
+            "first_audio_seconds": 0.32575283813476563,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.00577930361032486
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.345203697681427
+      },
+      "total_ms": 965
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": false,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.3747147098183632,
+        "samples": 11520,
+        "rms": 0.00034983345540240407
+      },
+      {
+        "at": 0.4341871812939644,
+        "samples": 23040,
+        "rms": 0.16127614676952362
+      },
+      {
+        "at": 0.5423303693532944,
+        "samples": 46080,
+        "rms": 0.15409418940544128
+      },
+      {
+        "at": 0.7165964096784592,
+        "samples": 76800,
+        "rms": 0.07904252409934998
+      },
+      {
+        "at": 0.8815561458468437,
+        "samples": 76800,
+        "rms": 0.1558695286512375
+      },
+      {
+        "at": 0.9521763399243355,
+        "samples": 26880,
+        "rms": 0.0003052278480026871
+      }
+    ],
+    "wall_seconds": 0.9625594690442085,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 915,
+      "alignment_ms": 1,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.8841233100891113,
+        "raw_audio_seconds": 5.44,
+        "aggregate_rtf": 0.1625226672957925,
+        "audio_seconds_per_second": 6.152987867101592,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8841233100891113,
+            "audio_seconds": [
+              5.44
+            ],
+            "model_wall_seconds": 0.8915876299142838,
+            "first_audio_seconds": 0.3078236083984375,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 0.005472496151924133
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": false,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 0.0,
+        "first_playable_seconds": 0.32657046616077423
+      },
+      "total_ms": 954
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": true,
+    "warmup": true,
+    "chunks": [
+      {
+        "at": 0.40540653467178345,
+        "samples": 11520,
+        "rms": 0.00010388148803031072
+      },
+      {
+        "at": 0.46651507914066315,
+        "samples": 23040,
+        "rms": 0.12403383105993271
+      },
+      {
+        "at": 0.5828454717993736,
+        "samples": 46080,
+        "rms": 0.1184297427535057
+      },
+      {
+        "at": 1.196000650525093,
+        "samples": 76800,
+        "rms": 0.05161450803279877
+      },
+      {
+        "at": 1.8297475203871727,
+        "samples": 52800,
+        "rms": 0.0857541561126709
+      },
+      {
+        "at": 2.4454605281352997,
+        "samples": 44640,
+        "rms": 0.0005288999527692795
+      }
+    ],
+    "wall_seconds": 2.7870010659098625,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2402,
+      "alignment_ms": 335,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.8706510744094849,
+        "raw_audio_seconds": 5.36,
+        "aggregate_rtf": 0.16243490194206806,
+        "audio_seconds_per_second": 6.156312393728332,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8706510744094849,
+            "audio_seconds": [
+              5.36
+            ],
+            "model_wall_seconds": 2.375281311571598,
+            "first_audio_seconds": 0.329744384765625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.4706509038805962
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": 5.16,
+        "stopped": true,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 5.31,
+        "first_playable_seconds": 0.3528810068964958
+      },
+      "total_ms": 2778
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.39206093549728394,
+        "samples": 11520,
+        "rms": 0.0004413598799146712
+      },
+      {
+        "at": 0.45415641367435455,
+        "samples": 23040,
+        "rms": 0.19483433663845062
+      },
+      {
+        "at": 0.5670554265379906,
+        "samples": 46080,
+        "rms": 0.1343001425266266
+      },
+      {
+        "at": 1.1327342092990875,
+        "samples": 76800,
+        "rms": 0.05766970291733742
+      },
+      {
+        "at": 1.7688876762986183,
+        "samples": 52800,
+        "rms": 0.09003511816263199
+      },
+      {
+        "at": 2.3439240530133247,
+        "samples": 26880,
+        "rms": 0.11051542311906815
+      },
+      {
+        "at": 2.6405274644494057,
+        "samples": 13920,
+        "rms": 0.00034883891930803657
+      }
+    ],
+    "wall_seconds": 2.6415913105010986,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2304,
+      "alignment_ms": 286,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.8672466700077057,
+        "raw_audio_seconds": 5.44,
+        "aggregate_rtf": 0.15942034375141648,
+        "audio_seconds_per_second": 6.272725152062751,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8672466700077057,
+            "audio_seconds": [
+              5.44
+            ],
+            "model_wall_seconds": 2.280135340988636,
+            "first_audio_seconds": 0.3230289916992187,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.3829193264245987
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 5.23,
+        "first_playable_seconds": 0.3433118537068367
+      },
+      "total_ms": 2629
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.40586042404174805,
+        "samples": 11520,
+        "rms": 0.0003196163452230394
+      },
+      {
+        "at": 0.46870140731334686,
+        "samples": 23040,
+        "rms": 0.22606761753559113
+      },
+      {
+        "at": 0.5818588063120842,
+        "samples": 46080,
+        "rms": 0.016535498201847076
+      },
+      {
+        "at": 1.1294395998120308,
+        "samples": 76800,
+        "rms": 0.10075566172599792
+      },
+      {
+        "at": 1.7859190478920937,
+        "samples": 52800,
+        "rms": 0.12490476667881012
+      },
+      {
+        "at": 2.331790968775749,
+        "samples": 23040,
+        "rms": 0.10232974588871002
+      },
+      {
+        "at": 2.6376535296440125,
+        "samples": 10080,
+        "rms": 0.0005725385271944106
+      }
+    ],
+    "wall_seconds": 2.6386204063892365,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2290,
+      "alignment_ms": 298,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.8724223153591156,
+        "raw_audio_seconds": 5.36,
+        "aggregate_rtf": 0.1627653573431186,
+        "audio_seconds_per_second": 6.143813501370218,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.8724223153591156,
+            "audio_seconds": [
+              5.36
+            ],
+            "model_wall_seconds": 2.262620657682419,
+            "first_audio_seconds": 0.3313541259765625,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.3695674613118172
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 5.07,
+        "first_playable_seconds": 0.35581929236650467
+      },
+      "total_ms": 2627
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  },
+  {
+    "kind": "generation",
+    "model": "small_rl",
+    "align": true,
+    "warmup": false,
+    "chunks": [
+      {
+        "at": 0.40322230011224747,
+        "samples": 11520,
+        "rms": 0.0003498333098832518
+      },
+      {
+        "at": 0.46459999680519104,
+        "samples": 23040,
+        "rms": 0.16127614676952362
+      },
+      {
+        "at": 0.5785510838031769,
+        "samples": 46080,
+        "rms": 0.15409418940544128
+      },
+      {
+        "at": 1.1950053349137306,
+        "samples": 76800,
+        "rms": 0.07904252409934998
+      },
+      {
+        "at": 1.8429225236177444,
+        "samples": 52800,
+        "rms": 0.18308089673519135
+      },
+      {
+        "at": 2.3775961995124817,
+        "samples": 26880,
+        "rms": 0.059791646897792816
+      },
+      {
+        "at": 2.671776443719864,
+        "samples": 7200,
+        "rms": 0.00022845095372758806
+      }
+    ],
+    "wall_seconds": 2.672947973012924,
+    "result": {
+      "event": "result",
+      "candidates": [],
+      "winner": 0,
+      "live_only": true,
+      "generation_ms": 2340,
+      "alignment_ms": 286,
+      "scoring_ms": 0,
+      "speaker_preparation_ms": 0,
+      "performance": {
+        "device_seconds": 0.879908269405365,
+        "raw_audio_seconds": 5.44,
+        "aggregate_rtf": 0.16174784364069208,
+        "audio_seconds_per_second": 6.182462637470505,
+        "batches": [
+          {
+            "batch_size": 1,
+            "device_seconds": 0.879908269405365,
+            "audio_seconds": [
+              5.44
+            ],
+            "model_wall_seconds": 2.3164219111204147,
+            "first_audio_seconds": 0.336872314453125,
+            "graph_capture_seconds": 0.0,
+            "live_callback_seconds": 1.4064033925533295
+          }
+        ],
+        "streaming": true,
+        "chunk_frames": 20,
+        "backend": "fused CFG + local CUDA graphs + compiled global",
+        "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+        "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+        "graph_capture_seconds": 0.0,
+        "oom_batch_retries": []
+      },
+      "live_stream": {
+        "enabled": true,
+        "backend": "Parakeet v3 word timestamps + final Qwen forced alignment",
+        "lead_s": null,
+        "cut_s": null,
+        "stopped": false,
+        "lookahead_seconds": 1.0,
+        "emitted_seconds": 5.09,
+        "first_playable_seconds": 0.35692110657691956,
+        "note": "Final alignment cannot retract already streamed PCM; held tail faded",
+        "fallback_tail_fade": true
+      },
+      "total_ms": 2663
+    },
+    "checkpoint": {
+      "id": "small_rl",
+      "label": "Small 1.1 Alpha RL \u00b7 r128 v1 \u00b7 Default",
+      "kind": "small",
+      "repo": "laion/Humaneness-Voice-Small-1.1-Alpha-RL-r128-v1",
+      "revision": "182bc700cac29b2d69295a33398b13e1ca7fba69",
+      "checkpoint": "checkpoints/step-00006109/model.safetensors",
+      "sha256": "6fe4a757c505732d376a1116a3e5dc130fa5af845e9a9dc8474c2cb4f73b67c6",
+      "adapter_sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+      "rl_bundle": true,
+      "policy_dtype": "bf16",
+      "step": 6109,
+      "rl_updates": 2434,
+      "cache_dir": "/dev/shm/humaneness-rl/hub",
+      "batch_size": 1,
+      "max_batch_size": 8,
+      "search_max_n": 8,
+      "stage": "Acting",
+      "steering": false,
+      "adapters": false,
+      "rl_adapter": {
+        "enabled": true,
+        "rank": 128,
+        "dtype": "bf16",
+        "merged": true,
+        "sha256": "b441554a730000f96617958d73e74474ad83ffde486763750b4a1fd5b52da379",
+        "semantic": 112,
+        "local": 2,
+        "reference_adapter_dtype": "fp32"
+      },
+      "compute_precision": {
+        "mode": "bf16_merged",
+        "model_dtype": "bf16",
+        "tf32": false,
+        "merged": true,
+        "adapter_projection_count": 114,
+        "extra_adapter_gemms_removed_per_projection_set": 228,
+        "official_reference_arithmetic": false,
+        "note": "Precision/merging may alter sampled tokens. Compare quality with the strict FP32 reference."
+      }
+    }
+  }
+]

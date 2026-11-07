@@ -1,0 +1,164 @@
+[
+  {
+    "i": 0,
+    "chunks": [
+      {
+        "at": 393.841948479414,
+        "n": 11520
+      },
+      {
+        "at": 393.94117741286755,
+        "n": 23040
+      },
+      {
+        "at": 394.12608367949724,
+        "n": 46080
+      },
+      {
+        "at": 394.429027877748,
+        "n": 76800
+      },
+      {
+        "at": 394.7293611317873,
+        "n": 76800
+      },
+      {
+        "at": 394.7821219563484,
+        "n": 7680
+      }
+    ],
+    "performance": {
+      "device_seconds": 393.0784029769897,
+      "raw_audio_seconds": 5.04,
+      "aggregate_rtf": 77.99174662241859,
+      "audio_seconds_per_second": 0.012821869535007333,
+      "batches": [
+        {
+          "batch_size": 1,
+          "device_seconds": 393.0784029769897,
+          "audio_seconds": [
+            5.04
+          ],
+          "model_wall_seconds": 393.0808074772358,
+          "first_audio_seconds": 392.13865625,
+          "graph_capture_seconds": 0.7352992594242096,
+          "live_callback_seconds": 0.00128936767578125
+        }
+      ],
+      "streaming": true,
+      "chunk_frames": 20,
+      "backend": "fused CFG + local CUDA graphs + compiled global",
+      "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+      "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+      "graph_capture_seconds": 0.7352992594242096
+    }
+  },
+  {
+    "i": 1,
+    "chunks": [
+      {
+        "at": 0.14243347942829132,
+        "n": 11520
+      },
+      {
+        "at": 0.23795446008443832,
+        "n": 23040
+      },
+      {
+        "at": 0.42001255601644516,
+        "n": 46080
+      },
+      {
+        "at": 0.7176591381430626,
+        "n": 76800
+      },
+      {
+        "at": 1.0171276852488518,
+        "n": 76800
+      },
+      {
+        "at": 1.0693438574671745,
+        "n": 7680
+      }
+    ],
+    "performance": {
+      "device_seconds": 1.0644723217487335,
+      "raw_audio_seconds": 5.04,
+      "aggregate_rtf": 0.21120482574379634,
+      "audio_seconds_per_second": 4.734740299982813,
+      "batches": [
+        {
+          "batch_size": 1,
+          "device_seconds": 1.0644723217487335,
+          "audio_seconds": [
+            5.04
+          ],
+          "model_wall_seconds": 1.065694510936737,
+          "first_audio_seconds": 0.13770751953125,
+          "graph_capture_seconds": 0.0,
+          "live_callback_seconds": 0.0009061843156814575
+        }
+      ],
+      "streaming": true,
+      "chunk_frames": 20,
+      "backend": "fused CFG + local CUDA graphs + compiled global",
+      "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+      "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+      "graph_capture_seconds": 0.0
+    }
+  },
+  {
+    "i": 2,
+    "chunks": [
+      {
+        "at": 0.13902795314788818,
+        "n": 11520
+      },
+      {
+        "at": 0.23458246886730194,
+        "n": 23040
+      },
+      {
+        "at": 0.41662538051605225,
+        "n": 46080
+      },
+      {
+        "at": 0.7149114906787872,
+        "n": 76800
+      },
+      {
+        "at": 1.0144396424293518,
+        "n": 76800
+      },
+      {
+        "at": 1.0666763186454773,
+        "n": 7680
+      }
+    ],
+    "performance": {
+      "device_seconds": 1.0619085375666617,
+      "raw_audio_seconds": 5.04,
+      "aggregate_rtf": 0.21069613840608367,
+      "audio_seconds_per_second": 4.74617146552851,
+      "batches": [
+        {
+          "batch_size": 1,
+          "device_seconds": 1.0619085375666617,
+          "audio_seconds": [
+            5.04
+          ],
+          "model_wall_seconds": 1.0630588084459305,
+          "first_audio_seconds": 0.1344174041748047,
+          "graph_capture_seconds": 0.0,
+          "live_callback_seconds": 0.0008463859558105469
+        }
+      ],
+      "streaming": true,
+      "chunk_frames": 20,
+      "backend": "fused CFG + local CUDA graphs + compiled global",
+      "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+      "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+      "graph_capture_seconds": 0.0
+    }
+  }
+]

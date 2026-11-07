@@ -47,9 +47,9 @@ vc_manager = ConversionManager()
 
 def initialize():
     from engine import Scorers
-    from acting_engine import ActingEngine
+    from large17_engine import load_engine
     STATE["phase"] = "loading default TTS checkpoint"
-    STATE["engine"] = ActingEngine(settings.DEFAULT_MODEL)
+    STATE["engine"] = load_engine(settings.DEFAULT_MODEL)
     if settings.FAST_INFERENCE:
         STATE["phase"] = "warming compiled GPU decoder and CUDA graphs"
         STATE["engine"].warm_up()
@@ -115,9 +115,9 @@ app = FastAPI(title="Humaneness Voice Small", lifespan=lifespan)
 
 def switch_acting_model(model_id):
     """Caller holds STATE.busy across both model switching and generation."""
-    from acting_engine import ActingEngine
+    from large17_engine import load_engine
     old=STATE['engine']
-    if getattr(old,'model_id',None)==model_id:return
+    if getattr(old,'model_id',None)==model_id and STATE['phase']!='error':return
     STATE['phase']='loading '+model_id
     # Finish verification / CPU prefetch before releasing the current GPU
     # model. A failed download must not evict the working default.
@@ -131,7 +131,7 @@ def switch_acting_model(model_id):
     try:
         from model_memory import place_auxiliaries
         place_auxiliaries(STATE,model_id)
-        engine=ActingEngine(model_id,processor=processor)
+        engine=load_engine(model_id,processor=processor)
         STATE['engine']=engine
         if settings.FAST_INFERENCE:
             STATE['phase']='warming '+model_id+' streaming'
@@ -149,7 +149,7 @@ def model_catalog():
 
 
 class ModelChoice(BaseModel):
-    model: Literal['large_acting','small_acting','small_alpha','large_alpha','small_rl','large_rl']
+    model: Literal['large_acting','small_acting','small_alpha','large_alpha','small_rl','large_rl','large17']
 
 
 def candidate_batch_size(body):
@@ -631,7 +631,7 @@ def audio(id_: str, request: Request):
 
 class Turn(BaseModel):
     message: str = Field(min_length=1, max_length=5000)
-    model: Literal['large_acting','small_acting','small_alpha','large_alpha','small_rl','large_rl'] = settings.DEFAULT_MODEL
+    model: Literal['large_acting','small_acting','small_alpha','large_alpha','small_rl','large_rl','large17'] = settings.DEFAULT_MODEL
     batch_size: int = Field(default=1,ge=1,le=8)
     dynamic_reference: bool = settings.DEFAULT_DYNAMIC_REFERENCE
     format: Literal["structured", "caption", "tags", "transcript"] = settings.DEFAULT_FORMAT
