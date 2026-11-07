@@ -37,14 +37,23 @@ class CheckpointRAM:
             from safetensors.torch import load_file
             started=time.monotonic();release=MODELS[model_id];root=download(model_id)
             path=root/release['checkpoint']
-            state=(torch.load(path,map_location='cpu',weights_only=True,mmap=True)
-                   if release.get('format')=='pytorch_state_dict' else load_file(str(path),device='cpu'))
-            if not isinstance(state,dict) or not state or not all(isinstance(k,str) and isinstance(v,torch.Tensor) for k,v in state.items()):
-                raise ValueError('CPU cache only accepts complete tensor dictionaries')
-            # copy=True materializes private physical RAM even for mmap BF16
-            # exports. The live module may then move independently to CUDA.
-            cpu={k:v.detach().to(device='cpu',dtype=torch.bfloat16 if v.is_floating_point() else v.dtype,
-                                 copy=True) for k,v in state.items()}
+            if release.get('native_root'):
+                import json
+                index=json.loads(path.read_text())['weight_map'];cpu={}
+                # One shard at a time: never materialize a second full FP32 model.
+                for filename in sorted(set(index.values())):
+                    state=load_file(str(root/filename),device='cpu')
+                    cpu.update({k:v.detach().to(device='cpu',dtype=torch.bfloat16 if v.is_floating_point() else v.dtype,
+                        copy=True) for k,v in state.items()})
+                    del state
+                if set(cpu)!=set(index):raise ValueError('Incomplete Large 1.7 shards')
+            else:
+                state=(torch.load(path,map_location='cpu',weights_only=True,mmap=True)
+                       if release.get('format')=='pytorch_state_dict' else load_file(str(path),device='cpu'))
+                if not isinstance(state,dict) or not state or not all(isinstance(k,str) and isinstance(v,torch.Tensor) for k,v in state.items()):
+                    raise ValueError('CPU cache only accepts complete tensor dictionaries')
+                cpu={k:v.detach().to(device='cpu',dtype=torch.bfloat16 if v.is_floating_point() else v.dtype,
+                                     copy=True) for k,v in state.items()}
             size=sum(v.numel()*v.element_size() for v in cpu.values())
             with self.lock:
                 self.cache[model_id]=(root,cpu)
@@ -61,8 +70,8 @@ class CheckpointRAM:
 
     def preload_experimental(self):
         from acting_models import MODELS
-        for model_id,release in MODELS.items():
-            if release.get('experimental') or release.get('rl_bundle'):
+        for model_id,release in sorted(MODELS.items(),key=lambda row:not row[1].get('native_root',False)):
+            if release.get('experimental') or release.get('rl_bundle') or release.get('native_root'):
                 try:self.get(model_id)
                 except Exception as exc:print(f'[checkpoint RAM] {model_id} preload failed: {exc}',flush=True)
 

@@ -1,0 +1,3122 @@
+{
+  "hardware": "NVIDIA GeForce RTX 3090",
+  "torch": "2.6.0+cu124",
+  "revision": "f008a7a685122b8d0e45f2c44f1912c93e29f352",
+  "temperature": 0.8,
+  "reference_sha256": "386efe3db9e1acb657732802ed385bf8e9f1aaa0a2ec71f861a210c58e5290ab",
+  "parameters": 4129990144,
+  "precision": {
+    "mode": "merged_bf16",
+    "adapter_applied": false
+  },
+  "conditions": [
+    {
+      "optimized": false,
+      "cfg": 1.0,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 5.774746291339397,
+          "chunks": [],
+          "peak_allocated_gb": 13.266161664,
+          "peak_reserved_gb": 13.60003072,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.12596777081489563
+          ],
+          "performance": {
+            "device_seconds": 5.770265625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 1.1448939732142858,
+            "audio_seconds_per_second": 0.8734433261033802,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 5.770265625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 5.770412392914295,
+                "first_audio_seconds": 5.770265625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 5.5110779479146,
+          "chunks": [],
+          "peak_allocated_gb": 13.266161664,
+          "peak_reserved_gb": 13.60003072,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11923927813768387
+          ],
+          "performance": {
+            "device_seconds": 5.50645751953125,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 1.0925510951450894,
+            "audio_seconds_per_second": 0.9152890006185032,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 5.50645751953125,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 5.506600931286812,
+                "first_audio_seconds": 5.50645751953125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg1.0-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 5.20552334189415,
+          "chunks": [],
+          "peak_allocated_gb": 13.266161664,
+          "peak_reserved_gb": 13.60003072,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.10862670838832855
+          ],
+          "performance": {
+            "device_seconds": 5.2017109375,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 1.032085503472222,
+            "audio_seconds_per_second": 0.9689119715718537,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 5.2017109375,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 5.201837167143822,
+                "first_audio_seconds": 5.2017109375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 5.264088444411755,
+          "chunks": [],
+          "peak_allocated_gb": 13.266161664,
+          "peak_reserved_gb": 13.60003072,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.17029665410518646
+          ],
+          "performance": {
+            "device_seconds": 5.260357421875,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 1.043721710689484,
+            "audio_seconds_per_second": 0.9581098004940403,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 5.260357421875,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 5.260486342012882,
+                "first_audio_seconds": 5.260357421875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": false,
+      "cfg": 1.0,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 9.660595826804638,
+          "chunks": [
+            {
+              "seconds": 2.960897460579872,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.14383569359779358
+              ]
+            },
+            {
+              "seconds": 6.031315341591835,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.11488326638936996
+              ]
+            },
+            {
+              "seconds": 8.853163793683052,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1268085241317749
+              ]
+            },
+            {
+              "seconds": 9.59524480998516,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0002869409800041467
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.280146432,
+          "peak_reserved_gb": 13.719568384,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.12594693899154663
+          ],
+          "performance": {
+            "device_seconds": 9.604544205665588,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 1.9056635328701563,
+            "audio_seconds_per_second": 0.5247516063309879,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 9.604544205665588,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 9.60726197808981,
+                "first_audio_seconds": 2.957487060546875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0021161437034606934
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 23.353514663875103,
+          "chunks": [
+            {
+              "seconds": 4.616876505315304,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.12936729192733765
+              ]
+            },
+            {
+              "seconds": 12.492523923516273,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1261083036661148
+              ]
+            },
+            {
+              "seconds": 21.036522649228573,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.11028555035591125
+              ]
+            },
+            {
+              "seconds": 23.320747904479504,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0001623828284209594
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.280146432,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11925975978374481
+          ],
+          "performance": {
+            "device_seconds": 23.3382509059906,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 4.630605338490198,
+            "audio_seconds_per_second": 0.21595448691942476,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 23.3382509059906,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 23.344011887907982,
+                "first_audio_seconds": 4.61055810546875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.004572056233882904
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg1.0-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 28.812023632228374,
+          "chunks": [
+            {
+              "seconds": 8.720332734286785,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.12700603902339935
+              ]
+            },
+            {
+              "seconds": 17.329405583441257,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.09978722780942917
+              ]
+            },
+            {
+              "seconds": 26.12640269845724,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.10524560511112213
+              ]
+            },
+            {
+              "seconds": 28.77777486294508,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0005551333888433874
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.280146432,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1086200699210167
+          ],
+          "performance": {
+            "device_seconds": 28.78809924888611,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 5.711924454144069,
+            "audio_seconds_per_second": 0.17507234348565098,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 28.78809924888611,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 28.79485321044922,
+                "first_audio_seconds": 8.7060703125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005301736295223236
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 28.14704094082117,
+          "chunks": [
+            {
+              "seconds": 8.146331869065762,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.16355572640895844
+              ]
+            },
+            {
+              "seconds": 16.99451907724142,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.18343549966812134
+              ]
+            },
+            {
+              "seconds": 25.56411512941122,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.17609792947769165
+              ]
+            },
+            {
+              "seconds": 28.114347904920578,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.00024587404914200306
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.280146432,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1703493446111679
+          ],
+          "performance": {
+            "device_seconds": 28.123459571838378,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 5.580051502348884,
+            "audio_seconds_per_second": 0.17920981546121156,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 28.123459571838378,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 28.130132615566254,
+                "first_audio_seconds": 8.1319853515625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005253732204437256
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": false,
+      "cfg": 2.0,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 48.40925944596529,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11737632006406784
+          ],
+          "performance": {
+            "device_seconds": 48.3879765625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.600789000496032,
+            "audio_seconds_per_second": 0.10415810616693423,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 48.3879765625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 48.38858914375305,
+                "first_audio_seconds": 48.3879765625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 50.53863196820021,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1036980152130127
+          ],
+          "performance": {
+            "device_seconds": 50.51759375,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 10.023332093253968,
+            "audio_seconds_per_second": 0.09976722218682475,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 50.51759375,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 50.51820891350508,
+                "first_audio_seconds": 50.51759375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg2.0-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 48.86354926973581,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11805621534585953
+          ],
+          "performance": {
+            "device_seconds": 48.84253515625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.690979197668652,
+            "audio_seconds_per_second": 0.10318874693700394,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 48.84253515625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 48.84314799308777,
+                "first_audio_seconds": 48.84253515625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 50.329094007611275,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.723762688,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1290501356124878
+          ],
+          "performance": {
+            "device_seconds": 50.30698828125,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.98154529389881,
+            "audio_seconds_per_second": 0.10018488826687458,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 50.30698828125,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 50.30765172839165,
+                "first_audio_seconds": 50.30698828125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": false,
+      "cfg": 2.0,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 54.36142084002495,
+          "chunks": [
+            {
+              "seconds": 17.758815743029118,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.12027453631162643
+              ]
+            },
+            {
+              "seconds": 34.34039464592934,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.11700904369354248
+              ]
+            },
+            {
+              "seconds": 51.02485189586878,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.12361915409564972
+              ]
+            },
+            {
+              "seconds": 54.32880770415068,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.00019866849470417947
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11743120104074478
+          ],
+          "performance": {
+            "device_seconds": 54.333138132095335,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 10.780384550018915,
+            "audio_seconds_per_second": 0.09276106945537907,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 54.333138132095335,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 54.3400357067585,
+                "first_audio_seconds": 17.739697265625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005450867116451263
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 57.55079989135265,
+          "chunks": [
+            {
+              "seconds": 18.058304831385612,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1255953460931778
+              ]
+            },
+            {
+              "seconds": 36.02391278743744,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.11090029031038284
+              ]
+            },
+            {
+              "seconds": 54.02250184118748,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.0759349837899208
+              ]
+            },
+            {
+              "seconds": 57.5180501639843,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0001478405756643042
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.10364651679992676
+          ],
+          "performance": {
+            "device_seconds": 57.523021837234495,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 11.413297983578273,
+            "audio_seconds_per_second": 0.08761709380047941,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 57.523021837234495,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 57.52998112887144,
+                "first_audio_seconds": 18.039802734375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005496874451637268
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg2.0-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 48.98675571382046,
+          "chunks": [
+            {
+              "seconds": 14.820030927658081,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.12807095050811768
+              ]
+            },
+            {
+              "seconds": 30.303882025182247,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1055498942732811
+              ]
+            },
+            {
+              "seconds": 45.539102017879486,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.127909854054451
+              ]
+            },
+            {
+              "seconds": 48.95355984568596,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0006106796790845692
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11805828660726547
+          ],
+          "performance": {
+            "device_seconds": 48.95898490905762,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.714084307352703,
+            "audio_seconds_per_second": 0.10294331080111056,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 48.95898490905762,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 48.965660735964775,
+                "first_audio_seconds": 14.8014365234375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005249306559562683
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 48.86576480418444,
+          "chunks": [
+            {
+              "seconds": 15.492985643446445,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.15327870845794678
+              ]
+            },
+            {
+              "seconds": 30.24541776627302,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1421564519405365
+              ]
+            },
+            {
+              "seconds": 45.44079874455929,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.09385445713996887
+              ]
+            },
+            {
+              "seconds": 48.82149387151003,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0005555605748668313
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.12911361455917358
+          ],
+          "performance": {
+            "device_seconds": 48.83558581161499,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.689600359447418,
+            "audio_seconds_per_second": 0.10320343078184788,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 48.83558581161499,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 48.84321282804012,
+                "first_audio_seconds": 15.473873046875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005893014371395111
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": false,
+      "cfg": 2.5,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 47.49367558956146,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.12933951616287231
+          ],
+          "performance": {
+            "device_seconds": 47.47091796875,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.41883293030754,
+            "audio_seconds_per_second": 0.10617026625265222,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 47.47091796875,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 47.471633583307266,
+                "first_audio_seconds": 47.47091796875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 46.92666866630316,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11141209304332733
+          ],
+          "performance": {
+            "device_seconds": 46.9052265625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.306592571924602,
+            "audio_seconds_per_second": 0.10745071219908363,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 46.9052265625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 46.90592750161886,
+                "first_audio_seconds": 46.9052265625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg2.5-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 46.73041705042124,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.13020411133766174
+          ],
+          "performance": {
+            "device_seconds": 46.70943359375,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.267744760664682,
+            "audio_seconds_per_second": 0.10790111573252693,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 46.70943359375,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 46.71013356000185,
+                "first_audio_seconds": 46.70943359375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 47.039276264607906,
+          "chunks": [],
+          "peak_allocated_gb": 13.266190848,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.16061900556087494
+          ],
+          "performance": {
+            "device_seconds": 47.01833984375,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.32903568328373,
+            "audio_seconds_per_second": 0.10719221513879018,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 47.01833984375,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 47.019031673669815,
+                "first_audio_seconds": 47.01833984375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": false,
+      "cfg": 2.5,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 49.61267604678869,
+          "chunks": [
+            {
+              "seconds": 15.158288724720478,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.14689187705516815
+              ]
+            },
+            {
+              "seconds": 30.233879774808884,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1252860426902771
+              ]
+            },
+            {
+              "seconds": 46.0636473223567,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1242363378405571
+              ]
+            },
+            {
+              "seconds": 49.57377475500107,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.00020344056247267872
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1293555200099945
+          ],
+          "performance": {
+            "device_seconds": 49.5837861328125,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.838052804129465,
+            "audio_seconds_per_second": 0.10164613058188263,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 49.5837861328125,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 49.59099480509758,
+                "first_audio_seconds": 15.139623046875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0055331215262413025
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 50.27987411618233,
+          "chunks": [
+            {
+              "seconds": 15.895073369145393,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.13668955862522125
+              ]
+            },
+            {
+              "seconds": 31.155257515609264,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.09185849130153656
+              ]
+            },
+            {
+              "seconds": 46.72904195636511,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.10957854986190796
+              ]
+            },
+            {
+              "seconds": 50.23779399693012,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                8.305246592499316e-05
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.11145429313182831
+          ],
+          "performance": {
+            "device_seconds": 50.24662494659424,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.96956844178457,
+            "audio_seconds_per_second": 0.10030524448869706,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 50.24662494659424,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 50.25393198430538,
+                "first_audio_seconds": 15.8723173828125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005573950707912445
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-eager-cfg2.5-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 49.95555482059717,
+          "chunks": [
+            {
+              "seconds": 15.537170886993408,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.13452796638011932
+              ]
+            },
+            {
+              "seconds": 31.22020447254181,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1456829011440277
+              ]
+            },
+            {
+              "seconds": 46.606618121266365,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.11887100338935852
+              ]
+            },
+            {
+              "seconds": 49.92262324690819,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0005678955931216478
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1302642524242401
+          ],
+          "performance": {
+            "device_seconds": 49.926121049880976,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 9.905976398785908,
+            "audio_seconds_per_second": 0.10094916035965537,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 49.926121049880976,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 49.933564029634,
+                "first_audio_seconds": 15.51735546875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.005840465426445007
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 51.21772103011608,
+          "chunks": [
+            {
+              "seconds": 15.62821064889431,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.1835407018661499
+              ]
+            },
+            {
+              "seconds": 31.544581599533558,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.16103990375995636
+              ]
+            },
+            {
+              "seconds": 47.77398354560137,
+              "samples": [
+                76800
+              ],
+              "rms": [
+                0.14717312157154083
+              ]
+            },
+            {
+              "seconds": 51.184984892606735,
+              "samples": [
+                11520
+              ],
+              "rms": [
+                0.0002905009314417839
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.329756672,
+          "peak_reserved_gb": 13.763608576,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.16063463687896729
+          ],
+          "performance": {
+            "device_seconds": 51.18946399497985,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 10.156639681543622,
+            "audio_seconds_per_second": 0.09845776077073737,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 51.18946399497985,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 51.196669816970825,
+                "first_audio_seconds": 15.609361328125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0056326985359191895
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "legacy",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 1.0,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 389.5314710959792,
+          "chunks": [],
+          "peak_allocated_gb": 13.441381888,
+          "peak_reserved_gb": 13.96703232,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1157422736287117
+          ],
+          "performance": {
+            "device_seconds": 389.51525,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 77.28477182539682,
+            "audio_seconds_per_second": 0.012939159634956527,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 389.51525,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 389.51692532747984,
+                "first_audio_seconds": 389.51525,
+                "graph_capture_seconds": 9.745829984545708,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 9.745829984545708
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.7534243687987328,
+          "chunks": [],
+          "peak_allocated_gb": 13.30392576,
+          "peak_reserved_gb": 13.618905088,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.1327139437198639
+          ],
+          "performance": {
+            "device_seconds": 1.7382420654296875,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3448892986963666,
+            "audio_seconds_per_second": 2.8994810908307693,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7382420654296875,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.738699845969677,
+                "first_audio_seconds": 1.7382420654296875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg1.0-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.7494377717375755,
+          "chunks": [],
+          "peak_allocated_gb": 13.30392576,
+          "peak_reserved_gb": 13.618905088,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.10985506325960159
+          ],
+          "performance": {
+            "device_seconds": 1.7344859619140625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.34414404006231397,
+            "audio_seconds_per_second": 2.905760041112235,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7344859619140625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.734941802918911,
+                "first_audio_seconds": 1.7344859619140625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.746476523578167,
+          "chunks": [],
+          "peak_allocated_gb": 13.30392576,
+          "peak_reserved_gb": 13.618905088,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "rms": [
+            0.12897294759750366
+          ],
+          "performance": {
+            "device_seconds": 1.7315225830078125,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.34355606805710565,
+            "audio_seconds_per_second": 2.9107330446970323,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7315225830078125,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.7319742366671562,
+                "first_audio_seconds": 1.7315225830078125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 1.0,
+      "streaming": false,
+      "batch": 4,
+      "runs": [],
+      "not_run": "Superseded by the bounded layerwise compilation experiment."
+    },
+    {
+      "optimized": true,
+      "cfg": 2.0,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 127.87272586673498,
+          "chunks": [
+            {
+              "seconds": 126.81792283058167,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 126.92524269223213,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 127.12549270689487,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 127.44870162755251,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 127.77098187059164,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 127.82785880565643,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.191151104,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 127.79415829873085,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 25.355983789430724,
+            "audio_seconds_per_second": 0.03943842243726452,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 127.79415829873085,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 127.7992520481348,
+                "first_audio_seconds": 126.7849609375,
+                "graph_capture_seconds": 0.7270928472280502,
+                "live_callback_seconds": 0.003389492630958557
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.7270928472280502
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.4094399064779282,
+          "chunks": [
+            {
+              "seconds": 0.40263209491968155,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5061040744185448,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7034600079059601,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.025845043361187,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.3480282872915268,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.4030007719993591,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.3841352665424347,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.274630013202864,
+            "audio_seconds_per_second": 3.6412626148814944,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.3841352665424347,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.3887119740247726,
+                "first_audio_seconds": 0.38466458129882813,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0032458677887916565
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg2.0-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.4103055372834206,
+          "chunks": [
+            {
+              "seconds": 0.40029454976320267,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5038366392254829,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7011637538671494,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.0246460437774658,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.347773402929306,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.4029202610254288,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.384509446620941,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.27470425528193276,
+            "audio_seconds_per_second": 3.6402785205263246,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.384509446620941,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.38944561034441,
+                "first_audio_seconds": 0.382271484375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.003447301685810089
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.8129792213439941,
+          "chunks": [
+            {
+              "seconds": 0.7810090929269791,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.885659821331501,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 1.0875965729355812,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.419365644454956,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.7482615485787392,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.8046214282512665,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.7842944226264954,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3540266711560507,
+            "audio_seconds_per_second": 2.8246459418850174,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7842944226264954,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.7903807163238525,
+                "first_audio_seconds": 0.7611279296875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.004269935190677643
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 2.0,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 1.9344040304422379,
+          "chunks": [],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.91362255859375,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.37968701559399803,
+            "audio_seconds_per_second": 2.633748216107835,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.91362255859375,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.914163962006569,
+                "first_audio_seconds": 1.91362255859375,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.7928795367479324,
+          "chunks": [],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.7695029296875,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.35109185112847224,
+            "audio_seconds_per_second": 2.8482575052249732,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7695029296875,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.7700118198990822,
+                "first_audio_seconds": 1.7695029296875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg2.0-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.7625160589814186,
+          "chunks": [],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.742781494140625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.34578997899615577,
+            "audio_seconds_per_second": 2.8919288028619166,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.742781494140625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.7432252913713455,
+                "first_audio_seconds": 1.742781494140625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.7823581025004387,
+          "chunks": [],
+          "peak_allocated_gb": 13.237587968,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.7624996337890626,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3497023082914807,
+            "audio_seconds_per_second": 2.8595750622454834,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.7624996337890626,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.7629535645246506,
+                "first_audio_seconds": 1.7624996337890626,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 1.0,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 92.68233627080917,
+          "chunks": [
+            {
+              "seconds": 91.51607301086187,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 91.61899165809155,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 91.81028120964766,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 92.12399893254042,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 92.50026995688677,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 92.59075498580933,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.43051008,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 92.55511537742616,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 18.36411019393376,
+            "audio_seconds_per_second": 0.05445404048655356,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 92.55511537742616,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 92.58285541832447,
+                "first_audio_seconds": 91.5031484375,
+                "graph_capture_seconds": 0.78611259162426,
+                "live_callback_seconds": 0.0037040263414382935
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.78611259162426
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.406357854604721,
+          "chunks": [
+            {
+              "seconds": 0.42653055489063263,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5267878621816635,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7182192280888557,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.0345016717910767,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.346645139157772,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.3999694734811783,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.217531392,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.3857891159057618,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.27495815791780986,
+            "audio_seconds_per_second": 3.6369170042916807,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.3857891159057618,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.3909335359930992,
+                "first_audio_seconds": 0.4135249938964844,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0036690011620521545
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg1.0-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.6261149495840073,
+          "chunks": [
+            {
+              "seconds": 0.4143633246421814,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5142610743641853,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7050355821847916,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.081679217517376,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.542765535414219,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.5981533229351044,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.217531392,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.571677639245987,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3118408014376958,
+            "audio_seconds_per_second": 3.206764462474596,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.571677639245987,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.590402252972126,
+                "first_audio_seconds": 0.40166400146484377,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.004068605601787567
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.4136439263820648,
+          "chunks": [
+            {
+              "seconds": 0.43106559664011,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5324123203754425,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7253872081637383,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.039695180952549,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.3538565412163734,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.4072491526603699,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.217531392,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.3924598970413207,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.2762817256034366,
+            "audio_seconds_per_second": 3.61949382578911,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.3924598970413207,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.397712916135788,
+                "first_audio_seconds": 0.41731790161132815,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0037938207387924194
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 2.5,
+      "streaming": true,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 2.2770466580986977,
+          "chunks": [
+            {
+              "seconds": 1.1908890530467033,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 1.297664813697338,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 1.5005195066332817,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.8878521770238876,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 2.214648276567459,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 2.2703403159976006,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 2.251237100124359,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.4466740278024522,
+            "audio_seconds_per_second": 2.238769074888464,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 2.251237100124359,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 2.2564284577965736,
+                "first_audio_seconds": 1.1729581298828125,
+                "graph_capture_seconds": 0.7812273353338242,
+                "live_callback_seconds": 0.0035949349403381348
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.7812273353338242
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.4499750882387161,
+          "chunks": [
+            {
+              "seconds": 0.43035685271024704,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5352778062224388,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7336441650986671,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.0601470097899437,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.3879624530673027,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.443331353366375,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.422985865354538,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.2823384653481226,
+            "audio_seconds_per_second": 3.541848252121802,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.422985865354538,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.4282910004258156,
+                "first_audio_seconds": 0.41116357421875,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0037946999073028564
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg2.5-stream.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.6871845126152039,
+          "chunks": [
+            {
+              "seconds": 0.6659053340554237,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.7717748060822487,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.9721029251813889,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.298298068344593,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.6249280199408531,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.6802831441164017,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.654681315898895,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.32830978490057444,
+            "audio_seconds_per_second": 3.045903734799865,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.654681315898895,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.6603608131408691,
+                "first_audio_seconds": 0.6415697631835937,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.003977760672569275
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.5539917051792145,
+          "chunks": [
+            {
+              "seconds": 0.4199741259217262,
+              "samples": [
+                11520
+              ]
+            },
+            {
+              "seconds": 0.5255002453923225,
+              "samples": [
+                23040
+              ]
+            },
+            {
+              "seconds": 0.7236238718032837,
+              "samples": [
+                46080
+              ]
+            },
+            {
+              "seconds": 1.0525450333952904,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.45768254250288,
+              "samples": [
+                76800
+              ]
+            },
+            {
+              "seconds": 1.516000121831894,
+              "samples": [
+                7680
+              ]
+            }
+          ],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.4956693127155305,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.29675978426895444,
+            "audio_seconds_per_second": 3.3697288278579434,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.4956693127155305,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.5014670342206955,
+                "first_audio_seconds": 0.40014846801757814,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.004015639424324036
+              }
+            ],
+            "streaming": true,
+            "chunk_frames": 20,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "optimized": true,
+      "cfg": 2.5,
+      "streaming": false,
+      "batch": 1,
+      "runs": [
+        {
+          "warmup": true,
+          "seed": 1700,
+          "wall_seconds": 1.8534205928444862,
+          "chunks": [],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.832433837890625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3635781424386161,
+            "audio_seconds_per_second": 2.7504403683145853,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.832433837890625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.832902193069458,
+                "first_audio_seconds": 1.832433837890625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1701,
+          "wall_seconds": 1.936025246977806,
+          "chunks": [],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.916125,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.38018353174603176,
+            "audio_seconds_per_second": 2.6303085654641527,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.916125,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.9165865033864975,
+                "first_audio_seconds": 1.916125,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          },
+          "audio_file": "sample-fast-cfg2.5-offline.wav"
+        },
+        {
+          "warmup": false,
+          "seed": 1702,
+          "wall_seconds": 1.9585127606987953,
+          "chunks": [],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.9303485107421876,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3830056568932912,
+            "audio_seconds_per_second": 2.610927494156069,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.9303485107421876,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.930981382727623,
+                "first_audio_seconds": 1.9303485107421876,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        },
+        {
+          "warmup": false,
+          "seed": 1703,
+          "wall_seconds": 1.954503856599331,
+          "chunks": [],
+          "peak_allocated_gb": 13.313231872,
+          "actual_audio_seconds": [
+            5.04
+          ],
+          "hit_frame_cap": [
+            false
+          ],
+          "performance": {
+            "device_seconds": 1.9301734619140625,
+            "raw_audio_seconds": 5.04,
+            "aggregate_rtf": 0.3829709249829489,
+            "audio_seconds_per_second": 2.6111642810600393,
+            "batches": [
+              {
+                "batch_size": 1,
+                "device_seconds": 1.9301734619140625,
+                "audio_seconds": [
+                  5.04
+                ],
+                "model_wall_seconds": 1.9308277070522308,
+                "first_audio_seconds": 1.9301734619140625,
+                "graph_capture_seconds": 0.0,
+                "live_callback_seconds": 0.0
+              }
+            ],
+            "streaming": false,
+            "chunk_frames": null,
+            "backend": "fused CFG + local CUDA graphs + compiled global",
+            "includes": "TTS prefill, autoregressive decode and PCM codec; GPU event span including launch gaps",
+            "excludes": "reference encoding, prompt packing, Luna, alignment, scoring, voice conversion, CPU audio copy, MP3, network",
+            "graph_capture_seconds": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Resident TTS, prefill, frame generation and causal PCM codec. Excludes LLM, ASR, alignment, ranking, MP3 and network.",
+  "reference_encode_seconds": 0.0011237338185310364,
+  "plan_update": "The original monolithic compiler took minutes per new batch shape. Keep its single-candidate comparison; perform the batch sweep with the validated bounded layerwise compiler.",
+  "checks": {
+    "semantic_1_branches": [
+      {
+        "cosine": [
+          1.0000001192092896
+        ],
+        "relative_rmse": 0.0,
+        "max_abs": 0.0
+      },
+      {
+        "cosine": [
+          0.9996402263641357
+        ],
+        "relative_rmse": 0.026833420619368553,
+        "max_abs": 0.5
+      },
+      {
+        "cosine": [
+          0.9997009038925171
+        ],
+        "relative_rmse": 0.024468960240483284,
+        "max_abs": 0.375
+      },
+      {
+        "cosine": [
+          0.9996049404144287
+        ],
+        "relative_rmse": 0.028108324855566025,
+        "max_abs": 0.5
+      },
+      {
+        "cosine": [
+          0.9993587136268616
+        ],
+        "relative_rmse": 0.03584204241633415,
+        "max_abs": 0.412109375
+      },
+      {
+        "cosine": [
+          0.9995784163475037
+        ],
+        "relative_rmse": 0.029059872031211853,
+        "max_abs": 0.625
+      },
+      {
+        "cosine": [
+          0.9997621178627014
+        ],
+        "relative_rmse": 0.02190997079014778,
+        "max_abs": 0.25
+      },
+      {
+        "cosine": [
+          0.9994197487831116
+        ],
+        "relative_rmse": 0.03409109264612198,
+        "max_abs": 0.3125
+      },
+      {
+        "cosine": [
+          0.9995200634002686
+        ],
+        "relative_rmse": 0.031007617712020874,
+        "max_abs": 0.75
+      }
+    ],
+    "semantic_2_branches": [
+      {
+        "cosine": [
+          1.0000001192092896,
+          1.0
+        ],
+        "relative_rmse": 0.0,
+        "max_abs": 0.0
+      },
+      {
+        "cosine": [
+          0.9997100234031677,
+          0.9996423721313477
+        ],
+        "relative_rmse": 0.025462867692112923,
+        "max_abs": 0.2734375
+      },
+      {
+        "cosine": [
+          0.9997516870498657,
+          0.999685525894165
+        ],
+        "relative_rmse": 0.023726440966129303,
+        "max_abs": 0.32861328125
+      },
+      {
+        "cosine": [
+          0.9995303153991699,
+          0.9997000694274902
+        ],
+        "relative_rmse": 0.027739569544792175,
+        "max_abs": 0.75
+      },
+      {
+        "cosine": [
+          0.9995033740997314,
+          0.9993486404418945
+        ],
+        "relative_rmse": 0.03396819531917572,
+        "max_abs": 0.3984375
+      },
+      {
+        "cosine": [
+          0.998656690120697,
+          0.9993237257003784
+        ],
+        "relative_rmse": 0.04492092505097389,
+        "max_abs": 0.5625
+      },
+      {
+        "cosine": [
+          0.9998129606246948,
+          0.9997944235801697
+        ],
+        "relative_rmse": 0.01982511766254902,
+        "max_abs": 0.203125
+      },
+      {
+        "cosine": [
+          0.9993563890457153,
+          0.9997132420539856
+        ],
+        "relative_rmse": 0.030568206682801247,
+        "max_abs": 0.375
+      },
+      {
+        "cosine": [
+          0.9997788667678833,
+          0.9998455047607422
+        ],
+        "relative_rmse": 0.01946207694709301,
+        "max_abs": 0.375
+      }
+    ],
+    "component_profile": {
+      "semantic_prefill": {
+        "calls": 1,
+        "total_ms": 254.34112548828125,
+        "median_ms": 254.34112548828125
+      },
+      "12_acoustic_tokens": {
+        "calls": 64,
+        "total_ms": 134.56896090507507,
+        "median_ms": 2.0997120141983032
+      },
+      "semantic_decode": {
+        "calls": 63,
+        "total_ms": 760.4622030258179,
+        "median_ms": 12.089344024658203
+      },
+      "pcm_codec": {
+        "calls": 6,
+        "total_ms": 68.91289615631104,
+        "median_ms": 11.073472023010254
+      }
+    },
+    "note": "Teacher-forced states use identical tokens; BF16 accumulated differences are reported, not assumed zero. Component profile has event instrumentation overhead."
+  },
+  "finished": true
+}
