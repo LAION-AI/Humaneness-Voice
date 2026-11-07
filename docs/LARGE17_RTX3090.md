@@ -5,6 +5,10 @@ existing Small model without changing Robby's conversation, avatar or ASR.
 Robby's **Voice synthesis** selector is near the top of the page. Small remains
 the default; the browser remembers an explicit selection.
 
+For the matched **Small versus Large** throughput table and separately labelled
+Jetson Thor results, see [TTS performance](TTS_PERFORMANCE.md). The same report
+is published [beside the Large 1.7 weights](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/ROBBY_RTX3090.md).
+
 ## Weights and precision
 
 - Repository: https://huggingface.co/laion/Humaneness-Voice-Large-1.7
@@ -51,7 +55,9 @@ facial-expression or turn-taking model is replaced.
 
 ## Speed options
 
-Use the existing RTX 3090 `rtx3090-speed.env` recipe: BF16 weights, cached
+Use the existing RTX 3090
+[`rtx3090-speed.env` recipe](https://github.com/christophschuhmann/cartoon-face-generator/blob/80d00b6be7d8ea2cc592c3c5f6f18ca7920274e7/robby/voice-assistant/optimizations/rtx3090-speed.env)
+(download it from the Robby repository before sourcing it): BF16 weights, cached
 references, batched CFG branches, semantic static KV caches and CUDA graphs,
 compiled semantic continuation, fast top-k/top-p sampling, Triton local decoder,
 causal codec graphs/fusion and growing chunks. `HVS_LOCAL_COMPILE=0` avoids the
@@ -85,9 +91,9 @@ batches divides by the sum of candidate audio durations.
 | Original Small optimization package, streaming | 1 | 0.403 s | 1.410 s | 0.275 | 3.64 |
 | Original Small optimization package, offline | 1 | — | 1.782 s | 0.350 | 2.86 |
 | Layerwise compilation, streaming | 1 | 0.433 s | 1.491 s | 0.290 | 3.45 |
-| Layerwise compilation, offline | 8 | — | 3.679 s | 0.089 | 11.29 |
+| Layerwise compilation, offline | 8 | — | 3.679 s | 0.089 | 11.28 |
 | Layerwise compilation, streaming | 8 | 1.309 s | 5.624 s | 0.136 | 7.33 |
-| Layerwise compilation, offline | 16 | — | 5.475 s | 0.065 | 15.46 |
+| Layerwise compilation, offline | 16 | — | 5.475 s | 0.065 | 15.45 |
 | Layerwise compilation, streaming | 16 | 2.048 s | 7.483 s | 0.090 | 11.16 |
 
 The fastest tested configuration reduces CFG to 1: batch 16 offline reaches

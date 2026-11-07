@@ -12,8 +12,25 @@ For standalone expressive speech generation, use **[Humaneness Voice Large 1.7](
 | Five-language emotions, extreme situations and acting scenarios | [Searchable listening showcase](https://laion-humaneness-voice-gemini-r32-cfg-comparison.static.hf.space/showcase.html) |
 | Choosing the runtime, batching, streaming and compatibility | [Large 1.7 integration guide](docs/HUMANENESS_VOICE_LARGE_1_7.md) |
 | Robby model switch, measured RTX 3090 streaming/batching and reproducible checks | [Large 1.7 speed study](docs/LARGE17_RTX3090.md) |
+| Small/Large throughput, hardware and measured optimization recipes | [Performance comparison](docs/TTS_PERFORMANCE.md) · [Hugging Face optimization notes](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/INFERENCE_OPTIMIZATIONS.md) |
 
 This is the **Large model recommendation**, not a silent change to the packaged Playground or Robby default below. Historical 1.5/1.6 specialist adapters and their optimized prompting recipes require new validation on 1.7. The new reference-free recipe search is being prepared; completed listening examples and pending generations are labelled separately in the showcase.
+
+**Matched Small/Large performance (7 November 2026):** One GPU, BF16,
+CFG 2, temperature 0.8, one streaming candidate, the same structured German
+prompt and reference, three warm repeats; final alignment disabled. First PCM
+is server response timing, not browser playback. RTF measures TTS and codec
+compute separately.
+
+| Model | GPU | First PCM over local HTTP | On-device RTF | Audio seconds / compute second |
+| --- | --- | ---: | ---: | ---: |
+| Small 1.1 Alpha RL r128 v1 | RTX 3090, 24 GiB | 0.394 s | 0.1669 | 5.99 |
+| Large 1.7 | RTX 3090, 24 GiB | 0.470 s | 0.2873 | 3.48 |
+
+Large also reaches **15.45 audio seconds/s** in a short 16-candidate offline
+batch at CFG 2; the live cap stays 8. [Conditions, batch results, reproduction
+and separately labelled Jetson Thor results](https://github.com/LAION-AI/Humaneness-Voice/blob/main/docs/TTS_PERFORMANCE.md) ·
+[The same measured optimization report in the Large 1.7 model repository](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/ROBBY_RTX3090.md).
 
 **Inference speed (October 31):** With opt-in environment variables, the Small RL streaming TTS starts speaking 0.16 s after receiving a sentence on an NVIDIA Jetson Thor (it was 2.3–2.9 s). The changes are BF16 merged weights, a backbone CUDA graph with Inductor fusion, top-k-first sampling, codec CUDA graphs plus fused Triton codec kernels (bit-identical audio), Triton kernels for the codebook steps, growing chunks and a fix for re-encoding the reference voice on every request. [Step-by-step guide with measurements, code and links](INFERENCE_OPTIMIZATIONS.md) · benchmarks: `playground/runtime/live_latency_benchmark.py`, `playground/runtime/inference_speed_check.py`.
 
