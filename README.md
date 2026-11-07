@@ -9,6 +9,7 @@ For standalone expressive speech generation, use **[Humaneness Voice Large 1.7](
 | Model weights, inference and training code | [Large 1.7 model repository](https://huggingface.co/laion/Humaneness-Voice-Large-1.7) |
 | `GENERAL` / `SCRIPT`, inline directions, durations and examples | [Model prompting guide](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/PROMPTING.md) |
 | Choosing the runtime, batching, streaming and compatibility | [Large 1.7 integration guide](docs/HUMANENESS_VOICE_LARGE_1_7.md) |
+| Robby model switch, measured RTX 3090 streaming/batching and reproducible checks | [Large 1.7 speed study](docs/LARGE17_RTX3090.md) |
 
 This is the **Large model recommendation**, not a silent change to the packaged Playground or Robby default below. Historical 1.5/1.6 specialist adapters and their optimized prompting recipes require new validation on 1.7. The new reference-free recipe search is being prepared; completed listening examples and pending generations are labelled separately in the showcase.
 
