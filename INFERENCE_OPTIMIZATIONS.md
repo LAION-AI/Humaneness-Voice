@@ -14,6 +14,16 @@ The same guide exists in both repositories:
 [LAION-AI/Humaneness-Voice](https://github.com/LAION-AI/Humaneness-Voice/blob/main/INFERENCE_OPTIMIZATIONS.md) (TTS server)
 and [christophschuhmann/cartoon-face-generator](https://github.com/christophschuhmann/cartoon-face-generator/blob/main/robby/voice-assistant/INFERENCE_OPTIMIZATIONS.md) (Robby).
 
+## New: matched Small/Large RTX 3090 results
+
+The Small optimization package has now been ported and tested on **Large 1.7**.
+See the [Small/Large performance tables](docs/TTS_PERFORMANCE.md),
+[Large integration and reproduction](docs/LARGE17_RTX3090.md), and
+[measured report in the Hugging Face model repository](https://huggingface.co/laion/Humaneness-Voice-Large-1.7/blob/main/ROBBY_RTX3090.md).
+Those tables distinguish device throughput, first PCM, full request latency,
+batching and cold compilation. The historical Thor measurements below retain
+their original scope; they must not be quoted as Large results.
+
 ## Results
 
 | Measurement | Start | After all steps |
