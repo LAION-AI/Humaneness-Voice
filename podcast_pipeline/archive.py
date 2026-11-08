@@ -9,7 +9,7 @@ def archive_batch(out,batch,waves,codes,scores,perf,refs,n,total_s):
     tick=time.perf_counter()
     for group,(lang,turn) in enumerate(batch):
         local=scores[group*n:(group+1)*n]
-        winner=max(range(n),key=lambda i:(local[i]['reward'],-i));idx=group*n+winner
+        winner=0 if n==1 else max(range(n),key=lambda i:(local[i]['reward'],-i));idx=group*n+winner
         folder=Path(out)/f'bestof{n}-speaker5050'/f"{lang}-{turn['index']:02d}";folder.mkdir(parents=True,exist_ok=True)
         for i in range(n):sf.write(folder/f'candidate-{i}.flac',waves[group*n+i],48000,subtype='PCM_24')
         sf.write(folder/'raw.flac',waves[idx],48000,subtype='PCM_24')
@@ -20,6 +20,6 @@ def archive_batch(out,batch,waves,codes,scores,perf,refs,n,total_s):
             timing_allocation='batch wall time divided equally among independent segments; first_commit is full batch latency')
         dump(folder/'result.json',dict(language=lang,turn=turn,variant=f'bestof{n}-speaker5050',
             reference=refs[turn['speaker']],performance=per,prompt=specification(turn,lang)['prompt'],generated_unix=time.time()))
-        print('TURN',lang,turn['index'],'winner',winner,'G',round(local[winner]['ears']['genuineness_0_6'],3),
-            'ECAPA',round(local[winner]['ecapa_cosine'],3),'batch_s',round(total_s,2),flush=True)
+        print('TURN',lang,turn['index'],'winner',winner,'reward',local[winner]['reward'],
+            'ranking_skipped',n==1,'batch_s',round(total_s,2),flush=True)
     return dict(seconds=time.perf_counter()-tick,turns=[t['index'] for _,t in batch],language=batch[0][0])

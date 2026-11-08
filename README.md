@@ -371,4 +371,6 @@ This public repository intentionally names its source and contributors. It is **
 
 ### Podcast generation
 
-The [Podcast Generation Pipeline](docs/PODCAST_GENERATION_PIPELINE.md) documents the approved restrained prompting recipe, exact 50/50 genuineness–speaker reward, reference/model downloads, runnable inference code and RTX 3090 measurements.
+The [Podcast Generation Pipeline](docs/PODCAST_GENERATION_PIPELINE.md) documents the approved spontaneous, relaxed and gentle prompting recipe, exact 50/50 genuineness–speaker reward, reference/model downloads, runnable inference code and RTX 3090 measurements.
+
+The Podcast model card also contains the [current prompting guides and inference defaults](https://huggingface.co/laion/Humanness-Voice-Podcast).

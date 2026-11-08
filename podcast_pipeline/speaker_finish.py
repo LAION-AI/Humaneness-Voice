@@ -37,8 +37,8 @@ def page(out,receipts,config,times):
         followup="<p><strong>ASR follow-up:</strong> English turn 8 has inconsistent recognizer output: the whole edited clip omits the final sentence in ASR, while ASR of its unchanged tail recognizes that sentence. The raw clip also yields it. The original diagnostic WER is retained; this flag is not proof of a missing spoken sentence. Turn 17 includes a Frankl/name segmentation mismatch. <a href='asr-review-en08.json'>Additional recognition evidence</a>.</p>"
     (out/'index.html').write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Podcast — genuineness and speaker identity</title>
 <style>body{{font:17px/1.55 system-ui;color:#252333;background:#f7f3eb;max-width:1100px;margin:30px auto;padding:16px;overflow-wrap:anywhere}}.scroll{{overflow:auto}}table{{border-collapse:collapse;background:white;width:100%}}td,th{{padding:12px;text-align:left;border-bottom:1px solid #ddd;overflow-wrap:normal}}main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px}}section{{background:white;border-radius:16px;padding:24px;min-width:0}}audio{{width:100%;min-width:0}}a{{color:#5a40a0}}pre{{white-space:pre-wrap}}</style>
-<h1>Genuineness + speaker consistency</h1><p>Fresh English and German episodes using the actual Podcast checkpoint, the same two published German reference clips, and complete-turn Best-of-{config['n']}. No streaming and no voice conversion.</p>
-<p><strong>Reward: 50% genuineness + 50% reference speaker similarity.</strong> Genuineness is clipped after division by 6. Speaker similarity is ECAPA cosine clipped to [0,1]. These are fixed scales, not per-batch min/max values. WER is a final diagnostic and does not influence selection.</p>
+<h1>Podcast · spontaneous, gentle conversation</h1><p>Fresh English and German episodes using the actual Podcast checkpoint, the same two published German reference clips, and complete-turn Best-of-{config['n']}. No streaming and no voice conversion.</p>
+<p><strong>Reward: 50% genuineness + 50% reference speaker similarity.</strong> Genuineness is clipped after division by 6. Speaker similarity is ECAPA cosine clipped to [0,1]. These are fixed scales, not per-batch min/max values. WER is a final diagnostic and does not influence selection. N=1 keeps the only take and skips online scoring; its quality metrics are computed in the final audit.</p>
 <div class="scroll"><table><tr><th>Language</th><th>Duration</th><th>Generation + ranking</th><th>Useful RTF</th><th>Genuineness / 6</th><th>Speaker cosine</th><th>Mean turn WER</th></tr>{''.join(rows)}</table></div>
 <p>RTF is generation/ranking time divided by final edited episode duration. Lower is faster; below 1 is faster than real time. Loading, timing probes, final audit and encoding are separate. Each shared batch is counted once, divided equally between its independent segments. This is not request-to-playback latency.</p><main>{''.join(cards)}</main>
 <h2>Performance directions</h2><p>{prompting} The transcript is unchanged from the earlier episodes.</p>
@@ -64,6 +64,9 @@ def main(a):
     shutil.copyfile(HERE/'SPEAKER_RECIPE.md',out/'PIPELINE.md')
     tick=time.perf_counter();scorer=SpeakerScorer(a.device,config['references'],load_asr=True,asr_url=a.asr_url)
     aligner=QwenAligner(device=a.device);assert aligner.ok
+    targets=torch.stack(list(scorer.targets.values()))
+    dump(runs/'reference-controls.json',dict(speakers=list(scorer.targets),cosine=(targets@targets.T).cpu().tolist(),
+        seconds=scorer.reference_seconds,dimensions=int(targets.shape[-1])))
     load_s=time.perf_counter()-tick;audit_start=time.perf_counter();rows=[];pending=[]
     for path in sorted(runs.glob('*/*/result.json')):
         folder=path.parent

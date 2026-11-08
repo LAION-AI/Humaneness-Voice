@@ -2,15 +2,17 @@
 
 This recipe uses the **Podcast full fine-tune**, not the general Large 1.7 checkpoint. It generates complete independent speaker turns, samples N takes per turn in parallel, ranks them, and assembles the winners into a two-host episode. Voice conversion is disabled. German and English use the same two reference recordings.
 
-## Best practice so far: restrained authentic delivery
+## Current best practice: sparse spontaneous, relaxed and gentle delivery
 
-On 8 November 2026 the experiment owner preferred the **original restrained prompt**, reranked with the 50/50 reward below, over a later experiment that repeated emotion and authenticity directions before every sentence. This is a listening preference for these episodes, not a blinded study or a universal optimum. Keep this approved recipe as the default; new spontaneous-delivery experiments must use separate output directories.
+On 8 November 2026 the listener approved the **sparse spontaneous/relaxed/gentle inline variant** and requested it as the standard. `--prompt-style spontaneous` is now the default. The earlier restrained `legacy` prompt remains available, while the exaggerated per-sentence emotion experiment is retained only for reproduction. This is a listener preference, not a universal or blinded-study optimum.
+
+Read the [exact prompting guide and LLM-writing template](../podcast_pipeline/PROMPTING.md). An API-based or local LLM is recommended for writing the script and sparse cues: hand-authoring every turn and direction is unnecessarily laborious. The TTS itself does not write the dialogue and needs no LLM API key.
 
 Exact GENERAL:
 
 > A warm, emotionally thoughtful two-host podcast conversation. Very authentic, very genuine. Natural, intimate, spontaneous spoken delivery with clear words, subtle emotion, relaxed conversational pacing and brief meaningful pauses. Be sincere, without an exaggerated announcer voice or forced laughter. Perform only the current speaker turn and speak exactly the SCRIPT. Keep the same speaker identity as the reference audio.
 
-Use **one moderate parenthesized direction per turn**, e.g. `(warm, intimate welcome; gently curious)`, followed by the literal transcript. Do not repeatedly demand strong emotions, forced laughter, or exaggerated acting. “Very pleasant to listen to” is deliberately absent. The experimental per-sentence style remains available only for reproducing the rejected comparison.
+Use **one moderate parenthesized direction plus a short spontaneous/gentle cue per turn**, and at most one extra cue at an existing sentence boundary, e.g. `(warm, intimate welcome; gently curious)`, followed by the literal transcript. Do not repeatedly demand strong emotions, forced laughter, or exaggerated acting. “Very pleasant to listen to” is deliberately absent. The experimental per-sentence style remains available only for reproducing the rejected comparison.
 
 Temperature **1.0**, CFG **2.5**, top-p **0.95**, top-k **50**, BF16, free timing (`tokens=None`), 320 semantic frames / 25.6 s maximum per turn. Split longer scripts into shorter turns. No DPO, additional LoRAs, or voice conversion. These settings apply to this Podcast checkpoint, not all Humaneness models.
 
@@ -54,13 +56,13 @@ python prepare.py
 MODEL=$(python -c 'import json; print(json.load(open("assets.local.json"))["model"])')
 python -m unittest test_contracts test_speaker_recipe
 python speaker_run.py --model "$MODEL" --device cuda:0 --n 4 \
-  --prompt-style legacy --output outputs/approved/generation
+  --prompt-style spontaneous --output outputs/approved/generation
 python speaker_finish.py --runs outputs/approved/generation \
   --output outputs/approved --device cuda:0
 # Open outputs/approved/index.html.
 ```
 
-`--n 1` is also supported. N is takes **per segment**; the automatic pilot chooses one or two independent segments per policy batch, at most 16 simultaneous candidates. With two segments and N=4 the policy handles eight candidate histories, plus their CFG branches. The sample scripts have 20 turns per language. `--limit 2` is a useful first smoke test. Re-run exactly the same configuration to resume completed turns; use a fresh directory when prompts/references/settings change. A live local Parakeet service is optional via the finisher's `--asr-url`; the default audit loads it locally after generation releases the policy.
+`--n 1` keeps its only take and skips online scoring; final audit still measures its quality. `--n 2` uses the same 50/50 selection as N=4. N is takes **per segment**; the automatic pilot chooses one or two independent segments per policy batch, at most 16 simultaneous candidates. With two segments and N=4 the policy handles eight candidate histories, plus their CFG branches. The sample scripts have 20 turns per language. Supply custom JSON with `--script` (repeatable) and `--references`; see the prompting guide. `produce.py` runs generation plus audit/export in one command. `--limit 2` is a useful first smoke test. Re-run exactly the same configuration to resume completed turns; use a fresh directory when prompts/references/settings change. A live local Parakeet service is optional via the finisher's `--asr-url`; the default audit loads it locally after generation releases the policy.
 
 Code includes checks that reused prompt prefill has identical hidden states and valid KV entries, that batched generation reproduces the prior one-segment runner, and that codec encoder offloading preserves decoding. If prefill equivalence fails, reuse is disabled. CUDA/Triton compilation is cold-start work and can take minutes. Same seeds do not promise identical outputs across hardware, libraries or batch grouping. Preserve all recorded scripts, source hashes, seeds and candidate scores.
 
@@ -79,19 +81,19 @@ RTF = generation/ranking / final edited duration, not all candidate audio. Combi
 
 Shared prefill measured 0.273 vs 1.125 s for one group and 0.544 vs 2.110 s for two groups, with exact equality. A warm 104-frame probe took 3.572 s for one segment and 5.238 s for two (2.619 s/segment). The latter is an approximate workload comparison: two different scripts and different RNG batch shapes. An earlier run shared the card with a training job; speed differences cannot all be assigned to code.
 
-The **approved restrained rerank** reused 160 saved candidates, generated no new TTS, and changed 15/20 German and 12/20 English winners. Final German / English means: genuineness 3.967 / 3.822 out of 6; ECAPA cosine 0.655 / 0.401; turn WER 1.01% / 1.79%. Reranking took 32.18 s; do not report that as synthesis throughput. These are model metrics, not human quality ratings.
+The **earlier approved restrained rerank** reused 160 saved candidates, generated no new TTS, and changed 15/20 German and 12/20 English winners. Final German / English means: genuineness 3.967 / 3.822 out of 6; ECAPA cosine 0.655 / 0.401; turn WER 1.01% / 1.79%. Reranking took 32.18 s; do not report that as synthesis throughput. These are model metrics, not human quality ratings.
 
 ## Next efficiency experiments
 
-1. Overlap bounded CPU candidate archival with the next GPU batch; preserve all takes and propagate write errors before declaring completion. The earlier run spent roughly 27 s outside measured generation/ranking, including archival and cleanup; that is a ceiling, not a promised speedup.
+1. Already implemented: overlap bounded CPU candidate archival with the next GPU batch; preserve all takes and propagate write errors before declaring completion. The earlier run spent roughly 27 s outside measured generation/ranking, including archival and cleanup; that is a ceiling, not a promised speedup.
 2. Reuse a warmed worker, cached reference embeddings and tested graph shapes across episodes. Report cold start separately.
 3. Explicitly reuse a previously measured batch size instead of repeating timing sweeps every episode, while retaining correctness checks after runtime changes.
 4. Bucket comparable turn lengths to reduce completed-row padding, but record batch assignment because it changes RNG histories.
 5. Benchmark EOS/continuation behavior before shortening frame caps. Never accelerate by silently clipping words or dropping candidates.
 
-## Separate spontaneous-delivery experiment
+## Current standard: sparse spontaneous delivery
 
-`--prompt-style spontaneous` retains every spoken word and original moderate turn direction, adding a short relaxed/gentle/spontaneous cue. Alternating turns get at most one additional cue at an existing sentence boundary. It does not repeat a list of emotions before every sentence. The approved `legacy` style remains the default.
+`--prompt-style spontaneous` retains every spoken word and original moderate turn direction, adding a short relaxed/gentle/spontaneous cue. Alternating turns get at most one additional cue at an existing sentence boundary. It does not repeat a list of emotions before every sentence. The listener-approved `spontaneous` style is now the default; `legacy` reproduces the earlier restrained variant.
 
 ```bash
 python speaker_run.py --model "$MODEL" --device cuda:0 --n 4 --groups 2 \
@@ -105,7 +107,7 @@ The explicit `--groups 2` reuses the previously measured batch size and skips re
 
 Candidate FLAC archival now runs on one bounded CPU thread alongside the next GPU batch. No candidates are discarded; write failures propagate, and a `result.json` is published only after its files exist. `archive-timing.json` distinguishes CPU work from the remaining blocking wait. Resume keeps stable batch grouping and replaces the same batch timing record rather than double-counting it.
 
-This experiment is pending the listener’s preference decision. Model-score changes alone do not establish that the acting sounds better.
+The listener approved these samples and requested this prompt style as the default. Model-score changes alone still do not establish general superiority.
 
 
 ## New spontaneous variant: measured outcome, 8 November 2026
@@ -117,7 +119,7 @@ The portable package generated and scored all **160 candidates** (40 turns × 4)
 | German | 219.38 s | 179.98 s | 0.821 | 3.943 | 0.640 | 1.98% |
 | English | 193.30 s | 195.83 s | 1.013 | 3.880 | 0.407 | 5.50% |
 
-**Important observed failure:** the highest-reward take for English turn 6 ends after its first sentence (4 s instead of the complete turn). Its reward is 0.500111; the next candidate scores 0.499803. The strict experiment is kept unchanged and explicitly flagged. A separately labeled content-repaired listening copy can use a complete alternative, but that adds a content eligibility check and must not be reported as unconstrained 50/50 argmax. This illustrates why genuineness and speaker similarity alone cannot certify a complete script. The approved restrained baseline remains the default.
+**Important observed failure:** the highest-reward take for English turn 6 ends after its first sentence (4 s instead of the complete turn). Its reward is 0.500111; the next candidate scores 0.499803. The strict experiment is kept unchanged and explicitly flagged. A separately labeled content-repaired listening copy can use a complete alternative, but that adds a content eligibility check and must not be reported as unconstrained 50/50 argmax. This illustrates why genuineness and speaker similarity alone cannot certify a complete script. The sparse spontaneous style is now the listener-approved default. The earlier restrained variant remains available for comparison.
 
 Across both episodes, generation/ranking took 375.80 s: policy token prediction 324.85 s, codec decoding 24.85 s, scoring including preprocessing 21.25 s, and approximately 4.86 s in remaining generation overhead. Ears forward work (4.35 s) and ECAPA work (3.08 s) are **included** in scoring, not extra. Archived audio writing consumed 24.87 CPU seconds but blocked production for only 1.08 s; almost all writing overlapped GPU work. Total production including final archival/cleanup was 380.10 s. Process start to both MP3 exports was 645.59 s, excluding service restoration and the additional listening repair.
 

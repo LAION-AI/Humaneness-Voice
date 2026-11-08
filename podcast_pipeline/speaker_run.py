@@ -10,7 +10,7 @@ from archive import archive_batch
 from recipe import HERE, WORKSPACE, GENERAL, MODEL_REPO, MODEL_REVISION, dump, sha, specification
 from run import setup
 
-def main(a):
+def main(a, resources=None):
     if not 1 <= a.n <= 16 or a.groups < 0 or a.groups*a.n > 16 or a.limit < 0:
         raise ValueError("N must be 1..16; groups*N <=16; limit must be nonnegative")
     setup(a.device)
@@ -23,12 +23,11 @@ def main(a):
     from speaker_scoring import SpeakerScorer, FORMULA, ECAPA_REPO, ECAPA_REVISION
     torch.set_num_threads(4);torch.cuda.set_device(a.device);torch._dynamo.config.cache_size_limit=64
     out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True)
-    refs=json.loads((HERE/'references.json').read_text())
-    scripts=[HERE/(f'script-{l}.json' if a.prompt_style=='legacy' else f'script-{a.prompt_style if a.prompt_style=="spontaneous" else "speaker"}-{l}.json') for l in ('en','de')]
-    jobs=[(json.loads(p.read_text())['language'],t) for p in scripts for t in json.loads(p.read_text())['turns'][:a.limit or None]]
+    from inputs import load_inputs
+    refs,scripts,jobs=load_inputs(a)
     config=dict(model=MODEL_REPO,revision=MODEL_REVISION,general=GENERAL,references=refs,
-        reference_codes_sha256={s:sha(HERE/r['codes']) for s,r in refs.items()},
-        scripts={str(p):sha(p) for p in scripts},n=a.n,mode='offline-turn',temperature=1.,cfg=2.5,
+        reference_codes_sha256={s:sha(HERE/r['codes']) for s,r in refs.items() if r.get('codes')},
+        scripts={str(p):sha(p) for p in scripts},effective_jobs=jobs,n=a.n,mode='offline-turn',temperature=1.,cfg=2.5,
         reward=FORMULA,speaker_model=ECAPA_REPO,speaker_revision=ECAPA_REVISION,
         wer_role='final audit only; no multiplier or eligibility filter',voice_conversion=False,
         optimization_flags={k:v for k,v in os.environ.items() if k.startswith('HVS_') and not k.endswith('CACHE')},
@@ -42,21 +41,28 @@ def main(a):
     if stamp.exists():
         if json.loads(stamp.read_text()) != source_hashes:raise ValueError('Runtime changed; use a new output directory')
     else:dump(stamp,source_hashes)
-    tick=time.perf_counter();scorer=SpeakerScorer(a.device,refs)
-    g=Generator(a.model,refs,a.device);offline=OfflineBatch(g)
+    tick=time.perf_counter()
+    owns_models=resources is None
+    if resources is None:
+        scorer=SpeakerScorer(a.device,refs) if a.n>1 else None
+        g=Generator(a.model,refs,a.device)
+    else:
+        g,scorer=resources
+    offline=OfflineBatch(g)
     g.engine.fast.semantic.limit=2;g.engine.fast.graph_limit=2
     load_s=time.perf_counter()-tick
-    targets=torch.stack(list(scorer.targets.values()))
-    dump(out/'reference-controls.json',dict(speakers=list(scorer.targets),cosine=(targets@targets.T).cpu().tolist(),
-        seconds=scorer.reference_seconds,dimensions=int(targets.shape[-1])))
-    save_file({s:v.cpu() for s,v in scorer.targets.items()},str(out/'reference-embeddings.safetensors'))
+    if scorer is not None:
+        targets=torch.stack(list(scorer.targets.values()))
+        dump(out/'reference-controls.json',dict(speakers=list(scorer.targets),cosine=(targets@targets.T).cpu().tolist(),
+            seconds=scorer.reference_seconds,dimensions=int(targets.shape[-1])))
+        save_file({s:v.cpu() for s,v in scorer.targets.items()},str(out/'reference-embeddings.safetensors'))
     # Real-model regression: the generic batching path reproduces the existing
     # one-segment runner before enabling prefill reuse or larger groups.
-    if a.n==4:
+    if a.n in (1,2,4):
         language,turn=jobs[0];seed=81108
-        expected,code,_,_=g.run(turn,language,n=4,mode='turn',chunk_frames=13,max_frames=39,seed=seed,force_winner=0)
+        expected,code,_,_=g.run(turn,language,n=a.n,mode='turn',chunk_frames=13,max_frames=39,seed=seed,force_winner=0)
         offline.shared=False
-        waves,codes,_=offline.synthesize(jobs[:1],n=4,chunk_frames=13,max_frames=39,seed=seed)
+        waves,codes,_=offline.synthesize(jobs[:1],n=a.n,chunk_frames=13,max_frames=39,seed=seed)
         check=dict(same_codes=bool(torch.equal(code,codes[0])),same_pcm=bool(np.array_equal(expected,waves[0])))
         dump(out/'offline-regression.json',check);assert all(check.values()),check
         offline.shared=True
@@ -80,6 +86,8 @@ def main(a):
         groups=min(warm,key=lambda p:p['seconds_per_segment'])['groups']
         dump(out/'speed-pilot.json',dict(probes=probes,selected_groups=groups,n=a.n,
             note='One-segment probe uses the first English turn; two-segment probe uses the first two. Fixed 104-frame cap, warm second repeat. Normalized per-segment comparison is approximate. Probe audio is incomplete and discarded. Different batch shapes change random draws; not an audio-quality comparison.'))
+    if groups>2:offline.check_prefill(jobs[:min(groups,len(jobs))],a.n)
+    dump(out/'prefill-checks.json',dict(enabled=offline.shared,checks=offline.prefill_checks))
     print('PRODUCTION groups',groups,'N',a.n,'total candidates',groups*a.n,flush=True)
     production_start=time.perf_counter();written=0
     batch_file=out/"production-batches.json"
@@ -93,7 +101,11 @@ def main(a):
             if all((out/f'bestof{a.n}-speaker5050'/f"{language}-{t['index']:02d}"/'result.json').exists() for _,t in batch):continue
             seed=202611080+10000*(language=='de')+batch[0][1]['index']*31
             tick=time.perf_counter();waves,codes,perf=offline.synthesize(batch,n=a.n,chunk_frames=26,seed=seed)
-            scores,timing=scorer.score_speakers(waves,[t['speaker'] for _,t in batch for _ in range(a.n)])
+            if a.n==1:
+                scores=[dict(reward=None,ranking_skipped=True,reference_speaker=t['speaker']) for _,t in batch]
+                timing=dict(ears_seconds=0.,speaker_seconds=0.,scoring_seconds=0.)
+            else:
+                scores,timing=scorer.score_speakers(waves,[t['speaker'] for _,t in batch for _ in range(a.n)])
             total_s=time.perf_counter()-tick
             perf.update(timing,batch_wall_seconds=total_s,wall_seconds=total_s/len(batch))
             indices=[t['index'] for _,t in batch]
@@ -110,17 +122,22 @@ def main(a):
     pool.shutdown(wait=True)
     dump(out/'archive-timing.json',dict(batches=archive_stats,blocked_seconds=archive_wait_s,
         cpu_seconds=sum(x['seconds'] for x in archive_stats),bounded_pending_batches=1))
-    g.close()
+    if owns_models:g.close()
     dump(out/'generation-complete.json',dict(load_seconds=load_s,production_seconds=time.perf_counter()-production_start,
         turns=len(jobs),new_or_replayed_turns=written,n=a.n,groups=groups,finished_unix=time.time()))
     print('GENERATION COMPLETE',flush=True)
+    return g,scorer
 
-if __name__=='__main__':
+def arguments(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--model',required=True)
-    p.add_argument('--output',default=str(WORKSPACE/'podcast-episodes-speaker5050-legacy/generation'))
-    p.add_argument('--prompt-style',choices=['legacy','sentence','spontaneous'],default='legacy',
-        help='Original restrained turn-level directions by default; sentence retains the archived experiment')
+    p.add_argument('--output',default=str(HERE/'outputs/podcast/generation'))
+    p.add_argument('--prompt-style',choices=['legacy','sentence','spontaneous'],default='spontaneous',
+        help='Approved sparse spontaneous/gentle inline cues; legacy and sentence reproduce earlier experiments')
+    p.add_argument('--script',action='append',help='JSON script; repeat for multiple languages. Defaults to the two bundled approved episodes.')
+    p.add_argument('--references',default=str(HERE/'references.json'),help='Reference mapping JSON; paths relative to its directory')
     p.add_argument('--groups',type=int,default=0,help='0 measures automatic choice; explicit group count skips only timing sweep')
     p.add_argument('--device',default='cuda:0');p.add_argument('--n',type=int,default=4);p.add_argument('--limit',type=int,default=0)
-    main(p.parse_args())
+    return p.parse_args(argv)
+
+if __name__=='__main__':main(arguments())
