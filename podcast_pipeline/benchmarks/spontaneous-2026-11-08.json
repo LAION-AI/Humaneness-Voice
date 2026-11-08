@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-08",
+  "hardware": "single RTX 3090 24 GB, shared host",
+  "prompt_style": "spontaneous",
+  "default_remains": "legacy",
+  "n": 4,
+  "groups": 2,
+  "semantic_bucket": 512,
+  "codec_chunk_frames": 26,
+  "temperature": 1.0,
+  "cfg": 2.5,
+  "reward": "0.5*clip(genuineness/6,0,1) + 0.5*clip(ecapa_cosine,0,1)",
+  "reference_sha256": {
+    "S1": "9d5a7823fea82182d6a3ec378e15ae03b0bd61f028c6f50fb6c5b82fb1f1b7dd",
+    "S2": "d2da04db22aeb44206e4f935e95919846e3e5bb4cb116503a7a260c9f48752cd"
+  },
+  "episodes": [
+    {
+      "language": "de",
+      "seconds": 219.384,
+      "inference_seconds": 179.97724448144436,
+      "useful_rtf": 0.8205025962226777,
+      "mean_genuineness": 3.9426604026579297,
+      "mean_speaker_cosine": 0.6397665053606033,
+      "mean_wer": 0.019823127887644017,
+      "review_turns": []
+    },
+    {
+      "language": "en",
+      "seconds": 193.296,
+      "inference_seconds": 195.8277133256197,
+      "useful_rtf": 1.0132338869230595,
+      "mean_genuineness": 3.8799000039347447,
+      "mean_speaker_cosine": 0.40697828829288485,
+      "mean_wer": 0.05496788191518447,
+      "review_turns": [
+        6
+      ]
+    }
+  ],
+  "components": {
+    "batch_wall_seconds": 375.80495780706406,
+    "token_seconds": 324.84918797016144,
+    "codec_seconds": 24.84566230326891,
+    "ears_seconds": 4.3523701801896095,
+    "speaker_seconds": 3.077803559601307,
+    "scoring_seconds": 21.24852853268385,
+    "graph_capture_seconds": 1.07996017485857
+  },
+  "archive": {
+    "cpu_seconds": 24.86866183578968,
+    "blocked_seconds": 1.0763142108917236,
+    "bounded_pending_batches": 1
+  },
+  "process_start_to_exports_s": 645.5937263965607,
+  "validation": {
+    "passed": true,
+    "episodes": 2,
+    "turns": 40,
+    "candidates": 160,
+    "review_turns": [
+      [
+        "en",
+        6,
+        0.7
+      ]
+    ],
+    "checks": [
+      "pure 50/50 argmax; no WER gate",
+      "correct reference per speaker",
+      "selected PCM equals candidate",
+      "exact prompt and preserved transcript",
+      "MP3 hashes/format",
+      "400ms gaps",
+      "batch timing counted once",
+      "old versus new runner GPU token/PCM invariance"
+    ]
+  },
+  "caveats": [
+    "Existing compiler cache; no repeated timing sweep. First production batch includes capture.",
+    "Shared host, new prompts and 512 rather than earlier 256 semantic buckets; not an isolated throughput ablation.",
+    "English turn 6 terminates after its first sentence. Strict argmax output is preserved; a separately labeled listening repair is not the strict experiment.",
+    "Scores are model estimates; listener has not yet approved this new style."
+  ],
+  "additional_listening_copy": {
+    "changed_turn_zero_based": 6,
+    "original_winner": 0,
+    "original_reward": 0.5001108025511105,
+    "policy": "Additional content-repaired listening copy only. Highest original 50/50 reward among alternatives passing content and alignment review. This adds a content eligibility check and is NOT the strict reward experiment. Original candidates, argmax, episode and audit are unchanged. No new synthesis or voice conversion.",
+    "generation_seconds": 0,
+    "replacement_candidate": 1,
+    "replacement_reward": 0.49966918770223856,
+    "replacement_wer": 0.03333333333333333,
+    "seconds": 201.216
+  },
+  "optimization_flags": {
+    "HVS_CHUNK_RAMP": "1",
+    "HVS_CODEC_FUSED": "1",
+    "HVS_CODEC_GRAPH": "1",
+    "HVS_FAST_SAMPLE": "1",
+    "HVS_LARGE17_LAYERWISE": "1",
+    "HVS_LOCAL_COMPILE": "0",
+    "HVS_LOCAL_TRITON": "1",
+    "HVS_RAMP_START": "3",
+    "HVS_RL_PRECISION": "bf16_merged",
+    "HVS_SEMANTIC_BANKS": "2",
+    "HVS_SEMANTIC_BUCKET": "512",
+    "HVS_SEMANTIC_COMPILE": "1",
+    "HVS_SEMANTIC_CUDA_GRAPH": "1"
+  },
+  "browser_validation": {
+    "passed": true,
+    "audio_players_actually_played": 7,
+    "mobile_overflow": false,
+    "page_errors": []
+  }
+}

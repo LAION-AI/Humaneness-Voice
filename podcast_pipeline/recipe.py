@@ -87,7 +87,10 @@ def chunk_choice(scores, text, finished, previous_progress=0, stagnant=0):
     return winner,winner in complete,guarded
 
 def specification(turn, language):
-    if turn.get('sentences'):
+    if turn.get('delivery_chunks'):
+        assert ' '.join(c['text'] for c in turn['delivery_chunks']) == turn['text']
+        script = '\n'.join(f"({c['cue']}) {c['text']}" for c in turn['delivery_chunks'])
+    elif turn.get('sentences'):
         assert ' '.join(s['text'] for s in turn['sentences']) == turn['text']
         script = '\n'.join(f"(Very genuine, very natural, very authentic; {s['emotion']}) {s['text']}" for s in turn['sentences'])
     else:

@@ -15,7 +15,7 @@ from run import setup
 def page(out,receipts,config,times):
     rows=[];cards=[]
     prompting=('The original restrained turn-level direction is used. Repeated natural/authentic tags and extra sentence-by-sentence emotions are disabled.'
-        if config.get('prompt_style')=='legacy' else
+        if config.get('prompt_style')=='legacy' else 'Sparse inline directions request easy, relaxed, gentle spontaneous speech. Original emotions stay restrained; at most one extra cue is placed inside alternating turns.' if config.get('prompt_style')=='spontaneous' else
         'Every sentence starts with the inline direction “Very genuine, very natural, very authentic”, followed by a context-appropriate, restrained emotion: curiosity, wonder, awe, skepticism, amusement, tenderness or sadness. These directions are not intended to be spoken.')
     for r in receipts:
         sec=round(r['seconds']);label=r['language'].upper()
