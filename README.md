@@ -368,3 +368,7 @@ Run `python setup/check_release.py` for manifest checks, `python setup/check_doc
 This repository's code and documentation retain their existing [CC BY 4.0](LICENSE) attribution. The Humaneness Voice Base card declares CC BY 4.0; the original MOSS tokenizer card declares Apache 2.0; adapter and perception repositories have **their own** declarations. Some experimental assets have missing licence metadata, and reference-audio rights must be checked separately. Consequently the entire downloaded stack must not be described as a single Apache-licensed package. Consult each pinned card and [the provenance guide](docs/PROVENANCE.md) before redistributing weights, recordings or generated voices. Use a speaker's identity only with appropriate consent.
 
 This public repository intentionally names its source and contributors. It is **not** an anonymized ICLR review artifact; a separate review copy must be audited for URLs, history, metadata and attribution obligations.
+
+### Podcast generation
+
+The [Podcast Generation Pipeline](docs/PODCAST_GENERATION_PIPELINE.md) documents the approved restrained prompting recipe, exact 50/50 genuineness–speaker reward, reference/model downloads, runnable inference code and RTX 3090 measurements.

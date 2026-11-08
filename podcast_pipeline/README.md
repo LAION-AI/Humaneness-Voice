@@ -1,0 +1,7 @@
+# Podcast pipeline
+
+See [the complete recipe, model links, reproduction commands and speed measurements](../docs/PODCAST_GENERATION_PIPELINE.md).
+
+Default: restrained authentic turn-level prompting, full Podcast checkpoint, no voice conversion, complete-turn Best-of-4 with 50% native-normalized Ears genuineness and 50% ECAPA reference cosine. WER is a final diagnostic only.
+
+Runtime files are extracted from the tested Humaneness inference implementation. `runtime/published_audio.py` is the Podcast release's word-clock assembly code; its upstream license and attribution are retained next to it. Other third-party notices remain in source headers. Reference recordings are downloaded separately and retain their original terms. No API keys, recordings from Robby's microphone, service environments, model weights or generated episodes are committed.
