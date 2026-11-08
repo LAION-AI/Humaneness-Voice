@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from archive import archive_batch
 from recipe import HERE, WORKSPACE, GENERAL, MODEL_REPO, MODEL_REVISION, dump, sha, specification
 from run import setup
+from languages import LANGUAGE_SEEDS
 
 def main(a, resources=None):
     if not 1 <= a.n <= 16 or a.groups < 0 or a.groups*a.n > 16 or a.limit < 0:
@@ -94,12 +95,12 @@ def main(a, resources=None):
     batches=json.loads(batch_file.read_text()) if batch_file.exists() else []
     pool=ThreadPoolExecutor(max_workers=1,thread_name_prefix="podcast-archive")
     archive_job=None;archive_stats=[];archive_wait_s=0.
-    for language in ('en','de'):
+    for language in dict.fromkeys(lang for lang,_ in jobs):
         pending=[job for job in jobs if job[0]==language]
         for offset in range(0,len(pending),groups):
             batch=pending[offset:offset+groups]
             if all((out/f'bestof{a.n}-speaker5050'/f"{language}-{t['index']:02d}"/'result.json').exists() for _,t in batch):continue
-            seed=202611080+10000*(language=='de')+batch[0][1]['index']*31
+            seed=202611080+LANGUAGE_SEEDS[language]+batch[0][1]['index']*31
             tick=time.perf_counter();waves,codes,perf=offline.synthesize(batch,n=a.n,chunk_frames=26,seed=seed)
             if a.n==1:
                 scores=[dict(reward=None,ranking_skipped=True,reference_speaker=t['speaker']) for _,t in batch]

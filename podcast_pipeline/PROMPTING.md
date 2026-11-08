@@ -67,7 +67,7 @@ Do not stack all of them onto one sentence. The approved example files rotate a 
 }
 ```
 
-Use one consistent language per file. Set `language` to `de` and write all turns in German for a German episode. A simpler turn with only `speaker`, `text` and `direction` is valid: the default adds one sparse spontaneous cue without changing the literal words. `index` defaults to its position. For English and German in one job, pass two `--script` arguments. The CLI validates the exact chunk-to-text reconstruction and rejects ambiguous duplicate language/index pairs.
+Use one consistent language per file. Supported codes are `en`, `de`, `nl`, `fr` and `es`; the bundled spontaneous scripts cover all five. Set `language` to `de` and write all turns in German for a German episode. A simpler turn with only `speaker`, `text` and `direction` is valid: the default adds one sparse spontaneous cue without changing the literal words. `index` defaults to its position. Pass one `--script` argument per language in a job. Explicit routing preserves the requested language instead of treating non-German text as English. The CLI validates the exact chunk-to-text reconstruction and rejects ambiguous duplicate language/index pairs.
 
 Pass a separate reference mapping with `--references` when changing voices:
 

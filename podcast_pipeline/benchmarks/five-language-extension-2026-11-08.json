@@ -1,0 +1,660 @@
+{
+  "model": "laion/Humanness-Voice-Podcast",
+  "weight_revision": "91f8110cd815f2233301a8b1dd16dbbf3fae8e05",
+  "space": "https://huggingface.co/spaces/laion/Humanness-Voice-Podcast",
+  "hardware": "one RTX 3090 24 GB; unrelated concurrent jobs",
+  "recipe": "spontaneous; temperature 1.0; CFG 2.5; fixed German reference pair; no VC",
+  "reward": "0.5*clip(Ears genuineness/6,0,1)+0.5*clip(ECAPA reference cosine,0,1)",
+  "notes": [
+    "N1 keeps its sole take; no retries. N2/N4 keep strict reward winners; no WER gate.",
+    "Same translated twenty-turn script; independent N runs, not nested subsets.",
+    "Production stage sums exclude loading, tests, final audit and export. Different GPU loads prevent a controlled speed comparison.",
+    "French transcript checks show possible omissions/language drift. ASR is fallible. Dutch timing fallback is conservative; uncertain clips stay untrimmed."
+  ],
+  "generation": {
+    "n": [
+      4,
+      2,
+      1
+    ],
+    "policy_load_seconds": 27.118900053203106,
+    "decoder_judge_load_seconds": 14.21089393645525,
+    "generation_job_seconds": 1457.9602545276284,
+    "phased": true,
+    "concurrent_unrelated_training": true,
+    "note": "Policy and codec/judges do not occupy VRAM together. Policy batch size is recorded per mode. Not hardware-load matched to prior N4."
+  },
+  "experiment_start_to_exports_seconds": 2363.669922351837,
+  "episodes": [
+    {
+      "language": "nl",
+      "seconds": 303.0,
+      "sha256": "c560d072ccbb4ce32ef110fc98c3dd95f293ee0d98b0cf44c050a9204ca5ffe0",
+      "inference_seconds": 261.9452524036169,
+      "useful_rtf": 0.8646199247544789,
+      "mean_genuineness": 3.9688628691248597,
+      "mean_speaker_cosine": 0.3879923015832901,
+      "mean_wer": 0.14395649183174128,
+      "review_turns": [
+        1,
+        3,
+        6,
+        7,
+        8,
+        9,
+        12,
+        16,
+        17,
+        19
+      ],
+      "n": 4,
+      "transcript_review_turns": [
+        1,
+        3,
+        6,
+        7,
+        8,
+        9,
+        17,
+        19
+      ],
+      "boundary_review_turns": [
+        1,
+        3,
+        6,
+        7,
+        8,
+        9,
+        12,
+        16,
+        17,
+        19
+      ],
+      "alignment_methods": {
+        "parakeet_tdt_boundaries": 20
+      },
+      "policy_seconds": 230.71310384571552,
+      "codec_seconds": 19.885601796209812,
+      "ranking_seconds": 10.824075199663639
+    },
+    {
+      "language": "fr",
+      "seconds": 238.824,
+      "sha256": "e5a0be9087020dbfd69586a45e122e44df8fb2398a647e5b5b92c4148357058d",
+      "inference_seconds": 242.20176432281733,
+      "useful_rtf": 1.0142877185929784,
+      "mean_genuineness": 4.020954000065103,
+      "mean_speaker_cosine": 0.41977414190769197,
+      "mean_wer": 0.21870731745731747,
+      "review_turns": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        10,
+        13,
+        14
+      ],
+      "n": 4,
+      "transcript_review_turns": [
+        0,
+        2,
+        3,
+        4,
+        6,
+        10,
+        13,
+        14
+      ],
+      "boundary_review_turns": [
+        2,
+        3,
+        10,
+        13
+      ],
+      "alignment_methods": {
+        "qwen_forced_alignment": 13,
+        "parakeet_tdt_boundaries": 7
+      },
+      "policy_seconds": 213.92478796094656,
+      "codec_seconds": 17.3532382696867,
+      "ranking_seconds": 10.429838933050632
+    },
+    {
+      "language": "es",
+      "seconds": 234.024,
+      "sha256": "df4cf05f63bbb58bbc8ed82eabd6af36894da97b804112ffc5a5732a3d08b3f7",
+      "inference_seconds": 250.40450843423605,
+      "useful_rtf": 1.0701504698245055,
+      "mean_genuineness": 4.007774316333235,
+      "mean_speaker_cosine": 0.4500871792435646,
+      "mean_wer": 0.021871521540639188,
+      "review_turns": [],
+      "n": 4,
+      "transcript_review_turns": [],
+      "boundary_review_turns": [],
+      "alignment_methods": {
+        "qwen_forced_alignment": 20
+      },
+      "policy_seconds": 221.61362106353045,
+      "codec_seconds": 17.644024215638638,
+      "ranking_seconds": 10.501801162958145
+    },
+    {
+      "language": "nl",
+      "seconds": 298.896,
+      "sha256": "b679b615e535bafa83da4d335d500510e0e6703af51d077823d146d9de2a85c6",
+      "inference_seconds": 134.25301806628704,
+      "useful_rtf": 0.4492020546267174,
+      "mean_genuineness": 3.8838225288549437,
+      "mean_speaker_cosine": 0.3524740368127823,
+      "mean_wer": 0.13502410527867736,
+      "review_turns": [
+        1,
+        3,
+        5,
+        11,
+        14,
+        15,
+        16,
+        17
+      ],
+      "n": 2,
+      "transcript_review_turns": [
+        1,
+        11,
+        14,
+        16,
+        17
+      ],
+      "boundary_review_turns": [
+        1,
+        3,
+        5,
+        11,
+        14,
+        15,
+        16,
+        17
+      ],
+      "alignment_methods": {
+        "parakeet_tdt_boundaries": 20
+      },
+      "policy_seconds": 119.7192270681262,
+      "codec_seconds": 9.053111888468266,
+      "ranking_seconds": 5.071118600666523
+    },
+    {
+      "language": "fr",
+      "seconds": 231.624,
+      "sha256": "487f92bbf214ecda19ea7c4e3f7951596c7e5c2689a7901a19b006d04e0d6ace",
+      "inference_seconds": 131.61989970505238,
+      "useful_rtf": 0.5683315329032013,
+      "mean_genuineness": 4.031937069841661,
+      "mean_speaker_cosine": 0.38520742729306223,
+      "mean_wer": 0.14197506046770753,
+      "review_turns": [
+        3,
+        9,
+        10,
+        12,
+        13,
+        17
+      ],
+      "n": 2,
+      "transcript_review_turns": [
+        3,
+        9,
+        10,
+        12,
+        13,
+        17
+      ],
+      "boundary_review_turns": [
+        3,
+        10,
+        13
+      ],
+      "alignment_methods": {
+        "qwen_forced_alignment": 13,
+        "parakeet_tdt_boundaries": 7
+      },
+      "policy_seconds": 115.83864893764257,
+      "codec_seconds": 9.318160854279995,
+      "ranking_seconds": 6.0951895117759705
+    },
+    {
+      "language": "es",
+      "seconds": 233.784,
+      "sha256": "4a428af8e16198b3369a45814dfd6767a5bde8c9b33085ec425b1583f3d16a0a",
+      "inference_seconds": 134.50516921281815,
+      "useful_rtf": 0.5754231837981525,
+      "mean_genuineness": 4.01812978212256,
+      "mean_speaker_cosine": 0.38512983471155166,
+      "mean_wer": 0.026223699380720254,
+      "review_turns": [],
+      "n": 2,
+      "transcript_review_turns": [],
+      "boundary_review_turns": [],
+      "alignment_methods": {
+        "qwen_forced_alignment": 20
+      },
+      "policy_seconds": 119.53472601622343,
+      "codec_seconds": 9.063777685165405,
+      "ranking_seconds": 5.543713726103306
+    },
+    {
+      "language": "nl",
+      "seconds": 280.824,
+      "sha256": "59bb1279c454e5576be7912b675405147019ee4336a7017d5c619b5218ef800d",
+      "inference_seconds": 73.28359555453062,
+      "useful_rtf": 0.2609814656500378,
+      "mean_genuineness": 3.8970022125868127,
+      "mean_speaker_cosine": 0.3331107281148434,
+      "mean_wer": 0.15130277312411466,
+      "review_turns": [
+        1,
+        3,
+        4,
+        6,
+        9,
+        10,
+        12,
+        16,
+        19
+      ],
+      "n": 1,
+      "transcript_review_turns": [
+        3,
+        6,
+        9,
+        10,
+        16,
+        19
+      ],
+      "boundary_review_turns": [
+        1,
+        3,
+        4,
+        6,
+        9,
+        10,
+        12,
+        16,
+        19
+      ],
+      "alignment_methods": {
+        "parakeet_tdt_boundaries": 20
+      },
+      "policy_seconds": 66.34472700208426,
+      "codec_seconds": 6.589471876621246,
+      "ranking_seconds": 0.0
+    },
+    {
+      "language": "fr",
+      "seconds": 238.104,
+      "sha256": "8b44533f0568dc46d4f560ed094853680825b2db05abe89cac20c2986d3157b2",
+      "inference_seconds": 65.73934520035982,
+      "useful_rtf": 0.27613452010064193,
+      "mean_genuineness": 3.9061024704016747,
+      "mean_speaker_cosine": 0.3622061058878899,
+      "mean_wer": 0.14489023281302693,
+      "review_turns": [
+        0,
+        2,
+        3,
+        7,
+        9,
+        11,
+        13
+      ],
+      "n": 1,
+      "transcript_review_turns": [
+        0,
+        2,
+        9,
+        11,
+        13
+      ],
+      "boundary_review_turns": [
+        2,
+        3,
+        7,
+        13
+      ],
+      "alignment_methods": {
+        "qwen_forced_alignment": 13,
+        "parakeet_tdt_boundaries": 7
+      },
+      "policy_seconds": 60.98202410340309,
+      "codec_seconds": 4.417067475616932,
+      "ranking_seconds": 0.0
+    },
+    {
+      "language": "es",
+      "seconds": 232.656,
+      "sha256": "9e700837e16eb251b05c98fb70d1d0cc08dd2386b67e1b392f8f174047b7f101",
+      "inference_seconds": 57.897149696946144,
+      "useful_rtf": 0.24888083951745754,
+      "mean_genuineness": 4.020012594084255,
+      "mean_speaker_cosine": 0.39191884845495223,
+      "mean_wer": 0.020850616880028646,
+      "review_turns": [
+        0
+      ],
+      "n": 1,
+      "transcript_review_turns": [
+        0
+      ],
+      "boundary_review_turns": [],
+      "alignment_methods": {
+        "qwen_forced_alignment": 20
+      },
+      "policy_seconds": 53.39876991510391,
+      "codec_seconds": 4.165548421442509,
+      "ranking_seconds": 0.0
+    }
+  ],
+  "validation": [
+    {
+      "passed": true,
+      "episodes": 3,
+      "turns": 60,
+      "candidates": 240,
+      "review_turns": [
+        [
+          "fr",
+          0,
+          0.75
+        ],
+        [
+          "fr",
+          2,
+          0.2647058823529412
+        ],
+        [
+          "fr",
+          3,
+          0.6470588235294118
+        ],
+        [
+          "fr",
+          4,
+          0.24242424242424243
+        ],
+        [
+          "fr",
+          6,
+          0.9230769230769231
+        ],
+        [
+          "fr",
+          10,
+          0.1875
+        ],
+        [
+          "fr",
+          13,
+          0.225
+        ],
+        [
+          "fr",
+          14,
+          0.7692307692307693
+        ],
+        [
+          "nl",
+          1,
+          0.17857142857142858
+        ],
+        [
+          "nl",
+          3,
+          0.16666666666666666
+        ],
+        [
+          "nl",
+          6,
+          0.4411764705882353
+        ],
+        [
+          "nl",
+          7,
+          0.3125
+        ],
+        [
+          "nl",
+          8,
+          0.6285714285714286
+        ],
+        [
+          "nl",
+          9,
+          0.1875
+        ],
+        [
+          "nl",
+          12,
+          0.03125
+        ],
+        [
+          "nl",
+          16,
+          0.11764705882352941
+        ],
+        [
+          "nl",
+          17,
+          0.1935483870967742
+        ],
+        [
+          "nl",
+          19,
+          0.16666666666666666
+        ]
+      ],
+      "checks": [
+        "pure 50/50 argmax; no WER gate",
+        "correct reference per speaker",
+        "selected PCM equals candidate",
+        "exact prompt and preserved transcript",
+        "MP3 hashes/format",
+        "400ms gaps",
+        "batch timing counted once",
+        "recorded prefill/token and decoder correctness checks"
+      ]
+    },
+    {
+      "passed": true,
+      "episodes": 3,
+      "turns": 60,
+      "candidates": 120,
+      "review_turns": [
+        [
+          "fr",
+          3,
+          0.20588235294117646
+        ],
+        [
+          "fr",
+          9,
+          0.8888888888888888
+        ],
+        [
+          "fr",
+          10,
+          0.1875
+        ],
+        [
+          "fr",
+          12,
+          0.5675675675675675
+        ],
+        [
+          "fr",
+          13,
+          0.525
+        ],
+        [
+          "fr",
+          17,
+          0.15625
+        ],
+        [
+          "nl",
+          1,
+          0.17857142857142858
+        ],
+        [
+          "nl",
+          3,
+          0.06666666666666667
+        ],
+        [
+          "nl",
+          5,
+          0.0625
+        ],
+        [
+          "nl",
+          11,
+          0.16129032258064516
+        ],
+        [
+          "nl",
+          14,
+          0.15625
+        ],
+        [
+          "nl",
+          15,
+          0.0625
+        ],
+        [
+          "nl",
+          16,
+          0.7352941176470589
+        ],
+        [
+          "nl",
+          17,
+          1.0
+        ]
+      ],
+      "checks": [
+        "pure 50/50 argmax; no WER gate",
+        "correct reference per speaker",
+        "selected PCM equals candidate",
+        "exact prompt and preserved transcript",
+        "MP3 hashes/format",
+        "400ms gaps",
+        "batch timing counted once",
+        "recorded prefill/token and decoder correctness checks"
+      ]
+    },
+    {
+      "passed": true,
+      "episodes": 3,
+      "turns": 60,
+      "candidates": 60,
+      "review_turns": [
+        [
+          "es",
+          0,
+          0.15384615384615385
+        ],
+        [
+          "fr",
+          0,
+          0.625
+        ],
+        [
+          "fr",
+          2,
+          0.29411764705882354
+        ],
+        [
+          "fr",
+          3,
+          0.058823529411764705
+        ],
+        [
+          "fr",
+          7,
+          0.075
+        ],
+        [
+          "fr",
+          9,
+          0.16666666666666666
+        ],
+        [
+          "fr",
+          11,
+          0.25
+        ],
+        [
+          "fr",
+          13,
+          1.0
+        ],
+        [
+          "nl",
+          1,
+          0.10714285714285714
+        ],
+        [
+          "nl",
+          3,
+          1.1
+        ],
+        [
+          "nl",
+          4,
+          0.04
+        ],
+        [
+          "nl",
+          6,
+          0.29411764705882354
+        ],
+        [
+          "nl",
+          9,
+          0.15625
+        ],
+        [
+          "nl",
+          10,
+          0.30303030303030304
+        ],
+        [
+          "nl",
+          12,
+          0.125
+        ],
+        [
+          "nl",
+          16,
+          0.38235294117647056
+        ],
+        [
+          "nl",
+          19,
+          0.23333333333333334
+        ]
+      ],
+      "checks": [
+        "pure 50/50 argmax; no WER gate",
+        "correct reference per speaker",
+        "selected PCM equals candidate",
+        "exact prompt and preserved transcript",
+        "MP3 hashes/format",
+        "400ms gaps",
+        "batch timing counted once",
+        "recorded prefill/token and decoder correctness checks"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""Check the actual two-episode, pure 50/50 speaker-selection artifacts."""
+"""Check exported episodes and their strict 50/50 speaker-selection artifacts."""
 import argparse
 import json
 from pathlib import Path

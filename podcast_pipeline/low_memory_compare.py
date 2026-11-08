@@ -1,4 +1,4 @@
-"""Phased N=2/N=1 comparison: policy -> release -> codec + judges -> final audit.
+"""Phased configurable Best-of-N comparison: policy -> release -> codec + judges -> final audit.
 
 The exact same sampling loop can defer waveform decoding. Stored acoustic tokens
 allow scoring/reassembly without simultaneously keeping policy and codec in VRAM.
@@ -11,9 +11,11 @@ from recipe import HERE,GENERAL,MODEL_REPO,MODEL_REVISION,dump,sha
 from run import setup
 from inputs import load_inputs
 from speaker_run import arguments
+from languages import LANGUAGE_SEEDS
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',required=True);p.add_argument('--output',required=True);p.add_argument('--device',default='cuda:0');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--model',required=True);p.add_argument('--output',required=True);p.add_argument('--device',default='cuda:0');p.add_argument('--script',action='append');p.add_argument('--n-values',type=int,nargs='+',default=[2,1]);p.add_argument('--candidates',type=int,default=8);a=p.parse_args()
+    if not a.n_values or len(set(a.n_values))!=len(a.n_values) or any(n<1 or n>a.candidates or a.candidates%n for n in a.n_values) or not 1<=a.candidates<=16:raise ValueError('N values must divide the 1..16 simultaneous candidate budget')
     setup(a.device)
     import numpy as np
     import torch
@@ -26,7 +28,8 @@ def main():
     from archive import archive_batch
     torch.set_num_threads(4);torch.cuda.set_device(a.device);torch._dynamo.config.cache_size_limit=64
     out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True);start=time.perf_counter()
-    defaults=arguments(['--model',a.model,'--device',a.device]);refs,scripts,jobs=load_inputs(defaults)
+    defaults=arguments(['--model',a.model,'--device',a.device]+[x for path in (a.script or []) for x in ('--script',path)]);refs,scripts,jobs=load_inputs(defaults)
+    modes=[(n,a.candidates//n) for n in a.n_values]
     source={str(f.relative_to(HERE)):sha(f) for f in list(HERE.glob('*.py'))+list((HERE/'runtime').glob('*.py'))}
     Processor=get_class_from_dynamic_module('processing_moss_tts.MossTTSLocalProcessor',a.model)
     proc=Processor.from_pretrained(a.model,codec_path=os.environ.get('PODCAST_CODEC','OpenMOSS-Team/MOSS-Audio-Tokenizer-v2'),codec_weight_dtype='bf16',codec_compute_dtype='bf16')
@@ -42,8 +45,10 @@ def main():
     engine.fast.semantic.limit=1;engine.fast.graph_limit=1
     g=SimpleNamespace(device=a.device,engine=engine,proc=proc,codec_streams={});offline=OfflineBatch(g)
     policy_load=time.perf_counter()-start;all_batches=[]
-    for n,groups in [(2,4),(1,8)]:
-        folder=out/f'n{n}'/'generation';folder.mkdir(parents=True,exist_ok=True);(folder/'codes').mkdir(exist_ok=True)
+    for n,groups in modes:
+        folder=out/f'n{n}'/'generation'
+        if (folder/'configuration.json').exists():raise ValueError('Phased runs require a fresh output directory; saved candidates must not be mixed with a new run')
+        folder.mkdir(parents=True,exist_ok=True);(folder/'codes').mkdir(exist_ok=True)
         dump(folder/'process-start.json',dict(created_unix=time.time()))
         config=dict(model=MODEL_REPO,revision=MODEL_REVISION,general=GENERAL,references=refs,
             reference_codes_sha256={s:sha(HERE/r['codes']) for s,r in refs.items()},scripts={str(f):sha(f) for f in scripts},
@@ -63,11 +68,11 @@ def main():
         same=len(expected)==len(actual) and all(torch.equal(x,y) for x,y in zip(expected,actual));assert same
         dump(folder/'token-regression.json',dict(shared_and_full_prefill_codes_equal=same,n=n,frames=39))
         dump(folder/'prefill-checks.json',dict(enabled=offline.shared,checks=offline.prefill_checks))
-        dump(folder/'speed-pilot.json',dict(selected_groups=groups,n=n,probes=[],note='Explicit eight-candidate batches; phased memory fallback under concurrent unrelated GPU training.'))
-        for lang in ('en','de'):
+        dump(folder/'speed-pilot.json',dict(selected_groups=groups,n=n,probes=[],note=f'Explicit {a.candidates}-candidate batches; phased memory fallback on a shared GPU.'))
+        for lang in dict.fromkeys(lang for lang,_ in jobs):
             pending=[job for job in jobs if job[0]==lang]
             for offset in range(0,len(pending),groups):
-                batch=pending[offset:offset+groups];seed=202611080+10000*(lang=='de')+batch[0][1]['index']*31
+                batch=pending[offset:offset+groups];seed=202611080+LANGUAGE_SEEDS[lang]+batch[0][1]['index']*31
                 _,codes,perf=offline.synthesize(batch,n=n,chunk_frames=26,seed=seed,decode_audio=False)
                 key=f'{lang}-{batch[0][1]["index"]:02d}'
                 path=folder/'codes'/f'{key}.safetensors';save_file({str(i):c for i,c in enumerate(codes)},str(path))
@@ -93,7 +98,7 @@ def main():
     exact=torch.equal(native,fused)
     if not exact:codec_fused.uninstall(codec)
     del native,fused,test
-    decoders={};batches={1:[],2:[]};archive_times={1:[],2:[]};waits={1:0.,2:0.};future=None;previous_n=None
+    decoders={};batches={n:[] for n,_ in modes};archive_times={n:[] for n,_ in modes};waits={n:0. for n,_ in modes};future=None;previous_n=None
     pool=ThreadPoolExecutor(max_workers=1)
     try:
         for row in all_batches:
@@ -123,17 +128,17 @@ def main():
         if future is not None:
             wait=time.perf_counter();archive_times[previous_n].append(future.result());waits[previous_n]+=time.perf_counter()-wait
     finally:pool.shutdown(wait=True)
-    for n in (2,1):
+    for n,groups in modes:
         folder=out/f'n{n}'/'generation';target=torch.stack(list(scorer.targets.values()))
         dump(folder/'reference-controls.json',dict(speakers=list(scorer.targets),cosine=(target@target.T).cpu().tolist(),dimensions=int(target.shape[-1]),seconds=scorer.reference_seconds))
         dump(folder/'codec-regression.json',dict(fused_bit_identical=exact,frames=26,batch=4,source='actual generated candidates'))
         dump(folder/'archive-timing.json',dict(batches=archive_times[n],blocked_seconds=waits[n],cpu_seconds=sum(x['seconds'] for x in archive_times[n])))
-        dump(folder/'generation-complete.json',dict(turns=len(jobs),n=n,groups=4 if n==2 else 8,
+        dump(folder/'generation-complete.json',dict(turns=len(jobs),n=n,groups=groups,
             production_seconds=sum(x['batch_wall_seconds'] for x in batches[n]),finished_unix=time.time(),load_seconds=None,
             note='Sum of token + decoding + ranking batch times; shared loads/correctness tests/wait between phases are in parent receipt, not per-mode end-to-end latency.'))
     decoders.clear();del scorer,proc;gc.collect();torch.cuda.empty_cache()
-    dump(out/'generation-complete.json',dict(n=[2,1],policy_load_seconds=policy_load,decoder_judge_load_seconds=decoder_load,
+    dump(out/'generation-complete.json',dict(n=a.n_values,policy_load_seconds=policy_load,decoder_judge_load_seconds=decoder_load,
         generation_job_seconds=time.perf_counter()-start,phased=True,concurrent_unrelated_training=True,
-        note='Policy and codec/judges do not occupy VRAM together. Eight-candidate policy batches. Not hardware-load matched to prior N4.'))
+        note='Policy and codec/judges do not occupy VRAM together. Policy batch size is recorded per mode. Not hardware-load matched to prior N4.'))
     print('PHASED GENERATION COMPLETE',flush=True)
 if __name__=='__main__':main()

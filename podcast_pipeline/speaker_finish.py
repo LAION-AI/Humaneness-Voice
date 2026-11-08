@@ -1,4 +1,4 @@
-"""Independent final audit and two-language 50/50 speaker-reward listening report."""
+"""Independent final audit and multilingual 50/50 speaker-reward listening report."""
 import argparse
 import gc
 import html
@@ -37,22 +37,22 @@ def page(out,receipts,config,times):
         followup="<p><strong>ASR follow-up:</strong> English turn 8 has inconsistent recognizer output: the whole edited clip omits the final sentence in ASR, while ASR of its unchanged tail recognizes that sentence. The raw clip also yields it. The original diagnostic WER is retained; this flag is not proof of a missing spoken sentence. Turn 17 includes a Frankl/name segmentation mismatch. <a href='asr-review-en08.json'>Additional recognition evidence</a>.</p>"
     (out/'index.html').write_text(f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Podcast — genuineness and speaker identity</title>
 <style>body{{font:17px/1.55 system-ui;color:#252333;background:#f7f3eb;max-width:1100px;margin:30px auto;padding:16px;overflow-wrap:anywhere}}.scroll{{overflow:auto}}table{{border-collapse:collapse;background:white;width:100%}}td,th{{padding:12px;text-align:left;border-bottom:1px solid #ddd;overflow-wrap:normal}}main{{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:20px}}section{{background:white;border-radius:16px;padding:24px;min-width:0}}audio{{width:100%;min-width:0}}a{{color:#5a40a0}}pre{{white-space:pre-wrap}}</style>
-<h1>Podcast · spontaneous, gentle conversation</h1><p>Fresh English and German episodes using the actual Podcast checkpoint, the same two published German reference clips, and complete-turn Best-of-{config['n']}. No streaming and no voice conversion.</p>
+<h1>Podcast · spontaneous, gentle conversation</h1><p>Episodes in the supplied script languages using the actual Podcast checkpoint, the same two published German reference clips, and complete-turn Best-of-{config['n']}. No streaming and no voice conversion.</p>
 <p><strong>Reward: 50% genuineness + 50% reference speaker similarity.</strong> Genuineness is clipped after division by 6. Speaker similarity is ECAPA cosine clipped to [0,1]. These are fixed scales, not per-batch min/max values. WER is a final diagnostic and does not influence selection. N=1 keeps the only take and skips online scoring; its quality metrics are computed in the final audit.</p>
 <div class="scroll"><table><tr><th>Language</th><th>Duration</th><th>Generation + ranking</th><th>Useful RTF</th><th>Genuineness / 6</th><th>Speaker cosine</th><th>Mean turn WER</th></tr>{''.join(rows)}</table></div>
 <p>RTF is generation/ranking time divided by final edited episode duration. Lower is faster; below 1 is faster than real time. Loading, timing probes, final audit and encoding are separate. Each shared batch is counted once, divided equally between its independent segments. This is not request-to-playback latency.</p><main>{''.join(cards)}</main>
-<h2>Performance directions</h2><p>{prompting} The transcript is unchanged from the earlier episodes.</p>
+<h2>Performance directions</h2><p>{prompting} The literal transcript is preserved from each supplied script; translated scripts carry the corresponding content in another language.</p>
 <h2>Speed changes</h2><p>Multiple independent segments can share one policy batch, with N distinct takes per segment. Identical candidate prompts reuse prefill only when a real-model KV/hidden-state equality check passes. Acoustic decoding uses larger internal blocks; those blocks are not streamed. ECAPA references are cached once, candidate embeddings and genuineness are batched, and ASR is removed from ranking. The exact measured group-size choice and timing probes are in the manifest.</p>
 <p>GPU occupancy and the selected execution mode are recorded in the manifest. Measurements across runs with different background workloads are not controlled speed comparisons. In phased mode, token generation and waveform decoding run in separate stages to reduce peak VRAM.</p>
 {comparison}<h2>Reference voices</h2>{refs}<h2>Quality limits</h2><p>Speaker cosine is an approximate voice-identity cue, not a voice-verification guarantee. Maximizing these two model scores does not ensure an error-free transcript or the most enjoyable performance. The final audit scores the edited winner independently. Review flags are retained, not hidden by reselecting on WER.</p>{followup}
 <h2>Reproduce</h2><p><a href='PIPELINE.md'>Recipe and commands</a> · <a href='manifest.json'>Full measurements</a></p><pre>{html.escape(json.dumps(times,indent=2))}</pre></html>''')
 
-def main(a):
+def main(a, resources=None):
     setup(a.device)
     import numpy as np
     import soundfile as sf
     import torch
-    from align_engine import QwenAligner
+    from audit_alignment import BoundaryAligner
     from generate import crop
     from scoring import audio16
     from speaker_scoring import SpeakerScorer
@@ -65,8 +65,11 @@ def main(a):
     manual=manual.replace('../podcast_pipeline/','https://github.com/LAION-AI/Humaneness-Voice/tree/main/podcast_pipeline/').replace('../optimized_pipeline/','https://huggingface.co/laion/Humanness-Voice-Podcast/tree/main/optimized_pipeline/')
     manual=manual.replace('../docs/PODCAST_EXPERIMENT_HISTORY.md','https://github.com/LAION-AI/Humaneness-Voice/blob/main/docs/PODCAST_EXPERIMENT_HISTORY.md').replace('../guides/PODCAST_EXPERIMENT_HISTORY.md','https://huggingface.co/laion/Humanness-Voice-Podcast/blob/main/guides/PODCAST_EXPERIMENT_HISTORY.md')
     (out/'PIPELINE.md').write_text(manual)
-    tick=time.perf_counter();scorer=SpeakerScorer(a.device,config['references'],load_asr=True,asr_url=a.asr_url)
-    aligner=QwenAligner(device=a.device);assert aligner.ok
+    tick=time.perf_counter();owns_models=resources is None
+    if owns_models:
+        scorer=SpeakerScorer(a.device,config['references'],load_asr=True,asr_url=a.asr_url);aligner=BoundaryAligner(a.device)
+    else:scorer,aligner=resources
+    assert aligner.ok
     targets=torch.stack(list(scorer.targets.values()))
     dump(runs/'reference-controls.json',dict(speakers=list(scorer.targets),cosine=(targets@targets.T).cpu().tolist(),
         seconds=scorer.reference_seconds,dimensions=int(targets.shape[-1])))
@@ -75,12 +78,13 @@ def main(a):
         folder=path.parent
         if (folder/'audited.json').exists():rows.append(json.loads((folder/'audited.json').read_text()));continue
         row=json.loads(path.read_text());wave,sr=sf.read(folder/'raw.flac',dtype='float32');assert sr==SR
-        tick=time.perf_counter();align=aligner.align(audio16(wave),row['turn']['text'].split(),language='German' if row['language']=='de' else 'English')
+        tick=time.perf_counter();align,alignment_meta=aligner.align(audio16(wave),row['turn']['text'].split(),language=row['language'])
         good=bool(align) and all(w[3]>.5 for w in align)
         first,last=(float(align[0][1]),float(align[-1][2])) if good else (0.,len(wave)/SR)
         good=good and 0<=first<last<=len(wave)/SR+.03
-        report=dict(alignment_ok=good,first_word_s=first,last_word_s=min(last,len(wave)/SR),words=align)
-        if good:clip,edit=crop(wave,report)
+        report=dict(alignment_ok=good,first_word_s=first,last_word_s=min(last,len(wave)/SR),words=align,**alignment_meta)
+        if good:
+            clip,edit=crop(wave,report);edit['timing_basis']=alignment_meta['timing_basis']
         else:
             clip=wave;edit=dict(first_word_in_clip_s=0.,last_word_in_clip_s=len(wave)/SR,
                 timing_basis='unverified_clip_edges',policy='No trim: alignment uncertain')
@@ -114,7 +118,7 @@ def main(a):
     dump(out/'previous-bestof4-speaker-comparison.json',dict(rows=previous,
         note='Same scripts/references, but both sentence prompting and reward changed. GPU contention also changed. Not an isolated causal ablation.'))
     audit_s=time.perf_counter()-audit_start
-    del scorer,aligner;gc.collect();torch.cuda.empty_cache()
+    if owns_models:del scorer,aligner;gc.collect();torch.cuda.empty_cache()
     dump(runs/'gpu-finished.json',dict(audit_load_seconds=load_s,audit_seconds=audit_s,finished_unix=time.time()))
     groups={}
     for r in rows:groups.setdefault((r['variant'],r['language']),[]).append(r)

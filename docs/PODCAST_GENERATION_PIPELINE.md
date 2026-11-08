@@ -1,6 +1,8 @@
 # Podcast generation pipeline — reproducible Best-of-N
 
-This recipe uses the **Podcast full fine-tune**, not the general Large 1.7 checkpoint. It generates complete independent speaker turns, samples N takes per turn in parallel, ranks them, and assembles the winners into a two-host episode. Voice conversion is disabled. German and English use the same two reference recordings.
+This recipe uses the **Podcast full fine-tune**, not the general Large 1.7 checkpoint. It generates complete independent speaker turns, samples N takes per turn in parallel, ranks them, and assembles the winners into a two-host episode. Voice conversion is disabled. English, German, Dutch, French and Spanish use the same two reference recordings.
+
+**[Public listening room: references and Best-of-4 / Best-of-2 / Single Take in five languages](https://huggingface.co/spaces/laion/Humanness-Voice-Podcast).** The page includes the exact scripts, prompt example, per-turn audit and measured generation times. The English N4 complete listening copy has one explicitly documented candidate replacement; its strict original remains downloadable.
 
 ## Current best practice: sparse spontaneous, relaxed and gentle delivery
 
@@ -26,7 +28,7 @@ reward = 0.5 * G + 0.5 * S
 
 There is **no Content Enjoyment term and no WER multiplier or WER selection gate**. Fixed scales avoid unstable per-batch min/max normalization. Exact ties select the lowest candidate index. Score complete raw candidates; audit the edited winner separately. ECAPA is an approximate identity cue, not a guarantee of successful cloning. A high reward does not guarantee correct words.
 
-After selection, Qwen forced alignment supplies approximate word boundaries; keep 80 ms before the first word and 150 ms after the last, with small fades outside the aligned words. Uncertain alignments are kept untrimmed and flagged. Reassembly uses a 400 ms **word-to-word** gap, not a 400 ms file-to-file gap. Final Parakeet WER is diagnostic only; never silently replace the reward winner. Export mono 48 kHz / 192 kbps MP3 plus lossless source, subtitles, per-turn scores, review flags, and listening HTML. No internal pause compaction.
+After selection, Qwen forced alignment supplies approximate word boundaries for its supported languages (EN/DE/FR/ES here); keep 80 ms before the first word and 150 ms after the last, with small fades outside the aligned words. Dutch is **not** a supported Qwen alignment language. For Dutch, or unusable Qwen boundaries, Parakeet TDT estimates boundaries only when its transcript has at most 15% WER and matches the script's first and last two normalized words. These are explicitly labeled **ASR token boundary estimates**, not forced alignment. Uncertain cases remain untrimmed and flagged. Reassembly targets a 400 ms **word-to-word** gap using those estimates; for an unverified clip it falls back to clip edges. Final Parakeet WER is diagnostic only; never silently replace the reward winner. Export mono 48 kHz / 192 kbps MP3 plus lossless source, subtitles, per-turn scores, review flags, and listening HTML. No internal pause compaction.
 
 ## Weights and references
 
@@ -39,7 +41,7 @@ After selection, Qwen forced alignment supplies approximate word boundaries; kee
 | Final transcript diagnostic | [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) | `541d1f99c6b0c3cd0b11a95167540bb8edefd82b` |
 | Final alignment | [Qwen3 ForcedAligner](https://huggingface.co/Qwen/Qwen3-ForcedAligner-0.6B-hf) | `c07281df297b9905d24a508279258cccf987a064` |
 
-Both languages condition S1 on `de_s1.mp3` and S2 on `de_s2.mp3`, from the Podcast repository's [reference release](https://huggingface.co/laion/Humanness-Voice-Podcast/tree/a1f8946bd654db1c19b6c476ed6b4acde384e882/examples/references). Recordings are approximately 14.52 / 13.08 s; cached codec conditioning contains 181 / 163 frames (14.48 / 13.04 s). `references.json` contains SHA-256 checks. Do not confuse fictional host labels with real identities. Source recordings retain original terms; this package downloads them rather than relicensing or republishing them.
+All five languages condition S1 on `de_s1.mp3` and S2 on `de_s2.mp3`, from the Podcast repository's [reference release](https://huggingface.co/laion/Humanness-Voice-Podcast/tree/a1f8946bd654db1c19b6c476ed6b4acde384e882/examples/references). Recordings are approximately 14.52 / 13.08 s; cached codec conditioning contains 181 / 163 frames (14.48 / 13.04 s). `references.json` contains SHA-256 checks. Do not confuse fictional host labels with real identities. Source recordings retain original terms; this code package downloads them rather than relicensing them. The listening Space includes byte-identical copies with provenance.
 
 ## Run on another machine
 
@@ -114,6 +116,24 @@ python compare_report.py --n4 outputs/spontaneous --n2 outputs/n-comparison/n2 \
 
 Stage sums exclude shared loading and inter-phase waiting; the parent receipt records total generation-job time. Do not label their sum request latency. An integrated attempt ran out of memory when another user's training job appeared; no unrelated job was stopped. The phased comparison uses the same shared GPU under that extra load. A fair speed ablation should repeat N=1/2/4 with identical warm-up and an otherwise idle GPU.
 
+### Reproduce the additional Dutch, French and Spanish episodes
+
+The bundled `script-spontaneous-{en,de,nl,fr,es}.json` files contain the same twenty-turn conversation, translated by a language model and preserving the sparse directions. Language routing is explicit throughout the processor and alignment stages. Default scripts remain EN/DE for compatibility; supply the other files explicitly. The example below maintains up to eight candidates per policy batch: two turns at N4, four at N2, eight at N1. It needs a fresh output directory and prepared reference codes.
+
+```bash
+python low_memory_compare.py --model "$MODEL" --device cuda:0 \
+  --script script-spontaneous-nl.json \
+  --script script-spontaneous-fr.json \
+  --script script-spontaneous-es.json \
+  --n-values 4 2 1 --candidates 8 --output outputs/five-language-extension
+python finish_comparison.py --runs outputs/five-language-extension --device cuda:0
+for N in 4 2 1; do
+  python verify_artifacts.py "outputs/five-language-extension/n$N"
+done
+```
+
+`finish_comparison.py` shares frozen scoring/alignment models across the three modes and writes its parent completion receipt only after all exports finish. This run produces 420 candidates and nine episodes (180 selected turns). It is not a nested re-ranking of one N4 pool: N2/N1 are separate runs with their own recorded seeds and batch grouping. Publication retains strict reward winners and exposes review flags, including uncertain boundaries and possible omitted words. Machine ASR is an audit aid, not a native-speaker listening verdict. The same fixed German references deliberately test cross-language voice conditioning.
+
 ## Next speed improvements to measure
 
 Policy prediction dominates. In N4, 37/160 candidates hit the 25.6-s cap and 19/20 batches waited for a capped candidate. Length-aware grouping and safe finished-row compaction may reduce wasted work, but require verified CFG/cache remapping and complete-script checks. Do not simply reduce the ceiling or remove words to improve RTF. A persistent dedicated worker is the lowest-risk way to avoid loading and compilation latency.
@@ -142,3 +162,26 @@ All 80 new selected turns passed the configured review checks (per-turn WER thre
 N2/N1 used phased execution under additional unrelated GPU training; N4 used integrated execution with a different background load. The other training ended before final auditing. Do not claim these are controlled percentage speedups from N alone. N2 uses four turns per batch and N1 eight (final partial batches smaller), maintaining up to eight simultaneous candidates. Different groups/seeds mean these are fresh runs, not nested subsets of the N4 pool.
 
 See [aggregate results](../podcast_pipeline/benchmarks/n-comparison-2026-11-08.json) and [all per-turn candidate scores, seeds and audits](../podcast_pipeline/benchmarks/n-comparison-2026-11-08-turns.json). Recreate the listening HTML with `compare_report.py`; the six strict episodes and additional labeled N4 English listening copy are independently selectable.
+
+<!-- FIVE_LANGUAGE_RESULTS -->
+## Five-language listening release: additional NL / FR / ES results
+
+[Open the public listening Space](https://huggingface.co/spaces/laion/Humanness-Voice-Podcast). The nine additional episodes use the same fixed reference pair, approved sparse prompting and translated twenty-turn story as the DE/EN examples. All N2/N4 reward winners and all N1 sole takes are retained; no retries, content re-selection or voice conversion.
+
+| Language | N | Final audio | Production | Useful RTF | Genuineness / 6 | ECAPA cosine | Mean turn WER | Transcript / boundary flags, of 20 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| NL | 4 | 303.00 s | 261.95 s | 0.865 | 3.969 | 0.388 | 14.4% | 8 / 10 |
+| NL | 2 | 298.90 s | 134.25 s | 0.449 | 3.884 | 0.352 | 13.5% | 5 / 8 |
+| NL | 1 | 280.82 s | 73.28 s | 0.261 | 3.897 | 0.333 | 15.1% | 6 / 9 |
+| FR | 4 | 238.82 s | 242.20 s | 1.014 | 4.021 | 0.420 | 21.9% | 8 / 4 |
+| FR | 2 | 231.62 s | 131.62 s | 0.568 | 4.032 | 0.385 | 14.2% | 6 / 3 |
+| FR | 1 | 238.10 s | 65.74 s | 0.276 | 3.906 | 0.362 | 14.5% | 5 / 4 |
+| ES | 4 | 234.02 s | 250.40 s | 1.070 | 4.008 | 0.450 | 2.2% | 0 / 0 |
+| ES | 2 | 233.78 s | 134.51 s | 0.575 | 4.018 | 0.385 | 2.6% | 0 / 0 |
+| ES | 1 | 232.66 s | 57.90 s | 0.249 | 4.020 | 0.392 | 2.1% | 1 / 0 |
+
+Flags are materially more frequent in Dutch and French than Spanish in this fixed-reference run. Some recognized transcripts omit words or drift across languages. ASR itself is fallible, and a boundary warning alone does not imply missing speech. Dutch uses conservative Parakeet TDT boundaries because the Qwen aligner does not support Dutch. Uncertain clips remain untrimmed, so some episodes include longer tails. These examples are not endorsed as error-free multilingual outputs. Scripts and detailed diagnostics are available next to every player.
+
+Production is the sum of policy, codec and online selection time, excluding loading, correctness probes, final audit and encoding. Phased inference used one RTX 3090 alongside unrelated jobs; cross-run GPU loads differ. N4/N2/N1 use separate draws and grouping, not nested subsets. Do not interpret these measurements as a controlled speed or quality ablation.
+
+[Aggregate measurements](../podcast_pipeline/benchmarks/five-language-extension-2026-11-08.json) · [All candidate scores and selected-turn audits](../podcast_pipeline/benchmarks/five-language-extension-2026-11-08-turns.json).

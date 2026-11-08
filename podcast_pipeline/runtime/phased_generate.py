@@ -2,6 +2,7 @@
 import gc,json,time
 import torch
 import settings
+from languages import language_name
 from transformers import AutoConfig
 from transformers.dynamic_module_utils import get_class_from_dynamic_module
 from transformers.initialization import no_init_weights
@@ -22,7 +23,7 @@ class TokenEngine:
         # Free-timing pilot explicitly uses Tokens=None and no inline durations.
         message=self.proc.build_user_message(text=spec['text'],instruction=prompt,
             tokens=None if spec.get('free_timing',True) else spec['frames'],
-            reference=[reference],language='German' if spec['lang']=='de' else 'English')
+            reference=[reference],language=language_name(spec['lang']))
         ids=self.proc([[message]],mode='generation')['input_ids'][0].long().unsqueeze(0).to(self.device).repeat(n,1,1)
         return ids,torch.ones(ids.shape[:2],dtype=torch.bool,device=self.device)
     def __init__(self,root,proc,refs):

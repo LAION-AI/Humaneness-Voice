@@ -8,4 +8,6 @@ Runtime files are extracted from the tested Humaneness inference implementation.
 
 [Exact prompting templates and LLM-writing instructions](PROMPTING.md). Use `produce.py` for a complete generation → audit → MP3/HTML command. `compare_n.py` shares loaded weights across the fresh N=2 / N=1 comparison.
 
-For a shared-memory fallback, `low_memory_compare.py` generates N=2 and N=1 acoustic codes with the policy alone in VRAM, then releases the policy before decoding and ranking. `compare_report.py` builds a six-player comparison from audited outputs. See the manual for timing caveats.
+For a shared-memory fallback, `low_memory_compare.py` generates acoustic codes with the policy alone in VRAM, then releases the policy before decoding and ranking. It accepts `--n-values 4 2 1`, a candidate batch budget, and repeated `--script` arguments for English, German, Dutch, French and Spanish. `finish_comparison.py` audits and exports all selected N modes with shared frozen models. `compare_report.py` retains the earlier EN/DE comparison layout. See the manual for timing and boundary-estimation caveats.
+
+[Public five-language listening room](https://huggingface.co/spaces/laion/Humanness-Voice-Podcast): the same reference pair, scripts and prompting, with Best-of-4, Best-of-2 and Single Take examples.

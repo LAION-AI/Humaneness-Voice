@@ -2,6 +2,7 @@
 import copy,json
 from pathlib import Path
 from recipe import HERE,sha
+from languages import LANGUAGES
 
 def load_inputs(a):
     refpath=Path(a.references).resolve()
@@ -17,7 +18,7 @@ def load_inputs(a):
     jobs=[];seen=set()
     for path in scripts:
         script=json.loads(path.read_text());lang=script['language']
-        if lang not in ('en','de'):raise ValueError('This evaluated CLI supports English and German')
+        if lang not in LANGUAGES:raise ValueError('Supported languages: en, de, nl, fr, es')
         for i,source in enumerate(script['turns'][:a.limit or None]):
             t=copy.deepcopy(source);t.setdefault('index',i)
             if (lang,t['index']) in seen:raise ValueError('Duplicate language/turn index')
