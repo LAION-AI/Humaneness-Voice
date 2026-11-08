@@ -27,7 +27,7 @@ def main(a, resources=None):
     refs,scripts,jobs=load_inputs(a)
     config=dict(model=MODEL_REPO,revision=MODEL_REVISION,general=GENERAL,references=refs,
         reference_codes_sha256={s:sha(HERE/r['codes']) for s,r in refs.items() if r.get('codes')},
-        scripts={str(p):sha(p) for p in scripts},effective_jobs=jobs,n=a.n,mode='offline-turn',temperature=1.,cfg=2.5,
+        scripts={str(p):sha(p) for p in scripts},effective_jobs=[[lang,t] for lang,t in jobs],n=a.n,mode='offline-turn',temperature=1.,cfg=2.5,
         reward=FORMULA,speaker_model=ECAPA_REPO,speaker_revision=ECAPA_REVISION,
         wer_role='final audit only; no multiplier or eligibility filter',voice_conversion=False,
         optimization_flags={k:v for k,v in os.environ.items() if k.startswith('HVS_') and not k.endswith('CACHE')},

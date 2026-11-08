@@ -42,8 +42,8 @@ def page(out,receipts,config,times):
 <div class="scroll"><table><tr><th>Language</th><th>Duration</th><th>Generation + ranking</th><th>Useful RTF</th><th>Genuineness / 6</th><th>Speaker cosine</th><th>Mean turn WER</th></tr>{''.join(rows)}</table></div>
 <p>RTF is generation/ranking time divided by final edited episode duration. Lower is faster; below 1 is faster than real time. Loading, timing probes, final audit and encoding are separate. Each shared batch is counted once, divided equally between its independent segments. This is not request-to-playback latency.</p><main>{''.join(cards)}</main>
 <h2>Performance directions</h2><p>{prompting} The transcript is unchanged from the earlier episodes.</p>
-<h2>Speed changes</h2><p>Multiple independent segments can share one policy batch, with four distinct takes per segment. Identical candidate prompts reuse prefill only when a real-model KV/hidden-state equality check passes. Acoustic decoding uses larger internal blocks; those blocks are not streamed. ECAPA references are cached once, candidate embeddings and genuineness are batched, and ASR is removed from ranking. The exact measured group-size choice and timing probes are in the manifest.</p>
-<p>The previous run shared its RTX 3090 with an unrelated training job. That job was no longer present for this run, so differences from the old table cannot all be attributed to code optimization. The same-run batch-size pilot is the more controlled speed comparison.</p>
+<h2>Speed changes</h2><p>Multiple independent segments can share one policy batch, with N distinct takes per segment. Identical candidate prompts reuse prefill only when a real-model KV/hidden-state equality check passes. Acoustic decoding uses larger internal blocks; those blocks are not streamed. ECAPA references are cached once, candidate embeddings and genuineness are batched, and ASR is removed from ranking. The exact measured group-size choice and timing probes are in the manifest.</p>
+<p>GPU occupancy and the selected execution mode are recorded in the manifest. Measurements across runs with different background workloads are not controlled speed comparisons. In phased mode, token generation and waveform decoding run in separate stages to reduce peak VRAM.</p>
 {comparison}<h2>Reference voices</h2>{refs}<h2>Quality limits</h2><p>Speaker cosine is an approximate voice-identity cue, not a voice-verification guarantee. Maximizing these two model scores does not ensure an error-free transcript or the most enjoyable performance. The final audit scores the edited winner independently. Review flags are retained, not hidden by reselecting on WER.</p>{followup}
 <h2>Reproduce</h2><p><a href='PIPELINE.md'>Recipe and commands</a> · <a href='manifest.json'>Full measurements</a></p><pre>{html.escape(json.dumps(times,indent=2))}</pre></html>''')
 
@@ -61,7 +61,10 @@ def main(a):
     config=json.loads((runs/'configuration.json').read_text());(out/'references').mkdir(exist_ok=True)
     for r in config['references'].values():shutil.copyfile(HERE/r['path'],out/'references'/Path(r['path']).name)
     shutil.copyfile(HERE/'references/PROVENANCE.json',out/'references/PROVENANCE.json')
-    shutil.copyfile(HERE/'SPEAKER_RECIPE.md',out/'PIPELINE.md')
+    manual=(HERE/'SPEAKER_RECIPE.md').read_text()
+    manual=manual.replace('../podcast_pipeline/','https://github.com/LAION-AI/Humaneness-Voice/tree/main/podcast_pipeline/').replace('../optimized_pipeline/','https://huggingface.co/laion/Humanness-Voice-Podcast/tree/main/optimized_pipeline/')
+    manual=manual.replace('../docs/PODCAST_EXPERIMENT_HISTORY.md','https://github.com/LAION-AI/Humaneness-Voice/blob/main/docs/PODCAST_EXPERIMENT_HISTORY.md').replace('../guides/PODCAST_EXPERIMENT_HISTORY.md','https://huggingface.co/laion/Humanness-Voice-Podcast/blob/main/guides/PODCAST_EXPERIMENT_HISTORY.md')
+    (out/'PIPELINE.md').write_text(manual)
     tick=time.perf_counter();scorer=SpeakerScorer(a.device,config['references'],load_asr=True,asr_url=a.asr_url)
     aligner=QwenAligner(device=a.device);assert aligner.ok
     targets=torch.stack(list(scorer.targets.values()))
@@ -127,9 +130,16 @@ def main(a):
         audit_seconds=audit_s,export_wall_seconds=time.perf_counter()-tick)
     if (runs/'process-start.json').exists():
         created=json.loads((runs/'process-start.json').read_text())['created_unix']
-        times['cold_setup_tests_and_pilot_seconds']=times['generation']['finished_unix']-times['generation']['production_seconds']-created
-        times['full_experiment_to_exports_seconds']=time.time()-created
-        times['cold_timing_note']='Includes this run’s model loading, correctness checks, cold CUDA compilation, timing probes, generation, final audit and MP3 export; excludes TTS service restoration.'
+        if config.get('execution','').startswith('phased'):
+            times['phase_timing_note']='Token and codec/ranking costs are summed per batch. Shared loading, correctness checks and inter-phase waiting are recorded in the parent comparison receipt; this is not per-mode request latency.'
+        else:
+            times['cold_setup_tests_and_pilot_seconds']=times['generation']['finished_unix']-times['generation']['production_seconds']-created
+        if config.get('execution','').startswith('phased'):
+            times['phase_start_to_exports_seconds']=time.time()-created
+            times['cold_timing_note']='Elapsed since this N phase began, including waiting for the other N mode and shared later stages; excludes prior shared loading. Use the parent comparison receipt for complete process-to-exports latency.'
+        else:
+            times['full_experiment_to_exports_seconds']=time.time()-created
+            times['cold_timing_note']='Includes this run’s model loading, correctness checks, cold CUDA compilation, timing probes, generation, final audit and MP3 export; excludes TTS service restoration.'
     manifest=dict(configuration=config,episodes=receipts,stage_times=times,
         speed_pilot=json.loads((runs/'speed-pilot.json').read_text()),
         prefill_checks=json.loads((runs/'prefill-checks.json').read_text()),

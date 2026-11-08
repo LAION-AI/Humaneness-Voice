@@ -374,3 +374,7 @@ This public repository intentionally names its source and contributors. It is **
 The [Podcast Generation Pipeline](docs/PODCAST_GENERATION_PIPELINE.md) documents the approved spontaneous, relaxed and gentle prompting recipe, exact 50/50 genuineness–speaker reward, reference/model downloads, runnable inference code and RTX 3090 measurements.
 
 The Podcast model card also contains the [current prompting guides and inference defaults](https://huggingface.co/laion/Humanness-Voice-Podcast).
+
+<!-- PODCAST_N_COMPARISON -->
+
+Podcast comparison on RTX 3090: DE/EN production took **55.2/68.6 s at N=1**, **115.8/122.8 s at N=2**, and **180.0/195.8 s at N=4**. These exclude loading and final audit/export; execution modes and background GPU loads differ. N2 improves speaker similarity over single takes in this sample. [Full quality/speed table, caveats and reproducible commands](docs/PODCAST_GENERATION_PIPELINE.md#fresh-n1-and-n2-comparison-with-the-approved-prompts).

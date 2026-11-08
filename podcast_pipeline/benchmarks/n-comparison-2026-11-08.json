@@ -1,0 +1,171 @@
+{
+  "recipe": "approved sparse spontaneous",
+  "hardware": "RTX 3090 24 GB; shared host",
+  "episodes": [
+    {
+      "language": "de",
+      "seconds": 220.752,
+      "inference_seconds": 55.24105732887983,
+      "useful_rtf": 0.25028796759947364,
+      "mean_genuineness": 3.916457936191,
+      "mean_speaker_cosine": 0.5527790442109108,
+      "mean_wer": 0.012125723738626965,
+      "review_turns": [],
+      "n": 1
+    },
+    {
+      "language": "en",
+      "seconds": 199.296,
+      "inference_seconds": 68.5611028149724,
+      "useful_rtf": 0.3440613379584102,
+      "mean_genuineness": 3.8627977952826766,
+      "mean_speaker_cosine": 0.35182359889149667,
+      "mean_wer": 0.021213774985674318,
+      "review_turns": [],
+      "n": 1
+    },
+    {
+      "language": "de",
+      "seconds": 222.264,
+      "inference_seconds": 115.80334348231554,
+      "useful_rtf": 0.5210968072821651,
+      "mean_genuineness": 3.896845311590005,
+      "mean_speaker_cosine": 0.6304136544466019,
+      "mean_wer": 0.025642102819522172,
+      "review_turns": [],
+      "n": 2
+    },
+    {
+      "language": "en",
+      "seconds": 199.536,
+      "inference_seconds": 122.76562970131636,
+      "useful_rtf": 0.6153357210230884,
+      "mean_genuineness": 3.9043765594367867,
+      "mean_speaker_cosine": 0.3826735012233257,
+      "mean_wer": 0.029254489884008795,
+      "review_turns": [],
+      "n": 2
+    },
+    {
+      "language": "de",
+      "seconds": 219.384,
+      "inference_seconds": 179.97724448144436,
+      "useful_rtf": 0.8205025962226777,
+      "mean_genuineness": 3.9426604026579297,
+      "mean_speaker_cosine": 0.6397665053606033,
+      "mean_wer": 0.019823127887644017,
+      "review_turns": [],
+      "n": 4
+    },
+    {
+      "language": "en",
+      "seconds": 193.296,
+      "inference_seconds": 195.8277133256197,
+      "useful_rtf": 1.0132338869230595,
+      "mean_genuineness": 3.8799000039347447,
+      "mean_speaker_cosine": 0.40697828829288485,
+      "mean_wer": 0.05496788191518447,
+      "review_turns": [
+        6
+      ],
+      "n": 4
+    }
+  ],
+  "components": {
+    "1": {
+      "batch_wall_seconds": 123.80216014385223,
+      "token_seconds": 113.22087007761002,
+      "codec_seconds": 9.914094902575016,
+      "scoring_seconds": 0.0,
+      "graph_capture_seconds": 4.188800357282162
+    },
+    "2": {
+      "batch_wall_seconds": 238.5689731836319,
+      "token_seconds": 209.57311402261257,
+      "codec_seconds": 18.182101391255856,
+      "scoring_seconds": 10.071458324790001,
+      "graph_capture_seconds": 1.0061824768781662
+    },
+    "4": {
+      "batch_wall_seconds": 375.80495780706406,
+      "token_seconds": 324.84918797016144,
+      "codec_seconds": 24.84566230326891,
+      "scoring_seconds": 21.24852853268385,
+      "graph_capture_seconds": 1.07996017485857
+    }
+  },
+  "caveats": [
+    "N1 and N2 run with an unrelated training job on the same GPU, using separate token and codec/judge phases. Prior N4 used integrated execution under different GPU load. Timing differences are not an isolated causal effect of N. The training job ended before the final audit; GPU load was not constant throughout the session.",
+    "Same words, sparse cues, reference pair, temperature 1.0, CFG 2.5 and 50/50 reward. Fresh generation; batch grouping and seeds differ, so the runs are not nested candidate subsets.",
+    "N1 skips online ranking and keeps its only take. All selected outputs get the same final diagnostic audit; no silent content repair.",
+    "Genuineness, ECAPA cosine and ASR WER are imperfect model estimates. Forty turns per mode do not establish a universal quality ranking.",
+    "Prior strict English N4 contains an incomplete turn 6. Its separately labeled repaired listening copy is not used in this table.",
+    "Useful RTF divides production time by final edited audio duration. Loading, correctness probes, final audit and MP3 export are excluded. Phased production is a sum of stage work, not request-to-first-audio latency."
+  ],
+  "date": "2026-11-08",
+  "successful_process_start_to_four_mp3_exports_seconds": 660.6962466239929,
+  "shared_generation": {
+    "n": [
+      2,
+      1
+    ],
+    "policy_load_seconds": 21.74578709155321,
+    "decoder_judge_load_seconds": 12.16219723969698,
+    "generation_job_seconds": 436.9636531993747,
+    "phased": true,
+    "concurrent_unrelated_training": true,
+    "note": "Policy and codec/judges do not occupy VRAM together. Eight-candidate policy batches. Not hardware-load matched to prior N4.",
+    "timer_scope": "After Python imports/setup; complete process-to-exports is measured separately."
+  },
+  "prompt_scripts_sha256": {
+    "script-spontaneous-en.json": "21d1aab0d49ca9e66b56e4c1097ba14b274d251cc1ba3f888383499fdc064a5f",
+    "script-spontaneous-de.json": "da7b4050b7aaedd4176f0304441495ec2a216816b4f5a1d160ceb33373defa88"
+  },
+  "temperature": 1.0,
+  "cfg": 2.5,
+  "voice_conversion": false,
+  "n1_online_ranking": false,
+  "initial_integrated_attempt": "Aborted with CUDA OOM after unrelated training occupied additional VRAM. Not included in successful timing. Its live service restoration was verified before the phased run.",
+  "validation": {
+    "1": {
+      "passed": true,
+      "episodes": 2,
+      "turns": 40,
+      "candidates": 40,
+      "review_turns": [],
+      "checks": [
+        "pure 50/50 argmax; no WER gate",
+        "correct reference per speaker",
+        "selected PCM equals candidate",
+        "exact prompt and preserved transcript",
+        "MP3 hashes/format",
+        "400ms gaps",
+        "batch timing counted once",
+        "recorded prefill/token and decoder correctness checks"
+      ]
+    },
+    "2": {
+      "passed": true,
+      "episodes": 2,
+      "turns": 40,
+      "candidates": 80,
+      "review_turns": [],
+      "checks": [
+        "pure 50/50 argmax; no WER gate",
+        "correct reference per speaker",
+        "selected PCM equals candidate",
+        "exact prompt and preserved transcript",
+        "MP3 hashes/format",
+        "400ms gaps",
+        "batch timing counted once",
+        "recorded prefill/token and decoder correctness checks"
+      ]
+    }
+  },
+  "browser_validation": {
+    "passed": true,
+    "audio_players_actually_played": 7,
+    "mobile_overflow": false,
+    "page_errors": []
+  }
+}

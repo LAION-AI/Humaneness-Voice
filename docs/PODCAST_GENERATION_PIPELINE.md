@@ -68,66 +68,77 @@ Code includes checks that reused prompt prefill has identical hidden states and 
 
 The archived causal chunk search lives in `generation.py`; the default command above is **offline complete-turn selection**, not real-time Best-of-N streaming. Its legacy search reward differs; do not present it as the 50/50 experiment.
 
-## Measurements and interpretation
+## Measured approved Best-of-4 baseline
 
-Single RTX 3090, BF16. The earlier fresh 50/50 experiment used the subsequently rejected per-sentence emotion prompts; these figures measure throughput, not approval of that style.
+Hardware: one RTX 3090 24 GB on a shared host; BF16, two turns × four takes per batch, 512-position semantic buckets, 26-frame internal waveform blocks, existing compiler cache. Both languages use the same fixed reference pair and approved sparse spontaneous directions.
 
-| Fresh Best-of-4 run | Final audio | Generation + ranking | Useful RTF |
-|---|---:|---:|---:|
-| German | 236 s | 179.13 s | 0.760 |
-| English | 212 s | 174.23 s | 0.820 |
-
-RTF = generation/ranking / final edited duration, not all candidate audio. Combined production including archival and cleanup was 380.65 s; generation/ranking accounted for 353.36 s. Cold setup, tests and timing probes took 356.52 s. Final audit load 30.10 s, audit 45.10 s, parallel CPU export 49.01 s; full experiment to exports 894.12 s. Do not call these request-to-first-audio latencies.
-
-Shared prefill measured 0.273 vs 1.125 s for one group and 0.544 vs 2.110 s for two groups, with exact equality. A warm 104-frame probe took 3.572 s for one segment and 5.238 s for two (2.619 s/segment). The latter is an approximate workload comparison: two different scripts and different RNG batch shapes. An earlier run shared the card with a training job; speed differences cannot all be assigned to code.
-
-The **earlier approved restrained rerank** reused 160 saved candidates, generated no new TTS, and changed 15/20 German and 12/20 English winners. Final German / English means: genuineness 3.967 / 3.822 out of 6; ECAPA cosine 0.655 / 0.401; turn WER 1.01% / 1.79%. Reranking took 32.18 s; do not report that as synthesis throughput. These are model metrics, not human quality ratings.
-
-## Next efficiency experiments
-
-1. Already implemented: overlap bounded CPU candidate archival with the next GPU batch; preserve all takes and propagate write errors before declaring completion. The earlier run spent roughly 27 s outside measured generation/ranking, including archival and cleanup; that is a ceiling, not a promised speedup.
-2. Reuse a warmed worker, cached reference embeddings and tested graph shapes across episodes. Report cold start separately.
-3. Explicitly reuse a previously measured batch size instead of repeating timing sweeps every episode, while retaining correctness checks after runtime changes.
-4. Bucket comparable turn lengths to reduce completed-row padding, but record batch assignment because it changes RNG histories.
-5. Benchmark EOS/continuation behavior before shortening frame caps. Never accelerate by silently clipping words or dropping candidates.
-
-## Current standard: sparse spontaneous delivery
-
-`--prompt-style spontaneous` retains every spoken word and original moderate turn direction, adding a short relaxed/gentle/spontaneous cue. Alternating turns get at most one additional cue at an existing sentence boundary. It does not repeat a list of emotions before every sentence. The listener-approved `spontaneous` style is now the default; `legacy` reproduces the earlier restrained variant.
-
-```bash
-python speaker_run.py --model "$MODEL" --device cuda:0 --n 4 --groups 2 \
-  --prompt-style spontaneous --output outputs/spontaneous/generation
-python speaker_finish.py --runs outputs/spontaneous/generation \
-  --output outputs/spontaneous --device cuda:0
-python verify_artifacts.py outputs/spontaneous
-```
-
-The explicit `--groups 2` reuses the previously measured batch size and skips repeated timing sweeps. It retains the real-model codec, generation-equivalence and prefill checks. First production batches can include cold graph/compilation costs; those are not hidden. If comparing throughput, keep this warm-up policy identical.
-
-Candidate FLAC archival now runs on one bounded CPU thread alongside the next GPU batch. No candidates are discarded; write failures propagate, and a `result.json` is published only after its files exist. `archive-timing.json` distinguishes CPU work from the remaining blocking wait. Resume keeps stable batch grouping and replaces the same batch timing record rather than double-counting it.
-
-The listener approved these samples and requested this prompt style as the default. Model-score changes alone still do not establish general superiority.
-
-
-## New spontaneous variant: measured outcome, 8 November 2026
-
-The portable package generated and scored all **160 candidates** (40 turns × 4), passed exact GPU codec/token/PCM and prefill checks, and exported both episodes. The eleven CPU tests cover prefix selection, CFG state copying, prompt word preservation, exact reward and incomplete archival receipts.
-
-| Strict 50/50 selection | Final duration | Generation + ranking | Useful RTF | Genuineness / 6 | ECAPA cosine | Mean turn WER |
+| Language | Final audio | Generation + ranking | Useful RTF ↓ | Genuineness / 6 ↑ | ECAPA cosine ↑ | Mean turn WER ↓ |
 |---|---:|---:|---:|---:|---:|---:|
 | German | 219.38 s | 179.98 s | 0.821 | 3.943 | 0.640 | 1.98% |
-| English | 193.30 s | 195.83 s | 1.013 | 3.880 | 0.407 | 5.50% |
+| English, strict selection | 193.30 s | 195.83 s | 1.013 | 3.880 | 0.407 | 5.50% |
 
-**Important observed failure:** the highest-reward take for English turn 6 ends after its first sentence (4 s instead of the complete turn). Its reward is 0.500111; the next candidate scores 0.499803. The strict experiment is kept unchanged and explicitly flagged. A separately labeled content-repaired listening copy can use a complete alternative, but that adds a content eligibility check and must not be reported as unconstrained 50/50 argmax. This illustrates why genuineness and speaker similarity alone cannot certify a complete script. The sparse spontaneous style is now the listener-approved default. The earlier restrained variant remains available for comparison.
+Useful RTF divides generation/ranking time by **final edited audio duration**, not total candidate audio. It excludes loading, correctness probes, final audit and export. Combined production including archival/cleanup took 380.10 s; process start to MP3 exports took 645.59 s, excluding service restoration and the additional listening repair.
 
-Across both episodes, generation/ranking took 375.80 s: policy token prediction 324.85 s, codec decoding 24.85 s, scoring including preprocessing 21.25 s, and approximately 4.86 s in remaining generation overhead. Ears forward work (4.35 s) and ECAPA work (3.08 s) are **included** in scoring, not extra. Archived audio writing consumed 24.87 CPU seconds but blocked production for only 1.08 s; almost all writing overlapped GPU work. Total production including final archival/cleanup was 380.10 s. Process start to both MP3 exports was 645.59 s, excluding service restoration and the additional listening repair.
+Across both episodes: policy prediction 324.85 s, waveform decoding 24.85 s, ranking/preprocessing 21.25 s, remaining generation overhead 4.86 s. Ears forward work 4.35 s and ECAPA 3.08 s are included in ranking. Archival used 24.87 CPU seconds but blocked GPU production for just 1.08 s. These are measured stages, not promises for another machine.
 
-Do not attribute the entire startup reduction from the earlier 894.12 s experiment to code: this run reused an existing compiler cache, skipped repeated speed probes, used different prompts and inherited 512-position semantic buckets rather than the earlier 256. Overall production time was about the same as the earlier 380.65 s run; the archival overlap itself is measured, but a controlled aggregate speedup has not been established.
+**Content failure retained:** strict English turn 6 stopped after the first sentence. A separate complete listening copy replaces only that turn with existing candidate 1 (reward 0.499669; diagnostic WER 3.33%) and lasts 201.22 s. No new synthesis was used. This explicitly adds a content eligibility check; it is not the original strict 50/50 result. The default pipeline keeps strict winners and flags problems instead of silently repairing them. The listener approved the sparse style including that complete listening copy.
 
-The largest remaining opportunity is **long-tail candidate computation**: 37 of 160 takes reached the 25.6 s cap and 19 of 20 batches waited for at least one capped take. Only 2,726.64 s of candidate audio were produced versus 4,096 s if all rows ran to the cap, but a batched policy can still spend time on already finished rows. Next, test conservative text-completion checks for lagging candidates, length-aware grouping, or active-row compaction with verified CFG/codec cache copying. Require complete-script checks and keep the original outputs for comparison; simply shortening the cap risks losing real speech. Keeping a warmed dedicated worker is the lowest-risk way to avoid repeated loading and compilation.
+See [baseline machine-readable results](../podcast_pipeline/benchmarks/spontaneous-2026-11-08.json) and [historical experiments](PODCAST_EXPERIMENT_HISTORY.md). Metrics are fallible model estimates, not blinded human ratings.
 
-Machine-readable measurements: [spontaneous-2026-11-08.json](../podcast_pipeline/benchmarks/spontaneous-2026-11-08.json).
+## Implemented speed optimizations
 
+- BF16 policy, reusable semantic and local-decoder CUDA graphs, fast token sampling and tested fused codec operations.
+- Multiple independent turns in one batch. Histories remain separate; candidate selection is local to each turn.
+- Identical candidate prompts reuse prefill only after hidden-state and valid-KV equality checks. A two-group check measured 2.009 s normally versus 0.518 s with reuse.
+- Cache reference acoustic codes and speaker embeddings. Keep the unused codec encoder in CPU RAM after reference preparation.
+- Batch the Ears/ECAPA judges. Skip online ranking for N=1; reserve Parakeet for final audit.
+- Archive every candidate with one bounded CPU writer while the next GPU batch runs. Propagate write failures before publishing a completed-turn receipt.
+- Reuse an explicitly selected `--groups` value, a warmed worker and compiler caches instead of repeating setup and timing sweeps for every episode.
 
-The additional English listening copy is **201.22 s** long. It replaces only turn 6 with existing candidate 1 (raw reward 0.499669, ASR WER 3.33%, plausible forced alignment). Candidate 3 was also checked first in reward order. Nothing was regenerated; the strict episode and its scores remain unchanged. `repair_listening.py OUTPUT --turn 6 --language en --asr-url http://127.0.0.1:8801/transcribe/parakeet_v3` reproduces this explicit repair with the recorded loopback ASR service; the default generation/audit commands never apply this content gate. Its HTTP ASR contract is mono 16 kHz float32 bytes in, JSON containing `text` out. CPU alignment uses FP32 to avoid slow BF16 emulation on older CPUs.
+`--groups 2 --n 4`, `--groups 4 --n 2`, and `--groups 8 --n 1` each maintain eight candidates per policy batch, plus CFG branches. These layouts change RNG trajectories; N1/N2 are not necessarily subsets of an N4 run. Resume requires unchanged settings and stable batch grouping.
+
+### When VRAM is shared or limited
+
+`low_memory_compare.py` separates **policy token generation → release policy → waveform decoding and ranking**. It saves acoustic tokens for every candidate, retains the same token sampling loop, checks shared/full prefill equality and tests optional fused decoding. It requires prepared reference codes. This is an offline comparison runner, not a streaming service and not a general low-memory implementation for arbitrary recordings.
+
+```bash
+python low_memory_compare.py --model "$MODEL" --device cuda:0 --output outputs/n-comparison
+for N in 2 1; do
+  python speaker_finish.py --runs "outputs/n-comparison/n$N/generation" \
+    --output "outputs/n-comparison/n$N" --device cuda:0
+  python verify_artifacts.py "outputs/n-comparison/n$N"
+done
+python compare_report.py --n4 outputs/spontaneous --n2 outputs/n-comparison/n2 \
+  --n1 outputs/n-comparison/n1 --output outputs/n-comparison
+```
+
+Stage sums exclude shared loading and inter-phase waiting; the parent receipt records total generation-job time. Do not label their sum request latency. An integrated attempt ran out of memory when another user's training job appeared; no unrelated job was stopped. The phased comparison uses the same shared GPU under that extra load. A fair speed ablation should repeat N=1/2/4 with identical warm-up and an otherwise idle GPU.
+
+## Next speed improvements to measure
+
+Policy prediction dominates. In N4, 37/160 candidates hit the 25.6-s cap and 19/20 batches waited for a capped candidate. Length-aware grouping and safe finished-row compaction may reduce wasted work, but require verified CFG/cache remapping and complete-script checks. Do not simply reduce the ceiling or remove words to improve RTF. A persistent dedicated worker is the lowest-risk way to avoid loading and compilation latency.
+
+Reassembly and scoring are much smaller costs. Optimizing the codec alone cannot remove the policy bottleneck. Keep truthful per-stage, per-episode and end-to-end timings; preserve all candidate files so selection experiments need no fresh synthesis.
+
+## Fresh N=1 and N=2 comparison with the approved prompts
+
+Both episodes were freshly generated at N=2 and N=1 after publishing the new defaults. Same literal scripts, cues, reference pair, temperature 1.0 and CFG 2.5. N1 keeps its sole take and skips online ranking. N2 uses the same 50/50 reward as N4; there is no WER gate or hidden retry.
+
+| Language | N | Final audio | Generate + rank | Useful RTF ↓ | Genuineness / 6 ↑ | ECAPA cosine ↑ | Mean turn WER ↓ |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| DE | 1 | 220.75 s | 55.24 s | 0.250 | 3.916 | 0.553 | 1.21% |
+| DE | 2 | 222.26 s | 115.80 s | 0.521 | 3.897 | 0.630 | 2.56% |
+| DE | 4 | 219.38 s | 179.98 s | 0.821 | 3.943 | 0.640 | 1.98% |
+| EN | 1 | 199.30 s | 68.56 s | 0.344 | 3.863 | 0.352 | 2.12% |
+| EN | 2 | 199.54 s | 122.77 s | 0.615 | 3.904 | 0.383 | 2.93% |
+| EN | 4 | 193.30 s | 195.83 s | 1.013 | 3.880 | 0.407 | 5.50% |
+
+In this sample, **N=2 is a useful speed/identity compromise**: German speaker cosine rises from 0.553 at N1 to 0.630 at N2, close to N4's 0.640. English rises from 0.352 to 0.383; N4 is 0.407. Genuineness stays roughly 3.9/6. N1 is faster but less consistent in speaker identity. These are twenty turns per language, not evidence of a universal optimum. The old English N4 row includes its documented incomplete turn; the repaired listening copy is separate.
+
+All 80 new selected turns passed the configured review checks (per-turn WER threshold 15% and usable forced alignment); none was regenerated or replaced. This is not a guarantee of perfect speech. Both candidate counts passed artifact validation, exact prompt/reference routing, strict selection and PCM equality checks. The token/full-prefill checks and optional fused decoding were bit-identical on their tested inputs. Fourteen CPU tests pass.
+
+**Timing scope:** N2 production across both languages totals 238.57 s; N1 totals 123.80 s; old N4 totals 375.80 s. Token prediction accounts for 209.57 / 113.22 / 324.85 s respectively. N2 codec/ranking take 18.18/10.07 s; N1 codec takes 9.91 s and online ranking zero. Loading, correctness probes, final audit and export are excluded from these production sums. The complete successful N2+N1 experiment, from process start to all four MP3s, took **660.70 s**. The failed earlier OOM attempt and live-service restoration are excluded.
+
+N2/N1 used phased execution under additional unrelated GPU training; N4 used integrated execution with a different background load. The other training ended before final auditing. Do not claim these are controlled percentage speedups from N alone. N2 uses four turns per batch and N1 eight (final partial batches smaller), maintaining up to eight simultaneous candidates. Different groups/seeds mean these are fresh runs, not nested subsets of the N4 pool.
+
+See [aggregate results](../podcast_pipeline/benchmarks/n-comparison-2026-11-08.json) and [all per-turn candidate scores, seeds and audits](../podcast_pipeline/benchmarks/n-comparison-2026-11-08-turns.json). Recreate the listening HTML with `compare_report.py`; the six strict episodes and additional labeled N4 English listening copy are independently selectable.

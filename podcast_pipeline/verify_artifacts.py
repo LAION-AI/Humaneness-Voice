@@ -42,11 +42,14 @@ for e in m['episodes']:
     for a,b in zip(timeline,timeline[1:]):assert abs(b['speech_start_s']-a['speech_end_s']-.4)<1/48000
     batch=json.loads((runs/'production-batches.json').read_text())
     assert abs(e['inference_seconds']-sum(b['batch_wall_seconds'] for b in batch if b['language']==e['language']))<1e-6
-if n in (1,2,4):assert all(json.loads((runs/'offline-regression.json').read_text()).values())
+if (runs/'token-regression.json').exists():
+    assert json.loads((runs/'token-regression.json').read_text())['shared_and_full_prefill_codes_equal']
+    assert (runs/'codec-regression.json').exists()
+elif n in (1,2,4):assert all(json.loads((runs/'offline-regression.json').read_text()).values())
 controls=json.loads((runs/'reference-controls.json').read_text())
 assert controls['dimensions']==192 and min(np.diag(controls['cosine']))>.999
 result=dict(passed=True,episodes=len(m['episodes']),turns=turn_count,candidates=turn_count*n,review_turns=reviews,
     checks=['pure 50/50 argmax; no WER gate','correct reference per speaker','selected PCM equals candidate',
         'exact prompt and preserved transcript','MP3 hashes/format','400ms gaps','batch timing counted once',
-        'old versus new runner GPU token/PCM invariance'])
+        'recorded prefill/token and decoder correctness checks'])
 dump(out/'validation.json',result);print(json.dumps(result,indent=2))

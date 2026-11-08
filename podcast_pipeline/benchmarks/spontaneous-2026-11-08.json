@@ -2,7 +2,6 @@
   "date": "2026-11-08",
   "hardware": "single RTX 3090 24 GB, shared host",
   "prompt_style": "spontaneous",
-  "default_remains": "legacy",
   "n": 4,
   "groups": 2,
   "semantic_bucket": 512,
@@ -80,7 +79,7 @@
     "Existing compiler cache; no repeated timing sweep. First production batch includes capture.",
     "Shared host, new prompts and 512 rather than earlier 256 semantic buckets; not an isolated throughput ablation.",
     "English turn 6 terminates after its first sentence. Strict argmax output is preserved; a separately labeled listening repair is not the strict experiment.",
-    "Scores are model estimates; listener has not yet approved this new style."
+    "Scores are model estimates; the listener approved the sparse spontaneous style on 8 November 2026, including the separately labeled complete English listening copy."
   ],
   "additional_listening_copy": {
     "changed_turn_zero_based": 6,
@@ -113,5 +112,7 @@
     "audio_players_actually_played": 7,
     "mobile_overflow": false,
     "page_errors": []
-  }
+  },
+  "current_default": "spontaneous",
+  "listener_approved": "2026-11-08"
 }
